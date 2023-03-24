@@ -3,6 +3,10 @@
   padding: 0px;
 }
 
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
 #octocat {
   display: block;
   width:384px;
