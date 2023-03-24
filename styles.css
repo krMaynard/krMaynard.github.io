@@ -1,9 +1,11 @@
 /* CSS Style Sheet */
 
+
 body {
   font-family: 'Open Sans', sans-serif;
   color: #333333;
   background-color: #f2f2f2;
+  font-size: 30px
 }
 
 h1 {
