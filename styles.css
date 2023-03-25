@@ -1,5 +1,8 @@
 /* CSS Style Sheet */
 
+* {
+  margin: 10px;
+}
 
 body {
   font-family: 'Open Sans', sans-serif;
