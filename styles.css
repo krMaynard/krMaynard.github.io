@@ -1,4 +1,4 @@
-/* CSS Style Sheet */
+/* CSS Style Sheet */ 
 
 * {
   margin: 10px;
@@ -12,20 +12,40 @@ body {
   font-family: 'Open Sans', sans-serif;
   color: #333333;
   background-color: #f2f2f2;
-  font-size: 20px
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 h1 {
-  font-size: 36px;
+  font-size: 2.25rem; /* equals 36px */
   font-weight: bold;
   text-align: left;
-  margin-top: 50px;
-  margin-bottom: 30px;
+  margin-top: 2.5rem; /* equals 40px */
+  margin-bottom: 1.5rem; /* equals 24px */
 }
 
 p {
   font-family: 'Open Sans', sans-serif;
   color: #333333;
-  background-color: #f2f2f2; 
-  margin-bottom: 1em;
+  background-color: #f2f2f2;
+  font-size: 1rem; /* equals 16px */
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 767px) {
+  body {
+    font-size: 0.875rem; /* equals 14px */
+  }
+
+  h1 {
+    font-size: 1.875rem; /* equals 30px */
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 0.875rem; /* equals 14px */
+    margin-bottom: 0.5rem;
+  }
 }
