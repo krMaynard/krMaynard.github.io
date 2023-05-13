@@ -2,6 +2,6 @@
 
 This repository contains the code for my profile site:
 
-http://krmaynard.github.io
+http://kieranmaynard.com
 
 Welcome! 😊
