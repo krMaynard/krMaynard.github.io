@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% if page.title %}{{ page.title }} | {% endif %}My Website</title>
+  <link rel="stylesheet" href="{{ site.baseurl }}/styles.css"> <!-- Link to the CSS file -->
+</head>
+<body>
+  <header>
+    <a href="{{ site.baseurl }}/index.html">Back to the homepage</a> <!-- Link to the homepage -->
+    <!-- Add your header content here -->
+  </header>
+  
+  {{ content }}
+  
+  <footer>
+    <a href="{{ site.baseurl }}/index.html">Back to the homepage</a> <!-- Link to the homepage -->
+    <!-- Add your footer content here -->
+  </footer>
+</body>
+</html>
+
