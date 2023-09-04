@@ -45,6 +45,14 @@ p {
   margin-bottom: 1rem;
 }
 
+footer {
+    color: gray;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px 0;
+}
+
 @media screen and (max-width: 767px) {
   body {
     font-size: 0.875rem; /* equals 14px */
