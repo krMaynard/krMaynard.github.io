@@ -2,10 +2,10 @@
 
 This repository contains the code for my profile site:
 
-http://kieranmaynard.com
+[kieranmaynard.com](http://kieranmaynard.com)
 
 aka
 
-[krm.fyi](krm.fyi)
+[krm.fyi](http://krm.fyi)
 
 Welcome! 😊
