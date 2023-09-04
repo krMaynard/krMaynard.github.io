@@ -6,6 +6,6 @@ http://kieranmaynard.com
 
 aka
 
-krm.fyi
+http://krm.fyi
 
 Welcome! 😊
