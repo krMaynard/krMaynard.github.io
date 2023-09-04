@@ -4,4 +4,8 @@ This repository contains the code for my profile site:
 
 http://kieranmaynard.com
 
+aka
+
+krm.fyi
+
 Welcome! 😊
