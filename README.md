@@ -6,6 +6,6 @@ This repository contains the code for my profile site:
 
 aka
 
-[krm.fyi](http://krm.fyi)
+[krm.fyi](http://www.krm.fyi)
 
 Welcome! 😊
