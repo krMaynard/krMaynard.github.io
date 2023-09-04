@@ -6,6 +6,6 @@ http://kieranmaynard.com
 
 aka
 
-[krm.fyi]
+[krm.fyi](krm.fyi)
 
 Welcome! 😊
