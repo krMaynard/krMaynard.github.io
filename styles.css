@@ -59,6 +59,7 @@ footer {
     text-align: center;
     margin-top: 50px;
     padding: 20px 0;
+    border-top: 1px solid #ccc;
 }
 
 @media screen and (max-width: 767px) {
