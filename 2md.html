@@ -1,21 +1,12 @@
-<!doctype html>
+---
+title: Convert spreadsheet data to markdown table
+---
 
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Copy Excel Paste Markdown</title>
 
-  <style>
-    textarea {
-      width: 400px;
-      height: 200px;
-      font-family: "Lucida Console"
-    }
-  </style>
-</head>
-
-<body>
+  <h1>Convert spreadsheet data to markdown table</h1>
   <textarea id="editor"></textarea>
+  <p>Everything runs locally in your brower and no data is sent out.</p>
+  <p>This work is copied from https://github.com/thisdavej/copy-excel-paste-markdown.</p>
   <script>
     var editor = document.getElementById("editor")
 
@@ -71,5 +62,4 @@ editor.addEventListener("paste", function(event) {
   return false
 })
   </script>
-</body>
-</html>
+
