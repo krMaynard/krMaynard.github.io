@@ -9,7 +9,8 @@ title: Textarea Counter Web Page
 
 <div>Characters: <span id="charCount">0</span></div>
 <div>Words: <span id="wordCount">0</span></div>
-<div>Lines: <span id="lineCount">0</span></div>
+<div>Sentences: <span id="sentenceCount">0</span></div>
+
 
 <script>
     function countText() {
@@ -21,11 +22,11 @@ title: Textarea Counter Web Page
         // Count words by splitting the string on spaces or newline
         const wordCount = text.split(/\s+/).filter(Boolean).length;
         
-        // Count lines by splitting the string on newline
-        const lineCount = text.split('\n').length;
+        // Count sentences by splitting the string on period
+        const sentenceCount = text.split('. ').length;
 
         document.getElementById('charCount').textContent = charCount;
         document.getElementById('wordCount').textContent = wordCount;
-        document.getElementById('lineCount').textContent = lineCount;
+        document.getElementById('lineCount').textContent = sentenceCount;
     }
 </script>
