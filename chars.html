@@ -3,9 +3,11 @@ title: Textarea Counter Web Page
 ---
 
 <h1>Character Counter</h1>
-<p>This web page allows you to type in a textarea and will dynamically count and display the number of characters, words, and lines you've entered.</p>
+<p>This web page allows you to type in a textarea and will dynamically count and display the number of characters,
+    words, and lines you've entered.</p>
 
-<textarea id="inputText" oninput="countText()" style="width: 800px; height: 500px;">Input some text to count the number of words and characters</textarea>
+<textarea id="inputText" oninput="countText()"
+    style="width: 800px; height: 500px;">Input some text to count the number of words and characters</textarea>
 
 <div>Characters: <span id="charCount">0</span></div>
 <div>Words: <span id="wordCount">0</span></div>
@@ -18,12 +20,12 @@ title: Textarea Counter Web Page
 
         // Count characters
         const charCount = text.length;
-        
+
         // Count words by splitting the string on spaces or newline
         const wordCount = text.split(/\s+/).filter(Boolean).length;
-        
+
         // Count sentences by splitting the string on period
-        const sentenceCount = text.split(/\./).filter(Boolean).length;
+        const sentenceCount = text.split(/[.!?;]\s|["][.!?]\s/).filter(Boolean).length;
 
         document.getElementById('charCount').textContent = charCount;
         document.getElementById('wordCount').textContent = wordCount;
