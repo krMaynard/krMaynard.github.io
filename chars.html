@@ -24,11 +24,12 @@ title: Textarea Counter Web Page
         // Count words by splitting the string on spaces or newline
         const wordCount = text.split(/\s+/).filter(Boolean).length;
 
-        // Count sentences by splitting the string on period
-        const sentenceCount = text.split(/[.!?;]\s|["][.!?]\s/).filter(Boolean).length;
+        // Count sentences by splitting the string on period, exclamation mark, or question mark
+        const sentenceCount = text.split(/[.!?;]+/).filter(Boolean).length;
 
         document.getElementById('charCount').textContent = charCount;
         document.getElementById('wordCount').textContent = wordCount;
-        document.getElementById('lineCount').textContent = sentenceCount;
+        document.getElementById('sentenceCount').textContent = sentenceCount;
     }
+ 
 </script>
