@@ -1,4 +1,4 @@
-/* CSS Style Sheet */ 
+/* CSS Style Sheet */
 
 * {
   margin: 10px;
@@ -29,52 +29,94 @@ body {
 }
 
 h1 {
-  font-size: 2.25rem; /* equals 36px */
+  font-size: 2.25rem;
+  /* equals 36px */
   font-weight: bold;
   text-align: left;
-  margin-top: 2.5rem; /* equals 40px */
-  margin-bottom: 1.5rem; /* equals 24px */
+  margin-top: 2.5rem;
+  /* equals 40px */
+  margin-bottom: 1.5rem;
+  /* equals 24px */
 }
 
 h2 {
   font-size: 2rem;
   font-weight: bold;
   text-align: left;
-  margin-top: 2.5rem; /* equals 40px */
-  margin-bottom: 1.5rem; /* equals 24px */
+  margin-top: 2.5rem;
+  /* equals 40px */
+  margin-bottom: 1.5rem;
+  /* equals 24px */
 }
 
 p {
   font-family: 'Open Sans', sans-serif;
   color: #333333;
   background-color: #f2f2f2;
-  font-size: 1rem; /* equals 16px */
+  font-size: 1rem;
+  /* equals 16px */
   line-height: 1.5;
   margin-bottom: 1rem;
 }
 
 footer {
-    color: gray;
-    font-size: 0.9rem;
-    text-align: center;
-    margin-top: 50px;
-    padding: 20px 0;
-    border-top: 1px solid #ccc;
+  color: gray;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 50px;
+  padding: 20px 0;
+  border-top: 1px solid #ccc;
 }
 
 @media screen and (max-width: 767px) {
   body {
-    font-size: 0.875rem; /* equals 14px */
+    font-size: 0.875rem;
+    /* equals 14px */
   }
 
   h1 {
-    font-size: 1.875rem; /* equals 30px */
+    font-size: 1.875rem;
+    /* equals 30px */
     margin-top: 2rem;
     margin-bottom: 1rem;
   }
 
   p {
-    font-size: 0.875rem; /* equals 14px */
+    font-size: 0.875rem;
+    /* equals 14px */
     margin-bottom: 0.5rem;
+  }
+}
+
+
+.github-corner:hover .octo-arm {
+  animation: octocat-wave 560ms ease-in-out
+}
+
+@keyframes octocat-wave {
+
+  0%,
+  100% {
+    transform: rotate(0)
+  }
+
+  20%,
+  60% {
+    transform: rotate(-25deg)
+  }
+
+  40%,
+  80% {
+    transform: rotate(10deg)
+  }
+}
+
+@media (max-width:500px) {
+  .github-corner:hover .octo-arm {
+    animation: none
+  }
+
+  .github-corner .octo-arm {
+    animation: octocat-wave 560ms ease-in-out
   }
 }
