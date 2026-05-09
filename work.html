@@ -1,0 +1,326 @@
+---
+layout: main
+title: Work
+---
+
+<div style="padding-top: 2.5rem; margin-bottom: 0.5rem;">
+  <p class="section-label">Portfolio</p>
+  <h1 style="margin-top: 0; margin-bottom: 0.5rem;">Work</h1>
+  <p style="color: #555; margin-bottom: 0.5rem; max-width: 640px; line-height: 1.65; background: transparent;">
+    A selection of AI, data, and automation projects from my time at Google and Roblox. I came from pure humanities
+    and taught myself to code through curiosity and hands-on building. These are the tools I built along the way —
+    and how I built my way into product management.
+  </p>
+  <p style="color: #888; font-size: 0.85rem; margin-bottom: 2.5rem; background: transparent;">
+    All projects are internal tools; details are described at a level appropriate for public sharing.
+  </p>
+</div>
+
+
+<!-- ── Sandpiper ────────────────────────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">Sandpiper — Privacy Sandbox AI Knowledge Assistant</h2>
+    <span class="project-company">Google · 2025</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">Problem</span>
+    <p>The Privacy Sandbox Working Group (900+ engineers, PMs, and compliance staff) was drowning in 12,000+ documents sequestered across restricted repositories. Information retrieval was a serious bottleneck — slowing development, regulatory compliance, and strategy — but the sensitivity of the corpus ruled out general-purpose search tools.</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">What I did</span>
+    <ul>
+      <li>Sole author of the v1 and v2 design documents; primary driver from conception to working prototype.</li>
+      <li>Consulted stakeholders across the org to diagnose pain points, then designed the complete end-to-end system: web frontend, backend on Agent Studio, Gemini 2.5 Pro as the LLM, and a vector database indexed with 12,000+ restricted documents.</li>
+      <li>Implemented two operational modes: (1) Expert Q&amp;A with RAG and source citation, grounded in the corpus; and (2) a specialized drafting mode to generate first drafts of D&amp;I Criteria Assessments — a high-frequency compliance workflow — directly from user-provided change descriptions.</li>
+      <li>Authored the system prompt, defined technical requirements, access controls, and risk mitigations including hallucination guards and mandatory human review.</li>
+      <li>Presented the project at the Privacy Sandbox TPgM AI Hackathon; received a spot bonus from a Senior Director for "unlocking potential impact in terms of time savings and quality of regulatory responses."</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">Impact</span>
+    <ul>
+      <li><strong>Won 2nd place</strong> in the Google Privacy Sandbox TPgM AI Hackathon.</li>
+      <li>Designed to serve 900+ users across the Privacy Sandbox Working Group.</li>
+      <li>Significantly reduces time spent on information retrieval and initial compliance document drafting.</li>
+      <li>Turns a compliance constraint (controlled document corpus) into a knowledge management advantage.</li>
+    </ul>
+  </div>
+
+  <div class="tags">
+    <span class="tag">RAG</span>
+    <span class="tag">Gemini 2.5 Pro</span>
+    <span class="tag">Vector Database</span>
+    <span class="tag">Agent Studio</span>
+    <span class="tag">System Design</span>
+    <span class="tag">Prompt Engineering</span>
+    <span class="tag">Compliance</span>
+  </div>
+</div>
+
+
+<!-- ── LLM Case Dashboard ────────────────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">LLM Case Summarization Dashboard</h2>
+    <span class="project-company">Google · 2023–2024</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">Problem</span>
+    <p>The Legal Content Policy &amp; Standards team needed to quickly understand the essence of thousands of incoming legal removal requests for case management and trend analysis. Manual review at this volume was infeasible. Automatic case summarization was the top-requested feature for their primary management dashboard — but no scalable solution existed.</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">What I did</span>
+    <ul>
+      <li>Author of the design document, user guide, and lead implementer of the full automated workflow.</li>
+      <li>Consulted directly with the LCPS team to define requirements and understand the nuances of how case summaries would be used operationally.</li>
+      <li>Designed an innovative pipeline using SQLMiner to perform bulk LLM inference <em>directly within the database environment</em> — avoiding the need to export sensitive case data to an intermediate system and enabling truly industrial-scale operation.</li>
+      <li>Engineered a RAG-pattern prompt feeding structured data from case tables into the LLM, producing succinct, accurate, consistently-formatted summaries across every eligible case.</li>
+      <li>Surfaced AI-generated summaries directly within the team's primary PLX management dashboard as an on-demand feature.</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">Impact</span>
+    <ul>
+      <li>Unlocked significant efficiencies in day-to-day case management for the full LCPS team.</li>
+      <li>Enabled faster, more accurate trend analysis across the legal removal case corpus.</li>
+      <li>Shifted team focus from low-level individual case review to high-level strategic oversight.</li>
+    </ul>
+  </div>
+
+  <figure class="project-screenshot">
+    <img src="/images/lcps-dashboard.png" alt="FTE Backlog Mitigation Dashboard showing AI-generated LLM summaries alongside case metadata" />
+    <figcaption>The PLX dashboard MVP, with AI-generated "Llm Summary" column surfaced alongside case metadata for each legal removal request.</figcaption>
+  </figure>
+
+  <figure class="project-screenshot" style="margin-top: 0.75rem;">
+    <img src="/images/lcps-tool.png" alt="Case Summarization Tool MVP interface with Gemini model selector and on-demand case ID lookup" />
+    <figcaption>The Case Summarization Tool MVP, allowing case managers to enter case IDs and retrieve on-demand LLM summaries using Gemini.</figcaption>
+  </figure>
+
+  <div class="tags" style="margin-top: 1rem;">
+    <span class="tag">Bulk LLM Inference</span>
+    <span class="tag">SQLMiner</span>
+    <span class="tag">SQL</span>
+    <span class="tag">Prompt Engineering</span>
+    <span class="tag">Data Pipeline</span>
+    <span class="tag">PLX Dashboard</span>
+  </div>
+</div>
+
+
+<!-- ── GenAI Legal Review Automation ─────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">GenAI Legal Review Automation</h2>
+    <span class="project-company">Google · 2024–2025</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">Problem</span>
+    <p>The Privacy Sandbox Legal team spent several hours every week manually sifting through bug reports and linked documents to prepare a legal review digest. The process was slow, inconsistent, and bottlenecked compliance oversight for the entire Privacy Sandbox initiative.</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">What I did</span>
+    <ul>
+      <li>Sole author and developer of the end-to-end automation solution.</li>
+      <li>Engaged directly with the Legal team to understand their workflow, decision criteria, and what "good" looks like for each sub-team.</li>
+      <li>Designed a three-stage pipeline: SQL (F1) to extract relevant bug data → Python (Colab) to orchestrate → Gemini LLM via TextMiner to process.</li>
+      <li>Engineered a series of multi-step prompts performing complex cognitive tasks: summarizing linked documents, identifying key risks against specific CMA regulatory commitments, and classifying the required review type ("Review Required" vs. "FYI Only") for three Legal sub-teams — Product, Competition, and Privacy.</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">Impact</span>
+    <ul>
+      <li>Saves several hours of manual work per week for program managers across Privacy Sandbox.</li>
+      <li>Provides Legal with a consistent, timely, high-quality digest every cycle — reducing risk of overlooking critical items.</li>
+      <li>Accelerated the legal review cycle and improved the overall robustness of compliance oversight.</li>
+    </ul>
+  </div>
+
+  <div class="tags">
+    <span class="tag">Python</span>
+    <span class="tag">SQL</span>
+    <span class="tag">Gemini LLM</span>
+    <span class="tag">Prompt Engineering</span>
+    <span class="tag">Process Automation</span>
+    <span class="tag">CMA Compliance</span>
+  </div>
+</div>
+
+
+<!-- ── MT Compliance Reporting ───────────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">MT Compliance Reporting Automation</h2>
+    <span class="project-company">Google · 2024–2025</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">Problem</span>
+    <p>Quarterly Monitoring Trustee (MT) compliance reports — a mandatory deliverable under Google's legal commitments with the UK Competition and Markets Authority (CMA) — were generated manually. The process required pulling and reconciling data across multiple internal systems, was high-stakes, error-prone, and difficult to audit.</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">What I did</span>
+    <ul>
+      <li>Sole author and implementer. Notably, three SWEs who originally considered the project concluded it could only be accomplished by a software engineer — and were skeptical a TPM could pull it off.</li>
+      <li>Architected a PLX workflow that executes a series of SQL scripts to extract, process, and enrich data from multiple internal sources (Hubble, Teamgraph, PeopleView).</li>
+      <li>System dynamically calculates the reporting period and runs in parallel across three working groups (PSWG, NWG, AWG) before exporting final reports to Google Sheets.</li>
+      <li>Implemented version control and modular query design to make the system maintainable and auditable.</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">Impact</span>
+    <ul>
+      <li>Fully automated a critical, legally-mandated regulatory reporting process for the entire Privacy Sandbox initiative.</li>
+      <li>Eliminated significant manual toil and human error risk from a high-stakes compliance deliverable.</li>
+      <li>Received peer bonus from an L5 SWE: <em>"Kieran got our scripts and workflows into Piper and secured the permissions necessary to run on Borg, which we've been wanting to do for years. This should be a big help in keeping the system reliable, trustworthy, and auditable."</em></li>
+    </ul>
+  </div>
+
+  <div class="tags">
+    <span class="tag">SQL</span>
+    <span class="tag">PLX</span>
+    <span class="tag">Data Pipeline</span>
+    <span class="tag">CMA Compliance</span>
+    <span class="tag">Version Control</span>
+    <span class="tag">System Architecture</span>
+  </div>
+</div>
+
+
+<!-- ── Chrome Extension ──────────────────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">Legal Removal Chrome Extension &amp; Automation</h2>
+    <span class="project-company">Google · 2021–2023</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">Problem</span>
+    <p>The legal operations team was processing legal removal requests manually — a workflow requiring case-by-case review across multiple internal tools. An 8,400+ case backlog had accumulated, and the ongoing volume (tens of thousands of cases) made manual processing at headcount parity infeasible.</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">What I did</span>
+    <ul>
+      <li>Built a <strong>node.js proof-of-concept</strong> automation script to process the immediate backlog of 8,400+ cases, proving the approach worked before investing in a full solution.</li>
+      <li>Led development of a production <strong>Chrome Extension</strong> using browser automation to process legal removal requests at scale — automating the multi-tool workflow that previously required manual interaction.</li>
+      <li>Partnered with Engineering to take the approach from proof-of-concept to production-ready tooling.</li>
+      <li>Praised by senior PMs for both the speed of delivery and the impact on team capacity.</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">Impact</span>
+    <ul>
+      <li><strong>$50k+</strong> in vendor time saved through the Chrome Extension automation.</li>
+      <li><strong>700+ working hours</strong> saved from the initial node.js backlog automation.</li>
+      <li>Processed <strong>tens of thousands of cases</strong> automatically, enabling the team to scale operations without scaling headcount.</li>
+    </ul>
+  </div>
+
+  <div class="tags">
+    <span class="tag">Chrome Extension</span>
+    <span class="tag">Browser Automation</span>
+    <span class="tag">node.js</span>
+    <span class="tag">JavaScript</span>
+    <span class="tag">Legal Ops</span>
+  </div>
+</div>
+
+
+<!-- ── PSWG Requirement Notices ──────────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">PSWG Compliance Enforcement System</h2>
+    <span class="project-company">Google · 2024</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">Problem</span>
+    <p>A significant compliance gap: employees in the 500+ person Privacy Sandbox org were not members of the mandatory Privacy Sandbox Working Group (PSWG), a foundational requirement under Google's CMA Commitments. There was no automated mechanism to identify, notify, or track non-compliant individuals.</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">What I did</span>
+    <ul>
+      <li>Proactively identified the compliance gap — entirely self-initiated; not assigned.</li>
+      <li>Designed an automated detection system using SQL to cross-reference employee reporting chains with PSWG group membership data.</li>
+      <li>Built an AppsScript notification system to automatically email non-compliant individuals and their managers, with tracking to closure.</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">Impact</span>
+    <ul>
+      <li>Achieved <strong>100% compliance enforcement</strong> for a foundational CMA Commitment across a 500+ person org.</li>
+      <li>Closed a significant regulatory risk through a scalable, automated enforcement mechanism — at zero engineering cost.</li>
+    </ul>
+  </div>
+
+  <div class="tags">
+    <span class="tag">SQL</span>
+    <span class="tag">AppsScript</span>
+    <span class="tag">Process Automation</span>
+    <span class="tag">CMA Compliance</span>
+    <span class="tag">System Design</span>
+  </div>
+</div>
+
+
+<!-- ── Roblox Transparency Reporting ─────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">Roblox Transparency Reporting &amp; Compliance Data Model</h2>
+    <span class="project-company">Roblox · 2025–present</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">Problem</span>
+    <p>A growing wave of regulations — EU DSA, EU TCOR, UK OSA, NY S895, Brazil ECA, India IT Rules, and others — each require granular, consistently-localized transparency reporting. Roblox's previous approach was manual and difficult to scale as the regulatory landscape continued to expand.</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">What I did</span>
+    <ul>
+      <li>Lead transparency reporting strategy and production for 7+ international regulations.</li>
+      <li>Wrote a suite of modular, production-grade SQL queries with version control for repeatable, auditable reporting cycles.</li>
+      <li>Designing a Product Compliance Unified Data Model and automated reporting pipeline to scale and future-proof the system ahead of external audits.</li>
+      <li>Leading AI enablement initiatives to improve team productivity and reduce manual overhead.</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">Impact</span>
+    <ul>
+      <li>Published Roblox's most comprehensive EU DSA transparency report to date — the first using the mandatory harmonized reporting format with highly granular, consistently-localized EU data on content moderation, government orders, illegal content, user appeals, and automated systems.</li>
+      <li>Building toward full automation of transparency reporting, eliminating manual overhead and improving audit-readiness for an expanding regulatory portfolio.</li>
+    </ul>
+  </div>
+
+  <div class="tags">
+    <span class="tag">SQL</span>
+    <span class="tag">Data Modeling</span>
+    <span class="tag">EU DSA</span>
+    <span class="tag">Regulatory Compliance</span>
+    <span class="tag">Automation</span>
+    <span class="tag">Transparency Reporting</span>
+  </div>
+</div>
+
+
+<hr class="section-divider" />
+<p style="color: #aaa; font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
+  All projects listed are internal tools. Internal system names, go-links, and raw data have been omitted. Metrics cited are consistent with public resume disclosures.
+</p>
