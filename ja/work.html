@@ -1,0 +1,360 @@
+---
+layout: main
+title: 実績 — キーラン・メイナード
+lang: ja
+lang_url: /work.html
+---
+
+<div style="padding-top: 2.5rem; margin-bottom: 0.5rem;">
+  <p class="section-label">ポートフォリオ</p>
+  <h1 style="margin-top: 0; margin-bottom: 0.5rem;">実績</h1>
+  <p style="color: #555; margin-bottom: 0.5rem; max-width: 640px; line-height: 1.65; background: transparent;">
+    GoogleとRobloxでのAI・データ・自動化プロジェクトの一部をご紹介します。私は純粋な人文系出身で、好奇心と実践を通じて独学でコードを習得しました。以下は、その過程で構築してきたツール群であり、プロダクトマネージャーとしてのキャリアを切り開いた実績でもあります。
+  </p>
+  <p style="color: #888; font-size: 0.85rem; margin-bottom: 2.5rem; background: transparent;">
+    すべてのプロジェクトは社内ツールであり、詳細は公開可能な範囲で記載しています。
+  </p>
+</div>
+
+
+<!-- ── Sandpiper ────────────────────────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">Sandpiper — Privacy Sandbox AI知識アシスタント</h2>
+    <span class="project-company">Google · 2025年</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">課題</span>
+    <p>Privacy Sandbox Working Group（エンジニア・PM・コンプライアンス担当者900名以上）は、アクセス制限されたリポジトリに散在する12,000件以上の文書に埋もれていました。情報検索が深刻なボトルネックとなり、開発・規制対応・戦略立案を遅滞させていましたが、コーパスの機密性から汎用検索ツールの利用は不可能でした。</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">取り組み</span>
+    <ul>
+      <li>v1・v2設計文書の単独執筆者として、構想から動作プロトタイプまでを主導。</li>
+      <li>組織横断でステークホルダーにヒアリングしてペインポイントを診断し、エンドツーエンドのシステムを設計：Webフロントエンド、Agent Studioによるバックエンド、LLMにGemini 2.5 Pro、12,000件以上の文書をインデックスしたベクターデータベース。</li>
+      <li>2つの動作モードを実装：（1）コーパスに基づく出典付きRAG専門Q&A、（2）ユーザーが提供した変更説明からD&amp;I Criteria Assessmentの初稿を自動生成するコンプライアンスワークフロー特化モード。</li>
+      <li>システムプロンプトの執筆、技術要件・アクセス制御・リスク軽減策（幻覚対策、必須人間レビューなど）の定義。</li>
+      <li>Privacy Sandbox TPgM AIハッカソンにてプレゼン。上級ディレクターより「時間節約と規制対応品質向上における潜在的インパクトを解放した」としてスポットボーナスを受賞。</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">成果</span>
+    <ul>
+      <li><strong>Google Privacy Sandbox TPgM AIハッカソンで2位入賞。</strong></li>
+      <li>Privacy Sandbox Working Group全体の900名以上のユーザーへの提供を想定して設計。</li>
+      <li>情報検索とコンプライアンス文書の初稿作成にかかる時間を大幅削減。</li>
+      <li>コンプライアンス上の制約（管理された文書コーパス）を知識管理上の強みに転換。</li>
+    </ul>
+  </div>
+
+  <div class="tags">
+    <span class="tag">RAG</span>
+    <span class="tag">Gemini 2.5 Pro</span>
+    <span class="tag">ベクターデータベース</span>
+    <span class="tag">Agent Studio</span>
+    <span class="tag">システム設計</span>
+    <span class="tag">プロンプトエンジニアリング</span>
+    <span class="tag">コンプライアンス</span>
+  </div>
+</div>
+
+
+<!-- ── LLM Case Dashboard ────────────────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">LLMケース要約ダッシュボード</h2>
+    <span class="project-company">Google · 2023〜2024年</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">課題</span>
+    <p>Legal Content Policy &amp; Standardsチームは、ケース管理とトレンド分析のために数千件の法的削除申請の要点を迅速に把握する必要がありました。この規模での手動レビューは不可能であり、自動ケース要約は主要管理ダッシュボードへの機能追加要望のトップでしたが、スケーラブルな解決策は存在していませんでした。</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">取り組み</span>
+    <ul>
+      <li>設計文書・ユーザーガイドの執筆者、および完全自動ワークフローの主実装者。</li>
+      <li>LCPSチームと直接協議し、要件を定義するとともに、ケース要約が業務でどのように活用されるかのニュアンスを把握。</li>
+      <li>SQLMinerを用いてデータベース環境内で直接大規模LLM推論を実行する革新的なパイプラインを設計――機密性の高いケースデータを中間システムに書き出すことなく、真に産業規模の運用を実現。</li>
+      <li>ケーステーブルの構造化データをLLMに供給するRAGパターンのプロンプトを構築し、すべての対象ケースにわたって簡潔・正確・一貫した書式のサマリーを生成。</li>
+      <li>AIサマリーをチームの主要PLX管理ダッシュボードにオンデマンド機能として直接表示。</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">成果</span>
+    <ul>
+      <li>LCPSチーム全体の日常ケース管理における大幅な効率化を実現。</li>
+      <li>法的削除ケースコーパス全体にわたるトレンド分析の速度と精度が向上。</li>
+      <li>チームの焦点を個々のケースの詳細レビューから高レベルの戦略的監視へとシフト。</li>
+    </ul>
+  </div>
+
+  <figure class="project-screenshot">
+    <img src="/images/lcps-dashboard.png" alt="AI生成LLMサマリーをケースメタデータとともに表示するFTEバックログ軽減ダッシュボード" />
+    <figcaption>PLXダッシュボードMVP。各法的削除申請のケースメタデータの横にAI生成「LLMサマリー」列を表示。</figcaption>
+  </figure>
+
+  <figure class="project-screenshot" style="margin-top: 0.75rem;">
+    <img src="/images/lcps-tool.png" alt="Geminiモデルセレクターとオンデマンドケースルックアップ機能を備えたケース要約ツールMVPインターフェース" />
+    <figcaption>ケース要約ツールMVP。ケースマネージャーがケースIDを入力し、Geminiを使用してオンデマンドでLLMサマリーを取得できる。</figcaption>
+  </figure>
+
+  <div class="tags" style="margin-top: 1rem;">
+    <span class="tag">大規模LLM推論</span>
+    <span class="tag">SQLMiner</span>
+    <span class="tag">SQL</span>
+    <span class="tag">プロンプトエンジニアリング</span>
+    <span class="tag">データパイプライン</span>
+    <span class="tag">PLXダッシュボード</span>
+  </div>
+</div>
+
+
+<!-- ── GenAI Legal Review Automation ─────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">GenAI法的レビュー自動化</h2>
+    <span class="project-company">Google · 2024〜2025年</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">課題</span>
+    <p>Privacy Sandbox法務チームは、毎週数時間をかけてバグレポートとリンク先文書を手動で精査し、法的レビューダイジェストを作成していました。このプロセスは低速・不安定であり、Privacy Sandbox全体のコンプライアンス監視のボトルネックとなっていました。</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">取り組み</span>
+    <ul>
+      <li>エンドツーエンド自動化ソリューションの単独執筆者兼開発者。</li>
+      <li>法務チームとの直接対話を通じてワークフロー・判断基準・各サブチームの「質の高いアウトプット」の定義を把握。</li>
+      <li>3段階パイプラインを設計：SQL（F1）で関連バグデータを抽出 → Python（Colab）でオーケストレーション → TextMiner経由でGemini LLMが処理。</li>
+      <li>複雑な認知タスクを実行する多段階プロンプトを構築：リンク先文書の要約、CMA規制コミットメントに対する主要リスクの特定、法務3サブチーム（Product・Competition・Privacy）それぞれに対するレビュー種別（「レビュー必須」vs「FYI参照」）の分類。</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">成果</span>
+    <ul>
+      <li>Privacy Sandbox全体のプログラムマネージャーの週次手動作業を数時間削減。</li>
+      <li>毎サイクル、一貫性・適時性・高品質のダイジェストを法務チームに提供し、重要事項の見落としリスクを低減。</li>
+      <li>法的レビューサイクルを加速し、コンプライアンス監視の堅牢性を全体的に向上。</li>
+    </ul>
+  </div>
+
+  <div class="tags">
+    <span class="tag">Python</span>
+    <span class="tag">SQL</span>
+    <span class="tag">Gemini LLM</span>
+    <span class="tag">プロンプトエンジニアリング</span>
+    <span class="tag">プロセス自動化</span>
+    <span class="tag">CMAコンプライアンス</span>
+  </div>
+</div>
+
+
+<!-- ── MT Compliance Reporting ───────────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">MTコンプライアンスレポート自動化</h2>
+    <span class="project-company">Google · 2024〜2025年</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">課題</span>
+    <p>英国競争・市場局（CMA）との法的コミットメントに基づく義務的成果物である四半期Monitoring Trustee（MT）コンプライアンスレポートは、手動で作成されていました。このプロセスは四半期あたり60〜80人時間を要し、高リスク・エラー多発・非文書化の状態で、5〜6人の属人的な単一障害点に依存していました。監査可能性もなく、主要指標の日次把握もできない状況でした。</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">取り組み</span>
+    <ul>
+      <li>単独執筆者兼実装者。当初このプロジェクトをスコープした3名のSWEは、ソフトウェアエンジニアにしか構築できないと考えており、TPMが挑戦することに懐疑的でした。</li>
+      <li>エンドツーエンドのシステムアーキテクチャを設計：複数の社内データソース（Teamgraph、生システムログ、非標準インポート）からデータを取得するETLパイプライン、複雑なデータ処理、LLMエンリッチメント、自動レポート生成。</li>
+      <li>3つのワーキンググループ（PSWG・NWG・AWG）にわたってデータを抽出・処理・エンリッチするSQL群を実行するPLXワークフローを設計。動的なレポーティング期間算出とGoogle Sheetsへのエクスポートも実装。</li>
+      <li>保守性・監査可能性・単一障害点の排除のため、バージョン管理とモジュラーなクエリ設計を実装。</li>
+      <li>主要な国際祝日をまたぎながらスケジュール前倒しで納品。</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">成果</span>
+    <table style="width:100%; font-size:0.85rem; border-collapse:collapse; margin-bottom:0.75rem;">
+      <thead>
+        <tr style="border-bottom: 1px solid #b2ddd8;">
+          <th style="text-align:left; padding:0.3rem 0.5rem; color:#1a5c55; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em;">指標</th>
+          <th style="text-align:left; padding:0.3rem 0.5rem; color:#1a5c55; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em;">導入前</th>
+          <th style="text-align:left; padding:0.3rem 0.5rem; color:#1a5c55; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em;">導入後</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid #c8ede9;">
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">四半期レポート作成時間</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">60〜80人時間超</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;"><strong>5人時間未満（10倍以上削減）</strong></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #c8ede9;">
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">日次指標</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">未生成</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;"><strong>10分未満（完全自動化）</strong></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #c8ede9;">
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">エラー率</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">高（非文書化）</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;"><strong>ゼロ（検証済）</strong></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #c8ede9;">
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">監査可能性</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">なし（アドホックスクリプト）</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;"><strong>95%以上（バージョン管理済）</strong></td>
+        </tr>
+        <tr>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">ステークホルダーの信頼</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">低（不安）</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;"><strong>高（確信）</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-style:italic; color:#1a5c55; margin:0;">「これまでで最もスムーズなサイクルでした」――法務チーム</p>
+  </div>
+
+  <div class="tags">
+    <span class="tag">SQL</span>
+    <span class="tag">ETLパイプライン</span>
+    <span class="tag">PLX</span>
+    <span class="tag">LLMエンリッチメント</span>
+    <span class="tag">CMAコンプライアンス</span>
+    <span class="tag">バージョン管理</span>
+    <span class="tag">システムアーキテクチャ</span>
+  </div>
+</div>
+
+
+<!-- ── Chrome Extension ──────────────────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">法的削除 Chrome拡張機能 &amp; 自動化</h2>
+    <span class="project-company">Google · 2021〜2023年</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">課題</span>
+    <p>法務オペレーションチームは法的削除申請を手動で処理していました――複数の社内ツールにわたるケースバイケースのレビューが必要なワークフローです。8,400件以上のケースバックログが蓄積し、継続的な件数（数万件）の規模では、ヘッドカウントに見合った手動処理が不可能な状況でした。</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">取り組み</span>
+    <ul>
+      <li>8,400件以上のケースからなる即時バックログを処理する<strong>node.js PoC</strong>自動化スクリプトを構築し、完全なソリューションへ投資する前にアプローチの有効性を実証。</li>
+      <li>ブラウザ自動化で法的削除申請を大規模に処理するプロダクション用<strong>Chrome拡張機能</strong>の開発をリード――従来は手動操作を要していたマルチツールワークフローを自動化。</li>
+      <li>エンジニアリングチームと連携し、PoCからプロダクション対応ツールへと昇華。</li>
+      <li>シニアPMから納品速度とチーム稼働能力への貢献の両方で高く評価。</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">成果</span>
+    <ul>
+      <li>Chrome拡張機能の自動化でベンダーコスト<strong>$50k以上</strong>を削減。</li>
+      <li>node.jsバックログ自動化で<strong>700時間以上</strong>の作業工数を節約。</li>
+      <li><strong>数万件のケース</strong>を自動処理し、ヘッドカウントを増やすことなくチームの業務スケールを実現。</li>
+    </ul>
+  </div>
+
+  <div class="tags">
+    <span class="tag">Chrome拡張機能</span>
+    <span class="tag">ブラウザ自動化</span>
+    <span class="tag">node.js</span>
+    <span class="tag">JavaScript</span>
+    <span class="tag">法務オペレーション</span>
+  </div>
+</div>
+
+
+<!-- ── PSWG Requirement Notices ──────────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">PSWGコンプライアンス適用システム</h2>
+    <span class="project-company">Google · 2024年</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">課題</span>
+    <p>重大なコンプライアンスギャップが存在していました：Privacy Sandbox組織（500名超）の従業員がGoogleのCMAコミットメント上の基本要件であるPrivacy Sandbox Working Group（PSWG）に未加入の状態でした。非コンプライアント者を特定・通知・追跡する自動メカニズムは存在していませんでした。</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">取り組み</span>
+    <ul>
+      <li>コンプライアンスギャップを自発的に特定――完全な自己主導であり、アサインされた業務ではありませんでした。</li>
+      <li>SQLを用いて従業員のレポーティングチェーンとPSWGグループメンバーシップデータをクロスリファレンスする自動検知システムを設計。</li>
+      <li>非コンプライアント者とその上司に自動でメール通知し、解消まで追跡するAppsScript通知システムを構築。</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">成果</span>
+    <ul>
+      <li>500名超の組織全体で基本的なCMAコミットメントの<strong>100%コンプライアンス適用</strong>を達成。</li>
+      <li>エンジニアリングコストゼロで、スケーラブルな自動適用メカニズムを通じて重大な規制リスクを解消。</li>
+    </ul>
+  </div>
+
+  <div class="tags">
+    <span class="tag">SQL</span>
+    <span class="tag">AppsScript</span>
+    <span class="tag">プロセス自動化</span>
+    <span class="tag">CMAコンプライアンス</span>
+    <span class="tag">システム設計</span>
+  </div>
+</div>
+
+
+<!-- ── Roblox Transparency Reporting ─────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">Roblox透明性レポート &amp; コンプライアンスデータモデル</h2>
+    <span class="project-company">Roblox · 2025年〜現在</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">課題</span>
+    <p>EU DSA、EU TCOR、UK OSA、NY S895、ブラジルECA、インドIT Rulesなど、増加する規制の波がそれぞれ詳細かつ一貫性のあるローカライズ済み透明性レポートを要求しています。Robloxの従来のアプローチは手動であり、規制の増加に伴うスケールが困難でした。</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">取り組み</span>
+    <ul>
+      <li>7以上の国際規制に関する透明性レポートの戦略立案と製造をリード。</li>
+      <li>反復可能かつ監査可能なレポーティングサイクルのため、バージョン管理されたモジュラーなプロダクショングレードSQLクエリ群を執筆。</li>
+      <li>外部監査に先立ってシステムをスケールアップ・将来対応させるため、Product Compliance統合データモデルと自動レポーティングパイプラインを設計中。</li>
+      <li>チームの生産性向上と手動工数削減のためのAI活用イニシアチブをリード中。</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">成果</span>
+    <ul>
+      <li>Roblox史上最も包括的なEU DSA透明性レポートを公開――EUのコンテンツモデレーション・政府命令・違法コンテンツ・ユーザー異議申立・自動化システムに関する高度に詳細かつ一貫性のあるEUデータを収録した義務的な調和レポートフォーマットを初めて使用。</li>
+      <li>透明性レポートの完全自動化に向けて構築中。手動工数を排除し、拡大する規制ポートフォリオの監査対応力を向上させる。</li>
+    </ul>
+  </div>
+
+  <div class="tags">
+    <span class="tag">SQL</span>
+    <span class="tag">データモデリング</span>
+    <span class="tag">EU DSA</span>
+    <span class="tag">規制コンプライアンス</span>
+    <span class="tag">自動化</span>
+    <span class="tag">透明性レポート</span>
+  </div>
+</div>
+
+
+<hr class="section-divider" />
+<p style="color: #aaa; font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
+  すべてのプロジェクトは社内ツールです。社内システム名、go-link、生データは省略しています。記載の指標は公開済みの職務経歴と整合しています。
+</p>

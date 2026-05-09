@@ -20,12 +20,27 @@
 <body>
 
     <nav class="site-nav">
-      <a href="/" class="nav-name">Kieran Maynard</a>
+      <a href="{% if page.lang == 'ja' %}/ja/{% else %}/{% endif %}" class="nav-name">Kieran Maynard</a>
       <div class="nav-links">
+        {% if page.lang == 'ja' %}
+        <a href="/ja/work.html">実績</a>
+        <a href="/ja/#publications">出版物</a>
+        <a href="/ja/translation.html">翻訳</a>
+        <a href="mailto:kieranmaynard@gmail.com">お問い合わせ</a>
+        {% else %}
         <a href="/work.html">Work</a>
         <a href="/#publications">Publications</a>
         <a href="/translation.html">Translation</a>
         <a href="mailto:kieranmaynard@gmail.com">Contact</a>
+        {% endif %}
+        {% if page.lang_url %}
+        <span class="lang-divider">|</span>
+        {% if page.lang == 'ja' %}
+        <a href="{{ page.lang_url }}" class="lang-switch">EN</a>
+        {% else %}
+        <a href="{{ page.lang_url }}" class="lang-switch">日本語</a>
+        {% endif %}
+        {% endif %}
       </div>
     </nav>
 

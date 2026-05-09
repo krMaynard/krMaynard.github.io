@@ -397,6 +397,31 @@
   margin: 0;
 }
 
+/* Language Switcher */
+.lang-divider {
+  color: #ccc;
+  margin: 0;
+  user-select: none;
+}
+
+.lang-switch {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #2a9d8f !important;
+  padding: 0.15rem 0.45rem;
+  border: 1px solid #2a9d8f;
+  border-radius: 3px;
+  text-decoration: none;
+  transition: all 0.2s;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.lang-switch:hover {
+  background: #2a9d8f;
+  color: #fff !important;
+}
+
 /* Divider */
 .section-divider {
   border: none;
