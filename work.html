@@ -166,32 +166,66 @@ title: Work
 
   <div class="project-section">
     <span class="project-section-label">Problem</span>
-    <p>Quarterly Monitoring Trustee (MT) compliance reports — a mandatory deliverable under Google's legal commitments with the UK Competition and Markets Authority (CMA) — were generated manually. The process required pulling and reconciling data across multiple internal systems, was high-stakes, error-prone, and difficult to audit.</p>
+    <p>Quarterly Monitoring Trustee (MT) compliance reports — a mandatory deliverable under Google's legal commitments with the UK Competition and Markets Authority (CMA) — were generated manually. The process took over 60–80 person-hours per quarter, was high-stakes, error-prone, undocumented, and dependent on 5–6 individual single points of failure. There was no auditability and no daily visibility into key metrics.</p>
   </div>
 
   <div class="project-section">
     <span class="project-section-label">What I did</span>
     <ul>
-      <li>Sole author and implementer. Notably, three SWEs who originally considered the project concluded it could only be accomplished by a software engineer — and were skeptical a TPM could pull it off.</li>
-      <li>Architected a PLX workflow that executes a series of SQL scripts to extract, process, and enrich data from multiple internal sources (Hubble, Teamgraph, PeopleView).</li>
-      <li>System dynamically calculates the reporting period and runs in parallel across three working groups (PSWG, NWG, AWG) before exporting final reports to Google Sheets.</li>
-      <li>Implemented version control and modular query design to make the system maintainable and auditable.</li>
+      <li>Sole author and implementer. Three SWEs who originally scoped the project believed only a software engineer could build it — and were skeptical a TPM would attempt it.</li>
+      <li>Designed the end-to-end system architecture: an ETL pipeline pulling from multiple internal data sources (Teamgraph, raw system logs, non-standard imports), with complex data processing, LLM enrichment, and automated report generation.</li>
+      <li>Architected a PLX workflow executing a series of SQL scripts to extract, process, and enrich data across three working groups (PSWG, NWG, AWG), with dynamic reporting period calculation and export to Google Sheets.</li>
+      <li>Implemented version control and modular query design for maintainability, auditability, and elimination of single points of failure.</li>
+      <li>Delivered ahead of schedule, over major international holidays.</li>
     </ul>
   </div>
 
   <div class="impact-box">
     <span class="project-section-label">Impact</span>
-    <ul>
-      <li>Fully automated a critical, legally-mandated regulatory reporting process for the entire Privacy Sandbox initiative.</li>
-      <li>Eliminated significant manual toil and human error risk from a high-stakes compliance deliverable.</li>
-      <li>Received peer bonus from an L5 SWE: <em>"Kieran got our scripts and workflows into Piper and secured the permissions necessary to run on Borg, which we've been wanting to do for years. This should be a big help in keeping the system reliable, trustworthy, and auditable."</em></li>
-    </ul>
+    <table style="width:100%; font-size:0.85rem; border-collapse:collapse; margin-bottom:0.75rem;">
+      <thead>
+        <tr style="border-bottom: 1px solid #b2ddd8;">
+          <th style="text-align:left; padding:0.3rem 0.5rem; color:#1a5c55; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em;">Metric</th>
+          <th style="text-align:left; padding:0.3rem 0.5rem; color:#1a5c55; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em;">Before</th>
+          <th style="text-align:left; padding:0.3rem 0.5rem; color:#1a5c55; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em;">After</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid #c8ede9;">
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">Quarterly report time</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">&gt;60–80 person-hours</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;"><strong>&lt;5 person-hours (&gt;10x reduction)</strong></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #c8ede9;">
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">Daily metrics</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">Never generated</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;"><strong>&lt;10 minutes (fully automated)</strong></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #c8ede9;">
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">Error rate</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">High (undocumented)</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;"><strong>Zero (validated)</strong></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #c8ede9;">
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">Auditability</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">None (ad-hoc scripts)</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;"><strong>&gt;95% (version controlled)</strong></td>
+        </tr>
+        <tr>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">Stakeholder confidence</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">Low (anxious)</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;"><strong>High (confident)</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-style:italic; color:#1a5c55; margin:0;">"That was the smoothest cycle ever." — Legal</p>
   </div>
 
   <div class="tags">
     <span class="tag">SQL</span>
+    <span class="tag">ETL Pipeline</span>
     <span class="tag">PLX</span>
-    <span class="tag">Data Pipeline</span>
+    <span class="tag">LLM Enrichment</span>
     <span class="tag">CMA Compliance</span>
     <span class="tag">Version Control</span>
     <span class="tag">System Architecture</span>
