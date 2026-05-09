@@ -27,5 +27,10 @@
 
     <footer>Hand crafted by Kieran Maynard.</footer>
 
+    {% if site.chatbot_worker_url %}
+    <script>window.CHATBOT_WORKER_URL = '{{ site.chatbot_worker_url }}';</script>
+    <script src="{{ site.baseurl }}/chatbot.js" defer></script>
+    {% endif %}
+
 </body>
 </html>
