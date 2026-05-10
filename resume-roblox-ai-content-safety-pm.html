@@ -4,13 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kieran R. Maynard – Resume</title>
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (!t) {
+          t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
   <style>
     :root {
+      color-scheme: light;
       --navy:   #1a3558;
       --mid:    #3a5a82;
       --text:   #111;
       --muted:  #444;
       --rule:   #c8d4e0;
+      --page-bg: #e8edf2;
+      --page-surface: #fff;
+      --page-shadow: rgba(0,0,0,0.18);
+    }
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --navy:   #7fb0e0;
+      --mid:    #9bbfe0;
+      --text:   #e8e8e8;
+      --muted:  #b5b5b5;
+      --rule:   #2c3138;
+      --page-bg: #15181c;
+      --page-surface: #1d2025;
+      --page-shadow: rgba(0,0,0,0.5);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -18,16 +46,18 @@
       font-size: 9.5pt;
       line-height: 1.38;
       color: var(--text);
-      background: #e8edf2;
+      background: var(--page-bg);
       padding: 24px;
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
     .page {
-      background: #fff;
+      background: var(--page-surface);
       width: 8.5in;
       min-height: 11in;
       margin: 0 auto 24px;
       padding: 0.52in 0.6in 0.52in 0.6in;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+      box-shadow: 0 4px 24px var(--page-shadow);
+      transition: background-color 0.25s ease;
     }
     .header {
       text-align: center;
@@ -161,16 +191,49 @@
     .pub-entry { margin-bottom: 4pt; font-size: 8.5pt; }
     .pub-entry .pub-label { font-weight: 700; color: var(--navy); }
     .pub-sub { padding-left: 10pt; color: var(--muted); font-size: 8pt; }
+
+    .theme-toggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      border: 1px solid var(--rule);
+      background: var(--page-surface);
+      color: var(--muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px var(--page-shadow);
+      transition: color 0.2s, border-color 0.2s;
+      z-index: 1000;
+    }
+    .theme-toggle:hover { color: var(--navy); border-color: var(--navy); }
+    .theme-toggle:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+    .theme-toggle svg { width: 16px; height: 16px; display: block; }
+    .theme-toggle .theme-icon-light { display: none; }
+    .theme-toggle .theme-icon-dark { display: block; }
+    [data-theme="dark"] .theme-toggle .theme-icon-light { display: block; }
+    [data-theme="dark"] .theme-toggle .theme-icon-dark { display: none; }
+
     @media print {
       @page { size: letter; margin: 0.5in 0.6in; }
-      body { background: none; padding: 0; font-size: 9pt; }
-      .page { width: 100%; min-height: 0; margin: 0; padding: 0; box-shadow: none; page-break-after: always; }
+      body { background: none; padding: 0; font-size: 9pt; color: #111; }
+      .page { width: 100%; min-height: 0; margin: 0; padding: 0; box-shadow: none; page-break-after: always; background: #fff; }
       .page:last-child { page-break-after: avoid; }
       a { color: inherit; text-decoration: none; }
+      .theme-toggle { display: none !important; }
     }
   </style>
 </head>
 <body>
+
+<button type="button" class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+  <svg class="theme-icon-dark" viewBox="0 0 20 20" aria-hidden="true" fill="currentColor"><path d="M17.293 13.293A8 8 0 0 1 6.707 2.707a8.001 8.001 0 1 0 10.586 10.586z"/></svg>
+  <svg class="theme-icon-light" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="10" cy="10" r="3.2" fill="currentColor" stroke="none"/><line x1="10" y1="2" x2="10" y2="3.8"/><line x1="10" y1="16.2" x2="10" y2="18"/><line x1="2" y1="10" x2="3.8" y2="10"/><line x1="16.2" y1="10" x2="18" y2="10"/><line x1="3.86" y1="3.86" x2="5.13" y2="5.13"/><line x1="14.87" y1="14.87" x2="16.14" y2="16.14"/><line x1="3.86" y1="16.14" x2="5.13" y2="14.87"/><line x1="14.87" y1="5.13" x2="16.14" y2="3.86"/></svg>
+</button>
 
 <div class="page">
   <div class="header">
@@ -402,6 +465,27 @@
     </div>
   </section>
 </div>
+
+<script>
+(function () {
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
+      btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+    });
+    try { localStorage.setItem('theme', theme); } catch (e) {}
+  }
+  function currentTheme() {
+    return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  }
+  document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
+    btn.setAttribute('aria-pressed', currentTheme() === 'dark' ? 'true' : 'false');
+    btn.addEventListener('click', function () {
+      applyTheme(currentTheme() === 'dark' ? 'light' : 'dark');
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
