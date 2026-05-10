@@ -18,6 +18,18 @@ lang_url: /ja/work.html
   </p>
 </div>
 
+<div class="work-filters" role="toolbar" aria-label="Filter projects by category">
+  <span class="filter-label">Filter by</span>
+  <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
+  <button type="button" class="filter-btn" data-filter="ai-llm" aria-pressed="false">AI / LLM</button>
+  <button type="button" class="filter-btn" data-filter="compliance" aria-pressed="false">Compliance</button>
+  <button type="button" class="filter-btn" data-filter="data" aria-pressed="false">Data &amp; SQL</button>
+  <button type="button" class="filter-btn" data-filter="automation" aria-pressed="false">Automation</button>
+  <span class="filter-count" id="filter-count" aria-live="polite"></span>
+</div>
+
+<p class="filter-empty" id="filter-empty" hidden>No projects match this filter.</p>
+
 
 <!-- ── Sandpiper ────────────────────────────────────────────── -->
 <div class="project-card">
@@ -232,6 +244,7 @@ lang_url: /ja/work.html
     <span class="tag">CMA Compliance</span>
     <span class="tag">Version Control</span>
     <span class="tag">System Architecture</span>
+    <span class="tag">Process Automation</span>
   </div>
 </div>
 
@@ -361,3 +374,66 @@ lang_url: /ja/work.html
 <p style="color: #aaa; font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
   All projects listed are internal tools. Internal system names, go-links, and raw data have been omitted. Metrics cited are consistent with public resume disclosures.
 </p>
+
+<script>
+(function () {
+  var FILTERS = {
+    'ai-llm':     ['rag', 'gemini', 'llm', 'prompt engineering', 'vector database', 'agent studio'],
+    'compliance': ['compliance', 'cma', 'dsa', 'regulatory', 'transparency', 'legal ops'],
+    'data':       ['sql', 'etl', 'data pipeline', 'data modeling', 'plx', 'sqlminer'],
+    'automation': ['automation', 'chrome extension', 'appsscript', 'browser']
+  };
+
+  var cards    = document.querySelectorAll('.project-card');
+  var buttons  = document.querySelectorAll('.filter-btn');
+  var countEl  = document.getElementById('filter-count');
+  var emptyEl  = document.getElementById('filter-empty');
+
+  // Pre-compute lowercased tag text per card so matching is cheap.
+  cards.forEach(function (card) {
+    var tagText = Array.prototype.map
+      .call(card.querySelectorAll('.tag'), function (t) { return t.textContent.toLowerCase(); })
+      .join(' | ');
+    card.setAttribute('data-tag-text', tagText);
+  });
+
+  function applyFilter(filter) {
+    if (filter !== 'all' && !FILTERS[filter]) filter = 'all';
+
+    var visible = 0;
+    cards.forEach(function (card) {
+      var matches = filter === 'all' || FILTERS[filter].some(function (kw) {
+        return card.getAttribute('data-tag-text').indexOf(kw) !== -1;
+      });
+      card.classList.toggle('filtered-out', !matches);
+      if (matches) visible++;
+    });
+
+    buttons.forEach(function (b) {
+      var active = b.getAttribute('data-filter') === filter;
+      b.classList.toggle('active', active);
+      b.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+
+    countEl.textContent = filter === 'all'
+      ? ''
+      : 'Showing ' + visible + ' of ' + cards.length + ' projects';
+
+    emptyEl.hidden = visible !== 0;
+
+    var url = new URL(window.location.href);
+    if (filter === 'all') url.searchParams.delete('filter');
+    else                  url.searchParams.set('filter', filter);
+    history.replaceState(null, '', url);
+  }
+
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () {
+      applyFilter(b.getAttribute('data-filter'));
+    });
+  });
+
+  var initial = new URLSearchParams(window.location.search).get('filter');
+  if (initial) applyFilter(initial);
+})();
+</script>
