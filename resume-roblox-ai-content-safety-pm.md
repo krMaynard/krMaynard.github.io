@@ -11,7 +11,7 @@ kieranmaynard@gmail.com · 404-502-4751
 - Deep Trust & Safety background from Google (6+ years), progressing from front-line content reviewer → moderation policy developer → program/product manager; extensive experience with adversarial actors and UGC platform safety at global scale
 - Gen AI practitioner with hands-on experience designing LLM-powered tools, RAG systems, agentic workflows, evals, and data labeling pipelines for production environments
 - Strong cross-functional leader who translates complex safety challenges into clear product requirements and aligns engineering, data science, operations, and executive stakeholders
-- Certified Information Privacy Professional (CIPP/US); AI Governance Professional (AIGP) training (IAPP); Stanford-trained in Generative AI foundations
+- CIPP/US and AIGP training (IAPP); Stanford-trained in Generative AI foundations
 - Thrives in adversarial, ambiguous environments; skilled at anticipating bad actor tactics and balancing speed with safety in high-stakes, high-volume operations
 - Exceptional communicator; experienced synthesizing complex situations for C-suite executives and cross-functional audiences
 
@@ -131,7 +131,7 @@ kieranmaynard@gmail.com · 404-502-4751
 
 ## PROFESSIONAL DEVELOPMENT
 
-- **Certified Information Privacy Professional, US Private Sector (CIPP/US)** – IAPP
+- **Information Privacy Professional, US Private Sector (CIPP/US) training** – IAPP
 - **AI Governance Professional (AIGP) training** – IAPP
 - **Technical Foundations of Generative AI (XFM110)** – Stanford University
 
