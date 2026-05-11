@@ -211,7 +211,7 @@
     var dim = DIM[FILTERS.breakdownBy] || null;
     // matrix[categoryIdx] = Array(P) of items_targeted
     var matrix = dim ? {} : null;
-    var categoryTotals = dim ? {} : null;
+    var matrix = dim ? {} : null;
 
     for (var i = 0; i < rows.length; i++) {
       var r = rows[i];
