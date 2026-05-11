@@ -347,10 +347,10 @@
         data: {
           labels: labels,
           datasets: [
-            { label: L.itemsRequested, data: dataReq, borderColor: BRAND, backgroundColor: 'rgba(42,157,143,0.15)',
-              fill: true, tension: 0.25, borderWidth: 2, pointRadius: 3 },
+            { label: L.itemsRequested, data: dataReq, borderColor: BRAND, backgroundColor: 'rgba(42,157,143,0.10)',
+              fill: true, tension: 0.25, borderWidth: 2, borderDash: [4,4], pointRadius: 3 },
             { label: L.itemsRemoved, data: dataRem, borderColor: BRAND_DARK, backgroundColor: 'rgba(30,114,104,0.0)',
-              fill: false, tension: 0.25, borderWidth: 2, borderDash: [4,4], pointRadius: 2 }
+              fill: false, tension: 0.25, borderWidth: 2, pointRadius: 3 }
           ]
         },
         options: commonChartOptions()
