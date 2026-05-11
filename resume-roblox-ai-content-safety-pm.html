@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kieran R. Maynard – Resume</title>
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (!t) {
+          t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --navy:   #1a3558;
+      --mid:    #3a5a82;
+      --text:   #111;
+      --muted:  #444;
+      --rule:   #c8d4e0;
+      --page-bg: #e8edf2;
+      --page-surface: #fff;
+      --page-shadow: rgba(0,0,0,0.18);
+    }
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --navy:   #7fb0e0;
+      --mid:    #9bbfe0;
+      --text:   #e8e8e8;
+      --muted:  #b5b5b5;
+      --rule:   #2c3138;
+      --page-bg: #15181c;
+      --page-surface: #1d2025;
+      --page-shadow: rgba(0,0,0,0.5);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 9.5pt;
+      line-height: 1.38;
+      color: var(--text);
+      background: var(--page-bg);
+      padding: 24px;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+    .page {
+      background: var(--page-surface);
+      width: 8.5in;
+      min-height: 11in;
+      margin: 0 auto 24px;
+      padding: 0.52in 0.6in 0.52in 0.6in;
+      box-shadow: 0 4px 24px var(--page-shadow);
+      transition: background-color 0.25s ease;
+    }
+    .header {
+      text-align: center;
+      padding-bottom: 7pt;
+      border-bottom: 2pt solid var(--navy);
+      margin-bottom: 9pt;
+    }
+    .header h1 {
+      font-size: 19pt;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: 0.5px;
+    }
+    .header .contact {
+      margin-top: 3pt;
+      font-size: 8.5pt;
+      color: var(--muted);
+    }
+    .header .contact a {
+      color: var(--mid);
+      text-decoration: none;
+    }
+    section { margin-bottom: 8pt; }
+    h2 {
+      font-size: 7.5pt;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--navy);
+      border-bottom: 1pt solid var(--rule);
+      padding-bottom: 1.5pt;
+      margin-bottom: 5pt;
+    }
+    .profile-list { list-style: none; padding: 0; }
+    .profile-list li {
+      padding-left: 11pt;
+      position: relative;
+      margin-bottom: 2pt;
+      color: var(--text);
+    }
+    .profile-list li::before {
+      content: '·';
+      position: absolute;
+      left: 3pt;
+      color: var(--navy);
+      font-weight: 700;
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0 10pt;
+    }
+    .skill-col h3 {
+      font-size: 8pt;
+      font-weight: 700;
+      color: var(--navy);
+      border-bottom: 0.5pt solid var(--rule);
+      padding-bottom: 1pt;
+      margin-bottom: 2.5pt;
+    }
+    .skill-col ul { list-style: none; padding: 0; }
+    .skill-col ul li {
+      font-size: 8pt;
+      color: var(--muted);
+      padding-left: 8pt;
+      position: relative;
+      margin-bottom: 1pt;
+    }
+    .skill-col ul li::before {
+      content: '·';
+      position: absolute;
+      left: 1pt;
+      color: var(--mid);
+    }
+    .languages-row {
+      margin-top: 4pt;
+      font-size: 8pt;
+      color: var(--muted);
+      border-top: 0.5pt solid var(--rule);
+      padding-top: 3pt;
+    }
+    .languages-row strong { color: var(--text); }
+    .job { margin-bottom: 7.5pt; }
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 2pt;
+    }
+    .job-title { font-size: 9.5pt; font-weight: 700; color: var(--text); }
+    .job-company { color: var(--navy); }
+    .job-date { font-size: 8pt; color: var(--muted); white-space: nowrap; }
+    .job-meta { font-size: 8pt; font-style: italic; color: var(--muted); margin-bottom: 2.5pt; }
+    .job ul { list-style: none; padding: 0; }
+    .job ul li {
+      padding-left: 11pt;
+      position: relative;
+      margin-bottom: 1.5pt;
+      color: var(--text);
+    }
+    .job ul li::before {
+      content: '·';
+      position: absolute;
+      left: 3pt;
+      color: var(--navy);
+      font-weight: 700;
+    }
+    .edu-entry { margin-bottom: 4pt; }
+    .edu-row { display: flex; justify-content: space-between; align-items: baseline; }
+    .edu-degree { font-weight: 700; font-size: 9pt; }
+    .edu-date { font-size: 8pt; color: var(--muted); }
+    .edu-sub { font-size: 8pt; font-style: italic; color: var(--muted); }
+    .bottom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16pt; }
+    .plain-list { list-style: none; padding: 0; }
+    .plain-list li {
+      font-size: 8.5pt;
+      padding-left: 11pt;
+      position: relative;
+      margin-bottom: 2pt;
+      color: var(--text);
+    }
+    .plain-list li::before {
+      content: '·';
+      position: absolute;
+      left: 3pt;
+      color: var(--navy);
+      font-weight: 700;
+    }
+    .award-title { font-size: 8.5pt; font-weight: 700; margin-bottom: 1pt; }
+    .pub-entry { margin-bottom: 4pt; font-size: 8.5pt; }
+    .pub-entry .pub-label { font-weight: 700; color: var(--navy); }
+    .pub-sub { padding-left: 10pt; color: var(--muted); font-size: 8pt; }
+
+    .theme-toggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      border: 1px solid var(--rule);
+      background: var(--page-surface);
+      color: var(--muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px var(--page-shadow);
+      transition: color 0.2s, border-color 0.2s;
+      z-index: 1000;
+    }
+    .theme-toggle:hover { color: var(--navy); border-color: var(--navy); }
+    .theme-toggle:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+    .theme-toggle svg { width: 16px; height: 16px; display: block; }
+    .theme-toggle .theme-icon-light { display: none; }
+    .theme-toggle .theme-icon-dark { display: block; }
+    [data-theme="dark"] .theme-toggle .theme-icon-light { display: block; }
+    [data-theme="dark"] .theme-toggle .theme-icon-dark { display: none; }
+
+    @media print {
+      @page { size: letter; margin: 0.5in 0.6in; }
+      body { background: none; padding: 0; font-size: 9pt; color: #111; }
+      .page { width: 100%; min-height: 0; margin: 0; padding: 0; box-shadow: none; page-break-after: always; background: #fff; }
+      .page:last-child { page-break-after: avoid; }
+      a { color: inherit; text-decoration: none; }
+      .theme-toggle { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<button type="button" class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+  <svg class="theme-icon-dark" viewBox="0 0 20 20" aria-hidden="true" fill="currentColor"><path d="M17.293 13.293A8 8 0 0 1 6.707 2.707a8.001 8.001 0 1 0 10.586 10.586z"/></svg>
+  <svg class="theme-icon-light" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="10" cy="10" r="3.2" fill="currentColor" stroke="none"/><line x1="10" y1="2" x2="10" y2="3.8"/><line x1="10" y1="16.2" x2="10" y2="18"/><line x1="2" y1="10" x2="3.8" y2="10"/><line x1="16.2" y1="10" x2="18" y2="10"/><line x1="3.86" y1="3.86" x2="5.13" y2="5.13"/><line x1="14.87" y1="14.87" x2="16.14" y2="16.14"/><line x1="3.86" y1="16.14" x2="5.13" y2="14.87"/><line x1="14.87" y1="5.13" x2="16.14" y2="3.86"/></svg>
+</button>
+
+<div class="page">
+  <div class="header">
+    <h1>Kieran R. Maynard</h1>
+    <div class="contact">
+      SF Bay Area &nbsp;·&nbsp;
+      <a href="https://krm.fyi">krm.fyi</a> &nbsp;·&nbsp;
+      <a href="https://github.com/krMaynard">github</a> &nbsp;·&nbsp;
+      <a href="mailto:kieranmaynard@gmail.com">kieranmaynard@gmail.com</a> &nbsp;·&nbsp;
+      404-502-4751
+    </div>
+  </div>
+
+  <section>
+    <h2>Leadership Profile</h2>
+    <ul class="profile-list">
+      <li>Experienced <strong>AI and Safety Product Manager</strong> with 11+ years in content moderation, Trust &amp; Safety, and AI product development — currently at Roblox, with deep platform and cross-functional knowledge</li>
+      <li>Deep Trust &amp; Safety background from Google (6+ years), progressing from front-line content reviewer → moderation policy developer → program/product manager; hands-on expertise with adversarial actors and UGC platform safety at global scale</li>
+      <li>Proven builder of AI-driven automation for content review at scale — spanning text, image, audio, video, and code modalities — with hands-on experience in LLMs, RAG systems, agentic workflows, evals, and data labeling</li>
+      <li>Strong cross-functional leader who translates complex safety challenges into clear product requirements and aligns engineering, data science, operations, and executive stakeholders</li>
+      <li>CIPP/US and AIGP training (IAPP); Stanford-trained in Generative AI foundations; thrives in adversarial, ambiguous environments</li>
+      <li>Deep familiarity with AI/ML, governance, risk, compliance, privacy, online safety, and content moderation; strong analytical and quantitative skills</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-col">
+        <h3>Safety &amp; Content Moderation</h3>
+        <ul>
+          <li>AI-driven review automation</li>
+          <li>Multi-modal moderation</li>
+          <li>Adversarial dynamics</li>
+          <li>UGC platform safety</li>
+          <li>T&amp;S policy &amp; operations</li>
+          <li>Minor user protection</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h3>Product Management</h3>
+        <ul>
+          <li>Strategy, vision, roadmaps</li>
+          <li>PRDs, BRDs, design docs</li>
+          <li>KPIs, behavioral analytics</li>
+          <li>UX/UI, user journeys</li>
+          <li>Feasibility, build vs. buy</li>
+          <li>Privacy by Design, ethics</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h3>Artificial Intelligence</h3>
+        <ul>
+          <li>Large language models</li>
+          <li>Prompt engineering</li>
+          <li>RAG, in-context learning</li>
+          <li>Agentic systems</li>
+          <li>Evals, data labeling</li>
+          <li>AI governance</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h3>Data Science &amp; Engineering</h3>
+        <ul>
+          <li>Advanced SQL</li>
+          <li>Data pipelines, ETL, DAGs</li>
+          <li>Python, pandas</li>
+          <li>Airflow, Hive, Spark</li>
+          <li>AWS, BigQuery, K8s</li>
+          <li>Quantitative reporting</li>
+        </ul>
+      </div>
+    </div>
+    <div class="languages-row">
+      <strong>Languages:</strong>&nbsp;
+      <strong>Mandarin Chinese</strong> – native-level &nbsp;·&nbsp;
+      <strong>Japanese</strong> – full professional &nbsp;·&nbsp;
+      <strong>Korean</strong> – limited working proficiency
+    </div>
+  </section>
+
+  <section>
+    <h2>Professional Experience</h2>
+    <div class="job">
+      <div class="job-header">
+        <span class="job-title"><span class="job-company">Roblox</span> – Compliance Product Manager</span>
+        <span class="job-date">Oct 2025 – Present</span>
+      </div>
+      <div class="job-meta">San Mateo, CA</div>
+      <ul>
+        <li>Drive cross-functional transparency reporting strategy covering Roblox’s automated content moderation systems under EU DSA, UK OSA, NY S895, CA AB 587, India IT Rules, Brazil ECA, and other global regulations — directly interfacing with Safety Group moderation tooling, classifiers, and operational outputs</li>
+        <li>Published Roblox’s 2025 EU DSA Transparency Report — the most comprehensive in company history — including mandatory disclosures on automated moderation decision systems, government orders, illegal content reports, and user appeals</li>
+        <li>Built a suite of modular, production-grade SQL queries with version control to automate transparency reporting on content moderation data at scale, in partnership with Data Engineering</li>
+        <li>Developing a Product Compliance Unified Data Model and reporting pipeline to automate, scale, and future-proof compliance reporting systems in preparation for external audits</li>
+        <li>Lead AI enablement and automation initiatives to improve operational efficiency and product quality across the Compliance org</li>
+      </ul>
+    </div>
+    <div class="job">
+      <div class="job-header">
+        <span class="job-title"><span class="job-company">Google</span> – Technical Program Manager II, Chrome</span>
+        <span class="job-date">Jul – Oct 2025</span>
+      </div>
+      <div class="job-meta">Mountain View, CA</div>
+      <ul>
+        <li>Led program evaluating quality, safety, security, and speed of Chrome’s upcoming agentic browsing AI product, including adversarial testing and safety evaluation frameworks</li>
+        <li>Applied technical knowledge as an equal stakeholder to guide engineering teams on complex, multi-disciplinary AI projects from scoping through launch</li>
+        <li>Led org-wide initiatives to improve product launch velocity and productivity through AI enablement</li>
+      </ul>
+    </div>
+    <div class="job">
+      <div class="job-header">
+        <span class="job-title"><span class="job-company">Google</span> – Program Manager II, Privacy Sandbox</span>
+        <span class="job-date">Jun 2024 – Jul 2025</span>
+      </div>
+      <div class="job-meta">Mountain View, CA &nbsp;(Platforms &amp; Devices)</div>
+      <ul>
+        <li>Spearheaded deployment of LLM-based automation tooling to streamline critical compliance workstreams, enhancing accuracy, efficiency, and scalability while reducing manual overhead</li>
+        <li>Developed and led scalable processes for key recurring regulatory deliverables under Google’s legal commitments with the UK Competition and Markets Authority (CMA)</li>
+        <li>Built trusted relationships with executive cross-functional leads across Engineering, Legal, Public Policy, and PR; won 2nd place in Google Privacy Sandbox TPgM AI Hackathon for building “Sandpiper,” a RAG-powered compliance assistant</li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<div class="page">
+  <section>
+    <h2>Professional Experience <span style="font-weight:400;font-size:7.5pt;letter-spacing:0;text-transform:none;color:var(--muted)">(continued)</span></h2>
+    <div class="job">
+      <div class="job-header">
+        <span class="job-title"><span class="job-company">Google</span> – Policy Specialist II, Legal Content Policy &amp; Standards (Trust &amp; Safety)</span>
+        <span class="job-date">Apr 2021 – Jun 2024</span>
+      </div>
+      <div class="job-meta">Mountain View, CA</div>
+      <ul>
+        <li>Developed and launched content moderation policies across Google’s highest-scale products — Gemini, Search, Ads, Maps, Play — spanning text, image, video, and audio content types, on issues including misinformation, data privacy, national security, and elections integrity</li>
+        <li>Led end-to-end regulatory readiness and gap analyses for a portfolio of high-impact global regulations, balancing near-term compliance requirements with long-term roadmap planning</li>
+        <li>Scaled team capacity through GenAI application development, process automation, and data tooling — reducing operational expenditure while improving reviewer experience</li>
+        <li>Managed complex, high-risk legal and compliance escalations with data-driven recommendations to executives and Senior Counsels, minimizing legal risk while safeguarding user rights</li>
+        <li>Mentored a team of Policy Specialists, fostering operational excellence, individual leadership, and big-picture thinking</li>
+      </ul>
+    </div>
+    <div class="job">
+      <div class="job-header">
+        <span class="job-title"><span class="job-company">Google</span> – Policy Specialist I, Legal Removals (Trust &amp; Safety)</span>
+        <span class="job-date">Sep 2018 – Apr 2021</span>
+      </div>
+      <div class="job-meta">Mountain View, CA</div>
+      <ul>
+        <li>Built automation system reducing manual content moderation processing time by 30+ hours/week (≈ 2 FTE), adopted for use across 140+ global markets</li>
+        <li>Led content moderation policy development for high-stakes regulatory obligations, including the 2019 Indian general election</li>
+        <li>Designed unified content review workflows, standardizing processes across markets and content types to enable front-line reviewers to operate as agile, scalable resources</li>
+        <li>Led business continuity strategy during COVID-19, protecting critical content moderation operations globally</li>
+      </ul>
+    </div>
+    <div class="job">
+      <div class="job-header">
+        <span class="job-title"><span class="job-company">Google</span> – Legal Operations Associate, Legal Removals (Google Legal)</span>
+        <span class="job-date">Jul 2014 – Sep 2018</span>
+      </div>
+      <div class="job-meta">Mountain View, CA</div>
+      <ul>
+        <li>Made 10,000+ front-line content moderation decisions across 10+ Google products — developing deep expertise in adversarial content patterns, evasion tactics, and moderation judgment at scale</li>
+        <li>Reviewed 12,000+ legal removal requests (including government-issued orders) in a high-stakes, high-volume environment; authored 362 executive memos to senior legal counsels</li>
+        <li>Reduced average case processing time by 173% (27 days → 2 days) and improved SLA compliance from 12% to 98% at 96% quality, despite a 39% increase in weekly incoming volume</li>
+        <li>Onboarded and trained 50+ team members; exceeded content review quota by up to 30% for 13 consecutive quarters</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    <div class="edu-entry">
+      <div class="edu-row">
+        <span class="edu-degree">B.A., Linguistics, <em>Summa Cum Laude</em> (GPA 3.92/4.0), with Honors</span>
+        <span class="edu-date">May 2012</span>
+      </div>
+      <div class="edu-sub">University of Georgia &nbsp;·&nbsp; Minor in East Asian Literature &nbsp;·&nbsp; HOPE scholarship for academic excellence</div>
+    </div>
+    <div class="edu-entry">
+      <div class="edu-row">
+        <span class="edu-degree">Postgraduate Fellowship, China Studies</span>
+        <span class="edu-date">Jul 2013</span>
+      </div>
+      <div class="edu-sub">Fudan University &nbsp;·&nbsp; Sponsored by the government of China (CSC) for top 1% of US undergraduates</div>
+    </div>
+    <div class="edu-entry">
+      <div class="edu-row">
+        <span class="edu-degree">National Scholarship, Japan Studies</span>
+        <span class="edu-date">Jul 2010</span>
+      </div>
+      <div class="edu-sub">Kyushu University &nbsp;·&nbsp; Sponsored by the government of Japan (JASSO) for nominated outstanding students</div>
+    </div>
+  </section>
+
+  <div class="bottom-grid">
+    <section>
+      <h2>Professional Development</h2>
+      <ul class="plain-list">
+        <li><strong>Information Privacy Professional (CIPP/US) training</strong> – IAPP</li>
+        <li><strong>AI Governance Professional (AIGP) training</strong> – IAPP</li>
+        <li><strong>Technical Foundations of Generative AI (XFM110)</strong> – Stanford University</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Awards</h2>
+      <div class="award-title">2nd Place – Google Privacy Sandbox TPgM AI Hackathon</div>
+      <ul class="plain-list" style="margin-bottom:5pt">
+        <li>Built “Sandpiper,” a RAG chatbot for compliance document acceleration and PM best practices</li>
+      </ul>
+      <div class="award-title">Google Employee Recognition</div>
+      <ul class="plain-list">
+        <li>9 spot bonuses from leadership &nbsp;·&nbsp; 38 peer bonuses</li>
+      </ul>
+    </section>
+  </div>
+
+  <section>
+    <h2>Publications</h2>
+    <div class="pub-entry">
+      <span class="pub-label">Roblox Transparency Reports</span>
+      <div class="pub-sub">2025 EU Digital Services Act Transparency Report &nbsp;·&nbsp; 2026 EU Terrorist Content Online Transparency Report &nbsp;·&nbsp; 2025 New York S895 Transparency Report</div>
+    </div>
+    <div class="pub-entry">
+      <span class="pub-label">Google Transparency Report</span> – “Government requests to remove content”
+      <div class="pub-sub">Primary author of regional highlights for Hong Kong, Taiwan, Mainland China, and Singapore (2014–Q2 2024); cited in <em>The Standard</em> and <em>Hong Kong Free Press</em></div>
+    </div>
+    <div class="pub-entry">
+      Maynard, Kieran Robert. “Lost Chapters in <em>The Wind-Up Bird Chronicle</em>: A Translation and Commentary.” <em>Pacific Asia Inquiry</em> 4.1 (2013): 169–179
+    </div>
+  </section>
+</div>
+
+<script>
+(function () {
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
+      btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+    });
+    try { localStorage.setItem('theme', theme); } catch (e) {}
+  }
+  function currentTheme() {
+    return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  }
+  document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
+    btn.setAttribute('aria-pressed', currentTheme() === 'dark' ? 'true' : 'false');
+    btn.addEventListener('click', function () {
+      applyTheme(currentTheme() === 'dark' ? 'light' : 'dark');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

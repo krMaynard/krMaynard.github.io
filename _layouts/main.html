@@ -8,16 +8,59 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ site.baseurl }}/styles.css">
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('theme');
+          if (!t) {
+            t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', t);
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
 </head>
 <body>
 
     <nav class="site-nav">
-      <a href="/" class="nav-name">Kieran Maynard</a>
+      <a href="{% if page.lang == 'ja' %}/ja/{% else %}/{% endif %}" class="nav-name">Kieran Maynard</a>
       <div class="nav-links">
+        {% if page.lang == 'ja' %}
+        <a href="/ja/work.html">実績</a>
+        <a href="/ja/#publications">出版物</a>
+        <a href="/ja/translation.html">翻訳</a>
+        <a href="mailto:kieranmaynard@gmail.com">お問い合わせ</a>
+        {% else %}
         <a href="/work.html">Work</a>
         <a href="/#publications">Publications</a>
         <a href="/consulting.html">Consulting</a>
         <a href="mailto:kieranmaynard@gmail.com">Contact</a>
+        {% endif %}
+        {% if page.lang_url %}
+        <span class="lang-divider">|</span>
+        {% if page.lang == 'ja' %}
+        <a href="{{ page.lang_url }}" class="lang-switch">EN</a>
+        {% else %}
+        <a href="{{ page.lang_url }}" class="lang-switch">日本語</a>
+        {% endif %}
+        {% endif %}
+        <button type="button" class="cmdk-trigger" data-open-cmdk aria-label="Open command palette">
+          <kbd class="cmdk-shortcut">⌘K</kbd>
+        </button>
+        <button type="button" class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+          <svg class="theme-icon-dark" viewBox="0 0 20 20" aria-hidden="true" fill="currentColor"><path d="M17.293 13.293A8 8 0 0 1 6.707 2.707a8.001 8.001 0 1 0 10.586 10.586z"/></svg>
+          <svg class="theme-icon-light" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="10" cy="10" r="3.2" fill="currentColor" stroke="none"/><line x1="10" y1="2" x2="10" y2="3.8"/><line x1="10" y1="16.2" x2="10" y2="18"/><line x1="2" y1="10" x2="3.8" y2="10"/><line x1="16.2" y1="10" x2="18" y2="10"/><line x1="3.86" y1="3.86" x2="5.13" y2="5.13"/><line x1="14.87" y1="14.87" x2="16.14" y2="16.14"/><line x1="3.86" y1="16.14" x2="5.13" y2="14.87"/><line x1="14.87" y1="5.13" x2="16.14" y2="3.86"/></svg>
+        </button>
       </div>
     </nav>
 
@@ -26,6 +69,31 @@
     </div>
 
     <footer>Built with <a href="https://claude.ai/code" style="color: inherit;">Claude Code</a>.</footer>
+
+    <script src="{{ site.baseurl }}/main.js" defer></script>
+
+    <dialog id="cmdk-dialog" class="cmdk-dialog" aria-label="Command palette" data-lang="{{ page.lang | default: 'en' }}" data-lang-url="{{ page.lang_url | default: '' }}">
+      <div class="cmdk-container">
+        <div class="cmdk-input-row">
+          <span class="cmdk-search-icon" aria-hidden="true">⌕</span>
+          <input type="text" class="cmdk-input" placeholder="Search or type a command…" autocomplete="off" spellcheck="false" />
+          <kbd class="cmdk-esc">esc</kbd>
+        </div>
+        <ul class="cmdk-list" role="listbox" aria-label="Commands"></ul>
+        <div class="cmdk-empty" hidden>No commands match.</div>
+        <div class="cmdk-footer">
+          <span><kbd>↑</kbd><kbd>↓</kbd>&nbsp;navigate</span>
+          <span><kbd>↵</kbd>&nbsp;select</span>
+          <span><kbd>esc</kbd>&nbsp;close</span>
+        </div>
+      </div>
+    </dialog>
+    <script src="{{ site.baseurl }}/command-palette.js" defer></script>
+
+    {% if site.chatbot_worker_url %}
+    <script>window.CHATBOT_WORKER_URL = '{{ site.chatbot_worker_url }}';</script>
+    <script src="{{ site.baseurl }}/chatbot.js" defer></script>
+    {% endif %}
 
 </body>
 </html>
