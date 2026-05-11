@@ -14,6 +14,8 @@ lang_url: /ja/transparency.html
     This dashboard explores Google's <em>government removal requests</em> dataset
     (the detailed reporting format Google adopted in 2019) across <strong>13 reporting periods</strong>,
     <strong>160 countries</strong>, <strong>42 Google products</strong>, and <strong>22 stated reasons</strong> for removal.
+    Unlike Google's own report — which is organized one period at a time — this view is built around <strong>trends across reporting periods</strong>:
+    every filter combination becomes a multi-year time series, and you can break the time series down by country, requestor, product, or reason.
   </p>
   <p style="color: var(--text-faint); font-size: 0.85rem; margin-bottom: 2rem; background: transparent;">
     Source: <a href="https://transparencyreport.google.com/government-removals/overview">Google Transparency Report — Government requests to remove content</a>.
@@ -82,8 +84,19 @@ lang_url: /ja/transparency.html
 
     <div class="td-chart-grid">
       <div class="td-chart-card td-chart-card-wide">
-        <h3>Items targeted for removal, by reporting period</h3>
+        <div class="td-chart-head">
+          <h3>Items targeted for removal, by reporting period</h3>
+          <div class="td-breakdown">
+            <label for="td-breakdown">Break down by</label>
+            <select id="td-breakdown"></select>
+          </div>
+        </div>
         <div class="td-chart-wrap"><canvas id="td-chart-time" aria-label="Time series chart"></canvas></div>
+      </div>
+
+      <div class="td-chart-card td-chart-card-wide">
+        <h3>Removal rate over time</h3>
+        <div class="td-chart-wrap"><canvas id="td-chart-rate" aria-label="Removal rate over time"></canvas></div>
       </div>
 
       <div class="td-chart-card">
@@ -132,11 +145,12 @@ lang_url: /ja/transparency.html
 <section class="td-readme">
   <h2 class="td-section-title">A few things to look for</h2>
   <ul class="td-bullets">
+    <li><strong>Trends, not snapshots.</strong> Set <em>Break down by → Reason</em> with all other filters at default to see how the mix of stated reasons has shifted from 2019 onward — something that's tedious to assemble from Google's per-period views.</li>
+    <li><strong>Country-level trajectories.</strong> Set <em>Break down by → Country</em> to compare the top requesting countries side-by-side over time. The "Change over selected range" metric quantifies the first-to-last-period swing.</li>
+    <li><strong>Removal rate is itself a trend.</strong> The <em>Removal rate over time</em> chart tracks the share of targeted items that Google actually removed across the period range — useful for spotting tightening or loosening compliance posture for a given country, product, or reason.</li>
     <li><strong>Defamation dominates volume in many democracies</strong> — filter <em>Reason → Defamation</em> to see how courts in countries like Russia, Turkey, India, and Brazil drive a large share of items targeted.</li>
-    <li><strong>"Government criticism" reveals a different story.</strong> Filter <em>Reason → Government criticism</em> and watch the country distribution shift sharply.</li>
-    <li><strong>The response mix matters as much as the volume.</strong> A country with millions of items targeted but a low <em>removal rate</em> tells a different story than one with fewer requests and near-total compliance.</li>
-    <li><strong>Requestor matters.</strong> A <em>Court Order directed at Google</em> carries different operational weight than a <em>Police</em> request or a <em>Government Officials</em> referral.</li>
-    <li><strong>YouTube vs. Web Search vs. Maps.</strong> Removal outcomes vary substantially by product — filter <em>Product</em> to see how.</li>
+    <li><strong>"Government criticism" reveals a different story.</strong> Filter <em>Reason → Government criticism</em> and watch the country distribution and trend line shift sharply.</li>
+    <li><strong>Requestor matters.</strong> A <em>Court Order directed at Google</em> carries different operational weight than a <em>Police</em> request or a <em>Government Officials</em> referral — and the mix changes year over year.</li>
   </ul>
   <p style="color: var(--text-faint); font-size: 0.85rem; margin-top: 1.25rem;">
     Important caveats: a "request" is what a government submitted; an "item" is a specific URL, video, account, or piece of content cited in that request. One request can target many items. Google's response categories are

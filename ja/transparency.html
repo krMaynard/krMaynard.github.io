@@ -12,6 +12,7 @@ lang_url: /transparency.html
     2014年から2024年まで、私は<a href="https://transparencyreport.google.com/government-removals/explore">Google透明性レポート</a>の大中華圏部分の主要執筆者の一人を務めました。
     このダッシュボードでは、Googleが2019年に採用した詳細報告形式の<em>政府削除要請</em>データを、
     <strong>13の報告期間</strong>、<strong>160か国</strong>、<strong>42のGoogleプロダクト</strong>、<strong>22の削除理由</strong>にわたって可視化しています。
+    Google自身のレポートが1期間ずつ提示する形なのに対し、本ビューは<strong>報告期間をまたいだトレンド分析</strong>を中心に設計されています。フィルタの組み合わせはそのまま複数年の時系列となり、時系列を国・要請者・プロダクト・理由の各軸で分解できます。
   </p>
   <p style="color: var(--text-faint); font-size: 0.85rem; margin-bottom: 2rem; background: transparent;">
     出典：<a href="https://transparencyreport.google.com/government-removals/overview">Google透明性レポート — 政府によるコンテンツ削除要請</a>。
@@ -78,8 +79,19 @@ lang_url: /transparency.html
 
     <div class="td-chart-grid">
       <div class="td-chart-card td-chart-card-wide">
-        <h3>報告期間別・削除対象アイテム数</h3>
+        <div class="td-chart-head">
+          <h3>報告期間別・削除対象アイテム数</h3>
+          <div class="td-breakdown">
+            <label for="td-breakdown">内訳の軸</label>
+            <select id="td-breakdown"></select>
+          </div>
+        </div>
         <div class="td-chart-wrap"><canvas id="td-chart-time" aria-label="時系列チャート"></canvas></div>
+      </div>
+
+      <div class="td-chart-card td-chart-card-wide">
+        <h3>削除率の推移</h3>
+        <div class="td-chart-wrap"><canvas id="td-chart-rate" aria-label="削除率の推移"></canvas></div>
       </div>
 
       <div class="td-chart-card">
@@ -127,11 +139,12 @@ lang_url: /transparency.html
 <section class="td-readme">
   <h2 class="td-section-title">注目したいポイント</h2>
   <ul class="td-bullets">
+    <li><strong>スナップショットではなくトレンドを。</strong> <em>内訳の軸 → 理由</em>に設定し、他のフィルタを既定値のままにすると、2019年以降に削除理由の構成がどう推移してきたかが一目で分かります。Googleの期間別ビューを横断して組み立てる手間を省けます。</li>
+    <li><strong>国別の軌跡を比較。</strong> <em>内訳の軸 → 国</em>に設定すると、上位の要請国を並べて時系列比較できます。「選択範囲での変化」指標は最初と最後の期間の振れ幅を数値化します。</li>
+    <li><strong>削除率自体もトレンドです。</strong> <em>削除率の推移</em>チャートは、選択期間内でGoogleが実際に削除したアイテムの割合を追跡します。特定の国・プロダクト・理由について、対応姿勢の強化・緩和を見抜くのに役立ちます。</li>
     <li><strong>名誉毀損は多くの民主主義国で件数の中心。</strong> <em>理由 → 名誉毀損</em>でフィルタすると、ロシア、トルコ、インド、ブラジルなどの裁判所がアイテム数の大半を占める様子が見えます。</li>
-    <li><strong>「政府批判」は別の物語を語ります。</strong> <em>理由 → 政府批判</em>でフィルタすると、国別の分布が大きく変わります。</li>
-    <li><strong>件数だけでなく対応の構成も重要です。</strong> アイテム数が膨大でも<em>削除率</em>が低い国と、件数は少なくともほぼ全件削除している国とでは、意味合いが全く異なります。</li>
-    <li><strong>要請者の種類は無視できません。</strong> <em>Google宛ての裁判命令</em>と<em>警察</em>からの依頼、<em>政府関係者</em>からの紹介では、運用面の重みが異なります。</li>
-    <li><strong>YouTube・ウェブ検索・マップで結果は異なります。</strong> <em>プロダクト</em>でフィルタすると、削除結果がプロダクトごとに大きく異なることが見えます。</li>
+    <li><strong>「政府批判」は別の物語を語ります。</strong> <em>理由 → 政府批判</em>でフィルタすると、国別の分布もトレンドラインも大きく変わります。</li>
+    <li><strong>要請者の種類は無視できません。</strong> <em>Google宛ての裁判命令</em>と<em>警察</em>からの依頼、<em>政府関係者</em>からの紹介では運用面の重みが異なり、その構成も年ごとに変化します。</li>
   </ul>
   <p style="color: var(--text-faint); font-size: 0.85rem; margin-top: 1.25rem;">
     重要な注釈：「要請」とは政府が提出した1件の申し立てを指し、「アイテム」とはその要請内で指定された具体的なURL・動画・アカウント・コンテンツを指します。1件の要請が多数のアイテムを対象とすることもあります。Googleの対応カテゴリは<em>削除（法的）</em>、<em>削除（ポリシー）</em>、<em>既に削除済み</em>、<em>コンテンツ未発見</em>、<em>情報不足</em>、<em>対応なし</em>の6つです。本ページの「削除率」は最初の3カテゴリを合算した割合です。

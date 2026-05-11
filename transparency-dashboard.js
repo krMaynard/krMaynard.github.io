@@ -53,7 +53,20 @@
       empty: 'No records match the current filters.',
       shown: 'rows in filter',
       itemsRequested: 'Items targeted',
-      itemsRemoved: 'Items removed'
+      itemsRemoved: 'Items removed',
+      breakdownLabel: 'Break down by',
+      bdNone: 'None (total)',
+      bdCountry: 'Country',
+      bdRequestor: 'Requestor type',
+      bdProduct: 'Google product',
+      bdReason: 'Reason',
+      other: 'Other',
+      removalRateOverTime: 'Removal rate over time',
+      changeOverRange: 'Change over selected range',
+      trendUp: 'up',
+      trendDown: 'down',
+      trendFlat: 'flat',
+      vsFirstPeriod: 'first → last period in range'
     },
     ja: {
       loading: 'データ読み込み中…',
@@ -93,7 +106,20 @@
       empty: '現在のフィルタに該当するレコードはありません。',
       shown: '件',
       itemsRequested: '削除対象',
-      itemsRemoved: '削除済み'
+      itemsRemoved: '削除済み',
+      breakdownLabel: '内訳の軸',
+      bdNone: 'なし（合計）',
+      bdCountry: '国',
+      bdRequestor: '要請者タイプ',
+      bdProduct: 'Googleプロダクト',
+      bdReason: '理由',
+      other: 'その他',
+      removalRateOverTime: '削除率の推移',
+      changeOverRange: '選択範囲での変化',
+      trendUp: '増加',
+      trendDown: '減少',
+      trendFlat: '横ばい',
+      vsFirstPeriod: '範囲の最初の期間 → 最後の期間'
     }
   }[lang];
 
@@ -106,7 +132,8 @@
     country: -1,
     requestor: -1,
     product: -1,
-    reason: -1
+    reason: -1,
+    breakdownBy: 'none' // 'none' | 'country' | 'requestor' | 'product' | 'reason'
   };
 
   var BRAND = '#2a9d8f';
@@ -116,6 +143,14 @@
                  '#8ab17d', '#287271', '#b5838d', '#6d597a', '#a8dadc',
                  '#457b9d', '#1d3557'];
 
+  // Map breakdown dimension → row column index + label lookup.
+  var DIM = {
+    country:   { col: 1, labelsKey: 'country_names' },
+    requestor: { col: 2, labelsKey: 'requestors' },
+    product:   { col: 3, labelsKey: 'products' },
+    reason:    { col: 4, labelsKey: 'reasons' }
+  };
+
   // ───────── Utilities ─────────
   function fmt(n) {
     if (n == null || isNaN(n)) return '0';
@@ -124,6 +159,11 @@
   function pct(n) {
     if (!isFinite(n)) return '–';
     return (n * 100).toFixed(1) + '%';
+  }
+  function signedPct(n) {
+    if (!isFinite(n)) return '–';
+    var s = (n * 100).toFixed(1) + '%';
+    return n > 0 ? '+' + s : s;
   }
   function getCssVar(name, fallback) {
     var v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
@@ -154,17 +194,23 @@
 
   // ───────── Aggregation ─────────
   function aggregate(rows) {
+    var P = DATA.periods.length;
     var totals = {
       requests: 0, items: 0, legal: 0, policy: 0,
       notFound: 0, notEnough: 0, noAction: 0, already: 0
     };
-    var byPeriod = new Array(DATA.periods.length).fill(0);
-    var byPeriodRemoved = new Array(DATA.periods.length).fill(0);
+    var byPeriod = new Array(P).fill(0);
+    var byPeriodRemoved = new Array(P).fill(0);
     var byCountry = {};
     var byReason = {};
     var byProduct = {};
     var countriesSeen = new Set();
     var periodsSeen = new Set();
+
+    // Trend mode: build per-period × per-category matrix for the selected dimension.
+    var dim = DIM[FILTERS.breakdownBy] || null;
+    // matrix[categoryIdx] = Array(P) of items_targeted
+    var matrix = dim ? {} : null;
 
     for (var i = 0; i < rows.length; i++) {
       var r = rows[i];
@@ -186,6 +232,12 @@
 
       countriesSeen.add(r[1]);
       periodsSeen.add(r[0]);
+
+      if (dim) {
+        var cat = r[dim.col];
+        if (!matrix[cat]) matrix[cat] = new Array(P).fill(0);
+        matrix[cat][r[0]] += r[6];
+      }
     }
 
     totals.removed = totals.legal + totals.policy + totals.already;
@@ -193,8 +245,12 @@
     totals.countries = countriesSeen.size;
     totals.periodsActive = periodsSeen.size;
 
-    return { totals: totals, byPeriod: byPeriod, byPeriodRemoved: byPeriodRemoved,
-             byCountry: byCountry, byReason: byReason, byProduct: byProduct };
+    return {
+      totals: totals,
+      byPeriod: byPeriod, byPeriodRemoved: byPeriodRemoved,
+      byCountry: byCountry, byReason: byReason, byProduct: byProduct,
+      matrix: matrix
+    };
   }
 
   function topN(map, n, labels) {
@@ -211,17 +267,33 @@
   function renderMetrics(agg) {
     var t = agg.totals;
     var rangeLabel = DATA.periods[FILTERS.fromPeriod] + ' – ' + DATA.periods[FILTERS.toPeriod];
+
+    // Period-over-period: items targeted in the first selected period vs the last.
+    var first = agg.byPeriod[FILTERS.fromPeriod];
+    var last  = agg.byPeriod[FILTERS.toPeriod];
+    var trendNum, trendCls;
+    if (FILTERS.fromPeriod === FILTERS.toPeriod || first === 0) {
+      trendNum = '–';
+      trendCls = 'td-trend-flat';
+    } else {
+      var delta = (last - first) / first;
+      trendNum = signedPct(delta);
+      trendCls = delta > 0.005 ? 'td-trend-up' : (delta < -0.005 ? 'td-trend-down' : 'td-trend-flat');
+    }
+
     var metrics = [
       { num: fmt(t.requests),  label: L.metricRequests },
       { num: fmt(t.items),     label: L.metricItems },
       { num: fmt(t.removed),   label: L.metricRemoved },
       { num: pct(t.rate),      label: L.metricRate },
       { num: fmt(t.countries), label: L.metricCountries },
-      { num: fmt(t.periodsActive), label: L.metricPeriods }
+      { num: trendNum,         label: L.changeOverRange, cls: trendCls, hint: L.vsFirstPeriod }
     ];
     var html = metrics.map(function (m) {
-      return '<div class="td-metric"><span class="td-metric-num">' + m.num +
-             '</span><span class="td-metric-label">' + m.label + '</span></div>';
+      var numCls = 'td-metric-num' + (m.cls ? ' ' + m.cls : '');
+      var hint = m.hint ? '<span class="td-metric-hint">' + m.hint + '</span>' : '';
+      return '<div class="td-metric"><span class="' + numCls + '">' + m.num +
+             '</span><span class="td-metric-label">' + m.label + '</span>' + hint + '</div>';
     }).join('');
     document.getElementById('td-metrics').innerHTML = html;
     document.getElementById('td-range-label').textContent = rangeLabel;
@@ -261,21 +333,139 @@
   function renderTimeseries(agg) {
     destroy('time');
     var ctx = document.getElementById('td-chart-time').getContext('2d');
-    var labels = DATA.periods.slice(FILTERS.fromPeriod, FILTERS.toPeriod + 1);
-    var dataReq = agg.byPeriod.slice(FILTERS.fromPeriod, FILTERS.toPeriod + 1);
-    var dataRem = agg.byPeriodRemoved.slice(FILTERS.fromPeriod, FILTERS.toPeriod + 1);
+    var fromP = FILTERS.fromPeriod, toP = FILTERS.toPeriod;
+    var labels = DATA.periods.slice(fromP, toP + 1);
+
+    if (FILTERS.breakdownBy === 'none' || !agg.matrix) {
+      // Original two-line view.
+      var dataReq = agg.byPeriod.slice(fromP, toP + 1);
+      var dataRem = agg.byPeriodRemoved.slice(fromP, toP + 1);
+      CHARTS.time = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            { label: L.itemsRequested, data: dataReq, borderColor: BRAND, backgroundColor: 'rgba(42,157,143,0.10)',
+              fill: true, tension: 0.25, borderWidth: 2, borderDash: [4,4], pointRadius: 3 },
+            { label: L.itemsRemoved, data: dataRem, borderColor: BRAND_DARK, backgroundColor: 'rgba(30,114,104,0.0)',
+              fill: false, tension: 0.25, borderWidth: 2, pointRadius: 3 }
+          ]
+        },
+        options: commonChartOptions()
+      });
+      return;
+    }
+
+    // Breakdown mode: top-7 categories + "Other".
+    var dim = DIM[FILTERS.breakdownBy];
+    var labelLookup = DATA[dim.labelsKey];
+    var withCountryCode = FILTERS.breakdownBy === 'country';
+
+    // Rank categories by total items in the selected period range.
+    // Rows are pre-filtered by fromP..toP, so values outside the range are 0
+    // and a full-array reduction equals the in-range sum.
+    function rangeTotal(arr) {
+      return arr.reduce(function (a, b) { return a + b; }, 0);
+    }
+    var entries = Object.keys(agg.matrix).map(function (k) {
+      return { idx: parseInt(k, 10), series: agg.matrix[k], total: rangeTotal(agg.matrix[k]) };
+    }).sort(function (a, b) { return b.total - a.total; });
+
+    var TOP = 7;
+    var top = entries.slice(0, TOP);
+    var rest = entries.slice(TOP);
+
+    var datasets = top.map(function (e, i) {
+      var color = PALETTE[i % PALETTE.length];
+      var name = labelLookup[e.idx];
+      if (withCountryCode) name = name + ' (' + DATA.countries[e.idx] + ')';
+      return {
+        label: name,
+        data: e.series.slice(fromP, toP + 1),
+        borderColor: color,
+        backgroundColor: color,
+        borderWidth: 2,
+        tension: 0.25,
+        pointRadius: 2,
+        fill: false
+      };
+    });
+
+    if (rest.length > 0) {
+      var otherSeries = new Array(toP - fromP + 1).fill(0);
+      rest.forEach(function (e) {
+        for (var i = fromP; i <= toP; i++) otherSeries[i - fromP] += e.series[i];
+      });
+      datasets.push({
+        label: L.other + ' (' + rest.length + ')',
+        data: otherSeries,
+        borderColor: '#9aa0a6',
+        backgroundColor: '#9aa0a6',
+        borderWidth: 1.5,
+        borderDash: [2, 3],
+        tension: 0.25,
+        pointRadius: 2,
+        fill: false
+      });
+    }
+
     CHARTS.time = new Chart(ctx, {
+      type: 'line',
+      data: { labels: labels, datasets: datasets },
+      options: commonChartOptions()
+    });
+  }
+
+  function renderRateOverTime(agg) {
+    destroy('rate');
+    var ctx = document.getElementById('td-chart-rate');
+    if (!ctx) return;
+    var fromP = FILTERS.fromPeriod, toP = FILTERS.toPeriod;
+    var labels = DATA.periods.slice(fromP, toP + 1);
+    var rates = [];
+    for (var i = fromP; i <= toP; i++) {
+      var req = agg.byPeriod[i];
+      var rem = agg.byPeriodRemoved[i];
+      rates.push(req > 0 ? +(rem / req * 100).toFixed(2) : null);
+    }
+    var textColor = chartTextColor();
+    var gridColor = chartGridColor();
+    CHARTS.rate = new Chart(ctx.getContext('2d'), {
       type: 'line',
       data: {
         labels: labels,
-        datasets: [
-          { label: L.itemsRequested, data: dataReq, borderColor: BRAND, backgroundColor: 'rgba(42,157,143,0.15)',
-            fill: true, tension: 0.25, borderWidth: 2, pointRadius: 3 },
-          { label: L.itemsRemoved, data: dataRem, borderColor: BRAND_DARK, backgroundColor: 'rgba(30,114,104,0.0)',
-            fill: false, tension: 0.25, borderWidth: 2, borderDash: [4,4], pointRadius: 2 }
-        ]
+        datasets: [{
+          label: L.metricRate,
+          data: rates,
+          borderColor: BRAND_DARK,
+          backgroundColor: 'rgba(30,114,104,0.12)',
+          borderWidth: 2,
+          tension: 0.25,
+          pointRadius: 3,
+          fill: true,
+          spanGaps: true
+        }]
       },
-      options: commonChartOptions()
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { duration: 250 },
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { label: function (ctx) {
+            return ctx.parsed.y == null ? '–' : ctx.parsed.y.toFixed(1) + '%';
+          } } }
+        },
+        scales: {
+          x: { ticks: { color: textColor }, grid: { color: gridColor } },
+          y: {
+            beginAtZero: true,
+            suggestedMax: 100,
+            ticks: { color: textColor, callback: function (v) { return v + '%'; } },
+            grid: { color: gridColor }
+          }
+        }
+      }
     });
   }
 
@@ -308,7 +498,6 @@
   }
 
   function renderCountries(agg) {
-    // Map country index → display name "Country (CC)"
     var labels = DATA.countries.map(function (code, i) {
       return DATA.country_names[i] + ' (' + code + ')';
     });
@@ -405,6 +594,7 @@
     var agg = aggregate(rows);
     renderMetrics(agg);
     renderTimeseries(agg);
+    renderRateOverTime(agg);
     renderCountries(agg);
     renderReasons(agg);
     renderProducts(agg);
@@ -416,7 +606,6 @@
   function buildSelect(id, items, anyLabel, withIndex) {
     var sel = document.getElementById(id);
     var opts = ['<option value="-1">' + anyLabel + '</option>'];
-    // Sort alphabetically by display label, keep original index for value
     var pairs = items.map(function (label, i) {
       return { label: withIndex ? withIndex(label, i) : label, idx: i };
     });
@@ -443,6 +632,19 @@
     FILTERS.toPeriod = DATA.periods.length - 1;
   }
 
+  function buildBreakdownSelect() {
+    var sel = document.getElementById('td-breakdown');
+    if (!sel) return;
+    sel.innerHTML = [
+      '<option value="none">' + L.bdNone + '</option>',
+      '<option value="country">' + L.bdCountry + '</option>',
+      '<option value="requestor">' + L.bdRequestor + '</option>',
+      '<option value="product">' + L.bdProduct + '</option>',
+      '<option value="reason">' + L.bdReason + '</option>'
+    ].join('');
+    sel.value = 'none';
+  }
+
   function wireFilters() {
     document.getElementById('td-from').addEventListener('change', function (e) {
       FILTERS.fromPeriod = parseInt(e.target.value, 10);
@@ -467,21 +669,30 @@
           refresh();
         });
       });
+    var bd = document.getElementById('td-breakdown');
+    if (bd) {
+      bd.addEventListener('change', function (e) {
+        FILTERS.breakdownBy = e.target.value;
+        refresh();
+      });
+    }
     document.getElementById('td-reset').addEventListener('click', function () {
       FILTERS.fromPeriod = 0;
       FILTERS.toPeriod = DATA.periods.length - 1;
       FILTERS.country = FILTERS.requestor = FILTERS.product = FILTERS.reason = -1;
+      FILTERS.breakdownBy = 'none';
       document.getElementById('td-from').value = '0';
       document.getElementById('td-to').value = String(DATA.periods.length - 1);
       document.getElementById('td-country').value = '-1';
       document.getElementById('td-requestor').value = '-1';
       document.getElementById('td-product').value = '-1';
       document.getElementById('td-reason').value = '-1';
+      if (bd) bd.value = 'none';
       refresh();
     });
   }
 
-  // Re-render charts on theme toggle so colors update
+  // Re-render charts on theme toggle so colors update.
   function watchTheme() {
     var obs = new MutationObserver(function () {
       if (DATA) refresh();
@@ -498,6 +709,7 @@
         document.getElementById('td-loading').hidden = true;
         document.getElementById('td-app').hidden = false;
         buildPeriodSelects();
+        buildBreakdownSelect();
         buildSelect('td-country', DATA.countries, L.anyCountry, function (code, i) {
           return DATA.country_names[i] + ' (' + code + ')';
         });
