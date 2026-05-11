@@ -19,6 +19,7 @@
     { label: 'Home',                        hint: 'Overview & featured work',         url: pathPrefix + '/',                      keywords: 'index landing' },
     { label: 'Work',                        hint: 'Portfolio projects',               url: pathPrefix + '/work.html',             keywords: 'projects portfolio' },
     { label: 'Publications & Awards',       hint: 'Recognition',                      url: pathPrefix + '/#publications',         keywords: 'awards papers transparency report' },
+    { label: 'Transparency Report dashboard', hint: 'Google gov removals — interactive', url: pathPrefix + '/transparency.html',   keywords: 'google government removals data analysis dashboard charts' },
     { label: 'Translation services',        hint: 'JA / ZH / KO ↔ EN',           url: pathPrefix + '/translation.html',      keywords: 'japanese chinese korean' },
     { label: 'Résumé',            hint: 'Roblox AI Content Safety PM',      url: '/resume-roblox-ai-content-safety-pm.html', keywords: 'cv resume' },
     { label: 'Filter projects: AI / LLM',   hint: 'RAG, Gemini, prompt engineering',  url: '/work.html?filter=ai-llm',            keywords: 'rag gemini llm prompt' },
