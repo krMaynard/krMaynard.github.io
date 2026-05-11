@@ -813,3 +813,223 @@ footer {
     animation: octocat-wave 560ms ease-in-out
   }
 }
+
+/* ============================================================
+   COMMAND PALETTE (⌘K)
+   ============================================================ */
+
+.cmdk-trigger {
+  font-family: inherit;
+  background: transparent;
+  border: 1px solid var(--border-soft);
+  border-radius: 4px;
+  padding: 0.22rem 0.5rem;
+  cursor: pointer;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  line-height: 1;
+  color: var(--text-muted);
+}
+
+.cmdk-trigger:hover {
+  border-color: var(--brand);
+  color: var(--brand);
+}
+
+.cmdk-trigger:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+.cmdk-shortcut {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.72rem;
+  color: inherit;
+  margin: 0;
+}
+
+.cmdk-dialog {
+  margin: 12vh auto auto;
+  padding: 0;
+  border: none;
+  border-radius: 12px;
+  width: min(560px, calc(100vw - 2rem));
+  max-height: min(70vh, 540px);
+  background: var(--bg-elevated);
+  color: var(--text);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  font-family: 'Open Sans', sans-serif;
+  overflow: hidden;
+}
+
+.cmdk-dialog::backdrop {
+  background: rgba(15, 20, 25, 0.55);
+  backdrop-filter: blur(2px);
+}
+
+.cmdk-container {
+  display: flex;
+  flex-direction: column;
+  max-height: inherit;
+  margin: 0;
+}
+
+.cmdk-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border);
+  margin: 0;
+}
+
+.cmdk-search-icon {
+  font-size: 1.1rem;
+  color: var(--text-figcap);
+  margin: 0;
+  line-height: 1;
+}
+
+.cmdk-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--text-strong);
+  background: transparent;
+  margin: 0;
+  padding: 0;
+}
+
+.cmdk-input::placeholder {
+  color: var(--text-very-faint);
+}
+
+.cmdk-esc {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.7rem;
+  color: var(--text-figcap);
+  background: var(--bg-chip);
+  border: 1px solid var(--border-card);
+  border-radius: 4px;
+  padding: 0.12rem 0.4rem;
+  margin: 0;
+}
+
+.cmdk-list {
+  list-style: none;
+  padding: 0.35rem;
+  margin: 0;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+
+.cmdk-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.cmdk-item.is-active {
+  background: var(--brand-bg);
+}
+
+.cmdk-label {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-strong);
+  margin: 0;
+  flex: 0 1 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cmdk-item.is-active .cmdk-label {
+  color: var(--brand-text-on-bg);
+}
+
+.cmdk-hint {
+  font-size: 0.78rem;
+  color: var(--text-figcap);
+  margin: 0;
+  text-align: right;
+  flex: 0 1 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cmdk-empty {
+  text-align: center;
+  color: var(--text-figcap);
+  font-size: 0.88rem;
+  padding: 2rem 1rem;
+  margin: 0;
+}
+
+.cmdk-footer {
+  display: flex;
+  gap: 1rem;
+  padding: 0.55rem 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.72rem;
+  color: var(--text-figcap);
+  margin: 0;
+  flex-wrap: wrap;
+}
+
+.cmdk-footer span {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.cmdk-footer kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.68rem;
+  background: var(--bg-chip);
+  border: 1px solid var(--border-card);
+  border-radius: 3px;
+  padding: 0.05rem 0.35rem;
+  margin: 0 0.1rem 0 0;
+  color: var(--text-muted);
+}
+
+.cmdk-toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a5c55;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.55rem 1rem;
+  border-radius: 6px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  margin: 0;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.cmdk-toast.is-out {
+  opacity: 0;
+  transform: translateX(-50%) translateY(8px);
+}
+
+@media screen and (max-width: 767px) {
+  .cmdk-trigger { display: none; }
+  .cmdk-dialog { margin-top: 8vh; }
+}
