@@ -3,6 +3,10 @@
 # Example: chatbot_worker_url: https://kieranmaynard-chatbot.YOUR_SUBDOMAIN.workers.dev/chat
 chatbot_worker_url:
 
+exclude:
+  - CLAUDE.md
+  - README.md
+
 defaults:
 
   -
