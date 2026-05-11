@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title %}{{ page.title }} | {% endif %}Lost Chapters — Murakami</title>
+  <link rel="stylesheet" href="{{ site.baseurl }}/styles.css">
+  <link rel="stylesheet" href="{{ site.baseurl }}/murakami/murakami.css">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (!t) t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+</head>
+
+<body>
+  <nav class="mura-nav">
+    <div class="mura-nav-inner">
+      <a class="mura-nav-home" href="{{ site.baseurl }}/murakami/">ねじまき鳥クロニクル</a>
+      <div class="mura-nav-links">
+        <a href="{{ site.baseurl }}/murakami/wind-up-15">Ch.&nbsp;15</a>
+        <a href="{{ site.baseurl }}/murakami/wind-up-17">Ch.&nbsp;17</a>
+        <a href="{{ site.baseurl }}/murakami/wind-up-18">Ch.&nbsp;18</a>
+        <a href="{{ site.baseurl }}/murakami/wind-up-26">Ch.&nbsp;26</a>
+        <span class="mura-sep">·</span>
+        <a href="{{ site.baseurl }}/murakami/wind-sing">風の歌を聴け</a>
+        <a href="{{ site.baseurl }}/murakami/news">News</a>
+        <span class="mura-sep">|</span>
+        <a href="{{ site.baseurl }}/">kieranmaynard.com</a>
+      </div>
+      <button type="button" class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+        <svg class="theme-icon-dark" viewBox="0 0 20 20" aria-hidden="true" fill="currentColor"><path d="M17.293 13.293A8 8 0 0 1 6.707 2.707a8.001 8.001 0 1 0 10.586 10.586z"/></svg>
+        <svg class="theme-icon-light" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="10" cy="10" r="3.2" fill="currentColor" stroke="none"/><line x1="10" y1="2" x2="10" y2="3.8"/><line x1="10" y1="16.2" x2="10" y2="18"/><line x1="2" y1="10" x2="3.8" y2="10"/><line x1="16.2" y1="10" x2="18" y2="10"/><line x1="3.86" y1="3.86" x2="5.13" y2="5.13"/><line x1="14.87" y1="14.87" x2="16.14" y2="16.14"/><line x1="3.86" y1="16.14" x2="5.13" y2="14.87"/><line x1="14.87" y1="5.13" x2="16.14" y2="3.86"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <main class="mura-main">
+    {% if page.chapter %}
+    <header class="mura-chapter-header">
+      <p class="mura-eyebrow">Book {{ page.volume }}, Chapter {{ page.chapter }}{% if page.partial %} — partial translation{% endif %}</p>
+      <h1>{{ page.title_ja }}</h1>
+      <p class="mura-subtitle">{{ page.title_en }}</p>
+      <div class="mura-meta">
+        <span>Murakami Haruki ({{ page.author_year }})</span>
+        <span>Trans. Kieran Maynard ({{ page.translator_year }})</span>
+      </div>
+      <p class="mura-citation">{{ page.source_citation }}</p>
+    </header>
+    <article class="mura-prose">
+      {{ content }}
+    </article>
+    {% else %}
+    <div class="mura-content">
+      {{ content }}
+    </div>
+    {% endif %}
+  </main>
+
+  <footer class="mura-footer">
+    <nav class="mura-footer-nav">
+      <a href="{{ site.baseurl }}/murakami/">Index</a>
+      <a href="{{ site.baseurl }}/murakami/wind-up-15">Chapter 15</a>
+      <a href="{{ site.baseurl }}/murakami/wind-up-17">Chapter 17</a>
+      <a href="{{ site.baseurl }}/murakami/wind-up-18">Chapter 18</a>
+      <a href="{{ site.baseurl }}/murakami/wind-up-26">Chapter 26</a>
+      <a href="{{ site.baseurl }}/murakami/wind-sing">Listen to the Wind Sing</a>
+      <a href="{{ site.baseurl }}/murakami/news">News</a>
+    </nav>
+    <p class="mura-copyright">Original © Murakami Haruki &middot; Translation © Kieran R. Maynard (<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener">CC BY-NC-SA 4.0</a>)</p>
+    <p class="mura-copyright-note">These translations are available for non-commercial use with attribution. No claims are made regarding rights to Murakami's original works.</p>
+  </footer>
+
+  <script src="{{ site.baseurl }}/main.js" defer></script>
+</body>
+
+</html>

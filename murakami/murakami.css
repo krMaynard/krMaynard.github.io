@@ -1,0 +1,515 @@
+/* Murakami Translation Section */
+
+/* ============================================================
+   NAV
+   ============================================================ */
+
+.mura-nav {
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.mura-nav-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.mura-nav-home {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text);
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.mura-nav-home:hover {
+  color: var(--brand);
+}
+
+.mura-nav-links {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.mura-nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+
+.mura-nav-links a:hover {
+  color: var(--brand);
+}
+
+.mura-sep {
+  color: var(--text-very-faint);
+  user-select: none;
+  font-size: 0.875rem;
+}
+
+/* ============================================================
+   MAIN AREA
+   ============================================================ */
+
+.mura-main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1.5rem 5rem;
+}
+
+.mura-content {
+  /* index and other non-chapter pages */
+}
+
+/* ============================================================
+   CHAPTER HEADER
+   ============================================================ */
+
+.mura-chapter-header {
+  padding: 2.5rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+}
+
+.mura-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand);
+  margin: 0 0 0.875rem;
+}
+
+.mura-chapter-header h1 {
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: var(--text-strong);
+  line-height: 1.45;
+  margin: 0 0 0.5rem;
+}
+
+.mura-subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin: 0 0 1.25rem;
+  line-height: 1.6;
+}
+
+.mura-meta {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--text-subtle);
+  margin-bottom: 0.875rem;
+  flex-wrap: wrap;
+}
+
+.mura-citation {
+  font-size: 0.825rem;
+  color: var(--text-faint);
+  border-left: 2px solid var(--border-soft);
+  padding: 0.25rem 0 0.25rem 0.75rem;
+  margin: 0;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* ============================================================
+   PROSE (TRANSLATION TEXT)
+   ============================================================ */
+
+.mura-prose {
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--text-narrative);
+}
+
+.mura-prose p {
+  margin: 0 0 1.4em;
+}
+
+.mura-prose em {
+  font-style: italic;
+}
+
+.mura-prose strong {
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+/* Translator's notes embedded in prose */
+.mura-tl-note {
+  font-size: 0.875rem;
+  color: var(--text-subtle);
+  font-style: italic;
+  background: var(--bg-subtle);
+  border-left: 3px solid var(--brand);
+  border-radius: 0 4px 4px 0;
+  padding: 0.6rem 0.875rem;
+  margin: 1.75rem 0;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   INDEX PAGE
+   ============================================================ */
+
+.mura-hero {
+  padding: 2.5rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+}
+
+.mura-hero h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-strong);
+  margin: 0 0 0.3rem;
+  line-height: 1.3;
+}
+
+.mura-hero .ja-title {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  margin: 0 0 1.5rem;
+}
+
+.mura-hero p {
+  font-size: 0.975rem;
+  color: var(--text-narrative);
+  line-height: 1.75;
+  margin: 0 0 0.875rem;
+  max-width: 640px;
+}
+
+.mura-hero a {
+  color: var(--brand);
+  text-decoration: none;
+}
+
+.mura-hero a:hover {
+  text-decoration: underline;
+}
+
+.mura-section-label {
+  font-size: 0.725rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin: 0 0 1rem;
+}
+
+.mura-chapter-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.mura-chapter-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  padding: 1.25rem;
+  text-decoration: none;
+  display: block;
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+
+.mura-chapter-card:hover {
+  border-color: var(--brand);
+  box-shadow: 0 2px 10px var(--shadow-card);
+}
+
+.mura-chapter-num {
+  font-size: 0.725rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand);
+  margin: 0 0 0.5rem;
+}
+
+.mura-chapter-title-ja {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-strong);
+  margin: 0 0 0.3rem;
+  line-height: 1.45;
+}
+
+.mura-chapter-title-en {
+  font-size: 0.825rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin: 0 0 0.5rem;
+  line-height: 1.45;
+}
+
+.mura-chapter-desc {
+  font-size: 0.8rem;
+  color: var(--text-subtle);
+  margin: 0;
+  line-height: 1.55;
+}
+
+.mura-other-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2.5rem;
+}
+
+.mura-other-list li {
+  padding: 0.875rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.mura-other-list li:first-child {
+  border-top: 1px solid var(--border);
+}
+
+.mura-other-list a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.925rem;
+  font-weight: 500;
+}
+
+.mura-other-list a:hover {
+  color: var(--brand);
+}
+
+.mura-other-list .item-note {
+  font-size: 0.825rem;
+  color: var(--text-subtle);
+  margin: 0.25rem 0 0;
+  line-height: 1.5;
+}
+
+.mura-acknowledgments {
+  font-size: 0.85rem;
+  color: var(--text-subtle);
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+
+/* ============================================================
+   BILINGUAL LAYOUT (wind-sing)
+   ============================================================ */
+
+.mura-bilingual-header {
+  padding: 2.5rem 0 1.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2rem;
+}
+
+.mura-bilingual-header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-strong);
+  margin: 0 0 0.3rem;
+}
+
+.mura-bilingual-header .ja-subtitle {
+  font-size: 0.975rem;
+  color: var(--text-muted);
+  margin: 0 0 1rem;
+}
+
+.mura-bilingual-header p {
+  font-size: 0.875rem;
+  color: var(--text-subtle);
+  margin: 0 0 0.4rem;
+  line-height: 1.6;
+}
+
+.mura-bilingual {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.mura-bilingual-col h3 {
+  font-size: 0.725rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin: 0 0 1.25rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+}
+
+.mura-bilingual-col p {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--text-narrative);
+  margin: 0 0 1em;
+}
+
+.mura-bilingual-col .attribution {
+  font-size: 0.825rem;
+  color: var(--text-subtle);
+  font-style: italic;
+  margin-top: 1.5rem;
+}
+
+/* ============================================================
+   NEWS PAGE
+   ============================================================ */
+
+.mura-news-header {
+  padding: 2.5rem 0 1.75rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+}
+
+.mura-news-header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-strong);
+  margin: 0 0 0.75rem;
+  line-height: 1.35;
+}
+
+.mura-news-header .byline {
+  font-size: 0.85rem;
+  color: var(--text-subtle);
+  margin: 0;
+}
+
+.mura-news-body {
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.mura-news-para {
+  margin-bottom: 1.75rem;
+}
+
+.mura-news-para p.original {
+  color: var(--text-muted);
+  margin: 0 0 0.4rem;
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--border-soft);
+  font-size: 0.95rem;
+}
+
+.mura-news-para p.translation {
+  color: var(--text-narrative);
+  margin: 0;
+  font-size: 1rem;
+}
+
+.mura-news-comment {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-card);
+  border-radius: 6px;
+  padding: 1.25rem 1.25rem 0.5rem;
+  margin-top: 2rem;
+  font-size: 0.925rem;
+  line-height: 1.7;
+  color: var(--text-narrative);
+}
+
+.mura-news-comment p {
+  margin: 0 0 0.75rem;
+}
+
+.mura-news-comment-label {
+  font-size: 0.725rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin: 0 0 0.75rem;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.mura-footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem 1.5rem 2.5rem;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.mura-footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.mura-footer-nav a {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.mura-footer-nav a:hover {
+  color: var(--brand);
+}
+
+.mura-copyright {
+  font-size: 0.825rem;
+  color: var(--text-subtle);
+  margin: 0 0 0.4rem;
+}
+
+.mura-copyright a {
+  color: var(--brand);
+  text-decoration: none;
+}
+
+.mura-copyright-note {
+  font-size: 0.8rem;
+  color: var(--text-faint);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 640px) {
+  .mura-nav-links {
+    display: none;
+  }
+
+  .mura-chapter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mura-bilingual {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .mura-chapter-header h1 {
+    font-size: 1.2rem;
+  }
+
+  .mura-hero h1 {
+    font-size: 1.4rem;
+  }
+}
