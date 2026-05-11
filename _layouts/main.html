@@ -41,6 +41,9 @@
         <a href="{{ page.lang_url }}" class="lang-switch">日本語</a>
         {% endif %}
         {% endif %}
+        <button type="button" class="cmdk-trigger" data-open-cmdk aria-label="Open command palette">
+          <kbd class="cmdk-shortcut">⌘K</kbd>
+        </button>
       </div>
     </nav>
 
@@ -49,6 +52,24 @@
     </div>
 
     <footer>Built with <a href="https://claude.ai/code" style="color: inherit;">Claude Code</a>.</footer>
+
+    <dialog id="cmdk-dialog" class="cmdk-dialog" aria-label="Command palette" data-lang="{{ page.lang | default: 'en' }}" data-lang-url="{{ page.lang_url | default: '' }}">
+      <div class="cmdk-container">
+        <div class="cmdk-input-row">
+          <span class="cmdk-search-icon" aria-hidden="true">⌕</span>
+          <input type="text" class="cmdk-input" placeholder="Search or type a command…" autocomplete="off" spellcheck="false" />
+          <kbd class="cmdk-esc">esc</kbd>
+        </div>
+        <ul class="cmdk-list" role="listbox" aria-label="Commands"></ul>
+        <div class="cmdk-empty" hidden>No commands match.</div>
+        <div class="cmdk-footer">
+          <span><kbd>↑</kbd><kbd>↓</kbd>&nbsp;navigate</span>
+          <span><kbd>↵</kbd>&nbsp;select</span>
+          <span><kbd>esc</kbd>&nbsp;close</span>
+        </div>
+      </div>
+    </dialog>
+    <script src="{{ site.baseurl }}/command-palette.js" defer></script>
 
     {% if site.chatbot_worker_url %}
     <script>window.CHATBOT_WORKER_URL = '{{ site.chatbot_worker_url }}';</script>
