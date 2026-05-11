@@ -251,7 +251,7 @@
       totals: totals,
       byPeriod: byPeriod, byPeriodRemoved: byPeriodRemoved,
       byCountry: byCountry, byReason: byReason, byProduct: byProduct,
-      matrix: matrix, categoryTotals: categoryTotals
+      matrix: matrix
     };
   }
 
