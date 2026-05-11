@@ -211,7 +211,6 @@
     var dim = DIM[FILTERS.breakdownBy] || null;
     // matrix[categoryIdx] = Array(P) of items_targeted
     var matrix = dim ? {} : null;
-    var matrix = dim ? {} : null;
 
     for (var i = 0; i < rows.length; i++) {
       var r = rows[i];
@@ -238,7 +237,6 @@
         var cat = r[dim.col];
         if (!matrix[cat]) matrix[cat] = new Array(P).fill(0);
         matrix[cat][r[0]] += r[6];
-        categoryTotals[cat] = (categoryTotals[cat] || 0) + r[6];
       }
     }
 
@@ -364,10 +362,10 @@
     var withCountryCode = FILTERS.breakdownBy === 'country';
 
     // Rank categories by total items in the selected period range.
+    // Rows are pre-filtered by fromP..toP, so values outside the range are 0
+    // and a full-array reduction equals the in-range sum.
     function rangeTotal(arr) {
-      var s = 0;
-      for (var i = fromP; i <= toP; i++) s += arr[i];
-      return s;
+      return arr.reduce(function (a, b) { return a + b; }, 0);
     }
     var entries = Object.keys(agg.matrix).map(function (k) {
       return { idx: parseInt(k, 10), series: agg.matrix[k], total: rangeTotal(agg.matrix[k]) };
