@@ -85,6 +85,7 @@
       decisionsReversed: 'Decisions reversed',
       upholdRate: 'Uphold rate',
       reversalRate: 'Reversal rate',
+      overturnRate: 'Overturn rate by service',
       complaintsByService: 'Internal complaints by service',
       complaintOutcomes: 'Complaint outcomes by service',
       upheld: 'Upheld',
@@ -155,6 +156,7 @@
       decisionsReversed: '覆された決定',
       upholdRate: '維持率',
       reversalRate: '逆転率',
+      overturnRate: 'サービス別・逆転率',
       complaintsByService: 'サービス別・内部申立件数',
       complaintOutcomes: 'サービス別・申立結果',
       upheld: '維持',
@@ -504,6 +506,11 @@
     var reversedData = D.services.map(function (_, i) {
       return t7val(i, secInternal, indComplaints, scopeReversed);
     });
+    var overturnRateData = D.services.map(function (_, i) {
+      var total = t7val(i, secInternal, indComplaints, scopeTotal);
+      var rev = t7val(i, secInternal, indComplaints, scopeReversed);
+      return total > 0 ? parseFloat((rev / total * 100).toFixed(1)) : null;
+    });
 
     setCharts([
       {
@@ -519,6 +526,13 @@
           { label: _.upheld, data: filteredData(upheldData, f.svc), backgroundColor: '#4e79a7' },
           { label: _.reversed, data: filteredData(reversedData, f.svc), backgroundColor: '#e15759' },
         ]
+      },
+      {
+        title: _.overturnRate, id: 'vlop-c3', type: 'bar', wide: true,
+        labels: filteredLabels(f.svc),
+        datasets: [{ label: '%', data: filteredData(overturnRateData, f.svc),
+                     backgroundColor: filteredColors(f.svc) }],
+        pctAxis: true,
       },
     ]);
 
@@ -599,10 +613,21 @@
     });
     specs.forEach(function (spec) {
       var ctx = document.getElementById(spec.id).getContext('2d');
+      var extra = {};
+      if (spec.pctAxis) {
+        extra.scales = {
+          x: { ticks: { font: { size: 11 } } },
+          y: { ticks: { font: { size: 11 }, callback: function (v) { return v + '%'; } }, max: 100 }
+        };
+        extra.plugins = {
+          legend: { display: false },
+          tooltip: { callbacks: { label: function (ctx) { return ' ' + ctx.raw + '%'; } } }
+        };
+      }
       charts[spec.id] = new Chart(ctx, {
         type: spec.type,
         data: { labels: spec.labels, datasets: spec.datasets },
-        options: chartOpts({})
+        options: chartOpts(extra)
       });
     });
   }
