@@ -1,5 +1,5 @@
 /* VLOP DSA Transparency Dashboard
- * Loads /data/vlop-dsa.json and renders comparative charts across Google services.
+ * Loads /data/vlop-dsa.json and renders comparative charts across platforms/services.
  *
  * Data schema:
  *   t3 row: [svcIdx, catIdx, scopeIdx, ordersAct, items, ordersInfo]
@@ -18,6 +18,7 @@
     en: {
       loading: 'Loading data…',
       loadError: 'Could not load dataset.',
+      allPlatforms: 'All platforms',
       allServices: 'All services',
       allCategories: 'All categories',
       reset: 'Reset filters',
@@ -99,6 +100,7 @@
     ja: {
       loading: 'データ読み込み中…',
       loadError: 'データセットを読み込めませんでした。',
+      allPlatforms: 'すべてのプラットフォーム',
       allServices: 'すべてのサービス',
       allCategories: 'すべてのカテゴリ',
       reset: 'フィルタをリセット',
@@ -174,9 +176,12 @@
   var charts = {};
   var currentTab = 't4';
 
-  var SERVICE_COLORS = [
-    '#4e79a7', '#f28e2b', '#e15759', '#76b7b2', '#59a14f', '#edc948'
+  var PALETTE = [
+    '#4e79a7', '#f28e2b', '#e15759', '#76b7b2', '#59a14f', '#edc948',
+    '#b07aa1', '#ff9da7', '#9c755f', '#bab0ac', '#d37295'
   ];
+
+  function svcColor(i) { return PALETTE[i % PALETTE.length]; }
 
   // ── Bootstrap ────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', function () {
@@ -196,14 +201,14 @@
   });
 
   function init() {
-    // Apply translated tab labels
     var tabMap = { t4: _.tabT4, t5: _.tabT5, t6: _.tabT6, t3: _.tabT3, t7: _.tabT7 };
     document.querySelectorAll('.vlop-tab').forEach(function (btn) {
       btn.textContent = tabMap[btn.dataset.tab] || btn.textContent;
     });
     document.getElementById('vlop-reset').textContent = _.reset;
 
-    buildServiceFilter();
+    buildPlatformFilter();
+    buildServiceFilter(null);
     buildCategoryFilter('t4');
     wireTabButtons();
     wireFilters();
@@ -211,12 +216,28 @@
   }
 
   // ── Filters ──────────────────────────────────────────────────
-  function buildServiceFilter() {
+  function buildPlatformFilter() {
+    var sel = document.getElementById('vlop-platform');
+    sel.innerHTML = '<option value="">' + _.allPlatforms + '</option>';
+    var seen = [];
+    (D.service_platforms || []).forEach(function (p) {
+      if (seen.indexOf(p) === -1) {
+        seen.push(p);
+        sel.innerHTML += '<option value="' + p + '">' + p + '</option>';
+      }
+    });
+  }
+
+  function buildServiceFilter(platformFilter) {
     var sel = document.getElementById('vlop-service');
+    var prev = sel.value;
     sel.innerHTML = '<option value="">' + _.allServices + '</option>';
     D.services.forEach(function (s, i) {
+      if (platformFilter && (D.service_platforms || [])[i] !== platformFilter) return;
       sel.innerHTML += '<option value="' + i + '">' + s + '</option>';
     });
+    // restore previous selection if still valid
+    if (prev && sel.querySelector('option[value="' + prev + '"]')) sel.value = prev;
   }
 
   function buildCategoryFilter(tab) {
@@ -235,10 +256,23 @@
   }
 
   function getFilters() {
+    var platVal = document.getElementById('vlop-platform').value;
     var svcVal = document.getElementById('vlop-service').value;
     var catVal = document.getElementById('vlop-category').value;
+
+    // svcs: null = all services, otherwise array of service indices to include
+    var svcs = null;
+    if (svcVal !== '') {
+      svcs = [parseInt(svcVal)];
+    } else if (platVal !== '') {
+      svcs = [];
+      (D.service_platforms || []).forEach(function (p, i) {
+        if (p === platVal) svcs.push(i);
+      });
+    }
+
     return {
-      svc: svcVal === '' ? null : parseInt(svcVal),
+      svcs: svcs,
       cat: catVal === '' ? null : parseInt(catVal),
     };
   }
@@ -259,9 +293,16 @@
   }
 
   function wireFilters() {
+    document.getElementById('vlop-platform').addEventListener('change', function () {
+      var platVal = document.getElementById('vlop-platform').value;
+      buildServiceFilter(platVal || null);
+      render();
+    });
     document.getElementById('vlop-service').addEventListener('change', render);
     document.getElementById('vlop-category').addEventListener('change', render);
     document.getElementById('vlop-reset').addEventListener('click', function () {
+      document.getElementById('vlop-platform').value = '';
+      buildServiceFilter(null);
       document.getElementById('vlop-service').value = '';
       document.getElementById('vlop-category').value = '';
       render();
@@ -279,11 +320,15 @@
     else if (currentTab === 't7') renderT7(f);
   }
 
+  function inSvcs(svcs, svcIdx) {
+    return svcs === null || svcs.indexOf(svcIdx) !== -1;
+  }
+
   // ── T4: Notices ──────────────────────────────────────────────
   function renderT4(f) {
     var catFilter = f.cat !== null ? f.cat : indexOf(D.categories, 'TOTAL');
     var rows = D.t4.filter(function (r) {
-      return (f.svc === null || r[0] === f.svc) && r[1] === catFilter;
+      return inSvcs(f.svcs, r[0]) && r[1] === catFilter;
     });
 
     var bySvc = aggregateBySvc(rows, function (r) {
@@ -305,29 +350,30 @@
       { label: _.tfNotices, value: fmt(totals.tfNotices) },
     ]);
 
-    var noticeData = D.services.map(function (_, i) { return bySvc[i] ? bySvc[i].notices : 0; });
-    var actLawData = D.services.map(function (_, i) { return bySvc[i] ? bySvc[i].actLaw : 0; });
-    var actTCData = D.services.map(function (_, i) { return bySvc[i] ? bySvc[i].actTC : 0; });
+    var activeSvcs = activeSvcIndices(f.svcs);
+    var noticeData = activeSvcs.map(function (i) { return bySvc[i] ? bySvc[i].notices : 0; });
+    var actLawData = activeSvcs.map(function (i) { return bySvc[i] ? bySvc[i].actLaw : 0; });
+    var actTCData  = activeSvcs.map(function (i) { return bySvc[i] ? bySvc[i].actTC : 0; });
 
     setCharts([
       {
         title: _.noticesByService, id: 'vlop-c1', type: 'bar', wide: true,
-        labels: filteredLabels(f.svc),
-        datasets: [{ label: _.noticesReceived, data: filteredData(noticeData, f.svc),
-                     backgroundColor: filteredColors(f.svc) }]
+        labels: svcLabels(activeSvcs),
+        datasets: [{ label: _.noticesReceived, data: noticeData,
+                     backgroundColor: svcColors(activeSvcs) }]
       },
       {
         title: _.actionsByBasis, id: 'vlop-c2', type: 'bar', wide: true,
-        labels: filteredLabels(f.svc),
+        labels: svcLabels(activeSvcs),
         datasets: [
-          { label: _.removedLaw, data: filteredData(actLawData, f.svc), backgroundColor: '#4e79a7' },
-          { label: _.removedPolicy, data: filteredData(actTCData, f.svc), backgroundColor: '#f28e2b' },
+          { label: _.removedLaw,    data: actLawData, backgroundColor: '#4e79a7' },
+          { label: _.removedPolicy, data: actTCData,  backgroundColor: '#f28e2b' },
         ]
       },
     ]);
 
     if (f.cat === null) {
-      renderCategoryBreakdown('t4', f.svc, function (r) { return n(r[2]); }, _.noticesReceived);
+      renderCategoryBreakdown('t4', f.svcs, function (r) { return n(r[2]); }, _.noticesReceived);
     }
 
     showTable(
@@ -346,7 +392,7 @@
   function renderT5T6(f, tab, titlePrefix) {
     var catFilter = f.cat !== null ? f.cat : indexOf(D.categories, 'TOTAL');
     var rows = (D[tab] || []).filter(function (r) {
-      return (f.svc === null || r[0] === f.svc) && r[1] === catFilter;
+      return inSvcs(f.svcs, r[0]) && r[1] === catFilter;
     });
 
     var bySvc = aggregateBySvc(rows, function (r) {
@@ -361,15 +407,16 @@
     var totals = sumObj(bySvc);
 
     setMetrics([
-      { label: _.totalMeasures, value: fmt(totals.measures) },
-      { label: _.automatedDetection, value: fmt(totals.automated) },
-      { label: _.automationRate, value: totals.measures > 0 ? pct(totals.automated / totals.measures) : '—' },
-      { label: _.contentRemovals, value: fmt(totals.removal) },
+      { label: _.totalMeasures,       value: fmt(totals.measures) },
+      { label: _.automatedDetection,  value: fmt(totals.automated) },
+      { label: _.automationRate,      value: totals.measures > 0 ? pct(totals.automated / totals.measures) : '—' },
+      { label: _.contentRemovals,     value: fmt(totals.removal) },
       { label: _.accountRestrictions, value: fmt(totals.accSusp + totals.accTerm) },
     ]);
 
-    var measData = D.services.map(function (_, i) { return bySvc[i] ? bySvc[i].measures : 0; });
-    var autoData = D.services.map(function (_, i) { return bySvc[i] ? bySvc[i].automated : 0; });
+    var activeSvcs = activeSvcIndices(f.svcs);
+    var measData = activeSvcs.map(function (i) { return bySvc[i] ? bySvc[i].measures   : 0; });
+    var autoData = activeSvcs.map(function (i) { return bySvc[i] ? bySvc[i].automated  : 0; });
 
     var actionLabels = [_.aRemoval, _.aDisable, _.aDemoted, _.aAgeRestr,
                         _.aInteraction, _.aLabelled, _.aVisOther,
@@ -384,29 +431,28 @@
     setCharts([
       {
         title: _.measuresByService, id: 'vlop-c1', type: 'bar', wide: false,
-        labels: filteredLabels(f.svc),
-        datasets: [{ label: _.measures, data: filteredData(measData, f.svc),
-                     backgroundColor: filteredColors(f.svc) }]
+        labels: svcLabels(activeSvcs),
+        datasets: [{ label: _.measures, data: measData, backgroundColor: svcColors(activeSvcs) }]
       },
       {
         title: _.automatedVsTotal, id: 'vlop-c2', type: 'bar', wide: false,
-        labels: filteredLabels(f.svc),
+        labels: svcLabels(activeSvcs),
         datasets: [
-          { label: _.automated, data: filteredData(autoData, f.svc), backgroundColor: '#4e79a7' },
-          { label: _.allMeasures, data: filteredData(measData, f.svc), backgroundColor: '#ddd', order: 2 },
+          { label: _.automated,   data: autoData, backgroundColor: '#4e79a7' },
+          { label: _.allMeasures, data: measData, backgroundColor: '#ddd', order: 2 },
         ]
       },
       {
         title: _.actionTypes, id: 'vlop-c3', type: 'bar', wide: true,
         labels: filteredAL,
         datasets: [{ label: _.count, data: filteredAD,
-          backgroundColor: filteredAL.map(function (_, i) { return SERVICE_COLORS[i % SERVICE_COLORS.length]; })
+          backgroundColor: filteredAL.map(function (_, i) { return PALETTE[i % PALETTE.length]; })
         }]
       },
     ]);
 
     if (f.cat === null) {
-      renderCategoryBreakdown(tab, f.svc, function (r) { return n(r[2]); }, _.totalMeasures);
+      renderCategoryBreakdown(tab, f.svcs, function (r) { return n(r[2]); }, _.totalMeasures);
     }
 
     showTable(
@@ -422,7 +468,7 @@
   function renderT3(f) {
     var catFilter = f.cat !== null ? f.cat : indexOf(D.categories, 'TOTAL');
     var rows = D.t3.filter(function (r) {
-      return (f.svc === null || r[0] === f.svc) && r[1] === catFilter;
+      return inSvcs(f.svcs, r[0]) && r[1] === catFilter;
     });
 
     var bySvc = aggregateBySvc(rows, function (r) {
@@ -434,27 +480,28 @@
 
     var totals = sumObj(bySvc);
     setMetrics([
-      { label: _.ordersToAct, value: fmt(totals.ordersAct) },
+      { label: _.ordersToAct,  value: fmt(totals.ordersAct) },
       { label: _.itemsInOrders, value: fmt(totals.items) },
       { label: _.ordersForInfo, value: fmt(totals.ordersInfo) },
     ]);
 
-    var orderData = D.services.map(function (_, i) { return bySvc[i] ? bySvc[i].ordersAct : 0; });
-    var infoData = D.services.map(function (_, i) { return bySvc[i] ? bySvc[i].ordersInfo : 0; });
+    var activeSvcs = activeSvcIndices(f.svcs);
+    var orderData = activeSvcs.map(function (i) { return bySvc[i] ? bySvc[i].ordersAct : 0; });
+    var infoData  = activeSvcs.map(function (i) { return bySvc[i] ? bySvc[i].ordersInfo : 0; });
 
     setCharts([
       {
         title: _.ordersChart, id: 'vlop-c1', type: 'bar', wide: true,
-        labels: filteredLabels(f.svc),
+        labels: svcLabels(activeSvcs),
         datasets: [
-          { label: _.ordersToActLabel, data: filteredData(orderData, f.svc), backgroundColor: '#4e79a7' },
-          { label: _.ordersForInfoLabel, data: filteredData(infoData, f.svc), backgroundColor: '#f28e2b' },
+          { label: _.ordersToActLabel,   data: orderData, backgroundColor: '#4e79a7' },
+          { label: _.ordersForInfoLabel, data: infoData,  backgroundColor: '#f28e2b' },
         ]
       },
     ]);
 
     if (f.cat === null) {
-      renderCategoryBreakdown('t3', f.svc, function (r) { return n(r[3]); }, _.ordersToAct);
+      renderCategoryBreakdown('t3', f.svcs, function (r) { return n(r[3]); }, _.ordersToAct);
     }
 
     showTable(
@@ -468,10 +515,10 @@
 
   // ── T7: Appeals ───────────────────────────────────────────────
   function renderT7(f) {
-    var secInternal = indexOf(D.sections, 'Internal complaints mechanism');
+    var secInternal  = indexOf(D.sections,   'Internal complaints mechanism');
     var indComplaints = indexOf(D.indicators, 'Number of complaints submitted to the internal-complaints mechanism');
-    var scopeTotal = indexOf(D.scopes, 'Total number');
-    var scopeUpheld = indexOf(D.scopes, 'Decisions upheld');
+    var scopeTotal   = indexOf(D.scopes, 'Total number');
+    var scopeUpheld  = indexOf(D.scopes, 'Decisions upheld');
     var scopeReversed = indexOf(D.scopes, 'Decisions reversed');
 
     function t7val(svcIdx, sec, ind, scope) {
@@ -483,61 +530,56 @@
 
     var totalComplaints = 0, totalUpheld = 0, totalReversed = 0;
     D.services.forEach(function (_, i) {
-      if (f.svc !== null && i !== f.svc) return;
+      if (!inSvcs(f.svcs, i)) return;
       totalComplaints += t7val(i, secInternal, indComplaints, scopeTotal);
-      totalUpheld += t7val(i, secInternal, indComplaints, scopeUpheld);
-      totalReversed += t7val(i, secInternal, indComplaints, scopeReversed);
+      totalUpheld     += t7val(i, secInternal, indComplaints, scopeUpheld);
+      totalReversed   += t7val(i, secInternal, indComplaints, scopeReversed);
     });
 
     setMetrics([
-      { label: _.totalComplaints, value: fmt(totalComplaints) },
-      { label: _.decisionsUpheld, value: fmt(totalUpheld) },
+      { label: _.totalComplaints,   value: fmt(totalComplaints) },
+      { label: _.decisionsUpheld,   value: fmt(totalUpheld) },
       { label: _.decisionsReversed, value: fmt(totalReversed) },
-      { label: _.upholdRate, value: totalComplaints > 0 ? pct(totalUpheld / totalComplaints) : '—' },
+      { label: _.upholdRate,   value: totalComplaints > 0 ? pct(totalUpheld   / totalComplaints) : '—' },
       { label: _.reversalRate, value: totalComplaints > 0 ? pct(totalReversed / totalComplaints) : '—' },
     ]);
 
-    var complaintData = D.services.map(function (_, i) {
-      return t7val(i, secInternal, indComplaints, scopeTotal);
-    });
-    var upheldData = D.services.map(function (_, i) {
-      return t7val(i, secInternal, indComplaints, scopeUpheld);
-    });
-    var reversedData = D.services.map(function (_, i) {
-      return t7val(i, secInternal, indComplaints, scopeReversed);
-    });
-    var overturnRateData = D.services.map(function (_, i) {
+    var activeSvcs = activeSvcIndices(f.svcs);
+    var complaintData   = activeSvcs.map(function (i) { return t7val(i, secInternal, indComplaints, scopeTotal); });
+    var upheldData      = activeSvcs.map(function (i) { return t7val(i, secInternal, indComplaints, scopeUpheld); });
+    var reversedData    = activeSvcs.map(function (i) { return t7val(i, secInternal, indComplaints, scopeReversed); });
+    var overturnRateData = activeSvcs.map(function (i) {
       var total = t7val(i, secInternal, indComplaints, scopeTotal);
-      var rev = t7val(i, secInternal, indComplaints, scopeReversed);
+      var rev   = t7val(i, secInternal, indComplaints, scopeReversed);
       return total > 0 ? parseFloat((rev / total * 100).toFixed(1)) : null;
     });
 
     setCharts([
       {
         title: _.complaintsByService, id: 'vlop-c1', type: 'bar', wide: true,
-        labels: filteredLabels(f.svc),
-        datasets: [{ label: _.totalComplaints, data: filteredData(complaintData, f.svc),
-                     backgroundColor: filteredColors(f.svc) }]
+        labels: svcLabels(activeSvcs),
+        datasets: [{ label: _.totalComplaints, data: complaintData,
+                     backgroundColor: svcColors(activeSvcs) }]
       },
       {
         title: _.complaintOutcomes, id: 'vlop-c2', type: 'bar', wide: true,
-        labels: filteredLabels(f.svc),
+        labels: svcLabels(activeSvcs),
         datasets: [
-          { label: _.upheld, data: filteredData(upheldData, f.svc), backgroundColor: '#4e79a7' },
-          { label: _.reversed, data: filteredData(reversedData, f.svc), backgroundColor: '#e15759' },
+          { label: _.upheld,   data: upheldData,   backgroundColor: '#4e79a7' },
+          { label: _.reversed, data: reversedData, backgroundColor: '#e15759' },
         ]
       },
       {
         title: _.overturnRate, id: 'vlop-c3', type: 'bar', wide: true,
-        labels: filteredLabels(f.svc),
-        datasets: [{ label: '%', data: filteredData(overturnRateData, f.svc),
-                     backgroundColor: filteredColors(f.svc) }],
+        labels: svcLabels(activeSvcs),
+        datasets: [{ label: '%', data: overturnRateData,
+                     backgroundColor: svcColors(activeSvcs) }],
         pctAxis: true,
       },
     ]);
 
     var tableRows = D.t7.filter(function (r) {
-      return (f.svc === null || r[0] === f.svc) && r[1] === secInternal;
+      return inSvcs(f.svcs, r[0]) && r[1] === secInternal;
     });
     showTable(
       [_.tService, _.tIndicator, _.tScope, _.tValue],
@@ -549,9 +591,9 @@
   }
 
   // ── Category breakdown helper ─────────────────────────────────
-  function renderCategoryBreakdown(tab, svcFilter, valueFn, metricLabel) {
+  function renderCategoryBreakdown(tab, svcsFilter, valueFn, metricLabel) {
     var rows = (D[tab] || []).filter(function (r) {
-      return (svcFilter === null || r[0] === svcFilter) && D.categories[r[1]] !== 'TOTAL';
+      return inSvcs(svcsFilter, r[0]) && D.categories[r[1]] !== 'TOTAL';
     });
 
     var byCat = {};
@@ -569,7 +611,7 @@
     if (sorted.length === 0) return;
 
     var catLabels = sorted.map(function (x) { return shortCatLabel(x.idx); });
-    var catData = sorted.map(function (x) { return x.val; });
+    var catData   = sorted.map(function (x) { return x.val; });
     var title = lang === 'ja'
       ? _.topCategories + metricLabel + '）'
       : _.topCategories + metricLabel.toLowerCase();
@@ -587,7 +629,7 @@
       data: {
         labels: catLabels,
         datasets: [{ label: metricLabel, data: catData,
-          backgroundColor: catLabels.map(function (_, i) { return SERVICE_COLORS[i % SERVICE_COLORS.length]; }) }]
+          backgroundColor: catLabels.map(function (_, i) { return PALETTE[i % PALETTE.length]; }) }]
       },
       options: chartOpts({ indexAxis: 'y', maintainAspectRatio: false })
     });
@@ -689,14 +731,15 @@
     var label = catLabel(catIdx);
     return label.length > 35 ? label.slice(0, 33) + '…' : label;
   }
-  function filteredLabels(svcFilter) {
-    return svcFilter !== null ? [D.services[svcFilter]] : D.services;
+
+  function activeSvcIndices(svcs) {
+    return svcs !== null ? svcs : D.services.map(function (_, i) { return i; });
   }
-  function filteredData(arr, svcFilter) {
-    return svcFilter !== null ? [arr[svcFilter]] : arr;
+  function svcLabels(indices) {
+    return indices.map(function (i) { return D.services[i]; });
   }
-  function filteredColors(svcFilter) {
-    return svcFilter !== null ? [SERVICE_COLORS[svcFilter]] : SERVICE_COLORS;
+  function svcColors(indices) {
+    return indices.map(function (i) { return svcColor(i); });
   }
 
   function aggregateBySvc(rows, extractFn, mergeFn) {

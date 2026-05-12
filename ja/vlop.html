@@ -7,14 +7,14 @@ lang_url: /vlop.html
 
 <div style="padding-top: 2.5rem; margin-bottom: 0.5rem;">
   <p class="section-label">分析</p>
-  <h1 style="margin-top: 0; margin-bottom: 0.5rem;">DSA透明性レポート — Googleサービス</h1>
+  <h1 style="margin-top: 0; margin-bottom: 0.5rem;">DSA透明性レポート — VLOPプラットフォーム</h1>
   <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
     EU「デジタルサービス法（DSA）」に基づき、超大規模オンラインプラットフォーム（VLOP）はコンテンツモデレーションに関する透明性レポートを公表する義務があります。
-    このダッシュボードでは、Googleが2026年2月に公表した6サービス分のレポートを対象に、
-    <strong>2025年7月1日〜12月31日</strong>の期間のデータを1つの比較ビューに統合しています。
+    このダッシュボードでは、<strong>2025年7月1日〜12月31日</strong>の期間を対象に、
+    <strong>6プラットフォーム</strong>（Google 6サービス、X、TikTok、Facebook、Instagram、Pinterest、AliExpress）の各社が個別に公表しているデータを1つの比較ビューに統合しています。
   </p>
   <p style="color: var(--text-faint); font-size: 0.85rem; margin-bottom: 2rem; background: transparent;">
-    出典：<a href="https://transparency.google/reports/dsa-transparency-report/">Google DSA透明性レポート</a>、2026年2月版。
+    出典：Google（2026年2月）、X、TikTok、Facebook、Instagram、Pinterest、AliExpress — 各社の公式DSA透明性レポート。
     データはブラウザ内で処理されており、バックエンドへのリクエストは発生しません。
   </p>
 </div>
@@ -34,6 +34,10 @@ lang_url: /vlop.html
 
   <!-- ── Filters ─────────────────────────────────────────── -->
   <div class="td-filters vlop-filters" role="region" aria-label="フィルタ">
+    <div class="td-filter td-filter-wide">
+      <label for="vlop-platform">プラットフォーム</label>
+      <select id="vlop-platform"></select>
+    </div>
     <div class="td-filter td-filter-wide">
       <label for="vlop-service">サービス</label>
       <select id="vlop-service"></select>
@@ -83,7 +87,7 @@ lang_url: /vlop.html
 <hr class="section-divider" />
 
 <p style="color: var(--text-very-faint); font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
-  データ：<a href="https://transparency.google/reports/dsa-transparency-report/">Google DSA透明性レポート</a>、2026年2月版（2025年下半期）。
+  データ：Google（2026年2月）、X、TikTok、Facebook、Instagram、Pinterest — 各社の公式DSA透明性レポート（2025年下半期）。
   分析・可視化：キーラン・メイナード。チャートは<a href="https://www.chartjs.org/">Chart.js</a>を使用。
 </p>
 
