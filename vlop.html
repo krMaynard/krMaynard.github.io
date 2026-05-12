@@ -1,0 +1,121 @@
+---
+layout: main
+title: VLOP DSA Transparency Reports
+lang: en
+---
+
+<div style="padding-top: 2.5rem; margin-bottom: 0.5rem;">
+  <p class="section-label">Analysis</p>
+  <h1 style="margin-top: 0; margin-bottom: 0.5rem;">DSA Transparency Reports — Google Services</h1>
+  <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
+    Under the EU Digital Services Act, Very Large Online Platforms must publish transparency reports on content moderation.
+    This dashboard covers Google's February 2026 reports across six services for the period
+    <strong>1 July – 31 December 2025</strong>, combining data that Google publishes separately per service into a single comparative view.
+  </p>
+  <p style="color: var(--text-faint); font-size: 0.85rem; margin-bottom: 2rem; background: transparent;">
+    Source: <a href="https://transparency.google/reports/dsa-transparency-report/">Google DSA Transparency Reports</a>, February 2026.
+    Data is processed in your browser; no requests are sent to a backend.
+  </p>
+</div>
+
+<!-- ── Tabs ──────────────────────────────────────────────── -->
+<div id="vlop-loading" class="td-loading">Loading data…</div>
+
+<div id="vlop-app" hidden>
+
+  <nav class="vlop-tabs" role="tablist" aria-label="Report sections">
+    <button class="vlop-tab vlop-tab-active" role="tab" data-tab="t4">Notices</button>
+    <button class="vlop-tab" role="tab" data-tab="t5">Own-initiative: Illegal</button>
+    <button class="vlop-tab" role="tab" data-tab="t6">Own-initiative: Policy</button>
+    <button class="vlop-tab" role="tab" data-tab="t3">Government Orders</button>
+    <button class="vlop-tab" role="tab" data-tab="t7">Appeals</button>
+  </nav>
+
+  <!-- ── Filters ─────────────────────────────────────────── -->
+  <div class="td-filters vlop-filters" role="region" aria-label="Filters">
+    <div class="td-filter td-filter-wide">
+      <label for="vlop-service">Service</label>
+      <select id="vlop-service"></select>
+    </div>
+    <div class="td-filter td-filter-wide" id="vlop-cat-wrap">
+      <label for="vlop-category">Category</label>
+      <select id="vlop-category"></select>
+    </div>
+    <button type="button" id="vlop-reset" class="td-reset">Reset filters</button>
+  </div>
+
+  <!-- ── Metric cards ───────────────────────────────────── -->
+  <div id="vlop-metrics" class="td-metrics"></div>
+
+  <!-- ── Charts ────────────────────────────────────────── -->
+  <div id="vlop-charts" class="td-chart-grid"></div>
+
+  <!-- ── Table ─────────────────────────────────────────── -->
+  <div id="vlop-table-wrap" class="td-table-card" hidden>
+    <div class="td-table-head">
+      <h3 id="vlop-table-title">Details</h3>
+      <span id="vlop-row-count" class="td-row-count"></span>
+    </div>
+    <div class="td-table-scroll">
+      <table class="td-table">
+        <thead><tr id="vlop-table-head"></tr></thead>
+        <tbody id="vlop-table-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── Notes ─────────────────────────────────────────────── -->
+<section class="td-readme" id="vlop-readme" hidden>
+  <h2 class="td-section-title">Reading the data</h2>
+  <ul class="td-bullets">
+    <li><strong>Notices (Table 4)</strong> are submissions from users or trusted flaggers reporting allegedly illegal content. A single notice can reference multiple items.</li>
+    <li><strong>Own-initiative actions (Tables 5 &amp; 6)</strong> are measures taken proactively by Google without a notice — Table 5 covers illegal content, Table 6 covers policy violations.</li>
+    <li><strong>Government orders (Table 3)</strong> are orders from EU member states to act against content or provide user information.</li>
+    <li><strong>Appeals (Table 7)</strong> covers complaints submitted to Google's internal mechanism and out-of-court dispute settlement bodies.</li>
+    <li><strong>TOTAL rows</strong> aggregate all content categories and are shown when "All categories" is selected.</li>
+    <li>Empty cells in the source data are treated as zero or not applicable. Contextual notes from Google are not included in this view.</li>
+  </ul>
+</section>
+
+<hr class="section-divider" />
+
+<p style="color: var(--text-very-faint); font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
+  Data: <a href="https://transparency.google/reports/dsa-transparency-report/">Google DSA Transparency Reports</a>, February 2026 (H2 2025).
+  Analysis and visualizations by Kieran Maynard. Charts use <a href="https://www.chartjs.org/">Chart.js</a>.
+  No analytics or tracking beyond the site default.
+</p>
+
+<style>
+.vlop-tabs {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 0;
+}
+.vlop-tab {
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-family: inherit;
+  transition: color 0.15s, border-color 0.15s;
+}
+.vlop-tab:hover { color: var(--text); }
+.vlop-tab-active {
+  color: var(--text);
+  border-bottom-color: var(--accent, #4e79a7);
+  font-weight: 600;
+}
+.vlop-filters { margin-bottom: 1.25rem; }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer></script>
+<script src="/vlop-dashboard.js" defer></script>
