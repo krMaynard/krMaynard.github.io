@@ -6,22 +6,179 @@
  *   t4 row: [svcIdx, catIdx, notices, tfNotices, items, tfItems, median, tfMedian, actLaw, tfActLaw, actTC, tfActTC]
  *   t5 row: [svcIdx, catIdx, measures, automated, removal, disable, demoted, ageRestr,
  *            interaction, labelled, visOther, monSusp, monTerm, monOther, svcSusp, svcTerm, accSusp, accTerm]
- *   t6 row: same layout as t5 but catIdx references categories (TC)
+ *   t6 row: same layout as t5
  *   t7 row: [svcIdx, secIdx, indIdx, scopeIdx, value]
  */
 (function () {
   'use strict';
 
-  var D; // loaded dataset
-  var charts = {}; // active Chart.js instances
+  var lang = /^\/ja(\/|$)/.test(window.location.pathname) ? 'ja' : 'en';
+
+  var L = {
+    en: {
+      loading: 'Loading data…',
+      loadError: 'Could not load dataset.',
+      allServices: 'All services',
+      allCategories: 'All categories',
+      reset: 'Reset filters',
+      rows: 'rows',
+      // tabs
+      tabT4: 'Notices',
+      tabT5: 'Own-initiative: Illegal',
+      tabT6: 'Own-initiative: Policy',
+      tabT3: 'Government Orders',
+      tabT7: 'Appeals',
+      // T4 metrics
+      noticesReceived: 'Notices received',
+      itemsReferenced: 'Items referenced',
+      actionsTaken: 'Actions taken',
+      actionRate: 'Action rate',
+      tfNotices: 'Trusted flagger notices',
+      // T4 charts
+      noticesByService: 'Notices received by service',
+      actionsByBasis: 'Actions taken by legal basis',
+      removedLaw: 'Removed (law)',
+      removedPolicy: 'Removed (policy)',
+      // T4 table
+      tNotices: 'Notices received', tTrusted: 'Trusted flagger',
+      tItems: 'Items', tMedian: 'Median time (hrs)',
+      tActLaw: 'Actions (law)', tActPolicy: 'Actions (policy)',
+      tNoticesTitle: 'Notices — ',
+      // T5/T6 metrics
+      totalMeasures: 'Total measures',
+      automatedDetection: 'Automated detection',
+      automationRate: 'Automation rate',
+      contentRemovals: 'Content removals',
+      accountRestrictions: 'Account restrictions',
+      // T5/T6 charts
+      measuresByService: 'Total measures by service',
+      automatedVsTotal: 'Automated vs total measures',
+      automated: 'Automated',
+      allMeasures: 'All measures',
+      actionTypes: 'Action types applied',
+      count: 'Count',
+      measures: 'Measures',
+      // T5/T6 action type labels
+      aRemoval: 'Removal', aDisable: 'Disable', aDemoted: 'Demoted',
+      aAgeRestr: 'Age restricted', aInteraction: 'Interaction restricted',
+      aLabelled: 'Labelled', aVisOther: 'Vis. other',
+      aMonSusp: 'Monetary susp.', aMonTerm: 'Monetary term.',
+      aSvcSusp: 'Service susp.', aSvcTerm: 'Service term.',
+      aAccSusp: 'Account susp.', aAccTerm: 'Account term.',
+      // T5/T6 table
+      tMeasures: 'Total measures', tAutomated: 'Automated',
+      tRemovals: 'Removals', tAccSusp: 'Account susp.', tAccTerm: 'Account term.',
+      t5Title: 'Own-initiative illegal content actions — ',
+      t6Title: 'Own-initiative policy enforcement actions — ',
+      // T3
+      ordersToAct: 'Orders to act',
+      itemsInOrders: 'Items in orders',
+      ordersForInfo: 'Orders for user info',
+      ordersChart: 'Orders to act against illegal content',
+      ordersToActLabel: 'Orders to act',
+      ordersForInfoLabel: 'Orders for user info',
+      tOrdersAct: 'Orders to act', tItemsOrders: 'Items', tOrdersInfo: 'Orders for info',
+      t3Title: 'Government orders — ',
+      // T7
+      totalComplaints: 'Total complaints',
+      decisionsUpheld: 'Decisions upheld',
+      decisionsReversed: 'Decisions reversed',
+      upholdRate: 'Uphold rate',
+      reversalRate: 'Reversal rate',
+      complaintsByService: 'Internal complaints by service',
+      complaintOutcomes: 'Complaint outcomes by service',
+      upheld: 'Upheld',
+      reversed: 'Reversed',
+      tIndicator: 'Indicator', tScope: 'Scope', tValue: 'Value',
+      t7Title: 'Internal complaints mechanism',
+      // shared
+      tService: 'Service',
+      topCategories: 'Top 10 categories by ',
+    },
+    ja: {
+      loading: 'データ読み込み中…',
+      loadError: 'データセットを読み込めませんでした。',
+      allServices: 'すべてのサービス',
+      allCategories: 'すべてのカテゴリ',
+      reset: 'フィルタをリセット',
+      rows: '件',
+      tabT4: '通知',
+      tabT5: '自主的措置：違法コンテンツ',
+      tabT6: '自主的措置：ポリシー違反',
+      tabT3: '政府命令',
+      tabT7: '異議申立',
+      noticesReceived: '受信した通知数',
+      itemsReferenced: '対象アイテム数',
+      actionsTaken: '講じた措置数',
+      actionRate: '措置率',
+      tfNotices: '信頼できるフラッガーからの通知',
+      noticesByService: 'サービス別・受信通知数',
+      actionsByBasis: '法的根拠別・措置数',
+      removedLaw: '削除（法律）',
+      removedPolicy: '削除（ポリシー）',
+      tNotices: '受信通知数', tTrusted: '信頼できるフラッガー',
+      tItems: 'アイテム数', tMedian: '処理時間中央値（時間）',
+      tActLaw: '措置数（法律）', tActPolicy: '措置数（ポリシー）',
+      tNoticesTitle: '通知 — ',
+      totalMeasures: '総措置数',
+      automatedDetection: '自動検出数',
+      automationRate: '自動化率',
+      contentRemovals: 'コンテンツ削除数',
+      accountRestrictions: 'アカウント制限数',
+      measuresByService: 'サービス別・総措置数',
+      automatedVsTotal: '自動措置数 vs 総措置数',
+      automated: '自動',
+      allMeasures: '全措置',
+      actionTypes: '措置種別の内訳',
+      count: '件数',
+      measures: '措置数',
+      aRemoval: '削除', aDisable: '無効化', aDemoted: '表示抑制',
+      aAgeRestr: '年齢制限', aInteraction: 'インタラクション制限',
+      aLabelled: 'ラベル付け', aVisOther: '可視性制限（その他）',
+      aMonSusp: '収益停止', aMonTerm: '収益終了',
+      aSvcSusp: 'サービス停止', aSvcTerm: 'サービス終了',
+      aAccSusp: 'アカウント停止', aAccTerm: 'アカウント終了',
+      tMeasures: '総措置数', tAutomated: '自動措置数',
+      tRemovals: '削除数', tAccSusp: 'アカウント停止', tAccTerm: 'アカウント終了',
+      t5Title: '自主的措置（違法コンテンツ）— ',
+      t6Title: '自主的措置（ポリシー違反）— ',
+      ordersToAct: '対処命令数',
+      itemsInOrders: '命令内アイテム数',
+      ordersForInfo: '情報提供命令数',
+      ordersChart: '違法コンテンツへの対処命令',
+      ordersToActLabel: '対処命令',
+      ordersForInfoLabel: '情報提供命令',
+      tOrdersAct: '対処命令数', tItemsOrders: 'アイテム数', tOrdersInfo: '情報提供命令数',
+      t3Title: '政府命令 — ',
+      totalComplaints: '総申立件数',
+      decisionsUpheld: '維持された決定',
+      decisionsReversed: '覆された決定',
+      upholdRate: '維持率',
+      reversalRate: '逆転率',
+      complaintsByService: 'サービス別・内部申立件数',
+      complaintOutcomes: 'サービス別・申立結果',
+      upheld: '維持',
+      reversed: '逆転',
+      tIndicator: '指標', tScope: 'スコープ', tValue: '値',
+      t7Title: '内部申立メカニズム',
+      tService: 'サービス',
+      topCategories: 'カテゴリ別トップ10（',
+    },
+  };
+
+  var _ = L[lang];
+
+  var D;
+  var charts = {};
   var currentTab = 't4';
 
   var SERVICE_COLORS = [
     '#4e79a7', '#f28e2b', '#e15759', '#76b7b2', '#59a14f', '#edc948'
   ];
 
-  // ── Bootstrap ───────────────────────────────────────────────
+  // ── Bootstrap ────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('vlop-loading').textContent = _.loading;
     fetch('/data/vlop-dsa.json')
       .then(function (r) { return r.json(); })
       .then(function (data) {
@@ -32,11 +189,18 @@
         init();
       })
       .catch(function () {
-        document.getElementById('vlop-loading').textContent = 'Could not load dataset.';
+        document.getElementById('vlop-loading').textContent = _.loadError;
       });
   });
 
   function init() {
+    // Apply translated tab labels
+    var tabMap = { t4: _.tabT4, t5: _.tabT5, t6: _.tabT6, t3: _.tabT3, t7: _.tabT7 };
+    document.querySelectorAll('.vlop-tab').forEach(function (btn) {
+      btn.textContent = tabMap[btn.dataset.tab] || btn.textContent;
+    });
+    document.getElementById('vlop-reset').textContent = _.reset;
+
     buildServiceFilter();
     buildCategoryFilter('t4');
     wireTabButtons();
@@ -47,7 +211,7 @@
   // ── Filters ──────────────────────────────────────────────────
   function buildServiceFilter() {
     var sel = document.getElementById('vlop-service');
-    sel.innerHTML = '<option value="">All services</option>';
+    sel.innerHTML = '<option value="">' + _.allServices + '</option>';
     D.services.forEach(function (s, i) {
       sel.innerHTML += '<option value="' + i + '">' + s + '</option>';
     });
@@ -58,13 +222,9 @@
     var wrap = document.getElementById('vlop-cat-wrap');
     if (tab === 't7') { wrap.hidden = true; return; }
     wrap.hidden = false;
-    sel.innerHTML = '<option value="">All categories</option>';
-
-    // Collect categories that appear in the current tab's data
+    sel.innerHTML = '<option value="">' + _.allCategories + '</option>';
     var seen = {};
-    var rows = D[tab] || [];
-    rows.forEach(function (r) { seen[r[1]] = true; });
-
+    (D[tab] || []).forEach(function (r) { seen[r[1]] = true; });
     D.categories.forEach(function (code, i) {
       if (!seen[i]) return;
       var label = D.category_labels[code] || code;
@@ -119,13 +279,11 @@
 
   // ── T4: Notices ──────────────────────────────────────────────
   function renderT4(f) {
-    // Use TOTAL rows for service-level comparison when no category selected
     var catFilter = f.cat !== null ? f.cat : indexOf(D.categories, 'TOTAL');
     var rows = D.t4.filter(function (r) {
       return (f.svc === null || r[0] === f.svc) && r[1] === catFilter;
     });
 
-    // Aggregate by service
     var bySvc = aggregateBySvc(rows, function (r) {
       return { notices: n(r[2]), tfNotices: n(r[3]), items: n(r[4]),
                actLaw: n(r[8]), actTC: n(r[10]) };
@@ -136,71 +294,54 @@
 
     var totals = sumObj(bySvc);
     var actionTotal = totals.actLaw + totals.actTC;
-    var actionRate = totals.notices > 0 ? pct(actionTotal / totals.notices) : '—';
 
     setMetrics([
-      { label: 'Notices received', value: fmt(totals.notices) },
-      { label: 'Items referenced', value: fmt(totals.items) },
-      { label: 'Actions taken', value: fmt(actionTotal) },
-      { label: 'Action rate', value: actionRate },
-      { label: 'Trusted flagger notices', value: fmt(totals.tfNotices) },
+      { label: _.noticesReceived, value: fmt(totals.notices) },
+      { label: _.itemsReferenced, value: fmt(totals.items) },
+      { label: _.actionsTaken, value: fmt(actionTotal) },
+      { label: _.actionRate, value: totals.notices > 0 ? pct(actionTotal / totals.notices) : '—' },
+      { label: _.tfNotices, value: fmt(totals.tfNotices) },
     ]);
 
-    var svcs = D.services;
-    var noticeData = svcs.map(function (_, i) { return bySvc[i] ? bySvc[i].notices : 0; });
-    var actLawData = svcs.map(function (_, i) { return bySvc[i] ? bySvc[i].actLaw : 0; });
-    var actTCData = svcs.map(function (_, i) { return bySvc[i] ? bySvc[i].actTC : 0; });
+    var noticeData = D.services.map(function (_, i) { return bySvc[i] ? bySvc[i].notices : 0; });
+    var actLawData = D.services.map(function (_, i) { return bySvc[i] ? bySvc[i].actLaw : 0; });
+    var actTCData = D.services.map(function (_, i) { return bySvc[i] ? bySvc[i].actTC : 0; });
 
     setCharts([
       {
-        title: 'Notices received by service',
-        id: 'vlop-c1', type: 'bar', wide: true,
-        labels: filteredLabels(f.svc), datasets: [{
-          label: 'Notices',
-          data: filteredData(noticeData, f.svc),
-          backgroundColor: filteredColors(f.svc),
-        }]
+        title: _.noticesByService, id: 'vlop-c1', type: 'bar', wide: true,
+        labels: filteredLabels(f.svc),
+        datasets: [{ label: _.noticesReceived, data: filteredData(noticeData, f.svc),
+                     backgroundColor: filteredColors(f.svc) }]
       },
       {
-        title: 'Actions taken by legal basis',
-        id: 'vlop-c2', type: 'bar', wide: true,
+        title: _.actionsByBasis, id: 'vlop-c2', type: 'bar', wide: true,
         labels: filteredLabels(f.svc),
         datasets: [
-          { label: 'Removed (law)', data: filteredData(actLawData, f.svc), backgroundColor: '#4e79a7' },
-          { label: 'Removed (policy)', data: filteredData(actTCData, f.svc), backgroundColor: '#f28e2b' },
+          { label: _.removedLaw, data: filteredData(actLawData, f.svc), backgroundColor: '#4e79a7' },
+          { label: _.removedPolicy, data: filteredData(actTCData, f.svc), backgroundColor: '#f28e2b' },
         ]
       },
     ]);
 
-    // Category breakdown (non-TOTAL)
     if (f.cat === null) {
-      renderCategoryBreakdown('t4', f.svc, function (r) { return n(r[2]); }, 'Notices received');
+      renderCategoryBreakdown('t4', f.svc, function (r) { return n(r[2]); }, _.noticesReceived);
     }
 
-    // Details table
-    var tableRows = D.t4.filter(function (r) {
-      return (f.svc === null || r[0] === f.svc) && r[1] === catFilter;
-    });
     showTable(
-      ['Service', 'Notices received', 'Trusted flagger', 'Items', 'Median time (hrs)', 'Actions (law)', 'Actions (policy)'],
-      tableRows.map(function (r) {
+      [_.tService, _.tNotices, _.tTrusted, _.tItems, _.tMedian, _.tActLaw, _.tActPolicy],
+      rows.map(function (r) {
         return [D.services[r[0]], fmt(r[2]), fmt(r[3]), fmt(r[4]), fmt(r[6]), fmt(r[8]), fmt(r[10])];
       }),
-      'Notices — ' + catLabel(catFilter)
+      _.tNoticesTitle + catLabel(catFilter)
     );
   }
 
-  // ── T5: Own-initiative illegal ────────────────────────────────
-  function renderT5(f) {
-    renderT5T6(f, 't5', 'Own-initiative illegal content actions');
-  }
+  // ── T5/T6 shared ─────────────────────────────────────────────
+  function renderT5(f) { renderT5T6(f, 't5', _.t5Title); }
+  function renderT6(f) { renderT5T6(f, 't6', _.t6Title); }
 
-  // ── T6: Own-initiative TC ─────────────────────────────────────
-  function renderT6(f) {
-    renderT5T6(f, 't6', 'Own-initiative policy enforcement actions');
-  }
-
-  function renderT5T6(f, tab, tabTitle) {
+  function renderT5T6(f, tab, titlePrefix) {
     var catFilter = f.cat !== null ? f.cat : indexOf(D.categories, 'TOTAL');
     var rows = (D[tab] || []).filter(function (r) {
       return (f.svc === null || r[0] === f.svc) && r[1] === catFilter;
@@ -216,109 +357,62 @@
     });
 
     var totals = sumObj(bySvc);
-    var autoRate = totals.measures > 0 ? pct(totals.automated / totals.measures) : '—';
 
     setMetrics([
-      { label: 'Total measures', value: fmt(totals.measures) },
-      { label: 'Automated detection', value: fmt(totals.automated) },
-      { label: 'Automation rate', value: autoRate },
-      { label: 'Content removals', value: fmt(totals.removal) },
-      { label: 'Account restrictions', value: fmt(totals.accSusp + totals.accTerm) },
+      { label: _.totalMeasures, value: fmt(totals.measures) },
+      { label: _.automatedDetection, value: fmt(totals.automated) },
+      { label: _.automationRate, value: totals.measures > 0 ? pct(totals.automated / totals.measures) : '—' },
+      { label: _.contentRemovals, value: fmt(totals.removal) },
+      { label: _.accountRestrictions, value: fmt(totals.accSusp + totals.accTerm) },
     ]);
 
-    var svcs = D.services;
-    var measData = svcs.map(function (_, i) { return bySvc[i] ? bySvc[i].measures : 0; });
-    var autoData = svcs.map(function (_, i) { return bySvc[i] ? bySvc[i].automated : 0; });
+    var measData = D.services.map(function (_, i) { return bySvc[i] ? bySvc[i].measures : 0; });
+    var autoData = D.services.map(function (_, i) { return bySvc[i] ? bySvc[i].automated : 0; });
 
-    // Action type breakdown aggregated across services (or for selected service)
-    var actionRows = (D[tab] || []).filter(function (r) {
-      return (f.svc === null || r[0] === f.svc) && r[1] === catFilter;
+    var actionLabels = [_.aRemoval, _.aDisable, _.aDemoted, _.aAgeRestr,
+                        _.aInteraction, _.aLabelled, _.aVisOther,
+                        _.aMonSusp, _.aMonTerm, _.aSvcSusp, _.aSvcTerm,
+                        _.aAccSusp, _.aAccTerm];
+    var rawData = [4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17].map(function (col) {
+      return rows.reduce(function (s, r) { return s + n(r[col]); }, 0);
     });
-    var actionTotals = {
-      removal: 0, disable: 0, demoted: 0, ageRestr: 0,
-      interaction: 0, labelled: 0, visOther: 0,
-      monSusp: 0, monTerm: 0, svcSusp: 0, svcTerm: 0,
-      accSusp: 0, accTerm: 0
-    };
-    actionRows.forEach(function (r) {
-      actionTotals.removal += n(r[4]);
-      actionTotals.disable += n(r[5]);
-      actionTotals.demoted += n(r[6]);
-      actionTotals.ageRestr += n(r[7]);
-      actionTotals.interaction += n(r[8]);
-      actionTotals.labelled += n(r[9]);
-      actionTotals.visOther += n(r[10]);
-      actionTotals.monSusp += n(r[11]);
-      actionTotals.monTerm += n(r[12]);
-      actionTotals.svcSusp += n(r[14]);
-      actionTotals.svcTerm += n(r[15]);
-      actionTotals.accSusp += n(r[16]);
-      actionTotals.accTerm += n(r[17]);
-    });
-
-    var actionLabels = ['Removal', 'Disable', 'Demoted', 'Age restricted',
-                        'Interaction restricted', 'Labelled', 'Vis. other',
-                        'Monetary susp.', 'Monetary term.',
-                        'Service susp.', 'Service term.',
-                        'Account susp.', 'Account term.'];
-    var actionData = [
-      actionTotals.removal, actionTotals.disable, actionTotals.demoted, actionTotals.ageRestr,
-      actionTotals.interaction, actionTotals.labelled, actionTotals.visOther,
-      actionTotals.monSusp, actionTotals.monTerm,
-      actionTotals.svcSusp, actionTotals.svcTerm,
-      actionTotals.accSusp, actionTotals.accTerm
-    ].filter(function (v) { return v > 0; });
-    var actionLabelsFiltered = actionLabels.filter(function (_, i) {
-      return [
-        actionTotals.removal, actionTotals.disable, actionTotals.demoted, actionTotals.ageRestr,
-        actionTotals.interaction, actionTotals.labelled, actionTotals.visOther,
-        actionTotals.monSusp, actionTotals.monTerm,
-        actionTotals.svcSusp, actionTotals.svcTerm,
-        actionTotals.accSusp, actionTotals.accTerm
-      ][i] > 0;
-    });
+    var filteredAL = actionLabels.filter(function (_, i) { return rawData[i] > 0; });
+    var filteredAD = rawData.filter(function (v) { return v > 0; });
 
     setCharts([
       {
-        title: 'Total measures by service',
-        id: 'vlop-c1', type: 'bar', wide: false,
-        labels: filteredLabels(f.svc), datasets: [{
-          label: 'Measures',
-          data: filteredData(measData, f.svc),
-          backgroundColor: filteredColors(f.svc),
-        }]
+        title: _.measuresByService, id: 'vlop-c1', type: 'bar', wide: false,
+        labels: filteredLabels(f.svc),
+        datasets: [{ label: _.measures, data: filteredData(measData, f.svc),
+                     backgroundColor: filteredColors(f.svc) }]
       },
       {
-        title: 'Automated vs total measures',
-        id: 'vlop-c2', type: 'bar', wide: false,
+        title: _.automatedVsTotal, id: 'vlop-c2', type: 'bar', wide: false,
         labels: filteredLabels(f.svc),
         datasets: [
-          { label: 'Automated', data: filteredData(autoData, f.svc), backgroundColor: '#4e79a7' },
-          { label: 'All measures', data: filteredData(measData, f.svc), backgroundColor: '#ddd', order: 2 },
+          { label: _.automated, data: filteredData(autoData, f.svc), backgroundColor: '#4e79a7' },
+          { label: _.allMeasures, data: filteredData(measData, f.svc), backgroundColor: '#ddd', order: 2 },
         ]
       },
       {
-        title: 'Action types applied',
-        id: 'vlop-c3', type: 'bar', wide: true,
-        labels: actionLabelsFiltered,
-        datasets: [{ label: 'Count', data: actionData,
-          backgroundColor: actionLabelsFiltered.map(function (_, i) {
-            return SERVICE_COLORS[i % SERVICE_COLORS.length];
-          })
+        title: _.actionTypes, id: 'vlop-c3', type: 'bar', wide: true,
+        labels: filteredAL,
+        datasets: [{ label: _.count, data: filteredAD,
+          backgroundColor: filteredAL.map(function (_, i) { return SERVICE_COLORS[i % SERVICE_COLORS.length]; })
         }]
       },
     ]);
 
     if (f.cat === null) {
-      renderCategoryBreakdown(tab, f.svc, function (r) { return n(r[2]); }, 'Total measures');
+      renderCategoryBreakdown(tab, f.svc, function (r) { return n(r[2]); }, _.totalMeasures);
     }
 
     showTable(
-      ['Service', 'Total measures', 'Automated', 'Removals', 'Account susp.', 'Account term.'],
+      [_.tService, _.tMeasures, _.tAutomated, _.tRemovals, _.tAccSusp, _.tAccTerm],
       rows.map(function (r) {
         return [D.services[r[0]], fmt(r[2]), fmt(r[3]), fmt(r[4]), fmt(r[16]), fmt(r[17])];
       }),
-      tabTitle + ' — ' + catLabel(catFilter)
+      titlePrefix + catLabel(catFilter)
     );
   }
 
@@ -338,51 +432,45 @@
 
     var totals = sumObj(bySvc);
     setMetrics([
-      { label: 'Orders to act', value: fmt(totals.ordersAct) },
-      { label: 'Items in orders', value: fmt(totals.items) },
-      { label: 'Orders for user info', value: fmt(totals.ordersInfo) },
+      { label: _.ordersToAct, value: fmt(totals.ordersAct) },
+      { label: _.itemsInOrders, value: fmt(totals.items) },
+      { label: _.ordersForInfo, value: fmt(totals.ordersInfo) },
     ]);
 
-    var svcs = D.services;
-    var orderData = svcs.map(function (_, i) { return bySvc[i] ? bySvc[i].ordersAct : 0; });
-    var infoData = svcs.map(function (_, i) { return bySvc[i] ? bySvc[i].ordersInfo : 0; });
+    var orderData = D.services.map(function (_, i) { return bySvc[i] ? bySvc[i].ordersAct : 0; });
+    var infoData = D.services.map(function (_, i) { return bySvc[i] ? bySvc[i].ordersInfo : 0; });
 
     setCharts([
       {
-        title: 'Orders to act against illegal content',
-        id: 'vlop-c1', type: 'bar', wide: true,
+        title: _.ordersChart, id: 'vlop-c1', type: 'bar', wide: true,
         labels: filteredLabels(f.svc),
         datasets: [
-          { label: 'Orders to act', data: filteredData(orderData, f.svc), backgroundColor: '#4e79a7' },
-          { label: 'Orders for user info', data: filteredData(infoData, f.svc), backgroundColor: '#f28e2b' },
+          { label: _.ordersToActLabel, data: filteredData(orderData, f.svc), backgroundColor: '#4e79a7' },
+          { label: _.ordersForInfoLabel, data: filteredData(infoData, f.svc), backgroundColor: '#f28e2b' },
         ]
       },
     ]);
 
     if (f.cat === null) {
-      renderCategoryBreakdown('t3', f.svc, function (r) { return n(r[3]); }, 'Orders to act');
+      renderCategoryBreakdown('t3', f.svc, function (r) { return n(r[3]); }, _.ordersToAct);
     }
 
     showTable(
-      ['Service', 'Orders to act', 'Items', 'Orders for info'],
+      [_.tService, _.tOrdersAct, _.tItemsOrders, _.tOrdersInfo],
       rows.map(function (r) {
         return [D.services[r[0]], fmt(r[3]), fmt(r[4]), fmt(r[5])];
       }),
-      'Government orders — ' + catLabel(catFilter)
+      _.t3Title + catLabel(catFilter)
     );
   }
 
   // ── T7: Appeals ───────────────────────────────────────────────
   function renderT7(f) {
-    // Section 0 = Internal complaints mechanism
-    // Scope: 0=Total, 1=Upheld, 2=Reversed, 3=Median time, 4=Decision omitted
     var secInternal = indexOf(D.sections, 'Internal complaints mechanism');
     var indComplaints = indexOf(D.indicators, 'Number of complaints submitted to the internal-complaints mechanism');
     var scopeTotal = indexOf(D.scopes, 'Total number');
     var scopeUpheld = indexOf(D.scopes, 'Decisions upheld');
     var scopeReversed = indexOf(D.scopes, 'Decisions reversed');
-
-    var secSuspensions = indexOf(D.sections, 'Suspensions imposed on repeated offenders');
 
     function t7val(svcIdx, sec, ind, scope) {
       var row = D.t7.find(function (r) {
@@ -400,14 +488,13 @@
     });
 
     setMetrics([
-      { label: 'Total complaints', value: fmt(totalComplaints) },
-      { label: 'Decisions upheld', value: fmt(totalUpheld) },
-      { label: 'Decisions reversed', value: fmt(totalReversed) },
-      { label: 'Uphold rate', value: totalComplaints > 0 ? pct(totalUpheld / totalComplaints) : '—' },
-      { label: 'Reversal rate', value: totalComplaints > 0 ? pct(totalReversed / totalComplaints) : '—' },
+      { label: _.totalComplaints, value: fmt(totalComplaints) },
+      { label: _.decisionsUpheld, value: fmt(totalUpheld) },
+      { label: _.decisionsReversed, value: fmt(totalReversed) },
+      { label: _.upholdRate, value: totalComplaints > 0 ? pct(totalUpheld / totalComplaints) : '—' },
+      { label: _.reversalRate, value: totalComplaints > 0 ? pct(totalReversed / totalComplaints) : '—' },
     ]);
 
-    var svcLabels = filteredLabels(f.svc);
     var complaintData = D.services.map(function (_, i) {
       return t7val(i, secInternal, indComplaints, scopeTotal);
     });
@@ -420,42 +507,37 @@
 
     setCharts([
       {
-        title: 'Internal complaints by service',
-        id: 'vlop-c1', type: 'bar', wide: true,
-        labels: svcLabels,
-        datasets: [{ label: 'Total complaints',
-          data: filteredData(complaintData, f.svc),
-          backgroundColor: filteredColors(f.svc) }]
+        title: _.complaintsByService, id: 'vlop-c1', type: 'bar', wide: true,
+        labels: filteredLabels(f.svc),
+        datasets: [{ label: _.totalComplaints, data: filteredData(complaintData, f.svc),
+                     backgroundColor: filteredColors(f.svc) }]
       },
       {
-        title: 'Complaint outcomes by service',
-        id: 'vlop-c2', type: 'bar', wide: true,
-        labels: svcLabels,
+        title: _.complaintOutcomes, id: 'vlop-c2', type: 'bar', wide: true,
+        labels: filteredLabels(f.svc),
         datasets: [
-          { label: 'Upheld', data: filteredData(upheldData, f.svc), backgroundColor: '#4e79a7' },
-          { label: 'Reversed', data: filteredData(reversedData, f.svc), backgroundColor: '#e15759' },
+          { label: _.upheld, data: filteredData(upheldData, f.svc), backgroundColor: '#4e79a7' },
+          { label: _.reversed, data: filteredData(reversedData, f.svc), backgroundColor: '#e15759' },
         ]
       },
     ]);
 
-    // Table: all T7 rows for selected service, section=internal
     var tableRows = D.t7.filter(function (r) {
       return (f.svc === null || r[0] === f.svc) && r[1] === secInternal;
     });
     showTable(
-      ['Service', 'Indicator', 'Scope', 'Value'],
+      [_.tService, _.tIndicator, _.tScope, _.tValue],
       tableRows.map(function (r) {
         return [D.services[r[0]], D.indicators[r[2]], D.scopes[r[3]], fmt(r[4])];
       }),
-      'Internal complaints mechanism'
+      _.t7Title
     );
   }
 
   // ── Category breakdown helper ─────────────────────────────────
   function renderCategoryBreakdown(tab, svcFilter, valueFn, metricLabel) {
     var rows = (D[tab] || []).filter(function (r) {
-      return (svcFilter === null || r[0] === svcFilter) &&
-             D.categories[r[1]] !== 'TOTAL';
+      return (svcFilter === null || r[0] === svcFilter) && D.categories[r[1]] !== 'TOTAL';
     });
 
     var byCat = {};
@@ -474,11 +556,14 @@
 
     var catLabels = sorted.map(function (x) { return shortCatLabel(x.idx); });
     var catData = sorted.map(function (x) { return x.val; });
+    var title = lang === 'ja'
+      ? _.topCategories + metricLabel + '）'
+      : _.topCategories + metricLabel.toLowerCase();
 
     var chartsEl = document.getElementById('vlop-charts');
     var wrap = document.createElement('div');
     wrap.className = 'td-chart-card td-chart-card-wide';
-    wrap.innerHTML = '<h3>Top 10 categories by ' + metricLabel.toLowerCase() + '</h3>' +
+    wrap.innerHTML = '<h3>' + title + '</h3>' +
       '<div class="td-chart-wrap td-chart-tall"><canvas id="vlop-cat-chart"></canvas></div>';
     chartsEl.appendChild(wrap);
 
@@ -487,13 +572,8 @@
       type: 'bar',
       data: {
         labels: catLabels,
-        datasets: [{
-          label: metricLabel,
-          data: catData,
-          backgroundColor: catLabels.map(function (_, i) {
-            return SERVICE_COLORS[i % SERVICE_COLORS.length];
-          }),
-        }]
+        datasets: [{ label: metricLabel, data: catData,
+          backgroundColor: catLabels.map(function (_, i) { return SERVICE_COLORS[i % SERVICE_COLORS.length]; }) }]
       },
       options: chartOpts({ indexAxis: 'y', maintainAspectRatio: false })
     });
@@ -501,8 +581,7 @@
 
   // ── UI helpers ────────────────────────────────────────────────
   function setMetrics(items) {
-    var el = document.getElementById('vlop-metrics');
-    el.innerHTML = items.map(function (m) {
+    document.getElementById('vlop-metrics').innerHTML = items.map(function (m) {
       return '<div class="td-metric"><div class="td-metric-value">' + m.value +
              '</div><div class="td-metric-label">' + m.label + '</div></div>';
     }).join('');
@@ -523,7 +602,7 @@
       charts[spec.id] = new Chart(ctx, {
         type: spec.type,
         data: { labels: spec.labels, datasets: spec.datasets },
-        options: chartOpts({ indexAxis: spec.type === 'bar' ? 'x' : 'x' })
+        options: chartOpts({})
       });
     });
   }
@@ -532,13 +611,13 @@
     var wrap = document.getElementById('vlop-table-wrap');
     wrap.hidden = false;
     document.getElementById('vlop-table-title').textContent = title;
-    document.getElementById('vlop-row-count').textContent = rows.length + ' rows';
-    var head = document.getElementById('vlop-table-head');
-    head.innerHTML = headers.map(function (h) { return '<th>' + h + '</th>'; }).join('');
-    var body = document.getElementById('vlop-table-body');
-    body.innerHTML = rows.map(function (r) {
-      return '<tr>' + r.map(function (c) { return '<td>' + (c || '—') + '</td>'; }).join('') + '</tr>';
-    }).join('');
+    document.getElementById('vlop-row-count').textContent = rows.length + ' ' + _.rows;
+    document.getElementById('vlop-table-head').innerHTML =
+      headers.map(function (h) { return '<th>' + h + '</th>'; }).join('');
+    document.getElementById('vlop-table-body').innerHTML =
+      rows.map(function (r) {
+        return '<tr>' + r.map(function (c) { return '<td>' + (c || '—') + '</td>'; }).join('') + '</tr>';
+      }).join('');
   }
 
   function destroyCharts() {
@@ -554,13 +633,9 @@
       responsive: true,
       plugins: {
         legend: { display: true, position: 'top' },
-        tooltip: {
-          callbacks: {
-            label: function (ctx) {
-              return ' ' + ctx.dataset.label + ': ' + fmt(ctx.raw);
-            }
-          }
-        }
+        tooltip: { callbacks: { label: function (ctx) {
+          return ' ' + ctx.dataset.label + ': ' + fmt(ctx.raw);
+        }}}
       },
       scales: {
         x: { ticks: { font: { size: 11 } } },
@@ -573,44 +648,30 @@
 
   // ── Data helpers ──────────────────────────────────────────────
   function n(v) { return v == null ? 0 : v; }
-
   function fmt(v) {
     if (v == null) return '—';
     if (typeof v === 'number') return v.toLocaleString();
     return v;
   }
-
-  function pct(v) {
-    return (v * 100).toFixed(1) + '%';
-  }
-
-  function indexOf(arr, val) {
-    return arr.indexOf(val);
-  }
+  function pct(v) { return (v * 100).toFixed(1) + '%'; }
+  function indexOf(arr, val) { return arr.indexOf(val); }
 
   function catLabel(catIdx) {
     var code = D.categories[catIdx];
     return D.category_labels[code] || code || 'Unknown';
   }
-
   function shortCatLabel(catIdx) {
     var label = catLabel(catIdx);
     return label.length > 35 ? label.slice(0, 33) + '…' : label;
   }
-
   function filteredLabels(svcFilter) {
-    if (svcFilter !== null) return [D.services[svcFilter]];
-    return D.services;
+    return svcFilter !== null ? [D.services[svcFilter]] : D.services;
   }
-
   function filteredData(arr, svcFilter) {
-    if (svcFilter !== null) return [arr[svcFilter]];
-    return arr;
+    return svcFilter !== null ? [arr[svcFilter]] : arr;
   }
-
   function filteredColors(svcFilter) {
-    if (svcFilter !== null) return [SERVICE_COLORS[svcFilter]];
-    return SERVICE_COLORS;
+    return svcFilter !== null ? [SERVICE_COLORS[svcFilter]] : SERVICE_COLORS;
   }
 
   function aggregateBySvc(rows, extractFn, mergeFn) {
@@ -626,11 +687,8 @@
   function sumObj(bySvc) {
     var total = null;
     Object.values(bySvc).forEach(function (obj) {
-      if (!total) {
-        total = Object.assign({}, obj);
-      } else {
-        Object.keys(obj).forEach(function (k) { total[k] = (total[k] || 0) + obj[k]; });
-      }
+      if (!total) { total = Object.assign({}, obj); }
+      else { Object.keys(obj).forEach(function (k) { total[k] = (total[k] || 0) + obj[k]; }); }
     });
     return total || {};
   }
