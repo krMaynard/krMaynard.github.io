@@ -4,6 +4,7 @@ const express = require('express');
 const { GoogleGenAI } = require('@google/genai');
 
 const app = express();
+app.set('trust proxy', true);
 app.use(express.json());
 
 const ALLOWED_ORIGINS = [
@@ -144,8 +145,9 @@ async function fetchResume() {
   return text;
 }
 
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+
 async function callGemini(systemPrompt, history, userMessage) {
-  const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
   // Front-end uses 'assistant'; Gemini expects 'model'
   const geminiHistory = history.slice(-(MAX_HISTORY_TURNS * 2)).map(msg => ({
@@ -184,10 +186,7 @@ app.post('/chat', async (req, res) => {
   const origin = req.headers.origin;
   if (!ALLOWED_ORIGINS.includes(origin)) return res.status(403).send('Forbidden');
 
-  const ip =
-    (req.headers['x-forwarded-for'] || '').split(',')[0].trim() ||
-    req.socket.remoteAddress ||
-    'unknown';
+  const ip = req.ip || 'unknown';
 
   if (!checkRateLimit(ip)) {
     return res.status(429).json({
