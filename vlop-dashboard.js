@@ -352,6 +352,7 @@
   function buildCategoryFilter(tab) {
     var sel = document.getElementById('vlop-category');
     var catWrap = document.getElementById('vlop-cat-wrap');
+    if (!sel || !catWrap) return;
     if (tab === 't7') { catWrap.hidden = true; return; }
     catWrap.hidden = false;
     sel.innerHTML = '<option value="">' + _.allCategories + '</option>';
@@ -368,6 +369,7 @@
   function buildKeywordFilter(tab, parentCatCode) {
     var sel = document.getElementById('vlop-keyword');
     var kwWrap = document.getElementById('vlop-kw-wrap');
+    if (!sel || !kwWrap) return;
     if (tab === 't7') { kwWrap.hidden = true; return; }
     kwWrap.hidden = false;
     var prev = sel.value;
