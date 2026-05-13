@@ -797,7 +797,7 @@
   // ── UI helpers ────────────────────────────────────────────────
   function setMetrics(items) {
     document.getElementById('vlop-metrics').innerHTML = items.map(function (m) {
-      return '<div class="td-metric"><div class="td-metric-value">' + m.value +
+      return '<div class="td-metric"><div class="td-metric-num">' + m.value +
              '</div><div class="td-metric-label">' + m.label + '</div></div>';
     }).join('');
   }
