@@ -154,7 +154,7 @@ async function callGemini(systemPrompt, history, userMessage) {
   }));
 
   const chat = ai.chats.create({
-    model: 'gemini-2.5-flash',
+    model: 'gemini-3.1-flash-lite',
     config: { systemInstruction: systemPrompt },
     history: geminiHistory,
   });
