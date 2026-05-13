@@ -1,0 +1,361 @@
+---
+layout: main
+title: 工作经历 — 基兰·梅纳德
+lang: zh
+lang_url: /work.html
+lang_url_ja: /ja/work.html
+---
+
+<div style="padding-top: 2.5rem; margin-bottom: 0.5rem;">
+  <p class="section-label">作品集</p>
+  <h1 style="margin-top: 0; margin-bottom: 0.5rem;">工作经历</h1>
+  <p style="color: #555; margin-bottom: 0.5rem; max-width: 640px; line-height: 1.65; background: transparent;">
+    以下是我在谷歌和Roblox期间部分AI、数据与自动化项目的精选。我来自纯人文背景，靠着好奇心与实践自学编程。这些是我一路构建的工具——也是我通往产品经理之路的见证。
+  </p>
+  <p style="color: #888; font-size: 0.85rem; margin-bottom: 2.5rem; background: transparent;">
+    所有项目均为内部工具，相关细节已按可公开披露的程度进行描述。
+  </p>
+</div>
+
+
+<!-- ── Sandpiper ────────────────────────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">Sandpiper — 隐私沙盒AI知识助手</h2>
+    <span class="project-company">Google · 2025年</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">问题</span>
+    <p>隐私沙盒工作组（900余名工程师、产品经理和合规人员）深陷于分散在受限存储库中的12,000余份文件。信息检索成为严重瓶颈——拖慢了开发、监管合规与战略推进——而语料库的敏感性又排除了通用搜索工具的使用。</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">我的工作</span>
+    <ul>
+      <li>v1和v2设计文档的唯一作者；从构想到可用原型的主要推动者。</li>
+      <li>跨组织咨询各利益相关者以诊断痛点，设计完整的端到端系统：Web前端、基于Agent Studio的后端、Gemini 2.5 Pro作为LLM，以及索引了12,000余份受限文件的向量数据库。</li>
+      <li>实现两种运行模式：（1）基于语料库的带出处RAG专业问答；（2）专门的起草模式——根据用户提供的变更描述直接生成D&amp;I标准评估初稿（一项高频合规工作流程）。</li>
+      <li>撰写系统提示，定义技术要求、访问控制及风险缓解措施，包括幻觉防护和强制人工审核。</li>
+      <li>在隐私沙盒TPgM AI黑客松上展示项目，并获高级总监颁发的特别奖金，评语为"释放了在节省时间和提升监管响应质量方面的潜在影响力"。</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">成果</span>
+    <ul>
+      <li><strong>荣获谷歌隐私沙盒TPgM AI黑客松第二名。</strong></li>
+      <li>设计服务于隐私沙盒工作组900余名用户。</li>
+      <li>大幅缩短信息检索和合规文件初稿撰写所需时间。</li>
+      <li>将合规约束（受控文件语料库）转化为知识管理优势。</li>
+    </ul>
+  </div>
+
+  <div class="tags">
+    <span class="tag">RAG</span>
+    <span class="tag">Gemini 2.5 Pro</span>
+    <span class="tag">向量数据库</span>
+    <span class="tag">Agent Studio</span>
+    <span class="tag">系统设计</span>
+    <span class="tag">提示工程</span>
+    <span class="tag">合规</span>
+  </div>
+</div>
+
+
+<!-- ── LLM Case Dashboard ────────────────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">大模型案件摘要仪表板</h2>
+    <span class="project-company">Google · 2023–2024年</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">问题</span>
+    <p>法律内容政策与标准团队需要快速掌握数千份传入法律删除申请的要点，以用于案件管理和趋势分析。该规模下手动审核不可行。自动案件摘要是团队主要管理仪表板呼声最高的功能需求——但当时尚无可扩展的解决方案。</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">我的工作</span>
+    <ul>
+      <li>设计文档和用户指南的作者，以及完整自动化工作流程的主要实现者。</li>
+      <li>直接与LCPS团队沟通，明确需求并了解案件摘要在实际运营中的使用方式与细节。</li>
+      <li>设计了一条创新流水线，利用SQLMiner<em>直接在数据库环境中</em>执行批量大模型推理——无需将敏感案件数据导出至中间系统，从而实现真正的工业规模运营。</li>
+      <li>构建RAG模式提示，将案件表的结构化数据输入大模型，为所有符合条件的案件生成简洁、准确、格式统一的摘要。</li>
+      <li>将AI生成的摘要作为按需功能直接呈现在团队主要PLX管理仪表板中。</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">成果</span>
+    <ul>
+      <li>为整个LCPS团队的日常案件管理带来显著的效率提升。</li>
+      <li>在法律删除案件语料库中实现了更快速、更准确的趋势分析。</li>
+      <li>将团队重心从低层次的个案详细审核转移至高层次的战略监控。</li>
+    </ul>
+  </div>
+
+  <figure class="project-screenshot">
+    <img src="/images/lcps-dashboard.png" alt="FTE积压缓解仪表板，展示AI生成的大模型摘要与案件元数据" />
+    <figcaption>PLX仪表板MVP：为每份法律删除申请在案件元数据旁显示AI生成的"LLM摘要"列。</figcaption>
+  </figure>
+
+  <figure class="project-screenshot" style="margin-top: 0.75rem;">
+    <img src="/images/lcps-tool.png" alt="案件摘要工具MVP界面，含Gemini模型选择器和按需案件查询功能" />
+    <figcaption>案件摘要工具MVP：案件管理员输入案件ID，即可使用Gemini按需获取大模型摘要。</figcaption>
+  </figure>
+
+  <div class="tags" style="margin-top: 1rem;">
+    <span class="tag">批量大模型推理</span>
+    <span class="tag">SQLMiner</span>
+    <span class="tag">SQL</span>
+    <span class="tag">提示工程</span>
+    <span class="tag">数据流水线</span>
+    <span class="tag">PLX仪表板</span>
+  </div>
+</div>
+
+
+<!-- ── GenAI Legal Review Automation ─────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">GenAI法律审查自动化</h2>
+    <span class="project-company">Google · 2024–2025年</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">问题</span>
+    <p>隐私沙盒法律团队每周需花费数小时手动筛查漏洞报告及关联文件，以准备法律审查摘要。该流程缓慢、不稳定，成为整个隐私沙盒项目合规监督的瓶颈。</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">我的工作</span>
+    <ul>
+      <li>端到端自动化解决方案的唯一作者和开发者。</li>
+      <li>直接与法律团队沟通，了解其工作流程、决策标准以及各子团队对"优质产出"的定义。</li>
+      <li>设计三阶段流水线：SQL（F1）提取相关漏洞数据 → Python（Colab）编排 → Gemini LLM通过TextMiner处理。</li>
+      <li>构建一系列执行复杂认知任务的多步提示：总结关联文件、识别针对特定CMA监管承诺的关键风险，并为三个法律子团队（产品、竞争、隐私）分类所需审查类型（"必须审查"与"仅供参考"）。</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">成果</span>
+    <ul>
+      <li>每周为整个隐私沙盒的项目经理节省数小时手动工作。</li>
+      <li>每个周期向法律团队提供一致、及时、高质量的摘要，降低遗漏关键事项的风险。</li>
+      <li>加速法律审查周期，整体提升合规监督的稳健性。</li>
+    </ul>
+  </div>
+
+  <div class="tags">
+    <span class="tag">Python</span>
+    <span class="tag">SQL</span>
+    <span class="tag">Gemini LLM</span>
+    <span class="tag">提示工程</span>
+    <span class="tag">流程自动化</span>
+    <span class="tag">CMA合规</span>
+  </div>
+</div>
+
+
+<!-- ── MT Compliance Reporting ───────────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">MT合规报告自动化</h2>
+    <span class="project-company">Google · 2024–2025年</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">问题</span>
+    <p>季度监察受托人（MT）合规报告——谷歌与英国竞争与市场管理局（CMA）法律承诺下的强制性交付物——此前为手动生成。该流程每季度耗费60–80人时以上，风险高、易出错、缺乏文档，依赖5–6名关键人员的单点故障。既无可审计性，也无法每日了解关键指标。</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">我的工作</span>
+    <ul>
+      <li>唯一作者和实现者。最初承接该项目范围界定的三名软件工程师认为只有工程师才能完成，对技术项目经理尝试此事持怀疑态度。</li>
+      <li>设计端到端系统架构：一条从多个内部数据源（Teamgraph、原始系统日志、非标准导入）拉取数据的ETL流水线，包含复杂数据处理、大模型增强和自动报告生成。</li>
+      <li>设计PLX工作流，执行一系列SQL脚本以提取、处理并增强三个工作组（PSWG、NWG、AWG）的数据，包含动态报告期间计算和导出至Google表格。</li>
+      <li>实现版本控制和模块化查询设计，确保可维护性、可审计性并消除单点故障。</li>
+      <li>跨越多个主要国际假日，提前完成交付。</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">成果</span>
+    <table style="width:100%; font-size:0.85rem; border-collapse:collapse; margin-bottom:0.75rem;">
+      <thead>
+        <tr style="border-bottom: 1px solid #b2ddd8;">
+          <th style="text-align:left; padding:0.3rem 0.5rem; color:#1a5c55; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em;">指标</th>
+          <th style="text-align:left; padding:0.3rem 0.5rem; color:#1a5c55; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em;">之前</th>
+          <th style="text-align:left; padding:0.3rem 0.5rem; color:#1a5c55; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em;">之后</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid #c8ede9;">
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">季度报告生成时间</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">&gt;60–80人时</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;"><strong>&lt;5人时（逾10倍削减）</strong></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #c8ede9;">
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">每日指标</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">从未生成</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;"><strong>&lt;10分钟（全自动）</strong></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #c8ede9;">
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">错误率</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">高（未记录）</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;"><strong>零（已验证）</strong></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #c8ede9;">
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">可审计性</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">无（临时脚本）</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;"><strong>&gt;95%（版本受控）</strong></td>
+        </tr>
+        <tr>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">利益相关者信心</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;">低（忐忑）</td>
+          <td style="padding:0.3rem 0.5rem; color:#1a5c55;"><strong>高（笃定）</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-style:italic; color:#1a5c55; margin:0;">"这是迄今最顺畅的周期。"——法务团队</p>
+  </div>
+
+  <div class="tags">
+    <span class="tag">SQL</span>
+    <span class="tag">ETL流水线</span>
+    <span class="tag">PLX</span>
+    <span class="tag">大模型增强</span>
+    <span class="tag">CMA合规</span>
+    <span class="tag">版本控制</span>
+    <span class="tag">系统架构</span>
+  </div>
+</div>
+
+
+<!-- ── Chrome Extension ──────────────────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">法律删除Chrome扩展程序与自动化</h2>
+    <span class="project-company">Google · 2021–2023年</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">问题</span>
+    <p>法律运营团队以手动方式处理法律删除申请——这是一个需要跨多个内部工具逐案审核的工作流程。积累了8,400余个案件的积压，而持续涌入的案件量（数万个）使得按人员规模手动处理根本不可行。</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">我的工作</span>
+    <ul>
+      <li>构建了一个<strong>node.js概念验证</strong>自动化脚本，处理8,400余个案件的即时积压，在投入完整解决方案之前验证了该方法的可行性。</li>
+      <li>主导开发生产版<strong>Chrome扩展程序</strong>，利用浏览器自动化大规模处理法律删除申请——将此前需手动操作的多工具工作流程自动化。</li>
+      <li>与工程团队合作，将方法从概念验证推进至生产就绪的工具。</li>
+      <li>因交付速度和对团队产能的贡献，受到高级产品经理的高度评价。</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">成果</span>
+    <ul>
+      <li>通过Chrome扩展程序自动化节省逾<strong>$50k</strong>供应商费用。</li>
+      <li>node.js积压自动化节省逾<strong>700个工时</strong>。</li>
+      <li>自动处理<strong>数万个案件</strong>，使团队无需增加人员即可扩大业务规模。</li>
+    </ul>
+  </div>
+
+  <div class="tags">
+    <span class="tag">Chrome扩展</span>
+    <span class="tag">浏览器自动化</span>
+    <span class="tag">node.js</span>
+    <span class="tag">JavaScript</span>
+    <span class="tag">法律运营</span>
+  </div>
+</div>
+
+
+<!-- ── PSWG Requirement Notices ──────────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">PSWG合规执行系统</h2>
+    <span class="project-company">Google · 2024年</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">问题</span>
+    <p>存在重大合规缺口：500余人的隐私沙盒组织中，员工未加入隐私沙盒工作组（PSWG）——这是谷歌CMA承诺下的基础要求。当时没有自动化机制来识别、通知或追踪不合规人员。</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">我的工作</span>
+    <ul>
+      <li>主动识别合规缺口——完全自我发起，并非指派任务。</li>
+      <li>设计自动检测系统，利用SQL交叉比对员工汇报链与PSWG群组成员数据。</li>
+      <li>构建AppsScript通知系统，自动向不合规人员及其上级发送邮件，并追踪至问题关闭。</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">成果</span>
+    <ul>
+      <li>在500余人组织中实现了基础CMA承诺的<strong>100%合规执行</strong>。</li>
+      <li>通过可扩展的自动化执行机制，以零工程成本化解了重大监管风险。</li>
+    </ul>
+  </div>
+
+  <div class="tags">
+    <span class="tag">SQL</span>
+    <span class="tag">AppsScript</span>
+    <span class="tag">流程自动化</span>
+    <span class="tag">CMA合规</span>
+    <span class="tag">系统设计</span>
+  </div>
+</div>
+
+
+<!-- ── Roblox Transparency Reporting ─────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">Roblox透明度报告与合规数据模型</h2>
+    <span class="project-company">Roblox · 2025年至今</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">问题</span>
+    <p>日益涌现的监管浪潮——欧盟DSA、欧盟TCOR、英国OSA、纽约S895、加州AB 587、巴西ECA、印度IT规则等——每项均要求提交详细、一致且本地化的透明度报告。Roblox以往的方式为手动处理，随着监管环境持续扩张，难以规模化应对。</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">我的工作</span>
+    <ul>
+      <li>主导8项以上国际法规的透明度报告策略与生产工作。</li>
+      <li>撰写一套版本受控的模块化生产级SQL查询，用于可重复、可审计的报告周期。</li>
+      <li>正在设计产品合规统一数据模型和自动报告流水线，以在外部审计前实现系统扩展与未来适配。</li>
+      <li>主导AI赋能举措，提升团队生产效率并降低手动工作量。</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">成果</span>
+    <ul>
+      <li>发布了Roblox迄今最全面的欧盟DSA透明度报告——首次采用强制性统一报告格式，包含高度详细且一致本地化的欧盟内容审核、政府命令、违法内容、用户申诉和自动化系统数据。</li>
+      <li>正朝透明度报告全面自动化方向推进，消除手动工作量，提升不断扩展的监管组合的审计就绪能力。</li>
+    </ul>
+  </div>
+
+  <div class="tags">
+    <span class="tag">SQL</span>
+    <span class="tag">数据建模</span>
+    <span class="tag">欧盟DSA</span>
+    <span class="tag">监管合规</span>
+    <span class="tag">自动化</span>
+    <span class="tag">透明度报告</span>
+  </div>
+</div>
+
+
+<hr class="section-divider" />
+<p style="color: #aaa; font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
+  所有项目均为内部工具。内部系统名称、内部链接和原始数据已省略。所引指标与公开简历披露保持一致。
+</p>
