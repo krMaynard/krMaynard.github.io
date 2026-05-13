@@ -21,6 +21,8 @@
       allPlatforms: 'All platforms',
       allServices: 'All services',
       allCategories: 'All categories',
+      allKeywords: 'All keywords',
+      topKeywords: 'Top keywords by ',
       reset: 'Reset filters',
       rows: 'rows',
       // tabs
@@ -103,6 +105,8 @@
       allPlatforms: 'すべてのプラットフォーム',
       allServices: 'すべてのサービス',
       allCategories: 'すべてのカテゴリ',
+      allKeywords: 'すべてのキーワード',
+      topKeywords: 'キーワード別トップ10（',
       reset: 'フィルタをリセット',
       rows: '件',
       tabT4: '通知',
@@ -172,6 +176,110 @@
 
   var _ = L[lang];
 
+  // Maps KEYWORD_* codes → parent STATEMENT_CATEGORY_* codes (DSA taxonomy)
+  var CATEGORY_PARENTS = {
+    KEYWORD_OTHER: 'STATEMENT_CATEGORY_CONSUMER_INFORMATION',
+    KEYWORD_HIDDEN_ADVERTISEMENT: 'STATEMENT_CATEGORY_CONSUMER_INFORMATION',
+    KEYWORD_INSUFFICIENT_INFORMATION_ON_TRADERS: 'STATEMENT_CATEGORY_CONSUMER_INFORMATION',
+    KEYWORD_LANGUAGE_REQUIREMENTS: 'STATEMENT_CATEGORY_CONSUMER_INFORMATION',
+    KEYWORD_MISLEADING_INFO_CONSUMER_RIGHTS: 'STATEMENT_CATEGORY_CONSUMER_INFORMATION',
+    KEYWORD_MISLEADING_INFO_GOODS_SERVICES: 'STATEMENT_CATEGORY_CONSUMER_INFORMATION',
+    KEYWORD_NONCOMPLIANCE_PRICING: 'STATEMENT_CATEGORY_CONSUMER_INFORMATION',
+    KEYWORD_ADULT_SEXUAL_MATERIAL: 'STATEMENT_CATEGORY_CYBER_VIOLENCE',
+    KEYWORD_CYBER_BULLYING_INTIMIDATION: 'STATEMENT_CATEGORY_CYBER_VIOLENCE',
+    KEYWORD_CYBER_HARASSMENT: 'STATEMENT_CATEGORY_CYBER_VIOLENCE',
+    KEYWORD_CYBER_STALKING: 'STATEMENT_CATEGORY_CYBER_VIOLENCE',
+    KEYWORD_NON_CONSENSUAL_IMAGE_SHARING: 'STATEMENT_CATEGORY_CYBER_VIOLENCE',
+    KEYWORD_NON_CONSENSUAL_MATERIAL_DEEPFAKE: 'STATEMENT_CATEGORY_CYBER_VIOLENCE',
+    KEYWORD_NUDITY: 'STATEMENT_CATEGORY_CYBER_VIOLENCE',
+    KEYWORD_OTHER_NUDITY_SEXUAL_ACTIVITY: 'STATEMENT_CATEGORY_CYBER_VIOLENCE',
+    KEYWORD_BULLYING_AGAINST_GIRLS: 'STATEMENT_CATEGORY_CYBER_VIOLENCE_AGAINST_WOMEN',
+    KEYWORD_CYBER_HARASSMENT_AGAINST_WOMEN: 'STATEMENT_CATEGORY_CYBER_VIOLENCE_AGAINST_WOMEN',
+    KEYWORD_CYBER_STALKING_AGAINST_WOMEN: 'STATEMENT_CATEGORY_CYBER_VIOLENCE_AGAINST_WOMEN',
+    KEYWORD_FEMALE_GENDERED_DISINFORMATION: 'STATEMENT_CATEGORY_CYBER_VIOLENCE_AGAINST_WOMEN',
+    KEYWORD_INCITEMENT_AGAINST_WOMEN: 'STATEMENT_CATEGORY_CYBER_VIOLENCE_AGAINST_WOMEN',
+    KEYWORD_NON_CONSENSUAL_IMAGE_SHARING_AGAINST_WOMEN: 'STATEMENT_CATEGORY_CYBER_VIOLENCE_AGAINST_WOMEN',
+    KEYWORD_NON_CONSENSUAL_MATERIAL_DEEPFAKE_AGAINST_WOMEN: 'STATEMENT_CATEGORY_CYBER_VIOLENCE_AGAINST_WOMEN',
+    KEYWORD_TRAFFICKING_WOMEN_GIRLS: 'STATEMENT_CATEGORY_CYBER_VIOLENCE_AGAINST_WOMEN',
+    KEYWORD_BIOMETRIC_DATA_BREACH: 'STATEMENT_CATEGORY_DATA_PROTECTION_AND_PRIVACY_VIOLATIONS',
+    KEYWORD_DATA_FALSIFICATION: 'STATEMENT_CATEGORY_DATA_PROTECTION_AND_PRIVACY_VIOLATIONS',
+    KEYWORD_MISSING_PROCESSING_GROUND: 'STATEMENT_CATEGORY_DATA_PROTECTION_AND_PRIVACY_VIOLATIONS',
+    KEYWORD_OTHER_DATA_PROTECTION: 'STATEMENT_CATEGORY_DATA_PROTECTION_AND_PRIVACY_VIOLATIONS',
+    KEYWORD_OTHER_PRIVACY: 'STATEMENT_CATEGORY_DATA_PROTECTION_AND_PRIVACY_VIOLATIONS',
+    KEYWORD_RIGHT_TO_BE_FORGOTTEN: 'STATEMENT_CATEGORY_DATA_PROTECTION_AND_PRIVACY_VIOLATIONS',
+    KEYWORD_CYBER_INCITEMENT: 'STATEMENT_CATEGORY_ILLEGAL_OR_HARMFUL_SPEECH',
+    KEYWORD_DEFAMATION: 'STATEMENT_CATEGORY_ILLEGAL_OR_HARMFUL_SPEECH',
+    KEYWORD_DISCRIMINATION: 'STATEMENT_CATEGORY_ILLEGAL_OR_HARMFUL_SPEECH',
+    KEYWORD_HATE_SPEECH: 'STATEMENT_CATEGORY_ILLEGAL_OR_HARMFUL_SPEECH',
+    KEYWORD_VIOLATION_EU_LAW: 'STATEMENT_CATEGORY_ILLEGAL_OR_HARMFUL_SPEECH',
+    KEYWORD_VIOLATION_NATIONAL_LAW: 'STATEMENT_CATEGORY_ILLEGAL_OR_HARMFUL_SPEECH',
+    KEYWORD_COPYRIGHT_INFRINGEMENT: 'STATEMENT_CATEGORY_INTELLECTUAL_PROPERTY_INFRINGEMENTS',
+    KEYWORD_OTHER_INTELLECTUAL_PROPERTY_INFRINGEMENTS_THIRD_PARTY_VIOLATION_OR_DATA_VIOLATION: 'STATEMENT_CATEGORY_INTELLECTUAL_PROPERTY_INFRINGEMENTS',
+    KEYWORD_PATENT_INFRINGEMENT: 'STATEMENT_CATEGORY_INTELLECTUAL_PROPERTY_INFRINGEMENTS',
+    KEYWORD_TRADEMARK_INFRINGEMENT: 'STATEMENT_CATEGORY_INTELLECTUAL_PROPERTY_INFRINGEMENTS',
+    KEYWORD_COORDINATED_HARM: 'STATEMENT_CATEGORY_NEGATIVE_EFFECTS_ON_CIVIC_DISCOURSE_OR_ELECTIONS',
+    KEYWORD_IMPERSONATION_ACCOUNT_HIJACKING: 'STATEMENT_CATEGORY_NEGATIVE_EFFECTS_ON_CIVIC_DISCOURSE_OR_ELECTIONS',
+    KEYWORD_INAUTHENTIC_ACCOUNTS: 'STATEMENT_CATEGORY_NEGATIVE_EFFECTS_ON_CIVIC_DISCOURSE_OR_ELECTIONS',
+    KEYWORD_INAUTHENTIC_LISTINGS: 'STATEMENT_CATEGORY_NEGATIVE_EFFECTS_ON_CIVIC_DISCOURSE_OR_ELECTIONS',
+    KEYWORD_INAUTHENTIC_USER_REVIEWS: 'STATEMENT_CATEGORY_NEGATIVE_EFFECTS_ON_CIVIC_DISCOURSE_OR_ELECTIONS',
+    KEYWORD_MISINFORMATION_DISINFORMATION: 'STATEMENT_CATEGORY_NEGATIVE_EFFECTS_ON_CIVIC_DISCOURSE_OR_ELECTIONS',
+    KEYWORD_OTHER_CIVIC_DISCOURSE: 'STATEMENT_CATEGORY_NEGATIVE_EFFECTS_ON_CIVIC_DISCOURSE_OR_ELECTIONS',
+    KEYWORD_OTHER_FAKE_ENGAGEMENT: 'STATEMENT_CATEGORY_NEGATIVE_EFFECTS_ON_CIVIC_DISCOURSE_OR_ELECTIONS',
+    KEYWORD_AGE_SPECIFIC_RESTRICTIONS: 'STATEMENT_CATEGORY_PROTECTION_OF_MINORS',
+    KEYWORD_AGE_SPECIFIC_RESTRICTIONS_MINORS: 'STATEMENT_CATEGORY_PROTECTION_OF_MINORS',
+    KEYWORD_CHILD_SEXUAL_ABUSE_MATERIAL: 'STATEMENT_CATEGORY_PROTECTION_OF_MINORS',
+    KEYWORD_CHILD_SEXUAL_ABUSE_MATERIAL_DEEPFAKE: 'STATEMENT_CATEGORY_PROTECTION_OF_MINORS',
+    KEYWORD_GROOMING_SEXUAL_ENTICEMENT_MINORS: 'STATEMENT_CATEGORY_PROTECTION_OF_MINORS',
+    KEYWORD_HUMAN_EXPLOITATION: 'STATEMENT_CATEGORY_RISK_FOR_PUBLIC_SECURITY',
+    KEYWORD_HUMAN_TRAFFICKING: 'STATEMENT_CATEGORY_RISK_FOR_PUBLIC_SECURITY',
+    KEYWORD_ILLEGAL_ORGANIZATIONS: 'STATEMENT_CATEGORY_RISK_FOR_PUBLIC_SECURITY',
+    KEYWORD_OTHER_FUGITIVE: 'STATEMENT_CATEGORY_RISK_FOR_PUBLIC_SECURITY',
+    KEYWORD_OTHER_KIDNAPPED_OR_MISSING_PERSON: 'STATEMENT_CATEGORY_RISK_FOR_PUBLIC_SECURITY',
+    KEYWORD_OTHER_PUBLIC_SECURITY: 'STATEMENT_CATEGORY_RISK_FOR_PUBLIC_SECURITY',
+    KEYWORD_RISK_ENVIRONMENTAL_DAMAGE: 'STATEMENT_CATEGORY_RISK_FOR_PUBLIC_SECURITY',
+    KEYWORD_RISK_PUBLIC_HEALTH: 'STATEMENT_CATEGORY_RISK_FOR_PUBLIC_SECURITY',
+    KEYWORD_TERRORIST_CONTENT: 'STATEMENT_CATEGORY_RISK_FOR_PUBLIC_SECURITY',
+    KEYWORD_OTHER_FINANCIAL_FRAUDS_SCAMS: 'STATEMENT_CATEGORY_SCAMS_AND_FRAUD',
+    KEYWORD_OTHER_FRAUD_AND_DECEPTION: 'STATEMENT_CATEGORY_SCAMS_AND_FRAUD',
+    KEYWORD_OTHER_LEAD_ADS: 'STATEMENT_CATEGORY_SCAMS_AND_FRAUD',
+    KEYWORD_PHISHING: 'STATEMENT_CATEGORY_SCAMS_AND_FRAUD',
+    KEYWORD_PYRAMID_SCHEMES: 'STATEMENT_CATEGORY_SCAMS_AND_FRAUD',
+    KEYWORD_CONTENT_PROMOTING_EATING_DISORDERS: 'STATEMENT_CATEGORY_SELF_HARM',
+    KEYWORD_SELF_MUTILATION: 'STATEMENT_CATEGORY_SELF_HARM',
+    KEYWORD_SUICIDE: 'STATEMENT_CATEGORY_SELF_HARM',
+    KEYWORD_UNSAFE_CHALLENGES: 'STATEMENT_CATEGORY_SELF_HARM',
+    KEYWORD_GOODS_SERVICES_NOT_PERMITTED: 'STATEMENT_CATEGORY_UNSAFE_AND_PROHIBITED_PRODUCTS',
+    KEYWORD_OTHER_CRYPTOCURRENCY: 'STATEMENT_CATEGORY_UNSAFE_AND_PROHIBITED_PRODUCTS',
+    KEYWORD_OTHER_GAMBLING: 'STATEMENT_CATEGORY_UNSAFE_AND_PROHIBITED_PRODUCTS',
+    KEYWORD_OTHER_STOLEN_GOODS: 'STATEMENT_CATEGORY_UNSAFE_AND_PROHIBITED_PRODUCTS',
+    KEYWORD_OTHER_VEHICLE_ACCESSORIES: 'STATEMENT_CATEGORY_UNSAFE_AND_PROHIBITED_PRODUCTS',
+    KEYWORD_PROHIBITED_PRODUCTS: 'STATEMENT_CATEGORY_UNSAFE_AND_PROHIBITED_PRODUCTS',
+    KEYWORD_UNSAFE_PRODUCTS: 'STATEMENT_CATEGORY_UNSAFE_AND_PROHIBITED_PRODUCTS',
+    KEYWORD_INCITEMENT_VIOLENCE_HATRED: 'STATEMENT_CATEGORY_VIOLENCE',
+    KEYWORD_OTHER_GRAPHIC_VIOLENCE: 'STATEMENT_CATEGORY_VIOLENCE',
+    KEYWORD_OTHER_MURDER: 'STATEMENT_CATEGORY_VIOLENCE',
+    KEYWORD_OTHER_PHYSICAL_ASSAULT: 'STATEMENT_CATEGORY_VIOLENCE',
+    KEYWORD_OTHER_SEX_CRIME_SEXUAL_ASSAULT: 'STATEMENT_CATEGORY_VIOLENCE',
+    KEYWORD_OTHER_THREATS_OF_VIOLENCE: 'STATEMENT_CATEGORY_VIOLENCE',
+    KEYWORD_OTHER_TRESPASS_PROPERTY_AND_ENVIRONMENTAL_DAMAGE: 'STATEMENT_CATEGORY_VIOLENCE',
+    KEYWORD_GEOGRAPHICAL_REQUIREMENTS: 'STATEMENT_CATEGORY_OTHER_VIOLATION_TC',
+    KEYWORD_OTHER_DISCRIMINATORY_PRACTICES: 'STATEMENT_CATEGORY_OTHER_VIOLATION_TC',
+    KEYWORD_OTHER_HARMFUL_ACCOUNT: 'STATEMENT_CATEGORY_OTHER_VIOLATION_TC',
+    KEYWORD_OTHER_INELIGIBLE_USER: 'STATEMENT_CATEGORY_OTHER_VIOLATION_TC',
+    KEYWORD_OTHER_MEMORIALIZATION: 'STATEMENT_CATEGORY_OTHER_VIOLATION_TC',
+    KEYWORD_OTHER_MONETIZATION_VIOLATION: 'STATEMENT_CATEGORY_OTHER_VIOLATION_TC',
+    KEYWORD_OTHER_PAYMENT_TERMS: 'STATEMENT_CATEGORY_OTHER_VIOLATION_TC',
+    KEYWORD_OTHER_POLITICAL_ADVERTISING: 'STATEMENT_CATEGORY_OTHER_VIOLATION_TC',
+    KEYWORD_OTHER_PROFANITY: 'STATEMENT_CATEGORY_OTHER_VIOLATION_TC',
+    KEYWORD_OTHER_REPEAT_VIOLATOR: 'STATEMENT_CATEGORY_OTHER_VIOLATION_TC',
+    KEYWORD_OTHER_SPAM: 'STATEMENT_CATEGORY_OTHER_VIOLATION_TC',
+    KEYWORD_OTHER_UNKNOWN: 'STATEMENT_CATEGORY_OTHER_VIOLATION_TC',
+    KEYWORD_OTHER_UNORIGINAL_CONTENT: 'STATEMENT_CATEGORY_OTHER_VIOLATION_TC',
+    KEYWORD_OTHER_ILLEGALITY: 'STATEMENT_CATEGORY_OTHER_ILLEGAL',
+    KEYWORD_ANIMAL_HARM: 'STATEMENT_CATEGORY_ANIMAL_WELFARE',
+    KEYWORD_UNLAWFUL_SALE_ANIMALS: 'STATEMENT_CATEGORY_ANIMAL_WELFARE',
+  };
+
   var D;
   var charts = {};
   var currentTab = 't4';
@@ -210,6 +318,7 @@
     buildPlatformFilter();
     buildServiceFilter(null);
     buildCategoryFilter('t4');
+    buildKeywordFilter('t4', null);
     wireTabButtons();
     wireFilters();
     render();
@@ -242,23 +351,44 @@
 
   function buildCategoryFilter(tab) {
     var sel = document.getElementById('vlop-category');
-    var wrap = document.getElementById('vlop-cat-wrap');
-    if (tab === 't7') { wrap.hidden = true; return; }
-    wrap.hidden = false;
+    var catWrap = document.getElementById('vlop-cat-wrap');
+    if (tab === 't7') { catWrap.hidden = true; return; }
+    catWrap.hidden = false;
     sel.innerHTML = '<option value="">' + _.allCategories + '</option>';
     var seen = {};
     (D[tab] || []).forEach(function (r) { seen[r[1]] = true; });
     D.categories.forEach(function (code, i) {
       if (!seen[i]) return;
+      if (!code.startsWith('STATEMENT_CATEGORY')) return;
       var label = D.category_labels[code] || code;
       sel.innerHTML += '<option value="' + i + '">' + label + '</option>';
     });
+  }
+
+  function buildKeywordFilter(tab, parentCatCode) {
+    var sel = document.getElementById('vlop-keyword');
+    var kwWrap = document.getElementById('vlop-kw-wrap');
+    if (tab === 't7') { kwWrap.hidden = true; return; }
+    kwWrap.hidden = false;
+    var prev = sel.value;
+    sel.innerHTML = '<option value="">' + _.allKeywords + '</option>';
+    var seen = {};
+    (D[tab] || []).forEach(function (r) { seen[r[1]] = true; });
+    D.categories.forEach(function (code, i) {
+      if (!seen[i]) return;
+      if (!code.startsWith('KEYWORD_')) return;
+      if (parentCatCode && CATEGORY_PARENTS[code] !== parentCatCode) return;
+      var label = D.category_labels[code] || code;
+      sel.innerHTML += '<option value="' + i + '">' + label + '</option>';
+    });
+    if (prev && sel.querySelector('option[value="' + prev + '"]')) sel.value = prev;
   }
 
   function getFilters() {
     var platVal = document.getElementById('vlop-platform').value;
     var svcVal = document.getElementById('vlop-service').value;
     var catVal = document.getElementById('vlop-category').value;
+    var kwVal = document.getElementById('vlop-keyword').value;
 
     // svcs: null = all services, otherwise array of service indices to include
     var svcs = null;
@@ -274,6 +404,7 @@
     return {
       svcs: svcs,
       cat: catVal === '' ? null : parseInt(catVal),
+      kw: kwVal === '' ? null : parseInt(kwVal),
     };
   }
 
@@ -286,7 +417,9 @@
         btn.classList.add('vlop-tab-active');
         currentTab = btn.dataset.tab;
         buildCategoryFilter(currentTab);
+        buildKeywordFilter(currentTab, null);
         document.getElementById('vlop-category').value = '';
+        document.getElementById('vlop-keyword').value = '';
         render();
       });
     });
@@ -299,12 +432,21 @@
       render();
     });
     document.getElementById('vlop-service').addEventListener('change', render);
-    document.getElementById('vlop-category').addEventListener('change', render);
+    document.getElementById('vlop-category').addEventListener('change', function () {
+      var catVal = document.getElementById('vlop-category').value;
+      var parentCode = catVal !== '' ? D.categories[parseInt(catVal)] : null;
+      buildKeywordFilter(currentTab, parentCode);
+      document.getElementById('vlop-keyword').value = '';
+      render();
+    });
+    document.getElementById('vlop-keyword').addEventListener('change', render);
     document.getElementById('vlop-reset').addEventListener('click', function () {
       document.getElementById('vlop-platform').value = '';
       buildServiceFilter(null);
       document.getElementById('vlop-service').value = '';
       document.getElementById('vlop-category').value = '';
+      buildKeywordFilter(currentTab, null);
+      document.getElementById('vlop-keyword').value = '';
       render();
     });
   }
@@ -326,7 +468,7 @@
 
   // ── T4: Notices ──────────────────────────────────────────────
   function renderT4(f) {
-    var catFilter = f.cat !== null ? f.cat : indexOf(D.categories, 'TOTAL');
+    var catFilter = f.kw !== null ? f.kw : (f.cat !== null ? f.cat : indexOf(D.categories, 'TOTAL'));
     var rows = D.t4.filter(function (r) {
       return inSvcs(f.svcs, r[0]) && r[1] === catFilter;
     });
@@ -372,8 +514,8 @@
       },
     ]);
 
-    if (f.cat === null) {
-      renderCategoryBreakdown('t4', f.svcs, function (r) { return n(r[2]); }, _.noticesReceived);
+    if (f.kw === null) {
+      renderCategoryBreakdown('t4', f.svcs, function (r) { return n(r[2]); }, _.noticesReceived, f.cat);
     }
 
     showTable(
@@ -390,7 +532,7 @@
   function renderT6(f) { renderT5T6(f, 't6', _.t6Title); }
 
   function renderT5T6(f, tab, titlePrefix) {
-    var catFilter = f.cat !== null ? f.cat : indexOf(D.categories, 'TOTAL');
+    var catFilter = f.kw !== null ? f.kw : (f.cat !== null ? f.cat : indexOf(D.categories, 'TOTAL'));
     var rows = (D[tab] || []).filter(function (r) {
       return inSvcs(f.svcs, r[0]) && r[1] === catFilter;
     });
@@ -451,8 +593,8 @@
       },
     ]);
 
-    if (f.cat === null) {
-      renderCategoryBreakdown(tab, f.svcs, function (r) { return n(r[2]); }, _.totalMeasures);
+    if (f.kw === null) {
+      renderCategoryBreakdown(tab, f.svcs, function (r) { return n(r[2]); }, _.totalMeasures, f.cat);
     }
 
     showTable(
@@ -466,7 +608,7 @@
 
   // ── T3: Government orders ─────────────────────────────────────
   function renderT3(f) {
-    var catFilter = f.cat !== null ? f.cat : indexOf(D.categories, 'TOTAL');
+    var catFilter = f.kw !== null ? f.kw : (f.cat !== null ? f.cat : indexOf(D.categories, 'TOTAL'));
     var rows = D.t3.filter(function (r) {
       return inSvcs(f.svcs, r[0]) && r[1] === catFilter;
     });
@@ -500,8 +642,8 @@
       },
     ]);
 
-    if (f.cat === null) {
-      renderCategoryBreakdown('t3', f.svcs, function (r) { return n(r[3]); }, _.ordersToAct);
+    if (f.kw === null) {
+      renderCategoryBreakdown('t3', f.svcs, function (r) { return n(r[3]); }, _.ordersToAct, f.cat);
     }
 
     showTable(
@@ -591,9 +733,17 @@
   }
 
   // ── Category breakdown helper ─────────────────────────────────
-  function renderCategoryBreakdown(tab, svcsFilter, valueFn, metricLabel) {
+  function renderCategoryBreakdown(tab, svcsFilter, valueFn, metricLabel, catIdx) {
+    var parentCode = catIdx !== null && catIdx !== undefined ? D.categories[catIdx] : null;
+
     var rows = (D[tab] || []).filter(function (r) {
-      return inSvcs(svcsFilter, r[0]) && D.categories[r[1]] !== 'TOTAL';
+      if (!inSvcs(svcsFilter, r[0])) return false;
+      var code = D.categories[r[1]];
+      if (code === 'TOTAL') return false;
+      if (parentCode) {
+        return code.startsWith('KEYWORD_') && CATEGORY_PARENTS[code] === parentCode;
+      }
+      return code.startsWith('STATEMENT_CATEGORY');
     });
 
     var byCat = {};
@@ -612,9 +762,16 @@
 
     var catLabels = sorted.map(function (x) { return shortCatLabel(x.idx); });
     var catData   = sorted.map(function (x) { return x.val; });
-    var title = lang === 'ja'
-      ? _.topCategories + metricLabel + '）'
-      : _.topCategories + metricLabel.toLowerCase();
+    var title;
+    if (parentCode) {
+      title = lang === 'ja'
+        ? _.topKeywords + metricLabel + '）'
+        : _.topKeywords + metricLabel.toLowerCase();
+    } else {
+      title = lang === 'ja'
+        ? _.topCategories + metricLabel + '）'
+        : _.topCategories + metricLabel.toLowerCase();
+    }
 
     var chartsEl = document.getElementById('vlop-charts');
     var wrap = document.createElement('div');
