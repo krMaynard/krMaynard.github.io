@@ -1,6 +1,6 @@
-# Chatbot: set this to your deployed Cloudflare Worker URL to enable the AI chat widget.
+# Chatbot: set this to your deployed Cloud Run service URL to enable the AI chat widget.
 # Leave blank (or remove the line) to disable the chatbot.
-# Example: chatbot_worker_url: https://kieranmaynard-chatbot.YOUR_SUBDOMAIN.workers.dev/chat
+# Example: chatbot_worker_url: https://kieranmaynard-chatbot-HASH-REGION.a.run.app/chat
 chatbot_worker_url:
 
 exclude:
