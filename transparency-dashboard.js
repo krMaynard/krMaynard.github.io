@@ -169,6 +169,15 @@
     var v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
     return v || fallback;
   }
+  // Convert "January - June 2019" → "2019-H1", "July - December 2019" → "2019-H2".
+  function periodLabel(p) {
+    if (!p) return p;
+    var m = /(\d{4})/.exec(p);
+    if (!m) return p;
+    var year = m[1];
+    var half = /^January/i.test(p) ? 'H1' : (/^July/i.test(p) ? 'H2' : '');
+    return half ? year + '-' + half : p;
+  }
   function chartTextColor() { return getCssVar('--text', '#333'); }
   function chartGridColor() {
     return document.documentElement.getAttribute('data-theme') === 'dark'
@@ -266,7 +275,7 @@
   // ───────── Rendering ─────────
   function renderMetrics(agg) {
     var t = agg.totals;
-    var rangeLabel = DATA.periods[FILTERS.fromPeriod] + ' – ' + DATA.periods[FILTERS.toPeriod];
+    var rangeLabel = periodLabel(DATA.periods[FILTERS.fromPeriod]) + ' – ' + periodLabel(DATA.periods[FILTERS.toPeriod]);
 
     // Period-over-period: items targeted in the first selected period vs the last.
     var first = agg.byPeriod[FILTERS.fromPeriod];
@@ -334,7 +343,7 @@
     destroy('time');
     var ctx = document.getElementById('td-chart-time').getContext('2d');
     var fromP = FILTERS.fromPeriod, toP = FILTERS.toPeriod;
-    var labels = DATA.periods.slice(fromP, toP + 1);
+    var labels = DATA.periods.slice(fromP, toP + 1).map(periodLabel);
 
     if (FILTERS.breakdownBy === 'none' || !agg.matrix) {
       // Original two-line view.
@@ -421,7 +430,7 @@
     var ctx = document.getElementById('td-chart-rate');
     if (!ctx) return;
     var fromP = FILTERS.fromPeriod, toP = FILTERS.toPeriod;
-    var labels = DATA.periods.slice(fromP, toP + 1);
+    var labels = DATA.periods.slice(fromP, toP + 1).map(periodLabel);
     var rates = [];
     for (var i = fromP; i <= toP; i++) {
       var req = agg.byPeriod[i];
@@ -577,7 +586,7 @@
     tbody.innerHTML = sorted.map(function (r) {
       var removed = r[7] + r[8] + r[12];
       return '<tr>' +
-        '<td>' + DATA.periods[r[0]] + '</td>' +
+        '<td>' + periodLabel(DATA.periods[r[0]]) + '</td>' +
         '<td>' + DATA.country_names[r[1]] + '</td>' +
         '<td>' + DATA.requestors[r[2]] + '</td>' +
         '<td>' + DATA.products[r[3]] + '</td>' +
@@ -622,7 +631,7 @@
     var fromSel = document.getElementById('td-from');
     var toSel = document.getElementById('td-to');
     var opts = DATA.periods.map(function (p, i) {
-      return '<option value="' + i + '">' + p + '</option>';
+      return '<option value="' + i + '">' + periodLabel(p) + '</option>';
     }).join('');
     fromSel.innerHTML = opts;
     toSel.innerHTML = opts;
