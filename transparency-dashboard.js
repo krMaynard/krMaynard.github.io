@@ -175,7 +175,7 @@
     var m = /(\d{4})/.exec(p);
     if (!m) return p;
     var year = m[1];
-    var half = /^January/i.test(p) ? 'H1' : (/^July/i.test(p) ? 'H2' : '');
+    var half = /January/i.test(p) ? 'H1' : (/July/i.test(p) ? 'H2' : '');
     return half ? year + '-' + half : p;
   }
   function chartTextColor() { return getCssVar('--text', '#333'); }
@@ -275,7 +275,7 @@
   // ───────── Rendering ─────────
   function renderMetrics(agg) {
     var t = agg.totals;
-    var rangeLabel = periodLabel(DATA.periods[FILTERS.fromPeriod]) + ' – ' + periodLabel(DATA.periods[FILTERS.toPeriod]);
+    var rangeLabel = DATA.periodLabels[FILTERS.fromPeriod] + ' – ' + DATA.periodLabels[FILTERS.toPeriod];
 
     // Period-over-period: items targeted in the first selected period vs the last.
     var first = agg.byPeriod[FILTERS.fromPeriod];
@@ -343,7 +343,7 @@
     destroy('time');
     var ctx = document.getElementById('td-chart-time').getContext('2d');
     var fromP = FILTERS.fromPeriod, toP = FILTERS.toPeriod;
-    var labels = DATA.periods.slice(fromP, toP + 1).map(periodLabel);
+    var labels = DATA.periodLabels.slice(fromP, toP + 1);
 
     if (FILTERS.breakdownBy === 'none' || !agg.matrix) {
       // Original two-line view.
@@ -430,7 +430,7 @@
     var ctx = document.getElementById('td-chart-rate');
     if (!ctx) return;
     var fromP = FILTERS.fromPeriod, toP = FILTERS.toPeriod;
-    var labels = DATA.periods.slice(fromP, toP + 1).map(periodLabel);
+    var labels = DATA.periodLabels.slice(fromP, toP + 1);
     var rates = [];
     for (var i = fromP; i <= toP; i++) {
       var req = agg.byPeriod[i];
@@ -586,7 +586,7 @@
     tbody.innerHTML = sorted.map(function (r) {
       var removed = r[7] + r[8] + r[12];
       return '<tr>' +
-        '<td>' + periodLabel(DATA.periods[r[0]]) + '</td>' +
+        '<td>' + DATA.periodLabels[r[0]] + '</td>' +
         '<td>' + DATA.country_names[r[1]] + '</td>' +
         '<td>' + DATA.requestors[r[2]] + '</td>' +
         '<td>' + DATA.products[r[3]] + '</td>' +
@@ -630,8 +630,8 @@
   function buildPeriodSelects() {
     var fromSel = document.getElementById('td-from');
     var toSel = document.getElementById('td-to');
-    var opts = DATA.periods.map(function (p, i) {
-      return '<option value="' + i + '">' + periodLabel(p) + '</option>';
+    var opts = DATA.periodLabels.map(function (label, i) {
+      return '<option value="' + i + '">' + label + '</option>';
     }).join('');
     fromSel.innerHTML = opts;
     toSel.innerHTML = opts;
@@ -715,6 +715,7 @@
       .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
       .then(function (json) {
         DATA = json;
+        DATA.periodLabels = DATA.periods.map(periodLabel);
         document.getElementById('td-loading').hidden = true;
         document.getElementById('td-app').hidden = false;
         buildPeriodSelects();
