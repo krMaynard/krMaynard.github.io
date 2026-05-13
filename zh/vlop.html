@@ -1,0 +1,133 @@
+---
+layout: main
+title: VLOP DSA透明度报告
+lang: zh
+lang_url: /vlop.html
+lang_url_ja: /ja/vlop.html
+---
+
+<div style="padding-top: 2.5rem; margin-bottom: 0.5rem;">
+  <p class="section-label">分析</p>
+  <h1 style="margin-top: 0; margin-bottom: 0.5rem;">DSA透明度报告——超大规模在线平台与搜索引擎</h1>
+  <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
+    根据欧盟《数字服务法》（DSA），超大规模在线平台（VLOP）和超大规模在线搜索引擎（VLOSE）须就内容审核发布透明度报告。
+    本仪表板涵盖<strong>2025年7月1日至12月31日</strong>期间的报告，
+    将30项服务整合为单一比较视图。涵盖所有已指定的VLOP和VLOSE——
+    唯一未纳入的VLOP为成人视频平台。此外还包括母公司同时运营VLOP的下级"在线平台（OP）"
+    （非VLOP的苹果服务及非维基百科的维基媒体项目）。
+    <strong>即将上线：</strong>WhatsApp Channels，Meta旗下新获VLOP认定的服务。
+  </p>
+  <p style="color: var(--text-faint); font-size: 0.85rem; margin-bottom: 2rem; background: transparent;">
+    数据来源：AliExpress、Amazon、Apple（App Store、Books、iCloud、Podcasts）、Bing、Booking.com、LinkedIn、Meta（Facebook、Instagram）、Pinterest、SHEIN、Snapchat、Temu、TikTok、Wikipedia/Wikimedia（6项服务）、X、YouTube/Google（6项服务）、Zalando各自发布的官方DSA透明度报告。
+    数据在浏览器中处理，不向后端发送任何请求。
+  </p>
+</div>
+
+<!-- ── Tabs ──────────────────────────────────────────────── -->
+<div id="vlop-loading" class="td-loading">数据加载中…</div>
+
+<div id="vlop-app" hidden>
+
+  <nav class="vlop-tabs" role="tablist" aria-label="报告章节">
+    <button class="vlop-tab vlop-tab-active" role="tab" data-tab="t4">通知</button>
+    <button class="vlop-tab" role="tab" data-tab="t5">主动措施：违法内容</button>
+    <button class="vlop-tab" role="tab" data-tab="t6">主动措施：违规内容</button>
+    <button class="vlop-tab" role="tab" data-tab="t3">政府命令</button>
+    <button class="vlop-tab" role="tab" data-tab="t7">申诉</button>
+  </nav>
+
+  <!-- ── Filters ─────────────────────────────────────────── -->
+  <div class="td-filters vlop-filters" role="region" aria-label="筛选器">
+    <div class="td-filter td-filter-wide">
+      <label for="vlop-platform">平台</label>
+      <select id="vlop-platform"></select>
+    </div>
+    <div class="td-filter td-filter-wide">
+      <label for="vlop-service">服务</label>
+      <select id="vlop-service"></select>
+    </div>
+    <div class="td-filter td-filter-wide" id="vlop-cat-wrap">
+      <label for="vlop-category">类别</label>
+      <select id="vlop-category"></select>
+    </div>
+    <div class="td-filter td-filter-wide" id="vlop-kw-wrap">
+      <label for="vlop-keyword">关键词</label>
+      <select id="vlop-keyword"></select>
+    </div>
+    <button type="button" id="vlop-reset" class="td-reset">重置筛选</button>
+  </div>
+
+  <!-- ── Metric cards ───────────────────────────────────── -->
+  <div id="vlop-metrics" class="td-metrics"></div>
+
+  <!-- ── Charts ────────────────────────────────────────── -->
+  <div id="vlop-charts" class="td-chart-grid"></div>
+
+  <!-- ── Table ─────────────────────────────────────────── -->
+  <div id="vlop-table-wrap" class="td-table-card" hidden>
+    <div class="td-table-head">
+      <h3 id="vlop-table-title">详细数据</h3>
+      <span id="vlop-row-count" class="td-row-count"></span>
+    </div>
+    <div class="td-table-scroll">
+      <table class="td-table">
+        <thead><tr id="vlop-table-head"></tr></thead>
+        <tbody id="vlop-table-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── Notes ─────────────────────────────────────────────── -->
+<section class="td-readme" id="vlop-readme" hidden>
+  <h2 class="td-section-title">如何解读数据</h2>
+  <ul class="td-bullets">
+    <li><strong>通知（表4）</strong>是用户或可信举报者为标记疑似违法内容而提交的报告。一份通知可能包含多个条目。</li>
+    <li><strong>主动措施（表5、6）</strong>是各平台在未收到通知的情况下主动采取的措施。表5针对违法内容，表6针对违反平台政策的内容。</li>
+    <li><strong>政府命令（表3）</strong>是欧盟成员国发出的要求处理内容或提供用户信息的命令。</li>
+    <li><strong>申诉（表7）</strong>涵盖提交至各平台内部投诉机制和庭外争议解决机构的申诉。</li>
+    <li><strong>TOTAL行</strong>为所有内容类别的汇总。当选择"所有类别"时显示。</li>
+    <li>原始数据中的空白单元格视为零或不适用。各平台的背景注释未纳入本视图。</li>
+  </ul>
+</section>
+
+<hr class="section-divider" />
+
+<p style="color: var(--text-very-faint); font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
+  数据来源：AliExpress、Amazon、Apple、Bing、Booking.com、LinkedIn、Meta（Facebook、Instagram）、Pinterest、SHEIN、Snapchat、Temu、TikTok、Wikimedia Foundation、X、YouTube/Google、Zalando各自发布的官方DSA透明度报告（2025年下半年）。
+  分析与可视化：基兰·梅纳德。图表使用<a href="https://www.chartjs.org/">Chart.js</a>。
+</p>
+
+<style>
+.vlop-tabs {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 0;
+}
+.vlop-tab {
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-family: inherit;
+  transition: color 0.15s, border-color 0.15s;
+}
+.vlop-tab:hover { color: var(--text); }
+.vlop-tab-active {
+  color: var(--text);
+  border-bottom-color: var(--accent, #4e79a7);
+  font-weight: 600;
+}
+.vlop-filters { margin-bottom: 1.25rem; }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer></script>
+<script src="/vlop-dashboard.js" defer></script>

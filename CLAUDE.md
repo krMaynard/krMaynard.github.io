@@ -1,12 +1,16 @@
 # CLAUDE.md
 
-## Japanese Localization
+## Localization
 
-The site has a full Japanese translation under `/ja/`. Whenever content is added or changed in English, the corresponding Japanese file must be updated to match.
+The site has full translations in Japanese (`/ja/`) and Chinese (`/zh/`). Whenever content is added or changed in English, the corresponding Japanese and Chinese files must be updated to match.
 
 - English pages live at the root: `index.html`, `work.html`, `consulting.html`, etc.
 - Japanese counterparts live under `/ja/`: `ja/index.html`, `ja/work.html`, `ja/consulting.html`, etc.
-- The nav in `_layouts/main.html` has both an English and Japanese block (`{% if page.lang == 'ja' %}`). Update both when nav links change.
-- `lang_url` in each page's front matter should point to the corresponding page in the other language.
+- Chinese counterparts live under `/zh/`: `zh/index.html`, `zh/work.html`, `zh/consulting.html`, etc.
+- The nav in `_layouts/main.html` has blocks for `en`, `ja`, and `zh` (`{% if page.lang == 'ja' %}` / `{% elsif page.lang == 'zh' %}`). Update all three when nav links change.
+- Front matter on each page:
+  - English pages: `lang: en`, `lang_url: /ja/...` (Japanese URL), `lang_url_zh: /zh/...` (Chinese URL)
+  - Japanese pages: `lang: ja`, `lang_url: /...` (English URL), `lang_url_zh: /zh/...` (Chinese URL)
+  - Chinese pages: `lang: zh`, `lang_url: /...` (English URL), `lang_url_ja: /ja/...` (Japanese URL)
 
-When making any content change to an English page, always make the equivalent update to its Japanese counterpart in the same commit.
+When making any content change to an English page, always make the equivalent update to its Japanese and Chinese counterparts in the same commit.
