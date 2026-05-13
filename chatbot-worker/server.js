@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const { GoogleGenerativeAI } = require('@google/generative-ai');
+const { GoogleGenAI } = require('@google/genai');
 
 const app = express();
 app.use(express.json());
@@ -145,11 +145,7 @@ async function fetchResume() {
 }
 
 async function callGemini(systemPrompt, history, userMessage) {
-  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-  const model = genAI.getGenerativeModel({
-    model: 'gemini-2.0-flash',
-    systemInstruction: systemPrompt,
-  });
+  const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
   // Front-end uses 'assistant'; Gemini expects 'model'
   const geminiHistory = history.slice(-(MAX_HISTORY_TURNS * 2)).map(msg => ({
@@ -157,9 +153,14 @@ async function callGemini(systemPrompt, history, userMessage) {
     parts: [{ text: msg.content }],
   }));
 
-  const chat = model.startChat({ history: geminiHistory });
-  const result = await chat.sendMessage(userMessage);
-  return result.response.text();
+  const chat = ai.chats.create({
+    model: 'gemini-2.5-flash',
+    config: { systemInstruction: systemPrompt },
+    history: geminiHistory,
+  });
+
+  const response = await chat.sendMessage({ message: userMessage });
+  return response.text;
 }
 
 // CORS
