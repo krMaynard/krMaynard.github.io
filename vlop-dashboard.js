@@ -12,7 +12,9 @@
 (function () {
   'use strict';
 
-  var lang = /^\/ja(\/|$)/.test(window.location.pathname) ? 'ja' : 'en';
+  var lang = /^\/zh(\/|$)/.test(window.location.pathname) ? 'zh'
+           : /^\/ja(\/|$)/.test(window.location.pathname) ? 'ja'
+           : 'en';
 
   var L = {
     en: {
@@ -171,6 +173,79 @@
       t7Title: '内部申立メカニズム',
       tService: 'サービス',
       topCategories: 'カテゴリ別トップ10（',
+    },
+    zh: {
+      loading: '数据加载中…',
+      loadError: '无法加载数据集。',
+      allPlatforms: '所有平台',
+      allServices: '所有服务',
+      allCategories: '所有类别',
+      allKeywords: '所有关键词',
+      topKeywords: '关键词前10名（',
+      reset: '重置筛选',
+      rows: '条',
+      tabT4: '通知',
+      tabT5: '主动措施：违法内容',
+      tabT6: '主动措施：违规内容',
+      tabT3: '政府命令',
+      tabT7: '申诉',
+      noticesReceived: '收到的通知数',
+      itemsReferenced: '涉及条目数',
+      actionsTaken: '已采取的措施数',
+      actionRate: '措施率',
+      tfNotices: '可信举报者通知数',
+      noticesByService: '各服务收到的通知数',
+      actionsByBasis: '按法律依据分类的措施数',
+      removedLaw: '已删除（法律）',
+      removedPolicy: '已删除（政策）',
+      tNotices: '通知数', tTrusted: '可信举报者',
+      tItems: '条目数', tMedian: '处理时间中位数（小时）',
+      tActLaw: '措施数（法律）', tActPolicy: '措施数（政策）',
+      tNoticesTitle: '通知 — ',
+      totalMeasures: '总措施数',
+      automatedDetection: '自动检测数',
+      automationRate: '自动化率',
+      contentRemovals: '内容删除数',
+      accountRestrictions: '账号限制数',
+      measuresByService: '各服务总措施数',
+      automatedVsTotal: '自动措施数 vs 总措施数',
+      automated: '自动',
+      allMeasures: '全部措施',
+      actionTypes: '措施类型分布',
+      count: '数量',
+      measures: '措施数',
+      aRemoval: '删除', aDisable: '停用', aDemoted: '降级推荐',
+      aAgeRestr: '年龄限制', aInteraction: '互动限制',
+      aLabelled: '添加标签', aVisOther: '可见性限制（其他）',
+      aMonSusp: '收益暂停', aMonTerm: '收益终止',
+      aSvcSusp: '服务暂停', aSvcTerm: '服务终止',
+      aAccSusp: '账号暂停', aAccTerm: '账号终止',
+      tMeasures: '总措施数', tAutomated: '自动措施数',
+      tRemovals: '删除数', tAccSusp: '账号暂停', tAccTerm: '账号终止',
+      t5Title: '主动措施（违法内容）— ',
+      t6Title: '主动措施（违规内容）— ',
+      ordersToAct: '处理命令数',
+      itemsInOrders: '命令涉及条目数',
+      ordersForInfo: '信息披露命令数',
+      ordersChart: '针对违法内容的处理命令',
+      ordersToActLabel: '处理命令',
+      ordersForInfoLabel: '信息披露命令',
+      tOrdersAct: '处理命令数', tItemsOrders: '条目数', tOrdersInfo: '信息披露命令数',
+      t3Title: '政府命令 — ',
+      totalComplaints: '总申诉数',
+      decisionsUpheld: '维持原决定',
+      decisionsReversed: '撤销原决定',
+      upholdRate: '维持率',
+      reversalRate: '撤销率',
+      overturnRate: '各服务撤销率',
+      complaintsByService: '各服务内部申诉数',
+      complaintOutcomes: '各服务申诉结果',
+      upheld: '维持',
+      reversed: '撤销',
+      tIndicator: '指标', tScope: '范围', tValue: '值',
+      t7Title: '内部投诉机制',
+      tService: '服务',
+      topCategories: '类别前10名（',
     },
   };
 
@@ -766,11 +841,11 @@
     var catData   = sorted.map(function (x) { return x.val; });
     var title;
     if (parentCode) {
-      title = lang === 'ja'
+      title = lang !== 'en'
         ? _.topKeywords + metricLabel + '）'
         : _.topKeywords + metricLabel.toLowerCase();
     } else {
-      title = lang === 'ja'
+      title = lang !== 'en'
         ? _.topCategories + metricLabel + '）'
         : _.topCategories + metricLabel.toLowerCase();
     }
@@ -797,7 +872,7 @@
   // ── UI helpers ────────────────────────────────────────────────
   function setMetrics(items) {
     document.getElementById('vlop-metrics').innerHTML = items.map(function (m) {
-      return '<div class="td-metric"><div class="td-metric-value">' + m.value +
+      return '<div class="td-metric"><div class="td-metric-num">' + m.value +
              '</div><div class="td-metric-label">' + m.label + '</div></div>';
     }).join('');
   }
