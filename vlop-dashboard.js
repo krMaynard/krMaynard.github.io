@@ -352,6 +352,7 @@
   function buildCategoryFilter(tab) {
     var sel = document.getElementById('vlop-category');
     var catWrap = document.getElementById('vlop-cat-wrap');
+    if (!sel || !catWrap) return;
     if (tab === 't7') { catWrap.hidden = true; return; }
     catWrap.hidden = false;
     sel.innerHTML = '<option value="">' + _.allCategories + '</option>';
@@ -359,7 +360,7 @@
     (D[tab] || []).forEach(function (r) { seen[r[1]] = true; });
     D.categories.forEach(function (code, i) {
       if (!seen[i]) return;
-      if (!code.startsWith('STATEMENT_CATEGORY')) return;
+      if (typeof code !== 'string' || code.indexOf('STATEMENT_CATEGORY') !== 0) return;
       var label = D.category_labels[code] || code;
       sel.innerHTML += '<option value="' + i + '">' + label + '</option>';
     });
@@ -368,6 +369,7 @@
   function buildKeywordFilter(tab, parentCatCode) {
     var sel = document.getElementById('vlop-keyword');
     var kwWrap = document.getElementById('vlop-kw-wrap');
+    if (!sel || !kwWrap) return;
     if (tab === 't7') { kwWrap.hidden = true; return; }
     kwWrap.hidden = false;
     var prev = sel.value;
@@ -376,7 +378,7 @@
     (D[tab] || []).forEach(function (r) { seen[r[1]] = true; });
     D.categories.forEach(function (code, i) {
       if (!seen[i]) return;
-      if (!code.startsWith('KEYWORD_')) return;
+      if (typeof code !== 'string' || code.indexOf('KEYWORD_') !== 0) return;
       if (parentCatCode && CATEGORY_PARENTS[code] !== parentCatCode) return;
       var label = D.category_labels[code] || code;
       sel.innerHTML += '<option value="' + i + '">' + label + '</option>';
@@ -739,11 +741,11 @@
     var rows = (D[tab] || []).filter(function (r) {
       if (!inSvcs(svcsFilter, r[0])) return false;
       var code = D.categories[r[1]];
-      if (code === 'TOTAL') return false;
+      if (typeof code !== 'string' || code === 'TOTAL') return false;
       if (parentCode) {
-        return code.startsWith('KEYWORD_') && CATEGORY_PARENTS[code] === parentCode;
+        return code.indexOf('KEYWORD_') === 0 && CATEGORY_PARENTS[code] === parentCode;
       }
-      return code.startsWith('STATEMENT_CATEGORY');
+      return code.indexOf('STATEMENT_CATEGORY') === 0;
     });
 
     var byCat = {};
