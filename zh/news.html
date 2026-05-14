@@ -1,0 +1,115 @@
+---
+layout: main
+title: 动态
+lang: zh
+lang_url: /news.html
+lang_url_ja: /ja/news.html
+---
+
+<style>
+.news-list {
+  margin-top: 2rem;
+}
+.news-entry {
+  display: flex;
+  gap: 2rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border, #e5e7eb);
+}
+.news-entry:last-child {
+  border-bottom: none;
+}
+.news-date {
+  flex: 0 0 130px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted, #888);
+  padding-top: 0.25rem;
+}
+.news-body h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.news-body p {
+  margin: 0 0 0.75rem;
+  color: var(--text-secondary, #555);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.news-body .tags {
+  margin-top: 0.5rem;
+}
+@media (max-width: 540px) {
+  .news-entry {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .news-date {
+    flex: none;
+  }
+}
+</style>
+
+<div style="padding-top: 2.5rem;">
+  <p class="section-label">个人动态</p>
+  <h1>动态</h1>
+  <p style="color: #555;">关于我的工作与职业生涯的最新动态。</p>
+</div>
+
+<div class="news-list">
+
+  <div class="news-entry">
+    <span class="news-date">2026年4月</span>
+    <div class="news-body">
+      <h3>发布Roblox加州及纽约州服务条款透明度报告</h3>
+      <p>发布了<a href="https://oag.ca.gov/sites/default/files/Roblox%202025%20H2%20California%20AB587%20Terms%20of%20Service%20Report.pdf">Roblox 2025年下半年加利福尼亚州AB 587透明度报告</a>与<a href="https://ag.ny.gov/sites/default/files/social-media-policy-report/2025-q4-roblox-corporation-policy.pdf">Roblox 2025年Q4纽约州S895透明度报告</a>（主要作者）。</p>
+      <div class="tags">
+        <span class="tag">Roblox</span>
+        <span class="tag">政策</span>
+        <span class="tag">透明度报告</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="news-entry">
+    <span class="news-date">2026年2月</span>
+    <div class="news-body">
+      <h3>发布Roblox DSA与TCO透明度报告</h3>
+      <p>发布了<a href="https://about.roblox.com/pdf/EU-DSA-Transparency-Report-2025">Roblox 2025年欧盟数字服务法（DSA）透明度报告</a>与<a href="https://about.roblox.com/pdf/2026-tco-report">Roblox 2026年欧盟恐怖主义网络内容（TCO）透明度报告</a>（两份报告均为主要作者）。</p>
+      <div class="tags">
+        <span class="tag">Roblox</span>
+        <span class="tag">欧盟DSA</span>
+        <span class="tag">透明度报告</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="news-entry">
+    <span class="news-date">2025年12月</span>
+    <div class="news-body">
+      <h3>发布Roblox纽约州服务条款透明度报告</h3>
+      <p>发布了<a href="https://ag.ny.gov/sites/default/files/social-media-policy-report/2025-q3-roblox-corporation-policy.pdf">Roblox 2025年Q3纽约州S895透明度报告</a>（主要作者）。</p>
+      <div class="tags">
+        <span class="tag">Roblox</span>
+        <span class="tag">政策</span>
+        <span class="tag">透明度报告</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="news-entry">
+    <span class="news-date">2025年10月</span>
+    <div class="news-body">
+      <h3>加入Roblox</h3>
+      <p>在Roblox开始了一个新职位，负责政策、合规与透明度相关工作。</p>
+      <div class="tags">
+        <span class="tag">Roblox</span>
+        <span class="tag">职业发展</span>
+      </div>
+    </div>
+  </div>
+
+</div>
