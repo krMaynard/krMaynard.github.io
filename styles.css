@@ -1364,7 +1364,7 @@ footer {
 @media screen and (max-width: 880px) {
   .td-callouts { grid-template-columns: 1fr; }
   .td-filters { grid-template-columns: 1fr 1fr; }
-  .td-filters .td-reset { grid-column: span 2; justify-self: start; }
+  .td-filters .td-reset { grid-column: 1 / -1; width: 100%; }
   .td-metrics { grid-template-columns: repeat(2, 1fr); }
   .td-chart-grid { grid-template-columns: 1fr; }
   .td-chart-card-wide { grid-column: span 1; }
