@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teaching Multiplication — Activity Guide</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Georgia, serif;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #222;
+      max-width: 750px;
+      margin: 0 auto;
+      padding: 32px 40px;
+    }
+
+    .back-nav {
+      margin-bottom: 20px;
+      font-size: 12px;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .back-nav a { color: #555; text-decoration: none; }
+    .back-nav a:hover { text-decoration: underline; }
+
+    .lang-links { font-size: 11px; }
+    .lang-links a { color: #555; text-decoration: none; margin-left: 8px; }
+    .lang-links a:hover { text-decoration: underline; }
+
+    h1 {
+      font-size: 22px;
+      text-align: center;
+      margin-bottom: 2px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-style: italic;
+      color: #555;
+      margin-bottom: 4px;
+      font-size: 13px;
+    }
+
+    .note {
+      text-align: center;
+      font-size: 11px;
+      color: #888;
+      margin-bottom: 20px;
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid #333;
+      margin: 16px 0;
+    }
+
+    h2 {
+      font-size: 15px;
+      background: #333;
+      color: #fff;
+      padding: 4px 10px;
+      margin: 20px 0 10px 0;
+      border-radius: 2px;
+    }
+
+    h2.batman {
+      background: #1a1a2e;
+      color: #f7c75e;
+    }
+
+    h2.spiderman {
+      background: #be1c23;
+      color: #fff;
+    }
+
+    h3 {
+      font-size: 13px;
+      font-weight: bold;
+      margin: 12px 0 6px 0;
+    }
+
+    p { margin-bottom: 8px; }
+
+    ul { margin: 6px 0 8px 20px; }
+    ul li { margin-bottom: 4px; }
+
+    strong { font-weight: bold; }
+    em { font-style: italic; }
+
+    .section-intro {
+      background: #f0f0f0;
+      border-radius: 4px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+    }
+
+    .img-placeholder {
+      border: 2px dashed #ccc;
+      background: #f8f8f8;
+      border-radius: 4px;
+      padding: 28px 16px;
+      text-align: center;
+      color: #aaa;
+      font-style: italic;
+      font-size: 11px;
+      font-family: sans-serif;
+      margin: 4px 0;
+    }
+
+    .img-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    .img-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    .batman-box {
+      background: #f5f0d0;
+      border-left: 4px solid #1a1a2e;
+      border-radius: 4px;
+      padding: 10px 14px;
+      margin: 10px 0;
+    }
+
+    .spiderman-box {
+      background: #fde8e8;
+      border-left: 4px solid #be1c23;
+      border-radius: 4px;
+      padding: 10px 14px;
+      margin: 10px 0;
+    }
+
+    .batman-box ul, .spiderman-box ul { margin-top: 6px; }
+
+    .array-demo {
+      font-size: 22px;
+      letter-spacing: 6px;
+      line-height: 1.9;
+      text-align: center;
+      margin: 8px 0;
+      padding: 10px 8px;
+      background: #f5f5f5;
+      border-radius: 4px;
+    }
+
+    .fact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    .fact-card {
+      border-radius: 4px;
+      padding: 10px 12px;
+      text-align: center;
+    }
+
+    .fact-card.batman-card {
+      background: #1a1a2e;
+      color: #f7c75e;
+    }
+
+    .fact-card.spiderman-card {
+      background: #be1c23;
+      color: #fff;
+    }
+
+    .fact-card .equation {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 4px;
+      font-family: sans-serif;
+    }
+
+    .fact-card .story {
+      font-size: 10px;
+      font-family: sans-serif;
+      opacity: 0.9;
+      line-height: 1.4;
+    }
+
+    .routine-box {
+      border: 2px solid #333;
+      border-radius: 4px;
+      padding: 12px 16px;
+      margin: 10px 0;
+    }
+
+    .routine-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .routine-step:last-child { margin-bottom: 0; }
+
+    .routine-num {
+      background: #333;
+      color: #fff;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-family: sans-serif;
+      font-weight: bold;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    .tool-box {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 10px 12px;
+    }
+
+    .tool-box h4 {
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 6px;
+      font-family: sans-serif;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 12px 0;
+      font-size: 12px;
+    }
+
+    th, td {
+      border: 1px solid #bbb;
+      padding: 5px 10px;
+      text-align: left;
+    }
+
+    th {
+      background: #eee;
+      font-weight: bold;
+    }
+
+    tr:nth-child(even) td { background: #f9f9f9; }
+
+    @media (max-width: 600px) {
+      body { padding: 20px 16px; }
+      .img-grid { grid-template-columns: 1fr; }
+      .img-grid-3 { grid-template-columns: repeat(2, 1fr); }
+      .fact-grid { grid-template-columns: 1fr; }
+      .tool-grid { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      body { padding: 20px 28px; font-size: 12px; }
+      h2, h2.batman, h2.spiderman { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .batman-box, .spiderman-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .fact-card.batman-card, .fact-card.spiderman-card { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .section-intro { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .routine-num { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      th, tr:nth-child(even) td { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .img-placeholder { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .back-nav { display: none; }
+      a { text-decoration: none; color: inherit; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="back-nav">
+    <a href="/homework/">&larr; Homework Help</a>
+    <span class="lang-links">
+      <a href="/ja/homework/multiplication.html">日本語</a>
+      <a href="/zh/homework/multiplication.html">中文</a>
+    </span>
+  </nav>
+
+  <h1>Teaching Multiplication to Young Children</h1>
+  <p class="subtitle">A Hands-On Guide with Batman &amp; Spider-Man Activities</p>
+  <p class="note">Ages 3&ndash;5 &bull; Focus on understanding, not memorization &bull; 5&ndash;10 minutes a day</p>
+  <hr>
+
+  <div class="section-intro">
+    <p>The best way to introduce multiplication to a 4-year-old is to <strong>skip the memorization</strong> entirely and focus on helping them <em>understand the idea</em> through play, patterns, grouping, and repeated addition. At this age, learning should be <strong>visual, physical, short, fun, and low-pressure</strong>.</p>
+  </div>
+
+  <h2 class="batman">1. Start with &#8220;Groups of&#8221; &mdash; Batman Style</h2>
+
+  <p>Instead of saying <strong>&#8220;3 &times; 4,&#8221;</strong> say: <strong>&#8220;We have 3 groups of 4.&#8221;</strong> This is the core idea of multiplication, and young children can grasp it immediately with physical objects.</p>
+
+  <div class="batman-box">
+    <strong>Batman Activity:</strong> Batman&#8217;s utility belt has 3 pouches. Each pouch holds 4 gadgets. How many gadgets does Batman have?
+    <br><em>&#8220;3 pouches of 4 gadgets &mdash; let&#8217;s count them all!&#8221;</em>
+  </div>
+
+  <p>Use any objects you have at home:</p>
+  <ul>
+    <li><strong>Snacks:</strong> Put 5 crackers on each of 2 plates. &#8220;How many crackers altogether?&#8221;</li>
+    <li><strong>LEGO bricks:</strong> Make 3 piles of 4 bricks each. &#8220;How many bricks in all?&#8221;</li>
+    <li><strong>Toy cars:</strong> Line up 2 rows of 3 cars. &#8220;How many cars?&#8221;</li>
+    <li><strong>Stuffed animals:</strong> Give each of 4 bears 2 cookies. &#8220;How many cookies?&#8221;</li>
+    <li><strong>Egg cartons or muffin tins:</strong> Drop objects into each cup and count.</li>
+  </ul>
+
+  <div class="img-grid">
+    <div class="img-placeholder">[Photo: Batman utility belt activity &mdash; small pouches with toy gadgets grouped inside]</div>
+    <div class="img-placeholder">[Photo: 4 plates each holding 3 crackers, ready to count]</div>
+  </div>
+
+  <p><em>Key language to use:</em> &#8220;groups of,&#8221; &#8220;rows of,&#8221; &#8220;bags of,&#8221; &#8220;piles of,&#8221; &#8220;how many altogether?&#8221;</p>
+  <p>This activity naturally builds multiplication thinking without ever using the word &#8220;multiplication.&#8221;</p>
+
+  <h2 class="spiderman">2. Skip Counting First &mdash; Spider-Man Style</h2>
+
+  <p>Skip counting <em>is</em> multiplication in disguise. A child who can count by 2s already knows the &times;2 table &mdash; they just don&#8217;t know it yet.</p>
+
+  <div class="spiderman-box">
+    <strong>Spider-Man Activity:</strong> Spider-Man swings between buildings, landing every 2 floors. Count together out loud: <em>&#8220;2, 4, 6, 8, 10&#8230;&#8221;</em>
+    <br>Each web-swing lands on the next number. How high can you go?
+  </div>
+
+  <p>Practice counting by:</p>
+  <ul>
+    <li><strong>2s:</strong> Jump twice and call the number &mdash; 2, 4, 6, 8, 10&#8230; (Spider-Man building leaps)</li>
+    <li><strong>5s:</strong> High-five for each count &mdash; 5, 10, 15, 20, 25&#8230; (Spider-Man web shots)</li>
+    <li><strong>10s:</strong> One big stomp &mdash; 10, 20, 30, 40&#8230; (superhero landings)</li>
+  </ul>
+
+  <p>Make it movement-based:</p>
+  <ul>
+    <li>Tape a number line on the floor and jump along it</li>
+    <li>Walk up stairs counting by 10s &mdash; one number per step</li>
+    <li>Clap twice for each number in the 2s sequence</li>
+    <li>Use a rhythm or song to make the sequence stick</li>
+  </ul>
+
+  <div class="img-grid">
+    <div class="img-placeholder">[Photo: number line taped on the floor &mdash; child jumping Spider-Man style from number to number]</div>
+    <div class="img-placeholder">[Photo: skip counting by 2s activity &mdash; dot cards or objects in pairs]</div>
+  </div>
+
+  <h2 class="batman">3. Arrays &mdash; Batman&#8217;s Batcave Grid</h2>
+
+  <p>An array is objects arranged in equal rows and columns. It&#8217;s one of the most powerful visual tools for multiplication because children can <em>see</em> the structure.</p>
+
+  <div class="batman-box">
+    <strong>Batman Array Challenge:</strong> Batman stores his Batarangs in a grid on the Batcave wall. He has 3 rows with 4 Batarangs in each row. How many Batarangs total?
+  </div>
+
+  <div class="array-demo" role="img" aria-label="3 rows of 4 bats">
+    &#129436; &#129436; &#129436; &#129436;<br>
+    &#129436; &#129436; &#129436; &#129436;<br>
+    &#129436; &#129436; &#129436; &#129436;
+  </div>
+
+  <p>Ask: <em>&#8220;How many rows? How many Batarangs in each row? How many altogether?&#8221;</em></p>
+
+  <p>Build arrays with any objects:</p>
+  <ul>
+    <li>LEGO bricks arranged on a baseplate</li>
+    <li>Coins or buttons laid in rows on a table</li>
+    <li>Stickers pressed onto a sheet of paper in neat rows</li>
+    <li>Crackers, raisins, or fruit snacks (then eat the answer!)</li>
+    <li>Magnetic tiles on the fridge</li>
+  </ul>
+
+  <div class="img-grid">
+    <div class="img-placeholder">[Photo: Batman array activity &mdash; toy batarangs or small objects arranged in 3 rows of 4]</div>
+    <div class="img-placeholder">[Photo: LEGO bricks on a baseplate in a neat grid array]</div>
+  </div>
+
+  <p><em>Bonus:</em> Point out that you can count the array by rows <em>or</em> by columns and get the same answer. That&#8217;s the commutative property &mdash; no need to name it, just let them notice.</p>
+
+  <h2>4. Keep Numbers Very Small</h2>
+
+  <p>At age 3&ndash;5, focus only on these multipliers. The goal is for them to be able to count out the answer using physical objects every time.</p>
+
+  <table>
+    <thead>
+      <tr><th>Focus on</th><th>Everyday example</th><th>Keep total under</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>&times;2</strong></td><td>2 shoes &times; 2 laces each</td><td>20</td></tr>
+      <tr><td><strong>&times;3</strong></td><td>3 bags &times; 3 apples each</td><td>20</td></tr>
+      <tr><td><strong>&times;4</strong></td><td>4 cars &times; 4 wheels each</td><td>20</td></tr>
+      <tr><td><strong>&times;5</strong></td><td>5 hands &times; 5 fingers each</td><td>25</td></tr>
+      <tr><td><strong>&times;10</strong></td><td>3 dimes &times; 10 cents each</td><td>50</td></tr>
+    </tbody>
+  </table>
+
+  <p>If they can&#8217;t easily count the total using fingers or physical objects, the numbers are too big. Scale down and celebrate success.</p>
+
+  <h2 class="spiderman">5. Math Stories &mdash; Give Every Problem a Hero</h2>
+
+  <p>Children remember stories. Wrapping a problem in a superhero narrative gives the numbers meaning and keeps attention.</p>
+
+  <div class="spiderman-box">
+    <strong>Spider-Man Stories:</strong>
+    <ul>
+      <li>&#8220;3 spiders are resting on Spider-Man&#8217;s web. Each spider has 8 legs. How many legs altogether?&#8221;</li>
+      <li>&#8220;Spider-Man saves 4 people from each building. He saves people in 3 buildings. How many people did he rescue?&#8221;</li>
+      <li>&#8220;Peter Parker takes 5 photos at each location. He visits 2 locations. How many photos?&#8221;</li>
+      <li>&#8220;Spider-Man fires 2 webs from each web-shooter. He uses both shooters 3 times. How many webs?&#8221;</li>
+    </ul>
+  </div>
+
+  <div class="batman-box">
+    <strong>Batman Stories:</strong>
+    <ul>
+      <li>&#8220;Batman has 3 utility belt pouches. Each pouch holds 4 gadgets. How many gadgets does he have?&#8221;</li>
+      <li>&#8220;The Batmobile has 4 wheels. Batman parks 2 Batmobiles in the Batcave. How many wheels total?&#8221;</li>
+      <li>&#8220;Batman throws 2 Batarangs at each villain. There are 4 villains. How many Batarangs?&#8221;</li>
+      <li>&#8220;Robin packs 3 items in each bag. He packs 4 bags for the mission. How many items?&#8221;</li>
+    </ul>
+  </div>
+
+  <div class="img-placeholder">[Photo: storytelling activity &mdash; child acting out a Batman or Spider-Man math story using toys and small objects as props]</div>
+
+  <p><em>Tip: Let your child make up the story. &#8220;What should Spider-Man multiply today?&#8221; Their version will be more memorable than yours.</em></p>
+
+  <h2>6. Introduce the &times; Symbol Lightly</h2>
+
+  <p>Only introduce the symbol <em>after</em> they understand groups through physical play. Frame it as a convenient shortcut, not a new rule to memorize.</p>
+
+  <div class="batman-box">
+    <p><strong>Say:</strong> &#8220;Batman has 3 pouches of 4 gadgets. We can write that quickly as: <strong>3 &times; 4</strong>.&#8221;</p>
+    <p>&#8220;The &times; sign just means &#8216;groups of.&#8217; It&#8217;s Batman&#8217;s shortcut!&#8221;</p>
+  </div>
+
+  <ul>
+    <li>Never drill times tables at this age</li>
+    <li>Let them write the equation <em>after</em> building it with objects first</li>
+    <li>The physical experience should always come before the symbol</li>
+    <li>If they resist the symbol, drop it entirely &mdash; come back later</li>
+  </ul>
+
+  <div class="img-grid">
+    <div class="img-placeholder">[Photo: child writing &#8220;3 &times; 4&#8221; on paper after building a group activity with toys]</div>
+    <div class="img-placeholder">[Photo: whiteboard or chalkboard showing &#8220;groups of&#8221; and &#8220;&times;&#8221; side by side]</div>
+  </div>
+
+  <h2>7. Great Games &amp; Tools</h2>
+
+  <div class="tool-grid">
+    <div class="tool-box">
+      <h4>Hands-On Materials</h4>
+      <ul>
+        <li>LEGO or Duplo bricks</li>
+        <li>Muffin tins + small objects</li>
+        <li>Egg cartons (a 2&times;6 grid built in!)</li>
+        <li>Dice (roll to choose group size)</li>
+        <li>Dot stickers on paper</li>
+        <li>Coins or buttons</li>
+        <li>Magnetic tiles</li>
+        <li>Snap cubes or linking cubes</li>
+      </ul>
+    </div>
+    <div class="tool-box">
+      <h4>Apps &amp; Websites</h4>
+      <ul>
+        <li><strong>Khan Academy Kids</strong> (free, ages 2&ndash;8)</li>
+        <li><strong>Beast Academy Playground</strong></li>
+        <li><strong>Starfall</strong> (math section)</li>
+        <li><strong>SplashLearn</strong></li>
+        <li><strong>Prodigy Math</strong> (for older kids)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="batman-box">
+    <strong>Batman Building Challenge:</strong> &#8220;Build Batman&#8217;s Batcave. Make 4 towers with exactly 3 LEGO blocks each. How many blocks did you use total?&#8221;
+  </div>
+
+  <div class="spiderman-box">
+    <strong>Spider-Man Web Challenge:</strong> &#8220;Spider-Man needs web anchors. Use 5 pieces of yarn to make each web &mdash; make 3 webs. How many pieces of yarn total?&#8221;
+  </div>
+
+  <div class="img-grid-3">
+    <div class="img-placeholder">[Photo: muffin tin multiplication &mdash; small objects dropped into cups to make equal groups]</div>
+    <div class="img-placeholder">[Photo: LEGO tower building challenge &mdash; equal towers side by side]</div>
+    <div class="img-placeholder">[Photo: dice game activity &mdash; rolling dice to make groups]</div>
+  </div>
+
+  <h2>8. Don&#8217;t Rush Memorization</h2>
+
+  <p>Children who deeply understand <strong>equal groups, arrays, patterns, and skip counting</strong> almost always memorize multiplication facts much faster later &mdash; and they keep them longer, because the concepts make sense underneath the facts.</p>
+
+  <p>At age 4, the goal is simply: <strong>&#8220;I understand what multiplication <em>means</em>.&#8221;</strong></p>
+
+  <p>Memorization will follow naturally when the foundation is solid. Rushing it before the concepts are in place often backfires, creating anxiety without understanding.</p>
+
+  <p><em>For children who love building and spatial play, arrays and construction challenges are especially effective first steps.</em></p>
+
+  <hr>
+
+  <h2>Daily 5-Minute Routine</h2>
+
+  <p>Short, consistent practice beats long occasional sessions. Try this routine every day &mdash; and always stop while it&#8217;s still fun.</p>
+
+  <div class="routine-box">
+    <div class="routine-step">
+      <div class="routine-num">1</div>
+      <div><strong>Count by 2s to 20</strong> &mdash; jump like Spider-Man swinging between buildings. (1 minute)</div>
+    </div>
+    <div class="routine-step">
+      <div class="routine-num">2</div>
+      <div><strong>Build one Batman array</strong> with whatever&#8217;s nearby &mdash; toys, blocks, snacks, coins. (2 minutes)</div>
+    </div>
+    <div class="routine-step">
+      <div class="routine-num">3</div>
+      <div><strong>Tell one &#8220;groups of&#8221; story</strong> together &mdash; take turns choosing Batman or Spider-Man. (1 minute)</div>
+    </div>
+    <div class="routine-step">
+      <div class="routine-num">4</div>
+      <div><strong>Stop while it&#8217;s still fun.</strong> The best session always ends with them wanting more. (always)</div>
+    </div>
+  </div>
+
+  <hr>
+
+  <h2 style="page-break-before: always;">Quick Reference &mdash; Superhero Math Facts</h2>
+  <p style="margin-bottom: 10px;">Use these as story starters and conversation prompts &mdash; not drills. Always build the problem with real objects before discussing the answer.</p>
+
+  <div class="fact-grid">
+    <div class="fact-card batman-card">
+      <div class="equation">2 &times; 4 = 8</div>
+      <div class="story">Batman holds 4 Batarangs in each hand. How many total?</div>
+    </div>
+    <div class="fact-card spiderman-card">
+      <div class="equation">2 &times; 5 = 10</div>
+      <div class="story">Spider-Man fires 5 webs from each web-shooter. How many total?</div>
+    </div>
+    <div class="fact-card batman-card">
+      <div class="equation">3 &times; 3 = 9</div>
+      <div class="story">Batman hides 3 gadgets in each of 3 places in Gotham.</div>
+    </div>
+    <div class="fact-card spiderman-card">
+      <div class="equation">3 &times; 4 = 12</div>
+      <div class="story">Spider-Man rescues 4 people per building across 3 buildings.</div>
+    </div>
+    <div class="fact-card batman-card">
+      <div class="equation">4 &times; 4 = 16</div>
+      <div class="story">Batman parks 4 Batmobiles. Each car has 4 wheels. How many wheels?</div>
+    </div>
+    <div class="fact-card spiderman-card">
+      <div class="equation">4 &times; 2 = 8</div>
+      <div class="story">Peter Parker photographs 4 spiders. Each spider appears in 2 photos.</div>
+    </div>
+    <div class="fact-card batman-card">
+      <div class="equation">5 &times; 3 = 15</div>
+      <div class="story">Batman packs 3 gadgets into each of 5 utility belt pouches.</div>
+    </div>
+    <div class="fact-card spiderman-card">
+      <div class="equation">3 &times; 8 = 24</div>
+      <div class="story">3 spiders on the web. Each one has 8 legs. Count them together!</div>
+    </div>
+  </div>
+
+</body>
+</html>

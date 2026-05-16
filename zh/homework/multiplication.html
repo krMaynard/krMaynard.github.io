@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>如何教孩子理解乘法 ― 活动指南</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-size: 13px;
+      line-height: 1.75;
+      color: #222;
+      max-width: 750px;
+      margin: 0 auto;
+      padding: 32px 40px;
+    }
+
+    .back-nav {
+      margin-bottom: 20px;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .back-nav a { color: #555; text-decoration: none; }
+    .back-nav a:hover { text-decoration: underline; }
+
+    .lang-links { font-size: 11px; }
+    .lang-links a { color: #555; text-decoration: none; margin-left: 8px; }
+    .lang-links a:hover { text-decoration: underline; }
+
+    h1 { font-size: 20px; text-align: center; margin-bottom: 2px; }
+
+    .subtitle { text-align: center; color: #555; margin-bottom: 4px; font-size: 13px; }
+
+    .note { text-align: center; font-size: 11px; color: #888; margin-bottom: 20px; }
+
+    hr { border: none; border-top: 2px solid #333; margin: 16px 0; }
+
+    h2 {
+      font-size: 15px;
+      background: #333;
+      color: #fff;
+      padding: 4px 10px;
+      margin: 20px 0 10px 0;
+      border-radius: 2px;
+    }
+
+    h2.batman { background: #1a1a2e; color: #f7c75e; }
+    h2.spiderman { background: #be1c23; color: #fff; }
+
+    p { margin-bottom: 8px; }
+    ul { margin: 6px 0 8px 20px; }
+    ul li { margin-bottom: 4px; }
+    strong { font-weight: bold; }
+
+    .section-intro {
+      background: #f0f0f0;
+      border-radius: 4px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+    }
+
+    .img-placeholder {
+      border: 2px dashed #ccc;
+      background: #f8f8f8;
+      border-radius: 4px;
+      padding: 28px 16px;
+      text-align: center;
+      color: #aaa;
+      font-size: 11px;
+      margin: 4px 0;
+    }
+
+    .img-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 10px 0; }
+    .img-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 10px 0; }
+
+    .batman-box {
+      background: #f5f0d0;
+      border-left: 4px solid #1a1a2e;
+      border-radius: 4px;
+      padding: 10px 14px;
+      margin: 10px 0;
+    }
+
+    .spiderman-box {
+      background: #fde8e8;
+      border-left: 4px solid #be1c23;
+      border-radius: 4px;
+      padding: 10px 14px;
+      margin: 10px 0;
+    }
+
+    .batman-box ul, .spiderman-box ul { margin-top: 6px; }
+
+    .array-demo {
+      font-size: 22px;
+      letter-spacing: 6px;
+      line-height: 1.9;
+      text-align: center;
+      margin: 8px 0;
+      padding: 10px 8px;
+      background: #f5f5f5;
+      border-radius: 4px;
+    }
+
+    .fact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 10px 0; }
+
+    .fact-card { border-radius: 4px; padding: 10px 12px; text-align: center; }
+    .fact-card.batman-card { background: #1a1a2e; color: #f7c75e; }
+    .fact-card.spiderman-card { background: #be1c23; color: #fff; }
+
+    .fact-card .equation { font-size: 18px; font-weight: bold; margin-bottom: 4px; }
+    .fact-card .story { font-size: 10px; opacity: 0.9; line-height: 1.4; }
+
+    .routine-box { border: 2px solid #333; border-radius: 4px; padding: 12px 16px; margin: 10px 0; }
+
+    .routine-step { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+    .routine-step:last-child { margin-bottom: 0; }
+
+    .routine-num {
+      background: #333;
+      color: #fff;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: bold;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
+
+    .tool-box { border: 1px solid #ccc; border-radius: 4px; padding: 10px 12px; }
+    .tool-box h4 { font-size: 12px; font-weight: bold; margin-bottom: 6px; }
+
+    table { width: 100%; border-collapse: collapse; margin: 8px 0 12px 0; font-size: 12px; }
+    th, td { border: 1px solid #bbb; padding: 5px 10px; text-align: left; }
+    th { background: #eee; font-weight: bold; }
+    tr:nth-child(even) td { background: #f9f9f9; }
+
+    @media (max-width: 600px) {
+      body { padding: 20px 16px; }
+      .img-grid { grid-template-columns: 1fr; }
+      .img-grid-3 { grid-template-columns: repeat(2, 1fr); }
+      .fact-grid { grid-template-columns: 1fr; }
+      .tool-grid { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      body { padding: 20px 28px; font-size: 12px; }
+      h2, h2.batman, h2.spiderman { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .batman-box, .spiderman-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .fact-card.batman-card, .fact-card.spiderman-card { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .section-intro, .routine-num { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      th, tr:nth-child(even) td { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .back-nav { display: none; }
+      a { text-decoration: none; color: inherit; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="back-nav">
+    <a href="/zh/homework/">&larr; 作业帮助</a>
+    <span class="lang-links">
+      <a href="/homework/multiplication.html">English</a>
+      <a href="/ja/homework/multiplication.html">日本語</a>
+    </span>
+  </nav>
+
+  <h1>如何教孩子理解乘法</h1>
+  <p class="subtitle">蝙蝠侠与蜘蛛侠主题活动指南</p>
+  <p class="note">适合3&#8211;5岁儿童 &bull; 注重理解，而非死记硬背 &bull; 每天5&#8211;10分钟</p>
+  <hr>
+
+  <div class="section-intro">
+    <p>教4岁孩子乘法的最好方式，是<strong>完全跳过死记硬背</strong>，通过游戏、规律、分组和反复加法，帮助他们<em>真正理解乘法的含义</em>。在这个年龄段，学习应该是<strong>直观的、身体参与的、时间短的、有趣的、无压力的</strong>。</p>
+  </div>
+
+  <h2 class="batman">1. 从"几组几"开始 ― 蝙蝠侠风格</h2>
+
+  <p>不要说<strong>"3 &times; 4"</strong>，而要说：<strong>"我们有3组，每组4个。"</strong>这就是乘法的核心思想，配合实物，孩子马上能理解。</p>
+
+  <div class="batman-box">
+    <strong>蝙蝠侠活动：</strong>蝙蝠侠的腰带有3个口袋，每个口袋里有4件装备。他总共有多少件装备？
+    <br><em>"每个口袋4件装备，一共3个口袋——我们一起数数看！"</em>
+  </div>
+
+  <p>用家里的任何东西来分组：</p>
+  <ul>
+    <li><strong>零食：</strong>在4个盘子上各放3块饼干。"一共多少块？"</li>
+    <li><strong>乐高积木：</strong>堆3堆，每堆4块。"一共多少块？"</li>
+    <li><strong>玩具车：</strong>排成2排，每排3辆。"一共几辆？"</li>
+    <li><strong>毛绒玩具：</strong>给4只熊各2块饼干。"饼干一共多少块？"</li>
+    <li><strong>松饼模或鸡蛋盒：</strong>在每个格子里放小物件，然后一起数。</li>
+  </ul>
+
+  <div class="img-grid">
+    <div class="img-placeholder">[照片：蝙蝠侠分组活动 ― 小口袋里放着分组的玩具装备]</div>
+    <div class="img-placeholder">[照片：4个盘子，每个盘子上放3块饼干，准备数数]</div>
+  </div>
+
+  <p><em>常用词语：</em>"几组几""几排""几袋""一共多少？"</p>
+
+  <h2 class="spiderman">2. 先练习跳跃计数 ― 蜘蛛侠风格</h2>
+
+  <p>跳跃计数其实就是变装的乘法。能数2的倍数的孩子，已经掌握了乘2的规律——只是他们还不知道罢了。</p>
+
+  <div class="spiderman-box">
+    <strong>蜘蛛侠活动：</strong>蜘蛛侠在大楼之间荡秋千，每次跳过2层楼。一起大声数：<em>"2、4、6、8、10……"</em>
+    <br>每甩一次蜘蛛丝就跳到下一个数字！
+  </div>
+
+  <p>练习这些跳跃计数：</p>
+  <ul>
+    <li><strong>数2的倍数：</strong>每数一个数就跳两下 ― 2、4、6、8、10……（蜘蛛侠在大楼间跳跃）</li>
+    <li><strong>数5的倍数：</strong>每数一个数就击掌 ― 5、10、15、20、25……（发射蜘蛛丝）</li>
+    <li><strong>数10的倍数：</strong>大力踩一脚 ― 10、20、30、40……（超级英雄落地）</li>
+  </ul>
+
+  <p>结合身体动作：</p>
+  <ul>
+    <li>用胶带在地板上贴数字线，边跳边数</li>
+    <li>上楼梯时数10的倍数，一级台阶说一个数</li>
+    <li>配合节奏或歌曲来练习</li>
+  </ul>
+
+  <div class="img-grid">
+    <div class="img-placeholder">[照片：地板数字线 ― 孩子像蜘蛛侠一样跳格子数数]</div>
+    <div class="img-placeholder">[照片：数2的倍数活动 ― 成对摆放的物品]</div>
+  </div>
+
+  <h2 class="batman">3. 用阵列学乘法 ― 蝙蝠侠的蝙蝠洞格子</h2>
+
+  <p>阵列是把物品按相等的行和列排列。它能让孩子<em>直观看到</em>乘法的结构，是最有效的视觉工具之一。</p>
+
+  <div class="batman-box">
+    <strong>蝙蝠侠阵列挑战：</strong>蝙蝠侠把飞镖整齐地排列在蝙蝠洞的墙上。3行，每行4个——总共多少个飞镖？
+  </div>
+
+  <div class="array-demo" role="img" aria-label="3行4列的蝙蝠阵列">
+    &#129436; &#129436; &#129436; &#129436;<br>
+    &#129436; &#129436; &#129436; &#129436;<br>
+    &#129436; &#129436; &#129436; &#129436;
+  </div>
+
+  <p>问孩子："有几行？每行有几个？一共多少个？"</p>
+
+  <p>用任何物品来排阵列：</p>
+  <ul>
+    <li>乐高积木放在底板上整齐排列</li>
+    <li>硬币或纽扣在桌上排成行</li>
+    <li>贴纸整齐地贴在纸上</li>
+    <li>饼干、葡萄干或果冻（数完就吃掉！）</li>
+    <li>冰箱上的磁性贴片</li>
+  </ul>
+
+  <div class="img-grid">
+    <div class="img-placeholder">[照片：蝙蝠侠阵列活动 ― 小玩具排成3行4列]</div>
+    <div class="img-placeholder">[照片：乐高积木在底板上整齐排列成阵列]</div>
+  </div>
+
+  <p><em>小技巧：</em>指出阵列可以按行数，也可以按列数，结果一样。孩子不需要知道这叫"交换律"，让他们自己去发现就好。</p>
+
+  <h2>4. 从很小的数字开始</h2>
+
+  <p>3&#8211;5岁时，只练习以下这些乘法。目标是每次都能用实物数出答案。</p>
+
+  <table>
+    <thead>
+      <tr><th>重点练习</th><th>生活中的例子</th><th>答案不超过</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>&times;2</strong></td><td>2双鞋 &times; 每双2根鞋带</td><td>20</td></tr>
+      <tr><td><strong>&times;3</strong></td><td>3个袋子 &times; 每袋3个苹果</td><td>20</td></tr>
+      <tr><td><strong>&times;4</strong></td><td>4辆车 &times; 每辆4个轮子</td><td>20</td></tr>
+      <tr><td><strong>&times;5</strong></td><td>5只手 &times; 每只5根手指</td><td>25</td></tr>
+      <tr><td><strong>&times;10</strong></td><td>3枚硬币 &times; 每枚10分</td><td>50</td></tr>
+    </tbody>
+  </table>
+
+  <p>如果孩子不能用手指或实物数出答案，说明数字太大了。换小一点的数字，让孩子体验成功。</p>
+
+  <h2 class="spiderman">5. 用故事学数学 ― 给每道题加上英雄</h2>
+
+  <p>孩子记得住故事。把题目包装成超级英雄的故事，数字就有了意义，注意力也更集中。</p>
+
+  <div class="spiderman-box">
+    <strong>蜘蛛侠的故事：</strong>
+    <ul>
+      <li>"蜘蛛侠的网上有3只蜘蛛。每只蜘蛛有8条腿。一共多少条腿？"</li>
+      <li>"蜘蛛侠在每栋楼里救了4个人。他救了3栋楼。一共救了多少人？"</li>
+      <li>"彼得·帕克在每个地点拍5张照片。他去了2个地点。共拍了多少张？"</li>
+      <li>"蜘蛛侠每次发射2根蜘蛛丝。他发射了3次。一共发射了多少根？"</li>
+    </ul>
+  </div>
+
+  <div class="batman-box">
+    <strong>蝙蝠侠的故事：</strong>
+    <ul>
+      <li>"蝙蝠侠有3个腰带口袋，每个里面有4件装备。他有多少件装备？"</li>
+      <li>"蝙蝠车有4个轮子。蝙蝠侠停了2辆蝙蝠车。一共多少个轮子？"</li>
+      <li>"蝙蝠侠向每个坏人扔2个飞镖。有4个坏人。需要多少个飞镖？"</li>
+      <li>"罗宾往4个包里各装了3件东西。一共装了多少件？"</li>
+    </ul>
+  </div>
+
+  <div class="img-placeholder">[照片：故事活动 ― 孩子用玩具道具演示蝙蝠侠或蜘蛛侠的数学故事]</div>
+
+  <p><em>小技巧：让孩子自己来编故事。"蜘蛛侠今天要做什么样的乘法？"他们自己编的故事记得更牢。</em></p>
+
+  <h2>6. 轻轻介绍"&times;"符号</h2>
+
+  <p>只有在孩子通过实物充分体验了分组之后，才介绍&times;符号——而且要把它描述为一种便捷的简写，而不是新的规则。</p>
+
+  <div class="batman-box">
+    <p><strong>可以这样说：</strong>"蝙蝠侠有3个口袋，每个口袋里有4件装备。我们可以简写成：<strong>3 &times; 4</strong>。"</p>
+    <p>"&times;号就是'几组几'的缩写，是蝙蝠侠的小技巧！"</p>
+  </div>
+
+  <ul>
+    <li>这个年龄不要背乘法口诀</li>
+    <li>先用实物搭建，再写算式</li>
+    <li>体验永远在符号之前</li>
+    <li>如果孩子抗拒符号，先放一放，过段时间再回来</li>
+  </ul>
+
+  <div class="img-grid">
+    <div class="img-placeholder">[照片：孩子在分组活动后，在纸上写下"3×4"]</div>
+    <div class="img-placeholder">[照片：白板上"几组几"和"×"并排写着]</div>
+  </div>
+
+  <h2>7. 好玩的游戏与工具</h2>
+
+  <div class="tool-grid">
+    <div class="tool-box">
+      <h4>动手教材</h4>
+      <ul>
+        <li>乐高或得宝积木</li>
+        <li>松饼模 + 小物品</li>
+        <li>鸡蛋盒（天然2×6阵列！）</li>
+        <li>骰子（摇出组的大小）</li>
+        <li>圆形贴纸</li>
+        <li>硬币或纽扣</li>
+        <li>磁性贴片</li>
+        <li>连接积木</li>
+      </ul>
+    </div>
+    <div class="tool-box">
+      <h4>应用程序与网站</h4>
+      <ul>
+        <li><strong>Khan Academy Kids</strong>（免费，2&#8211;8岁）</li>
+        <li><strong>Beast Academy Playground</strong></li>
+        <li><strong>Starfall</strong>（数学板块）</li>
+        <li><strong>SplashLearn</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="batman-box">
+    <strong>蝙蝠侠建造挑战：</strong>"建造蝙蝠洞！用乐高积木每次3块搭4座塔。一共用了多少块积木？"
+  </div>
+
+  <div class="spiderman-box">
+    <strong>蜘蛛侠蜘蛛网挑战：</strong>"制作蜘蛛网锚点。每张网用5根毛线，做3张网。一共需要多少根毛线？"
+  </div>
+
+  <div class="img-grid-3">
+    <div class="img-placeholder">[照片：松饼模乘法 ― 向格子里放等量小物品]</div>
+    <div class="img-placeholder">[照片：乐高塔楼挑战 ― 等高的塔并排摆放]</div>
+    <div class="img-placeholder">[照片：骰子游戏 ― 摇骰子决定分组大小]</div>
+  </div>
+
+  <h2>8. 不要急于死记硬背</h2>
+
+  <p>深刻理解<strong>等量分组、阵列、规律和跳跃计数</strong>的孩子，以后记乘法口诀会更快、更牢——因为他们明白数字背后的意义。</p>
+
+  <p>4岁时的目标只有一个：<strong>"我明白乘法<em>是什么意思</em>。"</strong></p>
+
+  <p>基础打好之后，记忆会自然跟上。操之过急、在概念不清时强行背诵，往往适得其反，让孩子产生抵触情绪。</p>
+
+  <p><em>对于喜欢搭建和空间游戏的孩子，阵列和建造挑战尤其有效。</em></p>
+
+  <hr>
+
+  <h2>每天5分钟练习</h2>
+
+  <p>短时间每天坚持，比偶尔的长时间练习效果好得多。试试这个日常安排：</p>
+
+  <div class="routine-box">
+    <div class="routine-step">
+      <div class="routine-num">1</div>
+      <div><strong>数2的倍数到20</strong> ― 像蜘蛛侠荡秋千一样边跳边数。（1分钟）</div>
+    </div>
+    <div class="routine-step">
+      <div class="routine-num">2</div>
+      <div><strong>搭一个蝙蝠侠阵列</strong> ― 用身边的玩具、积木、零食或硬币。（2分钟）</div>
+    </div>
+    <div class="routine-step">
+      <div class="routine-num">3</div>
+      <div><strong>讲一个"几组几"的故事</strong> ― 轮流选蝙蝠侠或蜘蛛侠主题。（1分钟）</div>
+    </div>
+    <div class="routine-step">
+      <div class="routine-num">4</div>
+      <div><strong>在还觉得有趣时停下来。</strong>最好的练习永远在孩子想继续的时候结束。（每次）</div>
+    </div>
+  </div>
+
+  <hr>
+
+  <h2 style="page-break-before: always;">超级英雄乘法速查卡</h2>
+  <p style="margin-bottom: 10px;">这些卡片是故事题的出发点，不是背诵练习。每道题都先用实物搭建，再讨论答案。</p>
+
+  <div class="fact-grid">
+    <div class="fact-card batman-card">
+      <div class="equation">2 &times; 4 = 8</div>
+      <div class="story">蝙蝠侠每只手拿4个飞镖。两只手一共多少个？</div>
+    </div>
+    <div class="fact-card spiderman-card">
+      <div class="equation">2 &times; 5 = 10</div>
+      <div class="story">蜘蛛侠每个发射器射出5根蜘蛛丝。两个发射器共多少根？</div>
+    </div>
+    <div class="fact-card batman-card">
+      <div class="equation">3 &times; 3 = 9</div>
+      <div class="story">蝙蝠侠在哥谭市3个地方各藏了3件装备。</div>
+    </div>
+    <div class="fact-card spiderman-card">
+      <div class="equation">3 &times; 4 = 12</div>
+      <div class="story">蜘蛛侠在3栋楼里各救了4个人。一共救了多少人？</div>
+    </div>
+    <div class="fact-card batman-card">
+      <div class="equation">4 &times; 4 = 16</div>
+      <div class="story">蝙蝠侠停了4辆蝙蝠车，每辆4个轮子。一共多少个轮子？</div>
+    </div>
+    <div class="fact-card spiderman-card">
+      <div class="equation">4 &times; 2 = 8</div>
+      <div class="story">彼得·帕克拍了4只蜘蛛，每只拍了2张照片。</div>
+    </div>
+    <div class="fact-card batman-card">
+      <div class="equation">5 &times; 3 = 15</div>
+      <div class="story">蝙蝠侠把3件装备分别装进5个口袋。一共多少件？</div>
+    </div>
+    <div class="fact-card spiderman-card">
+      <div class="equation">3 &times; 8 = 24</div>
+      <div class="story">网上有3只蜘蛛，每只有8条腿。一起来数数！</div>
+    </div>
+  </div>
+
+</body>
+</html>
