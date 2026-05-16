@@ -752,6 +752,22 @@ p {
   margin-bottom: 1rem;
 }
 
+blockquote {
+  border-left: 3px solid var(--border);
+  margin: 1.5rem 0 1.5rem 1rem;
+  padding: 0.5rem 0 0.5rem 1.25rem;
+  color: var(--text-muted, #555);
+  font-style: italic;
+}
+
+blockquote p {
+  margin-bottom: 0.5rem;
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
 footer {
   color: var(--footer-text);
   font-size: 0.9rem;
