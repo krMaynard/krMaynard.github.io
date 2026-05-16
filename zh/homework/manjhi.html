@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>达斯拉特·曼吉 ― 研究笔记</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-size: 13px;
+      line-height: 1.75;
+      color: #222;
+      max-width: 750px;
+      margin: 0 auto;
+      padding: 32px 40px;
+    }
+
+    .back-nav {
+      margin-bottom: 20px;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .back-nav a { color: #555; text-decoration: none; }
+    .back-nav a:hover { text-decoration: underline; }
+
+    h1 { font-size: 20px; text-align: center; margin-bottom: 2px; }
+
+    .subtitle { text-align: center; color: #555; margin-bottom: 4px; font-size: 13px; }
+
+    .note { text-align: center; font-size: 11px; color: #888; margin-bottom: 20px; }
+
+    hr { border: none; border-top: 2px solid #333; margin: 16px 0; }
+
+    h2 {
+      font-size: 15px;
+      background: #333;
+      color: #fff;
+      padding: 4px 10px;
+      margin: 20px 0 10px 0;
+      border-radius: 2px;
+    }
+
+    p { margin-bottom: 8px; }
+    ul { margin: 6px 0 8px 20px; }
+    ul li { margin-bottom: 4px; }
+    strong { font-weight: bold; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 12px 0;
+      font-size: 12px;
+    }
+
+    th, td { border: 1px solid #bbb; padding: 5px 10px; text-align: left; }
+    th { background: #eee; font-weight: bold; width: 35%; }
+    tr:nth-child(even) td { background: #f9f9f9; }
+
+    blockquote {
+      border-left: 4px solid #555;
+      margin: 8px 0 8px 12px;
+      padding: 4px 12px;
+      color: #333;
+    }
+
+    .traits {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin: 8px 0;
+    }
+
+    .trait {
+      background: #f3f3f3;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      padding: 6px 10px;
+    }
+
+    .trait strong { display: block; }
+    .trait span { font-size: 11px; color: #555; }
+
+    .photos {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    .photo-item { text-align: center; }
+
+    .photo-item img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border: 1px solid #ccc;
+      border-radius: 2px;
+      display: block;
+    }
+
+    .photo-item figcaption { font-size: 10px; color: #555; margin-top: 3px; }
+
+    .stamp {
+      float: right;
+      margin: 0 0 8px 14px;
+      text-align: center;
+    }
+
+    .stamp img {
+      height: 130px;
+      border: 1px solid #ccc;
+      border-radius: 2px;
+      display: block;
+    }
+
+    .stamp figcaption { font-size: 10px; color: #555; margin-top: 3px; }
+
+    .clearfix::after { content: ""; display: table; clear: both; }
+
+    @media (max-width: 600px) {
+      body { padding: 20px 16px; }
+      .photos { grid-template-columns: repeat(2, 1fr); }
+      .traits { grid-template-columns: 1fr; }
+      .stamp { float: none; margin: 0 0 12px 0; }
+      .stamp img { margin: 0 auto; }
+    }
+
+    @media print {
+      body { padding: 20px 28px; font-size: 12px; }
+      h2 { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .trait { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      tr:nth-child(even) td { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      a { text-decoration: none; color: inherit; }
+      .photo-item img { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .back-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="back-nav">
+    <a href="/zh/homework/">&larr; 作业帮助</a>
+    <span style="font-size: 11px;">
+      <a href="/homework/manjhi.html">English</a>
+      &nbsp;|&nbsp;
+      <a href="/ja/homework/manjhi.html">日本語</a>
+    </span>
+  </nav>
+
+  <h1>达斯拉特·曼吉 &#8212; 研究笔记</h1>
+  <p class="subtitle">印度的「凿山人」</p>
+  <p class="note">这些笔记用于帮助完成传记工作表。请勿逐字复制——用这里的事实，用自己的话写出来！</p>
+  <hr>
+
+  <h2>他是谁？</h2>
+  <p>达斯拉特·曼吉是一位真实的印度历史人物。他以做到了大多数人认为不可能的事而闻名——而且完全是一个人做到的。由于他仅凭手工具就凿穿了一座山，人们称他为<strong>「印度的凿山人」</strong>。</p>
+
+  <div class="photos">
+    <figure class="photo-item">
+      <img src="https://raw.githubusercontent.com/krMaynard/homework/main/manjhi/manjhi.avif" alt="成年后的达斯拉特·曼吉">
+      <figcaption>达斯拉特·曼吉</figcaption>
+    </figure>
+    <figure class="photo-item">
+      <img src="https://raw.githubusercontent.com/krMaynard/homework/main/manjhi/path.avif" alt="曼吉凿穿盖拉乌尔山丘的道路">
+      <figcaption>他亲手凿出的道路</figcaption>
+    </figure>
+    <figure class="photo-item">
+      <img src="https://raw.githubusercontent.com/krMaynard/homework/main/manjhi/dashrath-manjhi-2.webp" alt="印度比哈尔邦盖拉乌尔纪念馆的曼吉雕像">
+      <figcaption>盖拉乌尔，比哈尔邦纪念馆的雕像</figcaption>
+    </figure>
+  </div>
+
+  <h2>早年经历</h2>
+  <ul>
+    <li>于<strong>1934年1月14日</strong>出生于印度比哈尔邦一个叫<strong>盖拉乌尔</strong>的小村庄。</li>
+    <li>家境极度贫寒。他所属的<strong>穆萨哈尔社区</strong>是当时印度最弱势的群体之一。</li>
+    <li>他<strong>从未接受过学校教育</strong>——不会读书写字。</li>
+    <li>他的村子被一座陡峭的岩石山隔绝于最近的城镇之外，绕道需要走超过<strong>55公里</strong>（约34英里）。</li>
+    <li>少年时，曼吉<strong>离家出走</strong>去谋生。他辗转来到远方的城市达纳巴德，在<strong>煤矿</strong>工作。</li>
+    <li>后来他回到盖拉乌尔，与名叫<strong>法尔古妮·黛维</strong>的女子成婚，以农场劳工为生。</li>
+  </ul>
+
+  <h2>改变他人生的事件</h2>
+  <p><strong>1959年</strong>，曼吉的妻子法尔古妮在给他送饭时，途经危险的山路，不慎跌倒，身受重伤。由于最近的医院距离超过55公里，她无法及时得到救治，最终不治身亡。</p>
+  <p>曼吉悲痛欲绝，心中立下誓言：村里再不会有人承受同样的命运。<strong>1960年</strong>，他变卖家中的山羊，买来锤子、凿子和撬棍，开始独自凿山。</p>
+
+  <h2>毕生之业</h2>
+  <ul>
+    <li>他用了<strong>22年</strong>（1960&#8211;1982年），每天独自凿击坚硬的岩石，从未停歇。</li>
+    <li>人们嘲笑他，称他为疯子。他始终没有放弃。</li>
+    <li>完工时，他仅用手工具就凿出了一条<strong>长110米、宽9.1米、深7.6米</strong>的道路。</li>
+    <li>这条路将村子到最近城镇的距离从<strong>55公里缩短至15公里</strong>。</li>
+    <li>村民们第一次有了通往医院、学校和集市的便捷通道。</li>
+  </ul>
+
+  <figure style="margin: 16px 0; text-align: center;">
+    <img src="https://raw.githubusercontent.com/krMaynard/homework/main/manjhi/gehlour-satellite.png"
+         alt="显示达斯拉特·曼吉道路位置的盖拉乌尔山脉卫星图"
+         style="width: 100%; border: 1px solid #ccc; border-radius: 2px;">
+    <figcaption style="font-size: 10px; color: #555; margin-top: 4px;">
+      印度比哈尔邦盖拉乌尔山脉（深色岩石山脊）卫星图。红色图钉标记达斯拉特·曼吉纪念馆位置。山脊上那道细小的缺口，就是他凿出的路，将进城距离从55公里缩短至15公里。
+    </figcaption>
+  </figure>
+
+  <h2>影响与遗产</h2>
+  <div class="clearfix">
+    <figure class="stamp">
+      <img src="https://raw.githubusercontent.com/krMaynard/homework/main/manjhi/Dashrath_Manjhi_2016_stamp_of_India.jpg"
+           alt="印有达斯拉特·曼吉头像的2016年印度邮政纪念邮票">
+      <figcaption>2016年印度邮政纪念邮票</figcaption>
+    </figure>
+    <ul>
+      <li>道路完工后，他将余生用于向政府请愿，争取帮助像他的家乡一样的贫困村庄。</li>
+      <li><strong>2006年</strong>，比哈尔邦首席部长深受感动，起身将自己的椅子让给曼吉——这是一种极为罕见的崇高敬意。</li>
+      <li>曼吉于<strong>2007年8月17日</strong>因癌症去世，享年73岁。</li>
+      <li>比哈尔邦政府为他举行了<strong>国葬</strong>。</li>
+      <li>他凿出的那条路经过铺设硬化后，被正式命名为<strong>「达斯拉特·曼吉小道」</strong>。</li>
+      <li>村里为他修建了医院和纪念馆。</li>
+      <li><strong>2016年</strong>，印度邮政发行了印有他肖像的<strong>纪念邮票</strong>。</li>
+      <li>宝莱坞电影《曼吉：凿山人》（2015年）将他的故事带向了世界。</li>
+    </ul>
+  </div>
+
+  <h2 style="page-break-before: always;">基本信息一览</h2>
+  <table>
+    <tr><th>全名</th><td>达斯拉特·曼吉</td></tr>
+    <tr><th>出生</th><td>1934年1月14日</td></tr>
+    <tr><th>逝世</th><td>2007年8月17日（享年73岁）</td></tr>
+    <tr><th>籍贯</th><td>印度比哈尔邦盖拉乌尔村</td></tr>
+    <tr><th>婚姻</th><td>已婚 &#8212; 妻子法尔古妮·黛维</td></tr>
+    <tr><th>职业</th><td>劳工（农场工人及矿工）</td></tr>
+    <tr><th>绰号</th><td>「印度的凿山人」</td></tr>
+    <tr><th>事迹</th><td>历时22年，仅凭手工具独自凿穿一座山，开辟出一条道路</td></tr>
+    <tr><th>所用工具</th><td>锤子、凿子、撬棍</td></tr>
+    <tr><th>文化程度</th><td>无 &#8212; 不识字</td></tr>
+  </table>
+
+  <h2>人物特点</h2>
+  <div class="traits">
+    <div class="trait"><strong>坚韧</strong><span>被人嘲笑22年，从未放弃</span></div>
+    <div class="trait"><strong>无私</strong><span>为妻子而起，为整个社区而坚持</span></div>
+    <div class="trait"><strong>勤劳</strong><span>20余年来，每天凿击坚硬岩石</span></div>
+    <div class="trait"><strong>勇敢</strong><span>做了无人相信可能实现的事</span></div>
+    <div class="trait"><strong>谦逊</strong><span>从不追名逐利，只求帮助村庄</span></div>
+    <div class="trait"><strong>深情</strong><span>对妻子和邻人的爱，是他一切行动的动力</span></div>
+  </div>
+
+  <h2>名言警句</h2>
+  <blockquote>「我开始凿山时，人们叫我疯子，但这只让我更加坚定。」</blockquote>
+  <blockquote>「我为妻子而起，为人民而继续。如果我不做，没有人会做。」</blockquote>
+  <blockquote>「不要依赖上帝。也许上帝正依赖着你。」</blockquote>
+  <blockquote>「伤在心里——山不凿穿，伤就不会愈合。」</blockquote>
+
+</body>
+</html>

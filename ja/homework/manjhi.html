@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ダシュラス・マンジー ― 調査ノート</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #222;
+      max-width: 750px;
+      margin: 0 auto;
+      padding: 32px 40px;
+    }
+
+    .back-nav {
+      margin-bottom: 20px;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .back-nav a { color: #555; text-decoration: none; }
+    .back-nav a:hover { text-decoration: underline; }
+
+    h1 { font-size: 20px; text-align: center; margin-bottom: 2px; }
+
+    .subtitle {
+      text-align: center;
+      color: #555;
+      margin-bottom: 4px;
+      font-size: 13px;
+    }
+
+    .note {
+      text-align: center;
+      font-size: 11px;
+      color: #888;
+      margin-bottom: 20px;
+    }
+
+    hr { border: none; border-top: 2px solid #333; margin: 16px 0; }
+
+    h2 {
+      font-size: 15px;
+      background: #333;
+      color: #fff;
+      padding: 4px 10px;
+      margin: 20px 0 10px 0;
+      border-radius: 2px;
+    }
+
+    p { margin-bottom: 8px; }
+    ul { margin: 6px 0 8px 20px; }
+    ul li { margin-bottom: 4px; }
+    strong { font-weight: bold; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 12px 0;
+      font-size: 12px;
+    }
+
+    th, td { border: 1px solid #bbb; padding: 5px 10px; text-align: left; }
+    th { background: #eee; font-weight: bold; width: 35%; }
+    tr:nth-child(even) td { background: #f9f9f9; }
+
+    blockquote {
+      border-left: 4px solid #555;
+      margin: 8px 0 8px 12px;
+      padding: 4px 12px;
+      font-style: normal;
+      color: #333;
+    }
+
+    .traits {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin: 8px 0;
+    }
+
+    .trait {
+      background: #f3f3f3;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      padding: 6px 10px;
+    }
+
+    .trait strong { display: block; }
+    .trait span { font-size: 11px; color: #555; }
+
+    .photos {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    .photo-item { text-align: center; }
+
+    .photo-item img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border: 1px solid #ccc;
+      border-radius: 2px;
+      display: block;
+    }
+
+    .photo-item figcaption {
+      font-size: 10px;
+      color: #555;
+      margin-top: 3px;
+    }
+
+    .stamp {
+      float: right;
+      margin: 0 0 8px 14px;
+      text-align: center;
+    }
+
+    .stamp img {
+      height: 130px;
+      border: 1px solid #ccc;
+      border-radius: 2px;
+      display: block;
+    }
+
+    .stamp figcaption { font-size: 10px; color: #555; margin-top: 3px; }
+
+    .clearfix::after { content: ""; display: table; clear: both; }
+
+    @media (max-width: 600px) {
+      body { padding: 20px 16px; }
+      .photos { grid-template-columns: repeat(2, 1fr); }
+      .traits { grid-template-columns: 1fr; }
+      .stamp { float: none; margin: 0 0 12px 0; }
+      .stamp img { margin: 0 auto; }
+    }
+
+    @media print {
+      body { padding: 20px 28px; font-size: 12px; }
+      h2 { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .trait { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      tr:nth-child(even) td { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      a { text-decoration: none; color: inherit; }
+      .photo-item img { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .back-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="back-nav">
+    <a href="/ja/homework/">&larr; 宿題サポート</a>
+    <span style="font-size: 11px;">
+      <a href="/homework/manjhi.html">English</a>
+      &nbsp;|&nbsp;
+      <a href="/zh/homework/manjhi.html">中文</a>
+    </span>
+  </nav>
+
+  <h1>ダシュラス・マンジー &#8212; 調査ノート</h1>
+  <p class="subtitle">インドの「山男」</p>
+  <p class="note">伝記ワークシートを完成させる参考にしてください。そのまま書き写さず、ここに書かれた事実をもとに自分の言葉でまとめましょう！</p>
+  <hr>
+
+  <h2>どんな人でしたか？</h2>
+  <p>ダシュラス・マンジーは、インドで実際に生きた人物です。ほとんどの人が「不可能だ」と言ったことを成し遂げたことで知られており、しかもそれをまったく一人でやり遂げました。手工具だけで山に道を切り開いたため、<strong>「インドの山男（マウンテン・マン）」</strong>というあだ名がつきました。</p>
+
+  <div class="photos">
+    <figure class="photo-item">
+      <img src="https://raw.githubusercontent.com/krMaynard/homework/main/manjhi/manjhi.avif" alt="大人になったダシュラス・マンジー">
+      <figcaption>ダシュラス・マンジー</figcaption>
+    </figure>
+    <figure class="photo-item">
+      <img src="https://raw.githubusercontent.com/krMaynard/homework/main/manjhi/path.avif" alt="マンジーがゲラウル丘陵に切り開いた道">
+      <figcaption>彼が手で掘った道</figcaption>
+    </figure>
+    <figure class="photo-item">
+      <img src="https://raw.githubusercontent.com/krMaynard/homework/main/manjhi/dashrath-manjhi-2.webp" alt="インド・ビハール州ゲラウルの記念碑に立つマンジーの銅像">
+      <figcaption>ゲラウル、ビハール州の記念碑の銅像</figcaption>
+    </figure>
+  </div>
+
+  <h2>生い立ち</h2>
+  <ul>
+    <li><strong>1934年1月14日</strong>、インドのビハール州にある小さな村、<strong>ゲラウル</strong>に生まれました。</li>
+    <li>家庭は非常に貧しく、当時インドで最も恵まれていないグループの一つ、<strong>ムサハル・コミュニティ</strong>に属していました。</li>
+    <li><strong>学校教育は受けていません</strong>でした。読み書きを一切学べませんでした。</li>
+    <li>彼の村は急峻な岩山によって最寄りの町から遮断されており、回り道をすると<strong>55キロメートル</strong>（約34マイル）もかかりました。</li>
+    <li>少年のころ、マンジーは仕事を求めて<strong>家出</strong>しました。遠くの都市ダンバドへ旅し、<strong>炭鉱</strong>で働きました。</li>
+    <li>やがてゲラウルに戻り、<strong>ファルグニー・デーヴィ</strong>という女性と結婚し、農場の労働者として働きました。</li>
+  </ul>
+
+  <h2>人生を変えた出来事</h2>
+  <p><strong>1959年</strong>、マンジーの妻ファルグニーが、山の向こうで働く彼に食事を届けようとしていました。危険な岩道で足を滑らせ、重傷を負いました。最寄りの病院までは55キロメートル以上あったため、時間内に医療を受けることができず、命を落としました。</p>
+  <p>マンジーは深く悲しみ、心に誓いを立てました。「村の誰も、二度と同じ苦しみを味わわせない。」 <strong>1960年</strong>、彼は家族のヤギを売ってハンマー・ノミ・バールを手に入れ、山を削り始めました。たった一人で。</p>
+
+  <h2>生涯の仕事</h2>
+  <ul>
+    <li><strong>22年間</strong>（1960〜1982年）、毎日一人で固い岩を削り続けました。</li>
+    <li>人々は彼を狂人と笑いました。それでも彼は決してやめませんでした。</li>
+    <li>完成したとき、手工具だけで<strong>全長110メートル・幅9.1メートル・深さ7.6メートル</strong>の道を切り開いていました。</li>
+    <li>彼の道によって、最寄りの町までの距離が<strong>55キロから15キロ</strong>に縮まりました。</li>
+    <li>村人たちは初めて、病院・学校・市場に容易にアクセスできるようになりました。</li>
+  </ul>
+
+  <figure style="margin: 16px 0; text-align: center;">
+    <img src="https://raw.githubusercontent.com/krMaynard/homework/main/manjhi/gehlour-satellite.png"
+         alt="ダシュラス・マンジーの道の場所を示すゲラウル丘陵の衛星写真"
+         style="width: 100%; border: 1px solid #ccc; border-radius: 2px;">
+    <figcaption style="font-size: 10px; color: #555; margin-top: 4px;">
+      インド・ビハール州、ゲラウル丘陵（暗い色の岩の尾根）の衛星写真。赤いピンはダシュラス・マンジー記念館の場所を示しています。尾根に刻まれた細い切れ目が彼の道であり、町までの距離が55キロから15キロに縮まりました。
+    </figcaption>
+  </figure>
+
+  <h2>功績と遺産</h2>
+  <div class="clearfix">
+    <figure class="stamp">
+      <img src="https://raw.githubusercontent.com/krMaynard/homework/main/manjhi/Dashrath_Manjhi_2016_stamp_of_India.jpg"
+           alt="ダシュラス・マンジーが描かれた2016年のインド郵政記念切手">
+      <figcaption>2016年インド郵政の切手</figcaption>
+    </figure>
+    <ul>
+      <li>道の完成後、余生を村人のために政府への陳情に費やしました。</li>
+      <li><strong>2006年</strong>、ビハール州首相は深く感動し、立ち上がって自分の椅子をマンジーに譲りました。これは非常に珍しい敬意の表れです。</li>
+      <li>マンジーは<strong>2007年8月17日</strong>、73歳でがんにより死去しました。</li>
+      <li>ビハール州政府は彼に<strong>国葬</strong>を行いました。</li>
+      <li>彼が切り開いた道は舗装され、<strong>「ダシュラス・マンジー・パス」</strong>と正式に命名されました。</li>
+      <li>村に病院と記念館が建てられました。</li>
+      <li><strong>2016年</strong>、インド郵政省が彼の顔の入った<strong>記念切手</strong>を発行しました。</li>
+      <li>ボリウッド映画『マンジー：ザ・マウンテン・マン』（2015年）が彼の物語を世界に伝えました。</li>
+    </ul>
+  </div>
+
+  <h2 style="page-break-before: always;">基本情報</h2>
+  <table>
+    <tr><th>氏名</th><td>ダシュラス・マンジー</td></tr>
+    <tr><th>生年月日</th><td>1934年1月14日</td></tr>
+    <tr><th>没年月日</th><td>2007年8月17日（享年73歳）</td></tr>
+    <tr><th>出身地</th><td>インド・ビハール州ゲラウル村</td></tr>
+    <tr><th>婚姻</th><td>あり &#8212; ファルグニー・デーヴィとの間</td></tr>
+    <tr><th>職業</th><td>労働者（農業・炭鉱）</td></tr>
+    <tr><th>あだ名</th><td>「インドの山男」</td></tr>
+    <tr><th>業績</th><td>22年かけて手工具だけで山に道を切り開いた</td></tr>
+    <tr><th>使用道具</th><td>ハンマー・ノミ・バール</td></tr>
+    <tr><th>学歴</th><td>なし &#8212; 読み書きができなかった</td></tr>
+  </table>
+
+  <h2>人物の特徴</h2>
+  <div class="traits">
+    <div class="trait"><strong>不屈</strong><span>22年間笑われ続けても決してあきらめなかった</span></div>
+    <div class="trait"><strong>無私</strong><span>妻のために始め、村全体のために続けた</span></div>
+    <div class="trait"><strong>勤勉</strong><span>20年以上、毎日固い岩を削り続けた</span></div>
+    <div class="trait"><strong>勇敢</strong><span>誰もが不可能だと言ったことに挑んだ</span></div>
+    <div class="trait"><strong>謙虚</strong><span>お金も名声も求めず、ただ村の助けだけを望んだ</span></div>
+    <div class="trait"><strong>愛情深い</strong><span>妻と隣人への深い愛がすべての行動の原動力だった</span></div>
+  </div>
+
+  <h2>名言</h2>
+  <blockquote>「山を叩き始めたとき、人々は私を狂人と呼んだ。だがそれが私の決意をさらに固めた。」</blockquote>
+  <blockquote>「私は妻への愛から始め、人々のために続けた。私がやらなければ、誰もやらないから。」</blockquote>
+  <blockquote>「神に頼るな。神はあなたに頼っているかもしれないのだから。」</blockquote>
+  <blockquote>「傷は心の中にある。山が壊れるまで、癒えることはない。」</blockquote>
+
+</body>
+</html>
