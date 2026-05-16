@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>掛け算の教え方 ― 活動ガイド</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #222;
+      max-width: 750px;
+      margin: 0 auto;
+      padding: 32px 40px;
+    }
+
+    .back-nav {
+      margin-bottom: 20px;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .back-nav a { color: #555; text-decoration: none; }
+    .back-nav a:hover { text-decoration: underline; }
+
+    .lang-links { font-size: 11px; }
+    .lang-links a { color: #555; text-decoration: none; margin-left: 8px; }
+    .lang-links a:hover { text-decoration: underline; }
+
+    h1 { font-size: 20px; text-align: center; margin-bottom: 2px; }
+
+    .subtitle {
+      text-align: center;
+      font-style: normal;
+      color: #555;
+      margin-bottom: 4px;
+      font-size: 13px;
+    }
+
+    .note {
+      text-align: center;
+      font-size: 11px;
+      color: #888;
+      margin-bottom: 20px;
+    }
+
+    hr { border: none; border-top: 2px solid #333; margin: 16px 0; }
+
+    h2 {
+      font-size: 15px;
+      background: #333;
+      color: #fff;
+      padding: 4px 10px;
+      margin: 20px 0 10px 0;
+      border-radius: 2px;
+    }
+
+    h2.batman { background: #1a1a2e; color: #f7c75e; }
+    h2.spiderman { background: #be1c23; color: #fff; }
+
+    p { margin-bottom: 8px; }
+    ul { margin: 6px 0 8px 20px; }
+    ul li { margin-bottom: 4px; }
+    strong { font-weight: bold; }
+
+    .section-intro {
+      background: #f0f0f0;
+      border-radius: 4px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+    }
+
+    .img-placeholder {
+      border: 2px dashed #ccc;
+      background: #f8f8f8;
+      border-radius: 4px;
+      padding: 28px 16px;
+      text-align: center;
+      color: #aaa;
+      font-size: 11px;
+      margin: 4px 0;
+    }
+
+    .img-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 10px 0; }
+    .img-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 10px 0; }
+
+    .batman-box {
+      background: #f5f0d0;
+      border-left: 4px solid #1a1a2e;
+      border-radius: 4px;
+      padding: 10px 14px;
+      margin: 10px 0;
+    }
+
+    .spiderman-box {
+      background: #fde8e8;
+      border-left: 4px solid #be1c23;
+      border-radius: 4px;
+      padding: 10px 14px;
+      margin: 10px 0;
+    }
+
+    .batman-box ul, .spiderman-box ul { margin-top: 6px; }
+
+    .array-demo {
+      font-size: 22px;
+      letter-spacing: 6px;
+      line-height: 1.9;
+      text-align: center;
+      margin: 8px 0;
+      padding: 10px 8px;
+      background: #f5f5f5;
+      border-radius: 4px;
+    }
+
+    .fact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 10px 0; }
+
+    .fact-card { border-radius: 4px; padding: 10px 12px; text-align: center; }
+    .fact-card.batman-card { background: #1a1a2e; color: #f7c75e; }
+    .fact-card.spiderman-card { background: #be1c23; color: #fff; }
+
+    .fact-card .equation { font-size: 18px; font-weight: bold; margin-bottom: 4px; }
+    .fact-card .story { font-size: 10px; opacity: 0.9; line-height: 1.4; }
+
+    .routine-box { border: 2px solid #333; border-radius: 4px; padding: 12px 16px; margin: 10px 0; }
+
+    .routine-step { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+    .routine-step:last-child { margin-bottom: 0; }
+
+    .routine-num {
+      background: #333;
+      color: #fff;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: bold;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
+
+    .tool-box { border: 1px solid #ccc; border-radius: 4px; padding: 10px 12px; }
+    .tool-box h4 { font-size: 12px; font-weight: bold; margin-bottom: 6px; }
+
+    table { width: 100%; border-collapse: collapse; margin: 8px 0 12px 0; font-size: 12px; }
+    th, td { border: 1px solid #bbb; padding: 5px 10px; text-align: left; }
+    th { background: #eee; font-weight: bold; }
+    tr:nth-child(even) td { background: #f9f9f9; }
+
+    @media (max-width: 600px) {
+      body { padding: 20px 16px; }
+      .img-grid { grid-template-columns: 1fr; }
+      .img-grid-3 { grid-template-columns: repeat(2, 1fr); }
+      .fact-grid { grid-template-columns: 1fr; }
+      .tool-grid { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      body { padding: 20px 28px; font-size: 12px; }
+      h2, h2.batman, h2.spiderman { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .batman-box, .spiderman-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .fact-card.batman-card, .fact-card.spiderman-card { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .section-intro, .routine-num { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      th, tr:nth-child(even) td { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .back-nav { display: none; }
+      a { text-decoration: none; color: inherit; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="back-nav">
+    <a href="/ja/homework/">&larr; 宿題サポート</a>
+    <span class="lang-links">
+      <a href="/homework/multiplication.html">English</a>
+      <a href="/zh/homework/multiplication.html">中文</a>
+    </span>
+  </nav>
+
+  <h1>掛け算の教え方</h1>
+  <p class="subtitle">バットマン＆スパイダーマン活動ガイド</p>
+  <p class="note">3〜5歳向け &bull; 暗記より理解を大切に &bull; 毎日5〜10分</p>
+  <hr>
+
+  <div class="section-intro">
+    <p>4歳のお子さまに掛け算を教えるいちばんの方法は、<strong>暗記をいっさいしないこと</strong>です。遊び、パターン、グループ分け、繰り返しの足し算を通じて、掛け算の<em>考え方そのもの</em>を体感させましょう。この時期の学びは、<strong>目で見てわかる・体を使う・短い・楽しい・プレッシャーなし</strong>であることが大切です。</p>
+  </div>
+
+  <h2 class="batman">1. 「グループ分け」から始めよう ― バットマン編</h2>
+
+  <p><strong>「3 &times; 4」</strong>という言い方をする前に、<strong>「4つのグループが3つある」</strong>という言葉から始めましょう。これが掛け算の核心です。</p>
+
+  <div class="batman-box">
+    <strong>バットマン活動：</strong>バットマンのユーティリティベルトには3つのポーチがあります。それぞれのポーチに4つのガジェットが入っています。全部でガジェットはいくつ？
+    <br><em>「4つのガジェットが3ポーチ分 ― 全部数えてみよう！」</em>
+  </div>
+
+  <p>家にあるものなら何でも使えます：</p>
+  <ul>
+    <li><strong>おやつ：</strong>4枚のお皿にクラッカーを3枚ずつのせる。「全部でいくつ？」</li>
+    <li><strong>レゴブロック：</strong>3つの山に4つずつ積む。「全部でいくつ？」</li>
+    <li><strong>おもちゃの車：</strong>2列に3台ずつ並べる。「何台？」</li>
+    <li><strong>ぬいぐるみ：</strong>4匹のクマに2枚ずつクッキーをあげる。「クッキーは全部でいくつ？」</li>
+  </ul>
+
+  <div class="img-grid">
+    <div class="img-placeholder">[写真：バットマンのグループ分け活動 ― ポーチにおもちゃのガジェットを入れている様子]</div>
+    <div class="img-placeholder">[写真：4枚のお皿にクラッカーを3枚ずつのせた様子]</div>
+  </div>
+
+  <p><em>使いたい言葉：</em>「〜のかたまり」「〜列」「〜袋」「全部でいくつ？」</p>
+
+  <h2 class="spiderman">2. とびかぞえを練習しよう ― スパイダーマン編</h2>
+
+  <p>とびかぞえは掛け算を変装させたものです。2とびで数えられる子は、知らないうちに2の段をマスターしています。</p>
+
+  <div class="spiderman-box">
+    <strong>スパイダーマン活動：</strong>スパイダーマンはビルからビルへ2階分ずつ跳んでいます。一緒に声に出して数えましょう：<em>「2、4、6、8、10…」</em>
+    <br>ウェブを飛ばすたびに次の数に進みます！
+  </div>
+
+  <p>こんなとびかぞえを練習しましょう：</p>
+  <ul>
+    <li><strong>2とび：</strong>数えながら2回ジャンプ ― 2、4、6、8、10…（ビルの間をジャンプ）</li>
+    <li><strong>5とび：</strong>数えながらハイタッチ ― 5、10、15、20、25…（ウェブショット）</li>
+    <li><strong>10とび：</strong>大きく踏み込む ― 10、20、30、40…（スーパーヒーローの着地）</li>
+  </ul>
+
+  <p>体を使った活動：</p>
+  <ul>
+    <li>床にテープで数直線を作り、ジャンプしながら進む</li>
+    <li>階段を10とびで上る（1段ずつ言葉に出して）</li>
+    <li>歌やリズムに乗せて練習する</li>
+  </ul>
+
+  <div class="img-grid">
+    <div class="img-placeholder">[写真：床の数直線 ― スパイダーマン風にジャンプしながら数える様子]</div>
+    <div class="img-placeholder">[写真：2とびカード活動 ― ペアで並べたものを数える]</div>
+  </div>
+
+  <h2 class="batman">3. 配列（アレイ）を使おう ― バットマンの洞窟グリッド</h2>
+
+  <p>配列とは、ものを同じ行と列に並べたものです。掛け算の<em>形</em>を目で見ることができるため、とても効果的な学習ツールです。</p>
+
+  <div class="batman-box">
+    <strong>バットマン配列チャレンジ：</strong>バットマンはバットケイブの壁にバタランをグリッド状に収納しています。3列に4本ずつ ― 全部で何本？
+  </div>
+
+  <div class="array-demo">
+    &#129436; &#129436; &#129436; &#129436;<br>
+    &#129436; &#129436; &#129436; &#129436;<br>
+    &#129436; &#129436; &#129436; &#129436;
+  </div>
+
+  <p>「何列ある？」「1列に何個？」「全部でいくつ？」と聞きましょう。</p>
+
+  <p>配列を作るのに使えるもの：</p>
+  <ul>
+    <li>レゴのベースプレートにブロックを並べる</li>
+    <li>コインやボタンをテーブルに並べる</li>
+    <li>紙にシールを行列に貼る</li>
+    <li>クラッカーや干しブドウ（答えを数えたら食べる！）</li>
+    <li>冷蔵庫にマグネットタイル</li>
+  </ul>
+
+  <div class="img-grid">
+    <div class="img-placeholder">[写真：バットマン配列活動 ― 小さなおもちゃを3列4列に並べた様子]</div>
+    <div class="img-placeholder">[写真：レゴブロックをベースプレートに規則正しく並べた配列]</div>
+  </div>
+
+  <h2>4. 最初は小さな数字だけ</h2>
+
+  <p>3〜5歳では、次の掛け算だけに絞りましょう。毎回、物を使って実際に数えられることが目標です。</p>
+
+  <table>
+    <thead>
+      <tr><th>対象の掛け算</th><th>身近な例</th><th>合計の目安</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>&times;2</strong></td><td>靴2足 &times; 2本の靴紐</td><td>20以下</td></tr>
+      <tr><td><strong>&times;3</strong></td><td>袋3つ &times; りんご3個</td><td>20以下</td></tr>
+      <tr><td><strong>&times;4</strong></td><td>車4台 &times; タイヤ4本</td><td>20以下</td></tr>
+      <tr><td><strong>&times;5</strong></td><td>手5本 &times; 指5本</td><td>25以下</td></tr>
+      <tr><td><strong>&times;10</strong></td><td>10円玉3枚 &times; 10円</td><td>50以下</td></tr>
+    </tbody>
+  </table>
+
+  <p>指や物で答えが数えられないなら、数字が大きすぎます。小さくして、成功を喜びましょう。</p>
+
+  <h2 class="spiderman">5. お話で学ぼう ― スパイダーマン編</h2>
+
+  <p>子どもはお話をよく覚えます。問題にヒーローと場面を加えることで、数字に意味が生まれます。</p>
+
+  <div class="spiderman-box">
+    <strong>スパイダーマンのお話：</strong>
+    <ul>
+      <li>「スパイダーマンのウェブに3匹のクモがいます。クモには足が8本あります。足は全部でいくつ？」</li>
+      <li>「スパイダーマンはビル1棟から4人を救います。3棟のビルで救助します。何人救いましたか？」</li>
+      <li>「ピーター・パーカーは1か所で5枚写真を撮ります。2か所で撮ると何枚？」</li>
+      <li>「スパイダーマンはウェブシューターから1回に2本ウェブを出します。3回打つと何本？」</li>
+    </ul>
+  </div>
+
+  <div class="batman-box">
+    <strong>バットマンのお話：</strong>
+    <ul>
+      <li>「バットマンのポーチは3つ。それぞれにガジェットが4つ。全部でいくつ？」</li>
+      <li>「バットモービルにはタイヤが4本。2台止まっています。タイヤは全部で何本？」</li>
+      <li>「バットマンは悪者1人に2本バタランを投げます。4人いたら何本？」</li>
+      <li>「ロビンは4つのバッグにそれぞれ3つ道具を詰めます。全部でいくつ？」</li>
+    </ul>
+  </div>
+
+  <div class="img-placeholder">[写真：お話活動 ― おもちゃを使ってバットマンやスパイダーマンの算数のお話を演じている様子]</div>
+
+  <p><em>コツ：子どもに自分でお話を作らせましょう。「スパイダーマン、今日は何を掛け算する？」 自分で作った話のほうがよく覚えます。</em></p>
+
+  <h2>6. ×の記号を少しだけ紹介しよう</h2>
+
+  <p>物を使ったグループ分けを十分に体験してから、&times;の記号を紹介しましょう。「新しいルール」ではなく、<em>便利な近道</em>として伝えることが大切です。</p>
+
+  <div class="batman-box">
+    <p><strong>こう言ってみましょう：</strong>「バットマンには4つのガジェットが入ったポーチが3つあるね。これを短く書くと <strong>3 &times; 4</strong> になるよ。」</p>
+    <p>「&times;のマークは『〜のかたまり』という意味の近道なんだ！」</p>
+  </div>
+
+  <ul>
+    <li>この年齢では、掛け算の表を繰り返し言わせないこと</li>
+    <li>物で作ってから、その後に式を書く</li>
+    <li>記号より先に、体験が必ず来ること</li>
+  </ul>
+
+  <div class="img-grid">
+    <div class="img-placeholder">[写真：グループ分けの後に「3×4」と紙に書いている様子]</div>
+    <div class="img-placeholder">[写真：「〜のかたまり」と「×」を並べて書いたホワイトボード]</div>
+  </div>
+
+  <h2>7. おすすめのゲームとツール</h2>
+
+  <div class="tool-grid">
+    <div class="tool-box">
+      <h4>実物を使う教材</h4>
+      <ul>
+        <li>レゴ・デュプロブロック</li>
+        <li>マフィン型 + 小さなもの</li>
+        <li>卵パック（2×6の配列！）</li>
+        <li>サイコロ（グループの大きさを決める）</li>
+        <li>丸シール</li>
+        <li>コインやボタン</li>
+        <li>マグネットタイル</li>
+        <li>つなげるキューブ</li>
+      </ul>
+    </div>
+    <div class="tool-box">
+      <h4>アプリ・ウェブサイト</h4>
+      <ul>
+        <li><strong>Khan Academy Kids</strong>（無料、2〜8歳）</li>
+        <li><strong>Beast Academy Playground</strong></li>
+        <li><strong>Starfall</strong>（算数のコーナー）</li>
+        <li><strong>SplashLearn</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="batman-box">
+    <strong>バットマン建設チャレンジ：</strong>「バットケイブを建てよう。レゴブロックを3つずつ使って4つのタワーを作ってください。ブロックは全部でいくつ使った？」
+  </div>
+
+  <div class="spiderman-box">
+    <strong>スパイダーマン・ウェブチャレンジ：</strong>「ウェブアンカーを作ろう。毛糸を5本使ってウェブを1つ作る。3つ作ると全部で毛糸は何本？」
+  </div>
+
+  <div class="img-grid-3">
+    <div class="img-placeholder">[写真：マフィン型掛け算 ― カップに等しい数のものを入れている様子]</div>
+    <div class="img-placeholder">[写真：レゴタワーチャレンジ ― 同じ高さのタワーを並べた様子]</div>
+    <div class="img-placeholder">[写真：サイコロゲーム活動 ― グループを作るためにサイコロを振っている様子]</div>
+  </div>
+
+  <h2>8. 暗記を急がないで</h2>
+
+  <p><strong>等しいグループ・配列・パターン・とびかぞえ</strong>をしっかり理解している子は、後になって掛け算の答えをずっと速く、そして長く覚えていられます。概念が意味として理解されているからです。</p>
+
+  <p>4歳のお子さまの目標はただひとつ：<strong>「掛け算が<em>何を意味するか</em>わかること」</strong></p>
+
+  <p>基礎が固まれば、暗記は自然についてきます。</p>
+
+  <p><em>ものを作ったり空間的な遊びが好きなお子さまには、配列と建設チャレンジが特に効果的です。</em></p>
+
+  <hr>
+
+  <h2>毎日5分のルーティン</h2>
+
+  <p>長くたまに行うより、短く毎日続けるほうが効果的です。このルーティンを試してみましょう。</p>
+
+  <div class="routine-box">
+    <div class="routine-step">
+      <div class="routine-num">1</div>
+      <div><strong>2とびで20まで数える</strong> ― スパイダーマンがビルを跳ぶようにジャンプしながら。（1分）</div>
+    </div>
+    <div class="routine-step">
+      <div class="routine-num">2</div>
+      <div><strong>バットマンの配列を1つ作る</strong> ― 近くにあるおもちゃ・ブロック・おやつ・コインで。（2分）</div>
+    </div>
+    <div class="routine-step">
+      <div class="routine-num">3</div>
+      <div><strong>「グループ分け」のお話を1つ</strong> ― バットマンかスパイダーマン、交代で選ぼう。（1分）</div>
+    </div>
+    <div class="routine-step">
+      <div class="routine-num">4</div>
+      <div><strong>楽しいうちに終わる。</strong>「もっとやりたい！」という気持ちで終わることが大切です。（毎回）</div>
+    </div>
+  </div>
+
+  <hr>
+
+  <h2 style="page-break-before: always;">スーパーヒーロー掛け算カード</h2>
+  <p style="margin-bottom: 10px;">これはドリルではありません。お話の出発点として使いましょう。答えを言う前に、実物で問題を作ってみましょう。</p>
+
+  <div class="fact-grid">
+    <div class="fact-card batman-card">
+      <div class="equation">2 &times; 4 = 8</div>
+      <div class="story">バットマンは両手に4本ずつバタランを持っています。全部で何本？</div>
+    </div>
+    <div class="fact-card spiderman-card">
+      <div class="equation">2 &times; 5 = 10</div>
+      <div class="story">スパイダーマンはウェブシューターから5本ずつウェブを出します。全部で何本？</div>
+    </div>
+    <div class="fact-card batman-card">
+      <div class="equation">3 &times; 3 = 9</div>
+      <div class="story">バットマンはゴッサムの3か所にそれぞれ3つのガジェットを隠しています。</div>
+    </div>
+    <div class="fact-card spiderman-card">
+      <div class="equation">3 &times; 4 = 12</div>
+      <div class="story">スパイダーマンは3棟のビルで各4人を救出します。何人？</div>
+    </div>
+    <div class="fact-card batman-card">
+      <div class="equation">4 &times; 4 = 16</div>
+      <div class="story">バットモービルが4台。それぞれタイヤが4本。全部で何本？</div>
+    </div>
+    <div class="fact-card spiderman-card">
+      <div class="equation">4 &times; 2 = 8</div>
+      <div class="story">ピーター・パーカーがクモを4匹撮影。それぞれ2枚ずつ写真を撮りました。</div>
+    </div>
+    <div class="fact-card batman-card">
+      <div class="equation">5 &times; 3 = 15</div>
+      <div class="story">バットマンは5つのポーチにそれぞれ3つのガジェットを詰めます。</div>
+    </div>
+    <div class="fact-card spiderman-card">
+      <div class="equation">3 &times; 8 = 24</div>
+      <div class="story">ウェブに3匹のクモ。それぞれ足が8本。一緒に数えよう！</div>
+    </div>
+  </div>
+
+</body>
+</html>
