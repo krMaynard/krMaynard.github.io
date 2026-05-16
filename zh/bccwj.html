@@ -1,137 +1,139 @@
 ---
 layout: main
-title: "BCCWJ & Linguistics of Speech"
-lang: en
-lang_url: /ja/bccwj.html
-lang_url_zh: /zh/bccwj.html
+title: 现代日语书面语均衡语料库（BCCWJ）与日语"言语学"初探
+lang: zh
+lang_url: /bccwj.html
+lang_url_ja: /ja/bccwj.html
 ---
 
-<h1>Toward a Japanese “linguistics of speech”: collocation in the BCCWJ</h1>
+<h1>现代日语书面语均衡语料库（BCCWJ）与日语"言语学"初探</h1>
 
-<p>by Kieran Maynard (2010)</p>
-<p>Advisor: Dr. William Kretzschmar</p>
+<p>基兰·梅纳德 著（2010年）</p>
+<p>指导教授：威廉·克雷奇马博士</p>
 
-<p>The University of Georgia LING 4080/6080</p>
+<p>佐治亚大学 LING 4080/6080</p>
 
-<p><em>Keywords: Computational linguistics, Japanese, NLP, corpus linguistics, electronic corpora, semantic analysis</em></p>
+<p><em>关键词：计算语言学、日语、NLP、语料库语言学、电子语料库、语义分析</em></p>
 
-<p>Corpus linguistics will soon benefit from the public release of a new electronic corpus of written Japanese. This study attempts to lay the foundation for an application of the Kretzschmar's (2009) “linguistics of speech” to Japanese speech data in the aggregate. We will first characterize the Kotonoha Project, describe our theoretical foundations and some issues specific to Japanese, then apply Sinclair's (2004) analytical methods to Japanese corpus evidence in search of significant collocations and the distributional pattern of the linguistics of speech.</p>
+<p><i>本文为2010年于佐治亚大学（LING 4080/6080）在威廉·克雷奇马博士指导下完成的研究论文，在BCCWJ公开发布前利用其演示版本进行了共现分析研究。</i></p>
 
+<p>语料库语言学即将受益于一部新型日语书面语电子语料库的公开发布。本研究旨在为将克雷奇马（2009）的"言语学"理论整体性地应用于日语言语数据奠定基础。本文将首先介绍"言叶"项目的概况，阐述理论基础及日语特有的若干问题，继而将辛克莱（2004）的分析方法应用于日语语料库证据，探寻显著搭配关系及言语学的分布规律。</p>
 
 
-<p><strong>The Kotonoha Project</strong></p>
 
+<p><strong>"言叶"项目</strong></p>
 
 
-<p>The advent of computer processing and storage has made the compilation of massive language corpora possible, and the Internet has made them accessible to researchers. Computers enable analysis of large bodies of text, and these analyses have produced startling findings. While much work with corpora has been done with English, Japanese corpora have also been compiled and made available on the Web.</p>
 
+<p>计算机处理与存储技术的发展使大规模语言语料库的编纂成为可能，互联网则使其得以向研究者开放。计算机能够分析海量文本，这些分析产生了令人瞩目的研究成果。目前，以英语为对象的语料库研究已相当丰富，日语语料库也已在网络上编纂完成并公开发布。</p>
 
 
-<p>The National Institute for Japanese Language and Linguistics (NIJL) in Tokyo is compiling a “Balanced Corpus of Contemporary Written Japanese” (<a rel="noreferrer noopener" href="https://clrd.ninjal.ac.jp/bccwj/en/" target="_blank">BCCWJ</a>) slated to be opened to the public in 2011. According to Maekawa's (2007) estimate, the corpus will comprise approximately 100 million words “selected randomly from well-defined statistical populations covering [a] wide range of written texts” (Maekawa 2008). The NIJL defines a “balanced corpus” as one that “as accurately as possible represents contemporary Japanese” (<em>gendai nihongo no jissi no dekiru dake seikaku na syukuzu to naru</em> (“Kokuritsu”)).  Previous studies of written Japanese have dealt with material either too old (<em>e.g.</em>, copyright-expired literature), not sampled randomly, or skewed in its distribution. Newspaper writing, for instance, is produced for institutions that seek to minimize variation, and Internet writing lacks categorization and copyrighted works.</p>
 
+<p>东京的日本国立国语研究所（NIJL）正在编纂"现代日语书面语均衡语料库"（<a rel="noreferrer noopener" href="https://clrd.ninjal.ac.jp/bccwj/en/" target="_blank">BCCWJ</a>），预计于2011年向公众开放。据前川（2007）估计，该语料库将包含约1亿词，这些词"从覆盖广泛书面语文本的明确界定的统计总体中随机抽取"（前川 2008）。日本国立国语研究所将"均衡语料库"定义为"尽可能精确地再现现代日语实际面貌"的语料库（"国立"）。此前的书面日语研究所采用的材料或过于陈旧（例如版权已失效的文学作品），或未进行随机抽样，或在分布上存在偏差。例如，报纸由致力于减少变异的机构制作，而互联网上的文章则缺乏分类，且不包含受版权保护的作品。</p>
 
 
-<p>The BCCWJ will conflate three sub-corpora: the (1) “publication” or “production” 34.7 million-word sub-corpus that “consists of samples extracted randomly from the statistical population covering the whole body of books, magazines, and newspapers published [in Japan] during 2001-2005” (Maekawa 2008); (2) the “library” or “circulation” 30 million word sub-corpus sampled from “the whole [of] books registered in at least 13 public libraries in the Tokyo Metropolis” (ibid.); and the (3) “special-purpose” or “out-of-population” 35 million word sub-corpus comprising “various special purpose mini corpora” of about 5 million words each, “includ[ing] texts of governmental white papers, Internet text…, minutes of the [N]ational [D]iet, school textbooks, and best-selling books of the past 30 years” (ibid.).</p>
 
+<p>BCCWJ将整合三个子语料库：（1）"出版"或"生产"子语料库（3470万词），由"2001至2005年间在日本出版的所有书籍、杂志和报纸统计总体中随机抽取的样本构成"（前川 2008）；（2）"图书馆"或"流通"子语料库（3000万词），抽取自"东京都至少13所公共图书馆馆藏的所有书籍"（同上）；（3）"专项"或"总体外"子语料库（3500万词），由各约500万词的"各类专项小型语料库"构成，"包括政府白皮书、互联网文本、国会议事录、学校教科书以及过去30年的畅销书文本"（同上）。</p>
 
 
-<p>My analysis uses the online demonstration version of the BCCWJ, which comprises “[a]s of September 2007… the full-text query of the 10 million words [of] texts that are copyright cleared [that] are publicly available on the web” (ibid.). The demonstration BCCWJ gives concordance lines for any search term, to a maximum of 500. Additional parameters may be entered in regular language to refine the search on either side of the node. The classifications given to concordance lines are author, author's decade of birth, author's gender, genre, book title/source, subtitle/classification, volume number, compiler, etc., publisher, and misc. notes. Though it is possible to copy the concordance lines into another program, statistical analysis cannot be carried out on the demonstration BCCWJ page; the eventual public release of the corpus will enable more rigorous statistical treatment of the data in this paper.</p>
 
+<p>本文分析使用的是BCCWJ的在线演示版本，该版本截至2007年9月包含"经著作权清理后可在网上公开获取的1000万词文本的全文检索"（同上）。演示版BCCWJ可为任意检索词提供最多500条检索行。可在节点词前后两侧以自然语言输入附加参数，以精化检索结果。检索行所附分类信息包括作者、作者出生年代、作者性别、体裁、书名/来源、副题/分类、卷号、编者等、出版社及备注。虽然可以将检索行复制到其他程序，但无法在演示版BCCWJ页面上进行统计分析；最终公开发布的语料库将使本文数据得到更为严格的统计处理。</p>
 
 
-<p><strong>Words and linguistic features</strong></p>
 
+<p><strong>词与语言特征</strong></p>
 
 
-<p>What are the units of meaning in Japanese? The “word… does not reign unchallenged as the basic unit of language” (Sinclair 2004: 25)—other concepts, like the morpheme, have gained currency, yet the morpheme is often too small a unit for the study of linguistic variation in text. In Japanese text, where word boundaries are not differentiated by orthography, what counts as a word?</p>
 
+<p>日语中意义的单位是什么？"词……并非毫无争议地作为语言的基本单位而存在"（辛克莱 2004: 25）——形态素等其他概念也已获得认可，然而形态素对于文本中语言变异的研究而言往往过于微小。在词边界不通过正字法加以区分的日语文本中，何为词？</p>
 
 
-<p>John Sinclair (2004) has proposed a model for compound lexical items in the structural analysis of English. In the chapter “The Search for Units of Meaning,” he makes the case for compound lexical items with four major structural categories: collocation, colligation, semantic preference, and semantic prosody. He posits a continuum in the lexis between the “open-choice principle” and the “idiom principle,” exemplified by the “terminological tendency” of words “to have a fixed meaning in reference to the world” (29) and the “phraseological tendency” of words to “go together and make meaning by their combinations” (29), respectively. He hypothesizes that (29-30):</p>
 
+<p>约翰·辛克莱（2004）为英语结构分析中的复合词汇项目提出了一个模型。在"意义单位探寻"一章中，他为复合词汇项目设立了四个主要结构类别：搭配（共现）、同现句法模式、语义偏好和语义韵。他假设词汇存在一个从"自由选择原则"到"习语原则"的连续体，前者的典型是词"在指称世界时具有固定意义的倾向"（29），即"专门术语倾向"；后者的典型是词"相互搭配并通过组合构成意义的倾向"（29），即"语块倾向"。他假定（29-30）：</p>
 
 
-<p>…the notion of a linguistic item can be extended, at least for English, so that units of meaning are expected to be largely phrasal. Some words would still be chosen according to the open choice principle, but probably not very many, depending on the kind of discourse. The idea of a word carrying meaning on its own would be relegated to the margins of linguistic interest, in the enumeration of flora and fauna for example.</p>
 
+<p>……语言项目的概念可以延伸，至少就英语而言，意义单位预期大体上是短语性的。某些词仍会根据自由选择原则被选用，但可能为数不多，这取决于话语的类型。词自身承载意义的观念将被边缘化，仅在动植物列举等场合中才有语言学意义。</p>
 
 
-<p>Sinclair has used the mid-1995 <em>Bank of English</em> 211 million word corpus to gather collocations for phrases and words to show that words often appear next to other words (collocate) and in certain grammatical patterns (colligate), and that an analyst can further abstract a “semantic preference” and “semantic prosody” (2004: 32-3). Even a common word like <em>place</em> (as it might appear in a sentence like “…She came over to my place with a friend…” (38)) Sinclair describes as “a compound lexical item which has a semantic prosody 'informal invitation,' a semantic preference for 'local travel' which is realized by colligation with a verb of movement and optionally a directional adverb, with <em>come</em> and <em>over</em> as typical collocations” (38).</p>
 
+<p>辛克莱曾使用1995年中期的《英语银行》（2.11亿词）来收集短语和词的搭配，以证明词语经常与其他词语相邻出现（搭配），并出现在特定语法模式中（同现句法），分析者还可进一步抽象出"语义偏好"和"语义韵"（2004: 32-3）。即便是像<em>place</em>这样的常见词（正如它可能出现在"……She came over to my place with a friend……"（38）这样的句子中），辛克莱也将其描述为"一个复合词汇项目，具有'非正式邀请'的语义韵，具有'局部移动'的语义偏好，通过与移动动词及可选方向副词的同现句法得以实现，<em>come</em>和<em>over</em>是其典型搭配词"（38）。</p>
 
 
-<p><strong>Distributions of linguistic features and </strong><strong><em>The Linguistics of Speech</em></strong></p>
 
+<p><strong>语言特征的分布与《言语学》</strong></p>
 
 
-<p>William A. Kretzschmar, Jr. in <em>The Linguistics of Speech</em> (2009) goes beyond Sinclair's “phraseology” and defines “linguistic features” based on the work of Ferdinand de Saussure as “anything we can identify as an entity or unit having to do with what people say” (53). A linguistic feature is often larger or smaller than a word, which is in itself a tricky concept to define, but one that continues to influence our perceptions of language (54):</p>
 
+<p>威廉·A·克雷奇马（小）在《言语学》（2009）中超越了辛克莱的"语块理论"，以费迪南·德·索绪尔的研究为基础，将"语言特征"定义为"我们能够识别为与人们所说的话相关的实体或单位的任何事物"（53）。语言特征往往比词更大或更小——词本身就是一个难以定义的概念，但它持续影响着我们对语言的认知（54）：</p>
 
 
-<p>Linguistic features of speech, concrete entities, thus are commonly taken to be different words used for the same referent (synonyms), or alternative morphs or phones used as components of what we identify as the same word, or alternative arrangements of words in what we recognize to be sequences with equivalent meaning or organization. For Saussure, “identity” comes from such acts of recognition, as when we consider the word “messieurs” to be the same word even given variations in “delivery and intonation” by different speakers…</p>
 
+<p>言语的语言特征作为具体实体，通常被理解为：用于同一指称对象的不同词语（同义词），或作为我们所识别的同一词语的组成部分而使用的不同词素或音素，或我们认为具有等价意义或结构的语序的不同排列。对索绪尔而言，"同一性"来自此类识别行为，例如当我们将"messieurs"这个词视为同一个词，即使不同说话者在"语音传递和语调"上存在差异……</p>
 
 
-<p>John Firth and others have shown that words derive their meaning from context, not the other way around. Where and how often they occur in texts, their distribution, is then very important. Michael Stubb's (2001) study of English described in Kretzschmar (2009) used corpora to calculate the rate of co-occurrence for word forms (“node” words) their collocates, and found that 90% of node words appeared near their top collocate at least 2% of the time, which is still 250 times the probability of co-occurrence by chance. Thus Kretzschmar (2009) posits that “words are not deployed randomly in speech, or evenly spaced, but instead they normally occur in clusters… in proximate association with other words as collocates” (154), therefore “it is… a normal feature of language in use that any given word, when considered as a node word, is likely to have multiple collocates with unexpectedly high rates of co-occurrence” (154-5).</p>
 
+<p>约翰·弗斯等人已经证明，词语从语境中派生意义，而非相反。词语在文本中出现的位置与频率——即其分布——极为重要。克雷奇马（2009）所引述的迈克尔·斯塔布斯（2001）对英语的研究使用语料库计算了词形（"节点"词）与其搭配词的共现率，发现90%的节点词与其最高频搭配词相邻出现的频率至少为2%，这仍然是偶然共现概率的250倍。因此，克雷奇马（2009）主张"词语在言语中的分布不是随机的，也不是均匀分散的，而是通常以集群形式出现……与其他词语作为搭配词相邻共现"（154），从而"任何给定词语在被视为节点词时，具有多个共现率异常偏高的搭配词，这是语言使用中的……一种正常特征"（154-5）。</p>
 
 
-<p>Kretzschmar (2009) has proposed a new model for the study of language in use, called the “linguistics of speech” as a counterpart to the academic North American “linguistics of linguistic structure” (4), and shown that the distribution of linguistic features in speech and writing is non-linear. When organized into types and tokens and plotted by frequency, linguistic features always display an asymptotic hyperbolic curve, or “A-curve” (197). This distribution has been described before as the “80/20 Rule,” which predicts 20% of all types will account for 80% of all tokens. Vowel realizations, words, collocations, etc. all follow this distributional pattern, as Kretzschmar (2010) explains (20-1):</p>
 
+<p>克雷奇马（2009）提出了一种新的语言使用研究模型，称为"言语学"，作为北美学术界"语言结构语言学"（4）的对应概念，并证明言语和书面语中语言特征的分布是非线性的。当按类型和标记组织并以频率绘图时，语言特征总是呈现出渐近双曲线，即"A形曲线"（197）。这种分布此前被描述为"80/20法则"，预测所有类型的20%将占所有标记的80%。元音实现形式、词语、搭配等均遵循这一分布规律，克雷奇马（2010）如此解释（20-1）：</p>
 
 
-<p>…the 80/20 Rule for such non-linear distributions (whether the actual percentages are 90/10 or 70/30) tells us that we will always find one or a few constructions that account for the great majority of the instances for the feature under study, and that there will be a large number of variant constructions for the feature that account for a small minority of the instances…</p>
 
+<p>……对于此类非线性分布的80/20法则（无论实际比例是90/10还是70/30）告诉我们，在所研究特征的用例中，我们总会发现一种或少数几种构式占了绝大多数，而该特征还会有大量变体构式，只占少数用例……</p>
 
 
-<p>Systems characterized by such a distribution have been observed in other sciences, and now linguistics; they are known as “complex adaptive systems.” Kretzschmar explains (2010: 5):</p>
 
+<p>具有此类分布特征的系统已在其他科学领域被观察到，现在在语言学中也得到了印证；它们被称为"复杂适应系统"。克雷奇马如此解释（2010: 5）：</p>
 
 
-<p>This more-or-less 80/20 relationship is no mere curiosity but a sign that speech, language as we use it, behaves as a complex system. Complexity in this specialized sense (not just with the usual meaning 'complicated') is a property of many natural phenomena characterized in mathematical descriptions by "curves without tangents," continuous nondifferentiable functions--in other words, this sort of complexity is characterized by A-curves.</p>
 
+<p>这种或多或少的80/20关系不仅仅是一种奇特现象，而是言语——即我们实际使用的语言——作为复杂系统运作的标志。这种专门意义上的复杂性（而非仅仅意味着"复杂"的通常含义）是许多自然现象的特性，在数学描述上表现为"无切线的曲线"，即连续不可微函数——换言之，这种复杂性以A形曲线为特征。</p>
 
 
-<p>The model of the “linguistics of speech” is built on this understanding of the nature of “emergent order” in language, and offers a new way to study speech data in the aggregate.</p>
 
+<p>"言语学"模型建立在这种对语言中"涌现秩序"性质的理解之上，为整体性研究言语数据提供了一种新途径。</p>
 
 
-<p><strong>The orthography problem</strong></p>
 
+<p><strong>正字法问题</strong></p>
 
 
-<p>The Japanese writing system poses a bit of a problem in the linguistic analysis of Japanese. Written Japanese regularly appears in a combination of four scripts: <em>kanji</em>, <em>hiragana</em>, <em>katakana</em>, and <em>rōmaji</em>. Hiragana and katakana are basically phonemic systems of characters that represent syllables. Rōmaji are Roman characters used primarily in two competing systems (Hepburn and Kunrei) to record Japanese phonemically. Kanji, or Chinese characters, are less straightforward in their phonetic representation.</p>
 
+<p>日语书写系统在日语语言分析中造成了一定的困难。书面日语通常以四种文字体系的组合书写：汉字、平假名、片假名和罗马字。平假名和片假名基本上是以音节为单位的表音文字体系。罗马字是主要用两种相互竞争的系统（赫本式和训令式）对日语进行表音记录的拉丁字母。汉字在语音表现方面则较为复杂。</p>
 
 
-<p>First introduced to the West by Jesuits and other missionaries, the characters were imagined to represent concepts divorced from the sounds of spoken language, a mistaken perception that persists to this day. Kanji are usually used to represent the vast heritage of Chinese loan words in Japanese, but also many native words (including 19<sup>th</sup>- and 20<sup>th</sup>-Century coinages using Sino-Japanese morphemes), some Buddhist terms (form Sanskrit, Pali, etc.), nativized Western loans (from Portuguese, Dutch, etc.) and even relatively recent loans like <em>pēzi </em>'page'. Sometimes different kanji are used to differentiate homonyms, analogous with English &lt;sail&gt; and &lt;sale&gt;, while at other times different morphemes or words considered related by sense, paradigm or tradition will be written with the same kanji. For example, the native word <em>mato</em> 'target' is written with the same kanji as the Sino-Japanese morpheme <em>teki-</em> and, likewise the native <em>naka</em> 'inside' with the same kanji as the Sino-Japanese <em>–tū</em> in <em>tekitū</em> 'strike home'. Though their phonetic value is often opaque, kanji are certainly not ideograms, as their primary function in most Japanese text is the same as an alphabetic or any other writing system for human language: to record, even at a rough approximation, the sounds of spoken language. At other times described as morphemic or logographic, DeFrancis (1984) has proposed the term “morphosyllabic.”</p>
 
+<p>汉字最初由耶稣会及其他传教士介绍到西方时，被认为代表脱离口语声音的概念，这一错误认识延续至今。汉字通常用于表示日语中大量的汉语借词，但也用于表示许多固有词（包括使用汉日语素在19至20世纪创造的新词）、一些佛教术语（源自梵语、巴利语等）、本土化的西方借词（源自葡萄牙语、荷兰语等），甚至一些相对较新的借词，如pēzi"页面"。有时不同汉字用于区分同音异义词，类似于英语中的&lt;sail&gt;和&lt;sale&gt;；而有时，在意义、词形变化或传统上被认为相关的不同词素或词语会用同一个汉字书写。例如，固有词mato"目标"与汉日语素teki-使用同一个汉字，同样，固有词naka"内部"与tekitū"打中要害"中的汉日语素–tū使用同一个汉字。尽管其语音价值往往不透明，但汉字肯定不是表意文字，因为它在大多数日语文本中的主要功能与字母文字或任何其他人类语言书写系统相同：即使近似，也要记录口语的声音。汉字有时被描述为形态型或表语型，德弗兰西斯（1984）则提出了"形态音节型"这一术语。</p>
 
 
-<p>While the Japanese government sets standards for the use of kanji, variation in use and their morphosyllabic nature may create ambiguity in which word kanji are intended to record. For this reason a potentially ambiguous search term consulted in the corpus in kanji must be checked against its context to confirm its “reading”: the spoken word, morpheme or syllable it represents. Some terms need to be searched in multiple orthographic forms (possible through the use of Boolean operators in the demo BCCWJ), as words may be written interchangeably in different systems according to tradition, visual appeal, etc.</p>
 
+<p>尽管日本政府为汉字使用制定了标准，但使用中的变异及其形态音节特性可能造成歧义，使人难以确定汉字所要记录的是哪个词语。因此，在语料库中检索汉字形式的检索词时，必须通过核查其语境来确认其"读音"——即它所代表的口语词汇、词素或音节。由于词语可能根据传统、视觉效果等以不同书写系统交替使用，某些术语需要以多种正字形式进行检索（在演示版BCCWJ中可通过布尔运算符实现）。</p>
 
 
-<p>The NIJL's sampling method is actually based on characters rather than words. Explaining the word-estimation formulas for the Corpus of Spontaneous Japanese (CSJ) produced by the NIJL, Maekawa (2007) warns, “…word boundary in Japanese is heavily theory dependent and hence is not reflected in ordinary orthography.” It may be argued, though, that the orthography itself exacerbates or even causes this problem, as word boundary in any language, as demonstrated by Sinclair (2004) and Kretzschmar (2009), is “heavily theory dependent.”</p>
 
+<p>日本国立国语研究所的抽样方法实际上以字符而非词为基础。前川（2007）在解释国立国语研究所编制的自发言语语料库（CSJ）的词数估算公式时警告说："日语的词边界在很大程度上依赖于理论，因此不体现在普通正字法中。"然而，正如辛克莱（2004）和克雷奇马（2009）所证明的，任何语言中的词边界都"在很大程度上依赖于理论"，因此也可以说，正字法本身加剧甚至造成了这一问题。</p>
 
 
-<p><strong>Naked eyes: </strong><strong><em>ragan</em></strong><strong> and </strong><strong><em>nikugan</em></strong></p>
 
+<p><strong>裸眼（無助视器官的眼睛）：ragan与nikugan</strong></p>
 
 
-<p>The exemplary expression “naked eye” Sinclair (2004) analyzes thus (34):</p>
 
+<p>辛克莱（2004）对"naked eye（肉眼）"这一例证表达作出如下分析（34）：</p>
 
 
-<p>The speaker/writer selects a prosody of difficulty applied to a semantic preference of visibility. The semantic preference controls the collocational and colligations patterns, and is divided into verbs, typically <em>see</em>, and adjectives, typically <em>visible</em>. With <em>see</em>, etc., there is a strong colligations with modals – particularly <em>can, could</em> in the expression of difficulty – and with the preposition <em>with</em> to link with the final segment. With <em>visible</em>, etc., the pattern of collocation is principally with degree adverbs, and the negative morpheme <em>in-</em>; the following preposition is <em>to</em>. The final component of the item is the <em>core</em>, the almost invariable phrase <em>the naked eye</em>.</p>
 
+<p>说话者/写作者选择了一种应用于可见性语义偏好的困难语义韵。语义偏好控制着搭配和同现句法模式，分为动词（典型地为<em>see</em>）和形容词（典型地为<em>visible</em>）。与<em>see</em>等搭配时，存在与情态动词——尤其是表达困难的<em>can</em>、<em>could</em>——的强同现句法，以及与前置词<em>with</em>的连接以衔接最终成分。与<em>visible</em>等搭配时，搭配模式主要与程度副词以及否定词素<em>in-</em>共现；后接前置词为<em>to</em>。该项目的最终成分是核心，即几乎固定不变的短语<em>the naked eye</em>。</p>
 
 
-<p>As he points out, the phrase is semantically opaque; “unclothed organ of sight” (2004: 31) is not enough to deduce the meaning, and “<em>naked</em> in the collocation <em>naked eye</em> could equally well mean… 'without spectacles, contact lenses, etc.'” (31). In fact Japanese has just such a word <em>ragan</em>, a Sino-Japanese compound comprising the morphemes /ra/ 'naked' (e.g. <em>ratai</em> 'a nude') and /gan/ 'eye' (e.g. <em>gankyū</em> 'eyeball') defined as “the eye without the aid of corrective lenses” (Kondō &amp; Takano 2001). The BCCWJ contains 20 instances of <em>ragan, </em>which collocates with <em>siryoku</em> 'eyesight' 11 times (4 times at N+1, in the compound <em>ragansiryoku</em> 'uncorrected vision'; see appendix 1). As <em>ragan</em> collocates 9 times with the instrumental particle <em>de </em>at N+1, as in <em>ragan-de mi-te</em> (<em>ragan</em>-Instr see-gerund), we can posit colligation with <em>de</em>. The semantic preference we may describe as “visibility”; visual activities like <em>eiga</em> 'film,' <em>pasokon</em> 'computer', and <em>yomi</em> 'reading' appear to the left of the node. The semantic prosody, however, differs from English <em>naked eye</em>. Numbers used in the prescription of glasses appear in 11 lines, and 4 lines contain <em>warui</em> 'bad' as a comment on <em>me</em> 'eye': <em>ragan</em> suggests a semantic prosody of ophthalmology.</p>
 
+<p>正如他所指出的，这个短语在语义上是不透明的；"视觉器官未穿着任何东西"（2004: 31）不足以推断其意义，而"<em>naked eye</em>中的<em>naked</em>同样也可以意指……'没有眼镜、隐形眼镜等'"（31）。事实上，日语中恰好有这样一个词——裸眼（ragan），这是一个由词素/ra/"裸"（例如ratai"裸体"）和/gan/"眼"（例如gankyū"眼球"）构成的汉日复合词，定义为"不借助矫正镜片的眼睛"（近藤·高野 2001）。BCCWJ中共有20例裸眼，与siryoku"视力"共现11次（4次出现在N+1位置，构成复合词ragansiryoku"未矫正视力"；参见附录1）。由于裸眼在N+1位置与工具格助词de共现9次，如ragan-de mi-te（裸眼-工具格 看-副动词），可以假定其与de存在同现句法关系。语义偏好可描述为"可见性"；eiga"电影"、pasokon"电脑"、yomi"阅读"等视觉活动出现在节点词左侧。然而，其语义韵与英语naked eye有所不同。用于眼镜处方的数值出现在11行中，4行包含warui"差"作为对me"眼睛"的评价：裸眼暗示着眼科学的语义韵。</p>
 
 
-<p>The term <em>naked</em> <em>eye</em> is more akin to the Japanese <em>nikugan</em>. The morpheme /niku/ 'flesh' (e.g. <em>nikutai</em> '(the physical) body') is combined with /gan/ 'eye' in /nikugan/, defined as “the eye possessed of the human body; natural eyesight without the use of a telescope, microscope, etc.” (<em>Daijisen </em>1998). The BCCWJ contains 86 instances of <em>nikugan</em>, which collocates with <em>miru</em> 'to see' (in its various forms) 69 times (see appendix 2). At N+1 the instrumental particle <em>de</em> appears in 70% of the examples (two more simply separate <em>nikugan </em>and <em>de</em> with other instruments in a list). Collocation with the suffix <em>teki </em>makes <em>nikugan</em> an adjective in 14 cases (in the sense 'macroscopic'); in 71% these cases (8.6% of total) <em>nikugan</em> appears in the compound <em>nikugantekiketunyō</em> 'macroscopic hematuria.' An 80% collocation with <em>miru</em> 'see' (conflating inflected forms) and an additional 14% with <em>kansatu</em> 'observation' once again suggest a semantic preference for “visibility.” Of the collocations with <em>miru</em>, 72% involve possibility, divided 26:24 between expressions of the possibility and impossibility of seeing something with the naked eye; it seems <em>nikugan</em> carries a similar semantic prosody to <em>naked eye</em>, described by Sinclair (2004) as “difficulty” (33), which “may just be hinted at by a modal verb such as <em>can</em> or <em>could</em> or more directly by a negative with 'visibility'” (43). For example:</p>
+
+<p>英语的<em>naked eye</em>更接近于日语的肉眼（nikugan）。词素/niku/"肉"（例如nikutai"（物质的）身体"）与/gan/"眼"结合构成/nikugan/，定义为"人体所具有的眼睛；不借助望远镜、显微镜等的自然视力"（《大辞泉》1998）。BCCWJ中共有86例肉眼，与miru"看"（各种活用形）共现69次（参见附录2）。在N+1位置，工具格助词de出现在70%的例句中（另有两例仅将肉眼和de分隔开，中间插入其他工具词形成列举）。与后缀teki的共现使肉眼在14例中成为形容词（"宏观的"之义）；在这些情况中的71%（占总数的8.6%），肉眼以复合词nikugantekiketunyō"肉眼可见血尿"的形式出现。与miru"看"（合并活用形）的80%共现率，以及与kansatu"观察"的额外14%共现率，再次表明其语义偏好为"可见性"。在与miru共现的例子中，72%涉及可能性表达，肉眼可见某物的可能性与不可能性表达之间的比例为26:24；肉眼似乎与naked eye具有类似的语义韵，辛克莱（2004）将后者描述为"困难"（33），"可能仅由can或could等情态动词暗示，或更直接地由带'可见性'的否定表达"（43）。例如：</p>
 
 
 
@@ -139,15 +141,15 @@ lang_url_zh: /zh/bccwj.html
 
 
 
-<p>naked eye-Inst see-Pot-nonpast planet</p>
+<p>肉眼-工具格 看-可能-非过去 行星</p>
 
 
 
-<p>'planet visible to the naked eye'</p>
+<p>"肉眼可见的行星"</p>
 
 
 
-<p>Failure to see something with the naked eye accounts for 29% of all cases, as in:</p>
+<p>肉眼看不到某物的情况占全部例子的29%，如：</p>
 
 
 
@@ -155,15 +157,15 @@ lang_url_zh: /zh/bccwj.html
 
 
 
-<p>naked eye-Instr-Top see-that-Nom can-nonpast neg. micro-Gen-world</p>
+<p>肉眼-工具格-主题 看-事-主格 能-非过去 否定 微观-属格-世界</p>
 
 
 
-<p>'microscopic world that cannot be seen by the naked eye'</p>
+<p>"肉眼无法看到的微观世界"</p>
 
 
 
-<p>The use of <em>nikugan</em> in the affirmative seems to imply that the visibility is unusual, as in:</p>
+<p>肯定语境中肉眼的使用似乎暗示可见性不同寻常，如：</p>
 
 
 
@@ -171,19 +173,19 @@ lang_url_zh: /zh/bccwj.html
 
 
 
-<p>Tsushima-from opposite shore-Gen-Korea-Acc naked eye-Insrt-thing-Nom possible</p>
+<p>对马-从 对岸-属格-韩国-目的格 肉眼-工具格-事-主格 可能</p>
 
 
 
-<p>'from Tsushima Island the Korean shore can be seen with the naked eye'</p>
+<p>"从对马岛可以用肉眼眺望对岸的韩国"</p>
 
 
 
-<p><strong>Phraseology: </strong><strong><em>itai me ni au</em></strong></p>
+<p><strong>语块表达：吃苦头/遭殃（痛い目に遭う，itai me ni au）</strong></p>
 
 
 
-<p>The next phrase we will examine, <em>itai me ni au</em> 'run into trouble', exhibits a strong phraseological tendency. <em>Daijiten </em>(1998) lists the entire phrase, defined as: “experience pain or suffering; have an awful experience” along with synonymous phrases <em>hidoi me ni au </em>and <em>itai me o miru.</em> The phrase <em>me ni au</em> 'have an experience' appears 600 times in the BCCWJ, and approximately 8% of these are <em>itai me ni au</em>. The phrase <em>itai me</em> occurs 65 times (see appendix 3). Of these, 72% are in some permutation of the phrase <em>itai me ni au</em>:</p>
+<p>我们接下来要考察的短语，itai me ni au"遭遇麻烦"，表现出强烈的语块倾向。《大辞泉》（1998）收录了该完整短语，定义为："经历痛苦或磨难；有一次糟糕的经历"，并列出同义短语hidoi me ni au和itai me o miru。短语me ni au"有某种经历"在BCCWJ中出现600次，其中约8%为itai me ni au。短语itai me出现65次（参见附录3）。其中72%以某种形式出现在itai me ni au这一短语中：</p>
 
 
 
@@ -191,15 +193,15 @@ lang_url_zh: /zh/bccwj.html
 
 
 
-<p>neglect-do-gerund-is-nonpast-Cond, painful-nonpast experience-to meet-nonpast</p>
+<p>疏忽-做-副动词-是-非过去-条件, 痛苦-非过去 经历-到 遭遇-非过去</p>
 
 
 
-<p>''cause if you don't pay attention you'll run into trouble!'</p>
+<p>"因为如果你不注意就会遭殃！"</p>
 
 
 
-<p>A further 26% are in <em>itai me o miru</em>:</p>
+<p>另有26%出现在itai me o miru中：</p>
 
 
 
@@ -207,27 +209,27 @@ lang_url_zh: /zh/bccwj.html
 
 
 
-<p>hand-Acc-send out-nonpast-Cond painful-nonpast experience-Acc see-nonpast</p>
+<p>手-目的格-伸出-非过去-条件 痛苦-非过去 经历-目的格-看-非过去</p>
 
 
 
-<p>'if you make a move you'll be in trouble'</p>
+<p>"如果你出手就会吃苦头"</p>
 
 
 
-<p>In colligation <em>itai me ni au</em> shows very little variation in particle use: 46 cases of <em>itai me ni</em> and 1 case of <em>itai me ni mo</em>. The 17 cases of <em>itai me o miru</em> shows variation common with the direct object <em>o</em> particle in general, in 5 cases of elision (61: <em>itai me miru</em>) and 1 case of topicalization (62: <em>itai me wa mite mo sikata nai</em>).</p>
+<p>在同现句法方面，itai me ni au在助词使用上几乎没有变异：itai me ni（ni格）出现46次，itai me ni mo（ni mo格）出现1次。itai me o miru的17例则显示出一般情况下目的格助词o的常见变异：5例省略（61：itai me miru）和1例话题化（62：itai me wa mite mo sikata nai）。</p>
 
 
 
-<p><strong>Conclusions</strong></p>
+<p><strong>结论</strong></p>
 
 
 
-<p>Having looked at three linguistic features, we should notice a recurrent distributional pattern: 70% collocation with <em>de</em> and 80% collocation of <em>miru</em> with <em>nikugan</em>, 72% possibility expressions versus others within the <em>miru</em> collocates, and 72% collocation of <em>itai me</em> with <em>ni au</em> within all <em>itai me</em> instances. These distributions exemplify the 80/20 Rule; in other words, the A-curve distribution is “robust” enough to appear even in our rudimentary statistical analysis (see appendix 4). No matter what linguistic feature is chosen, be it a particle (morpheme), word or phrase, the BCCWJ data exhibits significant clustering as expected in the linguistics of speech. Linguists should feel confident they will make new discoveries when the BCCWJ data is released in full.</p>
+<p>在考察了三种语言特征之后，我们应注意到一个反复出现的分布规律：肉眼中de的70%共现率和miru的80%共现率，miru搭配词内部72%的可能性表达，以及所有itai me例子中与ni au的72%共现率。这些分布体现了80/20法则；换言之，A形曲线分布"鲁棒"到足以在我们的初步统计分析中就能显现（参见附录4）。无论选择哪种语言特征——助词（词素）、词语还是短语——BCCWJ数据都表现出言语学所预期的显著聚类现象。当BCCWJ数据完全发布时，语言学家们有充分理由相信自己将作出新的发现。</p>
 
 
 
-<p><strong>Works cited</strong></p>
+<p><strong>参考文献</strong></p>
 
 
 
@@ -301,7 +303,7 @@ lang_url_zh: /zh/bccwj.html
 
 
 
-<p>Appendix 1: <em>ragan</em></p>
+<p>附录1：裸眼（ragan）</p>
 
 
 <!-- wp:table -->
@@ -309,11 +311,11 @@ lang_url_zh: /zh/bccwj.html
 <!-- /wp:table -->
 
 
-<p>Retrieved from BCCWJ demonstration version (http://www.kotonoha.gr.jp/).</p>
+<p>摘自BCCWJ演示版（http://www.kotonoha.gr.jp/）。</p>
 
 
 
-<p>Appendix 2: <em>nikugan</em></p>
+<p>附录2：肉眼（nikugan）</p>
 
 
 <!-- wp:table -->
@@ -321,11 +323,11 @@ lang_url_zh: /zh/bccwj.html
 <!-- /wp:table -->
 
 
-<p>Retrieved from BCCWJ demonstration version (http://www.kotonoha.gr.jp/).</p>
+<p>摘自BCCWJ演示版（http://www.kotonoha.gr.jp/）。</p>
 
 
 
-<p>Appendix 3: <em>itai me ni au</em></p>
+<p>附录3：痛い目に遭う（itai me ni au）</p>
 
 
 <!-- wp:table -->
@@ -333,15 +335,15 @@ lang_url_zh: /zh/bccwj.html
 <!-- /wp:table -->
 
 
-<p>Retrieved from BCCWJ demonstration version (http://www.kotonoha.gr.jp/).</p>
+<p>摘自BCCWJ演示版（http://www.kotonoha.gr.jp/）。</p>
 
 
 
-<p>Appendix 4: distribution of <em>nikugan</em> collocations</p>
+<p>附录4：肉眼搭配词的分布</p>
 
 
 
-<p><em>Mi- </em>'see'<em> 69</em></p>
+<p><em>Mi- </em>"看"<em> 69</em></p>
 
 
 
@@ -397,7 +399,7 @@ lang_url_zh: /zh/bccwj.html
 
 
 
-<p><em>mie </em>(end of line)<em> 1</em></p>
+<p><em>mie </em>（行尾）<em> 1</em></p>
 
 
 
@@ -533,15 +535,15 @@ lang_url_zh: /zh/bccwj.html
 
 
 
-<p><em>Kansatu </em>'observation' 12 (often appears near but does not colligate with<em> nikugan</em>)</p>
+<p><em>Kansatu </em>"观察" 12（常出现于肉眼附近，但与肉眼无同现句法关系）</p>
 
 
 
-<p><em>Kenbikyō </em>'microscope' 9 (often contrasted with <em>nikugan</em>)</p>
+<p><em>Kenbikyō </em>"显微镜" 9（常与肉眼形成对比）</p>
 
 
 
-<p><em>Kakunin </em>'confirmation' 6</p>
+<p><em>Kakunin </em>"确认" 6</p>
 
 
 
@@ -561,7 +563,7 @@ lang_url_zh: /zh/bccwj.html
 
 
 
-<p><em>Sinin </em>'visual confirmation' 2</p>
+<p><em>Sinin </em>"目视确认" 2</p>
 
 
 
@@ -573,21 +575,20 @@ lang_url_zh: /zh/bccwj.html
 
 
 
-<p><em>Hakkiri </em>'clearly' 3</p>
+<p><em>Hakkiri </em>"清楚地" 3</p>
 
 
 
-<p><em>Hakken </em>'discovery' 2</p>
+<p><em>Hakken </em>"发现" 2</p>
 
 
 
-<p><em>Bōenkyō </em>'telescope' 2</p>
+<p><em>Bōenkyō </em>"望远镜" 2</p>
 
 
 
-<p><em>Nozomu '</em>see' 1</p>
+<p><em>Nozomu </em>"眺望" 1</p>
 
 
 
-<p>Compiled from BCCWJ data in Appendix 2.</p>
-
+<p>根据附录2中的BCCWJ数据汇编。</p>
