@@ -18,6 +18,96 @@ lang_url_zh: /zh/work.html
 </div>
 
 
+<!-- ── Roblox Transparency Reporting ─────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">Roblox透明性レポート &amp; コンプライアンスデータモデル</h2>
+    <span class="project-company">Roblox · 2025年〜現在</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">課題</span>
+    <p>EU DSA、EU TCOR、UK OSA、NY S895、ブラジルECA、インドIT Rulesなど、増加する規制の波がそれぞれ詳細かつ一貫性のあるローカライズ済み透明性レポートを要求しています。Robloxの従来のアプローチは手動であり、規制の増加に伴うスケールが困難でした。</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">取り組み</span>
+    <ul>
+      <li>7以上の国際規制に関する透明性レポートの戦略立案と製造をリード。</li>
+      <li>反復可能かつ監査可能なレポーティングサイクルのため、バージョン管理されたモジュラーなプロダクショングレードSQLクエリ群を執筆。</li>
+      <li>外部監査に先立ってシステムをスケールアップ・将来対応させるため、Product Compliance統合データモデルと自動レポーティングパイプラインを設計中。</li>
+      <li>チームの生産性向上と手動工数削減のためのAI活用イニシアチブをリード中。</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">成果</span>
+    <ul>
+      <li>Roblox史上最も包括的なEU DSA透明性レポートを公開――EUのコンテンツモデレーション・政府命令・違法コンテンツ・ユーザー異議申立・自動化システムに関する高度に詳細かつ一貫性のあるEUデータを収録した義務的な調和レポートフォーマットを初めて使用。</li>
+      <li>透明性レポートの完全自動化に向けて構築中。手動工数を排除し、拡大する規制ポートフォリオの監査対応力を向上させる。</li>
+    </ul>
+  </div>
+
+  <div class="tags">
+    <span class="tag">SQL</span>
+    <span class="tag">データモデリング</span>
+    <span class="tag">EU DSA</span>
+    <span class="tag">規制コンプライアンス</span>
+    <span class="tag">自動化</span>
+    <span class="tag">透明性レポート</span>
+  </div>
+</div>
+
+
+<!-- ── AI Production Query Development ───────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">AIを活用したプロダクションクエリ開発</h2>
+    <span class="project-company">Roblox · 2025年〜現在</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">課題</span>
+    <p>10以上の規制コンプライアンス要件（レポート、RFI、リスク評価、訴訟対応）に対応するプロダクショングレードのSQLとPythonを構築するには、通常1サイクルあたり3〜6週間のエンジニアリング工数を要していました。急速に拡大する規制ポートフォリオと少数精鋭のチーム体制では、そのペースは現実的ではありませんでした。</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">取り組み</span>
+    <ul>
+      <li>Cursorエージェントを用いた人間介在型（Human-in-the-Loop）のAIコーディングワークフローにおいて、PMかつ第一起草者として主導。</li>
+      <li>10以上の規制要件にわたって<strong>7,000行以上のプロダクションコード</strong>（SQL + Python）を生成。データエンジニアとデータサイエンティストは主要執筆者ではなくコードレビュアーとして参画。</li>
+      <li>構造化された開発パイプラインを設計：クエリ・スキーマコンテキスト → AIによるSQL生成 → 人間によるコードレビュー・承認 → 反復的改善 → 本番Pythonパイプライン構築。</li>
+      <li>PMとエンジニアリングのフィードバックループを短縮し、迅速なイテレーションを実現するとともに、クロスファンクショナルなスケジュール調整のボトルネックを解消。</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">成果</span>
+    <ul>
+      <li>コーディング工数を<strong>3〜6週間</strong>から<strong>数時間〜数日</strong>のAIガイド作業へと圧縮。</li>
+      <li><strong>4,800万トークン以上</strong>のプロダクションコードを総コスト<strong>77ドル</strong>で生成。</li>
+      <li>ヘッドカウントを増やすことなく、10以上の規制要件にわたるコード生産をスケールアップ。</li>
+      <li>PMがロジックを起草し、エンジニアがアウトプットをレビューする再現可能な人間介在型モデルを確立。</li>
+    </ul>
+  </div>
+
+  <figure class="project-screenshot">
+    <img src="/images/ai-production-queries.png" alt="PM・AIエージェント・Eng/DSの役割を示すHuman-in-the-Loop AIデータパイプラインワークフロー図" />
+    <figcaption>Human-in-the-Loop AIデータパイプラインワークフロー：Eng/DSがスキーマコンテキストを提供し、PMがAIエージェントと協働してコードを生成。Eng/DSがレビュー後、本番パイプラインへ移行。</figcaption>
+  </figure>
+
+  <div class="tags" style="margin-top: 1rem;">
+    <span class="tag">Cursor</span>
+    <span class="tag">AIコーディング</span>
+    <span class="tag">SQL</span>
+    <span class="tag">Python</span>
+    <span class="tag">データパイプライン</span>
+    <span class="tag">コンプライアンス</span>
+    <span class="tag">プロセス自動化</span>
+  </div>
+</div>
+
+
 <!-- ── Sandpiper ────────────────────────────────────────────── -->
 <div class="project-card">
   <div class="project-header">
@@ -59,59 +149,6 @@ lang_url_zh: /zh/work.html
     <span class="tag">システム設計</span>
     <span class="tag">プロンプトエンジニアリング</span>
     <span class="tag">コンプライアンス</span>
-  </div>
-</div>
-
-
-<!-- ── LLM Case Dashboard ────────────────────────────────────── -->
-<div class="project-card">
-  <div class="project-header">
-    <h2 class="project-title">LLMケース要約ダッシュボード</h2>
-    <span class="project-company">Google · 2023〜2024年</span>
-  </div>
-
-  <div class="project-section">
-    <span class="project-section-label">課題</span>
-    <p>Legal Content Policy &amp; Standardsチームは、ケース管理とトレンド分析のために数千件の法的削除申請の要点を迅速に把握する必要がありました。この規模での手動レビューは不可能であり、自動ケース要約は主要管理ダッシュボードへの機能追加要望のトップでしたが、スケーラブルな解決策は存在していませんでした。</p>
-  </div>
-
-  <div class="project-section">
-    <span class="project-section-label">取り組み</span>
-    <ul>
-      <li>設計文書・ユーザーガイドの執筆者、および完全自動ワークフローの主実装者。</li>
-      <li>LCPSチームと直接協議し、要件を定義するとともに、ケース要約が業務でどのように活用されるかのニュアンスを把握。</li>
-      <li>SQLMinerを用いてデータベース環境内で直接大規模LLM推論を実行する革新的なパイプラインを設計――機密性の高いケースデータを中間システムに書き出すことなく、真に産業規模の運用を実現。</li>
-      <li>ケーステーブルの構造化データをLLMに供給するRAGパターンのプロンプトを構築し、すべての対象ケースにわたって簡潔・正確・一貫した書式のサマリーを生成。</li>
-      <li>AIサマリーをチームの主要PLX管理ダッシュボードにオンデマンド機能として直接表示。</li>
-    </ul>
-  </div>
-
-  <div class="impact-box">
-    <span class="project-section-label">成果</span>
-    <ul>
-      <li>LCPSチーム全体の日常ケース管理における大幅な効率化を実現。</li>
-      <li>法的削除ケースコーパス全体にわたるトレンド分析の速度と精度が向上。</li>
-      <li>チームの焦点を個々のケースの詳細レビューから高レベルの戦略的監視へとシフト。</li>
-    </ul>
-  </div>
-
-  <figure class="project-screenshot">
-    <img src="/images/lcps-dashboard.png" alt="AI生成LLMサマリーをケースメタデータとともに表示するFTEバックログ軽減ダッシュボード" />
-    <figcaption>PLXダッシュボードMVP。各法的削除申請のケースメタデータの横にAI生成「LLMサマリー」列を表示。</figcaption>
-  </figure>
-
-  <figure class="project-screenshot" style="margin-top: 0.75rem;">
-    <img src="/images/lcps-tool.png" alt="Geminiモデルセレクターとオンデマンドケースルックアップ機能を備えたケース要約ツールMVPインターフェース" />
-    <figcaption>ケース要約ツールMVP。ケースマネージャーがケースIDを入力し、Geminiを使用してオンデマンドでLLMサマリーを取得できる。</figcaption>
-  </figure>
-
-  <div class="tags" style="margin-top: 1rem;">
-    <span class="tag">大規模LLM推論</span>
-    <span class="tag">SQLMiner</span>
-    <span class="tag">SQL</span>
-    <span class="tag">プロンプトエンジニアリング</span>
-    <span class="tag">データパイプライン</span>
-    <span class="tag">PLXダッシュボード</span>
   </div>
 </div>
 
@@ -234,47 +271,6 @@ lang_url_zh: /zh/work.html
 </div>
 
 
-<!-- ── Chrome Extension ──────────────────────────────────────── -->
-<div class="project-card">
-  <div class="project-header">
-    <h2 class="project-title">法的削除 Chrome拡張機能 &amp; 自動化</h2>
-    <span class="project-company">Google · 2021〜2023年</span>
-  </div>
-
-  <div class="project-section">
-    <span class="project-section-label">課題</span>
-    <p>法務オペレーションチームは法的削除申請を手動で処理していました――複数の社内ツールにわたるケースバイケースのレビューが必要なワークフローです。8,400件以上のケースバックログが蓄積し、継続的な件数（数万件）の規模では、ヘッドカウントに見合った手動処理が不可能な状況でした。</p>
-  </div>
-
-  <div class="project-section">
-    <span class="project-section-label">取り組み</span>
-    <ul>
-      <li>8,400件以上のケースからなる即時バックログを処理する<strong>node.js PoC</strong>自動化スクリプトを構築し、完全なソリューションへ投資する前にアプローチの有効性を実証。</li>
-      <li>ブラウザ自動化で法的削除申請を大規模に処理するプロダクション用<strong>Chrome拡張機能</strong>の開発をリード――従来は手動操作を要していたマルチツールワークフローを自動化。</li>
-      <li>エンジニアリングチームと連携し、PoCからプロダクション対応ツールへと昇華。</li>
-      <li>シニアPMから納品速度とチーム稼働能力への貢献の両方で高く評価。</li>
-    </ul>
-  </div>
-
-  <div class="impact-box">
-    <span class="project-section-label">成果</span>
-    <ul>
-      <li>Chrome拡張機能の自動化でベンダーコスト<strong>$50k以上</strong>を削減。</li>
-      <li>node.jsバックログ自動化で<strong>700時間以上</strong>の作業工数を節約。</li>
-      <li><strong>数万件のケース</strong>を自動処理し、ヘッドカウントを増やすことなくチームの業務スケールを実現。</li>
-    </ul>
-  </div>
-
-  <div class="tags">
-    <span class="tag">Chrome拡張機能</span>
-    <span class="tag">ブラウザ自動化</span>
-    <span class="tag">node.js</span>
-    <span class="tag">JavaScript</span>
-    <span class="tag">法務オペレーション</span>
-  </div>
-</div>
-
-
 <!-- ── PSWG Requirement Notices ──────────────────────────────── -->
 <div class="project-card">
   <div class="project-header">
@@ -314,43 +310,96 @@ lang_url_zh: /zh/work.html
 </div>
 
 
-<!-- ── Roblox Transparency Reporting ─────────────────────────── -->
+<!-- ── LLM Case Dashboard ────────────────────────────────────── -->
 <div class="project-card">
   <div class="project-header">
-    <h2 class="project-title">Roblox透明性レポート &amp; コンプライアンスデータモデル</h2>
-    <span class="project-company">Roblox · 2025年〜現在</span>
+    <h2 class="project-title">LLMケース要約ダッシュボード</h2>
+    <span class="project-company">Google · 2023〜2024年</span>
   </div>
 
   <div class="project-section">
     <span class="project-section-label">課題</span>
-    <p>EU DSA、EU TCOR、UK OSA、NY S895、ブラジルECA、インドIT Rulesなど、増加する規制の波がそれぞれ詳細かつ一貫性のあるローカライズ済み透明性レポートを要求しています。Robloxの従来のアプローチは手動であり、規制の増加に伴うスケールが困難でした。</p>
+    <p>Legal Content Policy &amp; Standardsチームは、ケース管理とトレンド分析のために数千件の法的削除申請の要点を迅速に把握する必要がありました。この規模での手動レビューは不可能であり、自動ケース要約は主要管理ダッシュボードへの機能追加要望のトップでしたが、スケーラブルな解決策は存在していませんでした。</p>
   </div>
 
   <div class="project-section">
     <span class="project-section-label">取り組み</span>
     <ul>
-      <li>7以上の国際規制に関する透明性レポートの戦略立案と製造をリード。</li>
-      <li>反復可能かつ監査可能なレポーティングサイクルのため、バージョン管理されたモジュラーなプロダクショングレードSQLクエリ群を執筆。</li>
-      <li>外部監査に先立ってシステムをスケールアップ・将来対応させるため、Product Compliance統合データモデルと自動レポーティングパイプラインを設計中。</li>
-      <li>チームの生産性向上と手動工数削減のためのAI活用イニシアチブをリード中。</li>
+      <li>設計文書・ユーザーガイドの執筆者、および完全自動ワークフローの主実装者。</li>
+      <li>LCPSチームと直接協議し、要件を定義するとともに、ケース要約が業務でどのように活用されるかのニュアンスを把握。</li>
+      <li>SQLMinerを用いてデータベース環境内で直接大規模LLM推論を実行する革新的なパイプラインを設計――機密性の高いケースデータを中間システムに書き出すことなく、真に産業規模の運用を実現。</li>
+      <li>ケーステーブルの構造化データをLLMに供給するRAGパターンのプロンプトを構築し、すべての対象ケースにわたって簡潔・正確・一貫した書式のサマリーを生成。</li>
+      <li>AIサマリーをチームの主要PLX管理ダッシュボードにオンデマンド機能として直接表示。</li>
     </ul>
   </div>
 
   <div class="impact-box">
     <span class="project-section-label">成果</span>
     <ul>
-      <li>Roblox史上最も包括的なEU DSA透明性レポートを公開――EUのコンテンツモデレーション・政府命令・違法コンテンツ・ユーザー異議申立・自動化システムに関する高度に詳細かつ一貫性のあるEUデータを収録した義務的な調和レポートフォーマットを初めて使用。</li>
-      <li>透明性レポートの完全自動化に向けて構築中。手動工数を排除し、拡大する規制ポートフォリオの監査対応力を向上させる。</li>
+      <li>LCPSチーム全体の日常ケース管理における大幅な効率化を実現。</li>
+      <li>法的削除ケースコーパス全体にわたるトレンド分析の速度と精度が向上。</li>
+      <li>チームの焦点を個々のケースの詳細レビューから高レベルの戦略的監視へとシフト。</li>
+    </ul>
+  </div>
+
+  <figure class="project-screenshot">
+    <img src="/images/lcps-dashboard.png" alt="AI生成LLMサマリーをケースメタデータとともに表示するFTEバックログ軽減ダッシュボード" />
+    <figcaption>PLXダッシュボードMVP。各法的削除申請のケースメタデータの横にAI生成「LLMサマリー」列を表示。</figcaption>
+  </figure>
+
+  <figure class="project-screenshot" style="margin-top: 0.75rem;">
+    <img src="/images/lcps-tool.png" alt="Geminiモデルセレクターとオンデマンドケースルックアップ機能を備えたケース要約ツールMVPインターフェース" />
+    <figcaption>ケース要約ツールMVP。ケースマネージャーがケースIDを入力し、Geminiを使用してオンデマンドでLLMサマリーを取得できる。</figcaption>
+  </figure>
+
+  <div class="tags" style="margin-top: 1rem;">
+    <span class="tag">大規模LLM推論</span>
+    <span class="tag">SQLMiner</span>
+    <span class="tag">SQL</span>
+    <span class="tag">プロンプトエンジニアリング</span>
+    <span class="tag">データパイプライン</span>
+    <span class="tag">PLXダッシュボード</span>
+  </div>
+</div>
+
+
+<!-- ── Chrome Extension ──────────────────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">法的削除 Chrome拡張機能 &amp; 自動化</h2>
+    <span class="project-company">Google · 2021〜2023年</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">課題</span>
+    <p>法務オペレーションチームは法的削除申請を手動で処理していました――複数の社内ツールにわたるケースバイケースのレビューが必要なワークフローです。8,400件以上のケースバックログが蓄積し、継続的な件数（数万件）の規模では、ヘッドカウントに見合った手動処理が不可能な状況でした。</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">取り組み</span>
+    <ul>
+      <li>8,400件以上のケースからなる即時バックログを処理する<strong>node.js PoC</strong>自動化スクリプトを構築し、完全なソリューションへ投資する前にアプローチの有効性を実証。</li>
+      <li>ブラウザ自動化で法的削除申請を大規模に処理するプロダクション用<strong>Chrome拡張機能</strong>の開発をリード――従来は手動操作を要していたマルチツールワークフローを自動化。</li>
+      <li>エンジニアリングチームと連携し、PoCからプロダクション対応ツールへと昇華。</li>
+      <li>シニアPMから納品速度とチーム稼働能力への貢献の両方で高く評価。</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">成果</span>
+    <ul>
+      <li>Chrome拡張機能の自動化でベンダーコスト<strong>$50k以上</strong>を削減。</li>
+      <li>node.jsバックログ自動化で<strong>700時間以上</strong>の作業工数を節約。</li>
+      <li><strong>数万件のケース</strong>を自動処理し、ヘッドカウントを増やすことなくチームの業務スケールを実現。</li>
     </ul>
   </div>
 
   <div class="tags">
-    <span class="tag">SQL</span>
-    <span class="tag">データモデリング</span>
-    <span class="tag">EU DSA</span>
-    <span class="tag">規制コンプライアンス</span>
-    <span class="tag">自動化</span>
-    <span class="tag">透明性レポート</span>
+    <span class="tag">Chrome拡張機能</span>
+    <span class="tag">ブラウザ自動化</span>
+    <span class="tag">node.js</span>
+    <span class="tag">JavaScript</span>
+    <span class="tag">法務オペレーション</span>
   </div>
 </div>
 

@@ -101,6 +101,96 @@ lang_url_zh: /zh/work.html
 <p class="filter-empty" id="filter-empty" hidden>No projects match this filter.</p>
 
 
+<!-- ── Roblox Transparency Reporting ─────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">Roblox Transparency Reporting &amp; Compliance Data Model</h2>
+    <span class="project-company">Roblox &middot; 2025&ndash;present</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">Problem</span>
+    <p>A growing wave of regulations &mdash; EU DSA, EU TCOR, UK OSA, NY S895, CA AB 587, Brazil ECA, India IT Rules, and others &mdash; each require granular, consistently-localized transparency reporting. Roblox&rsquo;s previous approach was manual and difficult to scale as the regulatory landscape continued to expand.</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">What I did</span>
+    <ul>
+      <li>Lead transparency reporting strategy and production for 8+ international regulations.</li>
+      <li>Wrote a suite of modular, production-grade SQL queries with version control for repeatable, auditable reporting cycles.</li>
+      <li>Designing a Product Compliance Unified Data Model and automated reporting pipeline to scale and future-proof the system ahead of external audits.</li>
+      <li>Leading AI enablement initiatives to improve team productivity and reduce manual overhead.</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">Impact</span>
+    <ul>
+      <li>Published Roblox&rsquo;s most comprehensive EU DSA transparency report to date &mdash; the first using the mandatory harmonized reporting format with highly granular, consistently-localized EU data on content moderation, government orders, illegal content, user appeals, and automated systems.</li>
+      <li>Building toward full automation of transparency reporting, eliminating manual overhead and improving audit-readiness for an expanding regulatory portfolio.</li>
+    </ul>
+  </div>
+
+  <div class="tags">
+    <span class="tag">SQL</span>
+    <span class="tag">Data Modeling</span>
+    <span class="tag">EU DSA</span>
+    <span class="tag">Regulatory Compliance</span>
+    <span class="tag">Automation</span>
+    <span class="tag">Transparency Reporting</span>
+  </div>
+</div>
+
+
+<!-- ── AI Production Query Development ───────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">Building Production Queries with AI</h2>
+    <span class="project-company">Roblox &middot; 2025&ndash;present</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">Problem</span>
+    <p>Building production-grade SQL and Python for 10+ regulatory compliance requirements &mdash; reports, RFIs, risk assessments, and litigation support &mdash; would normally take 3&ndash;6 engineering weeks of pure coding per cycle. With a fast-expanding regulatory portfolio and a lean team, that pace was infeasible.</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">What I did</span>
+    <ul>
+      <li>Operated as PM and first author in a human-in-the-loop AI coding workflow, using Cursor agents to generate production-grade SQL and Python.</li>
+      <li>Generated <strong>7,000+ lines of production code</strong> across 10+ regulatory requirements, with data engineers and data scientists serving as code reviewers rather than primary coders.</li>
+      <li>Designed a structured development pipeline: query and schema context &rarr; AI-generated SQL &rarr; human code review and approval &rarr; iterative refinement &rarr; full-scale Python pipelines.</li>
+      <li>Compressed the feedback loop between PM and engineering, enabling faster iteration and reducing the bottleneck of cross-functional scheduling.</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">Impact</span>
+    <ul>
+      <li><strong>3&ndash;6 engineering weeks</strong> of coding compressed to <strong>hours or days</strong> of guided AI work.</li>
+      <li><strong>48M+ tokens</strong> of production code generated at a total cost of <strong>$77</strong>.</li>
+      <li>Scaled code production across 10+ regulatory requirements without linear headcount growth.</li>
+      <li>Established a replicable human-in-the-loop model: PM authors the logic, engineers review the output.</li>
+    </ul>
+  </div>
+
+  <figure class="project-screenshot">
+    <img src="/images/ai-production-queries.png" alt="Human-in-the-Loop AI Data Pipeline Workflow diagram showing PM, AI Agents, and Eng/DS roles" />
+    <figcaption>The Human-in-the-Loop AI Data Pipeline Workflow: Eng/DS provides schema context, PM collaborates with AI agents to generate code, and Eng/DS reviews before promoting to full-scale production pipelines.</figcaption>
+  </figure>
+
+  <div class="tags" style="margin-top: 1rem;">
+    <span class="tag">Cursor</span>
+    <span class="tag">AI Coding</span>
+    <span class="tag">SQL</span>
+    <span class="tag">Python</span>
+    <span class="tag">Data Pipeline</span>
+    <span class="tag">Compliance</span>
+    <span class="tag">Process Automation</span>
+  </div>
+</div>
+
+
 <!-- ── Sandpiper ────────────────────────────────────────────── -->
 <div class="project-card">
   <div class="project-header">
@@ -142,59 +232,6 @@ lang_url_zh: /zh/work.html
     <span class="tag">System Design</span>
     <span class="tag">Prompt Engineering</span>
     <span class="tag">Compliance</span>
-  </div>
-</div>
-
-
-<!-- ── LLM Case Dashboard ────────────────────────────────────── -->
-<div class="project-card">
-  <div class="project-header">
-    <h2 class="project-title">LLM Case Summarization Dashboard</h2>
-    <span class="project-company">Google &middot; 2023&ndash;2024</span>
-  </div>
-
-  <div class="project-section">
-    <span class="project-section-label">Problem</span>
-    <p>The Legal Content Policy &amp; Standards team needed to quickly understand the essence of thousands of incoming legal removal requests for case management and trend analysis. Manual review at this volume was infeasible. Automatic case summarization was the top-requested feature for their primary management dashboard &mdash; but no scalable solution existed.</p>
-  </div>
-
-  <div class="project-section">
-    <span class="project-section-label">What I did</span>
-    <ul>
-      <li>Author of the design document, user guide, and lead implementer of the full automated workflow.</li>
-      <li>Consulted directly with the LCPS team to define requirements and understand the nuances of how case summaries would be used operationally.</li>
-      <li>Designed an innovative pipeline using SQLMiner to perform bulk LLM inference <em>directly within the database environment</em> &mdash; avoiding the need to export sensitive case data to an intermediate system and enabling truly industrial-scale operation.</li>
-      <li>Engineered a RAG-pattern prompt feeding structured data from case tables into the LLM, producing succinct, accurate, consistently-formatted summaries across every eligible case.</li>
-      <li>Surfaced AI-generated summaries directly within the team&rsquo;s primary PLX management dashboard as an on-demand feature.</li>
-    </ul>
-  </div>
-
-  <div class="impact-box">
-    <span class="project-section-label">Impact</span>
-    <ul>
-      <li>Unlocked significant efficiencies in day-to-day case management for the full LCPS team.</li>
-      <li>Enabled faster, more accurate trend analysis across the legal removal case corpus.</li>
-      <li>Shifted team focus from low-level individual case review to high-level strategic oversight.</li>
-    </ul>
-  </div>
-
-  <figure class="project-screenshot">
-    <img src="/images/lcps-dashboard.png" alt="FTE Backlog Mitigation Dashboard showing AI-generated LLM summaries alongside case metadata" />
-    <figcaption>The PLX dashboard MVP, with AI-generated &ldquo;Llm Summary&rdquo; column surfaced alongside case metadata for each legal removal request.</figcaption>
-  </figure>
-
-  <figure class="project-screenshot" style="margin-top: 0.75rem;">
-    <img src="/images/lcps-tool.png" alt="Case Summarization Tool MVP interface with Gemini model selector and on-demand case ID lookup" />
-    <figcaption>The Case Summarization Tool MVP, allowing case managers to enter case IDs and retrieve on-demand LLM summaries using Gemini.</figcaption>
-  </figure>
-
-  <div class="tags" style="margin-top: 1rem;">
-    <span class="tag">Bulk LLM Inference</span>
-    <span class="tag">SQLMiner</span>
-    <span class="tag">SQL</span>
-    <span class="tag">Prompt Engineering</span>
-    <span class="tag">Data Pipeline</span>
-    <span class="tag">PLX Dashboard</span>
   </div>
 </div>
 
@@ -290,6 +327,98 @@ lang_url_zh: /zh/work.html
 </div>
 
 
+<!-- ── PSWG Requirement Notices ──────────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">PSWG Compliance Enforcement System</h2>
+    <span class="project-company">Google &middot; 2024</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">Problem</span>
+    <p>A significant compliance gap: employees in the 500+ person Privacy Sandbox org were not members of the mandatory Privacy Sandbox Working Group (PSWG), a foundational requirement under Google&rsquo;s CMA Commitments. There was no automated mechanism to identify, notify, or track non-compliant individuals.</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">What I did</span>
+    <ul>
+      <li>Proactively identified the compliance gap &mdash; entirely self-initiated; not assigned.</li>
+      <li>Designed an automated detection system using SQL to cross-reference employee reporting chains with PSWG group membership data.</li>
+      <li>Built an AppsScript notification system to automatically email non-compliant individuals and their managers, with tracking to closure.</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">Impact</span>
+    <ul>
+      <li>Achieved <strong>100% compliance enforcement</strong> for a foundational CMA Commitment across a 500+ person org.</li>
+      <li>Closed a significant regulatory risk through a scalable, automated enforcement mechanism &mdash; at zero engineering cost.</li>
+    </ul>
+  </div>
+
+  <div class="tags">
+    <span class="tag">SQL</span>
+    <span class="tag">AppsScript</span>
+    <span class="tag">Process Automation</span>
+    <span class="tag">CMA Compliance</span>
+    <span class="tag">System Design</span>
+  </div>
+</div>
+
+
+<!-- ── LLM Case Dashboard ────────────────────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">LLM Case Summarization Dashboard</h2>
+    <span class="project-company">Google &middot; 2023&ndash;2024</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">Problem</span>
+    <p>The Legal Content Policy &amp; Standards team needed to quickly understand the essence of thousands of incoming legal removal requests for case management and trend analysis. Manual review at this volume was infeasible. Automatic case summarization was the top-requested feature for their primary management dashboard &mdash; but no scalable solution existed.</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">What I did</span>
+    <ul>
+      <li>Author of the design document, user guide, and lead implementer of the full automated workflow.</li>
+      <li>Consulted directly with the LCPS team to define requirements and understand the nuances of how case summaries would be used operationally.</li>
+      <li>Designed an innovative pipeline using SQLMiner to perform bulk LLM inference <em>directly within the database environment</em> &mdash; avoiding the need to export sensitive case data to an intermediate system and enabling truly industrial-scale operation.</li>
+      <li>Engineered a RAG-pattern prompt feeding structured data from case tables into the LLM, producing succinct, accurate, consistently-formatted summaries across every eligible case.</li>
+      <li>Surfaced AI-generated summaries directly within the team&rsquo;s primary PLX management dashboard as an on-demand feature.</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">Impact</span>
+    <ul>
+      <li>Unlocked significant efficiencies in day-to-day case management for the full LCPS team.</li>
+      <li>Enabled faster, more accurate trend analysis across the legal removal case corpus.</li>
+      <li>Shifted team focus from low-level individual case review to high-level strategic oversight.</li>
+    </ul>
+  </div>
+
+  <figure class="project-screenshot">
+    <img src="/images/lcps-dashboard.png" alt="FTE Backlog Mitigation Dashboard showing AI-generated LLM summaries alongside case metadata" />
+    <figcaption>The PLX dashboard MVP, with AI-generated &ldquo;Llm Summary&rdquo; column surfaced alongside case metadata for each legal removal request.</figcaption>
+  </figure>
+
+  <figure class="project-screenshot" style="margin-top: 0.75rem;">
+    <img src="/images/lcps-tool.png" alt="Case Summarization Tool MVP interface with Gemini model selector and on-demand case ID lookup" />
+    <figcaption>The Case Summarization Tool MVP, allowing case managers to enter case IDs and retrieve on-demand LLM summaries using Gemini.</figcaption>
+  </figure>
+
+  <div class="tags" style="margin-top: 1rem;">
+    <span class="tag">Bulk LLM Inference</span>
+    <span class="tag">SQLMiner</span>
+    <span class="tag">SQL</span>
+    <span class="tag">Prompt Engineering</span>
+    <span class="tag">Data Pipeline</span>
+    <span class="tag">PLX Dashboard</span>
+  </div>
+</div>
+
+
 <!-- ── Chrome Extension ──────────────────────────────────────── -->
 <div class="project-card">
   <div class="project-header">
@@ -331,86 +460,6 @@ lang_url_zh: /zh/work.html
 </div>
 
 
-<!-- ── PSWG Requirement Notices ──────────────────────────────── -->
-<div class="project-card">
-  <div class="project-header">
-    <h2 class="project-title">PSWG Compliance Enforcement System</h2>
-    <span class="project-company">Google &middot; 2024</span>
-  </div>
-
-  <div class="project-section">
-    <span class="project-section-label">Problem</span>
-    <p>A significant compliance gap: employees in the 500+ person Privacy Sandbox org were not members of the mandatory Privacy Sandbox Working Group (PSWG), a foundational requirement under Google&rsquo;s CMA Commitments. There was no automated mechanism to identify, notify, or track non-compliant individuals.</p>
-  </div>
-
-  <div class="project-section">
-    <span class="project-section-label">What I did</span>
-    <ul>
-      <li>Proactively identified the compliance gap &mdash; entirely self-initiated; not assigned.</li>
-      <li>Designed an automated detection system using SQL to cross-reference employee reporting chains with PSWG group membership data.</li>
-      <li>Built an AppsScript notification system to automatically email non-compliant individuals and their managers, with tracking to closure.</li>
-    </ul>
-  </div>
-
-  <div class="impact-box">
-    <span class="project-section-label">Impact</span>
-    <ul>
-      <li>Achieved <strong>100% compliance enforcement</strong> for a foundational CMA Commitment across a 500+ person org.</li>
-      <li>Closed a significant regulatory risk through a scalable, automated enforcement mechanism &mdash; at zero engineering cost.</li>
-    </ul>
-  </div>
-
-  <div class="tags">
-    <span class="tag">SQL</span>
-    <span class="tag">AppsScript</span>
-    <span class="tag">Process Automation</span>
-    <span class="tag">CMA Compliance</span>
-    <span class="tag">System Design</span>
-  </div>
-</div>
-
-
-<!-- ── Roblox Transparency Reporting ─────────────────────────── -->
-<div class="project-card">
-  <div class="project-header">
-    <h2 class="project-title">Roblox Transparency Reporting &amp; Compliance Data Model</h2>
-    <span class="project-company">Roblox &middot; 2025&ndash;present</span>
-  </div>
-
-  <div class="project-section">
-    <span class="project-section-label">Problem</span>
-    <p>A growing wave of regulations &mdash; EU DSA, EU TCOR, UK OSA, NY S895, CA AB 587, Brazil ECA, India IT Rules, and others &mdash; each require granular, consistently-localized transparency reporting. Roblox&rsquo;s previous approach was manual and difficult to scale as the regulatory landscape continued to expand.</p>
-  </div>
-
-  <div class="project-section">
-    <span class="project-section-label">What I did</span>
-    <ul>
-      <li>Lead transparency reporting strategy and production for 8+ international regulations.</li>
-      <li>Wrote a suite of modular, production-grade SQL queries with version control for repeatable, auditable reporting cycles.</li>
-      <li>Designing a Product Compliance Unified Data Model and automated reporting pipeline to scale and future-proof the system ahead of external audits.</li>
-      <li>Leading AI enablement initiatives to improve team productivity and reduce manual overhead.</li>
-    </ul>
-  </div>
-
-  <div class="impact-box">
-    <span class="project-section-label">Impact</span>
-    <ul>
-      <li>Published Roblox&rsquo;s most comprehensive EU DSA transparency report to date &mdash; the first using the mandatory harmonized reporting format with highly granular, consistently-localized EU data on content moderation, government orders, illegal content, user appeals, and automated systems.</li>
-      <li>Building toward full automation of transparency reporting, eliminating manual overhead and improving audit-readiness for an expanding regulatory portfolio.</li>
-    </ul>
-  </div>
-
-  <div class="tags">
-    <span class="tag">SQL</span>
-    <span class="tag">Data Modeling</span>
-    <span class="tag">EU DSA</span>
-    <span class="tag">Regulatory Compliance</span>
-    <span class="tag">Automation</span>
-    <span class="tag">Transparency Reporting</span>
-  </div>
-</div>
-
-
 <hr class="section-divider" />
 <p style="color: #aaa; font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
   All projects listed are internal tools. Internal system names, go-links, and raw data have been omitted. Metrics cited are consistent with public resume disclosures.
@@ -419,7 +468,7 @@ lang_url_zh: /zh/work.html
 <script>
 (function () {
   var FILTERS = {
-    'ai-llm':     ['rag', 'gemini', 'llm', 'prompt engineering', 'vector database', 'agent studio'],
+    'ai-llm':     ['rag', 'gemini', 'llm', 'prompt engineering', 'vector database', 'agent studio', 'ai coding', 'cursor'],
     'compliance': ['compliance', 'cma', 'dsa', 'regulatory', 'transparency', 'legal ops'],
     'data':       ['sql', 'etl', 'data pipeline', 'data modeling', 'plx', 'sqlminer'],
     'automation': ['automation', 'chrome extension', 'appsscript', 'browser']
