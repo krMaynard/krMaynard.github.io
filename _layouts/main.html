@@ -4,13 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% if page.title %}{{ page.title }} | {% endif %}Kieran Maynard</title>
-    {% if page.description %}<meta name="description" content="{{ page.description | escape }}">
-    <meta property="og:title" content="{{ page.title | escape }} | Kieran Maynard">
-    <meta property="og:description" content="{{ page.description | escape }}">
+    <meta property="og:title" content="{% if page.title %}{{ page.title | escape }} | {% endif %}Kieran Maynard">
     <meta property="og:url" content="https://krmaynard.github.io{{ page.url }}">
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Kieran Maynard">
-    {% if page.date %}<meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">{% endif %}{% endif %}
+    {% if page.description %}<meta name="description" content="{{ page.description | escape }}">
+    <meta property="og:description" content="{{ page.description | escape }}">{% endif %}
+    {% if page.date %}<meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">{% endif %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">

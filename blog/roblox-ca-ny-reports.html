@@ -36,9 +36,9 @@ lang_url_zh: /zh/blog/roblox-ca-ny-reports.html
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Roblox's California and New York Transparency Reports Are Live",
-  "datePublished": "2026-04-01",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
-  "url": "https://krmaynard.github.io/blog/roblox-ca-ny-reports.html"
+  "url": "https://krmaynard.github.io{{ page.url }}"
 }
 </script>

@@ -65,9 +65,9 @@ lang_url_zh: /zh/blog/llms-compliance-pm.html
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "How I Use LLMs in Compliance PM Work",
-  "datePublished": "2026-05-15",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
-  "url": "https://krmaynard.github.io/blog/llms-compliance-pm.html"
+  "url": "https://krmaynard.github.io{{ page.url }}"
 }
 </script>

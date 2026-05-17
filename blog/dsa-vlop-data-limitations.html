@@ -60,9 +60,9 @@ lang_url_zh: /zh/blog/dsa-vlop-data-limitations.html
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Building a Cross-Platform DSA View: What the Data Doesn't Tell You",
-  "datePublished": "2026-05-19",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
-  "url": "https://krmaynard.github.io/blog/dsa-vlop-data-limitations.html"
+  "url": "https://krmaynard.github.io{{ page.url }}"
 }
 </script>

@@ -38,9 +38,9 @@ lang_url_zh: /zh/blog/google-removal-dashboard.html
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "New: Google Government Removal Requests Dashboard (2019–2025)",
-  "datePublished": "2026-05-11",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
-  "url": "https://krmaynard.github.io/blog/google-removal-dashboard.html"
+  "url": "https://krmaynard.github.io{{ page.url }}"
 }
 </script>

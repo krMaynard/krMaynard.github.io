@@ -59,10 +59,10 @@ lang_url_zh: /zh/blog/ab587-vs-s895.html
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "カリフォルニア州AB 587 対 ニューヨーク州S895：何が違い、なぜ重要か",
-  "datePublished": "2026-04-05",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
-  "url": "https://krmaynard.github.io/ja/blog/ab587-vs-s895.html",
-  "inLanguage": "ja"
+  "url": "https://krmaynard.github.io{{ page.url }}",
+  "inLanguage": "{{ page.lang | default: 'en' }}"
 }
 </script>

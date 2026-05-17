@@ -58,9 +58,9 @@ lang_url_zh: /zh/blog/google-removal-observations.html
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Three Things Worth Noticing in the Google Removal Request Data",
-  "datePublished": "2026-05-12",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
-  "url": "https://krmaynard.github.io/blog/google-removal-observations.html"
+  "url": "https://krmaynard.github.io{{ page.url }}"
 }
 </script>

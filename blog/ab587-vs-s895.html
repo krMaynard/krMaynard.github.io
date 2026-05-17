@@ -59,9 +59,9 @@ lang_url_zh: /zh/blog/ab587-vs-s895.html
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "California AB 587 vs. New York S895: What's Different and Why It Matters",
-  "datePublished": "2026-04-05",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
-  "url": "https://krmaynard.github.io/blog/ab587-vs-s895.html"
+  "url": "https://krmaynard.github.io{{ page.url }}"
 }
 </script>

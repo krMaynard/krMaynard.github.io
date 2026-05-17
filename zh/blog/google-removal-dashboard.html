@@ -38,10 +38,10 @@ lang_url_ja: /ja/blog/google-removal-dashboard.html
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "新发布：Google政府内容删除请求交互式仪表盘（2019–2025年）",
-  "datePublished": "2026-05-11",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
-  "url": "https://krmaynard.github.io/zh/blog/google-removal-dashboard.html",
-  "inLanguage": "zh"
+  "url": "https://krmaynard.github.io{{ page.url }}",
+  "inLanguage": "{{ page.lang | default: 'en' }}"
 }
 </script>

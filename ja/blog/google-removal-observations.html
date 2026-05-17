@@ -58,10 +58,10 @@ lang_url_zh: /zh/blog/google-removal-observations.html
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Googleの削除要請データで注目すべき3つの観察",
-  "datePublished": "2026-05-12",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
-  "url": "https://krmaynard.github.io/ja/blog/google-removal-observations.html",
-  "inLanguage": "ja"
+  "url": "https://krmaynard.github.io{{ page.url }}",
+  "inLanguage": "{{ page.lang | default: 'en' }}"
 }
 </script>

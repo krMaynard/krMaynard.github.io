@@ -64,10 +64,10 @@ lang_url_zh: /zh/blog/dsa-transparency-requirements.html
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "EU DSA透明性報告が実際に求めるもの",
-  "datePublished": "2026-03-05",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
-  "url": "https://krmaynard.github.io/ja/blog/dsa-transparency-requirements.html",
-  "inLanguage": "ja"
+  "url": "https://krmaynard.github.io{{ page.url }}",
+  "inLanguage": "{{ page.lang | default: 'en' }}"
 }
 </script>

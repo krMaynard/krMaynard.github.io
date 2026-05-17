@@ -58,10 +58,10 @@ lang_url_ja: /ja/blog/google-removal-observations.html
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Google删除请求数据中值得关注的三个发现",
-  "datePublished": "2026-05-12",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
-  "url": "https://krmaynard.github.io/zh/blog/google-removal-observations.html",
-  "inLanguage": "zh"
+  "url": "https://krmaynard.github.io{{ page.url }}",
+  "inLanguage": "{{ page.lang | default: 'en' }}"
 }
 </script>

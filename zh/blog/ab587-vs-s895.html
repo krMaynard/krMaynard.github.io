@@ -59,10 +59,10 @@ lang_url_ja: /ja/blog/ab587-vs-s895.html
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "加州AB 587与纽约州S895：有何不同，为何重要",
-  "datePublished": "2026-04-05",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
-  "url": "https://krmaynard.github.io/zh/blog/ab587-vs-s895.html",
-  "inLanguage": "zh"
+  "url": "https://krmaynard.github.io{{ page.url }}",
+  "inLanguage": "{{ page.lang | default: 'en' }}"
 }
 </script>
