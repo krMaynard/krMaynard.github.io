@@ -13,74 +13,74 @@ layout: null
 
     <item>
       <title>Building a Cross-Platform DSA View: What the Data Doesn't Tell You</title>
-      <link>https://krmaynard.github.io/blog.html#2026-05-19</link>
-      <guid isPermaLink="false">https://krmaynard.github.io/blog.html#2026-05-19</guid>
+      <link>https://krmaynard.github.io/blog/dsa-vlop-data-limitations.html</link>
+      <guid isPermaLink="true">https://krmaynard.github.io/blog/dsa-vlop-data-limitations.html</guid>
       <pubDate>Tue, 19 May 2026 00:00:00 +0000</pubDate>
-      <description><![CDATA[The VLOP dashboard brings 30 services into one view, but its limitations are as important as the data. Category definitions are not standardized across platforms — what TikTok labels "Hate Speech" and what Meta labels "Hate Speech" are defined by each platform's own policies, not by the DSA. Data is self-reported with no third-party audit requirement, and some platforms aggregate differently. The DSA Observatory argued in January that Article 15.1(e)'s accuracy requirement had produced meaningless data — but that post predated the first harmonized reports. The new template these H2 2025 reports follow does include precision and recall, so that specific gap is addressed. The structural problems of self-reporting and inconsistent category definitions remain.]]></description>
+      <description><![CDATA[Category definitions aren't standardized across platforms. Data is self-reported. Aggregation methods differ. What the VLOP dashboard can and can't tell you — and why the limitations matter as much as the data.]]></description>
     </item>
 
     <item>
       <title>New: Cross-Platform EU DSA Transparency Dashboard for VLOPs</title>
-      <link>https://krmaynard.github.io/vlop.html</link>
-      <guid isPermaLink="false">https://krmaynard.github.io/blog.html#2026-05-17</guid>
+      <link>https://krmaynard.github.io/blog/vlop-dashboard.html</link>
+      <guid isPermaLink="true">https://krmaynard.github.io/blog/vlop-dashboard.html</guid>
       <pubDate>Sun, 17 May 2026 00:00:00 +0000</pubDate>
-      <description><![CDATA[An interactive dashboard covering H2 2025 EU Digital Services Act transparency reports across VLOPs and VLOSEs. Combines data from 30 services — including Google (6 products), X, TikTok, Meta, Pinterest, AliExpress, Amazon, LinkedIn, Snapchat, Booking.com, SHEIN, Temu, Zalando, Wikimedia (6 services), and others — into a single cross-platform view covering Notices, Own-initiative actions, Government Orders, and Appeals. All data processed in your browser.]]></description>
+      <description><![CDATA[H2 2025 EU DSA transparency reports from 30 VLOP and VLOSE services in a single interactive view — including Google (6 products), X, TikTok, Meta, Pinterest, AliExpress, Amazon, LinkedIn, Snapchat, Booking.com, SHEIN, Temu, Zalando, Wikimedia (6 services), and others. The first cross-platform dataset to follow the Commission's harmonized template in full. All data processes in your browser.]]></description>
     </item>
 
     <item>
       <title>How I Use LLMs in Compliance PM Work</title>
-      <link>https://krmaynard.github.io/blog.html#2026-05-15</link>
-      <guid isPermaLink="false">https://krmaynard.github.io/blog.html#2026-05-15</guid>
+      <link>https://krmaynard.github.io/blog/llms-compliance-pm.html</link>
+      <guid isPermaLink="true">https://krmaynard.github.io/blog/llms-compliance-pm.html</guid>
       <pubDate>Fri, 15 May 2026 00:00:00 +0000</pubDate>
-      <description><![CDATA[Three LLM workflows that have actually stuck in compliance PM work: (1) requirement extraction — enumerating reportable data elements from a statute and diffing against current infrastructure, especially useful when a new law (AB 587) overlaps but diverges from an existing one (EU DSA Article 15); (2) cross-jurisdiction gap analysis using a structured requirements table; (3) draft review against a statutory checklist before Legal. None replace domain judgment, but they compress the time between "new requirement" and "here is what we need to build."]]></description>
+      <description><![CDATA[Requirement extraction, cross-jurisdiction gap analysis, and draft review against a statutory checklist — three LLM workflows that have actually stuck in compliance PM work. Where each one breaks down, and what LLMs reliably can't do in a compliance context.]]></description>
     </item>
 
     <item>
       <title>Three Things Worth Noticing in the Google Removal Request Data</title>
-      <link>https://krmaynard.github.io/transparency.html</link>
-      <guid isPermaLink="false">https://krmaynard.github.io/blog.html#2026-05-12</guid>
+      <link>https://krmaynard.github.io/blog/google-removal-observations.html</link>
+      <guid isPermaLink="true">https://krmaynard.github.io/blog/google-removal-observations.html</guid>
       <pubDate>Tue, 12 May 2026 00:00:00 +0000</pubDate>
-      <description><![CDATA[The country distribution for defamation requests looks very different from government criticism requests — defamation dominates in large democracies where courts actively issue removal orders, while government criticism concentrates in a narrower set of countries. Removal rate isn't fixed: it shifts across the 13 reporting periods. And requestor type matters — a Court Order carries different operational weight than a Police request, and the mix has changed year over year. All navigable in the dashboard with a few filter changes.]]></description>
+      <description><![CDATA[Defamation and government criticism have very different country distributions. Removal rate shifts across the 13 reporting periods — and the inflection points are worth examining. And requestor type carries real operational weight that aggregate totals obscure.]]></description>
     </item>
 
     <item>
       <title>New: Google Government Removal Requests Dashboard (2019–2025)</title>
-      <link>https://krmaynard.github.io/transparency.html</link>
-      <guid isPermaLink="false">https://krmaynard.github.io/blog.html#2026-05-11</guid>
+      <link>https://krmaynard.github.io/blog/google-removal-dashboard.html</link>
+      <guid isPermaLink="true">https://krmaynard.github.io/blog/google-removal-dashboard.html</guid>
       <pubDate>Mon, 11 May 2026 00:00:00 +0000</pubDate>
-      <description><![CDATA[An interactive dashboard turning Google's per-period government content removal snapshots into a multi-year trend explorer. Covers 13 reporting periods from 2019 to mid-2025 across 160 countries, 42 Google products, and 22 stated removal reasons. Every filter combination generates a time series; a separate chart tracks removal rate over time. I was a primary author of the Greater China section of the Google Transparency Report from 2014 to 2024. All data loads directly in your browser.]]></description>
+      <description><![CDATA[An interactive dashboard turning Google's per-period government content removal snapshots into a multi-year trend explorer. 13 reporting periods from 2019 to mid-2025, covering 160 countries, 42 Google products, and 22 stated removal reasons. Every filter combination generates a time series. All data loads directly in your browser.]]></description>
     </item>
 
     <item>
       <title>California AB 587 vs. New York S895: What's Different and Why It Matters</title>
-      <link>https://krmaynard.github.io/blog.html#2026-04-05</link>
-      <guid isPermaLink="false">https://krmaynard.github.io/blog.html#2026-04-05</guid>
+      <link>https://krmaynard.github.io/blog/ab587-vs-s895.html</link>
+      <guid isPermaLink="true">https://krmaynard.github.io/blog/ab587-vs-s895.html</guid>
       <pubDate>Sun, 05 Apr 2026 00:00:00 +0000</pubDate>
-      <description><![CDATA[Both laws require social media transparency reports on content moderation, but they diverge in ways that matter for reporting infrastructure. AB 587 focuses on policy disclosure: platforms describe enforcement across 10 content categories, semi-annually to the California AG. S895 is operationally specific: quarterly reports to the New York AG covering content actioned, accounts suspended, and appeals processed by category. In practice, AB 587 requires narrative and policy mapping while S895 requires structured operational data — same review cycles, separate pipelines.]]></description>
+      <description><![CDATA[Both laws require social media transparency reports on content moderation. AB 587 focuses on policy disclosure — what the terms of service say and aggregate enforcement figures. S895 requires structured operational data: counts of actions taken, by category, every quarter. The overlap is enough to share review cycles; the data requirements are different enough to force separate pipelines.]]></description>
     </item>
 
     <item>
       <title>Roblox's California and New York Transparency Reports Are Live</title>
-      <link>https://krmaynard.github.io/blog.html#2026-04-01</link>
-      <guid isPermaLink="false">https://krmaynard.github.io/blog.html#2026-04-01</guid>
+      <link>https://krmaynard.github.io/blog/roblox-ca-ny-reports.html</link>
+      <guid isPermaLink="true">https://krmaynard.github.io/blog/roblox-ca-ny-reports.html</guid>
       <pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate>
-      <description><![CDATA[Roblox's California AB 587 (H2 2025) and New York S895 (Q4 2025) transparency reports are now filed with the respective state attorneys general. Running both filings in parallel — with separate data tracks but shared cross-functional review capacity across Legal, Policy, and Engineering — was a useful forcing function for building more durable reporting infrastructure.]]></description>
+      <description><![CDATA[Roblox's California AB 587 (H2 2025) and New York S895 (Q4 2025) state social media transparency reports are now filed. Running both in parallel — separate data tracks, shared cross-functional review capacity across Legal, Policy, and Engineering — was a useful forcing function for building more durable reporting infrastructure.]]></description>
     </item>
 
     <item>
       <title>What EU DSA Transparency Reporting Actually Requires</title>
-      <link>https://krmaynard.github.io/blog.html#2026-03-05</link>
-      <guid isPermaLink="false">https://krmaynard.github.io/blog.html#2026-03-05</guid>
+      <link>https://krmaynard.github.io/blog/dsa-transparency-requirements.html</link>
+      <guid isPermaLink="true">https://krmaynard.github.io/blog/dsa-transparency-requirements.html</guid>
       <pubDate>Thu, 05 Mar 2026 00:00:00 +0000</pubDate>
-      <description><![CDATA[Article 15 requires all intermediary services to publish annual reports covering authority orders, notices, own-initiative moderation, and automated tool use. For VLOPs and VLOSEs, Article 42 adds substantially more: bi-annual reporting, breakdowns by content category and language, decision-making timeline data, appeals information, and government order figures. The practical gap between what a notice-only platform must report and what a VLOP must report is significant — VLOP obligations require purpose-built reporting systems, not ad-hoc exports.]]></description>
+      <description><![CDATA[Article 15 applies to all intermediary services: annual reports covering authority orders, notices, own-initiative moderation, and automated tool use. Article 42 adds substantially more for VLOPs: bi-annual reporting, category and language breakdowns, decision timeline data, appeals figures, government order details. The practical gap is significant — VLOP obligations require purpose-built reporting systems, not ad-hoc exports.]]></description>
     </item>
 
     <item>
       <title>Roblox's EU Digital Services Act Transparency Report (2025) Is Live</title>
-      <link>https://about.roblox.com/pdf/EU-DSA-Transparency-Report-2025</link>
-      <guid isPermaLink="false">https://krmaynard.github.io/blog.html#2026-03-01</guid>
+      <link>https://krmaynard.github.io/blog/roblox-dsa-2025.html</link>
+      <guid isPermaLink="true">https://krmaynard.github.io/blog/roblox-dsa-2025.html</guid>
       <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
-      <description><![CDATA[Roblox has published its EU Digital Services Act transparency report for 2025. I owned end-to-end delivery — scoping data requirements against Article 15 obligations, building the cross-functional production workflow across Legal, Policy, and Engineering, and driving on-time publication. Covers content moderation activity for 1 January – 31 December 2025. Roblox also published its Terrorist Content Online (TCO) transparency report for the same period.]]></description>
+      <description><![CDATA[Roblox has published its EU Digital Services Act transparency report for 2025, covering content moderation activity for 1 January – 31 December. I owned end-to-end delivery — scoping data requirements against Article 15 obligations, building the cross-functional production workflow, and driving on-time publication.]]></description>
     </item>
 
   </channel>

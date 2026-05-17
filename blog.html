@@ -17,8 +17,8 @@ lang_url_zh: /zh/blog.html
   <div class="news-entry" id="2026-05-19">
     <time class="news-date" datetime="2026-05-19">May 19, 2026</time>
     <div class="news-body">
-      <h3>Building a Cross-Platform DSA View: What the Data Doesn't Tell You</h3>
-      <p>The VLOP dashboard I published brings 30 services into one view, but its limitations are as important as the data. The most significant: category definitions are not standardized across platforms. What TikTok labels "Hate Speech" and what Meta labels "Hate Speech" are defined by each platform's own policies, not by the DSA — so volume comparisons between platforms are comparing apples to internally-defined fruit. The data is also self-reported, with no third-party audit requirement under the current framework. Some platforms aggregate differently too: Google reports its 6 services separately while others report at the platform level, which affects how per-service numbers read. Worth noting: the <a href="https://dsa-observatory.eu/2026/01/08/the-metrics-were-missing-in-dsa-content-moderation-transparency/">DSA Observatory argued in January</a> that removal counts and appeals figures can't tell you whether moderation is accurate or proportionate, and that Article 15.1(e)'s "indicators of accuracy" requirement had produced meaningless data — but that post predated the first harmonized reports. The new template, which these H2 2025 reports follow, does include precision and recall indicators, so that specific gap has been addressed. The structural problems of self-reported data and inconsistent category definitions remain. The dashboard is most reliable for tracking volume trends within a single platform over time; cross-platform normative comparisons should be treated with caution.</p>
+      <h3><a href="/blog/dsa-vlop-data-limitations.html">Building a Cross-Platform DSA View: What the Data Doesn't Tell You</a></h3>
+      <p>Category definitions aren't standardized across platforms. Data is self-reported. Aggregation methods differ. What the VLOP dashboard can and can't tell you — and why the limitations matter as much as the data.</p>
       <div class="tags">
         <span class="tag">EU DSA</span>
         <span class="tag">VLOP</span>
@@ -31,8 +31,8 @@ lang_url_zh: /zh/blog.html
   <div class="news-entry" id="2026-05-17">
     <time class="news-date" datetime="2026-05-17">May 17, 2026</time>
     <div class="news-body">
-      <h3><a href="/vlop.html">New: Cross-Platform EU DSA Transparency Dashboard for VLOPs</a></h3>
-      <p>I've published an interactive dashboard covering H2 2025 EU Digital Services Act transparency reports across Very Large Online Platforms (VLOPs) and Very Large Online Search Engines (VLOSEs). The dashboard combines data from 30 services — including Google (6 products), X, TikTok, Meta (Facebook and Instagram), Pinterest, AliExpress, Amazon, LinkedIn, Snapchat, Booking.com, SHEIN, Temu, Zalando, Wikimedia (6 services), and others — into a single cross-platform view. It covers the four main DSA reporting categories: Notices, Own-initiative actions (illegal content and policy violations shown separately), Government Orders, and Appeals. Filter by platform, service, content category, and keyword; all data is processed in your browser.</p>
+      <h3><a href="/blog/vlop-dashboard.html">New: Cross-Platform EU DSA Transparency Dashboard for VLOPs</a></h3>
+      <p>H2 2025 EU DSA transparency reports from 30 VLOP and VLOSE services in a single interactive view. The first cross-platform dataset to follow the Commission's harmonized template in full.</p>
       <div class="tags">
         <span class="tag">EU DSA</span>
         <span class="tag">VLOP</span>
@@ -45,8 +45,8 @@ lang_url_zh: /zh/blog.html
   <div class="news-entry" id="2026-05-15">
     <time class="news-date" datetime="2026-05-15">May 15, 2026</time>
     <div class="news-body">
-      <h3>How I Use LLMs in Compliance PM Work</h3>
-      <p>The use cases that have actually stuck are fairly specific. <strong>Requirement extraction:</strong> paste a statute or guidance document into the model and ask it to enumerate the reportable data elements, then diff that list against what current data infrastructure produces — especially useful when a new law (California AB 587) has overlapping but non-identical scope to an existing one (EU DSA Article 15). <strong>Gap analysis:</strong> maintain a structured cross-jurisdiction requirements table and use the model to flag where new guidance shifts the picture. <strong>Draft review:</strong> run a near-final report draft against a statutory checklist before it reaches Legal, to catch omissions early. None of these replace domain judgment, but they compress the time between "new regulatory requirement" and "here is what we need to build."</p>
+      <h3><a href="/blog/llms-compliance-pm.html">How I Use LLMs in Compliance PM Work</a></h3>
+      <p>Requirement extraction, gap analysis, and draft review — three workflows that have actually stuck. Where each one breaks down, and what LLMs reliably can't do in a compliance context.</p>
       <div class="tags">
         <span class="tag">AI/LLM</span>
         <span class="tag">Compliance PM</span>
@@ -58,8 +58,8 @@ lang_url_zh: /zh/blog.html
   <div class="news-entry" id="2026-05-12">
     <time class="news-date" datetime="2026-05-12">May 12, 2026</time>
     <div class="news-body">
-      <h3><a href="/transparency.html">Three Things Worth Noticing in the Google Removal Request Data</a></h3>
-      <p>Now that the dashboard has been up for a day, here are the findings I find most worth exploring. The country distribution for <em>defamation</em> requests looks very different from <em>government criticism</em> requests — defamation dominates in large democracies like France, Germany, and India (where courts actively issue removal orders), while government criticism concentrates in a narrower set of countries with different press freedom profiles. Removal rate isn't a fixed property of any country: it shifts across the 13 reporting periods, and you can watch compliance posture tighten or loosen over time for a given country or product. And requestor type matters — a Court Order carries different operational weight than a Police request, and the mix has changed year over year. All of this is one or two filter changes away in the dashboard.</p>
+      <h3><a href="/blog/google-removal-observations.html">Three Things Worth Noticing in the Google Removal Request Data</a></h3>
+      <p>Defamation and government criticism have very different country distributions. Removal rate shifts across the 13 reporting periods. And requestor type carries real operational weight.</p>
       <div class="tags">
         <span class="tag">Google</span>
         <span class="tag">Transparency</span>
@@ -72,8 +72,8 @@ lang_url_zh: /zh/blog.html
   <div class="news-entry" id="2026-05-11">
     <time class="news-date" datetime="2026-05-11">May 11, 2026</time>
     <div class="news-body">
-      <h3><a href="/transparency.html">New: Google Government Removal Requests Dashboard (2019–2025)</a></h3>
-      <p>I've built an interactive dashboard on top of Google's public government content removal data — turning the per-period snapshots Google publishes into a multi-year trend explorer. The dataset spans 13 reporting periods from 2019 to mid-2025, covering 160 countries, 42 Google products, and 22 stated removal reasons. I was a primary author of the Greater China section of the Google Transparency Report from 2014 to 2024, so this dataset is one I know well. Every filter combination — country, requestor, product, reason — generates a time series, and a separate chart tracks removal rate over time. All data loads directly in your browser.</p>
+      <h3><a href="/blog/google-removal-dashboard.html">New: Google Government Removal Requests Dashboard (2019–2025)</a></h3>
+      <p>13 reporting periods, 160 countries, 42 Google products, 22 removal reasons — turned into a multi-year trend explorer. Every filter combination generates a time series.</p>
       <div class="tags">
         <span class="tag">Google</span>
         <span class="tag">Transparency</span>
@@ -86,8 +86,8 @@ lang_url_zh: /zh/blog.html
   <div class="news-entry" id="2026-04-05">
     <time class="news-date" datetime="2026-04-05">April 5, 2026</time>
     <div class="news-body">
-      <h3>California AB 587 vs. New York S895: What's Different and Why It Matters</h3>
-      <p>Both laws require social media companies to publish transparency reports on content moderation, but their scope and data requirements diverge in ways that matter for reporting infrastructure. AB 587 focuses on policy disclosure: platforms must file their terms of service and describe how they enforce them across 10 content categories (including hate speech, harassment, and foreign political interference), with semi-annual reports to the California AG. S895 is more operationally specific: quarterly reports to the New York AG covering the number of pieces of content actioned, accounts suspended, and appeals processed — broken down by content category. In practice, AB 587 requires narrative and policy mapping while S895 requires structured operational data. The overlap is substantial enough to share review cycles, but the underlying data requirements are different enough to maintain separate pipelines.</p>
+      <h3><a href="/blog/ab587-vs-s895.html">California AB 587 vs. New York S895: What's Different and Why It Matters</a></h3>
+      <p>Both laws require social media transparency reports on content moderation. Their data requirements diverge in ways that force separate pipelines, even when review cycles can be shared.</p>
       <div class="tags">
         <span class="tag">Regulatory</span>
         <span class="tag">Compliance PM</span>
@@ -99,8 +99,8 @@ lang_url_zh: /zh/blog.html
   <div class="news-entry" id="2026-04-01">
     <time class="news-date" datetime="2026-04-01">April 1, 2026</time>
     <div class="news-body">
-      <h3>Roblox's California and New York Transparency Reports Are Live</h3>
-      <p>Two state social media transparency reports are now filed — Roblox's <a href="https://oag.ca.gov/sites/default/files/Roblox%202025%20H2%20California%20AB587%20Terms%20of%20Service%20Report.pdf">California AB 587 (H2 2025)</a> and <a href="https://ag.ny.gov/sites/default/files/social-media-policy-report/2025-q4-roblox-corporation-policy.pdf">New York S895 (Q4 2025)</a>. The two statutes overlap in scope but diverge on specifics: AB 587 focuses on content moderation policies and their enforcement, while S895 requires more granular data on actions taken against specific accounts and content. Running both filings in parallel meant maintaining separate data tracks while sharing cross-functional review capacity across Legal, Policy, and Engineering — a useful forcing function for building more durable reporting infrastructure.</p>
+      <h3><a href="/blog/roblox-ca-ny-reports.html">Roblox's California and New York Transparency Reports Are Live</a></h3>
+      <p>Two state social media transparency reports filed — California AB 587 (H2 2025) and New York S895 (Q4 2025). Running them in parallel shaped how we built the reporting infrastructure.</p>
       <div class="tags">
         <span class="tag">Roblox</span>
         <span class="tag">Compliance PM</span>
@@ -113,8 +113,8 @@ lang_url_zh: /zh/blog.html
   <div class="news-entry" id="2026-03-05">
     <time class="news-date" datetime="2026-03-05">March 5, 2026</time>
     <div class="news-body">
-      <h3>What EU DSA Transparency Reporting Actually Requires</h3>
-      <p>The EU Digital Services Act's transparency reporting obligations are often described in shorthand — "publish a report on content moderation" — but the actual statutory requirements are more specific. Article 15 requires all intermediary services to publish annual reports covering orders received from member state authorities, notices received under Article 16, own-initiative moderation actions, and use of automated tools. For VLOPs and VLOSEs, Article 42 adds substantially more: bi-annual reporting (every six months instead of annually), detailed breakdowns by content category and language, decision-making timeline data, appeals information, and figures on government orders. The practical gap between what a notice-only platform must report and what a VLOP must report is significant: VLOP obligations require purpose-built reporting systems and structured data pipelines, not ad-hoc exports.</p>
+      <h3><a href="/blog/dsa-transparency-requirements.html">What EU DSA Transparency Reporting Actually Requires</a></h3>
+      <p>Article 15 applies to all intermediary services annually. Article 42 adds bi-annual, category-level, timestamped VLOP obligations. The practical gap is significant — and it shows up in the reporting infrastructure.</p>
       <div class="tags">
         <span class="tag">EU DSA</span>
         <span class="tag">Compliance PM</span>
@@ -127,8 +127,8 @@ lang_url_zh: /zh/blog.html
   <div class="news-entry" id="2026-03-01">
     <time class="news-date" datetime="2026-03-01">March 1, 2026</time>
     <div class="news-body">
-      <h3><a href="https://about.roblox.com/pdf/EU-DSA-Transparency-Report-2025">Roblox's EU Digital Services Act Transparency Report (2025) Is Live</a></h3>
-      <p>Roblox has published its EU Digital Services Act transparency report for 2025. I owned end-to-end delivery — scoping data requirements against Article 15 obligations, building the cross-functional production workflow across Legal, Policy, and Engineering, and driving on-time publication. The report covers Roblox's content moderation activity for 1 January – 31 December 2025, including notices received and actions taken across EU services. Alongside it, Roblox also published its Terrorist Content Online (TCO) transparency report for the same period.</p>
+      <h3><a href="/blog/roblox-dsa-2025.html">Roblox's EU Digital Services Act Transparency Report (2025) Is Live</a></h3>
+      <p>Roblox's annual EU DSA transparency report for 2025 is published, covering content moderation activity for 1 January – 31 December. I owned end-to-end delivery.</p>
       <div class="tags">
         <span class="tag">Roblox</span>
         <span class="tag">EU DSA</span>

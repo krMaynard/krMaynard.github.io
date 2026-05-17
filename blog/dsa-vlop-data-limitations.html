@@ -1,0 +1,68 @@
+---
+layout: main
+title: "Building a Cross-Platform DSA View: What the Data Doesn't Tell You"
+description: "Category definitions aren't standardized across platforms. Data is self-reported. Aggregation methods differ. What the VLOP dashboard can and can't tell you — and why the limitations matter as much as the data."
+date: 2026-05-19
+lang: en
+lang_url: /ja/blog/dsa-vlop-data-limitations.html
+lang_url_zh: /zh/blog/dsa-vlop-data-limitations.html
+---
+
+<article class="post">
+  <a href="/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>Building a Cross-Platform DSA View: What the Data Doesn't Tell You</h1>
+    <time class="news-date" datetime="2026-05-19">May 19, 2026</time>
+    <div class="tags">
+      <span class="tag">EU DSA</span>
+      <span class="tag">VLOP</span>
+      <span class="tag">Data</span>
+      <span class="tag">Analysis</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>The <a href="/vlop.html">VLOP dashboard</a> I published two days ago brings 30 services into a single view. That's genuinely useful — it's the first time this data has been aggregatable across platforms in an interactive format, and the H2 2025 reports are the first to follow the Commission's harmonized template in full. But the limitations are as important as the data, and some of them are structural problems with how DSA transparency reporting works, not just features of this particular dashboard.</p>
+
+    <h2>Category definitions aren't standardized</h2>
+
+    <p>The most significant limitation: what TikTok calls "Hate Speech" and what Meta calls "Hate Speech" are defined by each platform's own content policies, not by the DSA. The regulation requires platforms to report by content category, and it specifies a list of categories. But it doesn't define what content falls within each category — that's left to platform policy.</p>
+
+    <p>This means a platform with a narrow hate speech policy definition will show lower numbers than a platform with a broader one, even if they're moderating equivalent amounts of content. Cross-platform volume comparisons in the dashboard are comparisons of platform-defined categories against other platform-defined categories, not comparisons of a consistent underlying construct.</p>
+
+    <p>The <a href="https://dsa-observatory.eu/2026/01/08/the-metrics-were-missing-in-dsa-content-moderation-transparency/">DSA Observatory argued in January</a> that prior reporting had made the accuracy requirement essentially meaningless. The Commission's harmonized template — which the H2 2025 reports follow for the first time — adds precision and recall indicators for automated detection tools, which addresses that specific gap. Precision and recall are genuinely more informative than raw removal counts. But precision and recall within each platform's own category definition still doesn't resolve the cross-platform comparability problem, because the categories themselves aren't defined consistently.</p>
+
+    <h2>Data is self-reported without third-party audit</h2>
+
+    <p>Every number in the dashboard is self-reported by the platform. The DSA doesn't currently require third-party verification of transparency report data — no external auditor confirms that the numbers are accurate, that the categorization methodology is consistent across reporting periods, or that the data extraction process is reliable.</p>
+
+    <p>This doesn't mean the numbers are wrong. Platforms have legal compliance obligations, and the reports are reviewed by internal Legal and Policy teams before publication. But it means the data should be treated as self-reported operational data: useful for understanding trends and patterns within a platform, less reliable as a precise measurement of an absolute quantity, and not verifiable against an external reference point.</p>
+
+    <h2>Aggregation methods differ</h2>
+
+    <p>Google reports its six designated services separately: Search, Maps, Play, Shopping, YouTube, and a sixth service entry. Meta reports aggregate figures for Facebook and Instagram combined. Other platforms report at the platform level.</p>
+
+    <p>This affects how you read the numbers. Google's entry for any single service looks smaller than the comparable figures from platforms that report in aggregate. The total across Google's six entries in the dashboard is the comparable figure to Meta's single combined entry — but the dashboard also lets you accidentally compare Google Search alone to TikTok's platform-wide total, which is not a meaningful comparison. Filtering carefully matters.</p>
+
+    <h2>How to use the dashboard reliably</h2>
+
+    <p>The dashboard is most useful for tracking volume trends within a single platform over time. That's a like-for-like comparison within a consistent methodology and category definition — the numbers mean the same thing across periods for a given platform, even if they don't mean the same thing as another platform's numbers in the same category.</p>
+
+    <p>It's also useful for understanding the rough shape of the ecosystem: which categories generate the most notices across platforms, which platforms are processing substantially more appeals than others, what the government orders picture looks like geographically. Those are patterns visible at the level of order-of-magnitude differences, where the category definition divergences matter less.</p>
+
+    <p>It's less useful for precise cross-platform comparisons of absolute volume, and for drawing normative conclusions about which platforms are moderating more or better. Those conclusions require category definitions and audit standards that don't yet exist in DSA reporting. The structural problems that remain — self-reported data, inconsistent category definitions — are real constraints on what the data can support, and treating the numbers as more comparable than they are produces misleading conclusions.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Building a Cross-Platform DSA View: What the Data Doesn't Tell You",
+  "datePublished": "2026-05-19",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io/blog/dsa-vlop-data-limitations.html"
+}
+</script>
