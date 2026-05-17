@@ -17,8 +17,8 @@ lang_url_zh: /zh/blog.html
   <div class="news-entry" id="2026-05-19">
     <time class="news-date" datetime="2026-05-19">2026年5月19日</time>
     <div class="news-body">
-      <h3>VLOPのDSAデータを横断的に見るということ：データが語らないこと</h3>
-      <p>今回公開したVLOPダッシュボードは30サービスを一つのビューにまとめていますが、データの限界を理解することも同様に重要です。最も重要な点として、カテゴリ定義はプラットフォーム間で標準化されていません。TikTokが「ヘイトスピーチ」と呼ぶものとMetaが「ヘイトスピーチ」と呼ぶものは、DSAではなく各プラットフォーム独自のポリシーによって定義されており、プラットフォーム間の件数比較は独自基準同士の比較になります。また、データは自己申告であり、現行の枠組みでは第三者による監査は義務付けられていません。集計方法もプラットフォームによって異なります。Googleは6つのサービスを別々に報告する一方、他のプラットフォームはプラットフォームレベルで集計しており、サービスごとの数値の解釈に影響します。参考として、<a href="https://dsa-observatory.eu/2026/01/08/the-metrics-were-missing-in-dsa-content-moderation-transparency/">DSAオブザーバトリーは1月に</a>、削除件数や異議申し立て数だけではモデレーションの正確性や適切性を判断できず、Article 15.1(e)の「精度指標」要件はこれまで実質的に機能していないと論じていました。ただし、この投稿は統一レポートの公開前のものです。今回のH2 2025レポートが準拠する新テンプレートには精度（precision）と再現率（recall）の指標が含まれており、この特定のギャップは対処済みです。自己申告データやカテゴリ定義の不統一という構造的な問題は依然として残っています。このダッシュボードは単一プラットフォーム内の件数トレンドの追跡に最も有用であり、プラットフォーム間の規範的比較には慎重な解釈が必要です。</p>
+      <h3><a href="/ja/blog/dsa-vlop-data-limitations.html">VLOPのDSAデータを横断的に見るということ：データが語らないこと</a></h3>
+      <p>カテゴリ定義はプラットフォーム間で標準化されていない。データは自己申告だ。集計方法も異なる。VLOPダッシュボードで何がわかり、何がわからないか——その限界はデータ本体と同等に重要だ。</p>
       <div class="tags">
         <span class="tag">EU DSA</span>
         <span class="tag">VLOP</span>
@@ -31,8 +31,8 @@ lang_url_zh: /zh/blog.html
   <div class="news-entry" id="2026-05-17">
     <time class="news-date" datetime="2026-05-17">2026年5月17日</time>
     <div class="news-body">
-      <h3><a href="/ja/vlop.html">新公開：VLOPのEU DSA透明性レポートを横断比較するダッシュボード</a></h3>
-      <p>EU DSA（デジタルサービス法）に基づく2025年下半期のVLOPおよびVLOSE透明性レポートを横断する、インタラクティブダッシュボードを公開しました。Google（6サービス）、X、TikTok、Meta（FacebookおよびInstagram）、Pinterest、AliExpress、Amazon、LinkedIn、Snapchat、Booking.com、SHEIN、Temu、Zalando、Wikimedia（6サービス）など、計30サービスのデータを単一ビューに統合しています。対象カテゴリはDSAの主要4分類：通知（Notices）、自主的措置（違法コンテンツとポリシー違反を別表示）、政府命令（Government Orders）、および異議申し立て（Appeals）です。プラットフォーム・サービス・コンテンツカテゴリ・キーワードでのフィルタリングが可能で、すべての処理はブラウザ内で完結します。</p>
+      <h3><a href="/ja/blog/vlop-dashboard.html">新公開：VLOPのEU DSA透明性レポートを横断比較するダッシュボード</a></h3>
+      <p>30のVLOP・VLOSEサービスのH2 2025 EU DSA透明性レポートデータを単一のインタラクティブビューに統合。欧州委員会の統一テンプレートに初めて完全準拠した初のクロスプラットフォームデータセット。</p>
       <div class="tags">
         <span class="tag">EU DSA</span>
         <span class="tag">VLOP</span>
@@ -45,8 +45,8 @@ lang_url_zh: /zh/blog.html
   <div class="news-entry" id="2026-05-15">
     <time class="news-date" datetime="2026-05-15">2026年5月15日</time>
     <div class="news-body">
-      <h3>コンプライアンスPM業務でのLLM活用法</h3>
-      <p>実際に定着している使い方は比較的具体的です。<strong>要件抽出：</strong>法令や規制ガイダンスのテキストをモデルに貼り付け、報告対象のデータ要素を列挙させ、既存のデータインフラが生成するものと比較します。特に新しい法律（カリフォルニア州AB 587）が既存の法律（EU DSA Article 15）と対象範囲が重なりながらも異なる場合に効果的です。<strong>ギャップ分析：</strong>複数の法域にわたる要件を構造化した比較表として管理し、新しいガイダンスで変更が生じた箇所をモデルで特定します。<strong>ドラフトレビュー：</strong>最終段階に近いレポートの草稿を法令チェックリストと照合し、法務レビュー前に抜け漏れを発見します。いずれもドメイン知識に基づく判断の代替ではありませんが、「新しい規制要件」から「必要な対応内容の特定」までの時間を大幅に短縮できます。</p>
+      <h3><a href="/ja/blog/llms-compliance-pm.html">コンプライアンスPM業務でのLLM活用法</a></h3>
+      <p>要件抽出、ギャップ分析、法令チェックリストを用いたドラフトレビュー——実際に定着した3つのワークフロー。それぞれの限界と、コンプライアンス文脈でLLMが信頼できないことについても。</p>
       <div class="tags">
         <span class="tag">AI/LLM</span>
         <span class="tag">コンプライアンスPM</span>
@@ -58,8 +58,8 @@ lang_url_zh: /zh/blog.html
   <div class="news-entry" id="2026-05-12">
     <time class="news-date" datetime="2026-05-12">2026年5月12日</time>
     <div class="news-body">
-      <h3><a href="/ja/transparency.html">Googleの削除要請データで注目すべき3つの観察</a></h3>
-      <p>ダッシュボード公開から1日が経ち、特に探索する価値があると感じる知見を3つ挙げます。まず、<em>名誉毀損</em>を理由とする要請の国別分布は、<em>政府批判</em>の分布と大きく異なります。フランス・ドイツ・インドなど大規模な民主主義国は名誉毀損が多い（裁判所が積極的に削除命令を出す）一方、政府批判を理由とした要請は限られた国に集中しています。次に、削除率は一定ではなく、13の報告期間にわたって変動しており、特定の国やプロダクトについてコンプライアンス姿勢の強化・緩和を追うことができます。さらに、申請者の種類が重要です。裁判所命令と警察からの要請では対応上の重みが異なり、その比率も年々変化しています。いずれもダッシュボード上で数回のフィルター操作で確認できます。</p>
+      <h3><a href="/ja/blog/google-removal-observations.html">Googleの削除要請データで注目すべき3つの観察</a></h3>
+      <p>名誉毀損と政府批判では国別分布が大きく異なる。削除率は13の報告期間にわたって変動する。申請者の種類は運用上の重みを持つ。</p>
       <div class="tags">
         <span class="tag">Google</span>
         <span class="tag">透明性</span>
@@ -72,8 +72,8 @@ lang_url_zh: /zh/blog.html
   <div class="news-entry" id="2026-05-11">
     <time class="news-date" datetime="2026-05-11">2026年5月11日</time>
     <div class="news-body">
-      <h3><a href="/ja/transparency.html">新公開：Google政府コンテンツ削除要請ダッシュボード（2019〜2025年）</a></h3>
-      <p>Googleが公開している政府からのコンテンツ削除要請データをもとに、複数年のトレンドを探索できるインタラクティブダッシュボードを作成しました。データセットは2019年から2025年上半期までの13報告期間を対象とし、160か国、42のGoogleプロダクト、22の削除理由を網羅しています。2014年から2024年まで私はGoogleの透明性レポートにおいて中国語圏セクションの主要著者を務めており、このデータに長年深く携わってきました。国・申請者・プロダクト・削除理由のフィルタリングで時系列グラフが生成され、削除率の推移を追う専用チャートも用意しています。すべてのデータはブラウザ内で直接処理されます。</p>
+      <h3><a href="/ja/blog/google-removal-dashboard.html">新公開：Google政府コンテンツ削除要請ダッシュボード（2019〜2025年）</a></h3>
+      <p>13の報告期間、160か国、42のGoogleプロダクト、22の削除理由——複数年のトレンドを探索できるインタラクティブダッシュボード。あらゆるフィルターの組み合わせで時系列グラフが生成される。</p>
       <div class="tags">
         <span class="tag">Google</span>
         <span class="tag">透明性</span>
@@ -86,8 +86,8 @@ lang_url_zh: /zh/blog.html
   <div class="news-entry" id="2026-04-05">
     <time class="news-date" datetime="2026-04-05">2026年4月5日</time>
     <div class="news-body">
-      <h3>カリフォルニア州AB 587 対 ニューヨーク州S895：何が違い、なぜ重要か</h3>
-      <p>両法律はソーシャルメディア企業にコンテンツモデレーションの透明性レポート公開を義務付けていますが、対象範囲とデータ要件はレポーティングインフラに影響する形で異なっています。AB 587はポリシー開示に重点を置きます。プラットフォームは利用規約を提出し、ヘイトスピーチ・ハラスメント・外国による政治的干渉を含む10カテゴリのコンテンツへの執行方針を説明した上で、カリフォルニア州司法長官に半年ごとにレポートを提出します。一方S895はより運用的に具体的です。ニューヨーク州司法長官への四半期ごとのレポートで、コンテンツカテゴリ別に対応件数・停止アカウント数・処理済み異議申し立て数を報告します。実務上、AB 587はナラティブとポリシーのマッピングを必要とし、S895は構造化された運用データを必要とします。レビューサイクルを共有できるほどの重複はありますが、基礎となるデータ要件はパイプラインを別々に維持するほど異なります。</p>
+      <h3><a href="/ja/blog/ab587-vs-s895.html">カリフォルニア州AB 587 対 ニューヨーク州S895：何が違い、なぜ重要か</a></h3>
+      <p>両法律はソーシャルメディアのコンテンツモデレーション透明性レポートを義務付ける。そのデータ要件の違いは、レビューサイクルを共有できる場合でも、別々のパイプラインを必要とする。</p>
       <div class="tags">
         <span class="tag">規制対応</span>
         <span class="tag">コンプライアンスPM</span>
@@ -99,8 +99,8 @@ lang_url_zh: /zh/blog.html
   <div class="news-entry" id="2026-04-01">
     <time class="news-date" datetime="2026-04-01">2026年4月1日</time>
     <div class="news-body">
-      <h3>Robloxのカリフォルニア州・ニューヨーク州透明性レポートが公開</h3>
-      <p>2件の州レベルのソーシャルメディア透明性レポートを申告しました。Robloxの<a href="https://oag.ca.gov/sites/default/files/Roblox%202025%20H2%20California%20AB587%20Terms%20of%20Service%20Report.pdf">カリフォルニア州AB 587（2025年下半期）</a>と<a href="https://ag.ny.gov/sites/default/files/social-media-policy-report/2025-q4-roblox-corporation-policy.pdf">ニューヨーク州S895（2025年Q4）</a>です。2つの法令は対象範囲で重なりながらも詳細で異なります。AB 587はコンテンツモデレーションのポリシーとその執行に焦点を当てる一方、S895は特定のアカウントやコンテンツへの対応措置についてより詳細なデータを求めています。両申告を並行して進めるには、別々のデータトラックを維持しながら、法務・ポリシー・エンジニアリングにまたがるレビュー体制を共有する必要があり、それがより堅固なレポーティング基盤を構築する契機にもなりました。</p>
+      <h3><a href="/ja/blog/roblox-ca-ny-reports.html">Robloxのカリフォルニア州・ニューヨーク州透明性レポートが公開</a></h3>
+      <p>カリフォルニア州AB 587（2025年下半期）とニューヨーク州S895（2025年Q4）が申告完了。両申告を並行して進めた経験が、より堅牢なレポーティングインフラ構築の契機となった。</p>
       <div class="tags">
         <span class="tag">Roblox</span>
         <span class="tag">コンプライアンスPM</span>
@@ -113,8 +113,8 @@ lang_url_zh: /zh/blog.html
   <div class="news-entry" id="2026-03-05">
     <time class="news-date" datetime="2026-03-05">2026年3月5日</time>
     <div class="news-body">
-      <h3>EU DSA透明性報告が実際に求めるもの</h3>
-      <p>EUデジタルサービス法（DSA）の透明性報告要件は「コンテンツモデレーションに関するレポートを公開する」と略されることが多いですが、実際の法定義務はより具体的です。Article 15はすべての仲介サービス提供者に対し、EU加盟国当局から受け取った命令件数、Article 16に基づく通報件数、自主的なモデレーション措置、および自動化ツールの使用について、年次透明性レポートの公開を義務付けています。VLOPとVLOSEに対しては、Article 42がさらに要件を追加しています。半年ごとの報告（年次ではなく）、コンテンツカテゴリと言語別の詳細な内訳、意思決定のタイムラインデータ、異議申し立てに関する情報、および政府命令に関する数値です。通知のみを扱うプラットフォームとVLOPが報告すべき内容の差は実務的に大きく、VLOPにはアドホックなエクスポートではなく、目的に合わせて構築されたレポーティングシステムが必要です。</p>
+      <h3><a href="/ja/blog/dsa-transparency-requirements.html">EU DSA透明性報告が実際に求めるもの</a></h3>
+      <p>Article 15はすべての仲介サービスに年次報告を義務付ける。Article 42はVLOPに対し、半年ごとのカテゴリ別・タイムスタンプ付き報告義務を追加する。その実務的な差はインフラに直結する。</p>
       <div class="tags">
         <span class="tag">EU DSA</span>
         <span class="tag">コンプライアンスPM</span>
@@ -127,8 +127,8 @@ lang_url_zh: /zh/blog.html
   <div class="news-entry" id="2026-03-01">
     <time class="news-date" datetime="2026-03-01">2026年3月1日</time>
     <div class="news-body">
-      <h3><a href="https://about.roblox.com/pdf/EU-DSA-Transparency-Report-2025">RobloxのEU DSA透明性レポート（2025年）が公開</a></h3>
-      <p>Robloxの2025年EU DSA（デジタルサービス法）透明性レポートが公開されました。私はエンドツーエンドの納品を主導し、Article 15に基づくデータ要件の定義、法務・ポリシー・エンジニアリングにまたがるクロスファンクショナルな制作ワークフローの構築、そして期日通りの公開まで牽引しました。レポートは2025年1月1日〜12月31日のEUサービスにおけるRobloxのコンテンツモデレーション活動を対象とし、受け取った通知と取られた措置を網羅しています。同期間のテロリストコンテンツオンライン（TCO）透明性レポートも同時に公開されました。</p>
+      <h3><a href="/ja/blog/roblox-dsa-2025.html">RobloxのEU DSA透明性レポート（2025年）が公開</a></h3>
+      <p>Robloxの2025年EU DSA透明性レポートが公開された。2025年1月1日〜12月31日のコンテンツモデレーション活動を対象とする。エンドツーエンドの納品を主導した。</p>
       <div class="tags">
         <span class="tag">Roblox</span>
         <span class="tag">EU DSA</span>

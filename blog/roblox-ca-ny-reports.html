@@ -1,0 +1,44 @@
+---
+layout: main
+title: "Roblox's California and New York Transparency Reports Are Live"
+description: "Roblox's California AB 587 (H2 2025) and New York S895 (Q4 2025) state social media transparency reports are now filed. Running them in parallel shaped how we built the reporting infrastructure."
+date: 2026-04-01
+lang: en
+lang_url: /ja/blog/roblox-ca-ny-reports.html
+lang_url_zh: /zh/blog/roblox-ca-ny-reports.html
+---
+
+<article class="post">
+  <a href="/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>Roblox's California and New York Transparency Reports Are Live</h1>
+    <time class="news-date" datetime="2026-04-01">April 1, 2026</time>
+    <div class="tags">
+      <span class="tag">Roblox</span>
+      <span class="tag">Compliance PM</span>
+      <span class="tag">Transparency</span>
+      <span class="tag">Regulatory</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>Two state social media transparency reports are now filed — Roblox's <a href="https://oag.ca.gov/sites/default/files/Roblox%202025%20H2%20California%20AB587%20Terms%20of%20Service%20Report.pdf">California AB 587 (H2 2025)</a> and <a href="https://ag.ny.gov/sites/default/files/social-media-policy-report/2025-q4-roblox-corporation-policy.pdf">New York S895 (Q4 2025)</a>.</p>
+
+    <p>The two statutes overlap in scope but diverge on specifics. AB 587 focuses on content moderation policies and their enforcement — what the policies say, what detection methods are used, aggregate enforcement figures by category. S895 requires more granular operational data: counts of specific actions taken against content and accounts, broken down by category, on a quarterly basis. Running both filings in parallel meant maintaining separate data tracks while sharing cross-functional review capacity across Legal, Policy, and Engineering — a useful forcing function for building more durable reporting infrastructure.</p>
+
+    <p>A separate post covers <a href="/blog/ab587-vs-s895.html">what distinguishes AB 587 from S895</a> in more detail — including the infrastructure implications and where the two statutes require different data pipelines even when review cycles can be shared.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

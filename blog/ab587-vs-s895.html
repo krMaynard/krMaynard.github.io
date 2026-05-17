@@ -1,0 +1,67 @@
+---
+layout: main
+title: "California AB 587 vs. New York S895: What's Different and Why It Matters"
+description: "Both laws require social media transparency reports on content moderation. Their data requirements diverge in ways that force separate reporting pipelines, even when review cycles can be shared."
+date: 2026-04-05
+lang: en
+lang_url: /ja/blog/ab587-vs-s895.html
+lang_url_zh: /zh/blog/ab587-vs-s895.html
+---
+
+<article class="post">
+  <a href="/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>California AB 587 vs. New York S895: What's Different and Why It Matters</h1>
+    <time class="news-date" datetime="2026-04-05">April 5, 2026</time>
+    <div class="tags">
+      <span class="tag">Regulatory</span>
+      <span class="tag">Compliance PM</span>
+      <span class="tag">Product Management</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>Both laws require social media companies to publish transparency reports on content moderation. They share an enforcement structure (state attorneys general), a general subject matter (how platforms handle harmful content), and a similar political moment. They diverge in ways that matter operationally.</p>
+
+    <h2>AB 587: Policy disclosure</h2>
+
+    <p>California's AB 587, which took effect in January 2024, is fundamentally about policy transparency. The law requires platforms with 100 million or more average monthly users to file their terms of service with the California AG and to publish semi-annual transparency reports describing how they enforce those terms.</p>
+
+    <p>The content categories are defined in the statute: hate speech or racism, disinformation or misinformation, harassment, radicalization or extremism, foreign political interference, controlled substance sales or use, human exploitation, and self-harm or suicide. For each category, platforms must describe their enforcement approach — what the policy covers, what detection methods are used, how many enforcement actions were taken in the reporting period.</p>
+
+    <p>The reports are filed with the California AG and published publicly by the AG's office. The intended audience is as much civil society and press as it is the regulator — AB 587 was designed as a transparency mechanism, not primarily as an enforcement lever.</p>
+
+    <p>What AB 587 does not require: precise operational data at the action level. The law asks for aggregate figures and policy descriptions. A platform can report that it took enforcement actions in the "hate speech" category using a combination of automated detection and human review without specifying exact counts of each detection type or decision timelines for individual cases. The reporting obligation is real, but the data precision required is relatively low.</p>
+
+    <h2>S895: Operational data</h2>
+
+    <p>New York's S895, effective for reports due in 2025, is more operationally specific. Platforms with one million or more New York users must file quarterly reports to the New York AG covering the number of pieces of content actioned, the number of accounts suspended or terminated, and the number of appeals processed — all broken down by content category.</p>
+
+    <p>The categories largely parallel AB 587's, but the data requirement is different. S895 asks for counts of specific actions at the category level, every quarter. A platform reporting under S895 needs to answer: in Q4 2025, how many pieces of content were actioned for "harassment," and how many of those actions were appealed and reversed?</p>
+
+    <p>That's a structured operational data problem. The data must exist at that level of granularity, it must be queryable by category, and it must be accurate enough to file with a state AG. A platform that has been capturing moderation actions in a well-structured database has this relatively easily; one that has been tracking enforcement through exports from moderation tools may not.</p>
+
+    <h2>The infrastructure divergence</h2>
+
+    <p>Both laws have 10-category frameworks with overlapping definitions, which creates some efficiency. A platform can design its content taxonomy with both in mind, and the cross-functional review process — Legal review of the data and disclosures, Policy sign-off on category mappings, Engineering data validation — can be shared across the two filings.</p>
+
+    <p>But the data requirements underneath are different enough to require separate pipelines. AB 587 reports are assembled from policy documentation and aggregate enforcement data; the precision of that data can be lower because the statute doesn't ask for exact counts at fine granularity. S895 reports require exact counts, by category, by quarter. A data extract that works for AB 587 won't necessarily produce the right shape of data for S895, and the validation criteria differ.</p>
+
+    <p>The filing cadences also differ: AB 587 is semi-annual, S895 is quarterly. A platform filing both in the same period needs two coordinated production workflows with different deadlines and different data formats, sharing cross-functional review capacity across filings that don't land at the same time.</p>
+
+    <p>In practice, we ran AB 587 (H2 2025) and S895 (Q4 2025) in parallel in early 2026. The cross-functional review capacity was shared. The data tracks weren't — and the attempt to reconcile them early in the process, before we fully mapped the definitional differences between the two statutes, cost time. Building the per-statute requirement map upfront, before data extraction starts, is the right order of operations.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

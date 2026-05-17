@@ -1,0 +1,73 @@
+---
+layout: main
+title: "How I Use LLMs in Compliance PM Work"
+description: "Requirement extraction, gap analysis, and draft review — three LLM workflows that have actually stuck in compliance PM, and where each one breaks down."
+date: 2026-05-15
+lang: en
+lang_url: /ja/blog/llms-compliance-pm.html
+lang_url_zh: /zh/blog/llms-compliance-pm.html
+---
+
+<article class="post">
+  <a href="/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>How I Use LLMs in Compliance PM Work</h1>
+    <time class="news-date" datetime="2026-05-15">May 15, 2026</time>
+    <div class="tags">
+      <span class="tag">AI/LLM</span>
+      <span class="tag">Compliance PM</span>
+      <span class="tag">Product Management</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>I've worked in content policy and regulatory compliance long enough to be skeptical of "AI will automate X" claims. What I've found is more specific: there are particular tasks in compliance PM work where LLMs compress time significantly, and particular tasks where they don't help and shouldn't be trusted. The distinction matters.</p>
+
+    <h2>Requirement extraction</h2>
+
+    <p>The most reliable use case is parsing statutory text. When a new law or regulatory guidance comes out, the first PM task is understanding what it actually requires — specifically, what data must be captured, what categories must be maintained, and what format the output must take.</p>
+
+    <p>The process: paste the full text of the statute or guidance document into the model and ask it to enumerate every reportable data element. For each element, ask whether the description maps to something current data infrastructure already produces. Then compare that output against what the platform's data systems actually generate, with a domain expert who knows what those systems produce.</p>
+
+    <p>This works well because statutory text is precise and doesn't require deep contextual judgment to parse. The model is doing structured information extraction — pulling out lists of requirements and organizing them — which it does reliably. Where it breaks down is in interpreting ambiguous definitions, which still requires legal judgment. The model will give you a confident answer about what an ambiguous requirement means; that answer may or may not reflect how the regulator will read the same language.</p>
+
+    <p>The real value shows up when a new law overlaps with an existing one. When California AB 587 came out, we were already reporting under EU DSA Article 15. The category frameworks partially overlap but don't map cleanly — AB 587's "disinformation or misinformation" has no direct DSA equivalent, and the DSA's Article 16 notice mechanism has no California analog. Running both statutory texts through this extraction process and then doing a structured diff against existing data infrastructure identified the gaps precisely: what data we already had, what needed to be added, and what required definitional decisions before we could even begin data work.</p>
+
+    <h2>Cross-jurisdiction gap analysis</h2>
+
+    <p>A related use case is maintaining a cross-jurisdiction requirements table as regulatory guidance evolves. The DSA Commission published a harmonized reporting template in 2024; when it updated the precision and recall requirements for automated detection tools in the H2 2025 version, I needed to understand specifically what changed relative to the H1 template and whether it affected anything we were already producing.</p>
+
+    <p>The workflow: maintain a structured table of requirements by jurisdiction — DSA Article 15, DSA Article 42, AB 587, S895, and so on — with columns for the specific data required and the current infrastructure status. When new guidance publishes, run the new text against the existing table to flag what changed. The model does the comparison; the PM judgment is in evaluating whether flagged changes require engineering work, definitional decisions, or nothing.</p>
+
+    <p>This is faster than reading a full updated guidance document against memory of the prior version, and more reliable — the model catches things that are easy to miss in dense regulatory text, particularly changes in measurement methodology or reporting cadence buried in a footnote.</p>
+
+    <h2>Draft review against a statutory checklist</h2>
+
+    <p>Before any regulatory report goes to Legal for review, I run a near-final draft against the relevant statutory checklist. The prompt is straightforward: here is the draft report, here is the relevant statute, identify anything in the statute that is not addressed in the report, and flag anything in the report that appears to conflict with the statute's requirements.</p>
+
+    <p>This catches omissions that are easy to miss in long documents — a disclosure required under one subsection that got dropped in a revision cycle, or a category that appears in the statute but was inadvertently combined with another in the report. These are the kinds of errors that surface in Legal review and require a full revision, which costs time when you're close to a filing deadline.</p>
+
+    <p>It doesn't replace Legal review. The model will miss context-dependent interpretations and won't catch substantive accuracy problems — it can't tell you that the number of appeals reported is wrong, only that the report includes an appeals section. But it's a useful pre-flight check that reduces the probability that Legal review surfaces structural omissions rather than substantive questions.</p>
+
+    <h2>What doesn't work</h2>
+
+    <p>Anything requiring judgment about regulatory intent — what a regulator is actually likely to enforce, whether a particular disclosure satisfies a requirement whose language is ambiguous — doesn't work well. The model will generate a confident-sounding answer. That answer may or may not reflect how the regulator reads the same language, and in compliance work, the difference matters.</p>
+
+    <p>Similarly, anything requiring knowledge of specific enforcement history, recent commission guidance, or pending rulemaking that postdates the training cutoff is unreliable. The model doesn't know what it doesn't know, and regulatory compliance is an area where acting on out-of-date information creates real risk.</p>
+
+    <p>The pattern that's worked: use LLMs for structured text tasks — extraction, comparison, checklist review — where the inputs and outputs are well-defined and a domain expert can verify the output. Don't use them to answer questions about what a requirement means in an enforcement context or how a regulator will respond to a particular disclosure approach. Those require expertise the model doesn't have and can't reliably simulate.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

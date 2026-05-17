@@ -1,0 +1,72 @@
+---
+layout: main
+title: "What EU DSA Transparency Reporting Actually Requires"
+description: "Article 15 covers all intermediary services annually. Article 42 adds bi-annual, detailed VLOP obligations. The practical gap is significant — and it shows up in the reporting infrastructure."
+date: 2026-03-05
+lang: en
+lang_url: /ja/blog/dsa-transparency-requirements.html
+lang_url_zh: /zh/blog/dsa-transparency-requirements.html
+---
+
+<article class="post">
+  <a href="/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>What EU DSA Transparency Reporting Actually Requires</h1>
+    <time class="news-date" datetime="2026-03-05">March 5, 2026</time>
+    <div class="tags">
+      <span class="tag">EU DSA</span>
+      <span class="tag">Compliance PM</span>
+      <span class="tag">Regulatory</span>
+      <span class="tag">Product Management</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>The EU Digital Services Act's transparency reporting obligations are often described in shorthand — "publish a report on content moderation" — but the actual statutory requirements are more specific, and the gap between what different types of platforms must report is significant.</p>
+
+    <h2>Article 15: The baseline for all intermediary services</h2>
+
+    <p>Article 15 applies to all providers of intermediary services — hosting services, caching services, mere conduit providers — regardless of size. It requires annual publication of a transparency report covering four areas.</p>
+
+    <p>The number of orders received from member state authorities under Articles 9 (removal orders) and 10 (orders to provide information), along with the median time to comply and the number of orders contested. The number of notices received under Article 16 (the "notice and action" mechanism), broken down by type of alleged illegal content and the action taken. Own-initiative moderation actions taken against illegal or terms-violating content, broken down by content category, the automated means used to detect the content, and the action taken. And the number of disputes submitted to out-of-court dispute settlement bodies under Article 21.</p>
+
+    <p>For most platforms, these requirements are manageable with structured data exports. A platform that processes notices and takes moderation actions has the underlying data — the compliance work is making it auditable and reportable in a consistent format, and maintaining that format across reporting periods.</p>
+
+    <h2>Article 42: What VLOPs and VLOSEs must add</h2>
+
+    <p>For platforms designated as Very Large Online Platforms or Very Large Online Search Engines — roughly, more than 45 million active monthly users in the EU — Article 42 substantially extends these obligations.</p>
+
+    <p>Reporting frequency increases from annual to semi-annual. Every six months, VLOPs must publish a complete transparency report covering the same categories as Article 15 with substantially more granularity. Not an update — a full report.</p>
+
+    <p>Content category and language breakdowns become mandatory. The per-category reporting Article 15 requires at a high level becomes far more detailed for VLOPs: breakdowns by the specific content category within each type of illegal content, and by the language of the content. This requires structured classification data that ties each moderation action to a specific category in the platform's taxonomy, which must in turn map to the DSA's defined categories. Building that mapping — and maintaining it as both platform policy and DSA guidance evolve — is a non-trivial infrastructure problem.</p>
+
+    <p>Decision-making timeline data is required: median time between receiving a notice and taking action, median time to notify the user of the action, and similar operational metrics. These aren't post-hoc calculations; they require timestamps to be captured and stored at each stage of the notice-handling workflow. If the timestamps aren't there when you need them, they can't be reconstructed.</p>
+
+    <p>For user appeals under Article 20, platforms must report the number of appeals received, the number reversed, and the median time to decision. Again, this requires the operational data to exist at the time of reporting — a structured appeals pipeline with decision tracking, not a spreadsheet maintained by a policy analyst.</p>
+
+    <p>Article 42(2) adds requirements specifically for government orders received under Articles 9 and 10, including breakdown by the member state that issued the order and the legal basis cited.</p>
+
+    <h2>The practical gap</h2>
+
+    <p>A platform that only processes notices under Article 16 can build a compliance workflow around a structured database of incoming notices and outgoing actions. The data shape is relatively simple and the cadence is annual. A VLOP cannot: it needs category classification at the time of moderation (not retroactively tagged), timestamped workflow stages across the notice lifecycle, a structured appeals pipeline with decision tracking, and the organizational capacity to produce and publish a complete report every six months.</p>
+
+    <p>The Commission published a harmonized reporting template in 2024 that brought standardization to the categories and metrics. The H2 2025 reports are the first to follow this template in full, including precision and recall indicators for automated detection tools — which fills a gap the DSA Observatory had identified as producing effectively meaningless accuracy data under the prior approach.</p>
+
+    <p>Publication itself has requirements: reports must be submitted to the European Commission's Transparency Database (for individual orders and notices) and published on the platform's website in a machine-readable format where possible. The database submission requirement is separate from the website publication, and the timelines differ.</p>
+
+    <p>The enforcement picture is still developing. The Commission opened formal proceedings against X and TikTok in 2024; the DSA gives the Commission direct enforcement authority over VLOPs in ways that don't apply to smaller platforms operating under Article 15 alone. Getting the reporting right matters both as a compliance obligation and as the primary evidentiary record in any Commission proceeding.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>
