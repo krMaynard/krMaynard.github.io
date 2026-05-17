@@ -291,6 +291,7 @@ lang_url_ja: /ja/markdown-viewer.html
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
 <script>
 (function () {
   var input   = document.getElementById('md-input');
@@ -338,14 +339,20 @@ lang_url_ja: /ja/markdown-viewer.html
   marked.use({ breaks: true, gfm: true });
 
   function render() {
-    preview.innerHTML = marked.parse(input.value);
+    preview.innerHTML = DOMPurify.sanitize(marked.parse(input.value));
     var text  = input.value;
-    var words = text.trim() ? text.trim().split(/\s+/).length : 0;
+    var cjk  = (text.match(/[⺀-⻿　-鿿豈-﫿㐀-䶿]/g) || []).length;
+    var rest  = text.replace(/[⺀-⻿　-鿿豈-﫿㐀-䶿]/g, '').trim();
+    var words = cjk + (rest ? rest.split(/\s+/).filter(Boolean).length : 0);
     var chars = text.length;
     stats.textContent = words + '词 · ' + chars + '字';
   }
 
-  input.addEventListener('input', render);
+  var debouncedRender = (function () {
+    var t;
+    return function () { clearTimeout(t); t = setTimeout(render, 150); };
+  }());
+  input.addEventListener('input', debouncedRender);
   render();
 
   document.getElementById('md-toolbar').addEventListener('click', function (e) {
@@ -412,25 +419,37 @@ lang_url_ja: /ja/markdown-viewer.html
     }
   });
 
-  var dragging = false, startX, startW;
+  var dragging = false, startX, startY, startW;
+
+  function isVertical() { return window.innerWidth <= 640; }
 
   divider.addEventListener('mousedown', function (e) {
+    var vert = isVertical();
     dragging = true;
     startX = e.clientX;
-    startW = leftPane.offsetWidth;
+    startY = e.clientY;
+    startW = vert ? leftPane.offsetHeight : leftPane.offsetWidth;
     divider.classList.add('md-dragging');
     document.body.style.userSelect = 'none';
-    document.body.style.cursor = 'col-resize';
+    document.body.style.cursor = vert ? 'row-resize' : 'col-resize';
     e.preventDefault();
   });
 
   document.addEventListener('mousemove', function (e) {
     if (!dragging) return;
-    var total = panes.offsetWidth - divider.offsetWidth;
-    var newW  = Math.max(180, Math.min(total - 180, startW + (e.clientX - startX)));
-    leftPane.style.flex  = 'none';
-    leftPane.style.width = newW + 'px';
-    rightPane.style.flex = '1';
+    if (isVertical()) {
+      var totalH = panes.offsetHeight - divider.offsetHeight;
+      var newH   = Math.max(150, Math.min(totalH - 150, startW + (e.clientY - startY)));
+      leftPane.style.flex   = 'none';
+      leftPane.style.height = newH + 'px';
+      rightPane.style.flex  = '1';
+    } else {
+      var totalW = panes.offsetWidth - divider.offsetWidth;
+      var newW   = Math.max(180, Math.min(totalW - 180, startW + (e.clientX - startX)));
+      leftPane.style.flex  = 'none';
+      leftPane.style.width = newW + 'px';
+      rightPane.style.flex = '1';
+    }
   });
 
   document.addEventListener('mouseup', function () {
@@ -439,6 +458,42 @@ lang_url_ja: /ja/markdown-viewer.html
     divider.classList.remove('md-dragging');
     document.body.style.userSelect = '';
     document.body.style.cursor = '';
+  });
+
+  divider.addEventListener('touchstart', function (e) {
+    var touch = e.touches[0];
+    var vert = isVertical();
+    dragging = true;
+    startX = touch.clientX;
+    startY = touch.clientY;
+    startW = vert ? leftPane.offsetHeight : leftPane.offsetWidth;
+    divider.classList.add('md-dragging');
+    e.preventDefault();
+  }, { passive: false });
+
+  document.addEventListener('touchmove', function (e) {
+    if (!dragging) return;
+    var touch = e.touches[0];
+    if (isVertical()) {
+      var totalH = panes.offsetHeight - divider.offsetHeight;
+      var newH   = Math.max(150, Math.min(totalH - 150, startW + (touch.clientY - startY)));
+      leftPane.style.flex   = 'none';
+      leftPane.style.height = newH + 'px';
+      rightPane.style.flex  = '1';
+    } else {
+      var totalW = panes.offsetWidth - divider.offsetWidth;
+      var newW   = Math.max(180, Math.min(totalW - 180, startW + (touch.clientX - startX)));
+      leftPane.style.flex  = 'none';
+      leftPane.style.width = newW + 'px';
+      rightPane.style.flex = '1';
+    }
+    e.preventDefault();
+  }, { passive: false });
+
+  document.addEventListener('touchend', function () {
+    if (!dragging) return;
+    dragging = false;
+    divider.classList.remove('md-dragging');
   });
 }());
 </script>
