@@ -512,7 +512,7 @@
 }
 
 .mura-essay-body {
-  font-size: 1rem;
+  font-size: 1.05rem;
   line-height: 1.85;
   color: var(--text-narrative);
 }
@@ -522,7 +522,7 @@
 }
 
 .mura-essay-body h2 {
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--text-strong);
   margin: 2.5rem 0 0.75rem;
