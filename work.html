@@ -370,6 +370,55 @@ lang_url_zh: /zh/work.html
 </div>
 
 
+<!-- ── AI Production Query Development ───────────────────────── -->
+<div class="project-card">
+  <div class="project-header">
+    <h2 class="project-title">Building Production Queries with AI</h2>
+    <span class="project-company">Roblox &middot; 2025&ndash;present</span>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">Problem</span>
+    <p>Building production-grade SQL and Python for 10+ regulatory compliance requirements &mdash; reports, RFIs, risk assessments, and litigation support &mdash; would normally take 3&ndash;6 engineering weeks of pure coding per cycle. With a fast-expanding regulatory portfolio and a lean team, that pace was infeasible.</p>
+  </div>
+
+  <div class="project-section">
+    <span class="project-section-label">What I did</span>
+    <ul>
+      <li>Operated as PM and first author in a human-in-the-loop AI coding workflow, using Cursor agents to generate production-grade SQL and Python.</li>
+      <li>Generated <strong>7,000+ lines of production code</strong> across 10+ regulatory requirements, with data engineers and data scientists serving as code reviewers rather than primary coders.</li>
+      <li>Designed a structured development pipeline: query and schema context &rarr; AI-generated SQL &rarr; human code review and approval &rarr; iterative refinement &rarr; full-scale Python pipelines.</li>
+      <li>Compressed the feedback loop between PM and engineering, enabling faster iteration and reducing the bottleneck of cross-functional scheduling.</li>
+    </ul>
+  </div>
+
+  <div class="impact-box">
+    <span class="project-section-label">Impact</span>
+    <ul>
+      <li><strong>3&ndash;6 engineering weeks</strong> of coding compressed to <strong>hours or days</strong> of guided AI work.</li>
+      <li><strong>48M+ tokens</strong> of production code generated at a total cost of <strong>$77</strong>.</li>
+      <li>Scaled code production across 10+ regulatory requirements without linear headcount growth.</li>
+      <li>Established a replicable human-in-the-loop model: PM authors the logic, engineers review the output.</li>
+    </ul>
+  </div>
+
+  <figure class="project-screenshot">
+    <img src="/images/ai-production-queries.png" alt="Human-in-the-Loop AI Data Pipeline Workflow diagram showing PM, AI Agents, and Eng/DS roles" />
+    <figcaption>The Human-in-the-Loop AI Data Pipeline Workflow: Eng/DS provides schema context, PM collaborates with AI agents to generate code, and Eng/DS reviews before promoting to full-scale production pipelines.</figcaption>
+  </figure>
+
+  <div class="tags" style="margin-top: 1rem;">
+    <span class="tag">Cursor</span>
+    <span class="tag">AI Coding</span>
+    <span class="tag">SQL</span>
+    <span class="tag">Python</span>
+    <span class="tag">Data Pipeline</span>
+    <span class="tag">Compliance</span>
+    <span class="tag">Process Automation</span>
+  </div>
+</div>
+
+
 <!-- ── Roblox Transparency Reporting ─────────────────────────── -->
 <div class="project-card">
   <div class="project-header">
@@ -419,7 +468,7 @@ lang_url_zh: /zh/work.html
 <script>
 (function () {
   var FILTERS = {
-    'ai-llm':     ['rag', 'gemini', 'llm', 'prompt engineering', 'vector database', 'agent studio'],
+    'ai-llm':     ['rag', 'gemini', 'llm', 'prompt engineering', 'vector database', 'agent studio', 'ai coding', 'cursor'],
     'compliance': ['compliance', 'cma', 'dsa', 'regulatory', 'transparency', 'legal ops'],
     'data':       ['sql', 'etl', 'data pipeline', 'data modeling', 'plx', 'sqlminer'],
     'automation': ['automation', 'chrome extension', 'appsscript', 'browser']
