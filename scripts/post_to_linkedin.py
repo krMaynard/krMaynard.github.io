@@ -116,7 +116,7 @@ def parse_latest_entry(html):
 
 def read_last_posted():
     try:
-        with open(TRACKING_FILE) as f:
+        with open(TRACKING_FILE, encoding="utf-8") as f:
             return f.read().strip()
     except FileNotFoundError:
         return ""
@@ -124,16 +124,17 @@ def read_last_posted():
 
 def write_last_posted(entry_id):
     os.makedirs(os.path.dirname(TRACKING_FILE), exist_ok=True)
-    with open(TRACKING_FILE, "w") as f:
+    with open(TRACKING_FILE, "w", encoding="utf-8") as f:
         f.write(entry_id + "\n")
 
 
 def _slugify_tag(tag):
-    return "#" + "".join(c for c in tag if c.isalnum())
+    slug = "".join(c for c in tag if c.isalnum())
+    return "#" + slug if slug else ""
 
 
 def build_post_text(entry):
-    hashtags = " ".join(_slugify_tag(t) for t in entry["tags"] if t)
+    hashtags = " ".join(s for t in entry["tags"] if t for s in [_slugify_tag(t)] if s)
     url_line = entry["url"] or (SITE_BASE_URL + "/blog.html")
 
     # Build with full summary first, then trim if needed
@@ -152,7 +153,7 @@ def build_post_text(entry):
         + (2 + len(hashtags) if hashtags else 0)
         + 1  # ellipsis
     )
-    budget = MAX_POST_CHARS - overhead
+    budget = max(0, MAX_POST_CHARS - overhead)
     trimmed = entry["summary"][:budget].rsplit(" ", 1)[0] + "…"
     parts[2] = trimmed
     return "\n".join(parts)
@@ -188,7 +189,7 @@ def post_to_linkedin(entry, access_token, person_urn):
     )
 
     try:
-        with urllib.request.urlopen(req) as resp:
+        with urllib.request.urlopen(req, timeout=30) as resp:
             body = json.loads(resp.read())
             return body.get("id", "(no id returned)")
     except urllib.error.HTTPError as e:
@@ -200,7 +201,7 @@ def post_to_linkedin(entry, access_token, person_urn):
 def set_github_output(key, value):
     output_file = os.environ.get("GITHUB_OUTPUT")
     if output_file:
-        with open(output_file, "a") as f:
+        with open(output_file, "a", encoding="utf-8") as f:
             f.write(f"{key}={value}\n")
 
 
@@ -215,13 +216,17 @@ def main():
         )
         sys.exit(1)
 
-    with open(BLOG_FILE) as f:
+    with open(BLOG_FILE, encoding="utf-8") as f:
         html = f.read()
 
     entry = parse_latest_entry(html)
     if not entry:
         print("No blog entries found in blog.html.")
         return
+
+    if not entry.get("id"):
+        print("Error: The latest blog entry is missing an 'id' attribute.", file=sys.stderr)
+        sys.exit(1)
 
     last_posted = read_last_posted()
     if entry["id"] == last_posted:
