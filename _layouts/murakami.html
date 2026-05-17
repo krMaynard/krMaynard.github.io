@@ -35,7 +35,7 @@
         <a href="{{ site.baseurl }}/ja/murakami/blog/">ブログ</a>
         <span class="mura-sep">|</span>
         <a href="{{ site.baseurl }}/">kieranmaynard.com</a>
-        {% if page.lang_url %}<span class="mura-sep">|</span><a href="{{ page.lang_url }}">EN</a>{% endif %}
+        {% if page.lang_url %}<span class="mura-sep">|</span><a href="{{ page.lang_url | relative_url }}">EN</a>{% endif %}
       </div>
       {% else %}
       <a class="mura-nav-home" href="{{ site.baseurl }}/murakami/">The Wind-Up Bird Chronicle</a>
@@ -49,7 +49,7 @@
         <a href="{{ site.baseurl }}/murakami/blog/">Blog</a>
         <span class="mura-sep">|</span>
         <a href="{{ site.baseurl }}/">kieranmaynard.com</a>
-        {% if page.lang_url %}<span class="mura-sep">|</span><a href="{{ page.lang_url }}">日本語</a>{% endif %}
+        {% if page.lang_url %}<span class="mura-sep">|</span><a href="{{ page.lang_url | relative_url }}">日本語</a>{% endif %}
       </div>
       {% endif %}
       <button type="button" class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
