@@ -7,7 +7,7 @@
 
   var langUrl     = dialog.getAttribute('data-lang-url') || '';
   var currentLang = dialog.getAttribute('data-lang') || 'en';
-  var pathPrefix  = currentLang === 'ja' ? '/ja' : '';
+  var pathPrefix  = currentLang === 'ja' ? '/ja' : currentLang === 'zh' ? '/zh' : '';
 
   var input    = dialog.querySelector('.cmdk-input');
   var listEl   = dialog.querySelector('.cmdk-list');
@@ -19,6 +19,7 @@
     { label: 'Home',                        hint: 'Overview & featured work',         url: pathPrefix + '/',                      keywords: 'index landing' },
     { label: 'Work',                        hint: 'Portfolio projects',               url: pathPrefix + '/work.html',             keywords: 'projects portfolio' },
     { label: 'Publications & Awards',       hint: 'Recognition',                      url: pathPrefix + '/#publications',         keywords: 'awards papers transparency report' },
+    { label: 'Blog',                        hint: 'Writing & thoughts',               url: pathPrefix + '/blog.html',             keywords: 'writing posts articles' },
     { label: 'Transparency Report dashboard', hint: 'Google gov removals — interactive', url: pathPrefix + '/transparency.html',   keywords: 'google government removals data analysis dashboard charts' },
     { label: 'Filter projects: AI / LLM',   hint: 'RAG, Gemini, prompt engineering',  url: '/work.html?filter=ai-llm',            keywords: 'rag gemini llm prompt' },
     { label: 'Filter projects: Compliance', hint: 'CMA, EU DSA, transparency',        url: '/work.html?filter=compliance',        keywords: 'cma dsa regulatory' },
@@ -32,7 +33,7 @@
 
   if (langUrl) {
     COMMANDS.push({
-      label: currentLang === 'ja' ? 'Switch to English' : '日本語で読む',
+      label: currentLang === 'ja' || currentLang === 'zh' ? 'Switch to English' : '日本語で読む',
       hint: 'Language switch',
       url: langUrl,
       keywords: 'language japanese english nihongo'
