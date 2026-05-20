@@ -374,8 +374,11 @@ def main():
     post_id = post_to_linkedin(entry, access_token, person_urn, draft=draft)
     print(f"{'Draft saved' if draft else 'Posted'} to LinkedIn: {post_id}")
 
-    write_last_posted(entry["id"])
-    set_github_output("posted", "true")
+    if not draft:
+        write_last_posted(entry["id"])
+        set_github_output("posted", "true")
+    else:
+        print("Draft mode: tracking file not updated. Disable LINKEDIN_DRAFT and push again to publish live.")
 
 
 if __name__ == "__main__":
