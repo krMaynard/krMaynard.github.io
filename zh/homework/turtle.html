@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>用 Python 海龟画图 ― 代码讲解</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-size: 14px;
+      line-height: 1.75;
+      color: #222;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 32px 40px;
+    }
+
+    .back-nav {
+      margin-bottom: 20px;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .back-nav a { color: #555; text-decoration: none; }
+    .back-nav a:hover { text-decoration: underline; }
+
+    .lang-links { font-size: 11px; }
+    .lang-links a { color: #555; text-decoration: none; margin-left: 8px; }
+    .lang-links a:hover { text-decoration: underline; }
+
+    h1 {
+      font-size: 22px;
+      text-align: center;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #555;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .note {
+      text-align: center;
+      font-size: 11px;
+      color: #888;
+      margin-bottom: 20px;
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid #333;
+      margin: 16px 0;
+    }
+
+    h2 {
+      font-size: 16px;
+      background: #2d6a4f;
+      color: #fff;
+      padding: 5px 12px;
+      margin: 24px 0 12px 0;
+      border-radius: 2px;
+    }
+
+    h3 {
+      font-size: 14px;
+      font-weight: bold;
+      margin: 14px 0 6px 0;
+    }
+
+    p { margin-bottom: 10px; }
+
+    ul, ol { margin: 6px 0 10px 22px; }
+    ul li, ol li { margin-bottom: 4px; }
+
+    strong { font-weight: bold; }
+    em { font-style: italic; }
+
+    .section-intro {
+      background: #f0f7f3;
+      border-left: 4px solid #2d6a4f;
+      border-radius: 4px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+    }
+
+    .output-figure {
+      text-align: center;
+      margin: 14px 0 18px 0;
+    }
+
+    .output-figure svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .output-caption {
+      font-size: 11px;
+      color: #888;
+      margin-top: 6px;
+    }
+
+    pre.code {
+      background: #1e1e1e;
+      color: #f4f4f4;
+      font-family: Menlo, Monaco, "Courier New", monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      padding: 14px 16px;
+      border-radius: 4px;
+      overflow-x: auto;
+      margin: 10px 0 16px 0;
+      tab-size: 4;
+    }
+
+    pre.code .cmt { color: #6a9955; }
+    pre.code .kw  { color: #569cd6; }
+    pre.code .fn  { color: #dcdcaa; }
+    pre.code .num { color: #b5cea8; }
+    pre.code .str { color: #ce9178; }
+
+    .try-box {
+      background: #fff8e1;
+      border-left: 4px solid #f59f00;
+      border-radius: 4px;
+      padding: 10px 14px;
+      margin: 12px 0;
+    }
+
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 8px 14px;
+      margin: 10px 0 14px 0;
+    }
+
+    .vocab-grid dt {
+      font-weight: bold;
+      font-size: 13px;
+      color: #2d6a4f;
+    }
+
+    .vocab-grid dd {
+      font-size: 13px;
+    }
+
+    .download {
+      display: inline-block;
+      background: #2d6a4f;
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    .download:hover { background: #1b4332; }
+
+    @media (max-width: 600px) {
+      body { padding: 20px 16px; }
+      .vocab-grid { grid-template-columns: 1fr; gap: 4px 0; }
+      .vocab-grid dd { margin-bottom: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="back-nav">
+    <a href="/zh/homework/">&larr; 作业帮助</a>
+    <span class="lang-links">
+      <a href="/homework/turtle.html">English</a>
+      <a href="/ja/homework/turtle.html">日本語</a>
+    </span>
+  </nav>
+
+  <h1>用 Python 海龟画图</h1>
+  <p class="subtitle">写给小小程序员的代码讲解</p>
+  <p class="note">9&ndash;12 岁 &bull; 不只是运行代码，而是读懂它 &bull; 约 20 分钟</p>
+  <hr>
+
+  <div class="section-intro">
+    <p>Python 里有一个有趣的模块叫做 <strong>turtle（海龟）</strong>。它给你一只拿着画笔的小海龟。当你让海龟向前走时，画笔就会在屏幕上留下线条。这一页将带你一行一行地读懂一段真实的 Python 程序，看看它是怎么用海龟画出 <strong>六边形和正方形</strong> 的。</p>
+  </div>
+
+  <h2>1. 这个程序画的是什么？</h2>
+
+  <p>运行程序时，海龟会从屏幕中央出发，一边走一边画图形。最终的画面是这样的：</p>
+
+  <div class="output-figure">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 910 866" width="600" style="background:#fafafa;border:1px solid #ddd;border-radius:4px;" role="img" aria-labelledby="turtle-drawing-title-zh">
+      <title id="turtle-drawing-title-zh">Python海龟程序绘制的六边形和正方形图案。</title>
+      <path d="M 505.0,403.0 L 755.0,403.0 L 880.0,619.5 L 755.0,836.0 L 505.0,836.0 L 380.0,619.5 L 505.0,403.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 505.0,463.0 L 505.0,563.0 L 418.4,613.0 L 331.8,563.0 L 331.8,463.0 L 418.4,413.0 L 505.0,463.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 465.0,463.0 L 345.0,463.0 L 285.0,359.1 L 345.0,255.2 L 465.0,255.2 L 525.0,359.1 L 465.0,463.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 465.0,463.0 L 215.0,463.0 L 90.0,246.5 L 215.0,30.0 L 465.0,30.0 L 590.0,246.5 L 465.0,463.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 465.0,403.0 L 465.0,303.0 L 551.6,253.0 L 638.2,303.0 L 638.2,403.0 L 551.6,453.0 L 465.0,403.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 505.0,403.0 L 625.0,403.0 L 685.0,506.9 L 625.0,610.9 L 505.0,610.9 L 445.0,506.9 L 505.0,403.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 505.0,403.0 L 755.0,403.0 L 880.0,619.5 L 755.0,836.0 L 505.0,836.0 L 380.0,619.5 L 505.0,403.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 505.0,463.0 L 505.0,563.0 L 418.4,613.0 L 331.8,563.0 L 331.8,463.0 L 418.4,413.0 L 505.0,463.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 465.0,463.0 L 345.0,463.0 L 285.0,359.1 L 345.0,255.2 L 465.0,255.2 L 525.0,359.1 L 465.0,463.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 165.0,463.0 L 30.0,229.2 L 263.8,94.2 L 398.8,328.0 L 165.0,463.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 69.7,408.0 L 115.9,281.2 L 242.8,327.3 L 196.6,454.2 L 69.7,408.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    </svg>
+    <div class="output-caption">海龟会画出三组六边形（每组三个），最后再画两个正方形。</div>
+  </div>
+
+  <p>仔细看：你能看到三个大六边形互相重叠（所以那一笔看起来特别黑），中等和小的六边形像枝杈一样伸出来，最后还有两个正方形。每一根线条，都只是海龟「向前走」和「转弯」做出来的。</p>
+
+  <h2>2. 关键想法：「前进」和「转弯」</h2>
+
+  <p>海龟只会两件事：</p>
+  <ul>
+    <li><strong>向前走</strong>固定的步数。</li>
+    <li><strong>左转或右转</strong>固定的角度。</li>
+  </ul>
+
+  <p>就这两样！画面上所有的形状，其实都是 <em>走 &mdash; 转 &mdash; 走 &mdash; 转 &mdash; 走 &hellip;</em> 一直重复。</p>
+
+  <p>要画出一个闭合的图形，可以用这个规律：</p>
+
+  <div class="section-intro">
+    <p><strong>想要回到起点，转弯的角度加起来必须是 360°。</strong>所以，如果一个图形有 N 条相等的边，每个角就要转 <strong>360 &divide; N</strong> 度。</p>
+    <ul>
+      <li>正方形 &rarr; 4 条边 &rarr; 360 &divide; 4 = <strong>90°</strong></li>
+      <li>六边形 &rarr; 6 条边 &rarr; 360 &divide; 6 = <strong>60°</strong></li>
+      <li>三角形 &rarr; 3 条边 &rarr; 360 &divide; 3 = <strong>120°</strong></li>
+    </ul>
+  </div>
+
+  <h2>3. 一行一行读懂代码</h2>
+
+  <h3>准备海龟</h3>
+
+  <pre class="code"><span class="kw">import</span> turtle
+
+t <span class="kw">=</span> turtle.<span class="fn">Turtle</span>()</pre>
+
+  <p><span style="font-family:monospace;">import turtle</span> 的意思是告诉 Python：「我要用 turtle 这个模块。」下一行创建一只海龟，并给它起一个简短的外号 <span style="font-family:monospace;">t</span>，这样就不用每次都写完整的名字了。</p>
+
+  <h3>画六边形的函数</h3>
+
+  <pre class="code"><span class="kw">def</span> <span class="fn">draw_hex</span>(side_length):
+    t.<span class="fn">pendown</span>()
+    <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="num">6</span>):
+        t.<span class="fn">forward</span>(side_length)
+        t.<span class="fn">right</span>(<span class="num">60</span>)
+    t.<span class="fn">penup</span>()</pre>
+
+  <p><strong>函数（function）</strong>就像一份带名字的食谱。这个食谱叫 <span style="font-family:monospace;">draw_hex</span>，它的作用是画一个六边形。<span style="font-family:monospace;">side_length</span> 是 <strong>参数（parameter）</strong> ― 你在使用食谱时填进去的「空格」。<span style="font-family:monospace;">draw_hex(250)</span> 的意思就是「画一个边长为 250 步的六边形」。</p>
+
+  <p>食谱的步骤：</p>
+  <ol>
+    <li><span style="font-family:monospace;">pendown()</span> ― 放下画笔，开始画线。</li>
+    <li><span style="font-family:monospace;">for</span> 循环重复 6 次（六边形有 6 条边）：
+      <ul>
+        <li><span style="font-family:monospace;">forward(side_length)</span> 画一条边。</li>
+        <li><span style="font-family:monospace;">right(60)</span> 转弯，准备画下一条边。</li>
+      </ul>
+    </li>
+    <li><span style="font-family:monospace;">penup()</span> ― 抬起画笔（接下来海龟可以走动而不留下线条）。</li>
+  </ol>
+
+  <h3>画正方形的函数</h3>
+
+  <pre class="code"><span class="kw">def</span> <span class="fn">draw_square</span>(side_length):
+    t.<span class="fn">pendown</span>()
+    <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="num">4</span>):
+        t.<span class="fn">forward</span>(side_length)
+        t.<span class="fn">right</span>(<span class="num">90</span>)
+    t.<span class="fn">penup</span>()</pre>
+
+  <p>原理和六边形完全一样，只不过这里循环 <strong>4</strong> 次，每个角转 <strong>90°</strong>。两个函数长得非常像 ― 唯一不同的就是边的数量和转弯的角度。</p>
+
+  <h3>主图案</h3>
+
+  <pre class="code"><span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="num">3</span>):
+    <span class="fn">draw_hex</span>(<span class="num">250</span>)
+
+    t.<span class="fn">right</span>(<span class="num">90</span>)
+    t.<span class="fn">forward</span>(<span class="num">60</span>)
+
+    <span class="fn">draw_hex</span>(<span class="num">100</span>)
+
+    t.<span class="fn">right</span>(<span class="num">90</span>)
+    t.<span class="fn">forward</span>(<span class="num">40</span>)
+
+    <span class="fn">draw_hex</span>(<span class="num">120</span>)</pre>
+
+  <p>这个循环会跑 <strong>3 遍</strong>。每一遍里，海龟都会：</p>
+  <ol>
+    <li>画一个大六边形（边长 250）。</li>
+    <li>转弯并抬笔走到新的位置（不画线）。</li>
+    <li>画一个小六边形（边长 100）。</li>
+    <li>再走一段，</li>
+    <li>画一个中等的六边形（边长 120）。</li>
+  </ol>
+
+  <p>所以图里能看到 <strong>3 组、每组 3 个六边形</strong>。（三个大六边形刚好叠在同一个位置！）</p>
+
+  <h3>最后的两个正方形</h3>
+
+  <pre class="code">t.<span class="fn">forward</span>(<span class="num">300</span>)
+t.<span class="fn">right</span>(<span class="num">60</span>)
+
+<span class="fn">draw_square</span>(<span class="num">270</span>)
+
+t.<span class="fn">left</span>(<span class="num">30</span>)
+t.<span class="fn">forward</span>(<span class="num">110</span>)
+t.<span class="fn">right</span>(<span class="num">80</span>)
+
+<span class="fn">draw_square</span>(<span class="num">135</span>)
+
+turtle.<span class="fn">done</span>()</pre>
+
+  <p>画完所有六边形之后，海龟走到一个新的位置画了一个大正方形，又走一段画了一个小一点的正方形。最后的 <span style="font-family:monospace;">turtle.done()</span> 告诉程序：「画完啦 ― 把窗口留着，让我们好好看看作品。」</p>
+
+  <h2>4. 自己来试试</h2>
+
+  <div class="try-box">
+    <strong>实验一 ― 把六边形放大。</strong> 把 <span style="font-family:monospace;">draw_hex(250)</span> 改成 <span style="font-family:monospace;">draw_hex(400)</span>，看看画面有什么变化？
+  </div>
+
+  <div class="try-box">
+    <strong>实验二 ― 画一个三角形。</strong> 写一个新的函数叫 <span style="font-family:monospace;">draw_triangle</span>。它要循环几次？每个角要转多少度？（提示：360 &divide; 3。）
+  </div>
+
+  <div class="try-box">
+    <strong>实验三 ― 加上颜色。</strong> 在调用 <span style="font-family:monospace;">draw_hex</span> 之前加一行 <span style="font-family:monospace;">t.color(&quot;blue&quot;)</span>。也试试 <span style="font-family:monospace;">&quot;red&quot;</span>、<span style="font-family:monospace;">&quot;green&quot;</span>、<span style="font-family:monospace;">&quot;purple&quot;</span>。
+  </div>
+
+  <div class="try-box">
+    <strong>实验四 ― 画一颗星星。</strong> 试试一个循环：「前进 + 转 <strong>144°</strong>」重复 5 次。（没错，是 144°，不是 72°！这就是五角星的秘密。）
+  </div>
+
+  <h2>5. 要记住的词</h2>
+
+  <dl class="vocab-grid">
+    <dt>模块（module）</dt>
+    <dd>一包做好的代码，其他程序可以直接拿来用。<em>turtle</em> 就是 Python 自带的模块之一。</dd>
+
+    <dt>函数（function）</dt>
+    <dd>有名字的一组指令，可以被反复调用使用。<span style="font-family:monospace;">draw_hex</span> 就是一个函数。</dd>
+
+    <dt>参数（parameter）</dt>
+    <dd>调用函数时填进去的「空格」。<span style="font-family:monospace;">side_length</span> 就是一个参数。</dd>
+
+    <dt>循环（loop）</dt>
+    <dd>告诉电脑「重复做这件事 N 次」。<span style="font-family:monospace;">for _ in range(6):</span> 就是重复 6 次。</dd>
+
+    <dt>度（degree）</dt>
+    <dd>表示转弯多少的单位。一整圈是 360 度，正方形的角是 90 度。</dd>
+
+    <dt>抬笔／落笔</dt>
+    <dd>海龟走动时是不是会画线。抬笔=不画，落笔=会画。</dd>
+  </dl>
+
+  <hr>
+
+  <p><a class="download" href="/homework/draw_shapes.py" download>下载 draw_shapes.py</a></p>
+  <p style="font-size:12px;color:#666;">使用方法：保存文件后，在终端里输入 <span style="font-family:monospace;">python3 draw_shapes.py</span>。（请确认电脑里已经安装了 Python 3。）</p>
+  <p style="font-size:12px;color:#666;"><em>小贴士：</em>不要把文件名取成 <span style="font-family:monospace;">turtle.py</span> ― Python 自带的内置模块也叫这个名字，会和你自己的文件搞混，导致程序无法正常运行。</p>
+
+</body>
+</html>
