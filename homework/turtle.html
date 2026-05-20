@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drawing with Python Turtle &mdash; Code Walkthrough</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Georgia, serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #222;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 32px 40px;
+    }
+
+    .back-nav {
+      margin-bottom: 20px;
+      font-size: 12px;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .back-nav a { color: #555; text-decoration: none; }
+    .back-nav a:hover { text-decoration: underline; }
+
+    .lang-links { font-size: 11px; }
+    .lang-links a { color: #555; text-decoration: none; margin-left: 8px; }
+    .lang-links a:hover { text-decoration: underline; }
+
+    h1 {
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-style: italic;
+      color: #555;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .note {
+      text-align: center;
+      font-size: 11px;
+      color: #888;
+      margin-bottom: 20px;
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid #333;
+      margin: 16px 0;
+    }
+
+    h2 {
+      font-size: 16px;
+      background: #2d6a4f;
+      color: #fff;
+      padding: 5px 12px;
+      margin: 24px 0 12px 0;
+      border-radius: 2px;
+    }
+
+    h3 {
+      font-size: 14px;
+      font-weight: bold;
+      margin: 14px 0 6px 0;
+    }
+
+    p { margin-bottom: 10px; }
+
+    ul, ol { margin: 6px 0 10px 22px; }
+    ul li, ol li { margin-bottom: 4px; }
+
+    strong { font-weight: bold; }
+    em { font-style: italic; }
+
+    .section-intro {
+      background: #f0f7f3;
+      border-left: 4px solid #2d6a4f;
+      border-radius: 4px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+    }
+
+    .output-figure {
+      text-align: center;
+      margin: 14px 0 18px 0;
+    }
+
+    .output-figure svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .output-caption {
+      font-size: 11px;
+      color: #888;
+      font-family: sans-serif;
+      margin-top: 6px;
+    }
+
+    pre.code {
+      background: #1e1e1e;
+      color: #f4f4f4;
+      font-family: Menlo, Monaco, "Courier New", monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      padding: 14px 16px;
+      border-radius: 4px;
+      overflow-x: auto;
+      margin: 10px 0 16px 0;
+      tab-size: 4;
+    }
+
+    pre.code .cmt { color: #6a9955; }
+    pre.code .kw  { color: #569cd6; }
+    pre.code .fn  { color: #dcdcaa; }
+    pre.code .num { color: #b5cea8; }
+    pre.code .str { color: #ce9178; }
+
+    .try-box {
+      background: #fff8e1;
+      border-left: 4px solid #f59f00;
+      border-radius: 4px;
+      padding: 10px 14px;
+      margin: 12px 0;
+    }
+
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 8px 14px;
+      margin: 10px 0 14px 0;
+    }
+
+    .vocab-grid dt {
+      font-weight: bold;
+      font-family: sans-serif;
+      font-size: 13px;
+      color: #2d6a4f;
+    }
+
+    .vocab-grid dd {
+      font-size: 13px;
+    }
+
+    .download {
+      display: inline-block;
+      background: #2d6a4f;
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-family: sans-serif;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    .download:hover { background: #1b4332; }
+
+    @media (max-width: 600px) {
+      body { padding: 20px 16px; }
+      .vocab-grid { grid-template-columns: 1fr; gap: 4px 0; }
+      .vocab-grid dd { margin-bottom: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="back-nav">
+    <a href="/homework/">&larr; Homework Help</a>
+    <span class="lang-links">
+      <a href="/ja/homework/turtle.html">日本語</a>
+      <a href="/zh/homework/turtle.html">中文</a>
+    </span>
+  </nav>
+
+  <h1>Drawing with Python Turtle</h1>
+  <p class="subtitle">A Code Walkthrough for Young Coders</p>
+  <p class="note">Ages 9&ndash;12 &bull; Reading code, not just running it &bull; About 20 minutes</p>
+  <hr>
+
+  <div class="section-intro">
+    <p>Python has a fun module called <strong>turtle</strong>. It gives you a tiny turtle that holds a pen. When you tell the turtle to walk, it drags the pen behind it and draws on the screen. This page walks through a real Python program that uses the turtle to draw <strong>hexagons and squares</strong>, and explains what every part of the code does.</p>
+  </div>
+
+  <h2>1. What does the program draw?</h2>
+
+  <p>When you run the program, the turtle starts in the middle of the screen and walks around drawing shapes. Here is the finished picture:</p>
+
+  <div class="output-figure">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 910 866" width="600" style="background:#fafafa;border:1px solid #ddd;border-radius:4px;" role="img" aria-labelledby="turtle-drawing-title">
+      <title id="turtle-drawing-title">A drawing of hexagons and squares created by the turtle program.</title>
+      <path d="M 505.0,403.0 L 755.0,403.0 L 880.0,619.5 L 755.0,836.0 L 505.0,836.0 L 380.0,619.5 L 505.0,403.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 505.0,463.0 L 505.0,563.0 L 418.4,613.0 L 331.8,563.0 L 331.8,463.0 L 418.4,413.0 L 505.0,463.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 465.0,463.0 L 345.0,463.0 L 285.0,359.1 L 345.0,255.2 L 465.0,255.2 L 525.0,359.1 L 465.0,463.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 465.0,463.0 L 215.0,463.0 L 90.0,246.5 L 215.0,30.0 L 465.0,30.0 L 590.0,246.5 L 465.0,463.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 465.0,403.0 L 465.0,303.0 L 551.6,253.0 L 638.2,303.0 L 638.2,403.0 L 551.6,453.0 L 465.0,403.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 505.0,403.0 L 625.0,403.0 L 685.0,506.9 L 625.0,610.9 L 505.0,610.9 L 445.0,506.9 L 505.0,403.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 505.0,403.0 L 755.0,403.0 L 880.0,619.5 L 755.0,836.0 L 505.0,836.0 L 380.0,619.5 L 505.0,403.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 505.0,463.0 L 505.0,563.0 L 418.4,613.0 L 331.8,563.0 L 331.8,463.0 L 418.4,413.0 L 505.0,463.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 465.0,463.0 L 345.0,463.0 L 285.0,359.1 L 345.0,255.2 L 465.0,255.2 L 525.0,359.1 L 465.0,463.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 165.0,463.0 L 30.0,229.2 L 263.8,94.2 L 398.8,328.0 L 165.0,463.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 69.7,408.0 L 115.9,281.2 L 242.8,327.3 L 196.6,454.2 L 69.7,408.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    </svg>
+    <div class="output-caption">The turtle draws three sets of three hexagons, then two squares.</div>
+  </div>
+
+  <p>Look closely &mdash; you can see big hexagons stacked on top of each other (those are drawn three times, so they look extra dark), then medium and small hexagons branching off, and finally two squares. Every line was made by the turtle walking forward and turning.</p>
+
+  <h2>2. The big idea: forward and turn</h2>
+
+  <p>The turtle only knows two basic moves:</p>
+  <ul>
+    <li><strong>Walk forward</strong> some number of steps.</li>
+    <li><strong>Turn</strong> left or right by some number of degrees.</li>
+  </ul>
+
+  <p>That&rsquo;s it! Every shape in the picture is just <em>walk &mdash; turn &mdash; walk &mdash; turn &mdash; walk &hellip;</em> over and over.</p>
+
+  <p>To draw any closed shape, you can use this rule:</p>
+
+  <div class="section-intro">
+    <p><strong>Total turning to come back to the start = 360&deg;</strong>. So if a shape has <em>N</em> equal sides, each turn is <strong>360 &divide; N</strong> degrees.</p>
+    <ul>
+      <li>Square &rarr; 4 sides &rarr; turn 360 &divide; 4 = <strong>90&deg;</strong> at each corner.</li>
+      <li>Hexagon &rarr; 6 sides &rarr; turn 360 &divide; 6 = <strong>60&deg;</strong> at each corner.</li>
+      <li>Triangle &rarr; 3 sides &rarr; turn 360 &divide; 3 = <strong>120&deg;</strong> at each corner.</li>
+    </ul>
+  </div>
+
+  <h2>3. Reading the code, line by line</h2>
+
+  <h3>Setting up the turtle</h3>
+
+  <pre class="code"><span class="kw">import</span> turtle
+
+t <span class="kw">=</span> turtle.<span class="fn">Turtle</span>()</pre>
+
+  <p><span style="font-family:monospace;">import turtle</span> tells Python: <em>&ldquo;I want to use the turtle module.&rdquo;</em> The next line creates a turtle and gives it a short nickname, <span style="font-family:monospace;">t</span>, so we don&rsquo;t have to type the full word every time.</p>
+
+  <h3>A function that draws a hexagon</h3>
+
+  <pre class="code"><span class="kw">def</span> <span class="fn">draw_hex</span>(side_length):
+    t.<span class="fn">pendown</span>()
+    <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="num">6</span>):
+        t.<span class="fn">forward</span>(side_length)
+        t.<span class="fn">right</span>(<span class="num">60</span>)
+    t.<span class="fn">penup</span>()</pre>
+
+  <p>A <strong>function</strong> is a recipe with a name. This recipe is called <span style="font-family:monospace;">draw_hex</span>, and it draws a hexagon. The word <span style="font-family:monospace;">side_length</span> is a <strong>parameter</strong> &mdash; a blank you fill in when you use the recipe. <span style="font-family:monospace;">draw_hex(250)</span> means &ldquo;draw a hexagon with sides 250 steps long.&rdquo;</p>
+
+  <p>Inside the recipe:</p>
+  <ol>
+    <li><span style="font-family:monospace;">pendown()</span> &mdash; put the pen down so we draw.</li>
+    <li>The <span style="font-family:monospace;">for</span> loop repeats 6 times (once per side):
+      <ul>
+        <li><span style="font-family:monospace;">forward(side_length)</span> draws one side.</li>
+        <li><span style="font-family:monospace;">right(60)</span> turns the corner.</li>
+      </ul>
+    </li>
+    <li><span style="font-family:monospace;">penup()</span> &mdash; lift the pen so the turtle can move without drawing.</li>
+  </ol>
+
+  <h3>A function that draws a square</h3>
+
+  <pre class="code"><span class="kw">def</span> <span class="fn">draw_square</span>(side_length):
+    t.<span class="fn">pendown</span>()
+    <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="num">4</span>):
+        t.<span class="fn">forward</span>(side_length)
+        t.<span class="fn">right</span>(<span class="num">90</span>)
+    t.<span class="fn">penup</span>()</pre>
+
+  <p>Same idea as the hexagon, but it loops <strong>4</strong> times and turns <strong>90&deg;</strong> at each corner. Notice how similar these two functions look &mdash; the only differences are the number of sides and the turning angle.</p>
+
+  <h3>The main pattern</h3>
+
+  <pre class="code"><span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="num">3</span>):
+    <span class="fn">draw_hex</span>(<span class="num">250</span>)
+
+    t.<span class="fn">right</span>(<span class="num">90</span>)
+    t.<span class="fn">forward</span>(<span class="num">60</span>)
+
+    <span class="fn">draw_hex</span>(<span class="num">100</span>)
+
+    t.<span class="fn">right</span>(<span class="num">90</span>)
+    t.<span class="fn">forward</span>(<span class="num">40</span>)
+
+    <span class="fn">draw_hex</span>(<span class="num">120</span>)</pre>
+
+  <p>This loop runs <strong>3 times</strong>. Each time, the turtle:</p>
+  <ol>
+    <li>Draws a big hexagon (sides of 250).</li>
+    <li>Turns and walks (without drawing) to a new spot.</li>
+    <li>Draws a small hexagon (sides of 100).</li>
+    <li>Turns and walks again.</li>
+    <li>Draws a medium hexagon (sides of 120).</li>
+  </ol>
+
+  <p>That&rsquo;s why you see <strong>3 sets of 3 hexagons</strong> in the picture. (The big hexagons happen to land on top of each other!)</p>
+
+  <h3>The squares at the end</h3>
+
+  <pre class="code">t.<span class="fn">forward</span>(<span class="num">300</span>)
+t.<span class="fn">right</span>(<span class="num">60</span>)
+
+<span class="fn">draw_square</span>(<span class="num">270</span>)
+
+t.<span class="fn">left</span>(<span class="num">30</span>)
+t.<span class="fn">forward</span>(<span class="num">110</span>)
+t.<span class="fn">right</span>(<span class="num">80</span>)
+
+<span class="fn">draw_square</span>(<span class="num">135</span>)
+
+turtle.<span class="fn">done</span>()</pre>
+
+  <p>After all the hexagons, the turtle moves to a new spot, draws a big square, moves again, and draws a smaller square. Finally, <span style="font-family:monospace;">turtle.done()</span> tells the program: <em>&ldquo;We&rsquo;re finished &mdash; please keep the picture window open so we can look at our drawing.&rdquo;</em></p>
+
+  <h2>4. Try it yourself</h2>
+
+  <div class="try-box">
+    <strong>Experiment 1 &mdash; Make the hexagons bigger.</strong> Change <span style="font-family:monospace;">draw_hex(250)</span> to <span style="font-family:monospace;">draw_hex(400)</span>. What happens to the picture?
+  </div>
+
+  <div class="try-box">
+    <strong>Experiment 2 &mdash; Draw a triangle.</strong> Write a new function called <span style="font-family:monospace;">draw_triangle</span>. How many sides? What angle should it turn at each corner? (Hint: 360 &divide; 3.)
+  </div>
+
+  <div class="try-box">
+    <strong>Experiment 3 &mdash; Add color.</strong> Before you call <span style="font-family:monospace;">draw_hex</span>, try <span style="font-family:monospace;">t.color(&quot;blue&quot;)</span>. Try <span style="font-family:monospace;">&quot;red&quot;</span>, <span style="font-family:monospace;">&quot;green&quot;</span>, or <span style="font-family:monospace;">&quot;purple&quot;</span> too.
+  </div>
+
+  <div class="try-box">
+    <strong>Experiment 4 &mdash; Make a star.</strong> Try a loop that goes forward and turns by <strong>144&deg;</strong> five times. (Yes, 144 &mdash; not 72! That&rsquo;s how five-pointed stars work.)
+  </div>
+
+  <h2>5. Words to know</h2>
+
+  <dl class="vocab-grid">
+    <dt>module</dt>
+    <dd>A bundle of pre-made code that other programs can use. <em>turtle</em> is one of Python&rsquo;s built-in modules.</dd>
+
+    <dt>function</dt>
+    <dd>A named recipe of instructions you can run as many times as you like. <span style="font-family:monospace;">draw_hex</span> is a function.</dd>
+
+    <dt>parameter</dt>
+    <dd>A blank you fill in when you call a function. <span style="font-family:monospace;">side_length</span> is a parameter.</dd>
+
+    <dt>loop</dt>
+    <dd>A way to tell the computer &ldquo;do this <em>N</em> times.&rdquo; <span style="font-family:monospace;">for _ in range(6):</span> repeats 6 times.</dd>
+
+    <dt>degree</dt>
+    <dd>A unit for measuring how much you turn. A full circle is 360 degrees; a square corner is 90 degrees.</dd>
+
+    <dt>pen up / pen down</dt>
+    <dd>Whether the turtle is drawing as it walks. Pen up = no line, pen down = line.</dd>
+  </dl>
+
+  <hr>
+
+  <p><a class="download" href="/homework/draw_shapes.py" download>Download draw_shapes.py</a></p>
+  <p style="font-size:12px;color:#666;">To run it, save the file and type <span style="font-family:monospace;">python3 draw_shapes.py</span> in a terminal. (Make sure Python 3 is installed.)</p>
+  <p style="font-size:12px;color:#666;"><em>Tip:</em> don&rsquo;t name your file <span style="font-family:monospace;">turtle.py</span> &mdash; Python already has a built-in module with that name, and it will get confused and try to import your file instead of its own.</p>
+
+</body>
+</html>
