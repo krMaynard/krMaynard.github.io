@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pythonタートルでお絵描き ― コード解説</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #222;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 32px 40px;
+    }
+
+    .back-nav {
+      margin-bottom: 20px;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .back-nav a { color: #555; text-decoration: none; }
+    .back-nav a:hover { text-decoration: underline; }
+
+    .lang-links { font-size: 11px; }
+    .lang-links a { color: #555; text-decoration: none; margin-left: 8px; }
+    .lang-links a:hover { text-decoration: underline; }
+
+    h1 {
+      font-size: 22px;
+      text-align: center;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #555;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .note {
+      text-align: center;
+      font-size: 11px;
+      color: #888;
+      margin-bottom: 20px;
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid #333;
+      margin: 16px 0;
+    }
+
+    h2 {
+      font-size: 16px;
+      background: #2d6a4f;
+      color: #fff;
+      padding: 5px 12px;
+      margin: 24px 0 12px 0;
+      border-radius: 2px;
+    }
+
+    h3 {
+      font-size: 14px;
+      font-weight: bold;
+      margin: 14px 0 6px 0;
+    }
+
+    p { margin-bottom: 10px; }
+
+    ul, ol { margin: 6px 0 10px 22px; }
+    ul li, ol li { margin-bottom: 4px; }
+
+    strong { font-weight: bold; }
+    em { font-style: italic; }
+
+    .section-intro {
+      background: #f0f7f3;
+      border-left: 4px solid #2d6a4f;
+      border-radius: 4px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+    }
+
+    .output-figure {
+      text-align: center;
+      margin: 14px 0 18px 0;
+    }
+
+    .output-figure svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .output-caption {
+      font-size: 11px;
+      color: #888;
+      margin-top: 6px;
+    }
+
+    pre.code {
+      background: #1e1e1e;
+      color: #f4f4f4;
+      font-family: Menlo, Monaco, "Courier New", monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      padding: 14px 16px;
+      border-radius: 4px;
+      overflow-x: auto;
+      margin: 10px 0 16px 0;
+      tab-size: 4;
+    }
+
+    pre.code .cmt { color: #6a9955; }
+    pre.code .kw  { color: #569cd6; }
+    pre.code .fn  { color: #dcdcaa; }
+    pre.code .num { color: #b5cea8; }
+    pre.code .str { color: #ce9178; }
+
+    .try-box {
+      background: #fff8e1;
+      border-left: 4px solid #f59f00;
+      border-radius: 4px;
+      padding: 10px 14px;
+      margin: 12px 0;
+    }
+
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 8px 14px;
+      margin: 10px 0 14px 0;
+    }
+
+    .vocab-grid dt {
+      font-weight: bold;
+      font-size: 13px;
+      color: #2d6a4f;
+    }
+
+    .vocab-grid dd {
+      font-size: 13px;
+    }
+
+    .download {
+      display: inline-block;
+      background: #2d6a4f;
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    .download:hover { background: #1b4332; }
+
+    @media (max-width: 600px) {
+      body { padding: 20px 16px; }
+      .vocab-grid { grid-template-columns: 1fr; gap: 4px 0; }
+      .vocab-grid dd { margin-bottom: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="back-nav">
+    <a href="/ja/homework/">&larr; 宿題サポート</a>
+    <span class="lang-links">
+      <a href="/homework/turtle.html">English</a>
+      <a href="/zh/homework/turtle.html">中文</a>
+    </span>
+  </nav>
+
+  <h1>Pythonタートルでお絵描き</h1>
+  <p class="subtitle">こどもプログラマーのためのコード解説</p>
+  <p class="note">9〜12歳向け &bull; ただ動かすだけでなくコードを読んでみよう &bull; 約20分</p>
+  <hr>
+
+  <div class="section-intro">
+    <p>Pythonには <strong>turtle（タートル）</strong> という楽しいモジュールがあります。ペンを持った小さなカメ（タートル）を動かすと、ペンの跡が画面に絵となって残ります。このページでは、タートルを使って<strong>六角形と四角形</strong>を描く本物のPythonプログラムを、一行ずつ解説していきます。</p>
+  </div>
+
+  <h2>1. このプログラムは何を描くの？</h2>
+
+  <p>プログラムを実行すると、画面の真ん中からカメが歩き出して、いろいろな形を描きます。完成するとこんな絵になります：</p>
+
+  <div class="output-figure">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 910 866" width="600" style="background:#fafafa;border:1px solid #ddd;border-radius:4px;">
+      <path d="M 505.0,403.0 L 755.0,403.0 L 880.0,619.5 L 755.0,836.0 L 505.0,836.0 L 380.0,619.5 L 505.0,403.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 505.0,463.0 L 505.0,563.0 L 418.4,613.0 L 331.8,563.0 L 331.8,463.0 L 418.4,413.0 L 505.0,463.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 465.0,463.0 L 345.0,463.0 L 285.0,359.1 L 345.0,255.2 L 465.0,255.2 L 525.0,359.1 L 465.0,463.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 465.0,463.0 L 215.0,463.0 L 90.0,246.5 L 215.0,30.0 L 465.0,30.0 L 590.0,246.5 L 465.0,463.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 465.0,403.0 L 465.0,303.0 L 551.6,253.0 L 638.2,303.0 L 638.2,403.0 L 551.6,453.0 L 465.0,403.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 505.0,403.0 L 625.0,403.0 L 685.0,506.9 L 625.0,610.9 L 505.0,610.9 L 445.0,506.9 L 505.0,403.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 505.0,403.0 L 755.0,403.0 L 880.0,619.5 L 755.0,836.0 L 505.0,836.0 L 380.0,619.5 L 505.0,403.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 505.0,463.0 L 505.0,563.0 L 418.4,613.0 L 331.8,563.0 L 331.8,463.0 L 418.4,413.0 L 505.0,463.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 465.0,463.0 L 345.0,463.0 L 285.0,359.1 L 345.0,255.2 L 465.0,255.2 L 525.0,359.1 L 465.0,463.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 165.0,463.0 L 30.0,229.2 L 263.8,94.2 L 398.8,328.0 L 165.0,463.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 69.7,408.0 L 115.9,281.2 L 242.8,327.3 L 196.6,454.2 L 69.7,408.0" fill="none" stroke="#222" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    </svg>
+    <div class="output-caption">3組の六角形（各3つ）と、最後に2つの四角形を描きます。</div>
+  </div>
+
+  <p>よく見ると、大きな六角形が3つ重なって（同じ場所に描かれるので濃く見える）、そこから中くらい・小さな六角形が枝のように伸びていて、最後に四角形が2つ。すべての線は、カメが「前に進む」と「向きを変える」の2つだけで描かれています。</p>
+
+  <h2>2. 大切な考え方：「進む」と「曲がる」</h2>
+
+  <p>タートルが知っている動きはたった2つだけ：</p>
+  <ul>
+    <li><strong>前に進む</strong>（決まった歩数だけ）</li>
+    <li><strong>向きを変える</strong>（左か右に決まった角度だけ）</li>
+  </ul>
+
+  <p>これだけです！絵にあるすべての形は、<em>進む &mdash; 曲がる &mdash; 進む &mdash; 曲がる &mdash; 進む &hellip;</em> をくり返しているだけなんです。</p>
+
+  <p>閉じた図形を描くには、こんなルールが使えます：</p>
+
+  <div class="section-intro">
+    <p><strong>スタートに戻ってくるには、合計で360°回らないといけません。</strong>だから、辺がN本ある図形では、各かどで <strong>360 &divide; N</strong> 度ずつ曲がればOK。</p>
+    <ul>
+      <li>四角形 &rarr; 4辺 &rarr; 360 &divide; 4 = <strong>90°</strong> ずつ曲がる</li>
+      <li>六角形 &rarr; 6辺 &rarr; 360 &divide; 6 = <strong>60°</strong> ずつ曲がる</li>
+      <li>三角形 &rarr; 3辺 &rarr; 360 &divide; 3 = <strong>120°</strong> ずつ曲がる</li>
+    </ul>
+  </div>
+
+  <h2>3. コードを一行ずつ読んでみよう</h2>
+
+  <h3>タートルの準備</h3>
+
+  <pre class="code"><span class="kw">import</span> turtle
+
+t <span class="kw">=</span> turtle.<span class="fn">Turtle</span>()</pre>
+
+  <p><span style="font-family:monospace;">import turtle</span> は「turtleモジュールを使うよ」とPythonに伝える命令です。次の行ではカメを1匹つくって、<span style="font-family:monospace;">t</span> という短いあだ名をつけています。毎回 <span style="font-family:monospace;">turtle.Turtle()</span> と書かなくて済むようにするためです。</p>
+
+  <h3>六角形を描く関数</h3>
+
+  <pre class="code"><span class="kw">def</span> <span class="fn">draw_hex</span>(side_length):
+    t.<span class="fn">pendown</span>()
+    <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="num">6</span>):
+        t.<span class="fn">forward</span>(side_length)
+        t.<span class="fn">right</span>(<span class="num">60</span>)
+    t.<span class="fn">penup</span>()</pre>
+
+  <p><strong>関数（function）</strong>は名前のついたレシピのようなものです。このレシピの名前は <span style="font-family:monospace;">draw_hex</span>。中身は六角形を描く手順です。<span style="font-family:monospace;">side_length</span> は <strong>引数（パラメーター）</strong> ― 関数を使うときに値を入れる「あな」です。<span style="font-family:monospace;">draw_hex(250)</span> なら「1辺の長さが250歩の六角形を描いて」という意味になります。</p>
+
+  <p>レシピの中身：</p>
+  <ol>
+    <li><span style="font-family:monospace;">pendown()</span> ― ペンを下ろす（線が描けるようになる）。</li>
+    <li><span style="font-family:monospace;">for</span> ループで6回くり返す（六角形の辺の数）：
+      <ul>
+        <li><span style="font-family:monospace;">forward(side_length)</span> で1辺を描く。</li>
+        <li><span style="font-family:monospace;">right(60)</span> で次のかどに向きを変える。</li>
+      </ul>
+    </li>
+    <li><span style="font-family:monospace;">penup()</span> ― ペンを上げる（次の場所まで線を引かずに移動できる）。</li>
+  </ol>
+
+  <h3>四角形を描く関数</h3>
+
+  <pre class="code"><span class="kw">def</span> <span class="fn">draw_square</span>(side_length):
+    t.<span class="fn">pendown</span>()
+    <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="num">4</span>):
+        t.<span class="fn">forward</span>(side_length)
+        t.<span class="fn">right</span>(<span class="num">90</span>)
+    t.<span class="fn">penup</span>()</pre>
+
+  <p>六角形と同じ仕組みですが、ループは <strong>4回</strong>、曲がる角度は <strong>90°</strong> です。2つの関数はとてもよく似ていますね ― ちがうのは、辺の数と曲がる角度だけです。</p>
+
+  <h3>メインのもよう</h3>
+
+  <pre class="code"><span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="num">3</span>):
+    <span class="fn">draw_hex</span>(<span class="num">250</span>)
+
+    t.<span class="fn">right</span>(<span class="num">90</span>)
+    t.<span class="fn">forward</span>(<span class="num">60</span>)
+
+    <span class="fn">draw_hex</span>(<span class="num">100</span>)
+
+    t.<span class="fn">right</span>(<span class="num">90</span>)
+    t.<span class="fn">forward</span>(<span class="num">40</span>)
+
+    <span class="fn">draw_hex</span>(<span class="num">120</span>)</pre>
+
+  <p>このループは <strong>3回</strong> くり返します。1回ごとに、カメは：</p>
+  <ol>
+    <li>大きな六角形（1辺250）を描き、</li>
+    <li>向きを変えてペンを上げて移動し、</li>
+    <li>小さな六角形（1辺100）を描き、</li>
+    <li>もう一度移動して、</li>
+    <li>中くらいの六角形（1辺120）を描きます。</li>
+  </ol>
+
+  <p>だから絵には <strong>3組×3つの六角形</strong> が見えるんです。（大きな六角形は3回とも同じ場所に描かれます！）</p>
+
+  <h3>最後の四角形</h3>
+
+  <pre class="code">t.<span class="fn">forward</span>(<span class="num">300</span>)
+t.<span class="fn">right</span>(<span class="num">60</span>)
+
+<span class="fn">draw_square</span>(<span class="num">270</span>)
+
+t.<span class="fn">left</span>(<span class="num">30</span>)
+t.<span class="fn">forward</span>(<span class="num">110</span>)
+t.<span class="fn">right</span>(<span class="num">80</span>)
+
+<span class="fn">draw_square</span>(<span class="num">135</span>)
+
+turtle.<span class="fn">done</span>()</pre>
+
+  <p>六角形を全部描き終わったあと、カメは別の場所に移動して、大きな四角形を描き、また移動して小さな四角形を描きます。最後の <span style="font-family:monospace;">turtle.done()</span> は「終わったよ ― 絵を見られるようにウィンドウを開けたままにしておいてね」とプログラムに伝える命令です。</p>
+
+  <h2>4. やってみよう</h2>
+
+  <div class="try-box">
+    <strong>実験1 ― 六角形を大きくしてみよう。</strong> <span style="font-family:monospace;">draw_hex(250)</span> を <span style="font-family:monospace;">draw_hex(400)</span> に変えてみましょう。絵はどう変わる？
+  </div>
+
+  <div class="try-box">
+    <strong>実験2 ― 三角形を描こう。</strong> <span style="font-family:monospace;">draw_triangle</span> という名前の関数を新しくつくってみよう。辺は何本？かどでは何度曲がればいいかな？（ヒント：360 &divide; 3）
+  </div>
+
+  <div class="try-box">
+    <strong>実験3 ― 色をつけよう。</strong> <span style="font-family:monospace;">draw_hex</span> を呼び出す前に <span style="font-family:monospace;">t.color(&quot;blue&quot;)</span> を入れてみよう。<span style="font-family:monospace;">&quot;red&quot;</span>、<span style="font-family:monospace;">&quot;green&quot;</span>、<span style="font-family:monospace;">&quot;purple&quot;</span> も試してみて。
+  </div>
+
+  <div class="try-box">
+    <strong>実験4 ― 星を描こう。</strong> 「進む &amp; <strong>144°</strong> 曲がる」を5回くり返すループを書いてみよう。（そう、72°じゃなくて144°！それが五芒星のひみつ。）
+  </div>
+
+  <h2>5. 覚えておきたい言葉</h2>
+
+  <dl class="vocab-grid">
+    <dt>モジュール</dt>
+    <dd>ほかのプログラムから使える、できあいのコードのまとまり。<em>turtle</em> はPythonに最初から入っているモジュールのひとつ。</dd>
+
+    <dt>関数</dt>
+    <dd>名前をつけた手順のかたまり。何度でも呼び出して使える。<span style="font-family:monospace;">draw_hex</span> は関数。</dd>
+
+    <dt>引数（ひきすう）</dt>
+    <dd>関数を呼ぶときに値を入れる「あな」。<span style="font-family:monospace;">side_length</span> は引数。</dd>
+
+    <dt>ループ</dt>
+    <dd>「これをN回くり返して」とコンピューターに伝える書き方。<span style="font-family:monospace;">for _ in range(6):</span> は6回くり返すという意味。</dd>
+
+    <dt>度（ど）</dt>
+    <dd>曲がる量を表す単位。1周は360度、四角形のかどは90度。</dd>
+
+    <dt>ペンを上げる／下ろす</dt>
+    <dd>カメが歩くときに線を引くかどうか。上げる=線なし、下ろす=線が描ける。</dd>
+  </dl>
+
+  <hr>
+
+  <p><a class="download" href="/homework/draw_shapes.py" download>draw_shapes.py をダウンロード</a></p>
+  <p style="font-size:12px;color:#666;">使い方：ファイルを保存して、ターミナルで <span style="font-family:monospace;">python3 draw_shapes.py</span> と入力してください。（Python 3 がインストールされている必要があります。）</p>
+  <p style="font-size:12px;color:#666;"><em>ヒント：</em>ファイル名を <span style="font-family:monospace;">turtle.py</span> にしないでね。Pythonには同じ名前の組み込みモジュールがあって、自分のファイルを読み込もうとしてうまく動かなくなってしまうから。</p>
+
+</body>
+</html>
