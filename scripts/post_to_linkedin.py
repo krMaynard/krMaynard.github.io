@@ -208,7 +208,7 @@ def refresh_access_token(refresh_token, client_id, client_secret):
         return None
 
 
-def post_to_linkedin(entry, access_token, person_urn):
+def post_to_linkedin(entry, access_token, person_urn, draft=False):
     post_text = build_post_text(entry)
 
     content = {
@@ -218,9 +218,10 @@ def post_to_linkedin(entry, access_token, person_urn):
     if entry["url"]:
         content["media"] = [{"status": "READY", "originalUrl": entry["url"]}]
 
+    lifecycle = "DRAFT" if draft else "PUBLISHED"
     payload = {
         "author": person_urn,
-        "lifecycleState": "PUBLISHED",
+        "lifecycleState": lifecycle,
         "specificContent": {"com.linkedin.ugc.ShareContent": content},
         "visibility": {"com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC"},
     }
@@ -368,9 +369,10 @@ def main():
         return
 
     # --- Post to LinkedIn ---
+    draft = os.environ.get("LINKEDIN_DRAFT", "").lower() in ("1", "true", "yes")
     print(f"New entry detected: {entry['id']} — {entry['title']}")
-    post_id = post_to_linkedin(entry, access_token, person_urn)
-    print(f"Posted to LinkedIn: {post_id}")
+    post_id = post_to_linkedin(entry, access_token, person_urn, draft=draft)
+    print(f"{'Draft saved' if draft else 'Posted'} to LinkedIn: {post_id}")
 
     write_last_posted(entry["id"])
     set_github_output("posted", "true")

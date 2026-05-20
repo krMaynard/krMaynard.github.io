@@ -27,6 +27,8 @@ jobs:
           # Required
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
           LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
+          # Set to "true" to save as draft instead of publishing
+          LINKEDIN_DRAFT: ${{ vars.LINKEDIN_DRAFT }}
           # Optional — enable these for automatic token refresh (recommended)
           LINKEDIN_REFRESH_TOKEN: ${{ secrets.LINKEDIN_REFRESH_TOKEN }}
           LINKEDIN_CLIENT_ID: ${{ secrets.LINKEDIN_CLIENT_ID }}
