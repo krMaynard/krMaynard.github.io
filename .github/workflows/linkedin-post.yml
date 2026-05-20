@@ -1,0 +1,46 @@
+name: Post to LinkedIn
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - blog.html
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install PyNaCl --quiet
+
+      - name: Post new entry to LinkedIn
+        id: linkedin
+        env:
+          # Required
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
+          # Optional — enable these for automatic token refresh (recommended)
+          LINKEDIN_REFRESH_TOKEN: ${{ secrets.LINKEDIN_REFRESH_TOKEN }}
+          LINKEDIN_CLIENT_ID: ${{ secrets.LINKEDIN_CLIENT_ID }}
+          LINKEDIN_CLIENT_SECRET: ${{ secrets.LINKEDIN_CLIENT_SECRET }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+          # Provided automatically by GitHub Actions
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python scripts/post_to_linkedin.py
+
+      - name: Commit updated tracking file
+        if: steps.linkedin.outputs.posted == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .github/last_linkedin_post
+          git commit -m "chore: track LinkedIn post $(cat .github/last_linkedin_post | tr -d '\n')"
+          git push origin master
