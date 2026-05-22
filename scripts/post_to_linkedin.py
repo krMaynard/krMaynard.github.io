@@ -429,8 +429,6 @@ def main():
     if gemini_api_key:
         print("Generating LinkedIn commentary with Gemini…")
         commentary = generate_linkedin_commentary(entry["title"], entry["summary"], gemini_api_key)
-        if commentary:
-            print("Gemini commentary generated.")
     else:
         print("GEMINI_API_KEY not set — using verbatim blog summary.")
 
