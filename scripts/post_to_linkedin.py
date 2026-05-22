@@ -29,6 +29,8 @@ from html.parser import HTMLParser
 TRACKING_FILE = ".github/last_linkedin_post"
 BLOG_FILE = "blog.html"
 SITE_BASE_URL = "https://krmaynard.github.io"
+GEMINI_PRIMARY_MODEL = "gemini-3.1-pro-preview"
+GEMINI_FALLBACK_MODEL = "gemini-3.5-flash"
 LINKEDIN_API_URL = "https://api.linkedin.com/v2/ugcPosts"
 LINKEDIN_TOKEN_URL = "https://www.linkedin.com/oauth/v2/accessToken"
 GITHUB_API_URL = "https://api.github.com"
@@ -156,8 +158,31 @@ def _slugify_tag(tag):
     return "#" + slug if slug else ""
 
 
+def _call_gemini(model, prompt, api_key):
+    """Call the Gemini generateContent API for a given model. Returns text or raises."""
+    payload = {"contents": [{"parts": [{"text": prompt}]}]}
+    data = json.dumps(payload).encode("utf-8")
+    url = (
+        "https://generativelanguage.googleapis.com/v1beta/models/"
+        f"{model}:generateContent?key={api_key}"
+    )
+    req = urllib.request.Request(
+        url,
+        data=data,
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        body = json.loads(resp.read())
+        return body["candidates"][0]["content"]["parts"][0]["text"].strip()
+
+
 def generate_linkedin_commentary(title, summary, api_key):
-    """Call Gemini to rewrite the blog entry as engaging LinkedIn commentary."""
+    """Rewrite the blog entry as engaging LinkedIn commentary.
+
+    Tries GEMINI_PRIMARY_MODEL first; falls back to GEMINI_FALLBACK_MODEL on
+    any error; returns None if both fail (caller uses verbatim summary).
+    """
     prompt = (
         "You are writing a LinkedIn post for Kieran Maynard, a product manager "
         "specialising in AI, compliance, and content policy.\n\n"
@@ -173,25 +198,15 @@ def generate_linkedin_commentary(title, summary, api_key):
         f"Summary: {summary}"
     )
 
-    payload = {"contents": [{"parts": [{"text": prompt}]}]}
-    data = json.dumps(payload).encode("utf-8")
-    url = (
-        "https://generativelanguage.googleapis.com/v1beta/models/"
-        f"gemini-2.0-flash:generateContent?key={api_key}"
-    )
-    req = urllib.request.Request(
-        url,
-        data=data,
-        headers={"Content-Type": "application/json"},
-        method="POST",
-    )
-    try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            body = json.loads(resp.read())
-            return body["candidates"][0]["content"]["parts"][0]["text"].strip()
-    except Exception as e:
-        print(f"Gemini API error: {e} — falling back to verbatim summary.", file=sys.stderr)
-        return None
+    for model in (GEMINI_PRIMARY_MODEL, GEMINI_FALLBACK_MODEL):
+        try:
+            text = _call_gemini(model, prompt, api_key)
+            print(f"Gemini commentary generated ({model}).")
+            return text
+        except Exception as e:
+            print(f"Gemini {model} error: {e} — {'trying fallback' if model == GEMINI_PRIMARY_MODEL else 'falling back to verbatim summary'}.", file=sys.stderr)
+
+    return None
 
 
 def build_post_text(entry, commentary=None):

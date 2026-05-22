@@ -14,3 +14,7 @@ The site has full translations in Japanese (`/ja/`) and Chinese (`/zh/`). Whenev
   - Chinese pages: `lang: zh`, `lang_url: /...` (English URL), `lang_url_ja: /ja/...` (Japanese URL)
 
 When making any content change to an English page, always make the equivalent update to its Japanese and Chinese counterparts in the same commit.
+
+## LLM API schemas
+
+Before implementing or updating any LLM API call (Gemini, Claude, OpenAI, etc.), always confirm the current model ID strings and endpoint schema with a web search. Model IDs change frequently and previews are deprecated — never assume a model ID from memory.
