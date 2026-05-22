@@ -156,11 +156,50 @@ def _slugify_tag(tag):
     return "#" + slug if slug else ""
 
 
-def build_post_text(entry):
+def generate_linkedin_commentary(title, summary, api_key):
+    """Call Gemini to rewrite the blog entry as engaging LinkedIn commentary."""
+    prompt = (
+        "You are writing a LinkedIn post for Kieran Maynard, a product manager "
+        "specialising in AI, compliance, and content policy.\n\n"
+        "Rewrite the blog entry below as LinkedIn post commentary. "
+        "Return ONLY the body text — no URL, no hashtags, no sign-off, no emojis.\n\n"
+        "Guidelines:\n"
+        "- Open with a strong hook (one short sentence that makes people stop scrolling)\n"
+        "- Short paragraphs separated by blank lines — LinkedIn formatting\n"
+        "- Conversational first-person tone\n"
+        "- 100–200 words\n"
+        "- End with a brief question or observation to invite engagement\n\n"
+        f"Title: {title}\n\n"
+        f"Summary: {summary}"
+    )
+
+    payload = {"contents": [{"parts": [{"text": prompt}]}]}
+    data = json.dumps(payload).encode("utf-8")
+    url = (
+        "https://generativelanguage.googleapis.com/v1beta/models/"
+        f"gemini-2.0-flash:generateContent?key={api_key}"
+    )
+    req = urllib.request.Request(
+        url,
+        data=data,
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            body = json.loads(resp.read())
+            return body["candidates"][0]["content"]["parts"][0]["text"].strip()
+    except (urllib.error.HTTPError, KeyError, IndexError) as e:
+        print(f"Gemini API error: {e} — falling back to verbatim summary.", file=sys.stderr)
+        return None
+
+
+def build_post_text(entry, commentary=None):
     hashtags = " ".join(s for t in entry["tags"] if t for s in [_slugify_tag(t)] if s)
     url_line = entry["url"] or (SITE_BASE_URL + "/blog.html")
+    body = commentary if commentary else entry["summary"]
 
-    parts = [entry["title"], "", entry["summary"], "", url_line]
+    parts = [entry["title"], "", body, "", url_line]
     if hashtags:
         parts += ["", hashtags]
     text = "\n".join(parts)
@@ -168,6 +207,7 @@ def build_post_text(entry):
     if len(text) <= MAX_POST_CHARS:
         return text
 
+    # Trim body to fit (only needed if Gemini returns something unexpectedly long)
     overhead = (
         len(entry["title"]) + 2
         + 2 + len(url_line)
@@ -175,7 +215,7 @@ def build_post_text(entry):
         + 1  # ellipsis
     )
     budget = max(0, MAX_POST_CHARS - overhead)
-    trimmed = entry["summary"][:budget].rsplit(" ", 1)[0] + "…"
+    trimmed = body[:budget].rsplit(" ", 1)[0] + "…"
     parts[2] = trimmed
     return "\n".join(parts)
 
@@ -208,8 +248,8 @@ def refresh_access_token(refresh_token, client_id, client_secret):
         return None
 
 
-def post_to_linkedin(entry, access_token, person_urn, draft=False):
-    post_text = build_post_text(entry)
+def post_to_linkedin(entry, access_token, person_urn, draft=False, commentary=None):
+    post_text = build_post_text(entry, commentary=commentary)
 
     content = {
         "shareCommentary": {"text": post_text},
@@ -368,10 +408,21 @@ def main():
         print(f"Entry {entry['id']} already posted to LinkedIn. Nothing to do.")
         return
 
+    # --- Optionally rewrite with Gemini ---
+    gemini_api_key = os.environ.get("GEMINI_API_KEY")
+    commentary = None
+    if gemini_api_key:
+        print("Generating LinkedIn commentary with Gemini…")
+        commentary = generate_linkedin_commentary(entry["title"], entry["summary"], gemini_api_key)
+        if commentary:
+            print("Gemini commentary generated.")
+    else:
+        print("GEMINI_API_KEY not set — using verbatim blog summary.")
+
     # --- Post to LinkedIn ---
     draft = os.environ.get("LINKEDIN_DRAFT", "").lower() in ("1", "true", "yes")
     print(f"New entry detected: {entry['id']} — {entry['title']}")
-    post_id = post_to_linkedin(entry, access_token, person_urn, draft=draft)
+    post_id = post_to_linkedin(entry, access_token, person_urn, draft=draft, commentary=commentary)
     print(f"{'Draft saved' if draft else 'Posted'} to LinkedIn: {post_id}")
 
     if not draft:
