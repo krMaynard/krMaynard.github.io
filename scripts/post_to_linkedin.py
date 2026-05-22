@@ -189,7 +189,7 @@ def generate_linkedin_commentary(title, summary, api_key):
         with urllib.request.urlopen(req, timeout=30) as resp:
             body = json.loads(resp.read())
             return body["candidates"][0]["content"]["parts"][0]["text"].strip()
-    except (urllib.error.HTTPError, KeyError, IndexError) as e:
+    except Exception as e:
         print(f"Gemini API error: {e} — falling back to verbatim summary.", file=sys.stderr)
         return None
 
