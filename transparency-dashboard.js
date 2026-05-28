@@ -11,9 +11,13 @@
 (function () {
   'use strict';
 
-  // ───────── Strings (en/ja) ─────────
+  // ───────── Strings (en/ja/zh/ko) ─────────
   // The site's <html lang> is hardcoded in the layout, so detect from the URL path.
-  var lang = /^\/ja(\/|$)/.test(window.location.pathname) ? 'ja' : 'en';
+  var lang = /^\/zh(\/|$)/.test(window.location.pathname) ? 'zh'
+           : /^\/ja(\/|$)/.test(window.location.pathname) ? 'ja'
+           : /^\/ko(\/|$)/.test(window.location.pathname) ? 'ko'
+           : 'en';
+  var LOCALE = { en: 'en-US', ja: 'ja-JP', zh: 'zh-CN', ko: 'ko-KR' }[lang];
   var L = {
     en: {
       loading: 'Loading data…',
@@ -120,6 +124,112 @@
       trendDown: '減少',
       trendFlat: '横ばい',
       vsFirstPeriod: '範囲の最初の期間 → 最後の期間'
+    },
+    zh: {
+      loading: '加载数据中…',
+      loadError: '无法加载数据集。',
+      anyCountry: '全部',
+      anyRequestor: '全部',
+      anyProduct: '全部',
+      anyReason: '全部',
+      from: '起始',
+      to: '结束',
+      reset: '重置筛选',
+      metricRequests: '政府请求数',
+      metricItems: '请求删除的项目数',
+      metricRemoved: '实际删除的项目数',
+      metricRate: '删除率',
+      metricCountries: '涉及国家数',
+      metricPeriods: '报告期间数',
+      chartTimeseries: '各报告期间的删除目标数量',
+      chartCountries: '目标数量最多的前10个国家',
+      chartReasons: '主要删除原因',
+      chartProducts: '被针对的谷歌产品',
+      chartCompliance: '谷歌的处理情况',
+      respLegal: '依法删除',
+      respPolicy: '依政策删除',
+      respAlready: '内容已删除',
+      respNotFound: '内容未找到',
+      respNotEnough: '信息不足',
+      respNoAction: '未采取行动',
+      tableTitle: '筛选结果（按目标数量前25条）',
+      colPeriod: '期间',
+      colCountry: '国家',
+      colRequestor: '申请方',
+      colProduct: '产品',
+      colReason: '原因',
+      colItems: '目标数量',
+      colRemoved: '已删除数量',
+      empty: '当前筛选条件下没有匹配记录。',
+      shown: '条记录',
+      itemsRequested: '目标数量',
+      itemsRemoved: '已删除数量',
+      breakdownLabel: '分类维度',
+      bdNone: '无（合计）',
+      bdCountry: '国家',
+      bdRequestor: '申请方类型',
+      bdProduct: '谷歌产品',
+      bdReason: '原因',
+      other: '其他',
+      removalRateOverTime: '删除率变化趋势',
+      changeOverRange: '所选范围内的变化',
+      trendUp: '上升',
+      trendDown: '下降',
+      trendFlat: '持平',
+      vsFirstPeriod: '范围内首期 → 末期'
+    },
+    ko: {
+      loading: '데이터 로딩 중…',
+      loadError: '데이터셋을 불러올 수 없습니다.',
+      anyCountry: '전체',
+      anyRequestor: '전체',
+      anyProduct: '전체',
+      anyReason: '전체',
+      from: '시작',
+      to: '종료',
+      reset: '필터 초기화',
+      metricRequests: '정부 요청 건수',
+      metricItems: '삭제 요청 항목 수',
+      metricRemoved: '실제 삭제된 항목 수',
+      metricRate: '삭제율',
+      metricCountries: '대상 국가 수',
+      metricPeriods: '보고 기간 수',
+      chartTimeseries: '보고 기간별 삭제 요청 항목 수',
+      chartCountries: '삭제 요청 항목 수 기준 상위 10개국',
+      chartReasons: '주요 삭제 사유',
+      chartProducts: '대상 Google 제품',
+      chartCompliance: 'Google의 응답 분류',
+      respLegal: '삭제（법적）',
+      respPolicy: '삭제（정책）',
+      respAlready: '이미 삭제됨',
+      respNotFound: '콘텐츠를 찾을 수 없음',
+      respNotEnough: '정보 불충분',
+      respNoAction: '조치 없음',
+      tableTitle: '필터링된 레코드 (요청 항목 수 기준 상위 25개)',
+      colPeriod: '기간',
+      colCountry: '국가',
+      colRequestor: '요청자',
+      colProduct: '제품',
+      colReason: '사유',
+      colItems: '요청 항목 수',
+      colRemoved: '삭제 수',
+      empty: '현재 필터 조건에 해당하는 레코드가 없습니다.',
+      shown: '건',
+      itemsRequested: '요청 항목',
+      itemsRemoved: '삭제됨',
+      breakdownLabel: '분류 기준',
+      bdNone: '없음 (합계)',
+      bdCountry: '국가',
+      bdRequestor: '요청자 유형',
+      bdProduct: 'Google 제품',
+      bdReason: '사유',
+      other: '기타',
+      removalRateOverTime: '시간에 따른 삭제율',
+      changeOverRange: '선택 범위 변화',
+      trendUp: '증가',
+      trendDown: '감소',
+      trendFlat: '보합',
+      vsFirstPeriod: '범위의 첫 기간 → 마지막 기간'
     }
   }[lang];
 
@@ -154,7 +264,7 @@
   // ───────── Utilities ─────────
   function fmt(n) {
     if (n == null || isNaN(n)) return '0';
-    return n.toLocaleString(lang === 'ja' ? 'ja-JP' : 'en-US');
+    return n.toLocaleString(LOCALE);
   }
   function pct(n) {
     if (!isFinite(n)) return '–';
@@ -619,7 +729,7 @@
       return { label: withIndex ? withIndex(label, i) : label, idx: i };
     });
     pairs.sort(function (a, b) {
-      return a.label.localeCompare(b.label, lang === 'ja' ? 'ja' : 'en');
+      return a.label.localeCompare(b.label, LOCALE);
     });
     pairs.forEach(function (p) {
       opts.push('<option value="' + p.idx + '">' + p.label + '</option>');
