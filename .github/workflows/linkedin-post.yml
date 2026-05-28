@@ -30,8 +30,6 @@ jobs:
           LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
           # Optional — rewrite post text for LinkedIn engagement using Gemini
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          # Set to "true" to save as draft instead of publishing
-          LINKEDIN_DRAFT: ${{ vars.LINKEDIN_DRAFT }}
           # Optional — enable these for automatic token refresh (recommended)
           LINKEDIN_REFRESH_TOKEN: ${{ secrets.LINKEDIN_REFRESH_TOKEN }}
           LINKEDIN_CLIENT_ID: ${{ secrets.LINKEDIN_CLIENT_ID }}

@@ -263,7 +263,7 @@ def refresh_access_token(refresh_token, client_id, client_secret):
         return None
 
 
-def post_to_linkedin(entry, access_token, person_urn, draft=False, commentary=None):
+def post_to_linkedin(entry, access_token, person_urn, commentary=None):
     post_text = build_post_text(entry, commentary=commentary)
 
     content = {
@@ -273,10 +273,9 @@ def post_to_linkedin(entry, access_token, person_urn, draft=False, commentary=No
     if entry["url"]:
         content["media"] = [{"status": "READY", "originalUrl": entry["url"]}]
 
-    lifecycle = "DRAFT" if draft else "PUBLISHED"
     payload = {
         "author": person_urn,
-        "lifecycleState": lifecycle,
+        "lifecycleState": "PUBLISHED",
         "specificContent": {"com.linkedin.ugc.ShareContent": content},
         "visibility": {"com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC"},
     }
@@ -433,16 +432,12 @@ def main():
         print("GEMINI_API_KEY not set — using verbatim blog summary.")
 
     # --- Post to LinkedIn ---
-    draft = os.environ.get("LINKEDIN_DRAFT", "").lower() in ("1", "true", "yes")
     print(f"New entry detected: {entry['id']} — {entry['title']}")
-    post_id = post_to_linkedin(entry, access_token, person_urn, draft=draft, commentary=commentary)
-    print(f"{'Draft saved' if draft else 'Posted'} to LinkedIn: {post_id}")
+    post_id = post_to_linkedin(entry, access_token, person_urn, commentary=commentary)
+    print(f"Posted to LinkedIn: {post_id}")
 
-    if not draft:
-        write_last_posted(entry["id"])
-        set_github_output("posted", "true")
-    else:
-        print("Draft mode: tracking file not updated. Disable LINKEDIN_DRAFT and push again to publish live.")
+    write_last_posted(entry["id"])
+    set_github_output("posted", "true")
 
 
 if __name__ == "__main__":
