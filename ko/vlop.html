@@ -1,0 +1,135 @@
+---
+layout: main
+title: VLOP DSA 투명성 보고서
+lang: ko
+lang_url: /vlop.html
+lang_url_ja: /ja/vlop.html
+lang_url_zh: /zh/vlop.html
+---
+
+<div style="padding-top: 2.5rem; margin-bottom: 0.5rem;">
+  <p class="section-label">분석</p>
+  <h1 style="margin-top: 0; margin-bottom: 0.5rem;">DSA 투명성 보고서 — VLOP 및 VLOSE</h1>
+  <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
+    EU 디지털 서비스법(DSA)에 따라 초대형 온라인 플랫폼(VLOP) 및 초대형 온라인 검색 엔진(VLOSE)은 콘텐츠 모더레이션에 관한 투명성 보고서를 공개해야 합니다.
+    이 대시보드는 보고 기간 <strong>2025년 7월 1일~12월 31일</strong>의
+    30개 서비스를 단일 비교 뷰로 결합합니다. 성인 동영상 플랫폼을 제외한 모든 지정 VLOP 및 VLOSE를 포함합니다.
+    VLOP를 운영하는 모회사가 보유한 하위 등급 지정 온라인 플랫폼도 포함합니다
+    (VLOP가 아닌 Apple 및 Wikimedia 서비스).
+    <strong>출시 예정:</strong> VLOP로 새로 지정된 Meta 서비스, WhatsApp Channels.
+  </p>
+  <p style="color: var(--text-faint); font-size: 0.85rem; margin-bottom: 2rem; background: transparent;">
+    출처: AliExpress, Amazon, Apple(App Store, Books, iCloud, Podcasts), Bing, Booking.com, LinkedIn, Meta(Facebook, Instagram), Pinterest, SHEIN, Snapchat, Temu,
+    TikTok, Wikipedia / Wikimedia(6개 서비스), X, YouTube / Google(6개 서비스), Zalando의 공식 DSA 투명성 보고서.
+    데이터는 브라우저에서 처리됩니다; 백엔드로 요청이 전송되지 않습니다.
+  </p>
+</div>
+
+<!-- ── Tabs ──────────────────────────────────────────────── -->
+<div id="vlop-loading" class="td-loading">데이터 로딩 중…</div>
+
+<div id="vlop-app" hidden>
+
+  <nav class="vlop-tabs" role="tablist" aria-label="보고서 섹션">
+    <button class="vlop-tab vlop-tab-active" role="tab" data-tab="t4">통지</button>
+    <button class="vlop-tab" role="tab" data-tab="t5">자주적 조치: 불법</button>
+    <button class="vlop-tab" role="tab" data-tab="t6">자주적 조치: 정책</button>
+    <button class="vlop-tab" role="tab" data-tab="t3">정부 명령</button>
+    <button class="vlop-tab" role="tab" data-tab="t7">이의 신청</button>
+  </nav>
+
+  <!-- ── Filters ─────────────────────────────────────────── -->
+  <div class="td-filters vlop-filters" role="region" aria-label="필터">
+    <div class="td-filter td-filter-wide">
+      <label for="vlop-platform">플랫폼</label>
+      <select id="vlop-platform"></select>
+    </div>
+    <div class="td-filter td-filter-wide">
+      <label for="vlop-service">서비스</label>
+      <select id="vlop-service"></select>
+    </div>
+    <div class="td-filter td-filter-wide" id="vlop-cat-wrap">
+      <label for="vlop-category">카테고리</label>
+      <select id="vlop-category"></select>
+    </div>
+    <div class="td-filter td-filter-wide" id="vlop-kw-wrap">
+      <label for="vlop-keyword">키워드</label>
+      <select id="vlop-keyword"></select>
+    </div>
+    <button type="button" id="vlop-reset" class="td-reset">필터 초기화</button>
+  </div>
+
+  <!-- ── Metric cards ───────────────────────────────────── -->
+  <div id="vlop-metrics" class="td-metrics"></div>
+
+  <!-- ── Charts ────────────────────────────────────────── -->
+  <div id="vlop-charts" class="td-chart-grid"></div>
+
+  <!-- ── Table ─────────────────────────────────────────── -->
+  <div id="vlop-table-wrap" class="td-table-card" hidden>
+    <div class="td-table-head">
+      <h3 id="vlop-table-title">세부 내용</h3>
+      <span id="vlop-row-count" class="td-row-count"></span>
+    </div>
+    <div class="td-table-scroll">
+      <table class="td-table">
+        <thead><tr id="vlop-table-head"></tr></thead>
+        <tbody id="vlop-table-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── Notes ─────────────────────────────────────────────── -->
+<section class="td-readme" id="vlop-readme" hidden>
+  <h2 class="td-section-title">데이터 읽는 법</h2>
+  <ul class="td-bullets">
+    <li><strong>통지(표 4)</strong>는 사용자 또는 신뢰할 수 있는 신고자가 불법일 수 있는 콘텐츠를 신고하기 위해 제출한 것입니다. 하나의 통지에 여러 항목이 포함될 수 있습니다.</li>
+    <li><strong>자주적 조치(표 5·6)</strong>는 통지 없이 각 플랫폼이 자발적으로 취한 조치입니다. 표 5는 불법 콘텐츠, 표 6은 정책 위반 콘텐츠를 다룹니다.</li>
+    <li><strong>정부 명령(표 3)</strong>은 EU 회원국이 콘텐츠를 처리하거나 사용자 정보를 제공하도록 요청한 명령입니다.</li>
+    <li><strong>이의 신청(표 7)</strong>은 각 플랫폼의 내부 이의 신청 메커니즘 및 재판 외 분쟁 해결 기관에 제출된 신청을 다룹니다.</li>
+    <li><strong>TOTAL 행</strong>은 모든 콘텐츠 카테고리의 합계입니다. '모든 카테고리'가 선택된 경우 표시됩니다.</li>
+    <li>원본 데이터의 빈 셀은 0 또는 해당 없음으로 처리합니다. 각 플랫폼의 맥락 메모는 이 뷰에 포함되지 않습니다.</li>
+  </ul>
+</section>
+
+<hr class="section-divider" />
+
+<p style="color: var(--text-very-faint); font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
+  데이터: AliExpress, Amazon, Apple, Bing, Booking.com, LinkedIn, Meta(Facebook, Instagram), Pinterest, SHEIN, Snapchat, Temu, TikTok, Wikimedia Foundation, X, YouTube/Google, Zalando의 공식 DSA 투명성 보고서(H2 2025).
+  분석 및 시각화: 키어런 메이나드. 차트는 <a href="https://www.chartjs.org/">Chart.js</a> 사용.
+</p>
+
+<style>
+.vlop-tabs {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 0;
+}
+.vlop-tab {
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-family: inherit;
+  transition: color 0.15s, border-color 0.15s;
+}
+.vlop-tab:hover { color: var(--text); }
+.vlop-tab-active {
+  color: var(--text);
+  border-bottom-color: var(--accent, #4e79a7);
+  font-weight: 600;
+}
+.vlop-filters { margin-bottom: 1.25rem; }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer></script>
+<script src="/vlop-dashboard.js" defer></script>
