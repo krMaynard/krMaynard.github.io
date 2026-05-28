@@ -16,6 +16,7 @@
            : /^\/ja(\/|$)/.test(window.location.pathname) ? 'ja'
            : /^\/ko(\/|$)/.test(window.location.pathname) ? 'ko'
            : 'en';
+  var LOCALE = { en: 'en-US', ja: 'ja-JP', zh: 'zh-CN', ko: 'ko-KR' }[lang];
 
   var L = {
     en: {
@@ -1025,7 +1026,7 @@
   function n(v) { return v == null ? 0 : v; }
   function fmt(v) {
     if (v == null) return '—';
-    if (typeof v === 'number') return v.toLocaleString();
+    if (typeof v === 'number') return v.toLocaleString(LOCALE);
     return v;
   }
   function pct(v) { return (v * 100).toFixed(1) + '%'; }
