@@ -70,7 +70,8 @@
       trendUp: 'up',
       trendDown: 'down',
       trendFlat: 'flat',
-      vsFirstPeriod: 'first → last period in range'
+      vsFirstPeriod: 'first → last period in range',
+      unknown: 'Unknown'
     },
     ja: {
       loading: 'データ読み込み中…',
@@ -123,7 +124,8 @@
       trendUp: '増加',
       trendDown: '減少',
       trendFlat: '横ばい',
-      vsFirstPeriod: '範囲の最初の期間 → 最後の期間'
+      vsFirstPeriod: '範囲の最初の期間 → 最後の期間',
+      unknown: '不明'
     },
     zh: {
       loading: '加载数据中…',
@@ -176,7 +178,8 @@
       trendUp: '上升',
       trendDown: '下降',
       trendFlat: '持平',
-      vsFirstPeriod: '范围内首期 → 末期'
+      vsFirstPeriod: '范围内首期 → 末期',
+      unknown: '未知'
     },
     ko: {
       loading: '데이터 로딩 중…',
@@ -229,9 +232,218 @@
       trendUp: '증가',
       trendDown: '감소',
       trendFlat: '보합',
-      vsFirstPeriod: '범위의 첫 기간 → 마지막 기간'
+      vsFirstPeriod: '범위의 첫 기간 → 마지막 기간',
+      unknown: '알 수 없음'
     }
   }[lang];
+
+  // ───────── Data label translations (reasons, requestors, products) ─────────
+  // Keyed by exact English source string from the data file. English maps are
+  // implicit identity — only ja/zh/ko need entries. Anything missing falls
+  // through to the English source string.
+  var DATA_TR = {
+    reasons: {
+      ja: {
+        'Defamation': '名誉毀損',
+        'Fraud': '詐欺',
+        'Religious offense': '宗教的侮辱',
+        'National security': '国家安全保障',
+        'Regulated goods and services': '規制対象商品・サービス',
+        'Drug abuse': '薬物乱用',
+        'Other': 'その他',
+        'Trademark': '商標',
+        'Copyright': '著作権',
+        'Obscenity/Nudity': 'わいせつ・ヌード',
+        'Privacy and security': 'プライバシー・セキュリティ',
+        'Adult content': 'アダルトコンテンツ',
+        'Hate speech': 'ヘイトスピーチ',
+        'Bullying harassment': 'いじめ・ハラスメント',
+        'Impersonation': 'なりすまし',
+        'Electoral law': '選挙法',
+        'Geographical dispute': '地理的紛争',
+        'Government criticism': '政府批判',
+        'Unspecified': '不明',
+        'Business complaints': '企業からの苦情',
+        'Violence': '暴力',
+        'Suicide promotion': '自殺の助長'
+      },
+      zh: {
+        'Defamation': '诽谤',
+        'Fraud': '欺诈',
+        'Religious offense': '宗教冒犯',
+        'National security': '国家安全',
+        'Regulated goods and services': '受监管商品与服务',
+        'Drug abuse': '药物滥用',
+        'Other': '其他',
+        'Trademark': '商标',
+        'Copyright': '版权',
+        'Obscenity/Nudity': '淫秽/裸露',
+        'Privacy and security': '隐私与安全',
+        'Adult content': '成人内容',
+        'Hate speech': '仇恨言论',
+        'Bullying harassment': '欺凌骚扰',
+        'Impersonation': '冒充',
+        'Electoral law': '选举法',
+        'Geographical dispute': '地理争议',
+        'Government criticism': '批评政府',
+        'Unspecified': '未指明',
+        'Business complaints': '商业投诉',
+        'Violence': '暴力',
+        'Suicide promotion': '宣扬自杀'
+      },
+      ko: {
+        'Defamation': '명예 훼손',
+        'Fraud': '사기',
+        'Religious offense': '종교 모독',
+        'National security': '국가 안보',
+        'Regulated goods and services': '규제 대상 상품·서비스',
+        'Drug abuse': '약물 남용',
+        'Other': '기타',
+        'Trademark': '상표',
+        'Copyright': '저작권',
+        'Obscenity/Nudity': '음란물·노출',
+        'Privacy and security': '프라이버시 및 보안',
+        'Adult content': '성인 콘텐츠',
+        'Hate speech': '혐오 표현',
+        'Bullying harassment': '괴롭힘·따돌림',
+        'Impersonation': '사칭',
+        'Electoral law': '선거법',
+        'Geographical dispute': '영토 분쟁',
+        'Government criticism': '정부 비판',
+        'Unspecified': '미지정',
+        'Business complaints': '기업 민원',
+        'Violence': '폭력',
+        'Suicide promotion': '자살 조장'
+      }
+    },
+    requestors: {
+      ja: {
+        'Court Order directed at 3rd party': '裁判所命令（第三者宛）',
+        'Government Officials': '政府関係者',
+        'Information and Communications Authority': '情報通信当局',
+        'Other': 'その他',
+        'Police': '警察',
+        'Consumer Protection Authority': '消費者保護当局',
+        'Court Order directed at Google': '裁判所命令（Google宛）',
+        'Data Protection Authority': 'データ保護当局',
+        'Military': '軍',
+        'Supression Orders': '報道差止命令'
+      },
+      zh: {
+        'Court Order directed at 3rd party': '法院命令（针对第三方）',
+        'Government Officials': '政府官员',
+        'Information and Communications Authority': '信息通信主管部门',
+        'Other': '其他',
+        'Police': '警方',
+        'Consumer Protection Authority': '消费者保护主管部门',
+        'Court Order directed at Google': '法院命令（针对谷歌）',
+        'Data Protection Authority': '数据保护主管部门',
+        'Military': '军方',
+        'Supression Orders': '禁令'
+      },
+      ko: {
+        'Court Order directed at 3rd party': '법원 명령 (제3자 대상)',
+        'Government Officials': '정부 관계자',
+        'Information and Communications Authority': '정보통신 당국',
+        'Other': '기타',
+        'Police': '경찰',
+        'Consumer Protection Authority': '소비자 보호 당국',
+        'Court Order directed at Google': '법원 명령 (Google 대상)',
+        'Data Protection Authority': '데이터 보호 당국',
+        'Military': '군',
+        'Supression Orders': '보도 금지 명령'
+      }
+    },
+    products: {
+      // Most Google product names are recognized brand names worldwide and stay
+      // as-is in localized UI (YouTube, Gmail, Maps, etc.). Only generic
+      // descriptors and a few products with established localized names get
+      // translated.
+      ja: {
+        'Web Search': 'ウェブ検索',
+        'My Business Website': 'マイビジネスのウェブサイト',
+        'Sites': 'サイト',
+        'Play Apps': 'Play アプリ',
+        'Local Photos': 'ローカルの写真',
+        'Shopping': 'ショッピング',
+        'Local Reviews': 'ローカルのクチコミ',
+        'Other': 'その他',
+        'Web Search Autocomplete': 'ウェブ検索のオートコンプリート',
+        'Cloud Storage': 'クラウド ストレージ',
+        'Knowledge Graph': 'ナレッジ グラフ',
+        'Books': 'ブックス',
+        'Groups': 'グループ',
+        'News': 'ニュース',
+        'Videos': '動画',
+        'Local Posts': 'ローカルの投稿',
+        'Places': 'プレイス',
+        'Play Music': 'Play ミュージック',
+        'Product Search': '商品検索'
+      },
+      zh: {
+        'Web Search': '网页搜索',
+        'My Business Website': '我的商家网站',
+        'Sites': '协作平台',
+        'Play Apps': 'Play 应用',
+        'Local Photos': '本地照片',
+        'Shopping': '购物',
+        'Local Reviews': '本地评价',
+        'Other': '其他',
+        'Web Search Autocomplete': '网页搜索自动完成',
+        'Cloud Storage': '云存储',
+        'Knowledge Graph': '知识图谱',
+        'Books': '图书',
+        'Groups': '网上论坛',
+        'News': '新闻',
+        'Videos': '视频',
+        'Local Posts': '本地帖子',
+        'Places': '地点',
+        'Play Music': 'Play 音乐',
+        'Product Search': '商品搜索'
+      },
+      ko: {
+        'Web Search': '웹 검색',
+        'My Business Website': '비즈니스 웹사이트',
+        'Sites': '사이트',
+        'Play Apps': 'Play 앱',
+        'Local Photos': '로컬 사진',
+        'Shopping': '쇼핑',
+        'Local Reviews': '로컬 리뷰',
+        'Other': '기타',
+        'Web Search Autocomplete': '웹 검색 자동완성',
+        'Cloud Storage': '클라우드 스토리지',
+        'Knowledge Graph': '지식 그래프',
+        'Books': '도서',
+        'Groups': '그룹스',
+        'News': '뉴스',
+        'Videos': '동영상',
+        'Local Posts': '로컬 게시물',
+        'Places': '장소',
+        'Play Music': 'Play 뮤직',
+        'Product Search': '상품 검색'
+      }
+    }
+  };
+
+  function trReason(s)    { return (lang !== 'en' && DATA_TR.reasons[lang][s])    || s; }
+  function trRequestor(s) { return (lang !== 'en' && DATA_TR.requestors[lang][s]) || s; }
+  function trProduct(s)   { return (lang !== 'en' && DATA_TR.products[lang][s])   || s; }
+
+  // Country localization via Intl.DisplayNames (built-in CLDR data — no
+  // need to maintain a 160-row table per language). Two non-ISO codes in the
+  // dataset ('null' and 'EUROPOL') fall back to a localized "Unknown" label.
+  var COUNTRY_FMT = (function () {
+    if (lang === 'en' || typeof Intl === 'undefined' || !Intl.DisplayNames) return null;
+    try { return new Intl.DisplayNames([LOCALE], { type: 'region' }); }
+    catch (e) { return null; }
+  })();
+  function trCountryName(code, fallback) {
+    if (lang === 'en') return fallback;
+    if (!/^[A-Z]{2}$/.test(code)) return L.unknown || fallback;
+    if (!COUNTRY_FMT) return fallback;
+    try { return COUNTRY_FMT.of(code) || fallback; }
+    catch (e) { return fallback; }
+  }
 
   // ───────── State ─────────
   var DATA = null;
@@ -479,6 +691,10 @@
     var dim = DIM[FILTERS.breakdownBy];
     var labelLookup = DATA[dim.labelsKey];
     var withCountryCode = FILTERS.breakdownBy === 'country';
+    var bdTr = FILTERS.breakdownBy === 'reason'    ? trReason
+             : FILTERS.breakdownBy === 'requestor' ? trRequestor
+             : FILTERS.breakdownBy === 'product'   ? trProduct
+             : null;
 
     // Rank categories by total items in the selected period range.
     // Rows are pre-filtered by fromP..toP, so values outside the range are 0
@@ -497,7 +713,12 @@
     var datasets = top.map(function (e, i) {
       var color = PALETTE[i % PALETTE.length];
       var name = labelLookup[e.idx];
-      if (withCountryCode) name = name + ' (' + DATA.countries[e.idx] + ')';
+      if (withCountryCode) {
+        var code = DATA.countries[e.idx];
+        name = trCountryName(code, name) + ' (' + code + ')';
+      } else if (bdTr) {
+        name = bdTr(name);
+      }
       return {
         label: name,
         data: e.series.slice(fromP, toP + 1),
@@ -618,17 +839,19 @@
 
   function renderCountries(agg) {
     var labels = DATA.countries.map(function (code, i) {
-      return DATA.country_names[i] + ' (' + code + ')';
+      return trCountryName(code, DATA.country_names[i]) + ' (' + code + ')';
     });
     renderHBar('countries', 'td-chart-countries', agg.byCountry, 'country', labels, 10, BRAND);
   }
   function renderProducts(agg) {
-    renderHBar('products', 'td-chart-products', agg.byProduct, 'product', DATA.products, 10, BRAND_LIGHT);
+    var labels = DATA.products.map(trProduct);
+    renderHBar('products', 'td-chart-products', agg.byProduct, 'product', labels, 10, BRAND_LIGHT);
   }
 
   function renderReasons(agg) {
     destroy('reasons');
-    var top = topN(agg.byReason, 8, DATA.reasons);
+    var reasonLabels = DATA.reasons.map(trReason);
+    var top = topN(agg.byReason, 8, reasonLabels);
     var ctx = document.getElementById('td-chart-reasons').getContext('2d');
     var textColor = chartTextColor();
     CHARTS.reasons = new Chart(ctx, {
@@ -697,10 +920,10 @@
       var removed = r[7] + r[8] + r[12];
       return '<tr>' +
         '<td>' + DATA.periodLabels[r[0]] + '</td>' +
-        '<td>' + DATA.country_names[r[1]] + '</td>' +
-        '<td>' + DATA.requestors[r[2]] + '</td>' +
-        '<td>' + DATA.products[r[3]] + '</td>' +
-        '<td>' + DATA.reasons[r[4]] + '</td>' +
+        '<td>' + trCountryName(DATA.countries[r[1]], DATA.country_names[r[1]]) + '</td>' +
+        '<td>' + trRequestor(DATA.requestors[r[2]]) + '</td>' +
+        '<td>' + trProduct(DATA.products[r[3]]) + '</td>' +
+        '<td>' + trReason(DATA.reasons[r[4]]) + '</td>' +
         '<td class="td-num">' + fmt(r[6]) + '</td>' +
         '<td class="td-num">' + fmt(removed) + '</td>' +
         '</tr>';
@@ -831,11 +1054,17 @@
         buildPeriodSelects();
         buildBreakdownSelect();
         buildSelect('td-country', DATA.countries, L.anyCountry, function (code, i) {
-          return DATA.country_names[i] + ' (' + code + ')';
+          return trCountryName(code, DATA.country_names[i]) + ' (' + code + ')';
         });
-        buildSelect('td-requestor', DATA.requestors, L.anyRequestor);
-        buildSelect('td-product', DATA.products, L.anyProduct);
-        buildSelect('td-reason', DATA.reasons, L.anyReason);
+        buildSelect('td-requestor', DATA.requestors, L.anyRequestor, function (label) {
+          return trRequestor(label);
+        });
+        buildSelect('td-product', DATA.products, L.anyProduct, function (label) {
+          return trProduct(label);
+        });
+        buildSelect('td-reason', DATA.reasons, L.anyReason, function (label) {
+          return trReason(label);
+        });
         wireFilters();
         watchTheme();
         refresh();
