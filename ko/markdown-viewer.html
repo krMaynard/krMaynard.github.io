@@ -1,10 +1,10 @@
 ---
 layout: main
-title: Markdown Live Viewer
-lang: en
-lang_url: /ja/markdown-viewer.html
+title: Markdown 라이브 뷰어
+lang: ko
+lang_url: /markdown-viewer.html
+lang_url_ja: /ja/markdown-viewer.html
 lang_url_zh: /zh/markdown-viewer.html
-lang_url_ko: /ko/markdown-viewer.html
 ---
 
 <style>
@@ -248,43 +248,43 @@ lang_url_ko: /ko/markdown-viewer.html
 }
 </style>
 
-<span class="section-label">Tool</span>
-<h1>Markdown Live Viewer</h1>
-<p class="md-viewer-desc">Type or paste Markdown on the left — the preview updates instantly on the right. Runs entirely in your browser; no data is sent anywhere.</p>
+<span class="section-label">도구</span>
+<h1>Markdown 라이브 뷰어</h1>
+<p class="md-viewer-desc">왼쪽에 Markdown을 입력하면 오른쪽에 실시간으로 미리보기가 표시됩니다. 모든 처리는 브라우저 내에서 이루어지며 데이터는 외부로 전송되지 않습니다.</p>
 
 <div class="md-toolbar" id="md-toolbar">
-  <button class="md-toolbar-btn" data-wrap="**" title="Bold"><b>B</b></button>
-  <button class="md-toolbar-btn" data-wrap="_" title="Italic"><i>I</i></button>
-  <button class="md-toolbar-btn" data-wrap="~~" title="Strikethrough"><s>S</s></button>
+  <button class="md-toolbar-btn" data-wrap="**" title="굵게"><b>B</b></button>
+  <button class="md-toolbar-btn" data-wrap="_" title="기울임"><i>I</i></button>
+  <button class="md-toolbar-btn" data-wrap="~~" title="취소선"><s>S</s></button>
   <div class="md-toolbar-sep"></div>
-  <button class="md-toolbar-btn" data-prefix="# " title="Heading 1">H1</button>
-  <button class="md-toolbar-btn" data-prefix="## " title="Heading 2">H2</button>
-  <button class="md-toolbar-btn" data-prefix="### " title="Heading 3">H3</button>
+  <button class="md-toolbar-btn" data-prefix="# " title="제목1">H1</button>
+  <button class="md-toolbar-btn" data-prefix="## " title="제목2">H2</button>
+  <button class="md-toolbar-btn" data-prefix="### " title="제목3">H3</button>
   <div class="md-toolbar-sep"></div>
-  <button class="md-toolbar-btn" data-wrap="`" title="Inline code"><code style="font-size:0.85em">c</code></button>
-  <button class="md-toolbar-btn" data-block="```\n" data-block-end="\n```" title="Code block">```</button>
-  <button class="md-toolbar-btn" data-prefix="> " title="Blockquote">❝</button>
+  <button class="md-toolbar-btn" data-wrap="`" title="인라인 코드"><code style="font-size:0.85em">c</code></button>
+  <button class="md-toolbar-btn" data-block="```\n" data-block-end="\n```" title="코드 블록">```</button>
+  <button class="md-toolbar-btn" data-prefix="> " title="인용">❝</button>
   <div class="md-toolbar-sep"></div>
-  <button class="md-toolbar-btn" data-prefix="- " title="Unordered list">• list</button>
-  <button class="md-toolbar-btn" data-prefix="1. " title="Ordered list">1. list</button>
-  <button class="md-toolbar-btn" data-insert="[text](url)" title="Link">link</button>
-  <button class="md-toolbar-btn" data-insert="---" title="Horizontal rule">—</button>
-  <span class="md-toolbar-stats" id="md-stats">0 words · 0 chars</span>
+  <button class="md-toolbar-btn" data-prefix="- " title="글머리 기호">• 목록</button>
+  <button class="md-toolbar-btn" data-prefix="1. " title="번호 목록">1. 목록</button>
+  <button class="md-toolbar-btn" data-insert="[텍스트](URL)" title="링크">링크</button>
+  <button class="md-toolbar-btn" data-insert="---" title="구분선">—</button>
+  <span class="md-toolbar-stats" id="md-stats">0단어 · 0자</span>
   <div class="md-toolbar-actions">
-    <button class="md-action-btn" id="md-copy-html">Copy HTML</button>
-    <button class="md-action-btn" id="md-copy-md">Copy MD</button>
-    <button class="md-action-btn" id="md-clear">Clear</button>
+    <button class="md-action-btn" id="md-copy-html">HTML 복사</button>
+    <button class="md-action-btn" id="md-copy-md">MD 복사</button>
+    <button class="md-action-btn" id="md-clear">지우기</button>
   </div>
 </div>
 
 <div class="md-panes" id="md-panes">
   <div class="md-pane" id="md-input-pane">
     <div class="md-pane-label">Markdown</div>
-    <textarea id="md-input" spellcheck="false" placeholder="Type or paste your Markdown here…"></textarea>
+    <textarea id="md-input" spellcheck="false" placeholder="여기에 Markdown을 입력하거나 붙여넣으세요…"></textarea>
   </div>
-  <div class="md-divider" id="md-divider" title="Drag to resize"></div>
+  <div class="md-divider" id="md-divider" title="드래그하여 크기 조정"></div>
   <div class="md-pane" id="md-output-pane">
-    <div class="md-pane-label">Preview</div>
+    <div class="md-pane-label">미리보기</div>
     <div class="md-preview-scroll">
       <div id="md-preview" class="md-preview-content"></div>
     </div>
@@ -304,35 +304,35 @@ lang_url_ko: /ko/markdown-viewer.html
   var rightPane = document.getElementById('md-output-pane');
 
   var SAMPLE = [
-    '# Markdown Live Viewer',
+    '# Markdown 라이브 뷰어',
     '',
-    'Type **bold**, _italic_, or `inline code` — the preview updates instantly.',
+    '**굵게**, _기울임_, `인라인 코드` — 입력하면 미리보기가 즉시 업데이트됩니다.',
     '',
-    '## Features',
+    '## 기능',
     '',
-    '- Live preview as you type',
-    '- Toolbar shortcuts for common formatting',
-    '- Copy rendered HTML or raw Markdown',
-    '- Resizable split pane',
-    '- Dark mode support',
+    '- 실시간 미리보기',
+    '- 자주 쓰는 서식 툴바',
+    '- 렌더링된 HTML 또는 Markdown 복사',
+    '- 크기 조절 가능한 분할 창',
+    '- 다크 모드 지원',
     '',
-    '## Code',
+    '## 코드 예시',
     '',
     '```javascript',
     'function greet(name) {',
-    '  return `Hello, ${name}!`;',
+    '  return `안녕하세요, ${name}!`;',
     '}',
     '```',
     '',
-    '## Table',
+    '## 표',
     '',
-    '| Language | Family | Script |',
-    '|----------|--------|--------|',
-    '| Japanese | Japonic | Kana / Kanji |',
-    '| Chinese | Sino-Tibetan | Hanzi |',
-    '| Korean | Koreanic | Hangul |',
+    '| 언어 | 어족 | 문자 |',
+    '|------|------|------|',
+    '| 한국어 | 고립어 | 한글 |',
+    '| 일본어 | 고립어 | 가나·한자 |',
+    '| 중국어 | 중국티베트어족 | 한자 |',
     '',
-    '> Everything runs locally in your browser. No data is sent anywhere.',
+    '> 모든 처리는 브라우저 내에서 이루어집니다. 데이터는 외부로 전송되지 않습니다.',
   ].join('\n');
 
   input.value = SAMPLE;
@@ -342,9 +342,11 @@ lang_url_ko: /ko/markdown-viewer.html
   function render() {
     preview.innerHTML = DOMPurify.sanitize(marked.parse(input.value));
     var text  = input.value;
-    var words = text.trim() ? text.trim().split(/\s+/).length : 0;
+    var cjk  = (text.match(/[⺀-⻿　-鿿豈-﫿㐀-䶿가-힣]/g) || []).length;
+    var rest  = text.replace(/[⺀-⻿　-鿿豈-﫿㐀-䶿가-힣]/g, '').trim();
+    var words = cjk + (rest ? rest.split(/\s+/).filter(Boolean).length : 0);
     var chars = text.length;
-    stats.textContent = words + (words === 1 ? ' word' : ' words') + ' · ' + chars + (chars === 1 ? ' char' : ' chars');
+    stats.textContent = words + '단어 · ' + chars + '자';
   }
 
   var debouncedRender = (function () {
@@ -354,7 +356,6 @@ lang_url_ko: /ko/markdown-viewer.html
   input.addEventListener('input', debouncedRender);
   render();
 
-  /* ---- Toolbar ---- */
   document.getElementById('md-toolbar').addEventListener('click', function (e) {
     var btn = e.target.closest('[data-wrap],[data-prefix],[data-block],[data-insert]');
     if (!btn || btn.classList.contains('md-action-btn')) return;
@@ -390,7 +391,6 @@ lang_url_ko: /ko/markdown-viewer.html
     render();
   });
 
-  /* ---- Copy / Clear actions ---- */
   function flashBtn(btn, msg, original) {
     btn.textContent = msg;
     btn.classList.add('md-copied');
@@ -402,25 +402,24 @@ lang_url_ko: /ko/markdown-viewer.html
 
   document.getElementById('md-copy-html').addEventListener('click', function () {
     navigator.clipboard.writeText(preview.innerHTML).then(function () {
-      flashBtn(document.getElementById('md-copy-html'), 'Copied!', 'Copy HTML');
+      flashBtn(document.getElementById('md-copy-html'), '복사됨!', 'HTML 복사');
     });
   });
 
   document.getElementById('md-copy-md').addEventListener('click', function () {
     navigator.clipboard.writeText(input.value).then(function () {
-      flashBtn(document.getElementById('md-copy-md'), 'Copied!', 'Copy MD');
+      flashBtn(document.getElementById('md-copy-md'), '복사됨!', 'MD 복사');
     });
   });
 
   document.getElementById('md-clear').addEventListener('click', function () {
-    if (!input.value || confirm('Clear the editor?')) {
+    if (!input.value || confirm('에디터를 지우시겠습니까?')) {
       input.value = '';
       render();
       input.focus();
     }
   });
 
-  /* ---- Resizable divider ---- */
   var dragging = false, startX, startY, startW;
 
   function isVertical() { return window.innerWidth <= 640; }
