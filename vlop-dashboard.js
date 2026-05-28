@@ -914,14 +914,18 @@
 
     var catLabels = sorted.map(function (x) { return shortCatLabel(x.idx); });
     var catData   = sorted.map(function (x) { return x.val; });
+    // ja/zh use full-width parens; ko uses ASCII parens (the prefix strings
+    // are written to match each language's typographic convention, so the
+    // closing paren must follow suit).
+    var closeParen = (lang === 'ja' || lang === 'zh') ? '）' : ')';
     var title;
     if (parentCode) {
       title = lang !== 'en'
-        ? _.topKeywords + metricLabel + '）'
+        ? _.topKeywords + metricLabel + closeParen
         : _.topKeywords + metricLabel.toLowerCase();
     } else {
       title = lang !== 'en'
-        ? _.topCategories + metricLabel + '）'
+        ? _.topCategories + metricLabel + closeParen
         : _.topCategories + metricLabel.toLowerCase();
     }
 
