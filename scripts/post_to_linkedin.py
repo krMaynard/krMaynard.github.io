@@ -257,11 +257,9 @@ def _parse_commentary_and_hashtags(text):
     # Clean tokens: strip trailing punctuation, add # if missing, drop empties
     valid_tokens = []
     for t in raw_hashtag_line.split():
-        token = t.rstrip(",.;")
+        token = t.rstrip(",.;!?").lstrip("#")
         if token:
-            hashtag = token if token.startswith("#") else f"#{token}"
-            if len(hashtag) > 1:
-                valid_tokens.append(hashtag)
+            valid_tokens.append(f"#{token}")
     commentary = "\n".join(commentary_lines).strip()
     return commentary, " ".join(valid_tokens)
 
