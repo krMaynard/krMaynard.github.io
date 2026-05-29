@@ -249,12 +249,19 @@ def _parse_commentary_and_hashtags(text):
     commentary_lines = []
     for line in lines:
         stripped = line.strip()
-        if stripped.upper().startswith("HASHTAGS:"):
-            raw_hashtag_line = stripped[len("HASHTAGS:"):].strip()
+        normalized = stripped.replace("*", "")  # strip markdown bold e.g. **HASHTAGS:**
+        if normalized.upper().startswith("HASHTAGS:"):
+            raw_hashtag_line = normalized[len("HASHTAGS:"):].strip()
         else:
             commentary_lines.append(line)
-    # Keep only tokens that are actually hashtags to guard against malformed output
-    valid_tokens = [t for t in raw_hashtag_line.split() if t.startswith("#") and len(t) > 1]
+    # Clean tokens: strip trailing punctuation, add # if missing, drop empties
+    valid_tokens = []
+    for t in raw_hashtag_line.split():
+        token = t.rstrip(",.;")
+        if token:
+            hashtag = token if token.startswith("#") else f"#{token}"
+            if len(hashtag) > 1:
+                valid_tokens.append(hashtag)
     commentary = "\n".join(commentary_lines).strip()
     return commentary, " ".join(valid_tokens)
 
