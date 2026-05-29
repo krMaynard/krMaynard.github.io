@@ -158,6 +158,66 @@ def _slugify_tag(tag):
     return "#" + slug if slug else ""
 
 
+class _PostBodyParser(HTMLParser):
+    """Extracts paragraph text from <div class="post-body">."""
+
+    def __init__(self):
+        super().__init__()
+        self._in_body = False
+        self._depth = 0
+        self._in_p = False
+        self._current = ""
+        self.paragraphs = []
+
+    def handle_starttag(self, tag, attrs):
+        attrs_dict = dict(attrs)
+        if tag == "div" and "post-body" in attrs_dict.get("class", ""):
+            self._in_body = True
+            self._depth = 1
+            return
+        if not self._in_body:
+            return
+        if tag == "div":
+            self._depth += 1
+        elif tag == "p":
+            self._in_p = True
+            self._current = ""
+
+    def handle_endtag(self, tag):
+        if not self._in_body:
+            return
+        if tag == "div":
+            self._depth -= 1
+            if self._depth == 0:
+                self._in_body = False
+        elif tag == "p" and self._in_p:
+            self._in_p = False
+            para = self._current.strip()
+            if para:
+                self.paragraphs.append(para)
+
+    def handle_data(self, data):
+        if self._in_body and self._in_p:
+            self._current += data
+
+
+def _extract_post_body(url):
+    """Derive a local file path from the post URL and return paragraph text."""
+    if not url or not url.startswith(SITE_BASE_URL):
+        return None
+    rel_path = url[len(SITE_BASE_URL):].lstrip("/")
+    if not rel_path.endswith(".html"):
+        return None
+    try:
+        with open(rel_path, encoding="utf-8") as f:
+            html = f.read()
+    except FileNotFoundError:
+        return None
+    parser = _PostBodyParser()
+    parser.feed(html)
+    return "\n\n".join(parser.paragraphs) if parser.paragraphs else None
+
+
 def _call_gemini(model, prompt, api_key):
     """Call the Gemini generateContent API for a given model. Returns text or raises."""
     payload = {"contents": [{"parts": [{"text": prompt}]}]}
@@ -177,8 +237,8 @@ def _call_gemini(model, prompt, api_key):
         return body["candidates"][0]["content"]["parts"][0]["text"].strip()
 
 
-def generate_linkedin_commentary(title, summary, api_key):
-    """Rewrite the blog entry as engaging LinkedIn commentary.
+def generate_linkedin_commentary(title, content, api_key):
+    """Generate bilingual EN/JA LinkedIn commentary from the blog post content.
 
     Tries GEMINI_PRIMARY_MODEL first; falls back to GEMINI_FALLBACK_MODEL on
     any error; returns None if both fail (caller uses verbatim summary).
@@ -186,16 +246,25 @@ def generate_linkedin_commentary(title, summary, api_key):
     prompt = (
         "You are writing a LinkedIn post for Kieran Maynard, a product manager "
         "specialising in AI, compliance, and content policy.\n\n"
-        "Rewrite the blog entry below as LinkedIn post commentary. "
-        "Return ONLY the body text — no URL, no hashtags, no sign-off, no emojis.\n\n"
-        "Guidelines:\n"
-        "- Open with a strong hook (one short sentence that makes people stop scrolling)\n"
+        "Based on the blog post below, write a bilingual LinkedIn post — "
+        "English first, then Japanese. "
+        "Return ONLY the post body in exactly this format "
+        "(no URL, no hashtags, no sign-off, no emojis):\n\n"
+        "[English commentary]\n\n"
+        "日本語は下記にあります\n\n"
+        "[Japanese commentary]\n\n"
+        "Guidelines for the English section:\n"
+        "- Open with a strong hook (one short sentence that stops the scroll)\n"
         "- Short paragraphs separated by blank lines — LinkedIn formatting\n"
         "- Conversational first-person tone\n"
-        "- 100–200 words\n"
+        "- 100–150 words\n"
         "- End with a brief question or observation to invite engagement\n\n"
+        "Guidelines for the Japanese section:\n"
+        "- Natural, fluent Japanese — not a literal translation\n"
+        "- Professional LinkedIn tone (です/ます)\n"
+        "- Match the structure and energy of the English\n\n"
         f"Title: {title}\n\n"
-        f"Summary: {summary}"
+        f"Blog post:\n{content}"
     )
 
     for model in (GEMINI_PRIMARY_MODEL, GEMINI_FALLBACK_MODEL):
@@ -426,8 +495,14 @@ def main():
     gemini_api_key = os.environ.get("GEMINI_API_KEY")
     commentary = None
     if gemini_api_key:
-        print("Generating LinkedIn commentary with Gemini…")
-        commentary = generate_linkedin_commentary(entry["title"], entry["summary"], gemini_api_key)
+        post_body = _extract_post_body(entry["url"])
+        if post_body:
+            print(f"Using full post body for Gemini ({len(post_body)} chars).")
+        else:
+            print("Full post body not found — falling back to blog.html summary.")
+            post_body = entry["summary"]
+        print("Generating bilingual LinkedIn commentary with Gemini…")
+        commentary = generate_linkedin_commentary(entry["title"], post_body, gemini_api_key)
     else:
         print("GEMINI_API_KEY not set — using verbatim blog summary.")
 
