@@ -237,11 +237,37 @@ def _call_gemini(model, prompt, api_key):
         return body["candidates"][0]["content"]["parts"][0]["text"].strip()
 
 
+def _parse_commentary_and_hashtags(text):
+    """Split Gemini output into (commentary, hashtags_string).
+
+    Looks for a line starting with 'HASHTAGS:' anywhere in the text (usually
+    last). Returns the remainder as commentary and only well-formed '#Tag'
+    tokens as a space-separated string.
+    """
+    lines = text.strip().splitlines()
+    raw_hashtag_line = ""
+    commentary_lines = []
+    for line in lines:
+        stripped = line.strip()
+        if stripped.upper().startswith("HASHTAGS:"):
+            raw_hashtag_line = stripped[len("HASHTAGS:"):].strip()
+        else:
+            commentary_lines.append(line)
+    # Keep only tokens that are actually hashtags to guard against malformed output
+    valid_tokens = [t for t in raw_hashtag_line.split() if t.startswith("#") and len(t) > 1]
+    commentary = "\n".join(commentary_lines).strip()
+    return commentary, " ".join(valid_tokens)
+
+
 def generate_linkedin_commentary(title, content, api_key):
     """Generate bilingual EN/JA LinkedIn commentary from the blog post content.
 
     Tries GEMINI_PRIMARY_MODEL first; falls back to GEMINI_FALLBACK_MODEL on
-    any error; returns None if both fail (caller uses verbatim summary).
+    any error; returns (None, "") if both fail (caller uses verbatim summary).
+
+    Returns:
+        (commentary_text, hashtags_string) — hashtags_string is space-separated
+        '#Tag' tokens chosen by the model, or empty string on failure.
     """
     prompt = (
         "You are writing a LinkedIn post for Kieran Maynard, a product manager "
@@ -249,10 +275,11 @@ def generate_linkedin_commentary(title, content, api_key):
         "Based on the blog post below, write a bilingual LinkedIn post — "
         "English first, then Japanese. "
         "Return ONLY the post body in exactly this format "
-        "(no URL, no hashtags, no sign-off, no emojis):\n\n"
-        "[English commentary]\n\n"
+        "(no URL, no sign-off, no emojis):\n\n"
         "日本語は下記にあります\n\n"
+        "[English commentary]\n\n"
         "[Japanese commentary]\n\n"
+        "HASHTAGS: #Tag1 #Tag2 #Tag3\n\n"
         "Guidelines for the English section:\n"
         "- Open with a strong hook (one short sentence that stops the scroll)\n"
         "- Short paragraphs separated by blank lines — LinkedIn formatting\n"
@@ -263,6 +290,10 @@ def generate_linkedin_commentary(title, content, api_key):
         "- Natural, fluent Japanese — not a literal translation\n"
         "- Professional LinkedIn tone (です/ます)\n"
         "- Match the structure and energy of the English\n\n"
+        "Guidelines for HASHTAGS:\n"
+        "- Choose 3–5 relevant LinkedIn hashtags that will maximise reach\n"
+        "- Mix broad professional tags with topic-specific ones\n"
+        "- No spaces within a tag (e.g. #ProductManagement not #Product Management)\n\n"
         f"Title: {title}\n\n"
         f"Blog post:\n{content}"
     )
@@ -270,16 +301,20 @@ def generate_linkedin_commentary(title, content, api_key):
     for model in (GEMINI_PRIMARY_MODEL, GEMINI_FALLBACK_MODEL):
         try:
             text = _call_gemini(model, prompt, api_key)
+            commentary, hashtags = _parse_commentary_and_hashtags(text)
             print(f"Gemini commentary generated ({model}).")
-            return text
+            return commentary, hashtags
         except Exception as e:
             print(f"Gemini {model} error: {e} — {'trying fallback' if model == GEMINI_PRIMARY_MODEL else 'falling back to verbatim summary'}.", file=sys.stderr)
 
-    return None
+    return None, ""
 
 
-def build_post_text(entry, commentary=None):
-    hashtags = " ".join(s for t in entry["tags"] if t for s in [_slugify_tag(t)] if s)
+def build_post_text(entry, commentary=None, llm_hashtags=None):
+    if llm_hashtags:
+        hashtags = llm_hashtags
+    else:
+        hashtags = " ".join(s for t in entry["tags"] if t for s in [_slugify_tag(t)] if s)
     url_line = entry["url"] or (SITE_BASE_URL + "/blog.html")
     body = commentary if commentary else entry["summary"]
 
@@ -332,8 +367,8 @@ def refresh_access_token(refresh_token, client_id, client_secret):
         return None
 
 
-def post_to_linkedin(entry, access_token, person_urn, commentary=None):
-    post_text = build_post_text(entry, commentary=commentary)
+def post_to_linkedin(entry, access_token, person_urn, commentary=None, llm_hashtags=None):
+    post_text = build_post_text(entry, commentary=commentary, llm_hashtags=llm_hashtags)
 
     content = {
         "shareCommentary": {"text": post_text},
@@ -494,6 +529,7 @@ def main():
     # --- Optionally rewrite with Gemini ---
     gemini_api_key = os.environ.get("GEMINI_API_KEY")
     commentary = None
+    llm_hashtags = None
     if gemini_api_key:
         post_body = _extract_post_body(entry["url"])
         if post_body:
@@ -502,13 +538,13 @@ def main():
             print("Full post body not found — falling back to blog.html summary.")
             post_body = entry["summary"]
         print("Generating bilingual LinkedIn commentary with Gemini…")
-        commentary = generate_linkedin_commentary(entry["title"], post_body, gemini_api_key)
+        commentary, llm_hashtags = generate_linkedin_commentary(entry["title"], post_body, gemini_api_key)
     else:
         print("GEMINI_API_KEY not set — using verbatim blog summary.")
 
     # --- Post to LinkedIn ---
     print(f"New entry detected: {entry['id']} — {entry['title']}")
-    post_id = post_to_linkedin(entry, access_token, person_urn, commentary=commentary)
+    post_id = post_to_linkedin(entry, access_token, person_urn, commentary=commentary, llm_hashtags=llm_hashtags)
     print(f"Posted to LinkedIn: {post_id}")
 
     write_last_posted(entry["id"])
