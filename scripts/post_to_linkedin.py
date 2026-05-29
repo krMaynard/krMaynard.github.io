@@ -310,15 +310,29 @@ def generate_linkedin_commentary(title, content, api_key):
     return None, ""
 
 
+def _ja_url(url):
+    """Return the /ja/ equivalent of an English blog post URL, or None."""
+    if not url:
+        return None
+    prefix = SITE_BASE_URL + "/blog/"
+    if url.startswith(prefix):
+        return SITE_BASE_URL + "/ja/blog/" + url[len(prefix):]
+    return None
+
+
 def build_post_text(entry, commentary=None, llm_hashtags=None):
     if llm_hashtags:
         hashtags = llm_hashtags
     else:
         hashtags = " ".join(s for t in entry["tags"] if t for s in [_slugify_tag(t)] if s)
     url_line = entry["url"] or (SITE_BASE_URL + "/blog.html")
+    ja_url = _ja_url(entry.get("url"))
     body = commentary if commentary else entry["summary"]
 
-    parts = [entry["title"], "", body, "", url_line]
+    parts = [entry["title"], "", body]
+    if ja_url:
+        parts += ["", ja_url]
+    parts += ["", url_line]
     if hashtags:
         parts += ["", hashtags]
     text = "\n".join(parts)
@@ -329,6 +343,7 @@ def build_post_text(entry, commentary=None, llm_hashtags=None):
     # Trim body to fit (only needed if Gemini returns something unexpectedly long)
     overhead = (
         len(entry["title"]) + 2
+        + (2 + len(ja_url) if ja_url else 0)
         + 2 + len(url_line)
         + (2 + len(hashtags) if hashtags else 0)
         + 1  # ellipsis
