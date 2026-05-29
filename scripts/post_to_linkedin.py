@@ -237,11 +237,33 @@ def _call_gemini(model, prompt, api_key):
         return body["candidates"][0]["content"]["parts"][0]["text"].strip()
 
 
+def _parse_commentary_and_hashtags(text):
+    """Split Gemini output into (commentary, hashtags_string).
+
+    Looks for a line starting with 'HASHTAGS:' anywhere in the text (usually
+    last). Returns the remainder as commentary and only well-formed '#Tag'
+    tokens as a space-separated string.
+    """
+    lines = text.strip().splitlines()
+    raw_hashtag_line = ""
+    commentary_lines = []
+    for line in lines:
+        stripped = line.strip()
+        if stripped.upper().startswith("HASHTAGS:"):
+            raw_hashtag_line = stripped[len("HASHTAGS:"):].strip()
+        else:
+            commentary_lines.append(line)
+    # Keep only tokens that are actually hashtags to guard against malformed output
+    valid_tokens = [t for t in raw_hashtag_line.split() if t.startswith("#") and len(t) > 1]
+    commentary = "\n".join(commentary_lines).strip()
+    return commentary, " ".join(valid_tokens)
+
+
 def generate_linkedin_commentary(title, content, api_key):
     """Generate bilingual EN/JA LinkedIn commentary from the blog post content.
 
     Tries GEMINI_PRIMARY_MODEL first; falls back to GEMINI_FALLBACK_MODEL on
-    any error; returns (None, None) if both fail (caller uses verbatim summary).
+    any error; returns (None, "") if both fail (caller uses verbatim summary).
 
     Returns:
         (commentary_text, hashtags_string) — hashtags_string is space-separated
@@ -279,7 +301,6 @@ def generate_linkedin_commentary(title, content, api_key):
     for model in (GEMINI_PRIMARY_MODEL, GEMINI_FALLBACK_MODEL):
         try:
             text = _call_gemini(model, prompt, api_key)
-            # Extract HASHTAGS line from end of response
             commentary, hashtags = _parse_commentary_and_hashtags(text)
             print(f"Gemini commentary generated ({model}).")
             return commentary, hashtags
@@ -287,26 +308,6 @@ def generate_linkedin_commentary(title, content, api_key):
             print(f"Gemini {model} error: {e} — {'trying fallback' if model == GEMINI_PRIMARY_MODEL else 'falling back to verbatim summary'}.", file=sys.stderr)
 
     return None, ""
-
-
-def _parse_commentary_and_hashtags(text):
-    """Split Gemini output into (commentary, hashtags_string).
-
-    Looks for a line starting with 'HASHTAGS:' anywhere in the text (usually
-    last). Returns the remainder as commentary and the hashtag tokens as a
-    space-separated string.
-    """
-    lines = text.strip().splitlines()
-    hashtag_line = ""
-    commentary_lines = []
-    for line in lines:
-        stripped = line.strip()
-        if stripped.upper().startswith("HASHTAGS:"):
-            hashtag_line = stripped[len("HASHTAGS:"):].strip()
-        else:
-            commentary_lines.append(line)
-    commentary = "\n".join(commentary_lines).strip()
-    return commentary, hashtag_line
 
 
 def build_post_text(entry, commentary=None, llm_hashtags=None):
