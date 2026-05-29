@@ -265,12 +265,16 @@ def _call_anthropic(model, prompt, api_key):
         },
         method="POST",
     )
-    with urllib.request.urlopen(req, timeout=60) as resp:
-        body = json.loads(resp.read())
-        for block in body.get("content", []):
-            if block.get("type") == "text":
-                return block["text"].strip()
-        raise ValueError("No text block in Anthropic response")
+    try:
+        with urllib.request.urlopen(req, timeout=60) as resp:
+            body = json.loads(resp.read())
+            for block in body.get("content", []):
+                if block.get("type") == "text":
+                    return block["text"].strip()
+            raise ValueError("No text block in Anthropic response")
+    except urllib.error.HTTPError as e:
+        err_body = e.read().decode("utf-8", errors="replace")
+        raise RuntimeError(f"Anthropic API error {e.code}: {err_body}") from e
 
 
 def _parse_commentary_and_hashtags(text):
