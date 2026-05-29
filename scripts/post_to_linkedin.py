@@ -546,21 +546,20 @@ def main():
         print(f"Entry {entry['id']} already posted to LinkedIn. Nothing to do.")
         return
 
-    # --- Optionally rewrite with Gemini ---
+    # --- Rewrite with Gemini (required) ---
     gemini_api_key = os.environ.get("GEMINI_API_KEY")
-    commentary = None
-    llm_hashtags = None
-    if gemini_api_key:
-        post_body = _extract_post_body(entry["url"])
-        if post_body:
-            print(f"Using full post body for Gemini ({len(post_body)} chars).")
-        else:
-            print("Full post body not found — falling back to blog.html summary.")
-            post_body = entry["summary"]
-        print("Generating bilingual LinkedIn commentary with Gemini…")
-        commentary, llm_hashtags = generate_linkedin_commentary(entry["title"], post_body, gemini_api_key)
+    if not gemini_api_key:
+        print("GEMINI_API_KEY not set — aborting.", file=sys.stderr)
+        sys.exit(1)
+
+    post_body = _extract_post_body(entry["url"])
+    if post_body:
+        print(f"Using full post body for Gemini ({len(post_body)} chars).")
     else:
-        print("GEMINI_API_KEY not set — using verbatim blog summary.")
+        print("Full post body not found — falling back to blog.html summary.")
+        post_body = entry["summary"]
+    print("Generating bilingual LinkedIn commentary with Gemini…")
+    commentary, llm_hashtags = generate_linkedin_commentary(entry["title"], post_body, gemini_api_key)
 
     # --- Post to LinkedIn ---
     print(f"New entry detected: {entry['id']} — {entry['title']}")
