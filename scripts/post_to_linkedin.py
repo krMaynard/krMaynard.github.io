@@ -249,12 +249,17 @@ def _parse_commentary_and_hashtags(text):
     commentary_lines = []
     for line in lines:
         stripped = line.strip()
-        if stripped.upper().startswith("HASHTAGS:"):
-            raw_hashtag_line = stripped[len("HASHTAGS:"):].strip()
+        normalized = stripped.replace("*", "")  # strip markdown bold e.g. **HASHTAGS:**
+        if normalized.upper().startswith("HASHTAGS:"):
+            raw_hashtag_line = normalized[len("HASHTAGS:"):].strip()
         else:
             commentary_lines.append(line)
-    # Keep only tokens that are actually hashtags to guard against malformed output
-    valid_tokens = [t for t in raw_hashtag_line.split() if t.startswith("#") and len(t) > 1]
+    # Clean tokens: strip trailing punctuation, add # if missing, drop empties
+    valid_tokens = []
+    for t in raw_hashtag_line.split():
+        token = t.rstrip(",.;!?").lstrip("#")
+        if token:
+            valid_tokens.append(f"#{token}")
     commentary = "\n".join(commentary_lines).strip()
     return commentary, " ".join(valid_tokens)
 
@@ -310,15 +315,29 @@ def generate_linkedin_commentary(title, content, api_key):
     return None, ""
 
 
+def _ja_url(url):
+    """Return the /ja/ equivalent of an English blog post URL, or None."""
+    if not url:
+        return None
+    prefix = SITE_BASE_URL + "/blog/"
+    if url.startswith(prefix):
+        return SITE_BASE_URL + "/ja/blog/" + url[len(prefix):]
+    return None
+
+
 def build_post_text(entry, commentary=None, llm_hashtags=None):
     if llm_hashtags:
         hashtags = llm_hashtags
     else:
         hashtags = " ".join(s for t in entry["tags"] if t for s in [_slugify_tag(t)] if s)
     url_line = entry["url"] or (SITE_BASE_URL + "/blog.html")
+    ja_url = _ja_url(entry.get("url"))
     body = commentary if commentary else entry["summary"]
 
-    parts = [entry["title"], "", body, "", url_line]
+    parts = [entry["title"], "", body]
+    if ja_url:
+        parts += ["", ja_url]
+    parts += ["", url_line]
     if hashtags:
         parts += ["", hashtags]
     text = "\n".join(parts)
@@ -329,6 +348,7 @@ def build_post_text(entry, commentary=None, llm_hashtags=None):
     # Trim body to fit (only needed if Gemini returns something unexpectedly long)
     overhead = (
         len(entry["title"]) + 2
+        + (2 + len(ja_url) if ja_url else 0)
         + 2 + len(url_line)
         + (2 + len(hashtags) if hashtags else 0)
         + 1  # ellipsis
