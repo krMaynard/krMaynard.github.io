@@ -102,6 +102,11 @@
       // shared
       tService: 'Service',
       topCategories: 'Top 10 categories by ',
+      // VLOP/VLOSE designation timeline
+      desigTitle: 'VLOP & VLOSE designations',
+      desigIntro: 'Every platform and search engine designated under the EU DSA, by designation date. Stripchat was de-designated in May 2025; WhatsApp Channels was designated in January 2026, after this reporting period.',
+      thPlatform: 'Platform', thType: 'Type', thDesignated: 'Designated', thStatus: 'Status',
+      statusActive: 'Active', statusDeDesignated: 'De-designated',
     },
     ja: {
       loading: 'データ読み込み中…',
@@ -175,6 +180,10 @@
       t7Title: '内部申立メカニズム',
       tService: 'サービス',
       topCategories: 'カテゴリ別トップ10（',
+      desigTitle: 'VLOP・VLOSEの指定',
+      desigIntro: 'EUのDSAに基づき指定されたすべてのプラットフォームと検索エンジンを指定日順に示します。Stripchatは2025年5月に指定解除され、WhatsApp Channelsは本報告期間後の2026年1月に指定されました。',
+      thPlatform: 'プラットフォーム', thType: '種別', thDesignated: '指定日', thStatus: 'ステータス',
+      statusActive: '指定中', statusDeDesignated: '指定解除',
     },
     zh: {
       loading: '数据加载中…',
@@ -248,6 +257,10 @@
       t7Title: '内部投诉机制',
       tService: '服务',
       topCategories: '类别前10名（',
+      desigTitle: 'VLOP与VLOSE认定',
+      desigIntro: '根据欧盟DSA认定的所有平台与搜索引擎，按认定日期排列。Stripchat已于2025年5月被撤销认定；WhatsApp Channels于本报告期之后的2026年1月获认定。',
+      thPlatform: '平台', thType: '类型', thDesignated: '认定日期', thStatus: '状态',
+      statusActive: '认定中', statusDeDesignated: '已撤销认定',
     },
     ko: {
       loading: '데이터 로딩 중…',
@@ -321,6 +334,10 @@
       t7Title: '내부 이의 신청 메커니즘',
       tService: '서비스',
       topCategories: '카테고리 상위 10개 (',
+      desigTitle: 'VLOP 및 VLOSE 지정',
+      desigIntro: 'EU DSA에 따라 지정된 모든 플랫폼과 검색 엔진을 지정일순으로 표시합니다. Stripchat은 2025년 5월 지정 해제되었으며, WhatsApp Channels는 본 보고 기간 이후인 2026년 1월에 지정되었습니다.',
+      thPlatform: '플랫폼', thType: '유형', thDesignated: '지정일', thStatus: '상태',
+      statusActive: '지정 중', statusDeDesignated: '지정 해제',
     },
   };
 
@@ -718,9 +735,85 @@
 
   function svcColor(i) { return PALETTE[i % PALETTE.length]; }
 
+  // ── VLOP / VLOSE designation timeline ───────────────────────
+  // Official European Commission designation dates under the DSA. `until` marks
+  // a later de-designation. Reference data, independent of the report dataset.
+  var DESIGNATIONS = [
+    { name: 'AliExpress', type: 'VLOP', date: '2023-04-25' },
+    { name: 'Amazon Store', type: 'VLOP', date: '2023-04-25' },
+    { name: 'Apple App Store', type: 'VLOP', date: '2023-04-25' },
+    { name: 'Bing', type: 'VLOSE', date: '2023-04-25' },
+    { name: 'Booking.com', type: 'VLOP', date: '2023-04-25' },
+    { name: 'Facebook', type: 'VLOP', date: '2023-04-25' },
+    { name: 'Google Maps', type: 'VLOP', date: '2023-04-25' },
+    { name: 'Google Play', type: 'VLOP', date: '2023-04-25' },
+    { name: 'Google Search', type: 'VLOSE', date: '2023-04-25' },
+    { name: 'Google Shopping', type: 'VLOP', date: '2023-04-25' },
+    { name: 'Instagram', type: 'VLOP', date: '2023-04-25' },
+    { name: 'LinkedIn', type: 'VLOP', date: '2023-04-25' },
+    { name: 'Pinterest', type: 'VLOP', date: '2023-04-25' },
+    { name: 'Snapchat', type: 'VLOP', date: '2023-04-25' },
+    { name: 'TikTok', type: 'VLOP', date: '2023-04-25' },
+    { name: 'Wikipedia', type: 'VLOP', date: '2023-04-25' },
+    { name: 'X (Twitter)', type: 'VLOP', date: '2023-04-25' },
+    { name: 'YouTube', type: 'VLOP', date: '2023-04-25' },
+    { name: 'Zalando', type: 'VLOP', date: '2023-04-25' },
+    { name: 'Pornhub', type: 'VLOP', date: '2023-12-20' },
+    { name: 'Stripchat', type: 'VLOP', date: '2023-12-20', until: '2025-05-27' },
+    { name: 'XVideos', type: 'VLOP', date: '2023-12-20' },
+    { name: 'Shein', type: 'VLOP', date: '2024-04-26' },
+    { name: 'Temu', type: 'VLOP', date: '2024-05-31' },
+    { name: 'XNXX', type: 'VLOP', date: '2024-07-10' },
+    { name: 'WhatsApp Channels', type: 'VLOP', date: '2026-01-26' }
+  ];
+
+  function fmtDate(iso) {
+    var p = iso.split('-');
+    return new Date(p[0], p[1] - 1, p[2]).toLocaleDateString(LOCALE, {
+      year: 'numeric', month: 'short', day: 'numeric'
+    });
+  }
+
+  function renderDesignations() {
+    var sec = document.getElementById('vlop-designations');
+    if (!sec) return;
+    document.getElementById('vlop-desig-title').textContent = _.desigTitle;
+    document.getElementById('vlop-desig-intro').textContent = _.desigIntro;
+
+    var head = document.getElementById('vlop-desig-head');
+    head.innerHTML = '';
+    [_.thPlatform, _.thType, _.thDesignated, _.thStatus].forEach(function (h) {
+      var th = document.createElement('th');
+      th.textContent = h;
+      head.appendChild(th);
+    });
+
+    var rows = DESIGNATIONS.slice().sort(function (a, b) {
+      if (a.date !== b.date) return a.date < b.date ? -1 : 1;
+      if (a.name !== b.name) return a.name < b.name ? -1 : 1;
+      return 0;
+    });
+    var body = document.getElementById('vlop-desig-body');
+    body.innerHTML = '';
+    rows.forEach(function (r) {
+      var tr = document.createElement('tr');
+      if (r.until) tr.className = 'desig-inactive';
+      var status = r.until ? _.statusDeDesignated + ' · ' + fmtDate(r.until) : _.statusActive;
+      [r.name, r.type, fmtDate(r.date), status].forEach(function (val) {
+        var td = document.createElement('td');
+        td.textContent = val;
+        tr.appendChild(td);
+      });
+      body.appendChild(tr);
+    });
+    document.getElementById('vlop-desig-count').textContent = rows.length + ' ' + _.rows;
+    sec.hidden = false;
+  }
+
   // ── Bootstrap ────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('vlop-loading').textContent = _.loading;
+    renderDesignations();
     fetch('/data/vlop-dsa.json')
       .then(function (r) { return r.json(); })
       .then(function (data) {
