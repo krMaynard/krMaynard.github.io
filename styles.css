@@ -1364,6 +1364,14 @@ footer {
   font-style: italic;
 }
 
+.td-desig-intro {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0 0 1rem;
+}
+.td-table tr.desig-inactive td { color: var(--text-faint); }
+
 .td-readme {
   margin: 2rem 0;
 }

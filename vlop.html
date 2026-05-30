@@ -14,15 +14,16 @@ lang_url_ko: /ko/vlop.html
     Under the EU Digital Services Act, Very Large Online Platforms (VLOPs) and Very Large Online Search Engines (VLOSEs)
     must publish transparency reports on content moderation.
     This dashboard covers H2 2025 reports (reporting period <strong>1 July – 31 December 2025</strong>),
-    combining 30 services into a single comparative view. It covers all designated VLOPs and Very Large Online Search Engines (VLOSEs) —
-    the only VLOPs not included are adult video platforms. Also included are lower-tier designated Online Platforms
-    whose parent company also operates a VLOP (the non-VLOP Apple and Wikimedia services).
-    <strong>Coming soon:</strong> WhatsApp Channels, a Meta service newly designated as a VLOP.
+    combining 33 services into a single comparative view. It now covers every VLOP and VLOSE that published a report
+    for this period — including the adult video platforms Pornhub, XVideos, and XNXX. Also included are lower-tier
+    designated Online Platforms whose parent company also operates a VLOP (the non-VLOP Apple and Wikimedia services).
+    Stripchat was de-designated in May 2025, and WhatsApp Channels was designated in January 2026 (after this reporting
+    period); see the designation timeline below the dashboard.
   </p>
   <p style="color: var(--text-faint); font-size: 0.85rem; margin-bottom: 2rem; background: transparent;">
     Sources: official DSA transparency reports from AliExpress, Amazon, Apple (App Store, Books, iCloud, Podcasts),
-    Bing, Booking.com, LinkedIn, Meta (Facebook, Instagram), Pinterest, SHEIN, Snapchat, Temu,
-    TikTok, Wikipedia / Wikimedia (6 services), X, YouTube / Google (6 services), Zalando.
+    Bing, Booking.com, LinkedIn, Meta (Facebook, Instagram), Pinterest, Pornhub, SHEIN, Snapchat, Temu,
+    TikTok, Wikipedia / Wikimedia (6 services), X, XNXX, XVideos, YouTube / Google (6 services), Zalando.
     Data is processed in your browser; no requests are sent to a backend.
   </p>
 </div>
@@ -83,6 +84,21 @@ lang_url_ko: /ko/vlop.html
 
 </div>
 
+<!-- ── VLOP / VLOSE designation timeline ─────────────────── -->
+<section class="td-table-card" id="vlop-designations" style="margin-top: 2rem;" hidden>
+  <div class="td-table-head">
+    <h3 id="vlop-desig-title">Designations</h3>
+    <span id="vlop-desig-count" class="td-row-count"></span>
+  </div>
+  <p id="vlop-desig-intro" class="td-desig-intro"></p>
+  <div class="td-table-scroll">
+    <table class="td-table">
+      <thead><tr id="vlop-desig-head"></tr></thead>
+      <tbody id="vlop-desig-body"></tbody>
+    </table>
+  </div>
+</section>
+
 <!-- ── Notes ─────────────────────────────────────────────── -->
 <section class="td-readme" id="vlop-readme" hidden>
   <h2 class="td-section-title">Reading the data</h2>
@@ -99,7 +115,7 @@ lang_url_ko: /ko/vlop.html
 <hr class="section-divider" />
 
 <p style="color: var(--text-very-faint); font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
-  Data: official DSA transparency reports covering H2 2025 from AliExpress, Amazon, Apple, Bing, Booking.com, LinkedIn, Meta (Facebook, Instagram), Pinterest, SHEIN, Snapchat, Temu, TikTok, Wikimedia Foundation, X, YouTube / Google, and Zalando.
+  Data: official DSA transparency reports covering H2 2025 from AliExpress, Amazon, Apple, Bing, Booking.com, LinkedIn, Meta (Facebook, Instagram), Pinterest, Pornhub, SHEIN, Snapchat, Temu, TikTok, Wikimedia Foundation, X, XNXX, XVideos, YouTube / Google, and Zalando.
   Analysis and visualizations by Kieran Maynard. Charts use <a href="https://www.chartjs.org/">Chart.js</a>.
   No analytics or tracking beyond the site default.
 </p>
