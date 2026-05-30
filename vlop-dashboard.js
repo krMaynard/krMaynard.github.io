@@ -768,7 +768,8 @@
   ];
 
   function fmtDate(iso) {
-    return new Date(iso + 'T00:00:00').toLocaleDateString(LOCALE, {
+    var p = iso.split('-');
+    return new Date(p[0], p[1] - 1, p[2]).toLocaleDateString(LOCALE, {
       year: 'numeric', month: 'short', day: 'numeric'
     });
   }
@@ -789,7 +790,8 @@
 
     var rows = DESIGNATIONS.slice().sort(function (a, b) {
       if (a.date !== b.date) return a.date < b.date ? -1 : 1;
-      return a.name < b.name ? -1 : 1;
+      if (a.name !== b.name) return a.name < b.name ? -1 : 1;
+      return 0;
     });
     var body = document.getElementById('vlop-desig-body');
     body.innerHTML = '';
