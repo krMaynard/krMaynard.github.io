@@ -1115,6 +1115,9 @@ footer {
 }
 
 .td-filter { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
+/* `.td-filter`'s display:flex would otherwise beat the UA [hidden] rule, so a
+   hidden filter (e.g. Surface when not Google-scoped) must opt back out. */
+.td-filter[hidden] { display: none; }
 .td-filter-wide { grid-column: span 1; }
 
 .td-filter label {
