@@ -926,7 +926,9 @@
     var col = SURFACE_COL[tab];
     var seen = {};
     if (col !== undefined) {
-      (D[tab] || []).forEach(function (r) { if (r[col]) seen[r[col]] = true; });
+      // Offer only real breakdowns (>0). Index 0 is the "All" sentinel for
+      // non-broken-down rows; "All surfaces" (the default below) already covers it.
+      (D[tab] || []).forEach(function (r) { if (r[col] > 0) seen[r[col]] = true; });
     }
     var idxs = Object.keys(seen).map(Number).sort(function (a, b) { return a - b; });
     if (idxs.length === 0) { wrap.hidden = true; sel.innerHTML = ''; return; }
