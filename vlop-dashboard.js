@@ -10,6 +10,7 @@
  *   t7 row: [svcIdx, secIdx, indIdx, scopeIdx, value, surfaceIdx]
  *   t8 row: [svcIdx, secIdx, indIdx, scopeIdx, value, surfaceIdx]
  *   t9 row: [svcIdx, secIdx, indIdx, scopeIdx, value]
+ *   t10 row: [svcIdx, scopeIdx, value]  (scope = EU country code or "TOTAL"/"total")
  *
  * `surfaces` lists report breakdowns for t6/t7/t8 (index 0 = "All" = no breakdown).
  * Google publishes those tables as several disjoint sub-reports per service
@@ -53,6 +54,11 @@
       externalModsShort: 'External',
       modsByService: 'Content moderators by service',
       t9Title: 'Human resources for content moderation',
+      // T10
+      tabT10: 'User Reach',
+      totalRecipients: 'Total EU recipients',
+      recipientsByService: 'Monthly active recipients by service',
+      t10Title: 'Average monthly active recipients (AMAR)',
       // T8
       autoMeasures: 'Automated measures',
       nonAutoMeasures: 'Human-reviewed measures',
@@ -160,6 +166,10 @@
       externalModsShort: '外部',
       modsByService: 'サービス別モデレーター数',
       t9Title: 'コンテンツモデレーションの人的資源',
+      tabT10: 'ユーザーリーチ',
+      totalRecipients: 'EU月間アクティブ受信者合計',
+      recipientsByService: 'サービス別月間アクティブ受信者数',
+      t10Title: '月間平均アクティブ受信者数（AMAR）',
       autoMeasures: '自動化措置数',
       nonAutoMeasures: '人的審査による措置数',
       autoRate: '自動化率',
@@ -255,6 +265,10 @@
       externalModsShort: '外部',
       modsByService: '各服务审核员数',
       t9Title: '内容审核人力资源',
+      tabT10: '用户触达',
+      totalRecipients: 'EU活跃用户总数',
+      recipientsByService: '各服务月均活跃用户',
+      t10Title: '月均活跃受众数量（AMAR）',
       autoMeasures: '自动化措施数',
       nonAutoMeasures: '人工审核措施数',
       autoRate: '自动化率',
@@ -350,6 +364,10 @@
       externalModsShort: '외부',
       modsByService: '서비스별 모더레이터 수',
       t9Title: '콘텐츠 모더레이션 인적 자원',
+      tabT10: '이용자 도달 범위',
+      totalRecipients: 'EU 총 이용자 수',
+      recipientsByService: '서비스별 월간 활성 이용자 수',
+      t10Title: '월간 평균 활성 이용자 수(AMAR)',
       autoMeasures: '자동화 조치 수',
       nonAutoMeasures: '인적 검토 조치 수',
       autoRate: '자동화 비율',
@@ -910,7 +928,7 @@
   });
 
   function init() {
-    var tabMap = { t4: _.tabT4, t5: _.tabT5, t6: _.tabT6, t3: _.tabT3, t7: _.tabT7, t8: _.tabT8, t9: _.tabT9 };
+    var tabMap = { t4: _.tabT4, t5: _.tabT5, t6: _.tabT6, t3: _.tabT3, t7: _.tabT7, t8: _.tabT8, t9: _.tabT9, t10: _.tabT10 };
     document.querySelectorAll('.vlop-tab').forEach(function (btn) {
       btn.textContent = tabMap[btn.dataset.tab] || btn.textContent;
     });
@@ -955,7 +973,7 @@
     var sel = document.getElementById('vlop-category');
     var catWrap = document.getElementById('vlop-cat-wrap');
     if (!sel || !catWrap) return;
-    if (tab === 't7' || tab === 't8' || tab === 't9') { catWrap.hidden = true; return; }
+    if (tab === 't7' || tab === 't8' || tab === 't9' || tab === 't10') { catWrap.hidden = true; return; }
     catWrap.hidden = false;
     sel.innerHTML = '<option value="">' + _.allCategories + '</option>';
     var seen = {};
@@ -972,7 +990,7 @@
     var sel = document.getElementById('vlop-keyword');
     var kwWrap = document.getElementById('vlop-kw-wrap');
     if (!sel || !kwWrap) return;
-    if (tab === 't7' || tab === 't8' || tab === 't9') { kwWrap.hidden = true; return; }
+    if (tab === 't7' || tab === 't8' || tab === 't9' || tab === 't10') { kwWrap.hidden = true; return; }
     kwWrap.hidden = false;
     var prev = sel.value;
     sel.innerHTML = '<option value="">' + _.allKeywords + '</option>';
@@ -1111,6 +1129,7 @@
     else if (currentTab === 't7') renderT7(f);
     else if (currentTab === 't8') renderT8(f);
     else if (currentTab === 't9') renderT9(f);
+    else if (currentTab === 't10') renderT10(f);
   }
 
   function inSvcs(svcs, svcIdx) {
@@ -1570,6 +1589,50 @@
         return [D.services[a.svc], D.indicators[a.ind], D.scopes[a.scope], fmt(a.val)];
       }),
       _.t9Title
+    );
+  }
+
+  // ── T10: User Reach (AMAR) ─────────────────────────────────────
+  function renderT10(f) {
+    var scopeTotal  = indexOf(D.scopes, 'TOTAL');
+    var scopeTotal2 = indexOf(D.scopes, 'total');
+
+    function t10total(svcIdx) {
+      return D.t10.reduce(function(s, r) {
+        return r[0] === svcIdx && (r[1] === scopeTotal || r[1] === scopeTotal2)
+          ? s + n(r[2]) : s;
+      }, 0);
+    }
+
+    var grandTotal = 0;
+    D.services.forEach(function(_, i) {
+      if (!inSvcs(f.svcs, i)) return;
+      grandTotal += t10total(i);
+    });
+    setMetrics([{ label: _.totalRecipients, value: fmt(grandTotal) }]);
+
+    var activeSvcs = activeSvcIndices(f.svcs);
+    var totData = activeSvcs.map(function(i) { return t10total(i); });
+    setCharts([{
+      title: _.recipientsByService, id: 'vlop-c1', type: 'bar', wide: true,
+      labels: svcLabels(activeSvcs),
+      datasets: [{ label: _.totalRecipients, data: totData, backgroundColor: '#4e79a7' }],
+    }]);
+
+    var t10agg = {}, t10order = [];
+    D.t10.forEach(function(r) {
+      if (!inSvcs(f.svcs, r[0])) return;
+      var k = r[0] + '|' + r[1];
+      if (!(k in t10agg)) { t10agg[k] = { svc: r[0], scope: r[1], val: 0 }; t10order.push(k); }
+      t10agg[k].val += n(r[2]);
+    });
+    showTable(
+      [_.tService, _.tScope, _.tValue],
+      t10order.map(function(k) {
+        var a = t10agg[k];
+        return [D.services[a.svc], D.scopes[a.scope], fmt(a.val)];
+      }),
+      _.t10Title
     );
   }
 
