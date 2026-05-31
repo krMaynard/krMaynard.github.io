@@ -8,8 +8,9 @@
  *            interaction, labelled, visOther, monSusp, monTerm, monOther, svcSusp, svcTerm, accSusp, accTerm]
  *   t6 row: same layout as t5, plus a trailing surfaceIdx (into `surfaces`)
  *   t7 row: [svcIdx, secIdx, indIdx, scopeIdx, value, surfaceIdx]
+ *   t8 row: [svcIdx, secIdx, indIdx, scopeIdx, value, surfaceIdx]
  *
- * `surfaces` lists report breakdowns for t6/t7 (index 0 = "All" = no breakdown).
+ * `surfaces` lists report breakdowns for t6/t7/t8 (index 0 = "All" = no breakdown).
  * Google publishes those tables as several disjoint sub-reports per service
  * (Core/Ads, and for Search a per-action-level split); rows are summed across
  * surfaces by default and can be isolated with the Surface filter.
@@ -41,6 +42,16 @@
       tabT6: 'Own-initiative: Policy',
       tabT3: 'Government Orders',
       tabT7: 'Appeals',
+      tabT8: 'Automated Means',
+      // T8
+      autoMeasures: 'Automated measures',
+      nonAutoMeasures: 'Human-reviewed measures',
+      autoRate: 'Automation rate',
+      autoMeasuresShort: 'Automated',
+      nonAutoMeasuresShort: 'Human-reviewed',
+      autoVsNonAuto: 'Automated vs human-reviewed measures by service',
+      accuracyByService: 'Automated moderation accuracy by service (%)',
+      t8Title: 'Automated moderation',
       // T4 metrics
       noticesReceived: 'Notices received',
       itemsReferenced: 'Items referenced',
@@ -130,6 +141,15 @@
       tabT6: '自主的措置：ポリシー違反',
       tabT3: '政府命令',
       tabT7: '異議申立',
+      tabT8: '自動化手段',
+      autoMeasures: '自動化措置数',
+      nonAutoMeasures: '人的審査による措置数',
+      autoRate: '自動化率',
+      autoMeasuresShort: '自動化',
+      nonAutoMeasuresShort: '人的審査',
+      autoVsNonAuto: 'サービス別・自動化措置数 vs 人的審査措置数',
+      accuracyByService: 'サービス別・自動モデレーション精度（%）',
+      t8Title: '自動化モデレーション',
       noticesReceived: '受信した通知数',
       itemsReferenced: '対象アイテム数',
       actionsTaken: '講じた措置数',
@@ -208,6 +228,15 @@
       tabT6: '主动措施：违规内容',
       tabT3: '政府命令',
       tabT7: '申诉',
+      tabT8: '自动化手段',
+      autoMeasures: '自动化措施数',
+      nonAutoMeasures: '人工审核措施数',
+      autoRate: '自动化率',
+      autoMeasuresShort: '自动化',
+      nonAutoMeasuresShort: '人工审核',
+      autoVsNonAuto: '各服务自动化 vs 人工审核措施数',
+      accuracyByService: '各服务自动内容审核准确率（%）',
+      t8Title: '自动化内容审核',
       noticesReceived: '收到的通知数',
       itemsReferenced: '涉及条目数',
       actionsTaken: '已采取的措施数',
@@ -286,6 +315,15 @@
       tabT6: '자발적 조치: 정책',
       tabT3: '정부 명령',
       tabT7: '이의 신청',
+      tabT8: '자동화 수단',
+      autoMeasures: '자동화 조치 수',
+      nonAutoMeasures: '인적 검토 조치 수',
+      autoRate: '자동화 비율',
+      autoMeasuresShort: '자동화',
+      nonAutoMeasuresShort: '인적 검토',
+      autoVsNonAuto: '서비스별 자동화 vs 인적 검토 조치 수',
+      accuracyByService: '서비스별 자동 모더레이션 정확도 (%)',
+      t8Title: '자동화 모더레이션',
       noticesReceived: '수신된 통지 수',
       itemsReferenced: '대상 항목 수',
       actionsTaken: '취한 조치 수',
@@ -838,7 +876,7 @@
   });
 
   function init() {
-    var tabMap = { t4: _.tabT4, t5: _.tabT5, t6: _.tabT6, t3: _.tabT3, t7: _.tabT7 };
+    var tabMap = { t4: _.tabT4, t5: _.tabT5, t6: _.tabT6, t3: _.tabT3, t7: _.tabT7, t8: _.tabT8 };
     document.querySelectorAll('.vlop-tab').forEach(function (btn) {
       btn.textContent = tabMap[btn.dataset.tab] || btn.textContent;
     });
@@ -883,7 +921,7 @@
     var sel = document.getElementById('vlop-category');
     var catWrap = document.getElementById('vlop-cat-wrap');
     if (!sel || !catWrap) return;
-    if (tab === 't7') { catWrap.hidden = true; return; }
+    if (tab === 't7' || tab === 't8') { catWrap.hidden = true; return; }
     catWrap.hidden = false;
     sel.innerHTML = '<option value="">' + _.allCategories + '</option>';
     var seen = {};
@@ -900,7 +938,7 @@
     var sel = document.getElementById('vlop-keyword');
     var kwWrap = document.getElementById('vlop-kw-wrap');
     if (!sel || !kwWrap) return;
-    if (tab === 't7') { kwWrap.hidden = true; return; }
+    if (tab === 't7' || tab === 't8') { kwWrap.hidden = true; return; }
     kwWrap.hidden = false;
     var prev = sel.value;
     sel.innerHTML = '<option value="">' + _.allKeywords + '</option>';
@@ -916,8 +954,8 @@
     if (prev && sel.querySelector('option[value="' + prev + '"]')) sel.value = prev;
   }
 
-  // Surface (report breakdown) lives in the last column of t6/t7 rows.
-  var SURFACE_COL = { t6: 18, t7: 5 };
+  // Surface (report breakdown) lives in the last column of t6/t7/t8 rows.
+  var SURFACE_COL = { t6: 18, t7: 5, t8: 5 };
 
   function buildSurfaceFilter(tab) {
     var sel = document.getElementById('vlop-surface');
@@ -1037,6 +1075,7 @@
     else if (currentTab === 't6') renderT6(f);
     else if (currentTab === 't3') renderT3(f);
     else if (currentTab === 't7') renderT7(f);
+    else if (currentTab === 't8') renderT8(f);
   }
 
   function inSvcs(svcs, svcIdx) {
@@ -1328,6 +1367,117 @@
         return [D.services[a.svc], D.indicators[a.ind], D.scopes[a.scope], fmt(a.val)];
       }),
       _.t7Title
+    );
+  }
+
+  // ── T8: Automated Means ───────────────────────────────────────
+  function renderT8(f) {
+    var secAuto      = indexOf(D.sections,   'Use of automated means for content moderation');
+    var indAutomated = indexOf(D.indicators, 'Number of measures solely taken by automated means');
+    var indNotAuto   = indexOf(D.indicators, 'Number of measures not taken by automated means');
+    var indAccuracy  = indexOf(D.indicators, 'Accuracy of the automated means - Accuracy');
+    var indPrecision = indexOf(D.indicators, 'Accuracy of the automated means - Precision');
+    var indRecall    = indexOf(D.indicators, 'Accuracy of the automated means - Recall');
+    var rateInds     = [indAccuracy, indPrecision, indRecall].filter(function(i){return i>=0;});
+    // Scope names vary by service ("Total number" for X/Google, "total" for TikTok/Meta).
+    var scopeTotal1  = indexOf(D.scopes, 'Total number');
+    var scopeTotal2  = indexOf(D.scopes, 'total');
+    var scopeOwnInit = indexOf(D.scopes, 'Own-initiative');
+
+    function t8val(svcIdx, ind, scope) {
+      return D.t8.reduce(function (s, r) {
+        if (r[0] === svcIdx && r[1] === secAuto && r[2] === ind &&
+            (scope === null || r[3] === scope) &&
+            (f.surf === null || r[5] === f.surf)) {
+          return s + n(r[4]);
+        }
+        return s;
+      }, 0);
+    }
+
+    function t8total(svcIdx, ind) {
+      var v1 = t8val(svcIdx, ind, scopeTotal1);
+      var v2 = t8val(svcIdx, ind, scopeTotal2);
+      return v1 || v2;
+    }
+
+    // Rate indicators (0-1 values) must be averaged, not summed. Try scope priority:
+    // "Total number" > "total" > "Own-initiative" (Google uses only Own-initiative).
+    function t8rate(svcIdx, ind) {
+      var candidateScopes = [scopeTotal1, scopeTotal2, scopeOwnInit];
+      for (var si = 0; si < candidateScopes.length; si++) {
+        var scopeIdx = candidateScopes[si];
+        if (scopeIdx < 0) continue;
+        var vals = [];
+        D.t8.forEach(function(r) {
+          if (r[0] === svcIdx && r[1] === secAuto && r[2] === ind && r[3] === scopeIdx &&
+              (f.surf === null || r[5] === f.surf) && n(r[4]) > 0) {
+            vals.push(n(r[4]));
+          }
+        });
+        if (vals.length > 0) return vals.reduce(function(a,b){return a+b;},0) / vals.length;
+      }
+      return 0;
+    }
+
+    var totalAuto = 0, totalNotAuto = 0;
+    D.services.forEach(function (_, i) {
+      if (!inSvcs(f.svcs, i)) return;
+      totalAuto    += t8total(i, indAutomated);
+      totalNotAuto += t8total(i, indNotAuto);
+    });
+
+    var totalAll = totalAuto + totalNotAuto;
+    setMetrics([
+      { label: _.autoMeasures,    value: fmt(totalAuto) },
+      { label: _.nonAutoMeasures, value: fmt(totalNotAuto) },
+      { label: _.autoRate,        value: totalAll > 0 ? pct(totalAuto / totalAll) : '—' },
+    ]);
+
+    var activeSvcs   = activeSvcIndices(f.svcs);
+    var autoData     = activeSvcs.map(function (i) { return t8total(i, indAutomated); });
+    var nonAutoData  = activeSvcs.map(function (i) { return t8total(i, indNotAuto); });
+    var accuracyData = activeSvcs.map(function (i) {
+      var v = t8rate(i, indAccuracy);
+      return v > 0 ? parseFloat((v * 100).toFixed(1)) : null;
+    });
+
+    setCharts([
+      {
+        title: _.autoVsNonAuto, id: 'vlop-c1', type: 'bar', wide: true,
+        labels: svcLabels(activeSvcs),
+        datasets: [
+          { label: _.autoMeasuresShort,    data: autoData,    backgroundColor: '#4e79a7' },
+          { label: _.nonAutoMeasuresShort, data: nonAutoData, backgroundColor: '#e15759' },
+        ]
+      },
+      {
+        title: _.accuracyByService, id: 'vlop-c2', type: 'bar', wide: true,
+        labels: svcLabels(activeSvcs),
+        datasets: [{ label: '%', data: accuracyData, backgroundColor: svcColors(activeSvcs) }],
+        pctAxis: true,
+      },
+    ]);
+
+    var t8agg = {};
+    var t8order = [];
+    D.t8.forEach(function (r) {
+      if (!inSvcs(f.svcs, r[0]) || r[1] !== secAuto) return;
+      if (f.surf !== null && r[5] !== f.surf) return;
+      var k = r[0] + '|' + r[2] + '|' + r[3];
+      if (!(k in t8agg)) { t8agg[k] = { svc: r[0], ind: r[2], scope: r[3], val: 0, cnt: 0 }; t8order.push(k); }
+      t8agg[k].val += n(r[4]);
+      t8agg[k].cnt += 1;
+    });
+    showTable(
+      [_.tService, _.tIndicator, _.tScope, _.tValue],
+      t8order.map(function (k) {
+        var a = t8agg[k];
+        var isRate = rateInds.indexOf(a.ind) >= 0;
+        var dispVal = isRate ? pct(a.cnt > 0 ? a.val / a.cnt : 0) : fmt(a.val);
+        return [D.services[a.svc], D.indicators[a.ind], D.scopes[a.scope], dispVal];
+      }),
+      _.t8Title
     );
   }
 
