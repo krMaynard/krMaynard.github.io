@@ -1361,9 +1361,13 @@
     var indAutomated = indexOf(D.indicators, 'Number of measures solely taken by automated means');
     var indNotAuto   = indexOf(D.indicators, 'Number of measures not taken by automated means');
     var indAccuracy  = indexOf(D.indicators, 'Accuracy of the automated means - Accuracy');
+    var indPrecision = indexOf(D.indicators, 'Accuracy of the automated means - Precision');
+    var indRecall    = indexOf(D.indicators, 'Accuracy of the automated means - Recall');
+    var rateInds     = [indAccuracy, indPrecision, indRecall].filter(function(i){return i>=0;});
     // Scope names vary by service ("Total number" for X/Google, "total" for TikTok/Meta).
     var scopeTotal1  = indexOf(D.scopes, 'Total number');
     var scopeTotal2  = indexOf(D.scopes, 'total');
+    var scopeOwnInit = indexOf(D.scopes, 'Own-initiative');
 
     function t8val(svcIdx, ind, scope) {
       return D.t8.reduce(function (s, r) {
@@ -1380,6 +1384,25 @@
       var v1 = t8val(svcIdx, ind, scopeTotal1);
       var v2 = t8val(svcIdx, ind, scopeTotal2);
       return v1 || v2;
+    }
+
+    // Rate indicators (0-1 values) must be averaged, not summed. Try scope priority:
+    // "Total number" > "total" > "Own-initiative" (Google uses only Own-initiative).
+    function t8rate(svcIdx, ind) {
+      var candidateScopes = [scopeTotal1, scopeTotal2, scopeOwnInit];
+      for (var si = 0; si < candidateScopes.length; si++) {
+        var scopeIdx = candidateScopes[si];
+        if (scopeIdx < 0) continue;
+        var vals = [];
+        D.t8.forEach(function(r) {
+          if (r[0] === svcIdx && r[1] === secAuto && r[2] === ind && r[3] === scopeIdx &&
+              (f.surf === null || r[5] === f.surf) && n(r[4]) > 0) {
+            vals.push(n(r[4]));
+          }
+        });
+        if (vals.length > 0) return vals.reduce(function(a,b){return a+b;},0) / vals.length;
+      }
+      return 0;
     }
 
     var totalAuto = 0, totalNotAuto = 0;
@@ -1400,7 +1423,7 @@
     var autoData     = activeSvcs.map(function (i) { return t8total(i, indAutomated); });
     var nonAutoData  = activeSvcs.map(function (i) { return t8total(i, indNotAuto); });
     var accuracyData = activeSvcs.map(function (i) {
-      var v = t8total(i, indAccuracy);
+      var v = t8rate(i, indAccuracy);
       return v > 0 ? parseFloat((v * 100).toFixed(1)) : null;
     });
 
@@ -1427,14 +1450,17 @@
       if (!inSvcs(f.svcs, r[0]) || r[1] !== secAuto) return;
       if (f.surf !== null && r[5] !== f.surf) return;
       var k = r[0] + '|' + r[2] + '|' + r[3];
-      if (!(k in t8agg)) { t8agg[k] = { svc: r[0], ind: r[2], scope: r[3], val: 0 }; t8order.push(k); }
+      if (!(k in t8agg)) { t8agg[k] = { svc: r[0], ind: r[2], scope: r[3], val: 0, cnt: 0 }; t8order.push(k); }
       t8agg[k].val += n(r[4]);
+      t8agg[k].cnt += 1;
     });
     showTable(
       [_.tService, _.tIndicator, _.tScope, _.tValue],
       t8order.map(function (k) {
         var a = t8agg[k];
-        return [D.services[a.svc], D.indicators[a.ind], D.scopes[a.scope], fmt(a.val)];
+        var isRate = rateInds.indexOf(a.ind) >= 0;
+        var dispVal = isRate ? pct(a.cnt > 0 ? a.val / a.cnt : 0) : fmt(a.val);
+        return [D.services[a.svc], D.indicators[a.ind], D.scopes[a.scope], dispVal];
       }),
       _.t8Title
     );
