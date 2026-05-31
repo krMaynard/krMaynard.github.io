@@ -9,6 +9,7 @@
  *   t6 row: same layout as t5, plus a trailing surfaceIdx (into `surfaces`)
  *   t7 row: [svcIdx, secIdx, indIdx, scopeIdx, value, surfaceIdx]
  *   t8 row: [svcIdx, secIdx, indIdx, scopeIdx, value, surfaceIdx]
+ *   t9 row: [svcIdx, secIdx, indIdx, scopeIdx, value]
  *
  * `surfaces` lists report breakdowns for t6/t7/t8 (index 0 = "All" = no breakdown).
  * Google publishes those tables as several disjoint sub-reports per service
@@ -43,6 +44,15 @@
       tabT3: 'Government Orders',
       tabT7: 'Appeals',
       tabT8: 'Automated Means',
+      tabT9: 'Human Resources',
+      // T9
+      internalMods: 'Internal moderators',
+      externalMods: 'External moderators',
+      totalMods: 'Total moderators',
+      internalModsShort: 'Internal',
+      externalModsShort: 'External',
+      modsByService: 'Content moderators by service',
+      t9Title: 'Human resources for content moderation',
       // T8
       autoMeasures: 'Automated measures',
       nonAutoMeasures: 'Human-reviewed measures',
@@ -142,6 +152,14 @@
       tabT3: '政府命令',
       tabT7: '異議申立',
       tabT8: '自動化手段',
+      tabT9: '人的資源',
+      internalMods: '社内モデレーター数',
+      externalMods: '外部モデレーター数',
+      totalMods: 'モデレーター合計',
+      internalModsShort: '社内',
+      externalModsShort: '外部',
+      modsByService: 'サービス別モデレーター数',
+      t9Title: 'コンテンツモデレーションの人的資源',
       autoMeasures: '自動化措置数',
       nonAutoMeasures: '人的審査による措置数',
       autoRate: '自動化率',
@@ -229,6 +247,14 @@
       tabT3: '政府命令',
       tabT7: '申诉',
       tabT8: '自动化手段',
+      tabT9: '人力资源',
+      internalMods: '内部审核员数',
+      externalMods: '外部审核员数',
+      totalMods: '审核员总数',
+      internalModsShort: '内部',
+      externalModsShort: '外部',
+      modsByService: '各服务审核员数',
+      t9Title: '内容审核人力资源',
       autoMeasures: '自动化措施数',
       nonAutoMeasures: '人工审核措施数',
       autoRate: '自动化率',
@@ -316,6 +342,14 @@
       tabT3: '정부 명령',
       tabT7: '이의 신청',
       tabT8: '자동화 수단',
+      tabT9: '인적 자원',
+      internalMods: '내부 모더레이터 수',
+      externalMods: '외부 모더레이터 수',
+      totalMods: '전체 모더레이터',
+      internalModsShort: '내부',
+      externalModsShort: '외부',
+      modsByService: '서비스별 모더레이터 수',
+      t9Title: '콘텐츠 모더레이션 인적 자원',
       autoMeasures: '자동화 조치 수',
       nonAutoMeasures: '인적 검토 조치 수',
       autoRate: '자동화 비율',
@@ -876,7 +910,7 @@
   });
 
   function init() {
-    var tabMap = { t4: _.tabT4, t5: _.tabT5, t6: _.tabT6, t3: _.tabT3, t7: _.tabT7, t8: _.tabT8 };
+    var tabMap = { t4: _.tabT4, t5: _.tabT5, t6: _.tabT6, t3: _.tabT3, t7: _.tabT7, t8: _.tabT8, t9: _.tabT9 };
     document.querySelectorAll('.vlop-tab').forEach(function (btn) {
       btn.textContent = tabMap[btn.dataset.tab] || btn.textContent;
     });
@@ -921,7 +955,7 @@
     var sel = document.getElementById('vlop-category');
     var catWrap = document.getElementById('vlop-cat-wrap');
     if (!sel || !catWrap) return;
-    if (tab === 't7' || tab === 't8') { catWrap.hidden = true; return; }
+    if (tab === 't7' || tab === 't8' || tab === 't9') { catWrap.hidden = true; return; }
     catWrap.hidden = false;
     sel.innerHTML = '<option value="">' + _.allCategories + '</option>';
     var seen = {};
@@ -938,7 +972,7 @@
     var sel = document.getElementById('vlop-keyword');
     var kwWrap = document.getElementById('vlop-kw-wrap');
     if (!sel || !kwWrap) return;
-    if (tab === 't7' || tab === 't8') { kwWrap.hidden = true; return; }
+    if (tab === 't7' || tab === 't8' || tab === 't9') { kwWrap.hidden = true; return; }
     kwWrap.hidden = false;
     var prev = sel.value;
     sel.innerHTML = '<option value="">' + _.allKeywords + '</option>';
@@ -1076,6 +1110,7 @@
     else if (currentTab === 't3') renderT3(f);
     else if (currentTab === 't7') renderT7(f);
     else if (currentTab === 't8') renderT8(f);
+    else if (currentTab === 't9') renderT9(f);
   }
 
   function inSvcs(svcs, svcIdx) {
@@ -1478,6 +1513,63 @@
         return [D.services[a.svc], D.indicators[a.ind], D.scopes[a.scope], dispVal];
       }),
       _.t8Title
+    );
+  }
+
+  // ── T9: Human Resources ───────────────────────────────────────
+  function renderT9(f) {
+    var secHR     = indexOf(D.sections,   'Human resources dedicated to content moderation');
+    var indInternal = indexOf(D.indicators, 'Number of internal moderators employed by the provider');
+    var indExternal = indexOf(D.indicators, 'Number of external moderators contracted by the provider');
+    var indTotal    = indexOf(D.indicators, 'Number of total moderators with sufficient linguistic expertise');
+    var scopeTotalN = indexOf(D.scopes, 'Total number');
+
+    function t9val(svcIdx, ind) {
+      return D.t9.reduce(function(s, r) {
+        return r[0] === svcIdx && r[1] === secHR && r[2] === ind && r[3] === scopeTotalN
+          ? s + n(r[4]) : s;
+      }, 0);
+    }
+
+    var totalInternal = 0, totalExternal = 0;
+    D.services.forEach(function(_, i) {
+      if (!inSvcs(f.svcs, i)) return;
+      totalInternal += t9val(i, indInternal);
+      totalExternal += t9val(i, indExternal);
+    });
+    var totalAll = totalInternal + totalExternal;
+    setMetrics([
+      { label: _.internalMods, value: fmt(totalInternal) },
+      { label: _.externalMods, value: fmt(totalExternal) },
+      { label: _.totalMods,    value: fmt(totalAll) },
+    ]);
+
+    var activeSvcs  = activeSvcIndices(f.svcs);
+    var intData     = activeSvcs.map(function(i) { return t9val(i, indInternal); });
+    var extData     = activeSvcs.map(function(i) { return t9val(i, indExternal); });
+    setCharts([{
+      title: _.modsByService, id: 'vlop-c1', type: 'bar', wide: true,
+      labels: svcLabels(activeSvcs),
+      datasets: [
+        { label: _.internalModsShort, data: intData, backgroundColor: '#4e79a7' },
+        { label: _.externalModsShort, data: extData, backgroundColor: '#f28e2b' },
+      ],
+    }]);
+
+    var t9agg = {}, t9order = [];
+    D.t9.forEach(function(r) {
+      if (!inSvcs(f.svcs, r[0]) || r[1] !== secHR) return;
+      var k = r[0] + '|' + r[2] + '|' + r[3];
+      if (!(k in t9agg)) { t9agg[k] = { svc: r[0], ind: r[2], scope: r[3], val: 0 }; t9order.push(k); }
+      t9agg[k].val += n(r[4]);
+    });
+    showTable(
+      [_.tService, _.tIndicator, _.tScope, _.tValue],
+      t9order.map(function(k) {
+        var a = t9agg[k];
+        return [D.services[a.svc], D.indicators[a.ind], D.scopes[a.scope], fmt(a.val)];
+      }),
+      _.t9Title
     );
   }
 
