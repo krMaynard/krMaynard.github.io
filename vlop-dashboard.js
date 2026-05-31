@@ -940,11 +940,14 @@
     }
     var idxs = Object.keys(seen).map(Number).sort(function (a, b) { return a - b; });
     if (idxs.length === 0) { wrap.hidden = true; sel.innerHTML = ''; return; }
+    var prev = sel.value;
     wrap.hidden = false;
     sel.innerHTML = '<option value="">' + _.allSurfaces + '</option>';
     idxs.forEach(function (i) {
       sel.innerHTML += '<option value="' + i + '">' + (D.surfaces[i] || i) + '</option>';
     });
+    // Keep the active surface selection when it's still valid in the new scope.
+    if (prev && sel.querySelector('option[value="' + prev + '"]')) sel.value = prev;
   }
 
   function getFilters() {
