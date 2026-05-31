@@ -1,0 +1,7 @@
+{
+  "name": "krmaynard-github-io",
+  "private": true,
+  "scripts": {
+    "test": "node tests/vlop-dashboard.test.js"
+  }
+}
