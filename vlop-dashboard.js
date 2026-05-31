@@ -6,8 +6,13 @@
  *   t4 row: [svcIdx, catIdx, notices, tfNotices, items, tfItems, median, tfMedian, actLaw, tfActLaw, actTC, tfActTC]
  *   t5 row: [svcIdx, catIdx, measures, automated, removal, disable, demoted, ageRestr,
  *            interaction, labelled, visOther, monSusp, monTerm, monOther, svcSusp, svcTerm, accSusp, accTerm]
- *   t6 row: same layout as t5
- *   t7 row: [svcIdx, secIdx, indIdx, scopeIdx, value]
+ *   t6 row: same layout as t5, plus a trailing surfaceIdx (into `surfaces`)
+ *   t7 row: [svcIdx, secIdx, indIdx, scopeIdx, value, surfaceIdx]
+ *
+ * `surfaces` lists report breakdowns for t6/t7 (index 0 = "All" = no breakdown).
+ * Google publishes those tables as several disjoint sub-reports per service
+ * (Core/Ads, and for Search a per-action-level split); rows are summed across
+ * surfaces by default and can be isolated with the Surface filter.
  */
 (function () {
   'use strict';
@@ -26,6 +31,7 @@
       allServices: 'All',
       allCategories: 'All',
       allKeywords: 'All',
+      allSurfaces: 'All surfaces',
       topKeywords: 'Top keywords by ',
       reset: 'Reset filters',
       rows: 'rows',
@@ -115,6 +121,7 @@
       allServices: 'すべて',
       allCategories: 'すべて',
       allKeywords: 'すべて',
+      allSurfaces: 'すべての区分',
       topKeywords: 'キーワード別トップ10（',
       reset: 'フィルタをリセット',
       rows: '件',
@@ -192,6 +199,7 @@
       allServices: '全部',
       allCategories: '全部',
       allKeywords: '全部',
+      allSurfaces: '全部细分',
       topKeywords: '关键词前10名（',
       reset: '重置筛选',
       rows: '条',
@@ -269,6 +277,7 @@
       allServices: '전체',
       allCategories: '전체',
       allKeywords: '전체',
+      allSurfaces: '모든 구분',
       topKeywords: '키워드 상위 10개 (',
       reset: '필터 초기화',
       rows: '건',
@@ -839,6 +848,7 @@
     buildServiceFilter(null);
     buildCategoryFilter('t4');
     buildKeywordFilter('t4', null);
+    buildSurfaceFilter('t4');
     wireTabButtons();
     wireFilters();
     render();
@@ -906,11 +916,34 @@
     if (prev && sel.querySelector('option[value="' + prev + '"]')) sel.value = prev;
   }
 
+  // Surface (report breakdown) lives in the last column of t6/t7 rows.
+  var SURFACE_COL = { t6: 18, t7: 5 };
+
+  function buildSurfaceFilter(tab) {
+    var sel = document.getElementById('vlop-surface');
+    var wrap = document.getElementById('vlop-surf-wrap');
+    if (!sel || !wrap) return;
+    var col = SURFACE_COL[tab];
+    var seen = {};
+    if (col !== undefined) {
+      (D[tab] || []).forEach(function (r) { if (r[col]) seen[r[col]] = true; });
+    }
+    var idxs = Object.keys(seen).map(Number).sort(function (a, b) { return a - b; });
+    if (idxs.length === 0) { wrap.hidden = true; sel.innerHTML = ''; return; }
+    wrap.hidden = false;
+    sel.innerHTML = '<option value="">' + _.allSurfaces + '</option>';
+    idxs.forEach(function (i) {
+      sel.innerHTML += '<option value="' + i + '">' + (D.surfaces[i] || i) + '</option>';
+    });
+  }
+
   function getFilters() {
     var platVal = document.getElementById('vlop-platform').value;
     var svcVal = document.getElementById('vlop-service').value;
     var catVal = document.getElementById('vlop-category').value;
     var kwVal = document.getElementById('vlop-keyword').value;
+    var surfEl = document.getElementById('vlop-surface');
+    var surfVal = surfEl ? surfEl.value : '';
 
     // svcs: null = all services, otherwise array of service indices to include
     var svcs = null;
@@ -927,6 +960,7 @@
       svcs: svcs,
       cat: catVal === '' ? null : parseInt(catVal),
       kw: kwVal === '' ? null : parseInt(kwVal),
+      surf: surfVal === '' ? null : parseInt(surfVal),
     };
   }
 
@@ -940,6 +974,7 @@
         currentTab = btn.dataset.tab;
         buildCategoryFilter(currentTab);
         buildKeywordFilter(currentTab, null);
+        buildSurfaceFilter(currentTab);
         document.getElementById('vlop-category').value = '';
         document.getElementById('vlop-keyword').value = '';
         render();
@@ -962,6 +997,8 @@
       render();
     });
     document.getElementById('vlop-keyword').addEventListener('change', render);
+    var surfEl = document.getElementById('vlop-surface');
+    if (surfEl) surfEl.addEventListener('change', render);
     document.getElementById('vlop-reset').addEventListener('click', function () {
       document.getElementById('vlop-platform').value = '';
       buildServiceFilter(null);
@@ -969,6 +1006,7 @@
       document.getElementById('vlop-category').value = '';
       buildKeywordFilter(currentTab, null);
       document.getElementById('vlop-keyword').value = '';
+      buildSurfaceFilter(currentTab);
       render();
     });
   }
@@ -1055,8 +1093,10 @@
 
   function renderT5T6(f, tab, titlePrefix) {
     var catFilter = f.kw !== null ? f.kw : (f.cat !== null ? f.cat : indexOf(D.categories, 'TOTAL'));
+    var sCol = SURFACE_COL[tab];
     var rows = (D[tab] || []).filter(function (r) {
-      return inSvcs(f.svcs, r[0]) && r[1] === catFilter;
+      return inSvcs(f.svcs, r[0]) && r[1] === catFilter
+             && (f.surf === null || sCol === undefined || r[sCol] === f.surf);
     });
 
     var bySvc = aggregateBySvc(rows, function (r) {
@@ -1116,13 +1156,20 @@
     ]);
 
     if (f.kw === null) {
-      renderCategoryBreakdown(tab, f.svcs, function (r) { return n(r[2]); }, _.totalMeasures, f.cat);
+      renderCategoryBreakdown(tab, f.svcs, function (r) { return n(r[2]); }, _.totalMeasures, f.cat, f.surf);
     }
 
+    // One table row per service (summing across surfaces when not filtered).
+    var tAgg = {};
+    rows.forEach(function (r) {
+      var v = tAgg[r[0]] || (tAgg[r[0]] = [0, 0, 0, 0, 0]);
+      v[0] += n(r[2]); v[1] += n(r[3]); v[2] += n(r[4]); v[3] += n(r[16]); v[4] += n(r[17]);
+    });
     showTable(
       [_.tService, _.tMeasures, _.tAutomated, _.tRemovals, _.tAccSusp, _.tAccTerm],
-      rows.map(function (r) {
-        return [D.services[r[0]], fmt(r[2]), fmt(r[3]), fmt(r[4]), fmt(r[16]), fmt(r[17])];
+      Object.keys(tAgg).map(Number).sort(function (a, b) { return a - b; }).map(function (s) {
+        var v = tAgg[s];
+        return [D.services[s], fmt(v[0]), fmt(v[1]), fmt(v[2]), fmt(v[3]), fmt(v[4])];
       }),
       titlePrefix + catLabel(catFilter)
     );
@@ -1185,11 +1232,16 @@
     var scopeUpheld  = indexOf(D.scopes, 'Decisions upheld');
     var scopeReversed = indexOf(D.scopes, 'Decisions reversed');
 
+    // Sum across surfaces (a service may report the same indicator under
+    // several surfaces, e.g. Google's organic + ads appeals).
     function t7val(svcIdx, sec, ind, scope) {
-      var row = D.t7.find(function (r) {
-        return r[0] === svcIdx && r[1] === sec && r[2] === ind && r[3] === scope;
-      });
-      return row ? n(row[4]) : 0;
+      return D.t7.reduce(function (s, r) {
+        if (r[0] === svcIdx && r[1] === sec && r[2] === ind && r[3] === scope &&
+            (f.surf === null || r[5] === f.surf)) {
+          return s + n(r[4]);
+        }
+        return s;
+      }, 0);
     }
 
     var totalComplaints = 0, totalUpheld = 0, totalReversed = 0;
@@ -1242,24 +1294,34 @@
       },
     ]);
 
-    var tableRows = D.t7.filter(function (r) {
-      return inSvcs(f.svcs, r[0]) && r[1] === secInternal;
+    // Aggregate by service/indicator/scope, summing across surfaces.
+    var t7agg = {};
+    var t7order = [];
+    D.t7.forEach(function (r) {
+      if (!inSvcs(f.svcs, r[0]) || r[1] !== secInternal) return;
+      if (f.surf !== null && r[5] !== f.surf) return;
+      var k = r[0] + '|' + r[2] + '|' + r[3];
+      if (!(k in t7agg)) { t7agg[k] = { svc: r[0], ind: r[2], scope: r[3], val: 0 }; t7order.push(k); }
+      t7agg[k].val += n(r[4]);
     });
     showTable(
       [_.tService, _.tIndicator, _.tScope, _.tValue],
-      tableRows.map(function (r) {
-        return [D.services[r[0]], D.indicators[r[2]], D.scopes[r[3]], fmt(r[4])];
+      t7order.map(function (k) {
+        var a = t7agg[k];
+        return [D.services[a.svc], D.indicators[a.ind], D.scopes[a.scope], fmt(a.val)];
       }),
       _.t7Title
     );
   }
 
   // ── Category breakdown helper ─────────────────────────────────
-  function renderCategoryBreakdown(tab, svcsFilter, valueFn, metricLabel, catIdx) {
+  function renderCategoryBreakdown(tab, svcsFilter, valueFn, metricLabel, catIdx, surf) {
     var parentCode = catIdx !== null && catIdx !== undefined ? D.categories[catIdx] : null;
+    var sCol = SURFACE_COL[tab];
 
     var rows = (D[tab] || []).filter(function (r) {
       if (!inSvcs(svcsFilter, r[0])) return false;
+      if (surf !== null && surf !== undefined && sCol !== undefined && r[sCol] !== surf) return false;
       var code = D.categories[r[1]];
       if (typeof code !== 'string' || code === 'TOTAL') return false;
       if (parentCode) {
