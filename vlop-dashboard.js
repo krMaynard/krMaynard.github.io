@@ -924,19 +924,30 @@
     var wrap = document.getElementById('vlop-surf-wrap');
     if (!sel || !wrap) return;
     var col = SURFACE_COL[tab];
+    // Surfaces are a Google-only breakdown. Only offer the filter when the view
+    // is scoped to Google — otherwise selecting a surface would hide every other
+    // platform. Options are limited to the surfaces of the scoped service(s).
+    var platVal = document.getElementById('vlop-platform').value;
+    var svcVal = document.getElementById('vlop-service').value;
+    var svcIdx = svcVal === '' ? null : parseInt(svcVal);
+    var platforms = D.service_platforms || [];
+    var googleScope = (svcIdx !== null && platforms[svcIdx] === 'Google') || platVal === 'Google';
     var seen = {};
-    if (col !== undefined) {
-      // Offer only real breakdowns (>0). Index 0 is the "All" sentinel for
-      // non-broken-down rows; "All surfaces" (the default below) already covers it.
-      (D[tab] || []).forEach(function (r) { if (r[col] > 0) seen[r[col]] = true; });
+    if (col !== undefined && googleScope) {
+      (D[tab] || []).forEach(function (r) {
+        if (r[col] > 0 && (svcIdx === null || r[0] === svcIdx)) seen[r[col]] = true;
+      });
     }
     var idxs = Object.keys(seen).map(Number).sort(function (a, b) { return a - b; });
     if (idxs.length === 0) { wrap.hidden = true; sel.innerHTML = ''; return; }
+    var prev = sel.value;
     wrap.hidden = false;
     sel.innerHTML = '<option value="">' + _.allSurfaces + '</option>';
     idxs.forEach(function (i) {
       sel.innerHTML += '<option value="' + i + '">' + (D.surfaces[i] || i) + '</option>';
     });
+    // Keep the active surface selection when it's still valid in the new scope.
+    if (prev && sel.querySelector('option[value="' + prev + '"]')) sel.value = prev;
   }
 
   function getFilters() {
@@ -988,9 +999,13 @@
     document.getElementById('vlop-platform').addEventListener('change', function () {
       var platVal = document.getElementById('vlop-platform').value;
       buildServiceFilter(platVal || null);
+      buildSurfaceFilter(currentTab);
       render();
     });
-    document.getElementById('vlop-service').addEventListener('change', render);
+    document.getElementById('vlop-service').addEventListener('change', function () {
+      buildSurfaceFilter(currentTab);
+      render();
+    });
     document.getElementById('vlop-category').addEventListener('change', function () {
       var catVal = document.getElementById('vlop-category').value;
       var parentCode = catVal !== '' ? D.categories[parseInt(catVal)] : null;
