@@ -53,6 +53,7 @@
       internalModsShort: 'Internal',
       externalModsShort: 'External',
       modsByService: 'Content moderators by service',
+      modsByLanguage: 'Moderators with linguistic expertise by language',
       t9Title: 'Human resources for content moderation',
       // T10
       tabT10: 'User Reach',
@@ -165,6 +166,7 @@
       internalModsShort: '社内',
       externalModsShort: '外部',
       modsByService: 'サービス別モデレーター数',
+      modsByLanguage: '言語別・言語能力を有するモデレーター数',
       t9Title: 'コンテンツモデレーションの人的資源',
       tabT10: 'ユーザーリーチ',
       totalRecipients: 'EU月間アクティブ受信者合計',
@@ -264,6 +266,7 @@
       internalModsShort: '内部',
       externalModsShort: '外部',
       modsByService: '各服务审核员数',
+      modsByLanguage: '各语言具备语言能力的审核员数',
       t9Title: '内容审核人力资源',
       tabT10: '用户触达',
       totalRecipients: 'EU活跃用户总数',
@@ -363,6 +366,7 @@
       internalModsShort: '내부',
       externalModsShort: '외부',
       modsByService: '서비스별 모더레이터 수',
+      modsByLanguage: '언어별 언어 능력을 갖춘 모더레이터 수',
       t9Title: '콘텐츠 모더레이션 인적 자원',
       tabT10: '이용자 도달 범위',
       totalRecipients: 'EU 총 이용자 수',
@@ -832,6 +836,16 @@
     KEYWORD_ANIMAL_HARM: 'STATEMENT_CATEGORY_ANIMAL_WELFARE',
     KEYWORD_UNLAWFUL_SALE_ANIMALS: 'STATEMENT_CATEGORY_ANIMAL_WELFARE',
   };
+
+  // Language names for T9 linguistic expertise breakdown.
+  var LANG_NAMES = {
+    en: { bg:'Bulgarian',hr:'Croatian',cs:'Czech',da:'Danish',nl:'Dutch',en:'English',et:'Estonian',fi:'Finnish',fr:'French',de:'German',el:'Greek',hu:'Hungarian',ga:'Irish',it:'Italian',lv:'Latvian',lt:'Lithuanian',mt:'Maltese',pl:'Polish',pt:'Portuguese',ro:'Romanian',sk:'Slovak',sl:'Slovenian',es:'Spanish',sv:'Swedish',ar:'Arabic',bs:'Bosnian',ja:'Japanese',ko:'Korean',ru:'Russian',zh:'Chinese',tl:'Filipino',no:'Norwegian',BG:'Bulgarian',HR:'Croatian',CZ:'Czech',DK:'Danish',NL:'Dutch',EN:'English',EE:'Estonian',FI:'Finnish',FR:'French',DE:'German',GR:'Greek',HU:'Hungarian',IE:'Irish',IT:'Italian',LV:'Latvian',LT:'Lithuanian',MT:'Maltese',PL:'Polish',PT:'Portuguese',RO:'Romanian',SK:'Slovak',SI:'Slovenian',ES:'Spanish',SE:'Swedish',SV:'Swedish',AR:'Arabic',BN:'Bengali',FA:'Persian',HI:'Hindi',ID:'Indonesian',MS:'Malay',RU:'Russian',SW:'Swahili' },
+    ja: { bg:'ブルガリア語',hr:'クロアチア語',cs:'チェコ語',da:'デンマーク語',nl:'オランダ語',en:'英語',et:'エストニア語',fi:'フィンランド語',fr:'フランス語',de:'ドイツ語',el:'ギリシャ語',hu:'ハンガリー語',ga:'アイルランド語',it:'イタリア語',lv:'ラトビア語',lt:'リトアニア語',mt:'マルタ語',pl:'ポーランド語',pt:'ポルトガル語',ro:'ルーマニア語',sk:'スロバキア語',sl:'スロベニア語',es:'スペイン語',sv:'スウェーデン語',ar:'アラビア語',bs:'ボスニア語',ja:'日本語',ko:'韓国語',ru:'ロシア語',zh:'中国語',tl:'フィリピン語',no:'ノルウェー語',BG:'ブルガリア語',HR:'クロアチア語',CZ:'チェコ語',DK:'デンマーク語',NL:'オランダ語',EN:'英語',EE:'エストニア語',FI:'フィンランド語',FR:'フランス語',DE:'ドイツ語',GR:'ギリシャ語',HU:'ハンガリー語',IE:'アイルランド語',IT:'イタリア語',LV:'ラトビア語',LT:'リトアニア語',MT:'マルタ語',PL:'ポーランド語',PT:'ポルトガル語',RO:'ルーマニア語',SK:'スロバキア語',SI:'スロベニア語',ES:'スペイン語',SE:'スウェーデン語',SV:'スウェーデン語',AR:'アラビア語',BN:'ベンガル語',FA:'ペルシャ語',HI:'ヒンディー語',ID:'インドネシア語',MS:'マレー語',RU:'ロシア語',SW:'スワヒリ語' },
+    zh: { bg:'保加利亚语',hr:'克罗地亚语',cs:'捷克语',da:'丹麦语',nl:'荷兰语',en:'英语',et:'爱沙尼亚语',fi:'芬兰语',fr:'法语',de:'德语',el:'希腊语',hu:'匈牙利语',ga:'爱尔兰语',it:'意大利语',lv:'拉脱维亚语',lt:'立陶宛语',mt:'马耳他语',pl:'波兰语',pt:'葡萄牙语',ro:'罗马尼亚语',sk:'斯洛伐克语',sl:'斯洛文尼亚语',es:'西班牙语',sv:'瑞典语',ar:'阿拉伯语',bs:'波斯尼亚语',ja:'日语',ko:'韩语',ru:'俄语',zh:'中文',tl:'菲律宾语',no:'挪威语',BG:'保加利亚语',HR:'克罗地亚语',CZ:'捷克语',DK:'丹麦语',NL:'荷兰语',EN:'英语',EE:'爱沙尼亚语',FI:'芬兰语',FR:'法语',DE:'德语',GR:'希腊语',HU:'匈牙利语',IE:'爱尔兰语',IT:'意大利语',LV:'拉脱维亚语',LT:'立陶宛语',MT:'马耳他语',PL:'波兰语',PT:'葡萄牙语',RO:'罗马尼亚语',SK:'斯洛伐克语',SI:'斯洛文尼亚语',ES:'西班牙语',SE:'瑞典语',SV:'瑞典语',AR:'阿拉伯语',BN:'孟加拉语',FA:'波斯语',HI:'印地语',ID:'印尼语',MS:'马来语',RU:'俄语',SW:'斯瓦希里语' },
+    ko: { bg:'불가리아어',hr:'크로아티아어',cs:'체코어',da:'덴마크어',nl:'네덜란드어',en:'영어',et:'에스토니아어',fi:'핀란드어',fr:'프랑스어',de:'독일어',el:'그리스어',hu:'헝가리어',ga:'아일랜드어',it:'이탈리아어',lv:'라트비아어',lt:'리투아니아어',mt:'몰타어',pl:'폴란드어',pt:'포르투갈어',ro:'루마니아어',sk:'슬로바키아어',sl:'슬로베니아어',es:'스페인어',sv:'스웨덴어',ar:'아랍어',bs:'보스니아어',ja:'일본어',ko:'한국어',ru:'러시아어',zh:'중국어',tl:'필리핀어',no:'노르웨이어',BG:'불가리아어',HR:'크로아티아어',CZ:'체코어',DK:'덴마크어',NL:'네덜란드어',EN:'영어',EE:'에스토니아어',FI:'핀란드어',FR:'프랑스어',DE:'독일어',GR:'그리스어',HU:'헝가리어',IE:'아일랜드어',IT:'이탈리아어',LV:'라트비아어',LT:'리투아니아어',MT:'몰타어',PL:'폴란드어',PT:'포르투갈어',RO:'루마니아어',SK:'슬로바키아어',SI:'슬로베니아어',ES:'스페인어',SE:'스웨덴어',SV:'스웨덴어',AR:'아랍어',BN:'벵골어',FA:'페르시아어',HI:'힌디어',ID:'인도네시아어',MS:'말레이어',RU:'러시아어',SW:'스와힐리어' },
+  };
+  var LANG_MAP = LANG_NAMES[lang] || LANG_NAMES.en;
+  function langLabel(code) { return LANG_MAP[code] || code; }
 
   var D;
   var charts = {};
@@ -1561,14 +1575,38 @@
     var activeSvcs  = activeSvcIndices(f.svcs);
     var intData     = activeSvcs.map(function(i) { return t9val(i, indInternal); });
     var extData     = activeSvcs.map(function(i) { return t9val(i, indExternal); });
-    setCharts([{
+
+    // Language breakdown: aggregate linguistic expertise by language code
+    var byLang = {};
+    D.t9.forEach(function(r) {
+      if (!inSvcs(f.svcs, r[0]) || r[1] !== secHR || r[2] !== indTotal) return;
+      var code = D.scopes[r[3]];
+      if (!LANG_MAP[code]) return;
+      var label = langLabel(code);
+      byLang[label] = (byLang[label] || 0) + n(r[4]);
+    });
+    var langEntries = Object.keys(byLang)
+      .map(function(l) { return { label: l, val: byLang[l] }; })
+      .filter(function(d) { return d.val > 0; })
+      .sort(function(a, b) { return b.val - a.val; });
+
+    var chartSpecs = [{
       title: _.modsByService, id: 'vlop-c1', type: 'bar', wide: true,
       labels: svcLabels(activeSvcs),
       datasets: [
         { label: _.internalModsShort, data: intData, backgroundColor: '#4e79a7' },
         { label: _.externalModsShort, data: extData, backgroundColor: '#f28e2b' },
       ],
-    }]);
+    }];
+    if (langEntries.length > 0) {
+      chartSpecs.push({
+        title: _.modsByLanguage, id: 'vlop-c2', type: 'bar', wide: true,
+        labels: langEntries.map(function(d) { return d.label; }),
+        datasets: [{ label: _.totalMods, data: langEntries.map(function(d) { return d.val; }),
+                     backgroundColor: '#76b7b2' }],
+      });
+    }
+    setCharts(chartSpecs);
 
     var t9agg = {}, t9order = [];
     D.t9.forEach(function(r) {
