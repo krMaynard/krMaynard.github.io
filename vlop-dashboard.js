@@ -142,6 +142,8 @@
       desigTitle: 'VLOP & VLOSE designations',
       desigIntro: 'Every platform and search engine designated under the EU DSA, by designation date. Stripchat was de-designated in May 2025; WhatsApp Channels was designated in January 2026, after this reporting period.',
       thPlatform: 'Platform', thType: 'Type', thDesignated: 'Designated', thStatus: 'Status',
+      thAmarDesig: 'AMAR at designation', thAmarLatest: 'Latest AMAR',
+      amarDisputed: 'platform reported',
       statusActive: 'Active', statusDeDesignated: 'De-designated',
     },
     ja: {
@@ -244,6 +246,8 @@
       desigTitle: 'VLOP・VLOSEの指定',
       desigIntro: 'EUのDSAに基づき指定されたすべてのプラットフォームと検索エンジンを指定日順に示します。Stripchatは2025年5月に指定解除され、WhatsApp Channelsは本報告期間後の2026年1月に指定されました。',
       thPlatform: 'プラットフォーム', thType: '種別', thDesignated: '指定日', thStatus: 'ステータス',
+      thAmarDesig: '指定時AMAR', thAmarLatest: '最新AMAR',
+      amarDisputed: 'プラットフォーム申告',
       statusActive: '指定中', statusDeDesignated: '指定解除',
     },
     zh: {
@@ -346,6 +350,8 @@
       desigTitle: 'VLOP与VLOSE认定',
       desigIntro: '根据欧盟DSA认定的所有平台与搜索引擎，按认定日期排列。Stripchat已于2025年5月被撤销认定；WhatsApp Channels于本报告期之后的2026年1月获认定。',
       thPlatform: '平台', thType: '类型', thDesignated: '认定日期', thStatus: '状态',
+      thAmarDesig: '认定时AMAR', thAmarLatest: '最新AMAR',
+      amarDisputed: '平台申报',
       statusActive: '认定中', statusDeDesignated: '已撤销认定',
     },
     ko: {
@@ -448,6 +454,8 @@
       desigTitle: 'VLOP 및 VLOSE 지정',
       desigIntro: 'EU DSA에 따라 지정된 모든 플랫폼과 검색 엔진을 지정일순으로 표시합니다. Stripchat은 2025년 5월 지정 해제되었으며, WhatsApp Channels는 본 보고 기간 이후인 2026년 1월에 지정되었습니다.',
       thPlatform: '플랫폼', thType: '유형', thDesignated: '지정일', thStatus: '상태',
+      thAmarDesig: '지정 시 AMAR', thAmarLatest: '최신 AMAR',
+      amarDisputed: '플랫폼 보고',
       statusActive: '지정 중', statusDeDesignated: '지정 해제',
     },
   };
@@ -876,33 +884,35 @@
   // ── VLOP / VLOSE designation timeline ───────────────────────
   // Official European Commission designation dates under the DSA. `until` marks
   // a later de-designation. Reference data, independent of the report dataset.
+  // amar: EC's figure (millions) at designation. amarDisputed: platform's own figure
+  // where it disagreed with the EC's methodology.
   var DESIGNATIONS = [
-    { name: 'AliExpress', type: 'VLOP', date: '2023-04-25' },
-    { name: 'Amazon Store', type: 'VLOP', date: '2023-04-25' },
-    { name: 'Apple App Store', type: 'VLOP', date: '2023-04-25' },
-    { name: 'Bing', type: 'VLOSE', date: '2023-04-25' },
-    { name: 'Booking.com', type: 'VLOP', date: '2023-04-25' },
-    { name: 'Facebook', type: 'VLOP', date: '2023-04-25' },
-    { name: 'Google Maps', type: 'VLOP', date: '2023-04-25' },
-    { name: 'Google Play', type: 'VLOP', date: '2023-04-25' },
-    { name: 'Google Search', type: 'VLOSE', date: '2023-04-25' },
-    { name: 'Google Shopping', type: 'VLOP', date: '2023-04-25' },
-    { name: 'Instagram', type: 'VLOP', date: '2023-04-25' },
-    { name: 'LinkedIn', type: 'VLOP', date: '2023-04-25' },
-    { name: 'Pinterest', type: 'VLOP', date: '2023-04-25' },
-    { name: 'Snapchat', type: 'VLOP', date: '2023-04-25' },
-    { name: 'TikTok', type: 'VLOP', date: '2023-04-25' },
-    { name: 'Wikipedia', type: 'VLOP', date: '2023-04-25' },
-    { name: 'X (Twitter)', type: 'VLOP', date: '2023-04-25' },
-    { name: 'YouTube', type: 'VLOP', date: '2023-04-25' },
-    { name: 'Zalando', type: 'VLOP', date: '2023-04-25' },
-    { name: 'Pornhub', type: 'VLOP', date: '2023-12-20' },
-    { name: 'Stripchat', type: 'VLOP', date: '2023-12-20', until: '2025-05-27' },
-    { name: 'XVideos', type: 'VLOP', date: '2023-12-20' },
-    { name: 'Shein', type: 'VLOP', date: '2024-04-26' },
-    { name: 'Temu', type: 'VLOP', date: '2024-05-31' },
-    { name: 'XNXX', type: 'VLOP', date: '2024-07-10' },
-    { name: 'WhatsApp Channels', type: 'VLOP', date: '2026-01-26' }
+    { name: 'AliExpress', type: 'VLOP', date: '2023-04-25', amar: 104.3 },
+    { name: 'Amazon Store', type: 'VLOP', date: '2023-04-25', amar: 181.3 },
+    { name: 'Apple App Store', type: 'VLOP', date: '2023-04-25', amar: 123 },
+    { name: 'Bing', type: 'VLOSE', date: '2023-04-25', amar: 119 },
+    { name: 'Booking.com', type: 'VLOP', date: '2023-04-25', amar: null },
+    { name: 'Facebook', type: 'VLOP', date: '2023-04-25', amar: 259 },
+    { name: 'Google Maps', type: 'VLOP', date: '2023-04-25', amar: 275.6 },
+    { name: 'Google Play', type: 'VLOP', date: '2023-04-25', amar: 284.6 },
+    { name: 'Google Search', type: 'VLOSE', date: '2023-04-25', amar: 364 },
+    { name: 'Google Shopping', type: 'VLOP', date: '2023-04-25', amar: 70.8 },
+    { name: 'Instagram', type: 'VLOP', date: '2023-04-25', amar: 259 },
+    { name: 'LinkedIn', type: 'VLOP', date: '2023-04-25', amar: 132.5, amarDisputed: 45.2 },
+    { name: 'Pinterest', type: 'VLOP', date: '2023-04-25', amar: 124 },
+    { name: 'Snapchat', type: 'VLOP', date: '2023-04-25', amar: 102 },
+    { name: 'TikTok', type: 'VLOP', date: '2023-04-25', amar: 135.9 },
+    { name: 'Wikipedia', type: 'VLOP', date: '2023-04-25', amar: 151.1 },
+    { name: 'X (Twitter)', type: 'VLOP', date: '2023-04-25', amar: 115.1 },
+    { name: 'YouTube', type: 'VLOP', date: '2023-04-25', amar: 416.6 },
+    { name: 'Zalando', type: 'VLOP', date: '2023-04-25', amar: 74.5, amarDisputed: 26.8 },
+    { name: 'Pornhub', type: 'VLOP', date: '2023-12-20', amar: null },
+    { name: 'Stripchat', type: 'VLOP', date: '2023-12-20', until: '2025-05-27', amar: null },
+    { name: 'XVideos', type: 'VLOP', date: '2023-12-20', amar: null },
+    { name: 'Shein', type: 'VLOP', date: '2024-04-26', amar: 108 },
+    { name: 'Temu', type: 'VLOP', date: '2024-05-31', amar: 75 },
+    { name: 'XNXX', type: 'VLOP', date: '2024-07-10', amar: null },
+    { name: 'WhatsApp Channels', type: 'VLOP', date: '2026-01-26', amar: 51.7 }
   ];
 
   function fmtDate(iso) {
@@ -910,6 +920,34 @@
     return new Date(p[0], p[1] - 1, p[2]).toLocaleDateString(LOCALE, {
       year: 'numeric', month: 'short', day: 'numeric'
     });
+  }
+
+  // Maps DESIGNATIONS names to service names in the dataset (where they differ)
+  var DESIG_SVC_MAP = {
+    'Amazon Store': 'Amazon',
+    'Apple App Store': 'App Store',
+    'X (Twitter)': 'X',
+    'Shein': 'SHEIN',
+  };
+
+  function desigLatestAmar(name) {
+    if (!D) return null;
+    var svcName = DESIG_SVC_MAP[name] || name;
+    var svcIdx = D.services.indexOf(svcName);
+    if (svcIdx === -1) return null;
+    var scopeTotal  = D.scopes.indexOf('TOTAL');
+    var scopeTotal2 = D.scopes.indexOf('total');
+    var total = 0;
+    D.t10.forEach(function (r) {
+      if (r[0] === svcIdx && (r[1] === scopeTotal || r[1] === scopeTotal2)) total += r[2];
+    });
+    return total > 0 ? total : null;
+  }
+
+  function fmtMillions(v) {
+    if (v == null) return '—';
+    if (v >= 1e6) return (v / 1e6).toFixed(1).replace(/\.0$/, '') + 'M';
+    return v.toLocaleString(LOCALE);
   }
 
   function renderDesignations() {
@@ -920,7 +958,7 @@
 
     var head = document.getElementById('vlop-desig-head');
     head.innerHTML = '';
-    [_.thPlatform, _.thType, _.thDesignated, _.thStatus].forEach(function (h) {
+    [_.thPlatform, _.thType, _.thDesignated, _.thAmarDesig, _.thAmarLatest, _.thStatus].forEach(function (h) {
       var th = document.createElement('th');
       th.textContent = h;
       head.appendChild(th);
@@ -937,7 +975,21 @@
       var tr = document.createElement('tr');
       if (r.until) tr.className = 'desig-inactive';
       var status = r.until ? _.statusDeDesignated + ' · ' + fmtDate(r.until) : _.statusActive;
-      [r.name, r.type, fmtDate(r.date), status].forEach(function (val) {
+
+      // AMAR at designation
+      var amarDesig = '—';
+      if (r.amar != null) {
+        amarDesig = r.amar + 'M';
+        if (r.amarDisputed != null) {
+          amarDesig += ' (' + _.amarDisputed + ': ' + r.amarDisputed + 'M)';
+        }
+      }
+
+      // Latest AMAR from dataset
+      var latest = desigLatestAmar(r.name);
+      var amarLatest = latest != null ? fmtMillions(latest) : '—';
+
+      [r.name, r.type, fmtDate(r.date), amarDesig, amarLatest, status].forEach(function (val) {
         var td = document.createElement('td');
         td.textContent = val;
         tr.appendChild(td);
@@ -956,6 +1008,7 @@
       .then(function (r) { return r.json(); })
       .then(function (data) {
         D = data;
+        renderDesignations();
         document.getElementById('vlop-loading').hidden = true;
         document.getElementById('vlop-app').hidden = false;
         document.getElementById('vlop-readme').hidden = false;
