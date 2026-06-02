@@ -743,6 +743,7 @@
     KEYWORD_ADULT_SEXUAL_MATERIAL: 'STATEMENT_CATEGORY_CYBER_VIOLENCE',
     KEYWORD_CYBER_BULLYING_INTIMIDATION: 'STATEMENT_CATEGORY_CYBER_VIOLENCE',
     KEYWORD_CYBER_HARASSMENT: 'STATEMENT_CATEGORY_CYBER_VIOLENCE',
+    KEYWORD_OTHER_SEXUAL_HARASSMENT: 'STATEMENT_CATEGORY_CYBER_VIOLENCE',
     KEYWORD_CYBER_STALKING: 'STATEMENT_CATEGORY_CYBER_VIOLENCE',
     KEYWORD_NON_CONSENSUAL_IMAGE_SHARING: 'STATEMENT_CATEGORY_CYBER_VIOLENCE',
     KEYWORD_NON_CONSENSUAL_MATERIAL_DEEPFAKE: 'STATEMENT_CATEGORY_CYBER_VIOLENCE',
@@ -769,8 +770,11 @@
     KEYWORD_VIOLATION_EU_LAW: 'STATEMENT_CATEGORY_ILLEGAL_OR_HARMFUL_SPEECH',
     KEYWORD_VIOLATION_NATIONAL_LAW: 'STATEMENT_CATEGORY_ILLEGAL_OR_HARMFUL_SPEECH',
     KEYWORD_COPYRIGHT_INFRINGEMENT: 'STATEMENT_CATEGORY_INTELLECTUAL_PROPERTY_INFRINGEMENTS',
+    KEYWORD_DESIGN_INFRINGEMENT: 'STATEMENT_CATEGORY_INTELLECTUAL_PROPERTY_INFRINGEMENTS',
+    KEYWORD_GEOGRAPHIC_INDICATIONS_INFRINGEMENT: 'STATEMENT_CATEGORY_INTELLECTUAL_PROPERTY_INFRINGEMENTS',
     KEYWORD_OTHER_INTELLECTUAL_PROPERTY_INFRINGEMENTS_THIRD_PARTY_VIOLATION_OR_DATA_VIOLATION: 'STATEMENT_CATEGORY_INTELLECTUAL_PROPERTY_INFRINGEMENTS',
     KEYWORD_PATENT_INFRINGEMENT: 'STATEMENT_CATEGORY_INTELLECTUAL_PROPERTY_INFRINGEMENTS',
+    KEYWORD_TRADE_SECRET_INFRINGEMENT: 'STATEMENT_CATEGORY_INTELLECTUAL_PROPERTY_INFRINGEMENTS',
     KEYWORD_TRADEMARK_INFRINGEMENT: 'STATEMENT_CATEGORY_INTELLECTUAL_PROPERTY_INFRINGEMENTS',
     KEYWORD_COORDINATED_HARM: 'STATEMENT_CATEGORY_NEGATIVE_EFFECTS_ON_CIVIC_DISCOURSE_OR_ELECTIONS',
     KEYWORD_IMPERSONATION_ACCOUNT_HIJACKING: 'STATEMENT_CATEGORY_NEGATIVE_EFFECTS_ON_CIVIC_DISCOURSE_OR_ELECTIONS',
@@ -780,6 +784,7 @@
     KEYWORD_MISINFORMATION_DISINFORMATION: 'STATEMENT_CATEGORY_NEGATIVE_EFFECTS_ON_CIVIC_DISCOURSE_OR_ELECTIONS',
     KEYWORD_OTHER_CIVIC_DISCOURSE: 'STATEMENT_CATEGORY_NEGATIVE_EFFECTS_ON_CIVIC_DISCOURSE_OR_ELECTIONS',
     KEYWORD_OTHER_FAKE_ENGAGEMENT: 'STATEMENT_CATEGORY_NEGATIVE_EFFECTS_ON_CIVIC_DISCOURSE_OR_ELECTIONS',
+    KEYWORD_OTHER_SPAM_AND_ARTIFICIAL_ENGAGEMENT: 'STATEMENT_CATEGORY_NEGATIVE_EFFECTS_ON_CIVIC_DISCOURSE_OR_ELECTIONS',
     KEYWORD_AGE_SPECIFIC_RESTRICTIONS: 'STATEMENT_CATEGORY_PROTECTION_OF_MINORS',
     KEYWORD_AGE_SPECIFIC_RESTRICTIONS_MINORS: 'STATEMENT_CATEGORY_PROTECTION_OF_MINORS',
     KEYWORD_CHILD_SEXUAL_ABUSE_MATERIAL: 'STATEMENT_CATEGORY_PROTECTION_OF_MINORS',
@@ -796,6 +801,7 @@
     KEYWORD_TERRORIST_CONTENT: 'STATEMENT_CATEGORY_RISK_FOR_PUBLIC_SECURITY',
     KEYWORD_OTHER_FINANCIAL_FRAUDS_SCAMS: 'STATEMENT_CATEGORY_SCAMS_AND_FRAUD',
     KEYWORD_OTHER_FRAUD_AND_DECEPTION: 'STATEMENT_CATEGORY_SCAMS_AND_FRAUD',
+    KEYWORD_OTHER_FRAUD_OR_DECEPTION: 'STATEMENT_CATEGORY_SCAMS_AND_FRAUD',
     KEYWORD_OTHER_LEAD_ADS: 'STATEMENT_CATEGORY_SCAMS_AND_FRAUD',
     KEYWORD_PHISHING: 'STATEMENT_CATEGORY_SCAMS_AND_FRAUD',
     KEYWORD_PYRAMID_SCHEMES: 'STATEMENT_CATEGORY_SCAMS_AND_FRAUD',
@@ -811,6 +817,7 @@
     KEYWORD_PROHIBITED_PRODUCTS: 'STATEMENT_CATEGORY_UNSAFE_AND_PROHIBITED_PRODUCTS',
     KEYWORD_UNSAFE_PRODUCTS: 'STATEMENT_CATEGORY_UNSAFE_AND_PROHIBITED_PRODUCTS',
     KEYWORD_INCITEMENT_VIOLENCE_HATRED: 'STATEMENT_CATEGORY_VIOLENCE',
+    KEYWORD_OTHER_GRAPHIC: 'STATEMENT_CATEGORY_VIOLENCE',
     KEYWORD_OTHER_GRAPHIC_VIOLENCE: 'STATEMENT_CATEGORY_VIOLENCE',
     KEYWORD_OTHER_MURDER: 'STATEMENT_CATEGORY_VIOLENCE',
     KEYWORD_OTHER_PHYSICAL_ASSAULT: 'STATEMENT_CATEGORY_VIOLENCE',
@@ -828,6 +835,9 @@
     KEYWORD_OTHER_PROFANITY: 'STATEMENT_CATEGORY_OTHER_VIOLATION_TC',
     KEYWORD_OTHER_REPEAT_VIOLATOR: 'STATEMENT_CATEGORY_OTHER_VIOLATION_TC',
     KEYWORD_OTHER_SPAM: 'STATEMENT_CATEGORY_OTHER_VIOLATION_TC',
+    KEYWORD_OTHER_AD_POLICY_EDITORIAL: 'STATEMENT_CATEGORY_OTHER_VIOLATION_TC',
+    KEYWORD_OTHER_AD_POLICY_SAFETY_AND_PRIVACY: 'STATEMENT_CATEGORY_OTHER_VIOLATION_TC',
+    KEYWORD_OTHER_PROFILE_POLICIES: 'STATEMENT_CATEGORY_OTHER_VIOLATION_TC',
     KEYWORD_OTHER_UNKNOWN: 'STATEMENT_CATEGORY_OTHER_VIOLATION_TC',
     KEYWORD_OTHER_UNORIGINAL_CONTENT: 'STATEMENT_CATEGORY_OTHER_VIOLATION_TC',
     KEYWORD_OTHER_ILLEGALITY: 'STATEMENT_CATEGORY_OTHER_ILLEGAL',
@@ -1044,30 +1054,19 @@
     var wrap = document.getElementById('vlop-surf-wrap');
     if (!sel || !wrap) return;
     var col = SURFACE_COL[tab];
-    // Surfaces are a Google-only breakdown. Only offer the filter when the view
-    // is scoped to Google — otherwise selecting a surface would hide every other
-    // platform. Options are limited to the surfaces of the scoped service(s).
-    var platVal = document.getElementById('vlop-platform').value;
-    var svcVal = document.getElementById('vlop-service').value;
-    var svcIdx = svcVal === '' ? null : parseInt(svcVal);
-    var platforms = D.service_platforms || [];
-    var googleScope = (svcIdx !== null && platforms[svcIdx] === 'Google') || platVal === 'Google';
     var seen = {};
-    if (col !== undefined && googleScope) {
-      (D[tab] || []).forEach(function (r) {
-        if (r[col] > 0 && (svcIdx === null || r[0] === svcIdx)) seen[r[col]] = true;
-      });
+    if (col !== undefined) {
+      // Offer only real breakdowns (>0). Index 0 is the "All" sentinel for
+      // non-broken-down rows; "All surfaces" (the default below) already covers it.
+      (D[tab] || []).forEach(function (r) { if (r[col] > 0) seen[r[col]] = true; });
     }
     var idxs = Object.keys(seen).map(Number).sort(function (a, b) { return a - b; });
     if (idxs.length === 0) { wrap.hidden = true; sel.innerHTML = ''; return; }
-    var prev = sel.value;
     wrap.hidden = false;
     sel.innerHTML = '<option value="">' + _.allSurfaces + '</option>';
     idxs.forEach(function (i) {
       sel.innerHTML += '<option value="' + i + '">' + (D.surfaces[i] || i) + '</option>';
     });
-    // Keep the active surface selection when it's still valid in the new scope.
-    if (prev && sel.querySelector('option[value="' + prev + '"]')) sel.value = prev;
   }
 
   function buildCountryFilter(tab) {
@@ -1148,13 +1147,9 @@
     document.getElementById('vlop-platform').addEventListener('change', function () {
       var platVal = document.getElementById('vlop-platform').value;
       buildServiceFilter(platVal || null);
-      buildSurfaceFilter(currentTab);
       render();
     });
-    document.getElementById('vlop-service').addEventListener('change', function () {
-      buildSurfaceFilter(currentTab);
-      render();
-    });
+    document.getElementById('vlop-service').addEventListener('change', render);
     document.getElementById('vlop-category').addEventListener('change', function () {
       var catVal = document.getElementById('vlop-category').value;
       var parentCode = catVal !== '' ? D.categories[parseInt(catVal)] : null;
