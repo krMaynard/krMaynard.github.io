@@ -939,7 +939,7 @@
     var scopeTotal2 = D.scopes.indexOf('total');
     var total = 0;
     D.t10.forEach(function (r) {
-      if (r[0] === svcIdx && (r[1] === scopeTotal || r[1] === scopeTotal2)) total += r[2];
+      if (r[0] === svcIdx && (r[1] === scopeTotal || r[1] === scopeTotal2)) total += n(r[2]);
     });
     return total > 0 ? total : null;
   }
@@ -987,7 +987,7 @@
 
       // Latest AMAR from dataset
       var latest = desigLatestAmar(r.name);
-      var amarLatest = latest != null ? fmtMillions(latest) : '—';
+      var amarLatest = fmtMillions(latest);
 
       [r.name, r.type, fmtDate(r.date), amarDesig, amarLatest, status].forEach(function (val) {
         var td = document.createElement('td');
