@@ -1113,7 +1113,8 @@
     }
 
     var countryEl = document.getElementById('vlop-country');
-    var countryVal = countryEl ? countryEl.value : '';
+    var countryWrap = document.getElementById('vlop-country-wrap');
+    var countryVal = (countryEl && countryWrap && !countryWrap.hidden) ? countryEl.value : '';
 
     return {
       svcs: svcs,
@@ -1729,15 +1730,15 @@
 
       var totData = activeSvcs.map(function(i) { return t10total(i); });
 
-      // Country breakdown: sum across selected services for each EU country
-      var countryData = [];
-      EU_CODES_SORTED.forEach(function(code) {
-        var scopeIdx = D.scopes.indexOf(code);
-        if (scopeIdx === -1) return;
-        var val = 0;
-        activeSvcs.forEach(function(i) { val += t10val(i, scopeIdx); });
-        if (val > 0) countryData.push({ code: code, val: val });
+      // Country breakdown: single-pass aggregation across selected services
+      var countryTotals = {};
+      D.t10.forEach(function(r) {
+        if (!inSvcs(f.svcs, r[0])) return;
+        var code = D.scopes[r[1]];
+        if (COUNTRY_NAMES[code]) countryTotals[code] = (countryTotals[code] || 0) + n(r[2]);
       });
+      var countryData = Object.keys(countryTotals)
+        .map(function(code) { return { code: code, val: countryTotals[code] }; });
       countryData.sort(function(a, b) { return b.val - a.val; });
 
       var chartSpecs = [{
