@@ -1076,7 +1076,7 @@
     idxs.forEach(function (i) {
       sel.innerHTML += '<option value="' + i + '">' + (D.surfaces[i] || i) + '</option>';
     });
-    if (prev && sel.querySelector('option[value="' + prev + '"]')) sel.value = prev;
+    if (prev && idxs.indexOf(Number(prev)) !== -1) sel.value = prev;
   }
 
   function buildCountryFilter(tab) {
