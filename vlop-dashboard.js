@@ -35,6 +35,7 @@
       allCategories: 'All',
       allKeywords: 'All',
       allSurfaces: 'All surfaces',
+      allCountries: 'All countries',
       topKeywords: 'Top keywords by ',
       reset: 'Reset filters',
       rows: 'rows',
@@ -58,6 +59,7 @@
       tabT10: 'User Reach',
       totalRecipients: 'Total EU recipients',
       recipientsByService: 'Monthly active recipients by service',
+      recipientsByCountry: 'Monthly active recipients by country',
       t10Title: 'Average monthly active recipients (AMAR)',
       // T8
       autoMeasures: 'Automated measures',
@@ -115,6 +117,7 @@
       itemsInOrders: 'Items in orders',
       ordersForInfo: 'Orders for user info',
       ordersChart: 'Orders to act against illegal content',
+      ordersByCountry: 'Government orders by issuing country',
       ordersToActLabel: 'Orders to act',
       ordersForInfoLabel: 'Orders for user info',
       tOrdersAct: 'Orders to act', tItemsOrders: 'Items', tOrdersInfo: 'Orders for info',
@@ -149,6 +152,7 @@
       allCategories: 'すべて',
       allKeywords: 'すべて',
       allSurfaces: 'すべての区分',
+      allCountries: 'すべての国',
       topKeywords: 'キーワード別トップ10（',
       reset: 'フィルタをリセット',
       rows: '件',
@@ -169,6 +173,7 @@
       tabT10: 'ユーザーリーチ',
       totalRecipients: 'EU月間アクティブ受信者合計',
       recipientsByService: 'サービス別月間アクティブ受信者数',
+      recipientsByCountry: '国別月間アクティブ受信者数',
       t10Title: '月間平均アクティブ受信者数（AMAR）',
       autoMeasures: '自動化措置数',
       nonAutoMeasures: '人的審査による措置数',
@@ -217,6 +222,7 @@
       itemsInOrders: '命令内アイテム数',
       ordersForInfo: '情報提供命令数',
       ordersChart: '違法コンテンツへの対処命令',
+      ordersByCountry: '発行国別の政府命令',
       ordersToActLabel: '対処命令',
       ordersForInfoLabel: '情報提供命令',
       tOrdersAct: '対処命令数', tItemsOrders: 'アイテム数', tOrdersInfo: '情報提供命令数',
@@ -248,6 +254,7 @@
       allCategories: '全部',
       allKeywords: '全部',
       allSurfaces: '全部细分',
+      allCountries: '全部国家',
       topKeywords: '关键词前10名（',
       reset: '重置筛选',
       rows: '条',
@@ -268,6 +275,7 @@
       tabT10: '用户触达',
       totalRecipients: 'EU活跃用户总数',
       recipientsByService: '各服务月均活跃用户',
+      recipientsByCountry: '各国月均活跃用户',
       t10Title: '月均活跃受众数量（AMAR）',
       autoMeasures: '自动化措施数',
       nonAutoMeasures: '人工审核措施数',
@@ -316,6 +324,7 @@
       itemsInOrders: '命令涉及条目数',
       ordersForInfo: '信息披露命令数',
       ordersChart: '针对违法内容的处理命令',
+      ordersByCountry: '各发行国政府命令数',
       ordersToActLabel: '处理命令',
       ordersForInfoLabel: '信息披露命令',
       tOrdersAct: '处理命令数', tItemsOrders: '条目数', tOrdersInfo: '信息披露命令数',
@@ -347,6 +356,7 @@
       allCategories: '전체',
       allKeywords: '전체',
       allSurfaces: '모든 구분',
+      allCountries: '모든 국가',
       topKeywords: '키워드 상위 10개 (',
       reset: '필터 초기화',
       rows: '건',
@@ -367,6 +377,7 @@
       tabT10: '이용자 도달 범위',
       totalRecipients: 'EU 총 이용자 수',
       recipientsByService: '서비스별 월간 활성 이용자 수',
+      recipientsByCountry: '국가별 월간 활성 이용자 수',
       t10Title: '월간 평균 활성 이용자 수(AMAR)',
       autoMeasures: '자동화 조치 수',
       nonAutoMeasures: '인적 검토 조치 수',
@@ -415,6 +426,7 @@
       itemsInOrders: '명령 내 항목 수',
       ordersForInfo: '정보 제공 명령 수',
       ordersChart: '불법 콘텐츠에 대한 처리 명령',
+      ordersByCountry: '발행 국가별 정부 명령 수',
       ordersToActLabel: '처리 명령',
       ordersForInfoLabel: '정보 제공 명령',
       tOrdersAct: '처리 명령 수', tItemsOrders: '항목 수', tOrdersInfo: '정보 제공 명령 수',
@@ -823,6 +835,23 @@
     KEYWORD_UNLAWFUL_SALE_ANIMALS: 'STATEMENT_CATEGORY_ANIMAL_WELFARE',
   };
 
+  // EU member state names keyed by uppercase ISO 3166-1 alpha-2 code.
+  var EU_COUNTRY_NAMES = {
+    en: { AT:'Austria',BE:'Belgium',BG:'Bulgaria',HR:'Croatia',CY:'Cyprus',CZ:'Czechia',DK:'Denmark',EE:'Estonia',FI:'Finland',FR:'France',DE:'Germany',GR:'Greece',HU:'Hungary',IE:'Ireland',IT:'Italy',LV:'Latvia',LT:'Lithuania',LU:'Luxembourg',MT:'Malta',NL:'Netherlands',PL:'Poland',PT:'Portugal',RO:'Romania',SK:'Slovakia',SI:'Slovenia',ES:'Spain',SE:'Sweden' },
+    ja: { AT:'オーストリア',BE:'ベルギー',BG:'ブルガリア',HR:'クロアチア',CY:'キプロス',CZ:'チェコ',DK:'デンマーク',EE:'エストニア',FI:'フィンランド',FR:'フランス',DE:'ドイツ',GR:'ギリシャ',HU:'ハンガリー',IE:'アイルランド',IT:'イタリア',LV:'ラトビア',LT:'リトアニア',LU:'ルクセンブルク',MT:'マルタ',NL:'オランダ',PL:'ポーランド',PT:'ポルトガル',RO:'ルーマニア',SK:'スロバキア',SI:'スロベニア',ES:'スペイン',SE:'スウェーデン' },
+    zh: { AT:'奥地利',BE:'比利时',BG:'保加利亚',HR:'克罗地亚',CY:'塞浦路斯',CZ:'捷克',DK:'丹麦',EE:'爱沙尼亚',FI:'芬兰',FR:'法国',DE:'德国',GR:'希腊',HU:'匈牙利',IE:'爱尔兰',IT:'意大利',LV:'拉脱维亚',LT:'立陶宛',LU:'卢森堡',MT:'马耳他',NL:'荷兰',PL:'波兰',PT:'葡萄牙',RO:'罗马尼亚',SK:'斯洛伐克',SI:'斯洛文尼亚',ES:'西班牙',SE:'瑞典' },
+    ko: { AT:'오스트리아',BE:'벨기에',BG:'불가리아',HR:'크로아티아',CY:'키프로스',CZ:'체코',DK:'덴마크',EE:'에스토니아',FI:'핀란드',FR:'프랑스',DE:'독일',GR:'그리스',HU:'헝가리',IE:'아일랜드',IT:'이탈리아',LV:'라트비아',LT:'리투아니아',LU:'룩셈부르크',MT:'몰타',NL:'네덜란드',PL:'폴란드',PT:'포르투갈',RO:'루마니아',SK:'슬로바키아',SI:'슬로베니아',ES:'스페인',SE:'스웨덴' },
+  };
+  var COUNTRY_NAMES = EU_COUNTRY_NAMES[lang] || EU_COUNTRY_NAMES.en;
+  var EU_CODES_SORTED = Object.keys(COUNTRY_NAMES).sort(function (a, b) {
+    return COUNTRY_NAMES[a].localeCompare(COUNTRY_NAMES[b], LOCALE);
+  });
+
+  function countryLabel(code) { return COUNTRY_NAMES[code] || code; }
+
+  // Tabs that support country-level breakdown
+  var COUNTRY_TABS = { t3: 2, t10: 1 };
+
   var D;
   var charts = {};
   var currentTab = 't4';
@@ -939,6 +968,7 @@
     buildCategoryFilter('t4');
     buildKeywordFilter('t4', null);
     buildSurfaceFilter('t4');
+    buildCountryFilter('t4');
     wireTabButtons();
     wireFilters();
     render();
@@ -1040,6 +1070,29 @@
     if (prev && sel.querySelector('option[value="' + prev + '"]')) sel.value = prev;
   }
 
+  function buildCountryFilter(tab) {
+    var sel = document.getElementById('vlop-country');
+    var wrap = document.getElementById('vlop-country-wrap');
+    if (!sel || !wrap) return;
+    var scopeCol = COUNTRY_TABS[tab];
+    if (scopeCol === undefined) { wrap.hidden = true; return; }
+    var seen = {};
+    (D[tab] || []).forEach(function (r) {
+      var code = D.scopes[r[scopeCol]];
+      if (COUNTRY_NAMES[code]) seen[code] = true;
+    });
+    var codes = EU_CODES_SORTED.filter(function (c) { return seen[c]; });
+    if (codes.length === 0) { wrap.hidden = true; return; }
+    var prev = sel.value;
+    wrap.hidden = false;
+    sel.innerHTML = '<option value="">' + _.allCountries + '</option>';
+    codes.forEach(function (code) {
+      var scopeIdx = D.scopes.indexOf(code);
+      sel.innerHTML += '<option value="' + scopeIdx + '">' + countryLabel(code) + '</option>';
+    });
+    if (prev && sel.querySelector('option[value="' + prev + '"]')) sel.value = prev;
+  }
+
   function getFilters() {
     var platVal = document.getElementById('vlop-platform').value;
     var svcVal = document.getElementById('vlop-service').value;
@@ -1059,11 +1112,15 @@
       });
     }
 
+    var countryEl = document.getElementById('vlop-country');
+    var countryVal = countryEl ? countryEl.value : '';
+
     return {
       svcs: svcs,
       cat: catVal === '' ? null : parseInt(catVal),
       kw: kwVal === '' ? null : parseInt(kwVal),
       surf: surfVal === '' ? null : parseInt(surfVal),
+      country: countryVal === '' ? null : parseInt(countryVal),
     };
   }
 
@@ -1078,6 +1135,7 @@
         buildCategoryFilter(currentTab);
         buildKeywordFilter(currentTab, null);
         buildSurfaceFilter(currentTab);
+        buildCountryFilter(currentTab);
         document.getElementById('vlop-category').value = '';
         document.getElementById('vlop-keyword').value = '';
         render();
@@ -1106,6 +1164,8 @@
     document.getElementById('vlop-keyword').addEventListener('change', render);
     var surfEl = document.getElementById('vlop-surface');
     if (surfEl) surfEl.addEventListener('change', render);
+    var countryEl = document.getElementById('vlop-country');
+    if (countryEl) countryEl.addEventListener('change', render);
     document.getElementById('vlop-reset').addEventListener('click', function () {
       document.getElementById('vlop-platform').value = '';
       buildServiceFilter(null);
@@ -1114,6 +1174,8 @@
       buildKeywordFilter(currentTab, null);
       document.getElementById('vlop-keyword').value = '';
       buildSurfaceFilter(currentTab);
+      if (countryEl) countryEl.value = '';
+      buildCountryFilter(currentTab);
       render();
     });
   }
@@ -1289,7 +1351,9 @@
   function renderT3(f) {
     var catFilter = f.kw !== null ? f.kw : (f.cat !== null ? f.cat : indexOf(D.categories, 'TOTAL'));
     var rows = D.t3.filter(function (r) {
-      return inSvcs(f.svcs, r[0]) && r[1] === catFilter;
+      if (!inSvcs(f.svcs, r[0]) || r[1] !== catFilter) return false;
+      if (f.country !== null && r[2] !== f.country) return false;
+      return true;
     });
 
     var bySvc = aggregateBySvc(rows, function (r) {
@@ -1310,7 +1374,7 @@
     var orderData = activeSvcs.map(function (i) { return bySvc[i] ? bySvc[i].ordersAct : 0; });
     var infoData  = activeSvcs.map(function (i) { return bySvc[i] ? bySvc[i].ordersInfo : 0; });
 
-    setCharts([
+    var chartSpecs = [
       {
         title: _.ordersChart, id: 'vlop-c1', type: 'bar', wide: true,
         labels: svcLabels(activeSvcs),
@@ -1319,9 +1383,34 @@
           { label: _.ordersForInfoLabel, data: infoData,  backgroundColor: '#f28e2b' },
         ]
       },
-    ]);
+    ];
 
-    if (f.kw === null) {
+    // Country breakdown chart (when no country filter is active)
+    if (f.country === null) {
+      var byCountry = {};
+      D.t3.forEach(function (r) {
+        if (!inSvcs(f.svcs, r[0]) || r[1] !== catFilter) return;
+        var code = D.scopes[r[2]];
+        if (!COUNTRY_NAMES[code]) return;
+        byCountry[code] = (byCountry[code] || 0) + n(r[3]);
+      });
+      var countryEntries = Object.keys(byCountry)
+        .map(function (c) { return { code: c, val: byCountry[c] }; })
+        .filter(function (d) { return d.val > 0; })
+        .sort(function (a, b) { return b.val - a.val; });
+      if (countryEntries.length > 0) {
+        chartSpecs.push({
+          title: _.ordersByCountry, id: 'vlop-c2', type: 'bar', wide: true,
+          labels: countryEntries.map(function (d) { return countryLabel(d.code); }),
+          datasets: [{ label: _.ordersToActLabel, data: countryEntries.map(function (d) { return d.val; }),
+                       backgroundColor: '#76b7b2' }],
+        });
+      }
+    }
+
+    setCharts(chartSpecs);
+
+    if (f.kw === null && f.country === null) {
       renderCategoryBreakdown('t3', f.svcs, function (r) { return n(r[3]); }, _.ordersToAct, f.cat);
     }
 
@@ -1597,6 +1686,12 @@
     var scopeTotal  = indexOf(D.scopes, 'TOTAL');
     var scopeTotal2 = indexOf(D.scopes, 'total');
 
+    function t10val(svcIdx, scopeIdx) {
+      return D.t10.reduce(function(s, r) {
+        return r[0] === svcIdx && r[1] === scopeIdx ? s + n(r[2]) : s;
+      }, 0);
+    }
+
     function t10total(svcIdx) {
       return D.t10.reduce(function(s, r) {
         return r[0] === svcIdx && (r[1] === scopeTotal || r[1] === scopeTotal2)
@@ -1604,36 +1699,80 @@
       }, 0);
     }
 
-    var grandTotal = 0;
-    D.services.forEach(function(_, i) {
-      if (!inSvcs(f.svcs, i)) return;
-      grandTotal += t10total(i);
-    });
-    setMetrics([{ label: _.totalRecipients, value: fmt(grandTotal) }]);
-
     var activeSvcs = activeSvcIndices(f.svcs);
-    var totData = activeSvcs.map(function(i) { return t10total(i); });
-    setCharts([{
-      title: _.recipientsByService, id: 'vlop-c1', type: 'bar', wide: true,
-      labels: svcLabels(activeSvcs),
-      datasets: [{ label: _.totalRecipients, data: totData, backgroundColor: '#4e79a7' }],
-    }]);
 
-    var t10agg = {}, t10order = [];
-    D.t10.forEach(function(r) {
-      if (!inSvcs(f.svcs, r[0])) return;
-      var k = r[0] + '|' + r[1];
-      if (!(k in t10agg)) { t10agg[k] = { svc: r[0], scope: r[1], val: 0 }; t10order.push(k); }
-      t10agg[k].val += n(r[2]);
-    });
-    showTable(
-      [_.tService, _.tScope, _.tValue],
-      t10order.map(function(k) {
-        var a = t10agg[k];
-        return [D.services[a.svc], D.scopes[a.scope], fmt(a.val)];
-      }),
-      _.t10Title
-    );
+    if (f.country !== null) {
+      // Country-filtered view
+      var grandTotal = 0;
+      activeSvcs.forEach(function(i) { grandTotal += t10val(i, f.country); });
+      setMetrics([{ label: _.totalRecipients + ' — ' + countryLabel(D.scopes[f.country]), value: fmt(grandTotal) }]);
+
+      var svcData = activeSvcs.map(function(i) { return t10val(i, f.country); });
+      setCharts([{
+        title: _.recipientsByService + ' — ' + countryLabel(D.scopes[f.country]),
+        id: 'vlop-c1', type: 'bar', wide: true,
+        labels: svcLabels(activeSvcs),
+        datasets: [{ label: _.totalRecipients, data: svcData, backgroundColor: '#4e79a7' }],
+      }]);
+
+      var t10rows = [];
+      D.t10.forEach(function(r) {
+        if (!inSvcs(f.svcs, r[0]) || r[1] !== f.country) return;
+        t10rows.push([D.services[r[0]], countryLabel(D.scopes[r[1]]), fmt(n(r[2]))]);
+      });
+      showTable([_.tService, _.tScope, _.tValue], t10rows, _.t10Title);
+    } else {
+      // Default: show by-service totals + country breakdown chart
+      var grandTotal = 0;
+      activeSvcs.forEach(function(i) { grandTotal += t10total(i); });
+      setMetrics([{ label: _.totalRecipients, value: fmt(grandTotal) }]);
+
+      var totData = activeSvcs.map(function(i) { return t10total(i); });
+
+      // Country breakdown: sum across selected services for each EU country
+      var countryData = [];
+      EU_CODES_SORTED.forEach(function(code) {
+        var scopeIdx = D.scopes.indexOf(code);
+        if (scopeIdx === -1) return;
+        var val = 0;
+        activeSvcs.forEach(function(i) { val += t10val(i, scopeIdx); });
+        if (val > 0) countryData.push({ code: code, val: val });
+      });
+      countryData.sort(function(a, b) { return b.val - a.val; });
+
+      var chartSpecs = [{
+        title: _.recipientsByService, id: 'vlop-c1', type: 'bar', wide: true,
+        labels: svcLabels(activeSvcs),
+        datasets: [{ label: _.totalRecipients, data: totData, backgroundColor: '#4e79a7' }],
+      }];
+      if (countryData.length > 0) {
+        chartSpecs.push({
+          title: _.recipientsByCountry, id: 'vlop-c2', type: 'bar', wide: true,
+          labels: countryData.map(function(d) { return countryLabel(d.code); }),
+          datasets: [{ label: _.totalRecipients, data: countryData.map(function(d) { return d.val; }),
+                       backgroundColor: '#76b7b2' }],
+        });
+      }
+      setCharts(chartSpecs);
+
+      var t10agg = {}, t10order = [];
+      D.t10.forEach(function(r) {
+        if (!inSvcs(f.svcs, r[0])) return;
+        var k = r[0] + '|' + r[1];
+        if (!(k in t10agg)) { t10agg[k] = { svc: r[0], scope: r[1], val: 0 }; t10order.push(k); }
+        t10agg[k].val += n(r[2]);
+      });
+      showTable(
+        [_.tService, _.tScope, _.tValue],
+        t10order.map(function(k) {
+          var a = t10agg[k];
+          var scopeCode = D.scopes[a.scope];
+          var label = COUNTRY_NAMES[scopeCode] ? countryLabel(scopeCode) : scopeCode;
+          return [D.services[a.svc], label, fmt(a.val)];
+        }),
+        _.t10Title
+      );
+    }
   }
 
   // ── Category breakdown helper ─────────────────────────────────
