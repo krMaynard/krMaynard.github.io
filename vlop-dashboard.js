@@ -1680,10 +1680,12 @@
     var indExternal = indexOf(D.indicators, 'Number of external moderators contracted by the provider');
     var indTotal    = indexOf(D.indicators, 'Number of total moderators with sufficient linguistic expertise');
     var scopeTotalN = indexOf(D.scopes, 'Total number');
+    var scopeTotalL = indexOf(D.scopes, 'total');
 
     function t9val(svcIdx, ind) {
       return D.t9.reduce(function(s, r) {
-        return r[0] === svcIdx && r[1] === secHR && r[2] === ind && r[3] === scopeTotalN
+        return r[0] === svcIdx && r[1] === secHR && r[2] === ind &&
+               (r[3] === scopeTotalN || r[3] === scopeTotalL)
           ? s + n(r[4]) : s;
       }, 0);
     }
