@@ -144,6 +144,7 @@
       thPlatform: 'Platform', thType: 'Type', thDesignated: 'Designated', thStatus: 'Status',
       thAmarDesig: 'AMAR at designation', thAmarLatest: 'Latest AMAR',
       amarDisputed: 'platform reported',
+      amarSignedIn: 'Signed-in', amarSignedOut: 'Signed-out',
       statusActive: 'Active', statusDeDesignated: 'De-designated',
     },
     ja: {
@@ -248,6 +249,7 @@
       thPlatform: 'プラットフォーム', thType: '種別', thDesignated: '指定日', thStatus: 'ステータス',
       thAmarDesig: '指定時AMAR', thAmarLatest: '最新AMAR',
       amarDisputed: 'プラットフォーム申告',
+      amarSignedIn: 'サインイン', amarSignedOut: 'サインアウト',
       statusActive: '指定中', statusDeDesignated: '指定解除',
     },
     zh: {
@@ -352,6 +354,7 @@
       thPlatform: '平台', thType: '类型', thDesignated: '认定日期', thStatus: '状态',
       thAmarDesig: '认定时AMAR', thAmarLatest: '最新AMAR',
       amarDisputed: '平台申报',
+      amarSignedIn: '登录用户', amarSignedOut: '未登录用户',
       statusActive: '认定中', statusDeDesignated: '已撤销认定',
     },
     ko: {
@@ -456,6 +459,7 @@
       thPlatform: '플랫폼', thType: '유형', thDesignated: '지정일', thStatus: '상태',
       thAmarDesig: '지정 시 AMAR', thAmarLatest: '최신 AMAR',
       amarDisputed: '플랫폼 보고',
+      amarSignedIn: '로그인', amarSignedOut: '로그아웃',
       statusActive: '지정 중', statusDeDesignated: '지정 해제',
     },
   };
@@ -930,13 +934,26 @@
     'Shein': 'SHEIN',
   };
 
-  function desigLatestAmar(name) {
+  // Google services that have separate signed-in/signed-out AMAR reporting
+  var GOOGLE_SVCS = ['Google Maps', 'Google Play', 'Google Search', 'Google Shopping', 'YouTube'];
+
+  function desigLatestAmar(name, mode) {
     if (!D) return null;
     var svcName = DESIG_SVC_MAP[name] || name;
     var svcIdx = D.services.indexOf(svcName);
     if (svcIdx === -1) return null;
     var scopeTotal  = D.scopes.indexOf('TOTAL');
     var scopeTotal2 = D.scopes.indexOf('total');
+    var scopeSignedOut = D.scopes.indexOf('TOTAL_SIGNED_OUT');
+    var isGoogle = GOOGLE_SVCS.indexOf(name) !== -1;
+
+    if (isGoogle && mode === 'signedout') {
+      var val = 0;
+      D.t10.forEach(function (r) {
+        if (r[0] === svcIdx && r[1] === scopeSignedOut) val += n(r[2]);
+      });
+      return val > 0 ? val : null;
+    }
     var total = 0;
     D.t10.forEach(function (r) {
       if (r[0] === svcIdx && (r[1] === scopeTotal || r[1] === scopeTotal2)) total += n(r[2]);
@@ -950,11 +967,38 @@
     return v.toLocaleString(LOCALE);
   }
 
+  var desigGoogleMode = 'signedin';
+
   function renderDesignations() {
     var sec = document.getElementById('vlop-designations');
     if (!sec) return;
     document.getElementById('vlop-desig-title').textContent = _.desigTitle;
     document.getElementById('vlop-desig-intro').textContent = _.desigIntro;
+
+    // Google AMAR toggle (signed-in vs signed-out)
+    var toggleWrap = document.getElementById('vlop-desig-toggle');
+    if (!toggleWrap) {
+      toggleWrap = document.createElement('div');
+      toggleWrap.id = 'vlop-desig-toggle';
+      toggleWrap.className = 'td-desig-toggle';
+      var intro = document.getElementById('vlop-desig-intro');
+      intro.parentNode.insertBefore(toggleWrap, intro.nextSibling);
+    }
+    if (D) {
+      toggleWrap.innerHTML = '<span class="td-toggle-label">Google AMAR:</span>' +
+        '<button type="button" class="td-toggle-btn' + (desigGoogleMode === 'signedin' ? ' td-toggle-active' : '') +
+        '" data-mode="signedin">' + _.amarSignedIn + '</button>' +
+        '<button type="button" class="td-toggle-btn' + (desigGoogleMode === 'signedout' ? ' td-toggle-active' : '') +
+        '" data-mode="signedout">' + _.amarSignedOut + '</button>';
+      toggleWrap.querySelectorAll('.td-toggle-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          desigGoogleMode = btn.dataset.mode;
+          renderDesignations();
+        });
+      });
+    } else {
+      toggleWrap.innerHTML = '';
+    }
 
     var head = document.getElementById('vlop-desig-head');
     head.innerHTML = '';
@@ -986,7 +1030,7 @@
       }
 
       // Latest AMAR from dataset
-      var latest = desigLatestAmar(r.name);
+      var latest = desigLatestAmar(r.name, desigGoogleMode);
       var amarLatest = fmtMillions(latest);
 
       [r.name, r.type, fmtDate(r.date), amarDesig, amarLatest, status].forEach(function (val) {
