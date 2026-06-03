@@ -1926,16 +1926,8 @@
       var ctx = document.getElementById(spec.id).getContext('2d');
       var extra = {};
       if (spec.pctAxis) {
-        var mobile = window.innerWidth < 600;
-        var ts = mobile ? 10 : 11;
         extra.scales = {
-          x: { ticks: {
-            font: { size: ts },
-            maxRotation: mobile ? 90 : 0,
-            minRotation: mobile ? 45 : 0,
-            maxTicksLimit: mobile ? 12 : 100,
-          }},
-          y: { ticks: { font: { size: ts }, callback: function (v) { return v + '%'; } }, max: 100 }
+          y: { ticks: { callback: function (v) { return v + '%'; } }, max: 100 }
         };
         extra.plugins = {
           legend: { display: false },
@@ -1997,7 +1989,21 @@
         y: { ticks: { font: { size: tickSize } } }
       }
     };
-    Object.keys(extra || {}).forEach(function (k) { base[k] = extra[k]; });
+    Object.keys(extra || {}).forEach(function (k) {
+      if (k === 'scales' && extra.scales) {
+        Object.keys(extra.scales).forEach(function (axis) {
+          base.scales[axis] = base.scales[axis] || {};
+          if (extra.scales[axis].ticks) {
+            base.scales[axis].ticks = Object.assign({}, base.scales[axis].ticks, extra.scales[axis].ticks);
+          }
+          Object.keys(extra.scales[axis]).forEach(function (prop) {
+            if (prop !== 'ticks') { base.scales[axis][prop] = extra.scales[axis][prop]; }
+          });
+        });
+      } else {
+        base[k] = extra[k];
+      }
+    });
     return base;
   }
 
