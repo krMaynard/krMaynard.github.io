@@ -1397,6 +1397,12 @@ footer {
   .td-chart-card-wide { grid-column: span 1; }
 }
 
+@media screen and (max-width: 480px) {
+  .td-filters { grid-template-columns: 1fr; }
+  .td-chart-wrap { height: 280px; }
+  .td-chart-tall { height: 320px; }
+}
+
 /* ============================================================
    CAREER TIMELINE
    ============================================================ */

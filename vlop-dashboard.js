@@ -1926,9 +1926,16 @@
       var ctx = document.getElementById(spec.id).getContext('2d');
       var extra = {};
       if (spec.pctAxis) {
+        var mobile = window.innerWidth < 600;
+        var ts = mobile ? 10 : 11;
         extra.scales = {
-          x: { ticks: { font: { size: 11 } } },
-          y: { ticks: { font: { size: 11 }, callback: function (v) { return v + '%'; } }, max: 100 }
+          x: { ticks: {
+            font: { size: ts },
+            maxRotation: mobile ? 90 : 0,
+            minRotation: mobile ? 45 : 0,
+            maxTicksLimit: mobile ? 12 : 100,
+          }},
+          y: { ticks: { font: { size: ts }, callback: function (v) { return v + '%'; } }, max: 100 }
         };
         extra.plugins = {
           legend: { display: false },
@@ -1965,17 +1972,29 @@
   }
 
   function chartOpts(extra) {
+    var mobile = window.innerWidth < 600;
+    var tickSize = mobile ? 10 : 11;
     var base = {
       responsive: true,
+      maintainAspectRatio: false,
       plugins: {
-        legend: { display: true, position: 'top' },
+        legend: {
+          display: true,
+          position: 'top',
+          labels: mobile ? { font: { size: 10 }, boxWidth: 12, padding: 6 } : {}
+        },
         tooltip: { callbacks: { label: function (ctx) {
           return ' ' + ctx.dataset.label + ': ' + fmt(ctx.raw);
         }}}
       },
       scales: {
-        x: { ticks: { font: { size: 11 } } },
-        y: { ticks: { font: { size: 11 } } }
+        x: { ticks: {
+          font: { size: tickSize },
+          maxRotation: mobile ? 90 : 0,
+          minRotation: mobile ? 45 : 0,
+          maxTicksLimit: mobile ? 12 : 100,
+        }},
+        y: { ticks: { font: { size: tickSize } } }
       }
     };
     Object.keys(extra || {}).forEach(function (k) { base[k] = extra[k]; });
