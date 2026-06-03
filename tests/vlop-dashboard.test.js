@@ -243,8 +243,8 @@ group('1. vlop-dsa.json — top-level structure', () => {
     );
   });
 
-  test('there are exactly 33 services', () => {
-    assert.strictEqual(D.services.length, 33, `Expected 33 services, got ${D.services.length}`);
+  test('there are exactly 25 services', () => {
+    assert.strictEqual(D.services.length, 25, `Expected 25 services, got ${D.services.length}`);
   });
 
   test('services contains all expected platforms', () => {
@@ -252,13 +252,19 @@ group('1. vlop-dsa.json — top-level structure', () => {
       'Google Maps', 'Google Play', 'Google Search', 'Google Shopping', 'YouTube',
       'X', 'TikTok', 'Facebook', 'Instagram', 'Pinterest',
       'AliExpress', 'Amazon', 'LinkedIn', 'Booking.com',
-      'App Store', 'Apple Books', 'iCloud Storage', 'Apple Podcasts',
-      'Bing', 'SHEIN',
-      'Wikipedia', 'Wikidata', 'Wikimedia Commons', 'Wikiversity', 'Wikivoyage', 'Wiktionary',
-      'Zalando', 'Temu', 'Snapchat', 'Pornhub', 'XVideos', 'XNXX',
+      'App Store', 'Bing', 'SHEIN',
+      'Wikipedia', 'Zalando', 'Temu', 'Snapchat', 'Pornhub', 'XVideos', 'XNXX',
     ];
     for (const name of expected) {
       assert.ok(D.services.includes(name), `Missing service: ${name}`);
+    }
+  });
+
+  test('non-VLOP Apple and Wikimedia services are absent', () => {
+    const removed = ['Apple Books', 'iCloud Storage', 'Apple Podcasts',
+                     'Wikidata', 'Wikimedia Commons', 'Wikiversity', 'Wikivoyage', 'Wiktionary'];
+    for (const name of removed) {
+      assert.ok(!D.services.includes(name), `Service should be absent: ${name}`);
     }
   });
 
