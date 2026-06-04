@@ -1120,7 +1120,7 @@
       sel.innerHTML = '<option value="">' + _.t11AllIndicators + '</option>';
       var seen = {};
       (D.t11 || []).forEach(function(r) { seen[r[1]] = true; });
-      D.indicators.forEach(function(ind, i) {
+      (D.indicators || []).forEach(function(ind, i) {
         if (!seen[i]) return;
         sel.innerHTML += '<option value="' + i + '">' + ind + '</option>';
       });
@@ -1909,11 +1909,11 @@
       var tr = document.createElement('tr');
 
       var td0 = document.createElement('td');
-      td0.textContent = D.services[r[0]];
+      td0.textContent = (D.services || [])[r[0]];
       tr.appendChild(td0);
 
       var td1 = document.createElement('td');
-      td1.textContent = D.indicators[r[1]];
+      td1.textContent = (D.indicators || [])[r[1]];
       tr.appendChild(td1);
 
       var td2 = document.createElement('td');
