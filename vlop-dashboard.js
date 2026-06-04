@@ -61,6 +61,11 @@
       recipientsByService: 'Monthly active recipients by service',
       recipientsByCountry: 'Monthly active recipients by country',
       t10Title: 'Average monthly active recipients (AMAR)',
+      // T11
+      tabT11: 'Qualitative',
+      t11Title: 'Qualitative information',
+      t11AllIndicators: 'All indicators',
+      kwLabel: 'Keyword',
       // T8
       autoMeasures: 'Automated measures',
       nonAutoMeasures: 'Human-reviewed measures',
@@ -177,6 +182,10 @@
       recipientsByService: 'サービス別月間アクティブ受信者数',
       recipientsByCountry: '国別月間アクティブ受信者数',
       t10Title: '月間平均アクティブ受信者数（AMAR）',
+      tabT11: '定性情報',
+      t11Title: '定性情報',
+      t11AllIndicators: 'すべての指標',
+      kwLabel: 'キーワード',
       autoMeasures: '自動化措置数',
       nonAutoMeasures: '人的審査による措置数',
       autoRate: '自動化率',
@@ -281,6 +290,10 @@
       recipientsByService: '各服务月均活跃用户',
       recipientsByCountry: '各国月均活跃用户',
       t10Title: '月均活跃受众数量（AMAR）',
+      tabT11: '定性信息',
+      t11Title: '定性信息',
+      t11AllIndicators: '全部指标',
+      kwLabel: '关键词',
       autoMeasures: '自动化措施数',
       nonAutoMeasures: '人工审核措施数',
       autoRate: '自动化率',
@@ -385,6 +398,10 @@
       recipientsByService: '서비스별 월간 활성 이용자 수',
       recipientsByCountry: '국가별 월간 활성 이용자 수',
       t10Title: '월간 평균 활성 이용자 수(AMAR)',
+      tabT11: '정성 정보',
+      t11Title: '정성 정보',
+      t11AllIndicators: '전체 지표',
+      kwLabel: '키워드',
       autoMeasures: '자동화 조치 수',
       nonAutoMeasures: '인적 검토 조치 수',
       autoRate: '자동화 비율',
@@ -1020,7 +1037,7 @@
   });
 
   function init() {
-    var tabMap = { t4: _.tabT4, t5: _.tabT5, t6: _.tabT6, t3: _.tabT3, t7: _.tabT7, t8: _.tabT8, t9: _.tabT9, t10: _.tabT10 };
+    var tabMap = { t4: _.tabT4, t5: _.tabT5, t6: _.tabT6, t3: _.tabT3, t7: _.tabT7, t8: _.tabT8, t9: _.tabT9, t10: _.tabT10, t11: _.tabT11 };
     document.querySelectorAll('.vlop-tab').forEach(function (btn) {
       btn.textContent = tabMap[btn.dataset.tab] || btn.textContent;
     });
@@ -1066,7 +1083,7 @@
     var sel = document.getElementById('vlop-category');
     var catWrap = document.getElementById('vlop-cat-wrap');
     if (!sel || !catWrap) return;
-    if (tab === 't7' || tab === 't8' || tab === 't9' || tab === 't10') { catWrap.hidden = true; return; }
+    if (tab === 't7' || tab === 't8' || tab === 't9' || tab === 't10' || tab === 't11') { catWrap.hidden = true; return; }
     catWrap.hidden = false;
     sel.innerHTML = '<option value="">' + _.allCategories + '</option>';
     var seen = {};
@@ -1082,8 +1099,27 @@
   function buildKeywordFilter(tab, parentCatCode) {
     var sel = document.getElementById('vlop-keyword');
     var kwWrap = document.getElementById('vlop-kw-wrap');
+    var kwLabel = document.querySelector('label[for="vlop-keyword"]');
     if (!sel || !kwWrap) return;
-    if (tab === 't7' || tab === 't8' || tab === 't9' || tab === 't10') { kwWrap.hidden = true; return; }
+    if (tab === 't7' || tab === 't8' || tab === 't9' || tab === 't10') {
+      if (kwLabel) kwLabel.textContent = _.kwLabel;
+      kwWrap.hidden = true; return;
+    }
+    if (tab === 't11') {
+      kwWrap.hidden = false;
+      if (kwLabel) kwLabel.textContent = _.tIndicator;
+      var prev = sel.value;
+      sel.innerHTML = '<option value="">' + _.t11AllIndicators + '</option>';
+      var seen = {};
+      (D.t11 || []).forEach(function(r) { seen[r[1]] = true; });
+      D.indicators.forEach(function(ind, i) {
+        if (!seen[i]) return;
+        sel.innerHTML += '<option value="' + i + '">' + ind + '</option>';
+      });
+      if (prev && sel.querySelector('option[value="' + prev + '"]')) sel.value = prev;
+      return;
+    }
+    if (kwLabel) kwLabel.textContent = _.kwLabel;
     kwWrap.hidden = false;
     var prev = sel.value;
     sel.innerHTML = '<option value="">' + _.allKeywords + '</option>';
@@ -1255,6 +1291,7 @@
     else if (currentTab === 't8') renderT8(f);
     else if (currentTab === 't9') renderT9(f);
     else if (currentTab === 't10') renderT10(f);
+    else if (currentTab === 't11') renderT11(f);
   }
 
   function inSvcs(svcs, svcIdx) {
@@ -1836,6 +1873,28 @@
         _.t10Title
       );
     }
+  }
+
+  // ── T11: Qualitative information ──────────────────────────────
+  function renderT11(f) {
+    setMetrics([]);
+    setCharts([]);
+
+    var rows = (D.t11 || []).filter(function(r) {
+      if (!inSvcs(f.svcs, r[0])) return false;
+      if (f.kw !== null && r[1] !== f.kw) return false;
+      return true;
+    });
+
+    showTable(
+      [_.tService, _.tIndicator, _.tValue],
+      rows.map(function(r) {
+        var val = String(r[2] || '');
+        var display = val.length > 300 ? val.slice(0, 300) + '…' : val;
+        return [D.services[r[0]], D.indicators[r[1]], display];
+      }),
+      _.t11Title
+    );
   }
 
   // ── Category breakdown helper ─────────────────────────────────
