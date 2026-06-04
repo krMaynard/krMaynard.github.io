@@ -1,0 +1,46 @@
+---
+layout: main
+title: "VLOPダッシュボード更新：DSA全9テーブルの対応完了"
+description: "自動化手段、人的資源、ユーザーリーチ、定性情報の4つの新タブが追加され、すべてのDSA報告テーブルのカバレッジが完成しました。"
+date: 2026-06-04
+lang: ja
+lang_url: /blog/vlop-dashboard-update.html
+lang_url_zh: /zh/blog/vlop-dashboard-update.html
+lang_url_ko: /ko/blog/vlop-dashboard-update.html
+---
+
+<article class="post">
+  <a href="/ja/blog.html" class="post-back">← ブログ</a>
+  <header class="post-header">
+    <p class="section-label">執筆</p>
+    <h1>VLOPダッシュボード更新：DSA全9テーブルの対応完了</h1>
+    <time class="news-date" datetime="2026-06-04">2026年6月4日</time>
+    <div class="tags">
+      <span class="tag">EU DSA</span>
+      <span class="tag">VLOP</span>
+      <span class="tag">ダッシュボード</span>
+      <span class="tag">データ分析</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p><a href="/ja/vlop.html">VLOPダッシュボード</a>に4つの新タブ——自動化手段、人的資源、ユーザーリーチ、定性情報——が追加され、DSA報告テーブル全9本のカバレッジが完成しました。ダッシュボードは5月29日に5タブ（通知、自主的措置（違法コンテンツ・ポリシー違反）、政府命令、異議申立）で公開され、今回H2 2025報告テンプレートのすべてに対応しました。</p>
+
+    <p>3つの新しい定量タブはそれぞれ異なる次元を加えます。<strong>自動化手段（テーブル8）</strong>は、自動化ツールによるモデレーション措置数と人的審査による措置数の比較、およびサービス・言語別の精度・適合率・再現率を報告します——欧州委員会が今期の統一テンプレートに初めて追加した指標です。<strong>人的資源（テーブル9）</strong>は、各プラットフォームの社内・外部コンテンツモデレーター数を言語別内訳で報告します。<strong>ユーザーリーチ（テーブル10）</strong>は、EU加盟国別の各サービスの月間平均アクティブ受信者数（AMAR）を報告し、プラットフォーム間の規模差を一つのチャートで可視化します。</p>
+
+    <p>最もユニークな追加は<strong>定性情報（テーブル11）</strong>です。定量テーブルとは異なり、テーブル11は標準化されたプロンプトへの自由記述回答で構成されています——コンテンツモデレーションのガバナンス、自動化手段の設計方針、モデレーターの資格・研修などが含まれます。指標名は各プラットフォームではなく欧州委員会のテンプレートで定められているため、これらの回答は定量的なカテゴリ数よりもプラットフォーム間での直接比較が可能です。指標フィルタで1つのプロンプトを選択すると、各プラットフォームの回答を並べて読めます。データは20サービス・約320行を対象としています。テーブルには300文字まで表示されます。全文は<a href="https://github.com/krMaynard/dsa-transparency-data">ソースデータリポジトリ</a>をご参照ください。</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}",
+  "inLanguage": "{{ page.lang | default: 'en' }}"
+}
+</script>
