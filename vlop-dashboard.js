@@ -61,6 +61,13 @@
       recipientsByService: 'Monthly active recipients by service',
       recipientsByCountry: 'Monthly active recipients by country',
       t10Title: 'Average monthly active recipients (AMAR)',
+      // T11
+      tabT11: 'Qualitative',
+      t11Title: 'Qualitative information',
+      t11AllIndicators: 'All indicators',
+      t11ShowMore: 'Show more',
+      t11ShowLess: 'Show less',
+      kwLabel: 'Keyword',
       // T8
       autoMeasures: 'Automated measures',
       nonAutoMeasures: 'Human-reviewed measures',
@@ -177,6 +184,12 @@
       recipientsByService: 'サービス別月間アクティブ受信者数',
       recipientsByCountry: '国別月間アクティブ受信者数',
       t10Title: '月間平均アクティブ受信者数（AMAR）',
+      tabT11: '定性情報',
+      t11Title: '定性情報',
+      t11AllIndicators: 'すべての指標',
+      t11ShowMore: '続きを表示',
+      t11ShowLess: '閉じる',
+      kwLabel: 'キーワード',
       autoMeasures: '自動化措置数',
       nonAutoMeasures: '人的審査による措置数',
       autoRate: '自動化率',
@@ -281,6 +294,12 @@
       recipientsByService: '各服务月均活跃用户',
       recipientsByCountry: '各国月均活跃用户',
       t10Title: '月均活跃受众数量（AMAR）',
+      tabT11: '定性信息',
+      t11Title: '定性信息',
+      t11AllIndicators: '全部指标',
+      t11ShowMore: '展开',
+      t11ShowLess: '收起',
+      kwLabel: '关键词',
       autoMeasures: '自动化措施数',
       nonAutoMeasures: '人工审核措施数',
       autoRate: '自动化率',
@@ -385,6 +404,12 @@
       recipientsByService: '서비스별 월간 활성 이용자 수',
       recipientsByCountry: '국가별 월간 활성 이용자 수',
       t10Title: '월간 평균 활성 이용자 수(AMAR)',
+      tabT11: '정성 정보',
+      t11Title: '정성 정보',
+      t11AllIndicators: '전체 지표',
+      t11ShowMore: '더 보기',
+      t11ShowLess: '접기',
+      kwLabel: '키워드',
       autoMeasures: '자동화 조치 수',
       nonAutoMeasures: '인적 검토 조치 수',
       autoRate: '자동화 비율',
@@ -1020,7 +1045,7 @@
   });
 
   function init() {
-    var tabMap = { t4: _.tabT4, t5: _.tabT5, t6: _.tabT6, t3: _.tabT3, t7: _.tabT7, t8: _.tabT8, t9: _.tabT9, t10: _.tabT10 };
+    var tabMap = { t4: _.tabT4, t5: _.tabT5, t6: _.tabT6, t3: _.tabT3, t7: _.tabT7, t8: _.tabT8, t9: _.tabT9, t10: _.tabT10, t11: _.tabT11 };
     document.querySelectorAll('.vlop-tab').forEach(function (btn) {
       btn.textContent = tabMap[btn.dataset.tab] || btn.textContent;
     });
@@ -1066,7 +1091,7 @@
     var sel = document.getElementById('vlop-category');
     var catWrap = document.getElementById('vlop-cat-wrap');
     if (!sel || !catWrap) return;
-    if (tab === 't7' || tab === 't8' || tab === 't9' || tab === 't10') { catWrap.hidden = true; return; }
+    if (tab === 't7' || tab === 't8' || tab === 't9' || tab === 't10' || tab === 't11') { catWrap.hidden = true; return; }
     catWrap.hidden = false;
     sel.innerHTML = '<option value="">' + _.allCategories + '</option>';
     var seen = {};
@@ -1082,8 +1107,27 @@
   function buildKeywordFilter(tab, parentCatCode) {
     var sel = document.getElementById('vlop-keyword');
     var kwWrap = document.getElementById('vlop-kw-wrap');
+    var kwLabel = document.querySelector('label[for="vlop-keyword"]');
     if (!sel || !kwWrap) return;
-    if (tab === 't7' || tab === 't8' || tab === 't9' || tab === 't10') { kwWrap.hidden = true; return; }
+    if (tab === 't7' || tab === 't8' || tab === 't9' || tab === 't10') {
+      if (kwLabel) kwLabel.textContent = _.kwLabel;
+      kwWrap.hidden = true; return;
+    }
+    if (tab === 't11') {
+      kwWrap.hidden = false;
+      if (kwLabel) kwLabel.textContent = _.tIndicator;
+      var prev = sel.value;
+      sel.innerHTML = '<option value="">' + _.t11AllIndicators + '</option>';
+      var seen = {};
+      (D.t11 || []).forEach(function(r) { seen[r[1]] = true; });
+      (D.indicators || []).forEach(function(ind, i) {
+        if (!seen[i]) return;
+        sel.innerHTML += '<option value="' + i + '">' + ind + '</option>';
+      });
+      if (prev && sel.querySelector('option[value="' + prev + '"]')) sel.value = prev;
+      return;
+    }
+    if (kwLabel) kwLabel.textContent = _.kwLabel;
     kwWrap.hidden = false;
     var prev = sel.value;
     sel.innerHTML = '<option value="">' + _.allKeywords + '</option>';
@@ -1255,6 +1299,7 @@
     else if (currentTab === 't8') renderT8(f);
     else if (currentTab === 't9') renderT9(f);
     else if (currentTab === 't10') renderT10(f);
+    else if (currentTab === 't11') renderT11(f);
   }
 
   function inSvcs(svcs, svcIdx) {
@@ -1836,6 +1881,62 @@
         _.t10Title
       );
     }
+  }
+
+  // ── T11: Qualitative information ──────────────────────────────
+  function renderT11(f) {
+    setMetrics([]);
+    setCharts([]);
+
+    var rows = (D.t11 || []).filter(function(r) {
+      if (!inSvcs(f.svcs, r[0])) return false;
+      if (f.kw !== null && r[1] !== f.kw) return false;
+      return true;
+    });
+
+    var PREVIEW = 300;
+    var wrap = document.getElementById('vlop-table-wrap');
+    wrap.hidden = false;
+    document.getElementById('vlop-table-title').textContent = _.t11Title;
+    document.getElementById('vlop-row-count').textContent = rows.length + ' ' + _.rows;
+    document.getElementById('vlop-table-head').innerHTML =
+      [_.tService, _.tIndicator, _.tValue].map(function(h) { return '<th>' + h + '</th>'; }).join('');
+
+    var tbody = document.getElementById('vlop-table-body');
+    tbody.innerHTML = '';
+    rows.forEach(function(r) {
+      var val = String(r[2] || '');
+      var tr = document.createElement('tr');
+
+      var td0 = document.createElement('td');
+      td0.textContent = (D.services || [])[r[0]];
+      tr.appendChild(td0);
+
+      var td1 = document.createElement('td');
+      td1.textContent = (D.indicators || [])[r[1]];
+      tr.appendChild(td1);
+
+      var td2 = document.createElement('td');
+      if (val.length <= PREVIEW) {
+        td2.textContent = val || '—';
+      } else {
+        var span = document.createElement('span');
+        span.textContent = val.slice(0, PREVIEW) + '…';
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 't11-expand';
+        btn.textContent = _.t11ShowMore;
+        btn.addEventListener('click', function() {
+          var expanded = span.textContent === val;
+          span.textContent = expanded ? val.slice(0, PREVIEW) + '…' : val;
+          btn.textContent = expanded ? _.t11ShowMore : _.t11ShowLess;
+        });
+        td2.appendChild(span);
+        td2.appendChild(btn);
+      }
+      tr.appendChild(td2);
+      tbody.appendChild(tr);
+    });
   }
 
   // ── Category breakdown helper ─────────────────────────────────
