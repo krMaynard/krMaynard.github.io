@@ -65,6 +65,8 @@
       tabT11: 'Qualitative',
       t11Title: 'Qualitative information',
       t11AllIndicators: 'All indicators',
+      t11ShowMore: 'Show more',
+      t11ShowLess: 'Show less',
       kwLabel: 'Keyword',
       // T8
       autoMeasures: 'Automated measures',
@@ -185,6 +187,8 @@
       tabT11: '定性情報',
       t11Title: '定性情報',
       t11AllIndicators: 'すべての指標',
+      t11ShowMore: '続きを表示',
+      t11ShowLess: '閉じる',
       kwLabel: 'キーワード',
       autoMeasures: '自動化措置数',
       nonAutoMeasures: '人的審査による措置数',
@@ -293,6 +297,8 @@
       tabT11: '定性信息',
       t11Title: '定性信息',
       t11AllIndicators: '全部指标',
+      t11ShowMore: '展开',
+      t11ShowLess: '收起',
       kwLabel: '关键词',
       autoMeasures: '自动化措施数',
       nonAutoMeasures: '人工审核措施数',
@@ -401,6 +407,8 @@
       tabT11: '정성 정보',
       t11Title: '정성 정보',
       t11AllIndicators: '전체 지표',
+      t11ShowMore: '더 보기',
+      t11ShowLess: '접기',
       kwLabel: '키워드',
       autoMeasures: '자동화 조치 수',
       nonAutoMeasures: '인적 검토 조치 수',
@@ -1886,15 +1894,49 @@
       return true;
     });
 
-    showTable(
-      [_.tService, _.tIndicator, _.tValue],
-      rows.map(function(r) {
-        var val = String(r[2] || '');
-        var display = val.length > 300 ? val.slice(0, 300) + '…' : val;
-        return [D.services[r[0]], D.indicators[r[1]], display];
-      }),
-      _.t11Title
-    );
+    var PREVIEW = 300;
+    var wrap = document.getElementById('vlop-table-wrap');
+    wrap.hidden = false;
+    document.getElementById('vlop-table-title').textContent = _.t11Title;
+    document.getElementById('vlop-row-count').textContent = rows.length + ' ' + _.rows;
+    document.getElementById('vlop-table-head').innerHTML =
+      [_.tService, _.tIndicator, _.tValue].map(function(h) { return '<th>' + h + '</th>'; }).join('');
+
+    var tbody = document.getElementById('vlop-table-body');
+    tbody.innerHTML = '';
+    rows.forEach(function(r) {
+      var val = String(r[2] || '');
+      var tr = document.createElement('tr');
+
+      var td0 = document.createElement('td');
+      td0.textContent = D.services[r[0]];
+      tr.appendChild(td0);
+
+      var td1 = document.createElement('td');
+      td1.textContent = D.indicators[r[1]];
+      tr.appendChild(td1);
+
+      var td2 = document.createElement('td');
+      if (val.length <= PREVIEW) {
+        td2.textContent = val || '—';
+      } else {
+        var span = document.createElement('span');
+        span.textContent = val.slice(0, PREVIEW) + '…';
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 't11-expand';
+        btn.textContent = _.t11ShowMore;
+        btn.addEventListener('click', function() {
+          var expanded = span.textContent === val;
+          span.textContent = expanded ? val.slice(0, PREVIEW) + '…' : val;
+          btn.textContent = expanded ? _.t11ShowMore : _.t11ShowLess;
+        });
+        td2.appendChild(span);
+        td2.appendChild(btn);
+      }
+      tr.appendChild(td2);
+      tbody.appendChild(tr);
+    });
   }
 
   // ── Category breakdown helper ─────────────────────────────────

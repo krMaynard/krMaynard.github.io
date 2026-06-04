@@ -1360,6 +1360,7 @@ footer {
 }
 
 .td-table .td-num { text-align: right; font-variant-numeric: tabular-nums; }
+.t11-expand { background: none; border: none; padding: 0 0 0 0.4em; color: var(--accent, #4e79a7); cursor: pointer; font-size: inherit; font-family: inherit; }
 .td-table .td-empty {
   text-align: center;
   padding: 1.5rem;
