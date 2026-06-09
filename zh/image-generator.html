@@ -22,7 +22,7 @@ lang_url_ko: /ko/image-generator.html
       密钥仅保存在浏览器本地，直接发送至 Google，本页面没有后端服务。
     </p>
     <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
-      <input type="password" id="api-key-input" placeholder="AIza…" autocomplete="off"
+      <input type="password" id="api-key-input" placeholder="AIza…" autocomplete="off" aria-label="Gemini API 密钥"
              style="flex: 1; min-width: 180px; padding: 0.5rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.9rem; font-family: monospace;" />
       <button type="button" id="save-key-btn"
               style="padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid var(--border-soft); background: var(--bg-chip); color: var(--text); cursor: pointer; font-size: 0.88rem; white-space: nowrap;">
@@ -163,10 +163,12 @@ lang_url_ko: /ko/image-generator.html
       headers: { 'Content-Type': 'application/json' },
       body: body
     }).then(function (resp) {
+      if (!resp.ok) {
+        return resp.json().catch(function () { return null; }).then(function (data) {
+          throw new Error(data && data.error && data.error.message ? data.error.message : 'HTTP ' + resp.status);
+        });
+      }
       return resp.json().then(function (data) {
-        if (!resp.ok) {
-          throw new Error(data.error && data.error.message ? data.error.message : 'HTTP ' + resp.status);
-        }
         var parts = (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) || [];
         for (var i = 0; i < parts.length; i++) {
           if (parts[i].inlineData && parts[i].inlineData.data) {
