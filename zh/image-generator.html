@@ -58,6 +58,27 @@ lang_url_ko: /ko/image-generator.html
         <input type="number" id="count-select" min="1" max="20" value="4"
                style="width: 5rem; padding: 0.5rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.88rem;" />
       </div>
+      <div>
+        <label for="aspect-select" style="display: block; margin-bottom: 0.35rem; font-size: 0.88rem; color: var(--text-muted);">长宽比</label>
+        <select id="aspect-select"
+                style="padding: 0.5rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.88rem;">
+          <option value="1:1" selected>1:1 — 正方形</option>
+          <option value="3:4">3:4 — 竖向</option>
+          <option value="4:3">4:3 — 横向</option>
+          <option value="9:16">9:16 — 竖屏宽幅</option>
+          <option value="16:9">16:9 — 横屏宽幅</option>
+        </select>
+      </div>
+      <div>
+        <label for="size-select" style="display: block; margin-bottom: 0.35rem; font-size: 0.88rem; color: var(--text-muted);">分辨率</label>
+        <select id="size-select"
+                style="padding: 0.5rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.88rem;">
+          <option value="512">512 — 低</option>
+          <option value="1K" selected>1K — 标准</option>
+          <option value="2K">2K — 高清</option>
+          <option value="4K">4K — 超高清</option>
+        </select>
+      </div>
     </div>
     <p id="cost-estimate" style="margin: -0.25rem 0 1rem; font-size: 0.82rem; color: var(--text-muted);"></p>
 
@@ -90,7 +111,12 @@ lang_url_ko: /ko/image-generator.html
   var statusMsg   = document.getElementById('status-message');
   var grid        = document.getElementById('results-grid');
   var costEl      = document.getElementById('cost-estimate');
-  var PRICES      = { 'gemini-3-pro-image': 0.13, 'gemini-3.1-flash-image': 0.07 };
+  var aspectEl    = document.getElementById('aspect-select');
+  var sizeEl      = document.getElementById('size-select');
+  var PRICES      = {
+    'gemini-3-pro-image':     { '512': 0.07, '1K': 0.13, '2K': 0.13, '4K': 0.24 },
+    'gemini-3.1-flash-image': { '512': 0.05, '1K': 0.07, '2K': 0.10, '4K': 0.15 }
+  };
 
   try {
     var saved = localStorage.getItem(KEY_STORAGE);
@@ -115,10 +141,11 @@ lang_url_ko: /ko/image-generator.html
 
   function updateCostEstimate() {
     var n = Math.max(1, Math.min(20, parseInt(countEl.value, 10) || 1));
-    var price = PRICES[modelEl.value] || 0;
-    costEl.innerHTML = '预估费用：约 $' + (n * price).toFixed(2) + '（' + n + ' × 约 $' + price.toFixed(2) + '/张，1K 分辨率）— <a href="https://ai.google.dev/gemini-api/docs/pricing" target="_blank" rel="noopener noreferrer" style="color:inherit;">Google AI 定价</a>';
+    var price = (PRICES[modelEl.value] || {})[sizeEl.value] || 0;
+    costEl.innerHTML = '预估费用：约 $' + (n * price).toFixed(2) + '（' + n + ' × 约 $' + price.toFixed(2) + '/张，' + sizeEl.value + '）— <a href="https://ai.google.dev/gemini-api/docs/pricing" target="_blank" rel="noopener noreferrer" style="color:inherit;">Google AI 定价</a>';
   }
   modelEl.addEventListener('change', updateCostEstimate);
+  sizeEl.addEventListener('change', updateCostEstimate);
   countEl.addEventListener('input', function () {
     var n = parseInt(countEl.value, 10);
     if (!isNaN(n) && n > 20) countEl.value = 20;
@@ -167,11 +194,14 @@ lang_url_ko: /ko/image-generator.html
     grid.appendChild(card);
   }
 
-  function generateOne(apiKey, model, prompt, index, total) {
+  function generateOne(apiKey, model, prompt, aspect, size, index, total) {
     var url  = 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(model) + ':generateContent?key=' + encodeURIComponent(apiKey);
     var body = JSON.stringify({
       contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: { responseModalities: ['TEXT', 'IMAGE'] }
+      generationConfig: {
+        responseModalities: ['TEXT', 'IMAGE'],
+        imageConfig: { aspectRatio: aspect, imageSize: size }
+      }
     });
     return fetch(url, {
       method: 'POST',
@@ -200,6 +230,8 @@ lang_url_ko: /ko/image-generator.html
     var apiKey = keyInput.value.trim();
     var prompt = promptEl.value.trim();
     var model  = modelEl.value;
+    var aspect = aspectEl.value;
+    var size   = sizeEl.value;
     var count  = Math.max(1, Math.min(20, parseInt(countEl.value, 10) || 1));
 
     if (!apiKey) { setStatus('请先在上方输入 Gemini API 密钥。', true); return; }
@@ -212,7 +244,7 @@ lang_url_ko: /ko/image-generator.html
 
     var promises = [];
     for (var i = 0; i < count; i++) {
-      promises.push(generateOne(apiKey, model, prompt, i, count));
+      promises.push(generateOne(apiKey, model, prompt, aspect, size, i, count));
     }
 
     Promise.allSettled(promises).then(function (results) {
