@@ -119,7 +119,14 @@ lang_url_zh: /zh/image-generator.html
     costEl.innerHTML = '예상 비용: 약 $' + (n * price).toFixed(2) + ' (' + n + ' × 약 $' + price.toFixed(2) + '/장, 1K 해상도) — <a href="https://ai.google.dev/gemini-api/docs/pricing" target="_blank" rel="noopener noreferrer" style="color:inherit;">Google AI 요금</a>';
   }
   modelEl.addEventListener('change', updateCostEstimate);
-  countEl.addEventListener('input', updateCostEstimate);
+  countEl.addEventListener('input', function () {
+    var n = parseInt(countEl.value, 10);
+    if (!isNaN(n)) {
+      if (n > 20) countEl.value = 20;
+      else if (n < 1) countEl.value = 1;
+    }
+    updateCostEstimate();
+  });
   countEl.addEventListener('change', function () {
     countEl.value = Math.max(1, Math.min(20, parseInt(countEl.value, 10) || 1));
     updateCostEstimate();

@@ -119,7 +119,14 @@ lang_url_ko: /ko/image-generator.html
     costEl.innerHTML = 'Est. cost: ~$' + (n * price).toFixed(2) + ' (' + n + ' × ~$' + price.toFixed(2) + '/image at 1K res) — <a href="https://ai.google.dev/gemini-api/docs/pricing" target="_blank" rel="noopener noreferrer" style="color:inherit;">Google AI pricing</a>';
   }
   modelEl.addEventListener('change', updateCostEstimate);
-  countEl.addEventListener('input', updateCostEstimate);
+  countEl.addEventListener('input', function () {
+    var n = parseInt(countEl.value, 10);
+    if (!isNaN(n)) {
+      if (n > 20) countEl.value = 20;
+      else if (n < 1) countEl.value = 1;
+    }
+    updateCostEstimate();
+  });
   countEl.addEventListener('change', function () {
     countEl.value = Math.max(1, Math.min(20, parseInt(countEl.value, 10) || 1));
     updateCostEstimate();
