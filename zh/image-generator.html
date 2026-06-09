@@ -119,7 +119,11 @@ lang_url_ko: /ko/image-generator.html
     costEl.innerHTML = '预估费用：约 $' + (n * price).toFixed(2) + '（' + n + ' × 约 $' + price.toFixed(2) + '/张，1K 分辨率）— <a href="https://ai.google.dev/gemini-api/docs/pricing" target="_blank" rel="noopener noreferrer" style="color:inherit;">Google AI 定价</a>';
   }
   modelEl.addEventListener('change', updateCostEstimate);
-  countEl.addEventListener('input', updateCostEstimate);
+  countEl.addEventListener('input', function () {
+    var n = parseInt(countEl.value, 10);
+    if (!isNaN(n) && n > 20) countEl.value = 20;
+    updateCostEstimate();
+  });
   countEl.addEventListener('change', function () {
     countEl.value = Math.max(1, Math.min(20, parseInt(countEl.value, 10) || 1));
     updateCostEstimate();
