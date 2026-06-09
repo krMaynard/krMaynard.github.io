@@ -39,7 +39,13 @@ lang_url_ko: /ko/image-generator.html
   <div class="card" style="margin-bottom: 1.5rem; max-width: 680px;">
     <h3 style="margin-top: 0; margin-bottom: 1rem;">Generate</h3>
 
-    <label for="prompt-input" style="display: block; margin-bottom: 0.35rem; font-size: 0.88rem; color: var(--text-muted);">Prompt</label>
+    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.35rem;">
+      <label for="prompt-input" style="font-size: 0.88rem; color: var(--text-muted);">Prompt</label>
+      <button type="button" id="improve-btn"
+              style="padding: 0.25rem 0.6rem; border-radius: 5px; border: 1px solid var(--border-soft); background: var(--bg-chip); color: var(--text-muted); cursor: pointer; font-size: 0.8rem;">
+        Improve with AI
+      </button>
+    </div>
     <textarea id="prompt-input" rows="4"
               placeholder="A photorealistic mountain landscape at golden hour, dramatic clouds, 4K"
               style="width: 100%; box-sizing: border-box; padding: 0.6rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.9rem; font-family: inherit; resize: vertical; margin-bottom: 1.1rem; line-height: 1.5;"></textarea>
@@ -113,6 +119,8 @@ lang_url_ko: /ko/image-generator.html
   var costEl      = document.getElementById('cost-estimate');
   var aspectEl    = document.getElementById('aspect-select');
   var sizeEl      = document.getElementById('size-select');
+  var improveBtn  = document.getElementById('improve-btn');
+  var IMPROVE_MODEL = 'gemini-2.5-flash';
   var PRICES      = {
     'gemini-3-pro-image':     { '512': 0.07, '1K': 0.13, '2K': 0.13, '4K': 0.24 },
     'gemini-3.1-flash-image': { '512': 0.05, '1K': 0.07, '2K': 0.10, '4K': 0.15 }
@@ -225,6 +233,48 @@ lang_url_ko: /ko/image-generator.html
       });
     });
   }
+
+  improveBtn.addEventListener('click', function () {
+    var apiKey = keyInput.value.trim();
+    var prompt = promptEl.value.trim();
+    if (!apiKey) { setStatus('Enter your Gemini API key above first.', true); return; }
+    if (!prompt) { setStatus('Enter a prompt to improve.', true); return; }
+
+    improveBtn.disabled = true;
+    improveBtn.textContent = 'Improving…';
+
+    var url  = 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(IMPROVE_MODEL) + ':generateContent?key=' + encodeURIComponent(apiKey);
+    var body = JSON.stringify({
+      contents: [{ parts: [{ text: 'Improve this image generation prompt. Make it more detailed and vivid — add lighting, style, atmosphere, composition, and quality keywords. Return only the improved prompt, no explanation or commentary.\n\nPrompt: ' + prompt }] }]
+    });
+
+    fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body })
+      .then(function (resp) {
+        if (!resp.ok) {
+          return resp.json().catch(function () { return null; }).then(function (data) {
+            throw new Error(data && data.error && data.error.message ? data.error.message : 'HTTP ' + resp.status);
+          });
+        }
+        return resp.json();
+      })
+      .then(function (data) {
+        var parts = (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) || [];
+        var text = '';
+        for (var i = 0; i < parts.length; i++) {
+          if (parts[i].text) { text = parts[i].text.trim(); break; }
+        }
+        if (!text) throw new Error('No text in response');
+        promptEl.value = text;
+        setStatus('Prompt improved.', false);
+        improveBtn.disabled = false;
+        improveBtn.textContent = 'Improve with AI';
+      })
+      .catch(function (err) {
+        setStatus('Improve failed: ' + err.message, true);
+        improveBtn.disabled = false;
+        improveBtn.textContent = 'Improve with AI';
+      });
+  });
 
   genBtn.addEventListener('click', function () {
     var apiKey = keyInput.value.trim();
