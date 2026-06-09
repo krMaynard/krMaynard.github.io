@@ -1,0 +1,169 @@
+---
+layout: main
+title: Google 정부 삭제 요청
+description: "Google 제품에서 콘텐츠를 삭제하라는 정부 요청 10년치. 160개국, 42개 제품, 22가지 사유, 13개 보고 기간 — 다년도 트렌드 탐색기로 구축."
+lang: ko
+lang_url: /google-removals.html
+lang_url_ja: /ja/google-removals.html
+lang_url_zh: /zh/google-removals.html
+---
+
+<div style="padding-top: 2.5rem; margin-bottom: 0.5rem;"><p class="section-label">분석</p></div>
+
+<p style="margin-top: 2rem;"><a href="/ko/transparency.html">← 투명성 데이터</a></p>
+
+<div style="padding-top: 1.5rem; margin-bottom: 0.5rem;">
+  <p class="section-label">대시보드</p>
+  <h2 style="margin-top: 0; margin-bottom: 0.5rem;">Google 콘텐츠 삭제 정부 요청</h2>
+  <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
+    2014년부터 2024년까지 저는 <a href="https://transparencyreport.google.com/government-removals/explore">Google 투명성 보고서</a>의 중화권 부분 주요 작성자 중 한 명이었습니다.
+    이 대시보드는 Google이 2019년에 채택한 상세 보고 형식의 <em>정부 삭제 요청</em> 데이터를
+    <strong>13개 보고 기간</strong>, <strong>160개국</strong>, <strong>42개 Google 제품</strong>, <strong>22개 삭제 사유</strong>에 걸쳐 탐색합니다.
+    기간별로 구성된 Google 자체 보고서와 달리, 이 뷰는 <strong>보고 기간에 걸친 트렌드</strong>를 중심으로 구성되어 있습니다:
+    모든 필터 조합이 다년도 시계열이 되며, 시계열을 국가, 요청자, 제품, 사유별로 분류할 수 있습니다.
+  </p>
+  <p style="color: var(--text-faint); font-size: 0.85rem; margin-bottom: 2rem; background: transparent;">
+    출처: <a href="https://transparencyreport.google.com/government-removals/overview">Google 투명성 보고서 — 정부 콘텐츠 삭제 요청</a>.
+    데이터는 브라우저에서 직접 처리되며 백엔드로 요청이 전송되지 않습니다.
+  </p>
+</div>
+
+<section class="td-intro">
+  <h2 class="td-section-title">이 데이터가 포착하는 것</h2>
+  <div class="td-callouts">
+    <div class="td-callout">
+      <h3>요청자</h3>
+      <p>법원, 정부 관리, 경찰, 데이터 보호 당국, 소비자 보호 기관, 군 등 — <em>요청자</em> 유형별로 항목 수준에서 분류됩니다.</p>
+    </div>
+    <div class="td-callout">
+      <h3>대상</h3>
+      <p>웹 검색, YouTube, Maps, Blogger, Play를 포함한 42개 Google 제품, 그리고 명예훼손, 프라이버시, 국가 안보, 정부 비판, 저작권 등 22가지 삭제 <em>사유</em>.</p>
+    </div>
+    <div class="td-callout">
+      <h3>Google의 응답</h3>
+      <p>항목 수준의 결과: 법적 근거로 삭제, 정책 근거로 삭제, 이미 삭제됨, 콘텐츠를 찾을 수 없음, 정보 불충분, 조치 없음.</p>
+    </div>
+  </div>
+</section>
+
+<section class="td-dashboard">
+  <div id="td-loading" class="td-loading">데이터 로딩 중…</div>
+
+  <div id="td-app" hidden>
+
+    <div class="td-filters" role="region" aria-label="대시보드 필터">
+      <div class="td-filter">
+        <label for="td-from">시작</label>
+        <select id="td-from"></select>
+      </div>
+      <div class="td-filter">
+        <label for="td-to">종료</label>
+        <select id="td-to"></select>
+      </div>
+      <div class="td-filter td-filter-wide">
+        <label for="td-country">국가</label>
+        <select id="td-country"></select>
+      </div>
+      <div class="td-filter td-filter-wide">
+        <label for="td-requestor">요청자</label>
+        <select id="td-requestor"></select>
+      </div>
+      <div class="td-filter td-filter-wide">
+        <label for="td-product">제품</label>
+        <select id="td-product"></select>
+      </div>
+      <div class="td-filter td-filter-wide">
+        <label for="td-reason">사유</label>
+        <select id="td-reason"></select>
+      </div>
+      <button type="button" id="td-reset" class="td-reset">필터 초기화</button>
+    </div>
+
+    <p class="td-range-line">
+      표시 중인 보고 기간: <strong id="td-range-label">—</strong>
+    </p>
+
+    <div id="td-metrics" class="td-metrics"></div>
+
+    <div class="td-chart-grid">
+      <div class="td-chart-card td-chart-card-wide">
+        <div class="td-chart-head">
+          <h3>보고 기간별 삭제 요청 항목 수</h3>
+          <div class="td-breakdown">
+            <label for="td-breakdown">분류 기준</label>
+            <select id="td-breakdown"></select>
+          </div>
+        </div>
+        <div class="td-chart-wrap"><canvas id="td-chart-time" aria-label="시계열 차트"></canvas></div>
+      </div>
+
+      <div class="td-chart-card td-chart-card-wide">
+        <h3>시간에 따른 삭제율</h3>
+        <div class="td-chart-wrap"><canvas id="td-chart-rate" aria-label="시간에 따른 삭제율"></canvas></div>
+      </div>
+
+      <div class="td-chart-card">
+        <h3>삭제 요청 항목 수 기준 상위 10개국</h3>
+        <div class="td-chart-wrap td-chart-tall"><canvas id="td-chart-countries" aria-label="국가별 막대 차트"></canvas></div>
+      </div>
+
+      <div class="td-chart-card">
+        <h3>주요 삭제 사유</h3>
+        <div class="td-chart-wrap td-chart-tall"><canvas id="td-chart-reasons" aria-label="삭제 사유 도넛 차트"></canvas></div>
+      </div>
+
+      <div class="td-chart-card">
+        <h3>대상 Google 제품</h3>
+        <div class="td-chart-wrap td-chart-tall"><canvas id="td-chart-products" aria-label="제품별 막대 차트"></canvas></div>
+      </div>
+
+      <div class="td-chart-card">
+        <h3>Google의 응답 분류</h3>
+        <div class="td-chart-wrap td-chart-tall"><canvas id="td-chart-compliance" aria-label="응답 분류 막대 차트"></canvas></div>
+      </div>
+    </div>
+
+    <div class="td-table-card">
+      <div class="td-table-head">
+        <h3>필터링된 레코드 (삭제 요청 항목 수 기준 상위 25개)</h3>
+        <span id="td-row-count" class="td-row-count"></span>
+      </div>
+      <div class="td-table-scroll">
+        <table class="td-table">
+          <thead>
+            <tr>
+              <th>기간</th><th>국가</th><th>요청자</th><th>제품</th><th>사유</th>
+              <th class="td-num">요청 항목 수</th><th class="td-num">삭제 수</th>
+            </tr>
+          </thead>
+          <tbody id="td-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="td-readme">
+  <h2 class="td-section-title">주목할 점</h2>
+  <ul class="td-bullets">
+    <li><strong>스냅샷이 아닌 트렌드를.</strong> <em>분류 기준 → 사유</em>로 설정하고 다른 필터를 기본값으로 유지하면 2019년 이후 삭제 사유 구성이 어떻게 변했는지 확인할 수 있습니다.</li>
+    <li><strong>국가별 궤적을 비교.</strong> <em>분류 기준 → 국가</em>로 설정하면 상위 요청 국가를 나란히 시계열로 비교할 수 있습니다. '선택 범위 변화' 지표는 첫 번째와 마지막 기간의 진폭을 수치화합니다.</li>
+    <li><strong>삭제율 자체도 트렌드입니다.</strong> <em>시간에 따른 삭제율</em> 차트는 선택된 기간 내에 Google이 실제로 삭제한 항목의 비율을 추적합니다.</li>
+    <li><strong>명예훼손은 많은 민주주의 국가에서 수치를 주도합니다.</strong> <em>사유 → 명예훼손</em>으로 필터링하면 러시아, 튀르키예, 인도, 브라질의 법원이 항목 수의 대부분을 차지함을 확인할 수 있습니다.</li>
+    <li><strong>'정부 비판'은 다른 이야기를 합니다.</strong> <em>사유 → 정부 비판</em>으로 필터링하면 국가 분포와 트렌드 라인이 크게 변합니다.</li>
+    <li><strong>요청자 유형은 중요합니다.</strong> Google에 대한 법원 명령은 경찰 요청이나 정부 관계자의 의뢰와는 운영적 의미가 다르며, 그 구성도 매년 변합니다.</li>
+  </ul>
+  <p style="color: var(--text-faint); font-size: 0.85rem; margin-top: 1.25rem;">
+    중요한 참고사항: '요청'은 정부가 제출한 단일 신청이고, '항목'은 해당 요청 내의 특정 URL, 동영상, 계정 또는 콘텐츠입니다. 하나의 요청이 여러 항목을 포함할 수 있습니다. Google의 응답 카테고리는 <em>삭제(법적)</em>, <em>삭제(정책)</em>, <em>이미 삭제됨</em>, <em>콘텐츠를 찾을 수 없음</em>, <em>정보 불충분</em>, <em>조치 없음</em>입니다. 이 페이지의 '삭제율'은 처음 세 카테고리를 합산한 것입니다.
+  </p>
+</section>
+
+<hr class="section-divider" />
+
+<p style="color: var(--text-very-faint); font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
+  데이터: <a href="https://transparencyreport.google.com/government-removals/overview">Google 투명성 보고서</a>, 상세 보고 형식 (2019~2025년 상반기). 분석 및 시각화: 키어런 메이나드. 차트는 <a href="https://www.chartjs.org/">Chart.js</a> 사용.
+</p>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer></script>
+<script src="/transparency-dashboard.js" defer></script>
