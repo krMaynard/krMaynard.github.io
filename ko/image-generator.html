@@ -1,0 +1,216 @@
+---
+layout: main
+title: 이미지 생성 도구
+description: "Gemini AI로 브라우저에서 직접 이미지를 생성하세요. API 키는 브라우저에만 저장되며, Google API로 직접 전송됩니다. 이 사이트의 서버로는 전송되지 않습니다."
+lang: ko
+lang_url: /image-generator.html
+lang_url_ja: /ja/image-generator.html
+lang_url_zh: /zh/image-generator.html
+---
+
+<div style="padding-top: 2.5rem; margin-bottom: 3rem;">
+  <p class="section-label">도구</p>
+  <h1 style="margin-top: 0; margin-bottom: 0.5rem;">이미지 생성 도구</h1>
+  <p style="color: var(--text-muted); margin-bottom: 2rem; max-width: 720px; line-height: 1.65;">
+    Gemini AI로 이미지를 생성합니다. API 키는 이 브라우저에서만 사용되며, Google API로 직접 전송됩니다. 이 사이트의 서버로는 전송되지 않습니다.
+  </p>
+
+  <div class="card" style="margin-bottom: 1.5rem; max-width: 680px;">
+    <h3 style="margin-top: 0; margin-bottom: 0.25rem;">Gemini API 키</h3>
+    <p style="color: var(--text-muted); margin-bottom: 0.9rem; font-size: 0.88rem; line-height: 1.55;">
+      무료 키는 <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a>에서 발급받을 수 있습니다.
+      키는 브라우저에만 저장되며 Google로 직접 전송됩니다. 이 페이지는 백엔드가 없습니다.
+    </p>
+    <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+      <input type="password" id="api-key-input" placeholder="AIza…" autocomplete="off"
+             style="flex: 1; min-width: 180px; padding: 0.5rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.9rem; font-family: monospace;" />
+      <button type="button" id="save-key-btn"
+              style="padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid var(--border-soft); background: var(--bg-chip); color: var(--text); cursor: pointer; font-size: 0.88rem; white-space: nowrap;">
+        저장
+      </button>
+      <button type="button" id="clear-key-btn"
+              style="padding: 0.5rem 0.75rem; border-radius: 6px; border: 1px solid var(--border-soft); background: transparent; color: var(--text-muted); cursor: pointer; font-size: 0.88rem;">
+        삭제
+      </button>
+    </div>
+    <p id="key-status" style="margin: 0.5rem 0 0; font-size: 0.82rem; color: var(--text-muted); min-height: 1.2em;"></p>
+  </div>
+
+  <div class="card" style="margin-bottom: 1.5rem; max-width: 680px;">
+    <h3 style="margin-top: 0; margin-bottom: 1rem;">생성</h3>
+
+    <label for="prompt-input" style="display: block; margin-bottom: 0.35rem; font-size: 0.88rem; color: var(--text-muted);">프롬프트</label>
+    <textarea id="prompt-input" rows="4"
+              placeholder="황금빛 노을 속 산 풍경, 극적인 구름, 사진 같은 사실감, 4K"
+              style="width: 100%; box-sizing: border-box; padding: 0.6rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.9rem; font-family: inherit; resize: vertical; margin-bottom: 1.1rem; line-height: 1.5;"></textarea>
+
+    <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; align-items: flex-end;">
+      <div>
+        <label for="model-select" style="display: block; margin-bottom: 0.35rem; font-size: 0.88rem; color: var(--text-muted);">모델</label>
+        <select id="model-select"
+                style="padding: 0.5rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.88rem;">
+          <option value="gemini-3-pro-image">gemini-3-pro-image — 최고 품질</option>
+          <option value="gemini-3.1-flash-image">gemini-3.1-flash-image — 빠름</option>
+        </select>
+      </div>
+      <div>
+        <label for="count-select" style="display: block; margin-bottom: 0.35rem; font-size: 0.88rem; color: var(--text-muted);">이미지 수</label>
+        <select id="count-select"
+                style="padding: 0.5rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.88rem;">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4" selected>4</option>
+        </select>
+      </div>
+    </div>
+
+    <button type="button" id="generate-btn"
+            style="padding: 0.6rem 1.6rem; border-radius: 6px; border: none; background: var(--brand); color: #fff; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background 0.15s; letter-spacing: 0.01em;">
+      생성
+    </button>
+  </div>
+
+  <div id="status-area" style="max-width: 680px; margin-bottom: 1rem; display: none;">
+    <p id="status-message" style="margin: 0; padding: 0.7rem 1rem; border-radius: 6px; font-size: 0.9rem; background: var(--bg-chip); color: var(--text-muted);"></p>
+  </div>
+
+  <div id="results-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; max-width: 680px;"></div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var KEY_STORAGE = 'gemini-image-gen-key';
+  var keyInput    = document.getElementById('api-key-input');
+  var saveBtn     = document.getElementById('save-key-btn');
+  var clearBtn    = document.getElementById('clear-key-btn');
+  var keyStatus   = document.getElementById('key-status');
+  var promptEl    = document.getElementById('prompt-input');
+  var modelEl     = document.getElementById('model-select');
+  var countEl     = document.getElementById('count-select');
+  var genBtn      = document.getElementById('generate-btn');
+  var statusArea  = document.getElementById('status-area');
+  var statusMsg   = document.getElementById('status-message');
+  var grid        = document.getElementById('results-grid');
+
+  try {
+    var saved = localStorage.getItem(KEY_STORAGE);
+    if (saved) {
+      keyInput.value = saved;
+      keyStatus.textContent = '브라우저 저장소에서 API 키를 불러왔습니다.';
+    }
+  } catch (e) {}
+
+  saveBtn.addEventListener('click', function () {
+    var v = keyInput.value.trim();
+    if (!v) { keyStatus.textContent = '먼저 API 키를 입력하세요.'; return; }
+    try { localStorage.setItem(KEY_STORAGE, v); } catch (e) {}
+    keyStatus.textContent = '브라우저 저장소에 API 키를 저장했습니다.';
+  });
+
+  clearBtn.addEventListener('click', function () {
+    keyInput.value = '';
+    try { localStorage.removeItem(KEY_STORAGE); } catch (e) {}
+    keyStatus.textContent = '브라우저 저장소에서 API 키를 삭제했습니다.';
+  });
+
+  function setStatus(msg, isError) {
+    statusArea.style.display = 'block';
+    statusMsg.textContent = msg;
+    statusMsg.style.color = isError ? 'var(--text)' : 'var(--text-muted)';
+    statusMsg.style.background = isError ? 'rgba(192,57,43,0.1)' : 'var(--bg-chip)';
+  }
+
+  function addImageCard(b64, mime, index, total) {
+    var src  = 'data:' + (mime || 'image/png') + ';base64,' + b64;
+    var card = document.createElement('div');
+    card.style.cssText = 'background:var(--bg-elevated);border:1px solid var(--border-card);border-radius:8px;overflow:hidden;';
+
+    var img = document.createElement('img');
+    img.src = src;
+    img.alt = '생성된 이미지 ' + (index + 1);
+    img.style.cssText = 'width:100%;display:block;';
+
+    var footer = document.createElement('div');
+    footer.style.cssText = 'padding:0.5rem 0.75rem;display:flex;justify-content:space-between;align-items:center;';
+
+    var label = document.createElement('span');
+    label.textContent = total > 1 ? '이미지 ' + (index + 1) : '생성된 이미지';
+    label.style.cssText = 'font-size:0.82rem;color:var(--text-muted);';
+
+    var dl = document.createElement('a');
+    dl.href = src;
+    dl.download = 'generated-' + Date.now() + '-' + index + '.png';
+    dl.textContent = '다운로드';
+    dl.style.cssText = 'font-size:0.82rem;color:var(--brand);text-decoration:none;font-weight:600;';
+
+    footer.appendChild(label);
+    footer.appendChild(dl);
+    card.appendChild(img);
+    card.appendChild(footer);
+    grid.appendChild(card);
+  }
+
+  function generateOne(apiKey, model, prompt, index, total) {
+    var url  = 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(model) + ':generateContent?key=' + encodeURIComponent(apiKey);
+    var body = JSON.stringify({
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: { responseModalities: ['TEXT', 'IMAGE'] }
+    });
+    return fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: body
+    }).then(function (resp) {
+      return resp.json().then(function (data) {
+        if (!resp.ok) {
+          throw new Error(data.error && data.error.message ? data.error.message : 'HTTP ' + resp.status);
+        }
+        var parts = (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) || [];
+        for (var i = 0; i < parts.length; i++) {
+          if (parts[i].inlineData && parts[i].inlineData.data) {
+            addImageCard(parts[i].inlineData.data, parts[i].inlineData.mimeType, index, total);
+            return;
+          }
+        }
+        throw new Error('응답에 이미지가 없습니다');
+      });
+    });
+  }
+
+  genBtn.addEventListener('click', function () {
+    var apiKey = keyInput.value.trim();
+    var prompt = promptEl.value.trim();
+    var model  = modelEl.value;
+    var count  = parseInt(countEl.value, 10);
+
+    if (!apiKey) { setStatus('위에서 Gemini API 키를 먼저 입력하세요.', true); return; }
+    if (!prompt) { setStatus('프롬프트를 입력하세요.', true); return; }
+
+    grid.innerHTML = '';
+    genBtn.disabled = true;
+    genBtn.textContent = '생성 중…';
+    setStatus(count + '장의 이미지를 생성 중…', false);
+
+    var promises = [];
+    for (var i = 0; i < count; i++) {
+      promises.push(generateOne(apiKey, model, prompt, i, count));
+    }
+
+    Promise.allSettled(promises).then(function (results) {
+      var ok     = results.filter(function (r) { return r.status === 'fulfilled'; });
+      var errors = results.filter(function (r) { return r.status === 'rejected'; });
+      if (ok.length === 0) {
+        setStatus('실패: ' + errors[0].reason.message, true);
+      } else if (errors.length > 0) {
+        setStatus(count + '장 중 ' + ok.length + '장 성공. 오류: ' + errors[0].reason.message, false);
+      } else {
+        setStatus(count + '장의 이미지를 생성했습니다.', false);
+      }
+      genBtn.disabled = false;
+      genBtn.textContent = '생성';
+    });
+  });
+})();
+</script>

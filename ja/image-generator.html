@@ -1,0 +1,216 @@
+---
+layout: main
+title: 画像生成ツール
+description: "Gemini AIでブラウザから直接画像を生成。APIキーはブラウザ内にのみ保存され、Googleに直接送信されます。このサイトのサーバーには送られません。"
+lang: ja
+lang_url: /image-generator.html
+lang_url_zh: /zh/image-generator.html
+lang_url_ko: /ko/image-generator.html
+---
+
+<div style="padding-top: 2.5rem; margin-bottom: 3rem;">
+  <p class="section-label">ツール</p>
+  <h1 style="margin-top: 0; margin-bottom: 0.5rem;">画像生成ツール</h1>
+  <p style="color: var(--text-muted); margin-bottom: 2rem; max-width: 720px; line-height: 1.65;">
+    Gemini AIを使って画像を生成します。APIキーはブラウザ内でのみ使用され、GoogleのAPIに直接送信されます。このサイトのサーバーには送られません。
+  </p>
+
+  <div class="card" style="margin-bottom: 1.5rem; max-width: 680px;">
+    <h3 style="margin-top: 0; margin-bottom: 0.25rem;">Gemini APIキー</h3>
+    <p style="color: var(--text-muted); margin-bottom: 0.9rem; font-size: 0.88rem; line-height: 1.55;">
+      無料のAPIキーは <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a> で取得できます。
+      キーはブラウザにのみ保存され、Googleに直接送信されます。このページにバックエンドはありません。
+    </p>
+    <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+      <input type="password" id="api-key-input" placeholder="AIza…" autocomplete="off"
+             style="flex: 1; min-width: 180px; padding: 0.5rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.9rem; font-family: monospace;" />
+      <button type="button" id="save-key-btn"
+              style="padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid var(--border-soft); background: var(--bg-chip); color: var(--text); cursor: pointer; font-size: 0.88rem; white-space: nowrap;">
+        保存
+      </button>
+      <button type="button" id="clear-key-btn"
+              style="padding: 0.5rem 0.75rem; border-radius: 6px; border: 1px solid var(--border-soft); background: transparent; color: var(--text-muted); cursor: pointer; font-size: 0.88rem;">
+        削除
+      </button>
+    </div>
+    <p id="key-status" style="margin: 0.5rem 0 0; font-size: 0.82rem; color: var(--text-muted); min-height: 1.2em;"></p>
+  </div>
+
+  <div class="card" style="margin-bottom: 1.5rem; max-width: 680px;">
+    <h3 style="margin-top: 0; margin-bottom: 1rem;">生成</h3>
+
+    <label for="prompt-input" style="display: block; margin-bottom: 0.35rem; font-size: 0.88rem; color: var(--text-muted);">プロンプト</label>
+    <textarea id="prompt-input" rows="4"
+              placeholder="夕暮れの山の風景、ドラマチックな雲、写真リアル、4K"
+              style="width: 100%; box-sizing: border-box; padding: 0.6rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.9rem; font-family: inherit; resize: vertical; margin-bottom: 1.1rem; line-height: 1.5;"></textarea>
+
+    <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; align-items: flex-end;">
+      <div>
+        <label for="model-select" style="display: block; margin-bottom: 0.35rem; font-size: 0.88rem; color: var(--text-muted);">モデル</label>
+        <select id="model-select"
+                style="padding: 0.5rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.88rem;">
+          <option value="gemini-3-pro-image">gemini-3-pro-image — 高品質</option>
+          <option value="gemini-3.1-flash-image">gemini-3.1-flash-image — 高速</option>
+        </select>
+      </div>
+      <div>
+        <label for="count-select" style="display: block; margin-bottom: 0.35rem; font-size: 0.88rem; color: var(--text-muted);">枚数</label>
+        <select id="count-select"
+                style="padding: 0.5rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.88rem;">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4" selected>4</option>
+        </select>
+      </div>
+    </div>
+
+    <button type="button" id="generate-btn"
+            style="padding: 0.6rem 1.6rem; border-radius: 6px; border: none; background: var(--brand); color: #fff; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background 0.15s; letter-spacing: 0.01em;">
+      生成
+    </button>
+  </div>
+
+  <div id="status-area" style="max-width: 680px; margin-bottom: 1rem; display: none;">
+    <p id="status-message" style="margin: 0; padding: 0.7rem 1rem; border-radius: 6px; font-size: 0.9rem; background: var(--bg-chip); color: var(--text-muted);"></p>
+  </div>
+
+  <div id="results-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; max-width: 680px;"></div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var KEY_STORAGE = 'gemini-image-gen-key';
+  var keyInput    = document.getElementById('api-key-input');
+  var saveBtn     = document.getElementById('save-key-btn');
+  var clearBtn    = document.getElementById('clear-key-btn');
+  var keyStatus   = document.getElementById('key-status');
+  var promptEl    = document.getElementById('prompt-input');
+  var modelEl     = document.getElementById('model-select');
+  var countEl     = document.getElementById('count-select');
+  var genBtn      = document.getElementById('generate-btn');
+  var statusArea  = document.getElementById('status-area');
+  var statusMsg   = document.getElementById('status-message');
+  var grid        = document.getElementById('results-grid');
+
+  try {
+    var saved = localStorage.getItem(KEY_STORAGE);
+    if (saved) {
+      keyInput.value = saved;
+      keyStatus.textContent = 'ブラウザのストレージからAPIキーを読み込みました。';
+    }
+  } catch (e) {}
+
+  saveBtn.addEventListener('click', function () {
+    var v = keyInput.value.trim();
+    if (!v) { keyStatus.textContent = '先にAPIキーを入力してください。'; return; }
+    try { localStorage.setItem(KEY_STORAGE, v); } catch (e) {}
+    keyStatus.textContent = 'ブラウザのストレージにAPIキーを保存しました。';
+  });
+
+  clearBtn.addEventListener('click', function () {
+    keyInput.value = '';
+    try { localStorage.removeItem(KEY_STORAGE); } catch (e) {}
+    keyStatus.textContent = 'APIキーを削除しました。';
+  });
+
+  function setStatus(msg, isError) {
+    statusArea.style.display = 'block';
+    statusMsg.textContent = msg;
+    statusMsg.style.color = isError ? 'var(--text)' : 'var(--text-muted)';
+    statusMsg.style.background = isError ? 'rgba(192,57,43,0.1)' : 'var(--bg-chip)';
+  }
+
+  function addImageCard(b64, mime, index, total) {
+    var src  = 'data:' + (mime || 'image/png') + ';base64,' + b64;
+    var card = document.createElement('div');
+    card.style.cssText = 'background:var(--bg-elevated);border:1px solid var(--border-card);border-radius:8px;overflow:hidden;';
+
+    var img = document.createElement('img');
+    img.src = src;
+    img.alt = '生成された画像 ' + (index + 1);
+    img.style.cssText = 'width:100%;display:block;';
+
+    var footer = document.createElement('div');
+    footer.style.cssText = 'padding:0.5rem 0.75rem;display:flex;justify-content:space-between;align-items:center;';
+
+    var label = document.createElement('span');
+    label.textContent = total > 1 ? '画像 ' + (index + 1) : '生成された画像';
+    label.style.cssText = 'font-size:0.82rem;color:var(--text-muted);';
+
+    var dl = document.createElement('a');
+    dl.href = src;
+    dl.download = 'generated-' + Date.now() + '-' + index + '.png';
+    dl.textContent = 'ダウンロード';
+    dl.style.cssText = 'font-size:0.82rem;color:var(--brand);text-decoration:none;font-weight:600;';
+
+    footer.appendChild(label);
+    footer.appendChild(dl);
+    card.appendChild(img);
+    card.appendChild(footer);
+    grid.appendChild(card);
+  }
+
+  function generateOne(apiKey, model, prompt, index, total) {
+    var url  = 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(model) + ':generateContent?key=' + encodeURIComponent(apiKey);
+    var body = JSON.stringify({
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: { responseModalities: ['TEXT', 'IMAGE'] }
+    });
+    return fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: body
+    }).then(function (resp) {
+      return resp.json().then(function (data) {
+        if (!resp.ok) {
+          throw new Error(data.error && data.error.message ? data.error.message : 'HTTP ' + resp.status);
+        }
+        var parts = (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) || [];
+        for (var i = 0; i < parts.length; i++) {
+          if (parts[i].inlineData && parts[i].inlineData.data) {
+            addImageCard(parts[i].inlineData.data, parts[i].inlineData.mimeType, index, total);
+            return;
+          }
+        }
+        throw new Error('レスポンスに画像が含まれていませんでした');
+      });
+    });
+  }
+
+  genBtn.addEventListener('click', function () {
+    var apiKey = keyInput.value.trim();
+    var prompt = promptEl.value.trim();
+    var model  = modelEl.value;
+    var count  = parseInt(countEl.value, 10);
+
+    if (!apiKey) { setStatus('上のフォームにGemini APIキーを入力してください。', true); return; }
+    if (!prompt) { setStatus('プロンプトを入力してください。', true); return; }
+
+    grid.innerHTML = '';
+    genBtn.disabled = true;
+    genBtn.textContent = '生成中…';
+    setStatus(count + '枚の画像を生成中…', false);
+
+    var promises = [];
+    for (var i = 0; i < count; i++) {
+      promises.push(generateOne(apiKey, model, prompt, i, count));
+    }
+
+    Promise.allSettled(promises).then(function (results) {
+      var ok     = results.filter(function (r) { return r.status === 'fulfilled'; });
+      var errors = results.filter(function (r) { return r.status === 'rejected'; });
+      if (ok.length === 0) {
+        setStatus('失敗しました: ' + errors[0].reason.message, true);
+      } else if (errors.length > 0) {
+        setStatus(count + '枚中' + ok.length + '枚が成功しました。エラー: ' + errors[0].reason.message, false);
+      } else {
+        setStatus(count + '枚の画像を生成しました。', false);
+      }
+      genBtn.disabled = false;
+      genBtn.textContent = '生成';
+    });
+  });
+})();
+</script>

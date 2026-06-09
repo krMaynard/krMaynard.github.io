@@ -1,0 +1,216 @@
+---
+layout: main
+title: Image Generator
+description: "Generate images with Gemini AI directly in your browser. Your API key stays local — it goes straight to Google's API, never to this site."
+lang: en
+lang_url: /ja/image-generator.html
+lang_url_zh: /zh/image-generator.html
+lang_url_ko: /ko/image-generator.html
+---
+
+<div style="padding-top: 2.5rem; margin-bottom: 3rem;">
+  <p class="section-label">Tool</p>
+  <h1 style="margin-top: 0; margin-bottom: 0.5rem;">Image Generator</h1>
+  <p style="color: var(--text-muted); margin-bottom: 2rem; max-width: 720px; line-height: 1.65;">
+    Generate images with Gemini AI. Your API key is used only in this browser — it is sent directly from your browser to Google's API and never reaches this site's servers.
+  </p>
+
+  <div class="card" style="margin-bottom: 1.5rem; max-width: 680px;">
+    <h3 style="margin-top: 0; margin-bottom: 0.25rem;">Gemini API Key</h3>
+    <p style="color: var(--text-muted); margin-bottom: 0.9rem; font-size: 0.88rem; line-height: 1.55;">
+      Get a free key at <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a>.
+      The key is stored only in your browser and sent directly to Google — this page has no backend.
+    </p>
+    <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+      <input type="password" id="api-key-input" placeholder="AIza…" autocomplete="off"
+             style="flex: 1; min-width: 180px; padding: 0.5rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.9rem; font-family: monospace;" />
+      <button type="button" id="save-key-btn"
+              style="padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid var(--border-soft); background: var(--bg-chip); color: var(--text); cursor: pointer; font-size: 0.88rem; white-space: nowrap;">
+        Save in browser
+      </button>
+      <button type="button" id="clear-key-btn"
+              style="padding: 0.5rem 0.75rem; border-radius: 6px; border: 1px solid var(--border-soft); background: transparent; color: var(--text-muted); cursor: pointer; font-size: 0.88rem;">
+        Clear
+      </button>
+    </div>
+    <p id="key-status" style="margin: 0.5rem 0 0; font-size: 0.82rem; color: var(--text-muted); min-height: 1.2em;"></p>
+  </div>
+
+  <div class="card" style="margin-bottom: 1.5rem; max-width: 680px;">
+    <h3 style="margin-top: 0; margin-bottom: 1rem;">Generate</h3>
+
+    <label for="prompt-input" style="display: block; margin-bottom: 0.35rem; font-size: 0.88rem; color: var(--text-muted);">Prompt</label>
+    <textarea id="prompt-input" rows="4"
+              placeholder="A photorealistic mountain landscape at golden hour, dramatic clouds, 4K"
+              style="width: 100%; box-sizing: border-box; padding: 0.6rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.9rem; font-family: inherit; resize: vertical; margin-bottom: 1.1rem; line-height: 1.5;"></textarea>
+
+    <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; align-items: flex-end;">
+      <div>
+        <label for="model-select" style="display: block; margin-bottom: 0.35rem; font-size: 0.88rem; color: var(--text-muted);">Model</label>
+        <select id="model-select"
+                style="padding: 0.5rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.88rem;">
+          <option value="gemini-3-pro-image">gemini-3-pro-image — highest quality</option>
+          <option value="gemini-3.1-flash-image">gemini-3.1-flash-image — fast</option>
+        </select>
+      </div>
+      <div>
+        <label for="count-select" style="display: block; margin-bottom: 0.35rem; font-size: 0.88rem; color: var(--text-muted);">Images</label>
+        <select id="count-select"
+                style="padding: 0.5rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.88rem;">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4" selected>4</option>
+        </select>
+      </div>
+    </div>
+
+    <button type="button" id="generate-btn"
+            style="padding: 0.6rem 1.6rem; border-radius: 6px; border: none; background: var(--brand); color: #fff; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background 0.15s; letter-spacing: 0.01em;">
+      Generate
+    </button>
+  </div>
+
+  <div id="status-area" style="max-width: 680px; margin-bottom: 1rem; display: none;">
+    <p id="status-message" style="margin: 0; padding: 0.7rem 1rem; border-radius: 6px; font-size: 0.9rem; background: var(--bg-chip); color: var(--text-muted);"></p>
+  </div>
+
+  <div id="results-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; max-width: 680px;"></div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var KEY_STORAGE = 'gemini-image-gen-key';
+  var keyInput    = document.getElementById('api-key-input');
+  var saveBtn     = document.getElementById('save-key-btn');
+  var clearBtn    = document.getElementById('clear-key-btn');
+  var keyStatus   = document.getElementById('key-status');
+  var promptEl    = document.getElementById('prompt-input');
+  var modelEl     = document.getElementById('model-select');
+  var countEl     = document.getElementById('count-select');
+  var genBtn      = document.getElementById('generate-btn');
+  var statusArea  = document.getElementById('status-area');
+  var statusMsg   = document.getElementById('status-message');
+  var grid        = document.getElementById('results-grid');
+
+  try {
+    var saved = localStorage.getItem(KEY_STORAGE);
+    if (saved) {
+      keyInput.value = saved;
+      keyStatus.textContent = 'API key loaded from browser storage.';
+    }
+  } catch (e) {}
+
+  saveBtn.addEventListener('click', function () {
+    var v = keyInput.value.trim();
+    if (!v) { keyStatus.textContent = 'Enter a key first.'; return; }
+    try { localStorage.setItem(KEY_STORAGE, v); } catch (e) {}
+    keyStatus.textContent = 'Key saved to browser storage.';
+  });
+
+  clearBtn.addEventListener('click', function () {
+    keyInput.value = '';
+    try { localStorage.removeItem(KEY_STORAGE); } catch (e) {}
+    keyStatus.textContent = 'Key cleared from browser storage.';
+  });
+
+  function setStatus(msg, isError) {
+    statusArea.style.display = 'block';
+    statusMsg.textContent = msg;
+    statusMsg.style.color = isError ? 'var(--text)' : 'var(--text-muted)';
+    statusMsg.style.background = isError ? 'rgba(192,57,43,0.1)' : 'var(--bg-chip)';
+  }
+
+  function addImageCard(b64, mime, index, total) {
+    var src  = 'data:' + (mime || 'image/png') + ';base64,' + b64;
+    var card = document.createElement('div');
+    card.style.cssText = 'background:var(--bg-elevated);border:1px solid var(--border-card);border-radius:8px;overflow:hidden;';
+
+    var img = document.createElement('img');
+    img.src = src;
+    img.alt = 'Generated image ' + (index + 1);
+    img.style.cssText = 'width:100%;display:block;';
+
+    var footer = document.createElement('div');
+    footer.style.cssText = 'padding:0.5rem 0.75rem;display:flex;justify-content:space-between;align-items:center;';
+
+    var label = document.createElement('span');
+    label.textContent = total > 1 ? 'Image ' + (index + 1) : 'Generated image';
+    label.style.cssText = 'font-size:0.82rem;color:var(--text-muted);';
+
+    var dl = document.createElement('a');
+    dl.href = src;
+    dl.download = 'generated-' + Date.now() + '-' + index + '.png';
+    dl.textContent = 'Download';
+    dl.style.cssText = 'font-size:0.82rem;color:var(--brand);text-decoration:none;font-weight:600;';
+
+    footer.appendChild(label);
+    footer.appendChild(dl);
+    card.appendChild(img);
+    card.appendChild(footer);
+    grid.appendChild(card);
+  }
+
+  function generateOne(apiKey, model, prompt, index, total) {
+    var url  = 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(model) + ':generateContent?key=' + encodeURIComponent(apiKey);
+    var body = JSON.stringify({
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: { responseModalities: ['TEXT', 'IMAGE'] }
+    });
+    return fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: body
+    }).then(function (resp) {
+      return resp.json().then(function (data) {
+        if (!resp.ok) {
+          throw new Error(data.error && data.error.message ? data.error.message : 'HTTP ' + resp.status);
+        }
+        var parts = (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) || [];
+        for (var i = 0; i < parts.length; i++) {
+          if (parts[i].inlineData && parts[i].inlineData.data) {
+            addImageCard(parts[i].inlineData.data, parts[i].inlineData.mimeType, index, total);
+            return;
+          }
+        }
+        throw new Error('No image in response');
+      });
+    });
+  }
+
+  genBtn.addEventListener('click', function () {
+    var apiKey = keyInput.value.trim();
+    var prompt = promptEl.value.trim();
+    var model  = modelEl.value;
+    var count  = parseInt(countEl.value, 10);
+
+    if (!apiKey) { setStatus('Enter your Gemini API key above first.', true); return; }
+    if (!prompt) { setStatus('Enter a prompt.', true); return; }
+
+    grid.innerHTML = '';
+    genBtn.disabled = true;
+    genBtn.textContent = 'Generating…';
+    setStatus('Generating ' + count + ' image' + (count !== 1 ? 's' : '') + '…', false);
+
+    var promises = [];
+    for (var i = 0; i < count; i++) {
+      promises.push(generateOne(apiKey, model, prompt, i, count));
+    }
+
+    Promise.allSettled(promises).then(function (results) {
+      var ok     = results.filter(function (r) { return r.status === 'fulfilled'; });
+      var errors = results.filter(function (r) { return r.status === 'rejected'; });
+      if (ok.length === 0) {
+        setStatus('Failed: ' + errors[0].reason.message, true);
+      } else if (errors.length > 0) {
+        setStatus(ok.length + ' of ' + count + ' succeeded. Error on others: ' + errors[0].reason.message, false);
+      } else {
+        setStatus(count + ' image' + (count !== 1 ? 's' : '') + ' generated.', false);
+      }
+      genBtn.disabled = false;
+      genBtn.textContent = 'Generate';
+    });
+  });
+})();
+</script>
