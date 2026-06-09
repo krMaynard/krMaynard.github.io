@@ -120,6 +120,10 @@ lang_url_ko: /ko/image-generator.html
   }
   modelEl.addEventListener('change', updateCostEstimate);
   countEl.addEventListener('input', updateCostEstimate);
+  countEl.addEventListener('change', function () {
+    countEl.value = Math.max(1, Math.min(20, parseInt(countEl.value, 10) || 1));
+    updateCostEstimate();
+  });
   updateCostEstimate();
 
   function setStatus(msg, isError) {
