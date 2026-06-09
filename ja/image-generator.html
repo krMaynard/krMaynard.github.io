@@ -55,15 +55,11 @@ lang_url_ko: /ko/image-generator.html
       </div>
       <div>
         <label for="count-select" style="display: block; margin-bottom: 0.35rem; font-size: 0.88rem; color: var(--text-muted);">枚数</label>
-        <select id="count-select"
-                style="padding: 0.5rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.88rem;">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4" selected>4</option>
-        </select>
+        <input type="number" id="count-select" min="1" max="20" value="4"
+               style="width: 5rem; padding: 0.5rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.88rem;" />
       </div>
     </div>
+    <p id="cost-estimate" style="margin: -0.25rem 0 1rem; font-size: 0.82rem; color: var(--text-muted);"></p>
 
     <button type="button" id="generate-btn"
             style="padding: 0.6rem 1.6rem; border-radius: 6px; border: none; background: var(--brand); color: #fff; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background 0.15s; letter-spacing: 0.01em;">
@@ -93,6 +89,8 @@ lang_url_ko: /ko/image-generator.html
   var statusArea  = document.getElementById('status-area');
   var statusMsg   = document.getElementById('status-message');
   var grid        = document.getElementById('results-grid');
+  var costEl      = document.getElementById('cost-estimate');
+  var PRICES      = { 'gemini-3-pro-image': 0.13, 'gemini-3.1-flash-image': 0.07 };
 
   try {
     var saved = localStorage.getItem(KEY_STORAGE);
@@ -114,6 +112,15 @@ lang_url_ko: /ko/image-generator.html
     try { localStorage.removeItem(KEY_STORAGE); } catch (e) {}
     keyStatus.textContent = 'APIキーを削除しました。';
   });
+
+  function updateCostEstimate() {
+    var n = Math.max(1, Math.min(20, parseInt(countEl.value, 10) || 1));
+    var price = PRICES[modelEl.value] || 0;
+    costEl.innerHTML = '推定費用: 約$' + (n * price).toFixed(2) + '（' + n + ' × 約$' + price.toFixed(2) + '/枚・1K解像度）— <a href="https://ai.google.dev/gemini-api/docs/pricing" target="_blank" rel="noopener noreferrer" style="color:inherit;">Google AI 料金</a>';
+  }
+  modelEl.addEventListener('change', updateCostEstimate);
+  countEl.addEventListener('input', updateCostEstimate);
+  updateCostEstimate();
 
   function setStatus(msg, isError) {
     statusArea.style.display = 'block';
@@ -185,7 +192,7 @@ lang_url_ko: /ko/image-generator.html
     var apiKey = keyInput.value.trim();
     var prompt = promptEl.value.trim();
     var model  = modelEl.value;
-    var count  = parseInt(countEl.value, 10);
+    var count  = Math.max(1, Math.min(20, parseInt(countEl.value, 10) || 1));
 
     if (!apiKey) { setStatus('上のフォームにGemini APIキーを入力してください。', true); return; }
     if (!prompt) { setStatus('プロンプトを入力してください。', true); return; }
