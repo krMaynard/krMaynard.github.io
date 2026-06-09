@@ -121,10 +121,7 @@ lang_url_ko: /ko/image-generator.html
   modelEl.addEventListener('change', updateCostEstimate);
   countEl.addEventListener('input', function () {
     var n = parseInt(countEl.value, 10);
-    if (!isNaN(n)) {
-      if (n > 20) countEl.value = 20;
-      else if (n < 1) countEl.value = 1;
-    }
+    if (!isNaN(n) && n > 20) countEl.value = 20;
     updateCostEstimate();
   });
   countEl.addEventListener('change', function () {
