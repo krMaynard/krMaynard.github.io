@@ -242,6 +242,7 @@ lang_url_ko: /ko/image-generator.html
 
     improveBtn.disabled = true;
     improveBtn.textContent = 'Improving…';
+    genBtn.disabled = true;
 
     var url  = 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(IMPROVE_MODEL) + ':generateContent?key=' + encodeURIComponent(apiKey);
     var body = JSON.stringify({
@@ -263,16 +264,20 @@ lang_url_ko: /ko/image-generator.html
         for (var i = 0; i < parts.length; i++) {
           if (parts[i].text) { text = parts[i].text.trim(); break; }
         }
+        text = text.replace(/^```\S*\s*|\s*```$/g, '').trim();
+        text = text.replace(/^["']|["']$/g, '').trim();
         if (!text) throw new Error('No text in response');
         promptEl.value = text;
         setStatus('Prompt improved.', false);
         improveBtn.disabled = false;
         improveBtn.textContent = 'Improve with AI';
+        genBtn.disabled = false;
       })
       .catch(function (err) {
         setStatus('Improve failed: ' + err.message, true);
         improveBtn.disabled = false;
         improveBtn.textContent = 'Improve with AI';
+        genBtn.disabled = false;
       });
   });
 
