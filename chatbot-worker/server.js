@@ -138,6 +138,9 @@ async function callClaude(history, userMessage) {
     .slice(-(MAX_HISTORY_TURNS * 2))
     .filter((m) => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string')
     .map((m) => ({ role: m.role, content: m.content }));
+  // The Messages API requires the first message to be from the user; drop any
+  // leading assistant turns a malformed/crafted history might start with.
+  while (messages.length && messages[0].role === 'assistant') messages.shift();
   messages.push({ role: 'user', content: userMessage });
 
   const response = await anthropic.messages.create({
