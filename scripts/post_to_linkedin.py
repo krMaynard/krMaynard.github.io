@@ -257,8 +257,31 @@ class _PostBodyParser(HTMLParser):
             self._current += data
 
 
-def _extract_post_body(url):
-    """Derive a local file path from the post URL and return paragraph text."""
+class _TitleParser(HTMLParser):
+    """Extracts the text of the first <h1> (the post headline)."""
+
+    def __init__(self):
+        super().__init__()
+        self._in_h1 = False
+        self._done = False
+        self.title = ""
+
+    def handle_starttag(self, tag, attrs):
+        if tag == "h1" and not self._done:
+            self._in_h1 = True
+
+    def handle_endtag(self, tag):
+        if tag == "h1" and self._in_h1:
+            self._in_h1 = False
+            self._done = True
+
+    def handle_data(self, data):
+        if self._in_h1:
+            self.title += data
+
+
+def _read_local_html(url):
+    """Map a same-origin post URL to its local file and return the HTML, or None."""
     if not url or not url.startswith(SITE_BASE_URL):
         return None
     rel_path = url[len(SITE_BASE_URL):].lstrip("/")
@@ -266,12 +289,30 @@ def _extract_post_body(url):
         return None
     try:
         with open(rel_path, encoding="utf-8") as f:
-            html = f.read()
+            return f.read()
     except FileNotFoundError:
+        return None
+
+
+def _extract_post_body(url):
+    """Return the post's paragraph text (from <div class="post-body">), or None."""
+    html = _read_local_html(url)
+    if html is None:
         return None
     parser = _PostBodyParser()
     parser.feed(html)
     return "\n\n".join(parser.paragraphs) if parser.paragraphs else None
+
+
+def _extract_post_title(url):
+    """Return the post's <h1> headline (localized to the page's language), or None."""
+    html = _read_local_html(url)
+    if html is None:
+        return None
+    parser = _TitleParser()
+    parser.feed(html)
+    title = parser.title.strip()
+    return title or None
 
 
 def _call_gemini(model, prompt, api_key):
@@ -554,10 +595,14 @@ def build_post_text(entry, lang, commentary=None, llm_hashtags=None):
     else:
         hashtags = " ".join(s for t in entry["tags"] if t for s in [_slugify_tag(t)] if s)
     default_url = SITE_BASE_URL + LANGUAGES[lang]["url_prefix"] + "/blog.html"
-    url_line = _localized_url(entry["url"], lang) if entry["url"] else default_url
+    localized_url = _localized_url(entry["url"], lang) if entry["url"] else None
+    url_line = localized_url or default_url
+    # Headline localized to the post's language (the localized page's <h1>),
+    # falling back to the English listing title if it can't be read.
+    headline = _extract_post_title(localized_url) or entry["title"]
     body = commentary if commentary else entry["summary"]
 
-    parts = [entry["title"], "", body, "", url_line]
+    parts = [headline, "", body, "", url_line]
     if hashtags:
         parts += ["", hashtags]
     text = "\n".join(parts)
@@ -567,7 +612,7 @@ def build_post_text(entry, lang, commentary=None, llm_hashtags=None):
 
     # Trim body to fit (only needed if the LLM returns something unexpectedly long)
     overhead = (
-        len(entry["title"]) + 2
+        len(headline) + 2
         + 2 + len(url_line)
         + (2 + len(hashtags) if hashtags else 0)
         + 1  # ellipsis
