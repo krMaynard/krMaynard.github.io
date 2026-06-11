@@ -42,6 +42,8 @@ jobs:
           LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Optional — set 0/false to skip the second expert fluency-review pass
+          FLUENCY_REVIEW: ${{ vars.FLUENCY_REVIEW }}
           # Optional — spacing between language posts (defaults to 60 minutes)
           LINKEDIN_POST_INTERVAL_MINUTES: ${{ vars.LINKEDIN_POST_INTERVAL_MINUTES }}
           # Optional — enable these for automatic token refresh (recommended)
