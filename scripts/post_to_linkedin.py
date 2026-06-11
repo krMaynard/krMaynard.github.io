@@ -64,11 +64,26 @@ MAX_POST_CHARS = 3000
 # Languages are posted in this order, one per run. English goes out
 # immediately on a blog push; the rest follow ~INTERVAL minutes apart.
 LANGUAGE_SEQUENCE = ["en", "ja", "zh", "ko"]
+# "punctuation" is language-specific guidance (empty where Western/ASCII
+# punctuation is correct, e.g. English and modern Korean).
 LANGUAGES = {
-    "en": {"name": "English", "url_prefix": ""},
-    "ja": {"name": "Japanese", "url_prefix": "/ja"},
-    "zh": {"name": "Chinese (Simplified)", "url_prefix": "/zh"},
-    "ko": {"name": "Korean", "url_prefix": "/ko"},
+    "en": {"name": "English", "url_prefix": "", "punctuation": ""},
+    "ja": {
+        "name": "Japanese", "url_prefix": "/ja",
+        "punctuation": (
+            "Use full-width Japanese punctuation (、。！？「」（）); never "
+            "half-width ASCII commas or periods, even around English terms."
+        ),
+    },
+    "zh": {
+        "name": "Chinese (Simplified)", "url_prefix": "/zh",
+        "punctuation": (
+            "Use full-width Chinese punctuation (，。！？：；（）“”); never "
+            "half-width ASCII , . ! ? : ; even around English terms. Use the "
+            "enumeration comma 、 between list items."
+        ),
+    },
+    "ko": {"name": "Korean", "url_prefix": "/ko", "punctuation": ""},
 }
 DEFAULT_POST_INTERVAL_MINUTES = 60
 # Cron fires on a best-effort schedule and can run a few minutes late; allow a
@@ -409,6 +424,40 @@ def _strip_trailing_hashtag_lines(text):
     return "\n".join(lines).rstrip()
 
 
+# ASCII sentence punctuation → its CJK full-width equivalent.
+_FULLWIDTH_PUNCT = {",": "，", ".": "。", "!": "！", "?": "？", ":": "：", ";": "；"}
+# Characters that count as "CJK context" for the preceding-char test: ideographs
+# (+ Extension A) and Japanese kana, plus existing CJK punctuation.
+_CJK_PUNCT = "，。！？：；、（）「」『』《》“”…—"
+
+
+def _is_cjk(ch):
+    o = ord(ch)
+    return (
+        0x4E00 <= o <= 0x9FFF      # CJK Unified Ideographs
+        or 0x3400 <= o <= 0x4DBF   # CJK Extension A
+        or 0x3040 <= o <= 0x30FF   # Hiragana + Katakana (Japanese)
+        or ch in _CJK_PUNCT
+    )
+
+
+def _normalize_cjk_punctuation(text):
+    """Convert ASCII , . ! ? : ; to their full-width form **only when directly
+    preceded by a CJK character** (zh/ja).
+
+    The adjacency rule leaves Latin/number contexts untouched — e.g. "v2.0",
+    "Fable 5", "9:30" keep their ASCII punctuation — while fixing the model's
+    half-width slips inside Chinese/Japanese sentences ("…修复了，但…")."""
+    out = []
+    for i, ch in enumerate(text):
+        repl = _FULLWIDTH_PUNCT.get(ch)
+        if repl and i > 0 and _is_cjk(text[i - 1]):
+            out.append(repl)
+        else:
+            out.append(ch)
+    return "".join(out)
+
+
 def _build_commentary_prompt(title, content, lang):
     meta = LANGUAGES[lang]
     if lang == "en":
@@ -433,6 +482,7 @@ def _build_commentary_prompt(title, content, lang):
         "" if lang == "en"
         else f"- You may mix English and {meta['name']} hashtags\n"
     )
+    punctuation_note = f"- {meta['punctuation']}\n" if meta.get("punctuation") else ""
     return (
         "You are writing a LinkedIn post for Kieran Maynard, a product manager "
         "specialising in AI, compliance, and content policy.\n\n"
@@ -444,6 +494,7 @@ def _build_commentary_prompt(title, content, lang):
         "Guidelines for the commentary:\n"
         f"{tone_guidelines}"
         "- Short paragraphs separated by blank lines — LinkedIn formatting\n"
+        f"{punctuation_note}"
         "- End with a brief question or observation to invite engagement\n\n"
         "Guidelines for HASHTAGS:\n"
         "- Choose 3–5 relevant LinkedIn hashtags that will maximise reach\n"
@@ -512,7 +563,8 @@ def _build_critique_prompt(title, commentary, lang):
         "and LinkedIn impact. Pay particular attention to:\n"
         f"- Phrasing that sounds translated, stilted, or unnatural to a native {meta['name']} reader\n"
         "- Word choice, idiom, grammar, and an appropriate professional register/tone\n"
-        "- Whether the opening hook is strong and the post reads smoothly on LinkedIn\n\n"
+        + (f"- Punctuation: {meta['punctuation']}\n" if meta.get("punctuation") else "")
+        + "- Whether the opening hook is strong and the post reads smoothly on LinkedIn\n\n"
         "List the concrete edits you would make as short, specific bullet points. If "
         "the draft is already excellent, say so briefly. Do NOT rewrite the post — "
         "give only the critique.\n\n"
@@ -529,7 +581,8 @@ def _build_revision_prompt(title, commentary, critique, lang):
         "critique to maximise native-level fluency and LinkedIn impact. Preserve the "
         "original meaning, first-person voice, approximate length, and paragraph "
         "structure (short paragraphs separated by blank lines).\n\n"
-        "Return ONLY the revised post body — no preamble, no commentary, no hashtags, "
+        + (f"{meta['punctuation']}\n\n" if meta.get("punctuation") else "")
+        + "Return ONLY the revised post body — no preamble, no commentary, no hashtags, "
         "and no surrounding quotation marks.\n\n"
         f"Post title: {title}\n\n"
         f"Draft post:\n{commentary}\n\n"
@@ -888,6 +941,10 @@ def main():
         commentary = review_commentary_fluency(
             entry["title"], commentary, api_key, next_lang, provider=provider
         )
+
+    # --- Deterministic backstop: fix half-width ASCII punctuation in zh/ja ---
+    if commentary and next_lang in ("zh", "ja"):
+        commentary = _normalize_cjk_punctuation(commentary)
 
     # --- Post to LinkedIn ---
     print(f"Posting {entry['id']} ({lang_name}) — {entry['title']}")
