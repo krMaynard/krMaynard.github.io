@@ -470,8 +470,12 @@ def build_post_text(entry, lang, commentary=None, llm_hashtags=None):
         + 1  # ellipsis
     )
     budget = max(0, MAX_POST_CHARS - overhead)
-    trimmed = body[:budget].rsplit(" ", 1)[0] + "…"
-    parts[2] = trimmed
+    trimmed = body[:budget]
+    # ja/zh don't separate words with spaces, so rsplit on a space could discard
+    # most of the post — only trim to a word boundary for space-delimited langs.
+    if lang in ("en", "ko") and " " in trimmed:
+        trimmed = trimmed.rsplit(" ", 1)[0]
+    parts[2] = trimmed + "…"
     return "\n".join(parts)
 
 
@@ -640,7 +644,15 @@ def main():
         return
 
     # --- Space the non-English follow-ups out by the configured interval ---
-    interval = int(os.environ.get("LINKEDIN_POST_INTERVAL_MINUTES") or DEFAULT_POST_INTERVAL_MINUTES)
+    try:
+        interval = int(os.environ.get("LINKEDIN_POST_INTERVAL_MINUTES") or DEFAULT_POST_INTERVAL_MINUTES)
+    except ValueError:
+        print(
+            "Warning: invalid LINKEDIN_POST_INTERVAL_MINUTES — falling back to "
+            f"{DEFAULT_POST_INTERVAL_MINUTES} min.",
+            file=sys.stderr,
+        )
+        interval = DEFAULT_POST_INTERVAL_MINUTES
     timestamps = []
     for ts in posts.values():
         try:
