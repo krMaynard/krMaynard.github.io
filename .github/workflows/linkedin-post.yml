@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 # Serialize runs so the push-triggered and cron-triggered jobs don't race on
-# the tracking file.
+# the cached tracking state.
 concurrency:
   group: linkedin-post
   cancel-in-progress: false
@@ -20,8 +20,10 @@ concurrency:
 jobs:
   post:
     runs-on: ubuntu-latest
+    # Read-only: progress is persisted via the Actions cache, not committed to
+    # the repo — master requires changes to go through a pull request.
     permissions:
-      contents: write
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
@@ -31,6 +33,18 @@ jobs:
           python-version: "3.12"
 
       - run: pip install PyNaCl --quiet
+
+      # Restore which languages have already been posted for the current entry.
+      # A cache miss falls back to the seeded .github/last_linkedin_post in the
+      # repo. The unique run_id key never hits on restore, so restore-keys picks
+      # the most recent saved state by prefix.
+      - name: Restore LinkedIn post state
+        uses: actions/cache/restore@v4
+        with:
+          path: .github/last_linkedin_post
+          key: linkedin-state-${{ github.run_id }}
+          restore-keys: |
+            linkedin-state-
 
       - name: Post new entry to LinkedIn
         id: linkedin
@@ -55,11 +69,11 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: python scripts/post_to_linkedin.py
 
-      - name: Commit updated tracking file
+      # Persist the updated state for the next run. The run_id key is unique, so
+      # the save always succeeds; restore above reads it back via prefix.
+      - name: Save LinkedIn post state
         if: steps.linkedin.outputs.posted == 'true'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .github/last_linkedin_post
-          git commit -m "chore: track LinkedIn post ${{ steps.linkedin.outputs.posted_entry }} (${{ steps.linkedin.outputs.posted_lang }})"
-          git push origin master
+        uses: actions/cache/save@v4
+        with:
+          path: .github/last_linkedin_post
+          key: linkedin-state-${{ github.run_id }}
