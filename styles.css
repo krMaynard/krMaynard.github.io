@@ -1717,3 +1717,179 @@ footer {
   transition: all 0.2s;
   margin: 0;
 }
+
+/* ============================================================
+   POLISH — motion, micro-interactions, sticky nav
+   Progressive enhancement: every effect below is additive and
+   degrades gracefully. Animations are gated on a `motion-ok` root
+   class (set by enhance.js only when the user hasn't asked for
+   reduced motion), so content is fully visible without JS.
+   ============================================================ */
+
+/* Anchored headings clear the sticky nav when jumped to */
+html {
+  scroll-behavior: smooth;
+}
+
+:target,
+h1[id], h2[id], h3[id], h4[id], h5[id], h6[id] {
+  scroll-margin-top: 5rem;
+}
+
+/* Sticky, lightly-blurred navigation */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: saturate(1.4) blur(8px);
+  -webkit-backdrop-filter: saturate(1.4) blur(8px);
+  transition: box-shadow 0.25s ease, background 0.25s ease;
+}
+
+/* Slightly translucent so the blur reads, falling back to solid */
+@supports (backdrop-filter: blur(8px)) or (-webkit-backdrop-filter: blur(8px)) {
+  .site-nav {
+    background: color-mix(in srgb, var(--bg-elevated) 82%, transparent);
+  }
+}
+
+/* Soft shadow once the page has scrolled under the nav */
+.site-nav.is-stuck {
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] .site-nav.is-stuck {
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* Animated underline on nav links */
+.site-nav .nav-links a:not(.lang-switch) {
+  position: relative;
+}
+
+.site-nav .nav-links a:not(.lang-switch)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 2px;
+  background: var(--brand);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.22s ease;
+}
+
+.site-nav .nav-links a:not(.lang-switch):hover::after,
+.site-nav .nav-links a:not(.lang-switch):focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Card hover lift (adds a subtle rise to the existing shadow) */
+.card,
+.project-card,
+.td-callout {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  will-change: transform;
+}
+
+.motion-ok .card:hover,
+.motion-ok .project-card:hover,
+.motion-ok .td-callout:hover {
+  transform: translateY(-3px);
+}
+
+/* Button micro-interactions */
+.btn-primary,
+.featured-product__links .btn-primary {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+.motion-ok .btn-primary:hover,
+.motion-ok .featured-product__links .btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--brand) 45%, transparent);
+}
+
+.hero-links a:active,
+.featured-product__links a:active,
+.btn-primary:active,
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+/* Avatar gets a subtle brand ring on hover */
+.hero-avatar {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.motion-ok .hero-avatar:hover {
+  transform: scale(1.04);
+  box-shadow: 0 0 0 4px var(--brand-bg);
+}
+
+/* Tag hover */
+.tag {
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.motion-ok .tag:hover {
+  transform: translateY(-1px);
+}
+
+/* Sharper, consistent keyboard focus rings */
+a:focus-visible,
+button:focus-visible,
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Scroll-reveal — initial hidden state only applies when JS has
+   opted in via `motion-ok`; everything is visible otherwise. */
+.motion-ok .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.motion-ok .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Cross-document (multi-page) View Transitions in supporting browsers */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}
+
+/* Respect reduced-motion: strip transitions/animations and the
+   page fade-in, and never offset revealed content. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
