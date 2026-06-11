@@ -350,6 +350,24 @@ def _parse_commentary_and_hashtags(text):
     return commentary, " ".join(valid_tokens)
 
 
+def _strip_trailing_hashtag_lines(text):
+    """Drop trailing lines that consist solely of #hashtags (and whitespace).
+
+    The fluency reviser is told to omit hashtags, but if it appends a bare
+    ``#Tag1 #Tag2`` line (no ``HASHTAGS:`` label) it would otherwise survive and
+    duplicate the first pass's tags. A line keeping any non-hashtag word is left
+    untouched.
+    """
+    lines = text.rstrip().split("\n")
+    while lines:
+        tokens = lines[-1].split()
+        if tokens and all(t.startswith("#") for t in tokens):
+            lines.pop()
+        else:
+            break
+    return "\n".join(lines).rstrip()
+
+
 def _build_commentary_prompt(title, content, lang):
     meta = LANGUAGES[lang]
     if lang == "en":
@@ -493,6 +511,9 @@ def review_commentary_fluency(title, commentary, api_key, lang, provider=DEFAULT
             _build_critique_prompt(title, commentary, lang),
             api_key, provider, purpose=f"{name} critique",
         )
+        if not critique.strip():
+            print("Fluency critique was empty — keeping the original draft.", file=sys.stderr)
+            return commentary
         revised = _run_llm(
             _build_revision_prompt(title, commentary, critique, lang),
             api_key, provider, purpose=f"{name} revision",
@@ -501,9 +522,10 @@ def review_commentary_fluency(title, commentary, api_key, lang, provider=DEFAULT
         print(f"Fluency review failed ({e}) — keeping the original draft.", file=sys.stderr)
         return commentary
 
-    # Strip any stray HASHTAGS line the reviser may add; keep the first pass's tags.
+    # Strip any HASHTAGS: line and trailing hashtag-only lines the reviser may
+    # add, so we don't duplicate the first pass's tags.
     revised, _ = _parse_commentary_and_hashtags(revised)
-    revised = revised.strip()
+    revised = _strip_trailing_hashtag_lines(revised).strip()
     return revised if revised else commentary
 
 
