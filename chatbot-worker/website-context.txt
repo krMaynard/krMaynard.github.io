@@ -1,0 +1,680 @@
+KIERAN MAYNARD — WEBSITE CONTENT
+Auto-generated from kieranmaynard.com pages by build-context.js.
+This is the source of truth for the website chatbot — do not hand-edit.
+
+### Home — Kieran Maynard (/index.html)
+
+Kieran Maynard
+
+AI & Data Product Manager
+
+I build AI-powered tools that turn complex regulatory and compliance challenges into scalable, automated operations. 11+ years at Google and Roblox across product management, compliance, and Trust & Safety.
+
+I came from pure humanities — linguistics, East Asian literature, translation — and taught myself to code through curiosity and necessity. I didn't set out to become a PM; I became one by building: automation scripts, SQL pipelines, AI systems, Chrome extensions. Eventually, I had built enough to prove I already was a PM.
+
+View my work
+LinkedIn
+GitHub
+Get in touch
+
+$50k+
+saved via Chrome Extension automation
+
+93%
+reduction in case processing time (27 days → 2 days)
+
+140+
+global markets adopted built automation
+
+10x
+reduction in compliance report generation time
+
+What I do
+
+AI & LLM Products
+
+RAG chatbots, bulk LLM inference pipelines, agentic systems, and AI-powered automation for enterprise operations at scale.
+
+Regulatory & Compliance PM
+
+EU DSA, CMA Commitments, content moderation policy. Building systems that make legal obligations scalable and audit-ready.
+
+Data & Automation
+
+Advanced SQL, Python pipelines, and end-to-end automation — replacing high-stakes manual processes with reliable, repeatable systems.
+
+Cross-functional Leadership
+
+Translating complex regulatory and business requirements into technical direction across Engineering, Legal, Policy, and executive stakeholders.
+
+Featured Work
+
+Selected Projects
+
+Roblox Research Data API
+
+Leading the design of Roblox's first-ever public API for researchers — a capability the company has never offered before. Enables academics, civil society organizations, and platform safety researchers to programmatically query Roblox's public data, advancing platform transparency in an entirely new way.
+
+API Design
+Research Access
+Platform Transparency
+Roblox
+
+Sandpiper — RAG AI Assistant
+
+Designed an end-to-end RAG knowledge assistant for the 900-person Privacy Sandbox Working Group, indexing 12,000+ restricted documents. Won 2nd place in the Google Privacy Sandbox TPgM AI Hackathon.
+
+RAG
+Gemini LLM
+System Design
+Google
+
+LLM Case Summarization Dashboard
+
+Built a bulk LLM inference pipeline using SQLMiner to auto-summarize thousands of legal removal requests, surfacing AI-generated summaries directly in the team's primary management dashboard.
+
+Bulk Inference
+SQL
+Prompt Engineering
+Google
+
+Legal Removal Chrome Extension
+
+Built browser automation tools — a node.js proof-of-concept and a production Chrome Extension — that processed tens of thousands of cases, saving $50k+ in vendor time and eliminating a massive backlog.
+
+Chrome Extension
+node.js
+Browser Automation
+Google
+
+Compliance Reporting Pipeline
+
+Automated CMA-mandated quarterly reports with an E2E ETL pipeline — cutting generation time from 60–80 person-hours to under 5 ( 10x reduction ), with zero errors and >95% auditability. "That was the smoothest cycle ever." — Legal
+
+SQL
+ETL Pipeline
+CMA Compliance
+Google
+
+Google Transparency Report — Analysis Dashboard
+
+Built an interactive analysis dashboard over 10 years of Google's government content-removal data — 160 countries, 42 products, 22 removal reasons, 13 reporting periods. Turns a flat period-by-period report into a multi-year trend explorer with live filtering by country, product, and reason. Personal project built entirely in the browser.
+
+Data Visualization
+JavaScript
+Personal Project
+Google
+
+View dashboard →
+
+VLOP DSA Transparency Reports — Cross-Platform Dashboard
+
+Built a comparative analysis dashboard over EU Digital Services Act transparency reports from six platforms — Google (6 services), X, TikTok, Facebook, Instagram, Pinterest, and AliExpress — combining twelve separate reports into a single interactive view. Covers notices, proactive enforcement, government orders, and appeals for H2 2025. Personal project built entirely in the browser.
+
+Data Visualization
+JavaScript
+EU DSA
+Personal Project
+
+View dashboard →
+
+Skills
+
+Product Management
+
+Strategy & roadmaps
+
+PRDs, BRDs, design docs
+
+KPIs, behavioral analytics
+
+UX/UI, user journeys
+
+Privacy by Design
+
+Data & Engineering
+
+Advanced SQL
+
+Data pipelines, ETL
+
+Python, pandas
+
+BigQuery, Hive, Spark
+
+AWS, K8s
+
+Artificial Intelligence
+
+Large language models
+
+RAG, in-context learning
+
+Prompt engineering
+
+Agentic systems
+
+AI governance
+
+Program Management
+
+Strategic planning
+
+xFN leadership
+
+Risk & compliance
+
+Executive communication
+
+Process design
+
+Publications & Awards
+
+Recognition
+
+2nd Place — Google Privacy Sandbox TPgM AI Hackathon (Sandpiper RAG assistant, 2025)
+
+Spot Bonus — Standing up the TPgM AI Taskforce, Google (2025)
+
+Spot Bonus — MT Compliance Q3 delivery: "quickly and deftly navigate some 11th hour complications to land Q3 deliverables without any issues of non-compliance" (2024)
+
+Spot Bonus — 2019 India Lok Sabha election integrity: "outstanding contribution... ensured that we contributed to the integrity of the elections process" — world's largest democratic election
+
+Spot Bonus — APAC Business Continuity Planning during COVID-19: led APAC BCP and coordinated team operations when "all operations were halted" on an incredibly short timeline (2020)
+
+9 spot bonuses from leadership & 38 peer bonuses at Google
+
+Roblox 2025 EU Digital Services Act Transparency Report (primary author)
+
+Roblox 2026 EU Terrorist Content Online Transparency Report (primary author)
+
+Roblox 2025 New York S895 Transparency Report (Q3) (primary author)
+
+Roblox 2025 New York S895 Transparency Report (Q4) (primary author)
+
+Roblox 2025 H2 California AB 587 Transparency Report (primary author)
+
+Google Transparency Report — primary author, Greater China region, 2014–2024 ( interactive analysis dashboard )
+
+University of Guam — 'Lost Chapters in The Wind-Up Bird Chronicle: A Translation and Commentary'
+
+Other Work
+
+Writing & Translation
+
+日本語版
+
+中文版
+
+Murakami Haruki — Lost Chapters in The Wind-Up Bird Chronicle (Japanese translation)
+
+Kim Un-Su "Terribly Easy Writing Lessons" (Korean)
+
+Zhang Jiajia 张嘉佳 "The Old Love Letter" (Chinese)
+
+Consulting services — PM, automation, language acquisition
+
+Research Papers
+
+沈从文的《丈夫》与戴乃迭的英译 (2013, Fudan University)
+
+张爱玲《倾城之恋》里的时间观 (2012, Fudan)
+
+Cross-media Study of Mo Yan's Red Sorghum (2012, University of Georgia)
+
+Animals in Akutagawa Ryūnosuke's "Rashōmon" (2012, UGA)
+
+Japan's Legend of the White Snake (2011)
+
+Toward a Japanese "linguistics of speech" (2010)
+
+Carrier-Belleuse's "The Drunkenness of Bacchus" (2009)
+
+Data Tools
+
+Convert spreadsheet data to Markdown
+
+Count characters & words in text
+
+Analyze text for word frequency
+
+Homework Help
+
+Homework help projects — research notes and study guides
+
+Not to be confused with other Kieran Maynards in England. He is not me, and I am not he.
+
+---
+
+### Work / Portfolio (/work.html)
+
+Portfolio
+
+Work
+
+A selection of AI, data, and automation projects from my time at Google and Roblox. I came from pure humanities
+and taught myself to code through curiosity and hands-on building. These are the tools I built along the way —
+and how I built my way into product management.
+
+All projects are internal tools; details are described at a level appropriate for public sharing.
+
+Career Progression
+
+Oct 2025
+– present
+
+Compliance Product Manager
+
+Roblox
+Leading transparency reporting strategy for 8+ global regulations (EU DSA, UK OSA, NY S895, and more). Building an automated compliance data model and reporting pipeline.
+
+Jul 2025
+– Oct 2025
+
+Technical Program Manager II
+
+Google · Chrome
+Helped stand up the evaluation program for Chrome’s agentic browsing AI in its earliest dogfood phase, working directly with the PM Lead. Drove org-wide AI enablement and regulatory delivery programs.
+
+Jun 2024
+– Jul 2025
+
+Program Manager II
+
+Google · Privacy Sandbox
+Automated CMA compliance reporting from 60–80 person-hours to <5. Built AI-powered legal review pipelines; designed Sandpiper RAG assistant; won TPgM AI Hackathon.
+
+Apr 2021
+– Jun 2024
+
+Policy Specialist II
+
+Google · Trust & Safety
+Launched content moderation policies across Gemini, Search, Ads & Play. Developed GenAI tooling for legal ops; built Chrome Extension saving $50k+ in vendor time.
+
+Sep 2018
+– Apr 2021
+
+Policy Specialist I
+
+Google · Trust & Safety
+Led policy for elections compliance and pandemic business continuity. Built automation reducing manual processing by 30+ hours/week, adopted in 140+ markets globally.
+
+Jul 2014
+– Sep 2018
+
+Legal Operations Associate
+
+Google Legal
+Front-line content moderation at scale — 10k+ legal removal decisions across 10+ products. Cut avg. processing time by 93%, from 27 to 2 days, and SLA compliance from 12% to 98%.
+
+Filter by
+All
+AI / LLM
+Compliance
+Data & SQL
+Automation
+
+No projects match this filter.
+
+Roblox Transparency Reporting & Compliance Data Model
+
+Roblox · 2025–present
+
+Problem
+A growing wave of regulations — EU DSA, EU TCOR, UK OSA, NY S895, CA AB 587, Brazil ECA, India IT Rules, and others — each require granular, consistently-localized transparency reporting. Roblox’s previous approach was manual and difficult to scale as the regulatory landscape continued to expand.
+
+What I did
+
+Lead transparency reporting strategy and production for 8+ international regulations.
+
+Wrote a suite of modular, production-grade SQL queries with version control for repeatable, auditable reporting cycles.
+
+Designing a Product Compliance Unified Data Model and automated reporting pipeline to scale and future-proof the system ahead of external audits.
+
+Leading AI enablement initiatives to improve team productivity and reduce manual overhead.
+
+Impact
+
+Published Roblox’s most comprehensive EU DSA transparency report to date — the first using the mandatory harmonized reporting format with highly granular, consistently-localized EU data on content moderation, government orders, illegal content, user appeals, and automated systems.
+
+Building toward full automation of transparency reporting, eliminating manual overhead and improving audit-readiness for an expanding regulatory portfolio.
+
+SQL
+Data Modeling
+EU DSA
+Regulatory Compliance
+Automation
+Transparency Reporting
+
+Roblox Research Data API
+
+Roblox · 2025–present
+
+Problem
+Researchers studying online platforms — academics, civil society organizations, and platform safety analysts — have had no official, programmatic way to access Roblox’s public data. Without structured access, external research has relied on manual collection or unofficial scraping, limiting the quality and scale of independent scrutiny Roblox could receive on content moderation, platform safety, and policy enforcement. Meanwhile, Roblox had no mechanism to proactively support the research community that informs policymakers and public understanding of major platforms.
+
+What I did
+
+Identifying the opportunity to create Roblox’s first-ever public Research Data API — a capability that has never existed at the company and is not standard practice among major gaming platforms.
+
+Leading end-to-end product strategy: scoping what public data to expose, designing the API schema and endpoint architecture, and defining data governance, researcher access controls, rate limiting, authentication, and terms of use.
+
+Driving cross-functional alignment across Engineering, Legal, Policy, and Privacy to design a compliant, sustainable, and scalable access model.
+
+Positioning the API as a structured complement to Roblox’s existing transparency reporting — extending the company’s public accountability posture beyond periodic reports into queryable, on-demand data access.
+
+Impact
+
+Creates the first official, programmatic pathway for researchers to access Roblox’s public platform data — a major step forward for transparency that the company has never before offered.
+
+Enables independent scrutiny of platform safety, content moderation effectiveness, and policy enforcement at scale — directly supporting the academic, civil society, and regulatory research community.
+
+Positions Roblox as a leader in research data access among major gaming and social platforms, ahead of industry norms.
+
+API Design
+Data Access
+Research
+Platform Transparency
+Product Strategy
+Roblox
+
+Building Production Queries with AI
+
+Roblox · 2025–present
+
+Problem
+Building production-grade SQL and Python for 10+ regulatory compliance requirements — reports, RFIs, risk assessments, and litigation support — would normally take 3–6 engineering weeks of pure coding per cycle. With a fast-expanding regulatory portfolio and a lean team, that pace was infeasible.
+
+What I did
+
+Operated as PM and first author in a human-in-the-loop AI coding workflow, using Cursor agents to generate production-grade SQL and Python.
+
+Generated 7,000+ lines of production code across 10+ regulatory requirements, with data engineers and data scientists serving as code reviewers rather than primary coders.
+
+Designed a structured development pipeline: query and schema context → AI-generated SQL → human code review and approval → iterative refinement → full-scale Python pipelines.
+
+Compressed the feedback loop between PM and engineering, enabling faster iteration and reducing the bottleneck of cross-functional scheduling.
+
+Impact
+
+3–6 engineering weeks of coding compressed to hours or days of guided AI work.
+
+48M+ tokens of production code generated at a total cost of $77 .
+
+Scaled code production across 10+ regulatory requirements without linear headcount growth.
+
+Established a replicable human-in-the-loop model: PM authors the logic, engineers review the output.
+
+The Human-in-the-Loop AI Data Pipeline Workflow: Eng/DS provides schema context, PM collaborates with AI agents to generate code, and Eng/DS reviews before promoting to full-scale production pipelines.
+
+Cursor
+AI Coding
+SQL
+Python
+Data Pipeline
+Compliance
+Process Automation
+
+Sandpiper — Privacy Sandbox AI Knowledge Assistant
+
+Google · 2025
+
+Problem
+The Privacy Sandbox Working Group (900+ engineers, PMs, and compliance staff) was drowning in 12,000+ documents sequestered across restricted repositories. Information retrieval was a serious bottleneck — slowing development, regulatory compliance, and strategy — but the sensitivity of the corpus ruled out general-purpose search tools.
+
+What I did
+
+Sole author of the v1 and v2 design documents; primary driver from conception to working prototype.
+
+Consulted stakeholders across the org to diagnose pain points, then designed the complete end-to-end system: web frontend, backend on Agent Studio, Gemini 2.5 Pro as the LLM, and a vector database indexed with 12,000+ restricted documents.
+
+Implemented two operational modes: (1) Expert Q&A with RAG and source citation, grounded in the corpus; and (2) a specialized drafting mode to generate first drafts of D&I Criteria Assessments — a high-frequency compliance workflow — directly from user-provided change descriptions.
+
+Authored the system prompt, defined technical requirements, access controls, and risk mitigations including hallucination guards and mandatory human review.
+
+Presented the project at the Privacy Sandbox TPgM AI Hackathon; received a spot bonus from a Senior Director for “unlocking potential impact in terms of time savings and quality of regulatory responses.”
+
+Impact
+
+Won 2nd place in the Google Privacy Sandbox TPgM AI Hackathon.
+
+Designed to serve 900+ users across the Privacy Sandbox Working Group.
+
+Significantly reduces time spent on information retrieval and initial compliance document drafting.
+
+Turns a compliance constraint (controlled document corpus) into a knowledge management advantage.
+
+RAG
+Gemini 2.5 Pro
+Vector Database
+Agent Studio
+System Design
+Prompt Engineering
+Compliance
+
+GenAI Legal Review Automation
+
+Google · 2024–2025
+
+Problem
+The Privacy Sandbox Legal team spent several hours every week manually sifting through bug reports and linked documents to prepare a legal review digest. The process was slow, inconsistent, and bottlenecked compliance oversight for the entire Privacy Sandbox initiative.
+
+What I did
+
+Sole author and developer of the end-to-end automation solution.
+
+Engaged directly with the Legal team to understand their workflow, decision criteria, and what “good” looks like for each sub-team.
+
+Designed a three-stage pipeline: SQL (F1) to extract relevant bug data → Python (Colab) to orchestrate → Gemini LLM via TextMiner to process.
+
+Engineered a series of multi-step prompts performing complex cognitive tasks: summarizing linked documents, identifying key risks against specific CMA regulatory commitments, and classifying the required review type (“Review Required” vs. “FYI Only”) for three Legal sub-teams — Product, Competition, and Privacy.
+
+Impact
+
+Saves several hours of manual work per week for program managers across Privacy Sandbox.
+
+Provides Legal with a consistent, timely, high-quality digest every cycle — reducing risk of overlooking critical items.
+
+Accelerated the legal review cycle and improved the overall robustness of compliance oversight.
+
+Python
+SQL
+Gemini LLM
+Prompt Engineering
+Process Automation
+CMA Compliance
+
+MT Compliance Reporting Automation
+
+Google · 2024–2025
+
+Problem
+Quarterly Monitoring Trustee (MT) compliance reports — a mandatory deliverable under Google’s legal commitments with the UK Competition and Markets Authority (CMA) — were generated manually. The process took over 60–80 person-hours per quarter, was high-stakes, error-prone, undocumented, and dependent on 5–6 individual single points of failure. There was no auditability and no daily visibility into key metrics.
+
+What I did
+
+Sole author and implementer. Three SWEs who originally scoped the project believed only a software engineer could build it — and were skeptical a TPM would attempt it.
+
+Designed the end-to-end system architecture: an ETL pipeline pulling from multiple internal data sources (Teamgraph, raw system logs, non-standard imports), with complex data processing, LLM enrichment, and automated report generation.
+
+Architected a PLX workflow executing a series of SQL scripts to extract, process, and enrich data across three working groups (PSWG, NWG, AWG), with dynamic reporting period calculation and export to Google Sheets.
+
+Implemented version control and modular query design for maintainability, auditability, and elimination of single points of failure.
+
+Delivered ahead of schedule, over major international holidays.
+
+Impact
+
+Quarterly report time: >60–80 hrs → <5 hrs (>10× reduction)
+
+Daily metrics: never generated → <10 min (fully automated)
+
+Error rate: high (undocumented) → zero (validated)
+
+Auditability: none → >95% (version controlled)
+
+Stakeholder confidence: low (anxious) → high (confident)
+
+“That was the smoothest cycle ever.” — Legal
+
+“Quickly and deftly navigate some 11th hour complications to land Q3 deliverables without any issues of non-compliance.” — Senior Director, Google Spot Bonus
+
+SQL
+ETL Pipeline
+PLX
+LLM Enrichment
+CMA Compliance
+Version Control
+System Architecture
+Process Automation
+
+PSWG Compliance Enforcement System
+
+Google · 2024
+
+Problem
+A significant compliance gap: employees in the 500+ person Privacy Sandbox org were not members of the mandatory Privacy Sandbox Working Group (PSWG), a foundational requirement under Google’s CMA Commitments. There was no automated mechanism to identify, notify, or track non-compliant individuals.
+
+What I did
+
+Proactively identified the compliance gap — entirely self-initiated; not assigned.
+
+Designed an automated detection system using SQL to cross-reference employee reporting chains with PSWG group membership data.
+
+Built an AppsScript notification system to automatically email non-compliant individuals and their managers, with tracking to closure.
+
+Impact
+
+Achieved 100% compliance enforcement for a foundational CMA Commitment across a 500+ person org.
+
+Closed a significant regulatory risk through a scalable, automated enforcement mechanism — at zero engineering cost.
+
+SQL
+AppsScript
+Process Automation
+CMA Compliance
+System Design
+
+LLM Case Summarization Dashboard
+
+Google · 2023–2024
+
+Problem
+The Legal Content Policy & Standards team needed to quickly understand the essence of thousands of incoming legal removal requests for case management and trend analysis. Manual review at this volume was infeasible. Automatic case summarization was the top-requested feature for their primary management dashboard — but no scalable solution existed.
+
+What I did
+
+Author of the design document, user guide, and lead implementer of the full automated workflow.
+
+Consulted directly with the LCPS team to define requirements and understand the nuances of how case summaries would be used operationally.
+
+Designed an innovative pipeline using SQLMiner to perform bulk LLM inference directly within the database environment — avoiding the need to export sensitive case data to an intermediate system and enabling truly industrial-scale operation.
+
+Engineered a RAG-pattern prompt feeding structured data from case tables into the LLM, producing succinct, accurate, consistently-formatted summaries across every eligible case.
+
+Surfaced AI-generated summaries directly within the team’s primary PLX management dashboard as an on-demand feature.
+
+Impact
+
+Unlocked significant efficiencies in day-to-day case management for the full LCPS team.
+
+Enabled faster, more accurate trend analysis across the legal removal case corpus.
+
+Shifted team focus from low-level individual case review to high-level strategic oversight.
+
+The PLX dashboard MVP, with AI-generated “Llm Summary” column surfaced alongside case metadata for each legal removal request.
+
+The Case Summarization Tool MVP, allowing case managers to enter case IDs and retrieve on-demand LLM summaries using Gemini.
+
+Bulk LLM Inference
+SQLMiner
+SQL
+Prompt Engineering
+Data Pipeline
+PLX Dashboard
+
+Legal Removal Chrome Extension & Automation
+
+Google · 2021–2023
+
+Problem
+The legal operations team was processing legal removal requests manually — a workflow requiring case-by-case review across multiple internal tools. An 8,400+ case backlog had accumulated, and the ongoing volume (tens of thousands of cases) made manual processing at headcount parity infeasible.
+
+What I did
+
+Built a node.js proof-of-concept automation script to process the immediate backlog of 8,400+ cases, proving the approach worked before investing in a full solution.
+
+Led development of a production Chrome Extension using browser automation to process legal removal requests at scale — automating the multi-tool workflow that previously required manual interaction.
+
+Partnered with Engineering to take the approach from proof-of-concept to production-ready tooling.
+
+Praised by senior PMs for both the speed of delivery and the impact on team capacity.
+
+Impact
+
+$50k+ in vendor time saved through the Chrome Extension automation.
+
+700+ working hours saved from the initial node.js backlog automation.
+
+Processed tens of thousands of cases automatically, enabling the team to scale operations without scaling headcount.
+
+Chrome Extension
+Browser Automation
+node.js
+JavaScript
+Legal Ops
+
+All projects listed are internal tools. Internal system names, go-links, and raw data have been omitted. Metrics cited are consistent with public resume disclosures.
+
+---
+
+### Consulting Services (/consulting.html)
+
+Consulting Services
+
+I offer consulting in product management, process automation, and language acquisition. I've spent 11+ years building systems at Google and Roblox — PM consulting comes from that direct experience, not theory. For automation and language work, I bring the same rigor I applied to enterprise-scale pipelines and years of translation practice.
+
+To discuss a project, reach out at kieranmaynard{at}gmail{dot}com.
+
+Product Management
+
+I help teams and individuals navigate the full PM lifecycle — from raw problem definition through roadmap, spec, and execution. Most useful for:
+
+Early-stage products: defining scope, writing PRDs, structuring launch criteria
+
+Regulatory & compliance PM: translating legal obligations (DSA, CMA, AB 587, etc.) into product requirements
+
+Stakeholder alignment: preparing exec narratives, cross-functional decision docs, and escalation frameworks
+
+Career transitions into PM: portfolio review, resume coaching, interview prep
+
+Automation & Data
+
+I design and build automation that replaces high-stakes manual processes with reliable, repeatable systems. Past work includes cutting a 60–80 person-hour compliance reporting cycle to under 5 hours, and saving $50k+ in vendor time via a Chrome Extension that processed tens of thousands of cases.
+
+SQL & ETL pipelines: BigQuery, Hive, Spark — cleaning, transforming, and operationalizing data
+
+Python automation: scripting, pandas, task pipelines
+
+Browser automation: Chrome Extensions, node.js tooling
+
+LLM integration: prompt engineering, bulk inference pipelines, RAG system design
+
+Process audits: identifying manual bottlenecks and designing automated replacements
+
+Language Acquisition
+
+I've studied Japanese, Chinese (Mandarin and Cantonese), and Korean to professional proficiency, and I've spent years helping others build structured, efficient language learning practices. I focus on practical fluency — reading, speaking, and professional use — not just test preparation.
+
+Japanese: all levels, with particular depth in literary, legal, and technical registers
+
+Chinese (Mandarin): conversational through professional; classical Chinese on request
+
+Korean: conversational and written; reading and listening emphasis
+
+Study system design: SRS setup, resource selection, reading ladders, immersion strategy
+
+Professional language use: email, business communication, document reading in target language
+
+See examples of my translation work: Murakami Haruki (Japanese) , Kim Un-Su (Korean) , Zhang Jiajia (Chinese) .
