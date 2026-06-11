@@ -312,7 +312,7 @@ def _build_commentary_prompt(title, content):
         "English first, then Japanese. "
         "Return ONLY the post body in exactly this format "
         "(no URL, no sign-off, no emojis):\n\n"
-        "日本語は以下に続きます\n\n"
+        "（日本語は以下）\n\n"
         "[English commentary]\n\n"
         "[Japanese commentary]\n\n"
         "HASHTAGS: #Tag1 #Tag2 #Tag3\n\n"
