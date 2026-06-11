@@ -1665,3 +1665,55 @@ footer {
   margin-bottom: 0.4rem;
   line-height: 1.7;
 }
+
+/* ============================================================
+   FEATURED CARD / FEATURED PRODUCT
+   ============================================================ */
+
+.featured-card {
+  border-top: 3px solid var(--brand);
+}
+
+.featured-card__links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+.featured-product {
+  border-top: 3px solid var(--brand);
+  margin-bottom: 3rem;
+}
+
+.featured-product h2 {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+}
+
+.featured-product__url {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  margin: 0 0 0.75rem;
+}
+
+.featured-product .tags {
+  margin: 0.75rem 0 1rem;
+}
+
+.featured-product__links {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.featured-product__links a {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  margin: 0;
+}
