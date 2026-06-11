@@ -615,36 +615,6 @@ def main():
         )
         sys.exit(1)
 
-    # --- Optional: refresh the access token automatically ---
-    refresh_token = os.environ.get("LINKEDIN_REFRESH_TOKEN")
-    client_id = os.environ.get("LINKEDIN_CLIENT_ID")
-    client_secret = os.environ.get("LINKEDIN_CLIENT_SECRET")
-    gh_pat = os.environ.get("GH_PAT")
-    gh_repo = os.environ.get("GITHUB_REPOSITORY")
-
-    if refresh_token and client_id and client_secret and gh_pat and gh_repo:
-        print("Refreshing LinkedIn access token…")
-        tokens = refresh_access_token(refresh_token, client_id, client_secret)
-        if tokens and tokens.get("access_token"):
-            access_token = tokens["access_token"]
-            update_github_secret(gh_repo, "LINKEDIN_ACCESS_TOKEN", access_token, gh_pat)
-            new_refresh = tokens.get("refresh_token")
-            if new_refresh:
-                update_github_secret(gh_repo, "LINKEDIN_REFRESH_TOKEN", new_refresh, gh_pat)
-        else:
-            print("Warning: token refresh failed — falling back to existing token.", file=sys.stderr)
-    else:
-        missing = [
-            k for k, v in {
-                "LINKEDIN_REFRESH_TOKEN": refresh_token,
-                "LINKEDIN_CLIENT_ID": client_id,
-                "LINKEDIN_CLIENT_SECRET": client_secret,
-                "GH_PAT": gh_pat,
-                "GITHUB_REPOSITORY": gh_repo,
-            }.items() if not v
-        ]
-        print(f"Token auto-refresh disabled (missing: {', '.join(missing)}).")
-
     # --- Parse blog and check for new entry ---
     with open(BLOG_FILE, encoding="utf-8") as f:
         html = f.read()
@@ -686,6 +656,36 @@ def main():
             )
             set_github_output("posted", "false")
             return
+
+    # --- Optional: refresh the access token automatically (only when posting) ---
+    refresh_token = os.environ.get("LINKEDIN_REFRESH_TOKEN")
+    client_id = os.environ.get("LINKEDIN_CLIENT_ID")
+    client_secret = os.environ.get("LINKEDIN_CLIENT_SECRET")
+    gh_pat = os.environ.get("GH_PAT")
+    gh_repo = os.environ.get("GITHUB_REPOSITORY")
+
+    if refresh_token and client_id and client_secret and gh_pat and gh_repo:
+        print("Refreshing LinkedIn access token…")
+        tokens = refresh_access_token(refresh_token, client_id, client_secret)
+        if tokens and tokens.get("access_token"):
+            access_token = tokens["access_token"]
+            update_github_secret(gh_repo, "LINKEDIN_ACCESS_TOKEN", access_token, gh_pat)
+            new_refresh = tokens.get("refresh_token")
+            if new_refresh:
+                update_github_secret(gh_repo, "LINKEDIN_REFRESH_TOKEN", new_refresh, gh_pat)
+        else:
+            print("Warning: token refresh failed — falling back to existing token.", file=sys.stderr)
+    else:
+        missing = [
+            k for k, v in {
+                "LINKEDIN_REFRESH_TOKEN": refresh_token,
+                "LINKEDIN_CLIENT_ID": client_id,
+                "LINKEDIN_CLIENT_SECRET": client_secret,
+                "GH_PAT": gh_pat,
+                "GITHUB_REPOSITORY": gh_repo,
+            }.items() if not v
+        ]
+        print(f"Token auto-refresh disabled (missing: {', '.join(missing)}).")
 
     # --- Rewrite with an LLM (required) ---
     provider = os.environ.get("LLM_PROVIDER", DEFAULT_LLM_PROVIDER).strip().lower()
