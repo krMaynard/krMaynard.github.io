@@ -75,8 +75,10 @@ async function fetchPrivateSources() {
 
   for (const filePath of paths) {
     try {
+      // Encode each path segment (keeps `/` separators, escapes `#`, `?`, spaces).
+      const encodedPath = filePath.split('/').map(encodeURIComponent).join('/');
       const res = await fetch(
-        `https://api.github.com/repos/${repo}/contents/${encodeURI(filePath)}`,
+        `https://api.github.com/repos/${repo}/contents/${encodedPath}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -136,7 +138,13 @@ async function callClaude(history, userMessage) {
   // The frontend already uses Anthropic's role names ('user'/'assistant').
   const messages = history
     .slice(-(MAX_HISTORY_TURNS * 2))
-    .filter((m) => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string')
+    .filter(
+      (m) =>
+        m &&
+        (m.role === 'user' || m.role === 'assistant') &&
+        typeof m.content === 'string' &&
+        m.content.trim()
+    )
     .map((m) => ({ role: m.role, content: m.content }));
   // The Messages API requires the first message to be from the user; drop any
   // leading assistant turns a malformed/crafted history might start with.

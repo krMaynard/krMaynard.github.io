@@ -273,15 +273,15 @@ Jul 2025
 
 Technical Program Manager II
 
-Google &middot; Chrome
-Helped stand up the evaluation program for Chrome&rsquo;s agentic browsing AI in its earliest dogfood phase, working directly with the PM Lead. Drove org-wide AI enablement and regulatory delivery programs.
+Google · Chrome
+Helped stand up the evaluation program for Chrome’s agentic browsing AI in its earliest dogfood phase, working directly with the PM Lead. Drove org-wide AI enablement and regulatory delivery programs.
 
 Jun 2024
 – Jul 2025
 
 Program Manager II
 
-Google &middot; Privacy Sandbox
+Google · Privacy Sandbox
 Automated CMA compliance reporting from 60–80 person-hours to <5. Built AI-powered legal review pipelines; designed Sandpiper RAG assistant; won TPgM AI Hackathon.
 
 Apr 2021
@@ -289,7 +289,7 @@ Apr 2021
 
 Policy Specialist II
 
-Google &middot; Trust & Safety
+Google · Trust & Safety
 Launched content moderation policies across Gemini, Search, Ads & Play. Developed GenAI tooling for legal ops; built Chrome Extension saving $50k+ in vendor time.
 
 Sep 2018
@@ -297,7 +297,7 @@ Sep 2018
 
 Policy Specialist I
 
-Google &middot; Trust & Safety
+Google · Trust & Safety
 Led policy for elections compliance and pandemic business continuity. Built automation reducing manual processing by 30+ hours/week, adopted in 140+ markets globally.
 
 Jul 2014
@@ -319,10 +319,10 @@ No projects match this filter.
 
 Roblox Transparency Reporting & Compliance Data Model
 
-Roblox &middot; 2025–present
+Roblox · 2025–present
 
 Problem
-A growing wave of regulations — EU DSA, EU TCOR, UK OSA, NY S895, CA AB 587, Brazil ECA, India IT Rules, and others — each require granular, consistently-localized transparency reporting. Roblox&rsquo;s previous approach was manual and difficult to scale as the regulatory landscape continued to expand.
+A growing wave of regulations — EU DSA, EU TCOR, UK OSA, NY S895, CA AB 587, Brazil ECA, India IT Rules, and others — each require granular, consistently-localized transparency reporting. Roblox’s previous approach was manual and difficult to scale as the regulatory landscape continued to expand.
 
 What I did
 
@@ -336,7 +336,7 @@ Leading AI enablement initiatives to improve team productivity and reduce manual
 
 Impact
 
-Published Roblox&rsquo;s most comprehensive EU DSA transparency report to date — the first using the mandatory harmonized reporting format with highly granular, consistently-localized EU data on content moderation, government orders, illegal content, user appeals, and automated systems.
+Published Roblox’s most comprehensive EU DSA transparency report to date — the first using the mandatory harmonized reporting format with highly granular, consistently-localized EU data on content moderation, government orders, illegal content, user appeals, and automated systems.
 
 Building toward full automation of transparency reporting, eliminating manual overhead and improving audit-readiness for an expanding regulatory portfolio.
 
@@ -349,24 +349,24 @@ Transparency Reporting
 
 Roblox Research Data API
 
-Roblox &middot; 2025–present
+Roblox · 2025–present
 
 Problem
-Researchers studying online platforms — academics, civil society organizations, and platform safety analysts — have had no official, programmatic way to access Roblox&rsquo;s public data. Without structured access, external research has relied on manual collection or unofficial scraping, limiting the quality and scale of independent scrutiny Roblox could receive on content moderation, platform safety, and policy enforcement. Meanwhile, Roblox had no mechanism to proactively support the research community that informs policymakers and public understanding of major platforms.
+Researchers studying online platforms — academics, civil society organizations, and platform safety analysts — have had no official, programmatic way to access Roblox’s public data. Without structured access, external research has relied on manual collection or unofficial scraping, limiting the quality and scale of independent scrutiny Roblox could receive on content moderation, platform safety, and policy enforcement. Meanwhile, Roblox had no mechanism to proactively support the research community that informs policymakers and public understanding of major platforms.
 
 What I did
 
-Identifying the opportunity to create Roblox&rsquo;s first-ever public Research Data API — a capability that has never existed at the company and is not standard practice among major gaming platforms.
+Identifying the opportunity to create Roblox’s first-ever public Research Data API — a capability that has never existed at the company and is not standard practice among major gaming platforms.
 
 Leading end-to-end product strategy: scoping what public data to expose, designing the API schema and endpoint architecture, and defining data governance, researcher access controls, rate limiting, authentication, and terms of use.
 
 Driving cross-functional alignment across Engineering, Legal, Policy, and Privacy to design a compliant, sustainable, and scalable access model.
 
-Positioning the API as a structured complement to Roblox&rsquo;s existing transparency reporting — extending the company&rsquo;s public accountability posture beyond periodic reports into queryable, on-demand data access.
+Positioning the API as a structured complement to Roblox’s existing transparency reporting — extending the company’s public accountability posture beyond periodic reports into queryable, on-demand data access.
 
 Impact
 
-Creates the first official, programmatic pathway for researchers to access Roblox&rsquo;s public platform data — a major step forward for transparency that the company has never before offered.
+Creates the first official, programmatic pathway for researchers to access Roblox’s public platform data — a major step forward for transparency that the company has never before offered.
 
 Enables independent scrutiny of platform safety, content moderation effectiveness, and policy enforcement at scale — directly supporting the academic, civil society, and regulatory research community.
 
@@ -381,7 +381,7 @@ Roblox
 
 Building Production Queries with AI
 
-Roblox &middot; 2025–present
+Roblox · 2025–present
 
 Problem
 Building production-grade SQL and Python for 10+ regulatory compliance requirements — reports, RFIs, risk assessments, and litigation support — would normally take 3–6 engineering weeks of pure coding per cycle. With a fast-expanding regulatory portfolio and a lean team, that pace was infeasible.
@@ -392,7 +392,7 @@ Operated as PM and first author in a human-in-the-loop AI coding workflow, using
 
 Generated 7,000+ lines of production code across 10+ regulatory requirements, with data engineers and data scientists serving as code reviewers rather than primary coders.
 
-Designed a structured development pipeline: query and schema context &rarr; AI-generated SQL &rarr; human code review and approval &rarr; iterative refinement &rarr; full-scale Python pipelines.
+Designed a structured development pipeline: query and schema context → AI-generated SQL → human code review and approval → iterative refinement → full-scale Python pipelines.
 
 Compressed the feedback loop between PM and engineering, enabling faster iteration and reducing the bottleneck of cross-functional scheduling.
 
@@ -418,7 +418,7 @@ Process Automation
 
 Sandpiper — Privacy Sandbox AI Knowledge Assistant
 
-Google &middot; 2025
+Google · 2025
 
 Problem
 The Privacy Sandbox Working Group (900+ engineers, PMs, and compliance staff) was drowning in 12,000+ documents sequestered across restricted repositories. Information retrieval was a serious bottleneck — slowing development, regulatory compliance, and strategy — but the sensitivity of the corpus ruled out general-purpose search tools.
@@ -433,7 +433,7 @@ Implemented two operational modes: (1) Expert Q&A with RAG and source citation, 
 
 Authored the system prompt, defined technical requirements, access controls, and risk mitigations including hallucination guards and mandatory human review.
 
-Presented the project at the Privacy Sandbox TPgM AI Hackathon; received a spot bonus from a Senior Director for &ldquo;unlocking potential impact in terms of time savings and quality of regulatory responses.&rdquo;
+Presented the project at the Privacy Sandbox TPgM AI Hackathon; received a spot bonus from a Senior Director for “unlocking potential impact in terms of time savings and quality of regulatory responses.”
 
 Impact
 
@@ -455,7 +455,7 @@ Compliance
 
 GenAI Legal Review Automation
 
-Google &middot; 2024–2025
+Google · 2024–2025
 
 Problem
 The Privacy Sandbox Legal team spent several hours every week manually sifting through bug reports and linked documents to prepare a legal review digest. The process was slow, inconsistent, and bottlenecked compliance oversight for the entire Privacy Sandbox initiative.
@@ -464,11 +464,11 @@ What I did
 
 Sole author and developer of the end-to-end automation solution.
 
-Engaged directly with the Legal team to understand their workflow, decision criteria, and what &ldquo;good&rdquo; looks like for each sub-team.
+Engaged directly with the Legal team to understand their workflow, decision criteria, and what “good” looks like for each sub-team.
 
-Designed a three-stage pipeline: SQL (F1) to extract relevant bug data &rarr; Python (Colab) to orchestrate &rarr; Gemini LLM via TextMiner to process.
+Designed a three-stage pipeline: SQL (F1) to extract relevant bug data → Python (Colab) to orchestrate → Gemini LLM via TextMiner to process.
 
-Engineered a series of multi-step prompts performing complex cognitive tasks: summarizing linked documents, identifying key risks against specific CMA regulatory commitments, and classifying the required review type (&ldquo;Review Required&rdquo; vs. &ldquo;FYI Only&rdquo;) for three Legal sub-teams — Product, Competition, and Privacy.
+Engineered a series of multi-step prompts performing complex cognitive tasks: summarizing linked documents, identifying key risks against specific CMA regulatory commitments, and classifying the required review type (“Review Required” vs. “FYI Only”) for three Legal sub-teams — Product, Competition, and Privacy.
 
 Impact
 
@@ -487,10 +487,10 @@ CMA Compliance
 
 MT Compliance Reporting Automation
 
-Google &middot; 2024–2025
+Google · 2024–2025
 
 Problem
-Quarterly Monitoring Trustee (MT) compliance reports — a mandatory deliverable under Google&rsquo;s legal commitments with the UK Competition and Markets Authority (CMA) — were generated manually. The process took over 60–80 person-hours per quarter, was high-stakes, error-prone, undocumented, and dependent on 5–6 individual single points of failure. There was no auditability and no daily visibility into key metrics.
+Quarterly Monitoring Trustee (MT) compliance reports — a mandatory deliverable under Google’s legal commitments with the UK Competition and Markets Authority (CMA) — were generated manually. The process took over 60–80 person-hours per quarter, was high-stakes, error-prone, undocumented, and dependent on 5–6 individual single points of failure. There was no auditability and no daily visibility into key metrics.
 
 What I did
 
@@ -506,19 +506,19 @@ Delivered ahead of schedule, over major international holidays.
 
 Impact
 
-Quarterly report time: >60–80 hrs &rarr; <5 hrs (>10&times; reduction)
+Quarterly report time: >60–80 hrs → <5 hrs (>10× reduction)
 
-Daily metrics: never generated &rarr; <10 min (fully automated)
+Daily metrics: never generated → <10 min (fully automated)
 
-Error rate: high (undocumented) &rarr; zero (validated)
+Error rate: high (undocumented) → zero (validated)
 
-Auditability: none &rarr; >95% (version controlled)
+Auditability: none → >95% (version controlled)
 
-Stakeholder confidence: low (anxious) &rarr; high (confident)
+Stakeholder confidence: low (anxious) → high (confident)
 
-&ldquo;That was the smoothest cycle ever.&rdquo; — Legal
+“That was the smoothest cycle ever.” — Legal
 
-&ldquo;Quickly and deftly navigate some 11th hour complications to land Q3 deliverables without any issues of non-compliance.&rdquo; — Senior Director, Google Spot Bonus
+“Quickly and deftly navigate some 11th hour complications to land Q3 deliverables without any issues of non-compliance.” — Senior Director, Google Spot Bonus
 
 SQL
 ETL Pipeline
@@ -531,10 +531,10 @@ Process Automation
 
 PSWG Compliance Enforcement System
 
-Google &middot; 2024
+Google · 2024
 
 Problem
-A significant compliance gap: employees in the 500+ person Privacy Sandbox org were not members of the mandatory Privacy Sandbox Working Group (PSWG), a foundational requirement under Google&rsquo;s CMA Commitments. There was no automated mechanism to identify, notify, or track non-compliant individuals.
+A significant compliance gap: employees in the 500+ person Privacy Sandbox org were not members of the mandatory Privacy Sandbox Working Group (PSWG), a foundational requirement under Google’s CMA Commitments. There was no automated mechanism to identify, notify, or track non-compliant individuals.
 
 What I did
 
@@ -558,7 +558,7 @@ System Design
 
 LLM Case Summarization Dashboard
 
-Google &middot; 2023–2024
+Google · 2023–2024
 
 Problem
 The Legal Content Policy & Standards team needed to quickly understand the essence of thousands of incoming legal removal requests for case management and trend analysis. Manual review at this volume was infeasible. Automatic case summarization was the top-requested feature for their primary management dashboard — but no scalable solution existed.
@@ -573,7 +573,7 @@ Designed an innovative pipeline using SQLMiner to perform bulk LLM inference dir
 
 Engineered a RAG-pattern prompt feeding structured data from case tables into the LLM, producing succinct, accurate, consistently-formatted summaries across every eligible case.
 
-Surfaced AI-generated summaries directly within the team&rsquo;s primary PLX management dashboard as an on-demand feature.
+Surfaced AI-generated summaries directly within the team’s primary PLX management dashboard as an on-demand feature.
 
 Impact
 
@@ -583,7 +583,7 @@ Enabled faster, more accurate trend analysis across the legal removal case corpu
 
 Shifted team focus from low-level individual case review to high-level strategic oversight.
 
-The PLX dashboard MVP, with AI-generated &ldquo;Llm Summary&rdquo; column surfaced alongside case metadata for each legal removal request.
+The PLX dashboard MVP, with AI-generated “Llm Summary” column surfaced alongside case metadata for each legal removal request.
 
 The Case Summarization Tool MVP, allowing case managers to enter case IDs and retrieve on-demand LLM summaries using Gemini.
 
@@ -596,7 +596,7 @@ PLX Dashboard
 
 Legal Removal Chrome Extension & Automation
 
-Google &middot; 2021–2023
+Google · 2021–2023
 
 Problem
 The legal operations team was processing legal removal requests manually — a workflow requiring case-by-case review across multiple internal tools. An 8,400+ case backlog had accumulated, and the ongoing volume (tens of thousands of cases) made manual processing at headcount parity infeasible.

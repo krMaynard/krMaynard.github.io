@@ -52,7 +52,18 @@ function decodeEntities(s) {
     .replace(/&#39;/g, "'")
     .replace(/&nbsp;/g, ' ')
     .replace(/&mdash;/g, '—')
-    .replace(/&ndash;/g, '–');
+    .replace(/&ndash;/g, '–')
+    .replace(/&rsquo;/g, '’')
+    .replace(/&lsquo;/g, '‘')
+    .replace(/&ldquo;/g, '“')
+    .replace(/&rdquo;/g, '”')
+    .replace(/&middot;/g, '·')
+    .replace(/&rarr;/g, '→')
+    .replace(/&times;/g, '×')
+    .replace(/&hellip;/g, '…')
+    // Numeric entities (decimal and hex) as a catch-all for anything else.
+    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(parseInt(n, 10)))
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, n) => String.fromCodePoint(parseInt(n, 16)));
 }
 
 function htmlToText(html) {
