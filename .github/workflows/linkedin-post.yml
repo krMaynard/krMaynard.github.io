@@ -37,14 +37,16 @@ jobs:
       # Restore which languages have already been posted for the current entry.
       # A cache miss falls back to the seeded .github/last_linkedin_post in the
       # repo. The unique run_id key never hits on restore, so restore-keys picks
-      # the most recent saved state by prefix.
+      # the most recent saved state by prefix. (The -v2- generation was bumped to
+      # invalidate a stale cache and re-post the Japanese entry with its
+      # localized headline.)
       - name: Restore LinkedIn post state
         uses: actions/cache/restore@v5
         with:
           path: .github/last_linkedin_post
-          key: linkedin-state-${{ github.run_id }}
+          key: linkedin-state-v2-${{ github.run_id }}
           restore-keys: |
-            linkedin-state-
+            linkedin-state-v2-
 
       - name: Post new entry to LinkedIn
         id: linkedin
@@ -76,4 +78,4 @@ jobs:
         uses: actions/cache/save@v5
         with:
           path: .github/last_linkedin_post
-          key: linkedin-state-${{ github.run_id }}
+          key: linkedin-state-v2-${{ github.run_id }}
