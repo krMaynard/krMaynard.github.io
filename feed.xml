@@ -9,7 +9,15 @@ layout: null
     <link>https://krmaynard.github.io/blog.html</link>
     <atom:link href="https://krmaynard.github.io/feed.xml" rel="self" type="application/rss+xml"/>
     <language>en-us</language>
-    <lastBuildDate>Tue, 19 May 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 11 Jun 2026 00:00:00 +0000</lastBuildDate>
+
+    <item>
+      <title>How I Fixed Five API Vulnerabilities with One Prompt and Claude Fable 5</title>
+      <link>https://krmaynard.github.io/blog/fable-5-security-review.html</link>
+      <guid isPermaLink="true">https://krmaynard.github.io/blog/fable-5-security-review.html</guid>
+      <pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
+      <description><![CDATA[I asked Claude Code, running Anthropic's new Fable 5 model, to security-review my research API. It found and fixed five real issues — SSRF, CSV injection, a timing side channel — then fact-checked the bot that reviewed its PR.]]></description>
+    </item>
 
     <item>
       <title>Building a Cross-Platform DSA View: What the Data Doesn't Tell You</title>
