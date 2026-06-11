@@ -15,7 +15,8 @@
     if (!nav) return;
     var ticking = false;
     function update() {
-      nav.classList.toggle('is-stuck', window.scrollY > 4);
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      nav.classList.toggle('is-stuck', scrollTop > 4);
       ticking = false;
     }
     window.addEventListener(
@@ -138,9 +139,6 @@
     targets.forEach(function (el) {
       obs.observe(el);
     });
-
-    // Safety net: if anything is still hidden after 3s, show it.
-    window.setTimeout(revealAll, 3000);
   }
 
   function init() {
