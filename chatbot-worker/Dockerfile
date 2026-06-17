@@ -7,8 +7,9 @@ FROM node:22-slim
 WORKDIR /app
 
 # Install production deps first for better layer caching.
-COPY package.json ./
-RUN npm install --omit=dev
+# Use the committed lockfile + `npm ci` for reproducible installs.
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
 
 # App source (includes the committed website-context.txt).
 COPY . .
