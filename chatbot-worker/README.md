@@ -36,7 +36,7 @@ the worker has no runtime dependency on the rest of the repo:
 
 ```bash
 cd chatbot-worker
-npm run build      # reads ../index.html, ../work.html, ../consulting.html → website-context.txt
+npm run build:context      # reads ../index.html, ../work.html, ../consulting.html → website-context.txt
 ```
 
 Re-run this and commit `website-context.txt` whenever the relevant site content
@@ -49,7 +49,7 @@ changes. To widen what the bot can answer from, add pages to the `PAGES` list in
 cd chatbot-worker
 npm install
 cp .env.example .env        # set ANTHROPIC_API_KEY (+ optional GitHub source vars)
-npm run build               # generate website-context.txt
+npm run build:context               # generate website-context.txt
 ANTHROPIC_API_KEY=sk-ant-... npm start
 ```
 
@@ -80,9 +80,22 @@ fallback if the `GITHUB_SOURCES_*` vars are unset.
 
 ## Deploy & enable
 
-1. Deploy this directory as a service (e.g. Cloud Run), setting the env vars
-   above. `npm run build` must have produced `website-context.txt` first (it's
-   committed, so a normal build includes it).
+A `Dockerfile` is included, so hosts build from it directly (no buildpack — the
+`build:context` script is dev-only and must not run at deploy; the committed
+`website-context.txt` is all the image needs).
+
+1. Deploy this directory as a service. On Cloud Run, from `chatbot-worker/`:
+
+   ```bash
+   gcloud run deploy kieranmaynard-chatbot \
+     --source . --region us-central1 --allow-unauthenticated \
+     --set-secrets ANTHROPIC_API_KEY=anthropic-key:latest
+   ```
+
+   Prefer `--set-secrets` (Secret Manager) over `--set-env-vars` so the key
+   isn't stored in plaintext or shell history. For the multi-path source var,
+   use a custom delimiter to avoid comma parsing:
+   `--set-env-vars "^@^GITHUB_SOURCES_PATHS=a.md,b.md@GITHUB_SOURCES_REPO=owner/repo"`.
 2. Put the service's `/chat` URL into `_config.yml`:
 
    ```yaml

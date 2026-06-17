@@ -10,7 +10,7 @@
  * The worker lives inside the website repo, so this reads the sibling pages
  * directly (`../index.html`, ...). Run it whenever site content changes:
  *
- *     npm run build      # from chatbot-worker/
+ *     npm run build:context      # from chatbot-worker/
  *
  * Commit the regenerated `website-context.txt` — the worker reads that file at
  * runtime, so it has no dependency on the rest of the repo being present when
