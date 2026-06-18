@@ -1,12 +1,18 @@
 """Download and aggregate Statements of Reasons (SoR) from the EU DSA
 Transparency Database for a given reporting period.
 
-Primary path (requires token):
-  DSA_API_TOKEN=<token> python fetch-sor-aggs.py --period H2-2025
-
-Fallback (uses dsa-tdb package, may also require token):
-  pip install dsa-tdb --index-url https://code.europa.eu/api/v4/projects/943/packages/pypi/simple
+Primary path — public, no token required:
+  pip install dsa-tdb pandas pyarrow \
+      --index-url https://code.europa.eu/api/v4/projects/943/packages/pypi/simple
   python fetch-sor-aggs.py --period H2-2025 --use-dsatdb
+
+  dsa-tdb download-aggs pulls pre-made monthly aggregated parquet files from a
+  public bucket (the same data feeding the EUDSATDB Dashboard). No Research API
+  token needed. H2 2025 = 6 monthly files, typically a few MB total.
+
+Fallback path — requires Research API token:
+  DSA_API_TOKEN=<token> python fetch-sor-aggs.py --period H2-2025
+  Request access: CNECT-DSA-HELPDESK@ec.europa.eu
 
 Output: data/sor-aggs-{period}.json
   {
@@ -24,10 +30,6 @@ Output: data/sor-aggs-{period}.json
       }
     }
   }
-
-To apply for Research API access:
-  Email CNECT-DSA-HELPDESK@ec.europa.eu with your EU Login credentials.
-  Once approved, generate a token at transparency.dsa.ec.europa.eu.
 """
 import argparse
 import json
@@ -146,14 +148,15 @@ def _accumulate(totals: dict, api_resp: list) -> None:
 
 
 def fetch_via_dsatdb(start: str, end: str, tmp_dir: str) -> dict:
-    """Use the dsa-tdb-cli tool to download monthly aggregates, then parse them."""
+    """Download pre-made monthly aggregated parquet files via dsa-tdb-cli.
+
+    Uses the public bucket download (no token required). Tries --advanced first
+    to get the full field breakdown (platform × category × source_type ×
+    decision_ground). Falls back to the basic aggregation if --advanced is not
+    recognised by the installed version.
+    """
     import subprocess
     import glob
-
-    os.makedirs(tmp_dir, exist_ok=True)
-    cmd = ["dsa-tdb-cli", "download-aggs", "-o", tmp_dir, "-i", start, "-f", end]
-    print(f"Running: {' '.join(cmd)}", file=sys.stderr)
-    subprocess.run(cmd, check=True)
 
     try:
         import pandas as pd
@@ -161,16 +164,55 @@ def fetch_via_dsatdb(start: str, end: str, tmp_dir: str) -> dict:
         print("pip install pandas pyarrow", file=sys.stderr)
         sys.exit(1)
 
-    totals: dict = {}
-    for path in sorted(glob.glob(f"{tmp_dir}/**/*.parquet", recursive=True)
-                       + glob.glob(f"{tmp_dir}/**/*.csv", recursive=True)):
-        df = pd.read_parquet(path) if path.endswith(".parquet") else pd.read_csv(path)
-        # Column names depend on whether this is basic or advanced aggregation.
-        # Adjust mapping here if the actual columns differ.
-        needed = {"platform_name", "category", "source_type", "decision_ground", "total"}
-        if not needed.issubset(df.columns):
-            print(f"  Skipping {path}: missing columns {needed - set(df.columns)}", file=sys.stderr)
+    os.makedirs(tmp_dir, exist_ok=True)
+
+    # Try advanced aggregation first (includes source_type + decision_ground).
+    # If the flag is not supported, fall back to the default (basic).
+    for extra_flags in [["--advanced"], []]:
+        cmd = ["dsa-tdb-cli", "download-aggs", "-o", tmp_dir, "-i", start, "-f", end] + extra_flags
+        print(f"Running: {' '.join(cmd)}", file=sys.stderr)
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        if result.returncode == 0:
+            break
+        # If --advanced caused an error, retry without it.
+        if extra_flags and ("unrecognized" in result.stderr.lower()
+                            or "invalid" in result.stderr.lower()
+                            or "error" in result.stderr.lower()):
+            print("  --advanced flag not supported; retrying without it", file=sys.stderr)
             continue
+        # Other failure — surface the error.
+        print(result.stderr, file=sys.stderr)
+        result.check_returncode()
+
+    # Required columns for our comparison. The count column may be named
+    # "total", "count", or "sor_count" depending on dsa-tdb version.
+    COUNT_ALIASES = ("total", "count", "sor_count", "n")
+    REQUIRED = {"platform_name", "category", "source_type", "decision_ground"}
+
+    totals: dict = {}
+    files = sorted(glob.glob(f"{tmp_dir}/**/*.parquet", recursive=True)
+                   + glob.glob(f"{tmp_dir}/**/*.csv", recursive=True))
+    if not files:
+        print(f"  No parquet/CSV files found under {tmp_dir}", file=sys.stderr)
+        return totals
+
+    for path in files:
+        df = pd.read_parquet(path) if path.endswith(".parquet") else pd.read_csv(path)
+        cols = set(df.columns)
+        print(f"  {path}: columns = {sorted(cols)}", file=sys.stderr)
+
+        if not REQUIRED.issubset(cols):
+            print(f"  Skipping — missing {REQUIRED - cols}", file=sys.stderr)
+            continue
+
+        # Find the count column.
+        count_col = next((c for c in COUNT_ALIASES if c in cols), None)
+        if count_col is None:
+            print(f"  Skipping — no count column found (tried {COUNT_ALIASES})", file=sys.stderr)
+            continue
+        if count_col != "total":
+            df = df.rename(columns={count_col: "total"})
+
         for _, row in df.iterrows():
             _accumulate(totals, [row.to_dict()])
 
