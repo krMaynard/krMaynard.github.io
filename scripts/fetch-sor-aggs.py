@@ -91,12 +91,20 @@ def fetch_via_api(token: str, start: str, end: str) -> dict:
             if i % 30 == 0:
                 print(f"  {i}/{len(all_dates)}: {d}", file=sys.stderr)
             url = f"{EUDSATDB_BASE}/research/aggregates/{d}/{AGG_FIELDS}"
-            resp = client.get(url, headers=headers)
-            if resp.status_code == 429:
-                time.sleep(5)
-                resp = client.get(url, headers=headers)
-            resp.raise_for_status()
-            _accumulate(totals, resp.json())
+            for attempt in range(3):
+                try:
+                    resp = client.get(url, headers=headers)
+                    if resp.status_code == 429:
+                        retry_after = int(resp.headers.get("Retry-After", 5))
+                        time.sleep(retry_after)
+                        continue
+                    resp.raise_for_status()
+                    _accumulate(totals, resp.json())
+                    break
+                except httpx.HTTPError:
+                    if attempt == 2:
+                        raise
+                    time.sleep(2 ** attempt)
 
     return totals
 
@@ -111,7 +119,10 @@ def _accumulate(totals: dict, api_resp: list) -> None:
         category = row.get("category", "")
         source = row.get("source_type", "")
         ground = row.get("decision_ground", "")
-        count = int(row.get("total", 0) or 0)
+        try:
+            count = int(float(row.get("total", 0) or 0))
+        except (ValueError, TypeError):
+            count = 0
 
         if not (platform and category and count):
             continue

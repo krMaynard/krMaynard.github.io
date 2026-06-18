@@ -114,6 +114,9 @@ lang_url_ja: /ja/comparison.html
     rows.sort((a, b) => {
       let av = a[sortCol], bv = b[sortCol];
       if (sortCol === 'worst_flag') { av = FLAG_RANK[av] ?? 9; bv = FLAG_RANK[bv] ?? 9; }
+      if (typeof av === 'string' && typeof bv === 'string') {
+        return sortAsc ? av.localeCompare(bv) : bv.localeCompare(av);
+      }
       if (av == null) av = -Infinity; if (bv == null) bv = -Infinity;
       if (av < bv) return sortAsc ? -1 : 1;
       if (av > bv) return sortAsc ?  1 : -1;
@@ -148,7 +151,7 @@ lang_url_ja: /ja/comparison.html
     document.getElementById('n-nodata').textContent = (fc.no_data || 0).toLocaleString();
   }
 
-  fetch('/data/sor-comparison-H2-2025.json')
+  fetch('{{ "/data/sor-comparison-H2-2025.json" | relative_url }}')
     .then(r => r.json())
     .then(data => {
       if (data._fixture) document.getElementById('sample-notice').style.display = 'block';
