@@ -16,7 +16,7 @@ layout: null
       <link>https://krmaynard.github.io/blog/prompt-log-ai-workflows.html</link>
       <guid isPermaLink="true">https://krmaynard.github.io/blog/prompt-log-ai-workflows.html</guid>
       <pubDate>Fri, 19 Jun 2026 00:00:00 +0000</pubDate>
-      <description><![CDATA[A LayerX engineering post argues you should log your AI prompts and analyze them like code — find the instructions you repeat, and turn the frequent ones into Skills. Here's why the idea holds up, and how it rhymes with my own AI work.]]></description>
+      <description><![CDATA[A LayerX engineering post logs its AI prompts and analyzes them like code to find what to automate. It's the data-first move I've used at Google and since — intuition flags it, data proves it — turned reflexively on the human–AI workflow itself.]]></description>
     </item>
 
     <item>
