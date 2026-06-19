@@ -9,7 +9,15 @@ layout: null
     <link>https://krmaynard.github.io/blog.html</link>
     <atom:link href="https://krmaynard.github.io/feed.xml" rel="self" type="application/rss+xml"/>
     <language>en-us</language>
-    <lastBuildDate>Thu, 11 Jun 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 19 Jun 2026 00:00:00 +0000</lastBuildDate>
+
+    <item>
+      <title>Prompts Are Refactoring Targets: Logging an AI Workflow to Find What to Automate</title>
+      <link>https://krmaynard.github.io/blog/prompt-log-ai-workflows.html</link>
+      <guid isPermaLink="true">https://krmaynard.github.io/blog/prompt-log-ai-workflows.html</guid>
+      <pubDate>Fri, 19 Jun 2026 00:00:00 +0000</pubDate>
+      <description><![CDATA[A LayerX engineering post argues you should log your AI prompts and analyze them like code — find the instructions you repeat, and turn the frequent ones into Skills. Here's why the idea holds up, and how it rhymes with my own AI work.]]></description>
+    </item>
 
     <item>
       <title>How I Fixed Five API Vulnerabilities with One Prompt and Claude Fable 5</title>
