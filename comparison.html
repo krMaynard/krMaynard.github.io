@@ -1,0 +1,204 @@
+---
+layout: main
+title: DSA Report vs. SoR Comparison
+description: "Cross-checking platform-published EU DSA transparency report figures against independently aggregated Statements of Reasons from the EU DSA Transparency Database."
+lang: en
+lang_url: /ja/comparison.html
+lang_url_zh: /zh/comparison.html
+---
+
+<div style="padding-top: 2.5rem; margin-bottom: 2rem;">
+  <p class="section-label">Analysis &middot; Experimental</p>
+  <h1 style="margin-top: 0; margin-bottom: 0.5rem;">DSA Reports vs. SoR Database</h1>
+  <p style="color: var(--text-muted); max-width: 720px; line-height: 1.65; margin-bottom: 1.5rem;">
+    Every EU DSA Very Large Online Platform must both file a biannual transparency report (tables 3–11)
+    <em>and</em> submit individual Statements of Reasons (SoRs) for each content-moderation decision to the
+    <a href="https://transparency.dsa.ec.europa.eu">EU DSA Transparency Database</a> in near real-time.
+    This page independently aggregates SoRs by platform and category, then compares the totals against
+    what each platform published in its H2 2025 transparency report. Discrepancies may indicate
+    reporting gaps, category differences, or submission delays — not necessarily misconduct.
+  </p>
+
+  <div id="sample-notice" style="background: var(--card-bg, #f8f8f8); border-left: 4px solid var(--brand); padding: 0.9rem 1.1rem; border-radius: 4px; max-width: 720px; margin-bottom: 1.5rem; display:none;">
+    <strong>Sample data</strong> — The figures below are synthetic fixtures used while the production
+    SoR fetch is pending. Once <code>DSA_API_TOKEN</code> is configured in the repo, the GitHub Actions
+    workflow will replace this with real data.
+    See <a href="https://github.com/krmaynard/krmaynard.github.io/blob/main/scripts/fetch-sor-aggs.py">fetch-sor-aggs.py</a>.
+  </div>
+
+  <!-- Summary cards -->
+  <div id="summary-cards" style="display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:2rem; max-width:720px;">
+    <div class="stat-card" id="card-red"   style="flex:1; min-width:130px; padding:1rem; border-radius:6px; background:#fee2e2; color:#991b1b; text-align:center;">
+      <div style="font-size:2rem; font-weight:700;" id="n-red">—</div>
+      <div style="font-size:0.8rem; font-weight:600;">Red flags</div>
+      <div style="font-size:0.72rem; opacity:.7;">&gt;20% discrepancy</div>
+    </div>
+    <div class="stat-card" id="card-amber" style="flex:1; min-width:130px; padding:1rem; border-radius:6px; background:#fef3c7; color:#92400e; text-align:center;">
+      <div style="font-size:2rem; font-weight:700;" id="n-amber">—</div>
+      <div style="font-size:0.8rem; font-weight:600;">Amber flags</div>
+      <div style="font-size:0.72rem; opacity:.7;">5–20% discrepancy</div>
+    </div>
+    <div class="stat-card" id="card-ok"    style="flex:1; min-width:130px; padding:1rem; border-radius:6px; background:#d1fae5; color:#065f46; text-align:center;">
+      <div style="font-size:2rem; font-weight:700;" id="n-ok">—</div>
+      <div style="font-size:0.8rem; font-weight:600;">OK</div>
+      <div style="font-size:0.72rem; opacity:.7;">&le;5% discrepancy</div>
+    </div>
+    <div class="stat-card" id="card-nodata" style="flex:1; min-width:130px; padding:1rem; border-radius:6px; background:var(--card-bg); border:1px solid var(--border-color); color:var(--text-muted); text-align:center;">
+      <div style="font-size:2rem; font-weight:700;" id="n-nodata">—</div>
+      <div style="font-size:0.8rem; font-weight:600;">No report data</div>
+      <div style="font-size:0.72rem; opacity:.7;">SoR only</div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-bottom:1rem; max-width:960px;">
+    <select id="filter-service" style="padding:0.4rem 0.6rem; border-radius:4px; border:1px solid var(--border-color); background:var(--card-bg); color:var(--text-color); font-size:0.85rem;">
+      <option value="">All services</option>
+    </select>
+    <select id="filter-flag" style="padding:0.4rem 0.6rem; border-radius:4px; border:1px solid var(--border-color); background:var(--card-bg); color:var(--text-color); font-size:0.85rem;">
+      <option value="">All flags</option>
+      <option value="red">🔴 Red (&gt;20%)</option>
+      <option value="amber">🟡 Amber (5–20%)</option>
+      <option value="ok">🟢 OK (&le;5%)</option>
+      <option value="no_data">⚪ No report data</option>
+    </select>
+    <input id="filter-cat" type="search" placeholder="Filter category…"
+      style="padding:0.4rem 0.6rem; border-radius:4px; border:1px solid var(--border-color); background:var(--card-bg); color:var(--text-color); font-size:0.85rem; flex:1; min-width:180px;">
+    <span id="row-count" style="align-self:center; font-size:0.8rem; color:var(--text-muted);"></span>
+  </div>
+
+  <!-- Table -->
+  <div style="overflow-x:auto; max-width:100%;">
+    <table id="comparison-table" style="width:100%; border-collapse:collapse; font-size:0.82rem;">
+      <thead>
+        <tr style="border-bottom:2px solid var(--border-color); text-align:left;">
+          <th style="padding:0.5rem 0.6rem; white-space:nowrap; cursor:pointer;" data-col="service_name">Service ↕</th>
+          <th style="padding:0.5rem 0.6rem; cursor:pointer;" data-col="category_label">Category ↕</th>
+          <th style="padding:0.5rem 0.6rem; text-align:right; cursor:pointer; white-space:nowrap;" data-col="rep_notices">Reported<br>notices ↕</th>
+          <th style="padding:0.5rem 0.6rem; text-align:right; cursor:pointer; white-space:nowrap;" data-col="sor_notices">SoR<br>notices ↕</th>
+          <th style="padding:0.5rem 0.6rem; text-align:right; cursor:pointer; white-space:nowrap;" data-col="rep_own_illegal">Reported<br>own-init ↕</th>
+          <th style="padding:0.5rem 0.6rem; text-align:right; cursor:pointer; white-space:nowrap;" data-col="sor_own_illegal">SoR<br>own-init ↕</th>
+          <th style="padding:0.5rem 0.6rem; text-align:center; cursor:pointer;" data-col="worst_flag">Flag ↕</th>
+        </tr>
+      </thead>
+      <tbody id="comparison-body">
+        <tr><td colspan="7" style="padding:2rem; text-align:center; color:var(--text-muted);">Loading…</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="color:var(--text-muted); font-size:0.78rem; margin-top:1.5rem; max-width:720px;">
+    <strong>Methodology:</strong> "Reported" figures come from platform-published H2 2025 DSA transparency
+    reports (t4: notices by category; t5: own-initiative illegal content actions). "SoR" figures are
+    independently aggregated from EUDSATDB Statements of Reasons for the same period using
+    <code>source_type</code> and <code>category</code> fields. The comparison covers only t4 notices
+    and t5/t6 own-initiative actions — tables t3/t7–t11 have no SoR equivalent.
+    Delta = |reported − sor| / max(reported, sor).
+  </p>
+
+  <p style="color:var(--text-muted); font-size:0.78rem; max-width:720px;">
+    <a href="https://github.com/krmaynard/krmaynard.github.io/blob/main/scripts/fetch-sor-aggs.py">fetch-sor-aggs.py</a>
+    &middot;
+    <a href="https://github.com/krmaynard/krmaynard.github.io/blob/main/scripts/compare-reports.py">compare-reports.py</a>
+    &middot;
+    <a href="https://transparency.dsa.ec.europa.eu">EU DSA Transparency Database</a>
+  </p>
+</div>
+
+<script>
+(function () {
+  const FLAG_ICON = { red: '🔴', amber: '🟡', ok: '🟢', no_data: '⚪' };
+  const FLAG_BG   = { red: '#fee2e244', amber: '#fef3c744', ok: '#d1fae544', no_data: '' };
+  const FLAG_RANK = { red: 0, amber: 1, no_data: 2, ok: 3 };
+
+  let allRows = [];
+  let sortCol = 'worst_flag';
+  let sortAsc = true;
+
+  function fmt(n) { return n == null ? '—' : n.toLocaleString(); }
+  function pct(d) { return d == null ? '' : ' (' + Math.round(d * 100) + '%)'; }
+
+  function render() {
+    const svc  = document.getElementById('filter-service').value;
+    const flag = document.getElementById('filter-flag').value;
+    const cat  = document.getElementById('filter-cat').value.toLowerCase();
+
+    let rows = allRows.filter(r =>
+      (!svc  || r.service_name === svc) &&
+      (!flag || r.worst_flag   === flag) &&
+      (!cat  || r.category_label.toLowerCase().includes(cat) || r.category_code.toLowerCase().includes(cat))
+    );
+
+    rows.sort((a, b) => {
+      let av = a[sortCol], bv = b[sortCol];
+      if (sortCol === 'worst_flag') { av = FLAG_RANK[av] ?? 9; bv = FLAG_RANK[bv] ?? 9; }
+      if (typeof av === 'string' && typeof bv === 'string') {
+        return sortAsc ? av.localeCompare(bv) : bv.localeCompare(av);
+      }
+      if (av == null) av = -Infinity;
+      if (bv == null) bv = -Infinity;
+      if (av < bv) return sortAsc ? -1 : 1;
+      if (av > bv) return sortAsc ?  1 : -1;
+      return 0;
+    });
+
+    document.getElementById('row-count').textContent = rows.length + ' rows';
+    const tbody = document.getElementById('comparison-body');
+    if (!rows.length) {
+      tbody.innerHTML = '<tr><td colspan="7" style="padding:2rem; text-align:center; color:var(--text-muted);">No matching rows.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = rows.map(r => `
+      <tr style="border-bottom:1px solid var(--border-color); background:${FLAG_BG[r.worst_flag] || ''}">
+        <td style="padding:0.4rem 0.6rem; white-space:nowrap;">${r.service_name}</td>
+        <td style="padding:0.4rem 0.6rem; max-width:280px;" title="${r.category_code}">${r.category_label}</td>
+        <td style="padding:0.4rem 0.6rem; text-align:right;">${fmt(r.rep_notices)}</td>
+        <td style="padding:0.4rem 0.6rem; text-align:right;">${fmt(r.sor_notices)}${pct(r.delta_notices)}</td>
+        <td style="padding:0.4rem 0.6rem; text-align:right;">${fmt(r.rep_own_illegal)}</td>
+        <td style="padding:0.4rem 0.6rem; text-align:right;">${fmt(r.sor_own_illegal)}${pct(r.delta_own_illegal)}</td>
+        <td style="padding:0.4rem 0.6rem; text-align:center;">${FLAG_ICON[r.worst_flag] || r.worst_flag}</td>
+      </tr>`).join('');
+  }
+
+  function initFilters(rows) {
+    const svcs = [...new Set(rows.map(r => r.service_name))].sort();
+    const sel = document.getElementById('filter-service');
+    svcs.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; sel.appendChild(o); });
+  }
+
+  function initSummary(summary) {
+    const fc = summary.flag_counts || {};
+    document.getElementById('n-red').textContent    = (fc.red    || 0).toLocaleString();
+    document.getElementById('n-amber').textContent  = (fc.amber  || 0).toLocaleString();
+    document.getElementById('n-ok').textContent     = (fc.ok     || 0).toLocaleString();
+    document.getElementById('n-nodata').textContent = (fc.no_data || 0).toLocaleString();
+  }
+
+  fetch('{{ "/data/sor-comparison-H2-2025.json" | relative_url }}')
+    .then(r => r.json())
+    .then(data => {
+      if (data._fixture) document.getElementById('sample-notice').style.display = 'block';
+      allRows = data.rows || [];
+      initSummary(data.summary || {});
+      initFilters(allRows);
+      render();
+    })
+    .catch(() => {
+      document.getElementById('comparison-body').innerHTML =
+        '<tr><td colspan="7" style="padding:2rem; text-align:center; color:var(--text-muted);">Data not yet available. Run scripts/fetch-sor-aggs.py to generate it.</td></tr>';
+    });
+
+  ['filter-service', 'filter-flag', 'filter-cat'].forEach(id =>
+    document.getElementById(id).addEventListener('input', render));
+
+  document.querySelectorAll('th[data-col]').forEach(th => {
+    th.addEventListener('click', () => {
+      const col = th.dataset.col;
+      if (sortCol === col) sortAsc = !sortAsc;
+      else { sortCol = col; sortAsc = true; }
+      render();
+    });
+  });
+})();
+</script>

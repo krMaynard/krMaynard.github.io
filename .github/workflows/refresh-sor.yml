@@ -1,0 +1,53 @@
+name: Refresh SoR comparison data
+
+on:
+  schedule:
+    # Run monthly on the 1st at 06:00 UTC (after new daily dumps land).
+    - cron: '0 6 1 * *'
+  workflow_dispatch:
+    inputs:
+      period:
+        description: 'Reporting period (e.g. H2-2025)'
+        required: false
+        default: 'H2-2025'
+
+# Uses dsa-tdb download-aggs — public bucket, no Research API token required.
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          pip install httpx pandas pyarrow
+          pip install dsa-tdb \
+            --index-url https://code.europa.eu/api/v4/projects/943/packages/pypi/simple \
+            || echo "dsa-tdb install failed — workflow will error at fetch step"
+
+      - name: Fetch SoR aggregates
+        run: |
+          PERIOD="${{ github.event.inputs.period || 'H2-2025' }}"
+          python scripts/fetch-sor-aggs.py --period "$PERIOD" --use-dsatdb
+
+      - name: Compare with published reports
+        run: |
+          PERIOD="${{ github.event.inputs.period || 'H2-2025' }}"
+          python scripts/compare-reports.py --period "$PERIOD"
+
+      - name: Commit updated data
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/sor-aggs-*.json data/sor-comparison-*.json
+          git diff --cached --quiet || git commit -m \
+            "data: refresh SoR comparison (${{ github.event.inputs.period || 'H2-2025' }}) [skip ci]"
+          git push

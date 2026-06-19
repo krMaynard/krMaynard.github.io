@@ -1,0 +1,46 @@
+{
+  "period": "H2-2025",
+  "date_range": ["2025-07-01", "2025-12-31"],
+  "generated": "2026-06-18",
+  "_comment": "Synthetic fixture — representative subset used for local testing and CI.",
+  "totals": {
+    "YouTube": {
+      "STATEMENT_CATEGORY_ILLEGAL_OR_HARMFUL_SPEECH": {
+        "SOURCE_ARTICLE_16": 95000,
+        "SOURCE_TRUSTED_FLAGGER": 9500,
+        "SOURCE_VOLUNTARY_ILLEGAL": 850000,
+        "SOURCE_VOLUNTARY_TOS": 120000
+      },
+      "TOTAL": {
+        "SOURCE_ARTICLE_16": 975000,
+        "SOURCE_TRUSTED_FLAGGER": 3,
+        "SOURCE_VOLUNTARY_ILLEGAL": 5200000,
+        "SOURCE_VOLUNTARY_TOS": 900000
+      }
+    },
+    "Facebook": {
+      "TOTAL": {
+        "SOURCE_ARTICLE_16": 48000,
+        "SOURCE_TRUSTED_FLAGGER": 4800,
+        "SOURCE_VOLUNTARY_ILLEGAL": 280000,
+        "SOURCE_VOLUNTARY_TOS": 95000
+      }
+    },
+    "TikTok": {
+      "TOTAL": {
+        "SOURCE_ARTICLE_16": 12000,
+        "SOURCE_TRUSTED_FLAGGER": 1100,
+        "SOURCE_VOLUNTARY_ILLEGAL": 890000,
+        "SOURCE_VOLUNTARY_TOS": 210000
+      }
+    },
+    "X": {
+      "TOTAL": {
+        "SOURCE_ARTICLE_16": 8500,
+        "SOURCE_TRUSTED_FLAGGER": 900,
+        "SOURCE_VOLUNTARY_ILLEGAL": 75000,
+        "SOURCE_VOLUNTARY_TOS": 320000
+      }
+    }
+  }
+}
