@@ -1,68 +1,67 @@
 ---
 layout: main
-title: DSA Report vs. SoR Comparison
-description: "Cross-checking platform-published EU DSA transparency report figures against independently aggregated Statements of Reasons from the EU DSA Transparency Database."
-lang: en
-lang_url: /ja/comparison.html
+title: DSA 보고서 vs. SoR 데이터베이스 비교
+description: "플랫폼이 공개한 EU DSA 투명성 보고서 데이터를 EU SoR 데이터베이스에서 독립 집계한 데이터와 교차 검증합니다."
+lang: ko
+lang_url: /comparison.html
+lang_url_ja: /ja/comparison.html
 lang_url_zh: /zh/comparison.html
 ---
 
 <div style="padding-top: 2.5rem; margin-bottom: 2rem;">
-  <p class="section-label">Case study &middot; Experimental</p>
-  <h1 style="margin-top: 0; margin-bottom: 0.5rem;">DSA Reports vs. SoR Database</h1>
+  <p class="section-label">케이스 스터디 &middot; 실험적</p>
+  <h1 style="margin-top: 0; margin-bottom: 0.5rem;">DSA 보고서 vs. SoR 데이터베이스</h1>
   <p style="color: var(--text-muted); max-width: 720px; line-height: 1.65; margin-bottom: 1.5rem;">
-    Every EU DSA Very Large Online Platform must both file a biannual transparency report (tables 3–11)
-    <em>and</em> submit individual Statements of Reasons (SoRs) for each content-moderation decision to the
-    <a href="https://transparency.dsa.ec.europa.eu">EU DSA Transparency Database</a> in near real-time.
-    This page independently aggregates SoRs by platform and category, then compares the totals against
-    what each platform published in its H2 2025 transparency report. Discrepancies may indicate
-    reporting gaps, category differences, or submission delays — not necessarily misconduct.
+    EU DSA의 모든 초대형 온라인 플랫폼(VLOP)은 반년마다 투명성 보고서(테이블 3~11)를 제출해야 하며,
+    동시에 각 콘텐츠 모더레이션 결정에 대한 개별 이유 진술서(SoR)를 준실시간으로
+    <a href="https://transparency.dsa.ec.europa.eu">EU DSA 투명성 데이터베이스</a>에 제출해야 합니다.
+    이 페이지는 SoR을 플랫폼 및 카테고리별로 독립 집계하여 각 플랫폼이 H2 2025 투명성 보고서에 공개한 수치와 비교합니다.
+    불일치는 보고 공백, 카테고리 차이 또는 제출 지연을 나타낼 수 있으며, 반드시 위반을 의미하지는 않습니다.
   </p>
 
   <div id="sample-notice" style="background: var(--card-bg, #f8f8f8); border-left: 4px solid var(--brand); padding: 0.9rem 1.1rem; border-radius: 4px; max-width: 720px; margin-bottom: 1.5rem; display:none;">
-    <strong>Sample data</strong> — The figures below are synthetic fixtures used while the production
-    SoR fetch is pending. Once <code>DSA_API_TOKEN</code> is configured in the repo, the GitHub Actions
-    workflow will replace this with real data.
-    See <a href="https://github.com/krmaynard/krmaynard.github.io/blob/main/scripts/fetch-sor-aggs.py">fetch-sor-aggs.py</a>.
+    <strong>샘플 데이터</strong> — 아래 수치는 실제 SoR 데이터 수집이 완료될 때까지 사용하는 합성 픽스처입니다.
+    저장소에 <code>DSA_API_TOKEN</code>이 설정되면 GitHub Actions 워크플로가 실제 데이터로 교체합니다.
+    참조: <a href="https://github.com/krmaynard/krmaynard.github.io/blob/main/scripts/fetch-sor-aggs.py">fetch-sor-aggs.py</a>
   </div>
 
   <!-- Summary cards -->
   <div id="summary-cards" style="display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:2rem; max-width:720px;">
     <div class="stat-card" id="card-red"   style="flex:1; min-width:130px; padding:1rem; border-radius:6px; background:#fee2e2; color:#991b1b; text-align:center;">
       <div style="font-size:2rem; font-weight:700;" id="n-red">—</div>
-      <div style="font-size:0.8rem; font-weight:600;">Red flags</div>
-      <div style="font-size:0.72rem; opacity:.7;">&gt;20% discrepancy</div>
+      <div style="font-size:0.8rem; font-weight:600;">빨간 플래그</div>
+      <div style="font-size:0.72rem; opacity:.7;">불일치 &gt;20%</div>
     </div>
     <div class="stat-card" id="card-amber" style="flex:1; min-width:130px; padding:1rem; border-radius:6px; background:#fef3c7; color:#92400e; text-align:center;">
       <div style="font-size:2rem; font-weight:700;" id="n-amber">—</div>
-      <div style="font-size:0.8rem; font-weight:600;">Amber flags</div>
-      <div style="font-size:0.72rem; opacity:.7;">5–20% discrepancy</div>
+      <div style="font-size:0.8rem; font-weight:600;">주황 플래그</div>
+      <div style="font-size:0.72rem; opacity:.7;">불일치 5–20%</div>
     </div>
     <div class="stat-card" id="card-ok"    style="flex:1; min-width:130px; padding:1rem; border-radius:6px; background:#d1fae5; color:#065f46; text-align:center;">
       <div style="font-size:2rem; font-weight:700;" id="n-ok">—</div>
-      <div style="font-size:0.8rem; font-weight:600;">OK</div>
-      <div style="font-size:0.72rem; opacity:.7;">&le;5% discrepancy</div>
+      <div style="font-size:0.8rem; font-weight:600;">정상</div>
+      <div style="font-size:0.72rem; opacity:.7;">불일치 &le;5%</div>
     </div>
     <div class="stat-card" id="card-nodata" style="flex:1; min-width:130px; padding:1rem; border-radius:6px; background:var(--card-bg); border:1px solid var(--border-color); color:var(--text-muted); text-align:center;">
       <div style="font-size:2rem; font-weight:700;" id="n-nodata">—</div>
-      <div style="font-size:0.8rem; font-weight:600;">No report data</div>
-      <div style="font-size:0.72rem; opacity:.7;">SoR only</div>
+      <div style="font-size:0.8rem; font-weight:600;">보고 데이터 없음</div>
+      <div style="font-size:0.72rem; opacity:.7;">SoR만 있음</div>
     </div>
   </div>
 
   <!-- Filters -->
   <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-bottom:1rem; max-width:960px;">
     <select id="filter-service" style="padding:0.4rem 0.6rem; border-radius:4px; border:1px solid var(--border-color); background:var(--card-bg); color:var(--text-color); font-size:0.85rem;">
-      <option value="">All services</option>
+      <option value="">모든 서비스</option>
     </select>
     <select id="filter-flag" style="padding:0.4rem 0.6rem; border-radius:4px; border:1px solid var(--border-color); background:var(--card-bg); color:var(--text-color); font-size:0.85rem;">
-      <option value="">All flags</option>
-      <option value="red">🔴 Red (&gt;20%)</option>
-      <option value="amber">🟡 Amber (5–20%)</option>
-      <option value="ok">🟢 OK (&le;5%)</option>
-      <option value="no_data">⚪ No report data</option>
+      <option value="">모든 플래그</option>
+      <option value="red">🔴 빨간 (&gt;20%)</option>
+      <option value="amber">🟡 주황 (5–20%)</option>
+      <option value="ok">🟢 정상 (&le;5%)</option>
+      <option value="no_data">⚪ 보고 데이터 없음</option>
     </select>
-    <input id="filter-cat" type="search" placeholder="Filter category…"
+    <input id="filter-cat" type="search" placeholder="카테고리 필터…"
       style="padding:0.4rem 0.6rem; border-radius:4px; border:1px solid var(--border-color); background:var(--card-bg); color:var(--text-color); font-size:0.85rem; flex:1; min-width:180px;">
     <span id="row-count" style="align-self:center; font-size:0.8rem; color:var(--text-muted);"></span>
   </div>
@@ -72,28 +71,23 @@ lang_url_zh: /zh/comparison.html
     <table id="comparison-table" style="width:100%; border-collapse:collapse; font-size:0.82rem;">
       <thead>
         <tr style="border-bottom:2px solid var(--border-color); text-align:left;">
-          <th style="padding:0.5rem 0.6rem; white-space:nowrap; cursor:pointer;" data-col="service_name">Service ↕</th>
-          <th style="padding:0.5rem 0.6rem; cursor:pointer;" data-col="category_label">Category ↕</th>
-          <th style="padding:0.5rem 0.6rem; text-align:right; cursor:pointer; white-space:nowrap;" data-col="rep_notices">Reported<br>notices ↕</th>
-          <th style="padding:0.5rem 0.6rem; text-align:right; cursor:pointer; white-space:nowrap;" data-col="sor_notices">SoR<br>notices ↕</th>
-          <th style="padding:0.5rem 0.6rem; text-align:right; cursor:pointer; white-space:nowrap;" data-col="rep_own_illegal">Reported<br>own-init ↕</th>
-          <th style="padding:0.5rem 0.6rem; text-align:right; cursor:pointer; white-space:nowrap;" data-col="sor_own_illegal">SoR<br>own-init ↕</th>
-          <th style="padding:0.5rem 0.6rem; text-align:center; cursor:pointer;" data-col="worst_flag">Flag ↕</th>
+          <th style="padding:0.5rem 0.6rem; white-space:nowrap; cursor:pointer;" data-col="service_name">서비스 ↕</th>
+          <th style="padding:0.5rem 0.6rem; cursor:pointer;" data-col="category_label">카테고리 ↕</th>
+          <th style="padding:0.5rem 0.6rem; text-align:right; cursor:pointer; white-space:nowrap;" data-col="rep_notices">보고된<br>통지 수 ↕</th>
+          <th style="padding:0.5rem 0.6rem; text-align:right; cursor:pointer; white-space:nowrap;" data-col="sor_notices">SoR<br>통지 수 ↕</th>
+          <th style="padding:0.5rem 0.6rem; text-align:right; cursor:pointer; white-space:nowrap;" data-col="rep_own_illegal">보고된<br>자발적 조치 ↕</th>
+          <th style="padding:0.5rem 0.6rem; text-align:right; cursor:pointer; white-space:nowrap;" data-col="sor_own_illegal">SoR<br>자발적 조치 ↕</th>
+          <th style="padding:0.5rem 0.6rem; text-align:center; cursor:pointer;" data-col="worst_flag">플래그 ↕</th>
         </tr>
       </thead>
       <tbody id="comparison-body">
-        <tr><td colspan="7" style="padding:2rem; text-align:center; color:var(--text-muted);">Loading…</td></tr>
+        <tr><td colspan="7" style="padding:2rem; text-align:center; color:var(--text-muted);">로딩 중…</td></tr>
       </tbody>
     </table>
   </div>
 
   <p style="color:var(--text-muted); font-size:0.78rem; margin-top:1.5rem; max-width:720px;">
-    <strong>Methodology:</strong> "Reported" figures come from platform-published H2 2025 DSA transparency
-    reports (t4: notices by category; t5: own-initiative illegal content actions). "SoR" figures are
-    independently aggregated from EUDSATDB Statements of Reasons for the same period using
-    <code>source_type</code> and <code>category</code> fields. The comparison covers only t4 notices
-    and t5/t6 own-initiative actions — tables t3/t7–t11 have no SoR equivalent.
-    Delta = |reported − sor| / max(reported, sor).
+    <strong>방법론:</strong> "보고된" 수치는 플랫폼이 공개한 H2 2025 DSA 투명성 보고서(t4: 카테고리별 통지 수; t5: 자발적 조치 — 불법 콘텐츠)에서 가져옵니다. "SoR" 수치는 동일 기간 EUDSATDB의 <code>source_type</code> 및 <code>category</code> 필드를 사용해 독립 집계한 것입니다. 불일치 계산식: |보고값 − SoR값| / max(보고값, SoR값).
   </p>
 
   <p style="color:var(--text-muted); font-size:0.78rem; max-width:720px;">
@@ -101,7 +95,7 @@ lang_url_zh: /zh/comparison.html
     &middot;
     <a href="https://github.com/krmaynard/krmaynard.github.io/blob/main/scripts/compare-reports.py">compare-reports.py</a>
     &middot;
-    <a href="https://transparency.dsa.ec.europa.eu">EU DSA Transparency Database</a>
+    <a href="https://transparency.dsa.ec.europa.eu">EU DSA 투명성 데이터베이스</a>
   </p>
 </div>
 
@@ -126,7 +120,7 @@ lang_url_zh: /zh/comparison.html
     let rows = allRows.filter(r =>
       (!svc  || r.service_name === svc) &&
       (!flag || r.worst_flag   === flag) &&
-      (!cat  || r.category_label.toLowerCase().includes(cat) || r.category_code.toLowerCase().includes(cat))
+      (!cat  || r.category_label?.toLowerCase().includes(cat) || r.category_code?.toLowerCase().includes(cat))
     );
 
     rows.sort((a, b) => {
@@ -142,10 +136,10 @@ lang_url_zh: /zh/comparison.html
       return 0;
     });
 
-    document.getElementById('row-count').textContent = rows.length + ' rows';
+    document.getElementById('row-count').textContent = rows.length + '개';
     const tbody = document.getElementById('comparison-body');
     if (!rows.length) {
-      tbody.innerHTML = '<tr><td colspan="7" style="padding:2rem; text-align:center; color:var(--text-muted);">No matching rows.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="7" style="padding:2rem; text-align:center; color:var(--text-muted);">일치하는 행이 없습니다.</td></tr>';
       return;
     }
 
@@ -162,7 +156,7 @@ lang_url_zh: /zh/comparison.html
   }
 
   function initFilters(rows) {
-    const svcs = [...new Set(rows.map(r => r.service_name))].sort();
+    const svcs = [...new Set(rows.map(r => r.service_name).filter(Boolean))].sort();
     const sel = document.getElementById('filter-service');
     svcs.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; sel.appendChild(o); });
   }
@@ -178,7 +172,7 @@ lang_url_zh: /zh/comparison.html
   fetch('{{ "/data/sor-comparison-H2-2025.json" | relative_url }}')
     .then(r => r.json())
     .then(data => {
-      if (data._fixture) document.getElementById('sample-notice').style.display = 'block';
+      if (data?._fixture) document.getElementById('sample-notice').style.display = 'block';
       allRows = data.rows || [];
       initSummary(data.summary || {});
       initFilters(allRows);
@@ -186,7 +180,7 @@ lang_url_zh: /zh/comparison.html
     })
     .catch(() => {
       document.getElementById('comparison-body').innerHTML =
-        '<tr><td colspan="7" style="padding:2rem; text-align:center; color:var(--text-muted);">Data not yet available. Run scripts/fetch-sor-aggs.py to generate it.</td></tr>';
+        '<tr><td colspan="7" style="padding:2rem; text-align:center; color:var(--text-muted);">데이터가 아직 생성되지 않았습니다. scripts/fetch-sor-aggs.py를 실행하세요.</td></tr>';
     });
 
   ['filter-service', 'filter-flag', 'filter-cat'].forEach(id =>
