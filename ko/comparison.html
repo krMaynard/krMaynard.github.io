@@ -120,7 +120,7 @@ lang_url_zh: /zh/comparison.html
     let rows = allRows.filter(r =>
       (!svc  || r.service_name === svc) &&
       (!flag || r.worst_flag   === flag) &&
-      (!cat  || r.category_label.toLowerCase().includes(cat) || r.category_code.toLowerCase().includes(cat))
+      (!cat  || r.category_label?.toLowerCase().includes(cat) || r.category_code?.toLowerCase().includes(cat))
     );
 
     rows.sort((a, b) => {
@@ -156,7 +156,7 @@ lang_url_zh: /zh/comparison.html
   }
 
   function initFilters(rows) {
-    const svcs = [...new Set(rows.map(r => r.service_name))].sort();
+    const svcs = [...new Set(rows.map(r => r.service_name).filter(Boolean))].sort();
     const sel = document.getElementById('filter-service');
     svcs.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; sel.appendChild(o); });
   }
@@ -172,7 +172,7 @@ lang_url_zh: /zh/comparison.html
   fetch('{{ "/data/sor-comparison-H2-2025.json" | relative_url }}')
     .then(r => r.json())
     .then(data => {
-      if (data._fixture) document.getElementById('sample-notice').style.display = 'block';
+      if (data?._fixture) document.getElementById('sample-notice').style.display = 'block';
       allRows = data.rows || [];
       initSummary(data.summary || {});
       initFilters(allRows);
