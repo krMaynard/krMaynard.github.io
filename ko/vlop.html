@@ -8,108 +8,31 @@ lang_url_zh: /zh/vlop.html
 ---
 
 <div style="padding-top: 2.5rem; margin-bottom: 0.5rem;">
-  <p class="section-label">분석</p>
+  <p class="section-label">케이스 스터디</p>
   <h1 style="margin-top: 0; margin-bottom: 0.5rem;">DSA 투명성 보고서 — VLOP 및 VLOSE</h1>
   <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
-    EU 디지털 서비스법(DSA)에 따라 초대형 온라인 플랫폼(VLOP) 및 초대형 온라인 검색 엔진(VLOSE)은 콘텐츠 모더레이션에 관한 투명성 보고서를 공개해야 합니다.
-    이 대시보드는 보고 기간 <strong>2025년 7월 1일~12월 31일</strong>의
-    25개 서비스를 단일 비교 뷰로 결합합니다. 이 기간에 보고서를 공개한 모든 지정 VLOP 및 VLOSE를 포함하며,
-    성인 동영상 플랫폼 Pornhub, XVideos, XNXX도 포함합니다.
-    Stripchat은 2025년 5월 지정 해제되었으며, WhatsApp Channels는 본 보고 기간 이후인 2026년 1월에 지정되었습니다.
-    전체 지정 타임라인은 대시보드 하단을 참조하세요.
+    EU 디지털 서비스법(DSA)에 따라 초대형 온라인 플랫폼(VLOP) 및 초대형 온라인 검색 엔진(VLOSE)은 콘텐츠 모더레이션에 관한 투명성 보고서를 반년마다 공개해야 합니다.
+    이 프로젝트는 2025년 하반기 보고서를 25개 서비스에 걸쳐 집계하여 단일 크로스플랫폼 대시보드로 구축했습니다.
+    이 기간에 활동한 VLOP 22개와 VLOSE 2개 모두를 포함하며, DSA 보고서의 9개 테이블 전체를 다룹니다:
+    통지, 자발적 조치, 정부 명령, 이의 신청, 자동화 수단, 인적 자원, 이용자 도달 범위, 정성 정보.
   </p>
-  <p style="color: var(--text-faint); font-size: 0.85rem; margin-bottom: 2rem; background: transparent;">
+  <p style="color: var(--text-muted); max-width: 720px; line-height: 1.65; background: transparent;">
     출처: AliExpress, Amazon, Apple(App Store), Bing, Booking.com, LinkedIn, Meta(Facebook, Instagram), Pinterest, Pornhub, SHEIN, Snapchat, Temu,
-    TikTok, Wikipedia, X, XNXX, XVideos, YouTube / Google(6개 서비스), Zalando의 공식 DSA 투명성 보고서.
-    데이터는 브라우저에서 처리됩니다; 백엔드로 요청이 전송되지 않습니다.
+    TikTok, Wikipedia, X, XNXX, XVideos, YouTube / Google(6개 서비스), Zalando.
+    원본 파일: <a href="https://github.com/krMaynard/dsa-transparency-data">github.com/krMaynard/dsa-transparency-data</a>.
   </p>
 </div>
 
-<!-- ── Tabs ──────────────────────────────────────────────── -->
-<div id="vlop-loading" class="td-loading">데이터 로딩 중…</div>
-
-<div id="vlop-app" hidden>
-
-  <nav class="vlop-tabs" role="tablist" aria-label="보고서 섹션">
-    <button class="vlop-tab vlop-tab-active" role="tab" data-tab="t4">통지</button>
-    <button class="vlop-tab" role="tab" data-tab="t5">자발적 조치: 불법</button>
-    <button class="vlop-tab" role="tab" data-tab="t6">자발적 조치: 정책</button>
-    <button class="vlop-tab" role="tab" data-tab="t3">정부 명령</button>
-    <button class="vlop-tab" role="tab" data-tab="t7">이의 신청</button>
-    <button class="vlop-tab" role="tab" data-tab="t8">자동화 수단</button>
-    <button class="vlop-tab" role="tab" data-tab="t9">인적 자원</button>
-    <button class="vlop-tab" role="tab" data-tab="t10">이용자 도달 범위</button>
-    <button class="vlop-tab" role="tab" data-tab="t11">정성 정보</button>
-  </nav>
-
-  <!-- ── Filters ─────────────────────────────────────────── -->
-  <div class="td-filters vlop-filters" role="region" aria-label="필터">
-    <div class="td-filter td-filter-wide">
-      <label for="vlop-platform">플랫폼</label>
-      <select id="vlop-platform"></select>
-    </div>
-    <div class="td-filter td-filter-wide">
-      <label for="vlop-service">서비스</label>
-      <select id="vlop-service"></select>
-    </div>
-    <div class="td-filter td-filter-wide" id="vlop-cat-wrap">
-      <label for="vlop-category">카테고리</label>
-      <select id="vlop-category"></select>
-    </div>
-    <div class="td-filter td-filter-wide" id="vlop-kw-wrap">
-      <label for="vlop-keyword">키워드</label>
-      <select id="vlop-keyword"></select>
-    </div>
-    <div class="td-filter td-filter-wide" id="vlop-surf-wrap" hidden>
-      <label for="vlop-surface">구분</label>
-      <select id="vlop-surface"></select>
-    </div>
-    <div class="td-filter td-filter-wide" id="vlop-country-wrap" hidden>
-      <label for="vlop-country">국가</label>
-      <select id="vlop-country"></select>
-    </div>
-    <button type="button" id="vlop-reset" class="td-reset">필터 초기화</button>
-  </div>
-
-  <!-- ── Metric cards ───────────────────────────────────── -->
-  <div id="vlop-metrics" class="td-metrics"></div>
-
-  <!-- ── Charts ────────────────────────────────────────── -->
-  <div id="vlop-charts" class="td-chart-grid"></div>
-
-  <!-- ── Table ─────────────────────────────────────────── -->
-  <div id="vlop-table-wrap" class="td-table-card" hidden>
-    <div class="td-table-head">
-      <h3 id="vlop-table-title">세부 내용</h3>
-      <span id="vlop-row-count" class="td-row-count"></span>
-    </div>
-    <div class="td-table-scroll">
-      <table class="td-table">
-        <thead><tr id="vlop-table-head"></tr></thead>
-        <tbody id="vlop-table-body"></tbody>
-      </table>
-    </div>
-  </div>
-
+<!-- ── 라이브 도구 CTA ──────────────────────────────── -->
+<div class="card" style="margin: 2rem 0;">
+  <p class="section-label" style="margin: 0 0 0.4rem;">라이브 도구</p>
+  <h3 style="margin-top: 0;">데이터 탐색하기</h3>
+  <p>전체 데이터셋은 투명성 보고서 API에서 이용 가능합니다 — 9개 DSA 테이블 전체에 걸친 인터랙티브 차트, 구조화된 쿼리, 그리고 Claude로 구동되는 자연어 질문 기능을 제공합니다.</p>
+  <a href="https://transparency.kieranmaynard.com/reports" class="card-link">라이브 대시보드 열기 &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/portal" class="card-link">연구자 포털 &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/docs" class="card-link">API 문서 &rarr;</a>
 </div>
 
-<!-- ── Notes ─────────────────────────────────────────────── -->
-<!-- ── VLOP / VLOSE designation timeline ─────────────────── -->
-<section class="td-table-card" id="vlop-designations" style="margin-top: 2rem;" hidden>
-  <div class="td-table-head">
-    <h3 id="vlop-desig-title">Designations</h3>
-    <span id="vlop-desig-count" class="td-row-count"></span>
-  </div>
-  <p id="vlop-desig-intro" class="td-desig-intro"></p>
-  <div class="td-table-scroll">
-    <table class="td-table">
-      <thead><tr id="vlop-desig-head"></tr></thead>
-      <tbody id="vlop-desig-body"></tbody>
-    </table>
-  </div>
-</section>
-
-<section class="td-readme" id="vlop-readme" hidden>
+<!-- ── 데이터 읽는 법 ────────────────────────────────────── -->
+<section class="td-readme">
   <h2 class="td-section-title">데이터 읽는 법</h2>
   <ul class="td-bullets">
     <li><strong>통지(표 4)</strong>는 사용자 또는 신뢰할 수 있는 신고자가 불법일 수 있는 콘텐츠를 신고하기 위해 제출한 것입니다. 하나의 통지에 여러 항목이 포함될 수 있습니다.</li>
@@ -129,45 +52,6 @@ lang_url_zh: /zh/vlop.html
 <hr class="section-divider" />
 
 <p style="color: var(--text-very-faint); font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
-  데이터: AliExpress, Amazon, Apple(App Store), Bing, Booking.com, LinkedIn, Meta(Facebook, Instagram), Pinterest, Pornhub, SHEIN, Snapchat, Temu, TikTok, Wikimedia Foundation(Wikipedia), X, XNXX, XVideos, YouTube/Google, Zalando의 공식 DSA 투명성 보고서(H2 2025).
-  원본 파일: <a href="https://github.com/krMaynard/dsa-transparency-data">github.com/krMaynard/dsa-transparency-data</a>.
-  분석 및 시각화: 키어런 메이나드. 차트는 <a href="https://www.chartjs.org/">Chart.js</a> 사용.
+  데이터: 각 공식 DSA 투명성 보고서(H2 2025). 분석: 키어런 메이나드.
 </p>
 
-<style>
-.vlop-tabs {
-  display: flex;
-  gap: 0.25rem;
-  flex-wrap: wrap;
-  margin-bottom: 1.25rem;
-  border-bottom: 2px solid var(--border);
-  padding-bottom: 0;
-}
-.vlop-tab {
-  background: none;
-  border: none;
-  border-bottom: 3px solid transparent;
-  margin-bottom: -2px;
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-  cursor: pointer;
-  color: var(--text-muted);
-  font-family: inherit;
-  transition: color 0.15s, border-color 0.15s;
-}
-.vlop-tab:hover { color: var(--text); }
-.vlop-tab-active {
-  color: var(--text);
-  border-bottom-color: var(--accent, #4e79a7);
-  font-weight: 600;
-}
-.vlop-filters { margin-bottom: 1.25rem; }
-@media (max-width: 600px) {
-  .vlop-tabs { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; scrollbar-width: none; }
-  .vlop-tabs::-webkit-scrollbar { display: none; }
-  .vlop-tab { font-size: 0.8rem; padding: 0.4rem 0.7rem; white-space: nowrap; }
-}
-</style>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer></script>
-<script src="/vlop-dashboard.js" defer></script>

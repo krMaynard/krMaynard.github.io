@@ -8,23 +8,18 @@ lang_url_ja: /ja/google-removals.html
 lang_url_zh: /zh/google-removals.html
 ---
 
-<div style="padding-top: 2.5rem; margin-bottom: 0.5rem;"><p class="section-label">분석</p></div>
+<div style="padding-top: 2.5rem; margin-bottom: 0.5rem;"><p class="section-label">케이스 스터디</p></div>
 
 <p style="margin-top: 2rem;"><a href="/ko/transparency.html">← 투명성 데이터</a></p>
 
 <div style="padding-top: 1.5rem; margin-bottom: 0.5rem;">
-  <p class="section-label">대시보드</p>
   <h2 style="margin-top: 0; margin-bottom: 0.5rem;">Google 콘텐츠 삭제 정부 요청</h2>
   <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
     2014년부터 2024년까지 저는 <a href="https://transparencyreport.google.com/government-removals/explore">Google 투명성 보고서</a>의 중화권 부분 주요 작성자 중 한 명이었습니다.
-    이 대시보드는 Google이 2019년에 채택한 상세 보고 형식의 <em>정부 삭제 요청</em> 데이터를
-    <strong>13개 보고 기간</strong>, <strong>160개국</strong>, <strong>42개 Google 제품</strong>, <strong>22개 삭제 사유</strong>에 걸쳐 탐색합니다.
+    이 프로젝트는 Google이 2019년에 채택한 상세 보고 형식의 <em>정부 삭제 요청</em> 데이터를
+    <strong>13개 보고 기간</strong>, <strong>160개국</strong>, <strong>42개 Google 제품</strong>, <strong>22개 삭제 사유</strong>에 걸친 다년도 트렌드 탐색기로 변환합니다.
     기간별로 구성된 Google 자체 보고서와 달리, 이 뷰는 <strong>보고 기간에 걸친 트렌드</strong>를 중심으로 구성되어 있습니다:
     모든 필터 조합이 다년도 시계열이 되며, 시계열을 국가, 요청자, 제품, 사유별로 분류할 수 있습니다.
-  </p>
-  <p style="color: var(--text-faint); font-size: 0.85rem; margin-bottom: 2rem; background: transparent;">
-    출처: <a href="https://transparencyreport.google.com/government-removals/overview">Google 투명성 보고서 — 정부 콘텐츠 삭제 요청</a>.
-    데이터는 브라우저에서 직접 처리되며 백엔드로 요청이 전송되지 않습니다.
   </p>
 </div>
 
@@ -46,103 +41,13 @@ lang_url_zh: /zh/google-removals.html
   </div>
 </section>
 
-<section class="td-dashboard">
-  <div id="td-loading" class="td-loading">데이터 로딩 중…</div>
-
-  <div id="td-app" hidden>
-
-    <div class="td-filters" role="region" aria-label="대시보드 필터">
-      <div class="td-filter">
-        <label for="td-from">시작</label>
-        <select id="td-from"></select>
-      </div>
-      <div class="td-filter">
-        <label for="td-to">종료</label>
-        <select id="td-to"></select>
-      </div>
-      <div class="td-filter td-filter-wide">
-        <label for="td-country">국가</label>
-        <select id="td-country"></select>
-      </div>
-      <div class="td-filter td-filter-wide">
-        <label for="td-requestor">요청자</label>
-        <select id="td-requestor"></select>
-      </div>
-      <div class="td-filter td-filter-wide">
-        <label for="td-product">제품</label>
-        <select id="td-product"></select>
-      </div>
-      <div class="td-filter td-filter-wide">
-        <label for="td-reason">사유</label>
-        <select id="td-reason"></select>
-      </div>
-      <button type="button" id="td-reset" class="td-reset">필터 초기화</button>
-    </div>
-
-    <p class="td-range-line">
-      표시 중인 보고 기간: <strong id="td-range-label">—</strong>
-    </p>
-
-    <div id="td-metrics" class="td-metrics"></div>
-
-    <div class="td-chart-grid">
-      <div class="td-chart-card td-chart-card-wide">
-        <div class="td-chart-head">
-          <h3>보고 기간별 삭제 요청 항목 수</h3>
-          <div class="td-breakdown">
-            <label for="td-breakdown">분류 기준</label>
-            <select id="td-breakdown"></select>
-          </div>
-        </div>
-        <div class="td-chart-wrap"><canvas id="td-chart-time" aria-label="시계열 차트"></canvas></div>
-      </div>
-
-      <div class="td-chart-card td-chart-card-wide">
-        <h3>시간에 따른 삭제율</h3>
-        <div class="td-chart-wrap"><canvas id="td-chart-rate" aria-label="시간에 따른 삭제율"></canvas></div>
-      </div>
-
-      <div class="td-chart-card">
-        <h3>삭제 요청 항목 수 기준 상위 10개국</h3>
-        <div class="td-chart-wrap td-chart-tall"><canvas id="td-chart-countries" aria-label="국가별 막대 차트"></canvas></div>
-      </div>
-
-      <div class="td-chart-card">
-        <h3>주요 삭제 사유</h3>
-        <div class="td-chart-wrap td-chart-tall"><canvas id="td-chart-reasons" aria-label="삭제 사유 도넛 차트"></canvas></div>
-      </div>
-
-      <div class="td-chart-card">
-        <h3>대상 Google 제품</h3>
-        <div class="td-chart-wrap td-chart-tall"><canvas id="td-chart-products" aria-label="제품별 막대 차트"></canvas></div>
-      </div>
-
-      <div class="td-chart-card">
-        <h3>Google의 응답 분류</h3>
-        <div class="td-chart-wrap td-chart-tall"><canvas id="td-chart-compliance" aria-label="응답 분류 막대 차트"></canvas></div>
-      </div>
-    </div>
-
-    <div class="td-table-card">
-      <div class="td-table-head">
-        <h3>필터링된 레코드 (삭제 요청 항목 수 기준 상위 25개)</h3>
-        <span id="td-row-count" class="td-row-count"></span>
-      </div>
-      <div class="td-table-scroll">
-        <table class="td-table">
-          <thead>
-            <tr>
-              <th>기간</th><th>국가</th><th>요청자</th><th>제품</th><th>사유</th>
-              <th class="td-num">요청 항목 수</th><th class="td-num">삭제 수</th>
-            </tr>
-          </thead>
-          <tbody id="td-table-body"></tbody>
-        </table>
-      </div>
-    </div>
-
-  </div>
-</section>
+<!-- ── 라이브 도구 CTA ──────────────────────────────── -->
+<div class="card" style="margin: 2rem 0;">
+  <p class="section-label" style="margin: 0 0 0.4rem;">라이브 도구</p>
+  <h3 style="margin-top: 0;">데이터 탐색하기</h3>
+  <p>전체 데이터셋은 인터랙티브 대시보드로 제공됩니다 — 기간, 국가, 제품, 사유별로 필터링하고, 삭제율 추이와 처리 결과 분류를 포함한 다년도 트렌드 차트를 탐색하세요.</p>
+  <a href="https://transparency.kieranmaynard.com/removals" class="card-link">라이브 대시보드 열기 &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/docs" class="card-link">API 문서 &rarr;</a>
+</div>
 
 <section class="td-readme">
   <h2 class="td-section-title">주목할 점</h2>
@@ -162,8 +67,6 @@ lang_url_zh: /zh/google-removals.html
 <hr class="section-divider" />
 
 <p style="color: var(--text-very-faint); font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
-  데이터: <a href="https://transparencyreport.google.com/government-removals/overview">Google 투명성 보고서</a>, 상세 보고 형식 (2019~2025년 상반기). 분석 및 시각화: 키어런 메이나드. 차트는 <a href="https://www.chartjs.org/">Chart.js</a> 사용.
+  데이터: <a href="https://transparencyreport.google.com/government-removals/overview">Google 투명성 보고서</a>, 상세 보고 형식 (2019~2025년 상반기). 분석: 키어런 메이나드.
 </p>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer></script>
-<script src="/transparency-dashboard.js" defer></script>

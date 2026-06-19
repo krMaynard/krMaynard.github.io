@@ -8,107 +8,33 @@ lang_url_ko: /ko/vlop.html
 ---
 
 <div style="padding-top: 2.5rem; margin-bottom: 0.5rem;">
-  <p class="section-label">Analysis</p>
+  <p class="section-label">Case study</p>
   <h1 style="margin-top: 0; margin-bottom: 0.5rem;">DSA Transparency Reports — VLOPs &amp; VLOSEs</h1>
   <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
     Under the EU Digital Services Act, Very Large Online Platforms (VLOPs) and Very Large Online Search Engines (VLOSEs)
-    must publish transparency reports on content moderation.
-    This dashboard covers H2 2025 reports (reporting period <strong>1 July – 31 December 2025</strong>),
-    combining 25 services into a single comparative view. It covers all 22 VLOPs active during this period and the 2 VLOSEs. See the designation timeline below the dashboard for the full list.
+    must publish biannual transparency reports on content moderation.
+    This project aggregates H2 2025 reports from 25 services into a single cross-platform dashboard,
+    covering all 22 VLOPs active during this period and the 2 VLOSEs across all 9 DSA report tables:
+    notices, own-initiative actions, government orders, appeals, automated means, human resources,
+    user reach, and qualitative descriptions.
   </p>
-  <p style="color: var(--text-faint); font-size: 0.85rem; margin-bottom: 2rem; background: transparent;">
-    Sources: official DSA transparency reports from AliExpress, Amazon, Apple (App Store),
-    Bing, Booking.com, LinkedIn, Meta (Facebook, Instagram), Pinterest, Pornhub, SHEIN, Snapchat, Temu,
-    TikTok, Wikipedia, X, XNXX, XVideos, YouTube / Google (6 services), and Zalando.
-    Data is processed in your browser; no requests are sent to a backend.
+  <p style="color: var(--text-muted); max-width: 720px; line-height: 1.65; background: transparent;">
+    Sources: AliExpress, Amazon, Apple (App Store), Bing, Booking.com, LinkedIn, Meta (Facebook, Instagram),
+    Pinterest, Pornhub, SHEIN, Snapchat, Temu, TikTok, Wikipedia, X, XNXX, XVideos, YouTube / Google (6 services), and Zalando.
+    Raw source files: <a href="https://github.com/krMaynard/dsa-transparency-data">github.com/krMaynard/dsa-transparency-data</a>.
   </p>
 </div>
 
-<!-- ── Tabs ──────────────────────────────────────────────── -->
-<div id="vlop-loading" class="td-loading">Loading data…</div>
-
-<div id="vlop-app" hidden>
-
-  <nav class="vlop-tabs" role="tablist" aria-label="Report sections">
-    <button class="vlop-tab vlop-tab-active" role="tab" data-tab="t4">Notices</button>
-    <button class="vlop-tab" role="tab" data-tab="t5">Own-initiative: Illegal</button>
-    <button class="vlop-tab" role="tab" data-tab="t6">Own-initiative: Policy</button>
-    <button class="vlop-tab" role="tab" data-tab="t3">Government Orders</button>
-    <button class="vlop-tab" role="tab" data-tab="t7">Appeals</button>
-    <button class="vlop-tab" role="tab" data-tab="t8">Automated Means</button>
-    <button class="vlop-tab" role="tab" data-tab="t9">Human Resources</button>
-    <button class="vlop-tab" role="tab" data-tab="t10">User Reach</button>
-    <button class="vlop-tab" role="tab" data-tab="t11">Qualitative</button>
-  </nav>
-
-  <!-- ── Filters ─────────────────────────────────────────── -->
-  <div class="td-filters vlop-filters" role="region" aria-label="Filters">
-    <div class="td-filter td-filter-wide">
-      <label for="vlop-platform">Platform</label>
-      <select id="vlop-platform"></select>
-    </div>
-    <div class="td-filter td-filter-wide">
-      <label for="vlop-service">Service</label>
-      <select id="vlop-service"></select>
-    </div>
-    <div class="td-filter td-filter-wide" id="vlop-cat-wrap">
-      <label for="vlop-category">Category</label>
-      <select id="vlop-category"></select>
-    </div>
-    <div class="td-filter td-filter-wide" id="vlop-kw-wrap">
-      <label for="vlop-keyword">Keyword</label>
-      <select id="vlop-keyword"></select>
-    </div>
-    <div class="td-filter td-filter-wide" id="vlop-surf-wrap" hidden>
-      <label for="vlop-surface">Surface</label>
-      <select id="vlop-surface"></select>
-    </div>
-    <div class="td-filter td-filter-wide" id="vlop-country-wrap" hidden>
-      <label for="vlop-country">Country</label>
-      <select id="vlop-country"></select>
-    </div>
-    <button type="button" id="vlop-reset" class="td-reset">Reset filters</button>
-  </div>
-
-  <!-- ── Metric cards ───────────────────────────────────── -->
-  <div id="vlop-metrics" class="td-metrics"></div>
-
-  <!-- ── Charts ────────────────────────────────────────── -->
-  <div id="vlop-charts" class="td-chart-grid"></div>
-
-  <!-- ── Table ─────────────────────────────────────────── -->
-  <div id="vlop-table-wrap" class="td-table-card" hidden>
-    <div class="td-table-head">
-      <h3 id="vlop-table-title">Details</h3>
-      <span id="vlop-row-count" class="td-row-count"></span>
-    </div>
-    <div class="td-table-scroll">
-      <table class="td-table">
-        <thead><tr id="vlop-table-head"></tr></thead>
-        <tbody id="vlop-table-body"></tbody>
-      </table>
-    </div>
-  </div>
-
+<!-- ── Live tool CTA ───────────────────────────────────────── -->
+<div class="card" style="margin: 2rem 0;">
+  <p class="section-label" style="margin: 0 0 0.4rem;">Live tool</p>
+  <h3 style="margin-top: 0;">Explore the data</h3>
+  <p>The full dataset is available on the Transparency Report API — interactive charts, structured queries across all 9 DSA tables, and a natural-language Ask box powered by Claude.</p>
+  <a href="https://transparency.kieranmaynard.com/reports" class="card-link">Open live dashboard &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/portal" class="card-link">Researcher portal &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/docs" class="card-link">API docs &rarr;</a>
 </div>
 
-<!-- ── VLOP / VLOSE designation timeline ─────────────────── -->
-<section class="td-table-card" id="vlop-designations" style="margin-top: 2rem;" hidden>
-  <div class="td-table-head">
-    <h3 id="vlop-desig-title">Designations</h3>
-    <span id="vlop-desig-count" class="td-row-count"></span>
-  </div>
-  <p id="vlop-desig-intro" class="td-desig-intro"></p>
-  <div class="td-table-scroll">
-    <table class="td-table">
-      <thead><tr id="vlop-desig-head"></tr></thead>
-      <tbody id="vlop-desig-body"></tbody>
-    </table>
-  </div>
-</section>
-
-<!-- ── Notes ─────────────────────────────────────────────── -->
-<section class="td-readme" id="vlop-readme" hidden>
+<!-- ── Reading the data ────────────────────────────────────── -->
+<section class="td-readme">
   <h2 class="td-section-title">Reading the data</h2>
   <ul class="td-bullets">
     <li><strong>Notices (Table 4)</strong> are submissions from users or trusted flaggers reporting allegedly illegal content. A single notice can reference multiple items.</li>
@@ -117,10 +43,9 @@ lang_url_ko: /ko/vlop.html
     <li><strong>Appeals (Table 7)</strong> covers complaints submitted to a platform's internal mechanism and out-of-court dispute settlement bodies.</li>
     <li><strong>Automated means (Table 8)</strong> reports volume of moderation actions taken by automated means versus human review, along with accuracy, precision, and recall metrics per service and language.</li>
     <li><strong>Human resources (Table 9)</strong> reports the number of internal and external content moderators employed by each platform, including a breakdown by language.</li>
-    <li><strong>User reach (Table 10)</strong> reports the average monthly active recipients (AMAR) per EU member state. Some platforms report approximate figures: Booking.com uses ranges (midpoint shown); Temu uses "M" notation; Google services link to a separate MAR report and are omitted. Values below 1,000 in the source are treated as millions.</li>
-    <li><strong>Qualitative information (Table 11)</strong> contains each service's free-text descriptions of its content moderation governance, automated means, and human resources. Use the Indicator filter to compare one topic across services. Long values are collapsed by default; click <em>Show more</em> to read the full text.</li>
-    <li><strong>TOTAL rows</strong> aggregate all content categories and are shown when "All categories" is selected.</li>
-    <li><strong>Surface (Tables 6, 7 &amp; 8)</strong> — Google reports these as several disjoint sub-reports per service (organic "Core", "Ads", and for Search a breakdown by action level: URL-, domain-, host-level, etc.). They are summed by default; filter to Google (or one of its services) on those tabs and a <em>Surface</em> control appears to isolate a single breakdown.</li>
+    <li><strong>User reach (Table 10)</strong> reports the average monthly active recipients (AMAR) per EU member state. Some platforms report approximate figures: Booking.com uses ranges (midpoint shown); Temu uses "M" notation; Google services link to a separate MAR report and are omitted.</li>
+    <li><strong>Qualitative information (Table 11)</strong> contains each service's free-text descriptions of its content moderation governance, automated means, and human resources.</li>
+    <li><strong>TOTAL rows</strong> aggregate all content categories.</li>
     <li>Empty cells in the source data are treated as zero or not applicable. Contextual notes from individual platforms are not included in this view.</li>
   </ul>
 </section>
@@ -128,46 +53,5 @@ lang_url_ko: /ko/vlop.html
 <hr class="section-divider" />
 
 <p style="color: var(--text-very-faint); font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
-  Data: official DSA transparency reports covering H2 2025 from AliExpress, Amazon, Apple (App Store), Bing, Booking.com, LinkedIn, Meta (Facebook, Instagram), Pinterest, Pornhub, SHEIN, Snapchat, Temu, TikTok, Wikimedia Foundation (Wikipedia), X, XNXX, XVideos, YouTube / Google, and Zalando.
-  Raw source files: <a href="https://github.com/krMaynard/dsa-transparency-data">github.com/krMaynard/dsa-transparency-data</a>.
-  Analysis and visualizations by Kieran Maynard. Charts use <a href="https://www.chartjs.org/">Chart.js</a>.
-  No analytics or tracking beyond the site default.
+  Data: official DSA transparency reports, H2 2025. Analysis by Kieran Maynard. No analytics or tracking beyond the site default.
 </p>
-
-<style>
-.vlop-tabs {
-  display: flex;
-  gap: 0.25rem;
-  flex-wrap: wrap;
-  margin-bottom: 1.25rem;
-  border-bottom: 2px solid var(--border);
-  padding-bottom: 0;
-}
-.vlop-tab {
-  background: none;
-  border: none;
-  border-bottom: 3px solid transparent;
-  margin-bottom: -2px;
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-  cursor: pointer;
-  color: var(--text-muted);
-  font-family: inherit;
-  transition: color 0.15s, border-color 0.15s;
-}
-.vlop-tab:hover { color: var(--text); }
-.vlop-tab-active {
-  color: var(--text);
-  border-bottom-color: var(--accent, #4e79a7);
-  font-weight: 600;
-}
-.vlop-filters { margin-bottom: 1.25rem; }
-@media (max-width: 600px) {
-  .vlop-tabs { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; scrollbar-width: none; }
-  .vlop-tabs::-webkit-scrollbar { display: none; }
-  .vlop-tab { font-size: 0.8rem; padding: 0.4rem 0.7rem; white-space: nowrap; }
-}
-</style>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer></script>
-<script src="/vlop-dashboard.js" defer></script>

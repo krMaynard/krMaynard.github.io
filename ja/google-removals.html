@@ -8,22 +8,17 @@ lang_url_zh: /zh/google-removals.html
 lang_url_ko: /ko/google-removals.html
 ---
 
-<div style="padding-top: 2.5rem; margin-bottom: 0.5rem;"><p class="section-label">分析</p></div>
+<div style="padding-top: 2.5rem; margin-bottom: 0.5rem;"><p class="section-label">ケーススタディ</p></div>
 
 <p style="margin-top: 2rem;"><a href="/ja/transparency.html">← 透明性データ</a></p>
 
 <div style="padding-top: 1.5rem; margin-bottom: 0.5rem;">
-  <p class="section-label">ダッシュボード</p>
   <h2 style="margin-top: 0; margin-bottom: 0.5rem;">政府によるGoogleコンテンツ削除要請</h2>
   <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
     2014年から2024年まで、私は<a href="https://transparencyreport.google.com/government-removals/explore">Google透明性レポート</a>の大中華圏部分の主要執筆者の一人を務めました。
-    このダッシュボードでは、Googleが2019年に採用した詳細報告形式の<em>政府削除要請</em>データを、
-    <strong>13の報告期間</strong>、<strong>160か国</strong>、<strong>42のGoogleプロダクト</strong>、<strong>22の削除理由</strong>にわたって可視化しています。
+    このプロジェクトでは、Googleが2019年に採用した詳細報告形式の<em>政府削除要請</em>データを、
+    <strong>13の報告期間</strong>、<strong>160か国</strong>、<strong>42のGoogleプロダクト</strong>、<strong>22の削除理由</strong>にわたる複数期間トレンドエクスプローラーに変換しています。
     Google自身のレポートが1期間ずつ提示する形なのに対し、本ビューは<strong>報告期間をまたいだトレンド分析</strong>を中心に設計されています。フィルタの組み合わせはそのまま複数年の時系列となり、時系列を国・要請者・プロダクト・理由の各軸で分解できます。
-  </p>
-  <p style="color: var(--text-faint); font-size: 0.85rem; margin-bottom: 2rem; background: transparent;">
-    出典：<a href="https://transparencyreport.google.com/government-removals/overview">Google透明性レポート — 政府によるコンテンツ削除要請</a>。
-    データはブラウザ内で直接処理されており、バックエンドへのリクエストは発生しません。
   </p>
 </div>
 
@@ -45,103 +40,13 @@ lang_url_ko: /ko/google-removals.html
   </div>
 </section>
 
-<section class="td-dashboard">
-  <div id="td-loading" class="td-loading">データ読み込み中…</div>
-
-  <div id="td-app" hidden>
-
-    <div class="td-filters" role="region" aria-label="ダッシュボードフィルタ">
-      <div class="td-filter">
-        <label for="td-from">開始</label>
-        <select id="td-from"></select>
-      </div>
-      <div class="td-filter">
-        <label for="td-to">終了</label>
-        <select id="td-to"></select>
-      </div>
-      <div class="td-filter td-filter-wide">
-        <label for="td-country">国</label>
-        <select id="td-country"></select>
-      </div>
-      <div class="td-filter td-filter-wide">
-        <label for="td-requestor">要請者</label>
-        <select id="td-requestor"></select>
-      </div>
-      <div class="td-filter td-filter-wide">
-        <label for="td-product">プロダクト</label>
-        <select id="td-product"></select>
-      </div>
-      <div class="td-filter td-filter-wide">
-        <label for="td-reason">理由</label>
-        <select id="td-reason"></select>
-      </div>
-      <button type="button" id="td-reset" class="td-reset">フィルタをリセット</button>
-    </div>
-
-    <p class="td-range-line">
-      表示中の報告期間：<strong id="td-range-label">—</strong>
-    </p>
-
-    <div id="td-metrics" class="td-metrics"></div>
-
-    <div class="td-chart-grid">
-      <div class="td-chart-card td-chart-card-wide">
-        <div class="td-chart-head">
-          <h3>報告期間別・削除対象アイテム数</h3>
-          <div class="td-breakdown">
-            <label for="td-breakdown">内訳の軸</label>
-            <select id="td-breakdown"></select>
-          </div>
-        </div>
-        <div class="td-chart-wrap"><canvas id="td-chart-time" aria-label="時系列チャート"></canvas></div>
-      </div>
-
-      <div class="td-chart-card td-chart-card-wide">
-        <h3>削除率の推移</h3>
-        <div class="td-chart-wrap"><canvas id="td-chart-rate" aria-label="削除率の推移"></canvas></div>
-      </div>
-
-      <div class="td-chart-card">
-        <h3>削除対象アイテム数の多い国 トップ10</h3>
-        <div class="td-chart-wrap td-chart-tall"><canvas id="td-chart-countries" aria-label="国別バーチャート"></canvas></div>
-      </div>
-
-      <div class="td-chart-card">
-        <h3>主な削除理由</h3>
-        <div class="td-chart-wrap td-chart-tall"><canvas id="td-chart-reasons" aria-label="削除理由ドーナツチャート"></canvas></div>
-      </div>
-
-      <div class="td-chart-card">
-        <h3>対象となったGoogleプロダクト</h3>
-        <div class="td-chart-wrap td-chart-tall"><canvas id="td-chart-products" aria-label="プロダクト別バーチャート"></canvas></div>
-      </div>
-
-      <div class="td-chart-card">
-        <h3>Googleの対応内訳</h3>
-        <div class="td-chart-wrap td-chart-tall"><canvas id="td-chart-compliance" aria-label="対応内訳バーチャート"></canvas></div>
-      </div>
-    </div>
-
-    <div class="td-table-card">
-      <div class="td-table-head">
-        <h3>フィルタ後のレコード（削除対象アイテム数の多い順 上位25件）</h3>
-        <span id="td-row-count" class="td-row-count"></span>
-      </div>
-      <div class="td-table-scroll">
-        <table class="td-table">
-          <thead>
-            <tr>
-              <th>期間</th><th>国</th><th>要請者</th><th>プロダクト</th><th>理由</th>
-              <th class="td-num">削除対象数</th><th class="td-num">削除数</th>
-            </tr>
-          </thead>
-          <tbody id="td-table-body"></tbody>
-        </table>
-      </div>
-    </div>
-
-  </div>
-</section>
+<!-- ── ライブツール CTA ──────────────────────────────── -->
+<div class="card" style="margin: 2rem 0;">
+  <p class="section-label" style="margin: 0 0 0.4rem;">ライブツール</p>
+  <h3 style="margin-top: 0;">データを探索する</h3>
+  <p>完全なデータセットはインタラクティブなダッシュボードとしてご利用いただけます。期間・国・プロダクト・理由でフィルタリングし、削除率の推移や対応内訳などの複数年トレンドチャートを探索できます。</p>
+  <a href="https://transparency.kieranmaynard.com/removals" class="card-link">ライブダッシュボードを開く &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/docs" class="card-link">APIドキュメント &rarr;</a>
+</div>
 
 <section class="td-readme">
   <h2 class="td-section-title">注目したいポイント</h2>
@@ -172,8 +77,6 @@ lang_url_ko: /ko/google-removals.html
 <hr class="section-divider" />
 
 <p style="color: var(--text-very-faint); font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
-  データ：<a href="https://transparencyreport.google.com/government-removals/overview">Google透明性レポート</a>、詳細報告形式（2019年〜2025年上半期）。分析・可視化：キーラン・メイナード。チャートは<a href="https://www.chartjs.org/">Chart.js</a>を使用。
+  データ：<a href="https://transparencyreport.google.com/government-removals/overview">Google透明性レポート</a>、詳細報告形式（2019年〜2025年上半期）。分析：キーラン・メイナード。
 </p>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer></script>
-<script src="/transparency-dashboard.js" defer></script>
