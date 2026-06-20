@@ -1667,6 +1667,138 @@ footer {
 }
 
 /* ============================================================
+   BLOG POST FOOTER — AUTHOR CARD + CONTINUE READING
+   ============================================================ */
+
+.post-author {
+  display: flex;
+  gap: 1.1rem;
+  align-items: flex-start;
+  margin: 3rem 0 0;
+  padding: 1.3rem 1.5rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-card);
+  border-left: 4px solid var(--brand);
+  border-radius: 0 12px 12px 0;
+  box-shadow: 0 1px 3px var(--shadow-card);
+}
+.post-author-avatar {
+  flex: 0 0 auto;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+  color: #fff;
+  background: linear-gradient(135deg, #1e7268, #134a43);
+  box-shadow: 0 2px 8px var(--shadow-card-strong);
+}
+.post-author-info {
+  min-width: 0;
+}
+/* global `p { background: var(--bg) }` would paint bars inside the elevated card */
+.post-author p,
+.continue-reading .section-label {
+  background: transparent;
+}
+.post-author-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand);
+  margin: 0 0 0.15rem;
+}
+.post-author-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-strong);
+  margin: 0 0 0.3rem;
+}
+.post-author-bio {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0 0 0.7rem;
+}
+.post-author-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.1rem;
+}
+.post-author-links a {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--brand);
+  text-decoration: none;
+}
+.post-author-links a:hover {
+  text-decoration: underline;
+}
+
+.continue-reading {
+  margin: 2.5rem 0 1rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--border);
+}
+.continue-reading .section-label {
+  margin-bottom: 0.4rem;
+}
+.continue-reading-list {
+  margin-top: 1rem;
+  counter-reset: upnext;
+}
+.cr-row {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.9rem 0.25rem;
+  text-decoration: none;
+  border-top: 1px solid var(--border-card);
+}
+.cr-row:first-child {
+  border-top: 0;
+}
+.cr-row::before {
+  counter-increment: upnext;
+  content: counter(upnext);
+  flex: 0 0 auto;
+  width: 1.6rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--brand);
+}
+.cr-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.cr-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text-strong);
+}
+.cr-row:hover .cr-title {
+  color: var(--brand);
+}
+.cr-date {
+  font-size: 0.72rem;
+  color: var(--text-faint);
+  margin-top: 0.1rem;
+}
+
+@media (max-width: 560px) {
+  .post-author {
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+}
+
+/* ============================================================
    FEATURED CARD / FEATURED PRODUCT
    ============================================================ */
 
