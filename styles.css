@@ -1667,6 +1667,128 @@ footer {
 }
 
 /* ============================================================
+   BLOG POST FOOTER — AUTHOR CARD + CONTINUE READING
+   ============================================================ */
+
+.post-author {
+  display: flex;
+  gap: 1.1rem;
+  align-items: flex-start;
+  margin: 3rem 0 0;
+  padding: 1.5rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-card);
+  border-radius: 14px;
+  box-shadow: 0 1px 3px var(--shadow-card);
+}
+.post-author-avatar {
+  flex: 0 0 auto;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+  color: #fff;
+  background: linear-gradient(135deg, #1e7268, #134a43);
+  box-shadow: 0 2px 8px var(--shadow-card-strong);
+}
+.post-author-info {
+  min-width: 0;
+}
+.post-author-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand);
+  margin: 0 0 0.15rem;
+}
+.post-author-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-strong);
+  margin: 0 0 0.35rem;
+}
+.post-author-bio {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0 0 0.75rem;
+}
+.post-author-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.1rem;
+}
+.post-author-links a {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--brand);
+  text-decoration: none;
+}
+.post-author-links a:hover {
+  text-decoration: underline;
+}
+
+.continue-reading {
+  margin: 2.5rem 0 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+.continue-reading .section-label {
+  margin-bottom: 1rem;
+}
+.continue-reading-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.9rem;
+}
+.cr-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1rem 1.1rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-card);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.cr-card:hover {
+  border-color: var(--brand-light);
+  box-shadow: 0 4px 14px var(--shadow-card);
+}
+.motion-ok .cr-card:hover {
+  transform: translateY(-2px);
+}
+.cr-date {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.cr-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text-strong);
+}
+.cr-card:hover .cr-title {
+  color: var(--brand);
+}
+
+@media (max-width: 560px) {
+  .post-author {
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+}
+
+/* ============================================================
    FEATURED CARD / FEATURED PRODUCT
    ============================================================ */
 
