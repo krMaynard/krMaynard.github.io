@@ -43,8 +43,7 @@
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
     }
 
-    btn.addEventListener('click', function (e) {
-      e.stopPropagation();
+    btn.addEventListener('click', function () {
       setOpen(!nav.classList.contains('nav-open'));
     });
 

@@ -47,7 +47,8 @@
 
     <nav class="site-nav">
       <a href="{% if page.lang == 'ja' %}/ja/{% elsif page.lang == 'zh' %}/zh/{% elsif page.lang == 'ko' %}/ko/{% else %}/{% endif %}" class="nav-name">Kieran Maynard</a>
-      <button type="button" class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+      {% if page.lang == 'ja' %}{% assign menu_label = 'メニュー' %}{% elsif page.lang == 'zh' %}{% assign menu_label = '菜单' %}{% elsif page.lang == 'ko' %}{% assign menu_label = '메뉴' %}{% else %}{% assign menu_label = 'Menu' %}{% endif %}
+      <button type="button" class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="nav-menu" aria-label="{{ menu_label }}">
         <span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span>
       </button>
       <div class="nav-links" id="nav-menu">

@@ -2088,6 +2088,11 @@ button:focus-visible,
     background: var(--bg-elevated);
     border-bottom: 1px solid var(--border);
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.10);
+    /* Never exceed the viewport below the sticky bar; scroll if it would
+       (e.g. landscape / short screens), so the language + theme controls stay reachable. */
+    max-height: calc(100vh - 100%);
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
   [data-theme="dark"] .site-nav .nav-links {
     box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
@@ -2122,5 +2127,6 @@ button:focus-visible,
 
   .site-nav .theme-toggle {
     margin: 0.55rem 1.25rem 0.2rem;
+    align-self: flex-start;
   }
 }
