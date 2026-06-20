@@ -9,7 +9,15 @@ layout: null
     <link>https://krmaynard.github.io/blog.html</link>
     <atom:link href="https://krmaynard.github.io/feed.xml" rel="self" type="application/rss+xml"/>
     <language>en-us</language>
-    <lastBuildDate>Thu, 11 Jun 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 19 Jun 2026 00:00:00 +0000</lastBuildDate>
+
+    <item>
+      <title>Prompts Are Refactoring Targets: Logging an AI Workflow to Find What to Automate</title>
+      <link>https://krmaynard.github.io/blog/prompt-log-ai-workflows.html</link>
+      <guid isPermaLink="true">https://krmaynard.github.io/blog/prompt-log-ai-workflows.html</guid>
+      <pubDate>Fri, 19 Jun 2026 00:00:00 +0000</pubDate>
+      <description><![CDATA[A LayerX engineering post logs its AI prompts and analyzes them like code to find what to automate. It's the data-first move I've used at Google and since — intuition flags it, data proves it — turned reflexively on the human–AI workflow itself.]]></description>
+    </item>
 
     <item>
       <title>How I Fixed Five API Vulnerabilities with One Prompt and Claude Fable 5</title>
