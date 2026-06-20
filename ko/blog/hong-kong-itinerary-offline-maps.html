@@ -1,0 +1,71 @@
+---
+layout: main
+title: "Claude Code로 홍콩 여행 지도를 오프라인으로 만든 이야기"
+description: "가족 홍콩 여행을 위해 각 장소의 지도가 들어간 중국어 일정표를 Claude Code에 맡겼습니다. 그런데 샌드박스는 어떤 지도 서비스에도 닿지 못했고 — 그래서 GitHub에서 진짜 해안선 데이터를 가져와 지도를 직접 그려냈습니다."
+date: 2026-06-20
+lang: ko
+lang_url: /blog/hong-kong-itinerary-offline-maps.html
+lang_url_ja: /ja/blog/hong-kong-itinerary-offline-maps.html
+lang_url_zh: /zh/blog/hong-kong-itinerary-offline-maps.html
+og_image: /images/hk-trip/00-overview.png
+---
+
+<article class="post">
+  <a href="/ko/blog.html" class="post-back">← 블로그</a>
+  <header class="post-header">
+    <p class="section-label">글쓰기</p>
+    <h1>Claude Code로 홍콩 여행 지도를 오프라인으로 만든 이야기</h1>
+    <time class="news-date" datetime="2026-06-20">2026년 6월 20일</time>
+    <div class="tags">
+      <span class="tag">AI/LLM</span>
+      <span class="tag">엔지니어링</span>
+      <span class="tag">여행</span>
+      <span class="tag">언어</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>이달 말, 우리 가족 여섯 명이 홍콩에 갑니다. 3대에, 유모차 하나, 그리고 다 같이 챙겨 먹는 상비약 한 봉지. 중국어를 읽는 가족이 휴대폰으로 열 수 있는 문서 하나가 필요했습니다 — 서두르지 않는 나흘 일정을, 쉬운 중국어로 쓰고, 들르는 곳마다 알아보기 쉬운 지도를 붙인 것. 이 일을 프롬프트 한 줄로 Claude Code에 맡겼습니다. 글을 쓰는 건 쉬운 쪽이었습니다. 흥미로웠던 건, 이 기계가 지도에 전혀 접근할 수 없었다는 점입니다.</p>
+
+    <h2>가장 당연한 방법이 시작부터 막히다</h2>
+
+    <p>이건 엄격한 네트워크 송신 허용 목록을 둔 클라우드 샌드박스에서 돌아갔습니다 — 에이전트를 내 저장소에서 마음껏 풀어놓는다면 바로 이런 구성을 원하게 되죠. 누구나 가장 먼저 떠올릴 방법은, 헤드리스 브라우저를 인터페이스 언어를 중국어로 맞춘 구글 지도로 띄워 각 장소를 스크린샷하는 것입니다. 그건 이륙조차 못 했습니다. 지도나 타일 서비스에 손을 뻗을 때마다 돌아온 답은 똑같았습니다 — <code>403 — 호스트가 허용 목록에 없음</code>. 구글 지도, OpenStreetMap의 타일 서버, Mapbox, Carto, Stadia, Wikimedia, 심지어 키가 필요 없는 무료 벡터 베이스맵까지. 타일도, 정적 지도 API도, 지도를 그려낼 그 무엇도 닿지 않았습니다.</p>
+
+    <p>여기서 게으른 선택은, 멈춰 서서 방화벽에 구멍을 뚫어 달라고 내게 부탁하는 것입니다. 그러지 않았습니다.</p>
+
+    <h2>대신 한 일</h2>
+
+    <p>먼저 제약을 파악했습니다 — <em>무엇이</em> 닿는지 찔러보며 — 그리고 GitHub, npm, PyPI가 열려 있다는 걸 알아냈습니다. 지도란 결국 '지오메트리 + 렌더러'이고, 그 둘 다 패키지 레지스트리에서 가져올 수 있으니, 그걸로 충분했습니다.</p>
+
+    <p>그래서 <a href="https://www.naturalearthdata.com/">Natural Earth</a>의 10미터 해안선 — GitHub에 미러링된 진짜 벡터 지리 데이터 — 을 저장소에서 곧장 받아 왔습니다. <code>shapely</code>로 홍콩 영역에 맞춰 잘라낸 뒤, 제가 직접 떠올리지는 못했을 점검을 돌렸습니다. <em>이 데이터가 정말 빅토리아 항을 해상하는가?</em> 구체적으로는 — 까우룽반도와 홍콩섬이 서로 다른 두 덩어리의 육지로 돌아오는가, 아니면 거친 해안선이 둘을 한 덩어리로 뭉개 버렸는가. 돌아온 건 서로 독립된 두 개의 폴리곤이었습니다. 항구가 거기 있었죠. 그제서야 데이터를 믿었습니다.</p>
+
+    <p>여기서부터는 스스로 지도 렌더러가 되었습니다. 해안선을 웹 메르카토르로 투영하고, 바다와 육지와 공원 몇 곳을 그리고, 들르는 곳마다 물방울 핀과 중국어 라벨을 찍었습니다 — 침사추이의 호텔, 스타의 거리, 피크트램, 오션파크, 우주박물관, 란타우섬의 공항까지 — 거기에 축척 막대와 방위표, 그리고 라벨이 겹치지 않도록 그리디 배치를 한 차례. 모두 SVG로 그린 뒤, 손에 있던 단 하나의 브라우저로 선명한 PNG로 래스터화했습니다. Playwright의 Chromium에, 내장 CJK 폰트로 중국어를 그리게 해서요. 지도 열 장, 그 어느 것도 렌더링 시 네트워크 호출을 단 한 번도 하지 않았고, 모바일에 맞춘 일정 페이지에 날짜별로 박혔습니다.</p>
+
+    <figure class="project-screenshot">
+      <img src="/images/hk-trip/00-overview.png" alt="오프라인으로 렌더링한 홍콩 개요 지도. 빅토리아 항 주변의 여행 장소를 중국어로 표기">
+      <figcaption>개요 지도 — 빅토리아 항과 모든 장소를 Natural Earth 해안선으로 그리고 중국어로 라벨링. 지도 서비스는 전혀 쓰지 않았습니다.</figcaption>
+    </figure>
+
+    <h2>가장 인상에 남은 것</h2>
+
+    <p>렌더링 자체가 아니라, 디버깅의 과정이었습니다. 호스트 열댓 개를 찔러보고, 403의 응답 본문을 읽고, <code>raw.githubusercontent.com</code>은 <code>200</code>을 주는데 모든 지도 호스트는 거부한다는 걸 알아채고, 그래서 전략 전체를 "지도를 스크린샷한다"에서 "지오메트리를 가져와 내가 지도가 <em>된다</em>"로 틀어 버린 것 — 이건 유능한 엔지니어가 한나절을 들여 만지작거릴 일이 몇 분으로 압축된 셈입니다. 그리고 최종 이미지에서 항구가 뭉개진 걸 발견하기 전에, 그리기 시작하기 전에 해안선을 검증해 둔 그 신중함은, 단순한 코드 생성기가 아니라 동료에게 바라는 태도입니다.</p>
+
+    <h2>여기서 얻은 것</h2>
+
+    <p>이건 제가 거듭 확인해 온 것과 맞닿아 있습니다(<a href="/ko/blog/llms-compliance-pm.html">컴플라이언스 업무에서</a>, 어느 <a href="/ko/blog/fable-5-security-review.html">보안 점검에서</a>). 성과는 구조화되고 출력이 검증 가능한 작업에서 나오며, 빡빡한 제약은 흔히 일을 막기보다 결과를 더 낫게 만듭니다. 손으로 렌더링하고 조판을 통제한 중국어 벡터 지도는, 제 장모님에게 어수선한 구글 지도 스크린샷보다 분명히 더 읽기 쉽습니다 — 글자는 크고, 잡음은 적고, 모든 지명이 그분이 읽는 문자로 적혀 있죠. 제약은 결과물의 질을 떨어뜨리기는커녕, 더 나은 한 장을 만들어 냈습니다.</p>
+
+    <p>열흘 뒤 떠납니다. 중국어로 된, 지도 열 장을 모두 갖춘 완성본 일정은 가족이 비행기에서 열어 볼 수 있는 <a href="/hk-trip.html">한 페이지</a>에 담아 두었습니다. 모자, 자외선 차단제, 우산, 그리고 그 약은 이미 준비물 목록에 들어가 있습니다.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

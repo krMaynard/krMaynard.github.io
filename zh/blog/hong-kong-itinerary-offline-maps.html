@@ -1,0 +1,71 @@
+---
+layout: main
+title: "用 Claude Code 离线绘制一趟香港行程的地图"
+description: "我让 Claude Code 为我们一家的香港之行做一份中文行程，并为每个地点配一张地图。可沙箱里连不上任何地图服务——于是它从 GitHub 拉取真实的海岸线数据，自己把地图画了出来。"
+date: 2026-06-20
+lang: zh
+lang_url: /blog/hong-kong-itinerary-offline-maps.html
+lang_url_ja: /ja/blog/hong-kong-itinerary-offline-maps.html
+lang_url_ko: /ko/blog/hong-kong-itinerary-offline-maps.html
+og_image: /images/hk-trip/00-overview.png
+---
+
+<article class="post">
+  <a href="/zh/blog.html" class="post-back">← 博客</a>
+  <header class="post-header">
+    <p class="section-label">写作</p>
+    <h1>用 Claude Code 离线绘制一趟香港行程的地图</h1>
+    <time class="news-date" datetime="2026-06-20">2026年6月20日</time>
+    <div class="tags">
+      <span class="tag">AI/LLM</span>
+      <span class="tag">工程</span>
+      <span class="tag">旅行</span>
+      <span class="tag">语言</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>这个月底，我们一家六口要去香港——三代人、一辆婴儿车，还有一袋大家常吃的药。我想要一份能在手机上打开的文档给说中文的家人看：一份不赶路的四日计划，用大白话写成中文，每个去处都配一张清楚的地图。我把这件事用一条提示词交给了 Claude Code。写文字是最容易的部分。有意思的是，这台机器根本没办法连上任何地图。</p>
+
+    <h2>最顺理成章的做法，一上来就行不通</h2>
+
+    <p>它运行在一个带严格网络出口白名单的云端沙箱里——当你放手让一个智能体在你的仓库里折腾时，这正是你会想要的配置。我们任何人最先会想到的办法，就是把无头浏览器开到把界面语言设成中文的 Google 地图，给每个地点截个图。可这条路连起步都没起得来。它每次去够地图或瓦片服务，得到的回应都一样：<code>403 — 主机不在白名单内</code>。Google 地图、OpenStreetMap 的瓦片服务器、Mapbox、Carto、Stadia、Wikimedia，连免密钥的矢量底图都不行。没有瓦片，没有静态地图 API，一切能画出地图的东西都够不着。</p>
+
+    <p>这时候偷懒的做法，是停下来让我去防火墙上开个口子。它没有这么做。</p>
+
+    <h2>它换了个思路</h2>
+
+    <p>它先把约束摸清楚——去试探到底<em>哪些</em>是能连上的——结果发现 GitHub、npm 和 PyPI 是开放的。这就够了，因为一张地图无非是几何数据加一个渲染器，而这两样都能从代码仓库里取。</p>
+
+    <p>于是它直接从仓库里拉取了 <a href="https://www.naturalearthdata.com/">Natural Earth</a> 的 10 米海岸线——真实的矢量地理数据，在 GitHub 上有镜像。它用 <code>shapely</code> 把数据裁剪到香港的范围，接着做了一个我自己都不一定会想到去写的核对：<em>这份数据真的能把维多利亚港分出来吗？</em>说得具体些——九龙和香港岛会作为两块各自独立的陆地返回，还是说粗糙的海岸线已经把它们糊成了一团？返回的是两个独立的多边形。海港在。到这一步它才肯相信这份数据。</p>
+
+    <p>从这里起，它自己当上了地图渲染器。它把海岸线投影到 Web 墨卡托，画出海水、陆地和几处公园，给每个去处点上一枚水滴形图钉、配一个中文标签——尖沙咀的酒店、星光大道、山顶缆车、海洋公园、太空馆、远在大屿山的机场——再加上比例尺、指北针，以及一轮贪心式的标签排布，让文字互不打架。这一切都是 SVG，然后它用手头唯一有的那个浏览器把它栅格化成清晰的 PNG：Playwright 的 Chromium，靠一套内置的中日韩字体来显示中文。十张地图，每一张在渲染时都没有发出一次网络请求，全部嵌进了一个适配手机的行程页面里，按天排好。</p>
+
+    <figure class="project-screenshot">
+      <img src="/images/hk-trip/00-overview.png" alt="离线渲染的香港总览地图，标出维多利亚港周边各个行程地点，全中文标注">
+      <figcaption>总览地图——维多利亚港与全部去处，用 Natural Earth 海岸线绘制，全中文标注。没用到任何地图服务。</figcaption>
+    </figure>
+
+    <h2>最让我印象深刻的一点</h2>
+
+    <p>不是渲染本身，而是那段排查的过程。试探十来个主机、读那些 403 的返回内容、注意到 <code>raw.githubusercontent.com</code> 回的是 <code>200</code> 而所有地图主机都拒之门外，然后把整个策略从"给地图截图"掉头改成"把几何数据取下来，自己<em>当</em>那张地图"——这正是一个能干的工程师会花上一下午去捣鼓的事，被压缩进了几分钟。而那种在动笔画之前先去核对海岸线、而不是等到最后成图里才发现海港被糊在一起的谨慎，是我希望从同事身上、而不只是从一个代码生成器身上看到的。</p>
+
+    <h2>我的体会</h2>
+
+    <p>这和我一再发现的事情是相通的（<a href="/zh/blog/llms-compliance-pm.html">在合规工作里</a>，在一次<a href="/zh/blog/fable-5-security-review.html">安全排查里</a>）：成效落在结构清晰、产出可验证的任务上，而一个硬性约束往往不是把事情卡死，反倒让结果更好。一张手工渲染、中文排版受控的矢量地图，对我岳母来说，确实比一张密密麻麻的 Google 地图截图更好认——字更大、干扰更少、每个名字都是她读得懂的字。约束没有让交付物打折，反而催出了更好的那一个。</p>
+
+    <p>十天后出发。完整的计划——中文的，配齐十张地图——都放在<a href="/hk-trip.html">同一个页面</a>上，一家人在飞机上就能打开。帽子、防晒、雨伞和那袋药，已经写进清单了。</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

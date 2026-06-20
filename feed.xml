@@ -9,7 +9,15 @@ layout: null
     <link>https://krmaynard.github.io/blog.html</link>
     <atom:link href="https://krmaynard.github.io/feed.xml" rel="self" type="application/rss+xml"/>
     <language>en-us</language>
-    <lastBuildDate>Thu, 11 Jun 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 20 Jun 2026 00:00:00 +0000</lastBuildDate>
+
+    <item>
+      <title>Mapping a Hong Kong Trip Offline with Claude Code</title>
+      <link>https://krmaynard.github.io/blog/hong-kong-itinerary-offline-maps.html</link>
+      <guid isPermaLink="true">https://krmaynard.github.io/blog/hong-kong-itinerary-offline-maps.html</guid>
+      <pubDate>Sat, 20 Jun 2026 00:00:00 +0000</pubDate>
+      <description><![CDATA[I asked Claude Code to build a Chinese-language itinerary with a map for every stop on our family trip to Hong Kong. The sandbox couldn't reach any map service — so it pulled real coastline data from GitHub and rendered the maps itself.]]></description>
+    </item>
 
     <item>
       <title>How I Fixed Five API Vulnerabilities with One Prompt and Claude Fable 5</title>

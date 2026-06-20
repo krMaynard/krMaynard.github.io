@@ -1,0 +1,71 @@
+---
+layout: main
+title: "Mapping a Hong Kong Trip Offline with Claude Code"
+description: "I asked Claude Code to build a Chinese-language itinerary with a map for every stop on our family trip to Hong Kong. The sandbox had no access to any map service — so it pulled real coastline data from GitHub and rendered the maps itself."
+date: 2026-06-20
+lang: en
+lang_url: /ja/blog/hong-kong-itinerary-offline-maps.html
+lang_url_zh: /zh/blog/hong-kong-itinerary-offline-maps.html
+lang_url_ko: /ko/blog/hong-kong-itinerary-offline-maps.html
+og_image: /images/hk-trip/00-overview.png
+---
+
+<article class="post">
+  <a href="/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>Mapping a Hong Kong Trip Offline with Claude Code</h1>
+    <time class="news-date" datetime="2026-06-20">June 20, 2026</time>
+    <div class="tags">
+      <span class="tag">AI/LLM</span>
+      <span class="tag">Engineering</span>
+      <span class="tag">Travel</span>
+      <span class="tag">Language</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>At the end of this month, six of us are going to Hong Kong — three generations, a stroller, and a shared bag of everyday medications. I wanted one document my Chinese-speaking family could open on their phones: a gentle four-day plan, written in plain Chinese, with a clear map for every stop. I handed the job to Claude Code in a single prompt. The writing was the easy part. The interesting part was that the machine had no way to reach a map.</p>
+
+    <h2>The obvious approach, dead on arrival</h2>
+
+    <p>This ran in a sandboxed cloud environment with a strict network egress allowlist — the kind of setup you actually want when you're letting an agent run loose in your repos. The first idea any of us would try is to drive a headless browser to Google Maps with the interface language set to Chinese and screenshot each location. It never got off the ground. Every map and tile service it reached for came back the same way: <code>403 — Host not in allowlist</code>. Google Maps, OpenStreetMap's tile servers, Mapbox, Carto, Stadia, Wikimedia, even the free keyless vector basemaps. No tiles, no static-map API, nothing that draws a map.</p>
+
+    <p>The lazy move here is to stop and ask me to poke a hole in the firewall. It didn't.</p>
+
+    <h2>What it did instead</h2>
+
+    <p>It mapped the constraint first — probing what <em>was</em> reachable — and found that GitHub, npm, and PyPI were open. That turned out to be enough, because a map is just geometry plus a renderer, and both can come from a package registry.</p>
+
+    <p>So it pulled <a href="https://www.naturalearthdata.com/">Natural Earth</a>'s 10-metre coastline — real vector geography, mirrored on GitHub — straight from the repo. It clipped that to a Hong Kong bounding box with <code>shapely</code>, then ran a sanity check I wouldn't have thought to write: <em>does this data actually resolve Victoria Harbour?</em> Concretely — do Kowloon and Hong Kong Island come back as two separate landmasses, or has the coarse coastline merged them into one blob? Two separate polygons came back. The harbour was there. Only then did it trust the data.</p>
+
+    <p>From there it became the map renderer. It projected the coastline to Web Mercator, drew water, land, and a few parks, dropped a teardrop pin and a Chinese label on every stop — the hotel in Tsim Sha Tsui, the Avenue of Stars, the Peak Tram, Ocean Park, the Space Museum, the airport out on Lantau — and added a scale bar, a north arrow, and a greedy label-placement pass so nothing collided. All of it as SVG, which it then rasterised to crisp PNGs using the one browser it <em>did</em> have locally: Playwright's Chromium, with a bundled CJK font rendering the Chinese. Ten maps, every one produced without a single network call at render time, wired into a mobile-friendly itinerary page that embeds them day by day.</p>
+
+    <figure class="project-screenshot">
+      <img src="/images/hk-trip/00-overview.png" alt="Offline-rendered overview map of Hong Kong showing the trip's stops around Victoria Harbour, labelled in Chinese">
+      <figcaption>The overview map — Victoria Harbour with every stop, drawn from Natural Earth coastline and labelled in Chinese. No map service involved.</figcaption>
+    </figure>
+
+    <h2>The part that stuck with me</h2>
+
+    <p>Not the rendering — the debugging loop. Probing a dozen hosts, reading the bodies of the 403s, noticing that <code>raw.githubusercontent.com</code> answered <code>200</code> while every map host refused, and then pivoting the whole strategy from "screenshot a map" to "fetch the geometry and <em>be</em> the map" — that is exactly the afternoon of fiddling a capable engineer would have spent, compressed into a few minutes. And the instinct to verify the coastline before drawing on it, rather than discovering a merged harbour in the final image, is the kind of care I want from a colleague, not just a code generator.</p>
+
+    <h2>What I take from it</h2>
+
+    <p>This rhymes with what I keep finding (<a href="/blog/llms-compliance-pm.html">in compliance work</a>, in a <a href="/blog/fable-5-security-review.html">security sweep</a>): the wins land on structured tasks with verifiable outputs, and a hard constraint often improves the result instead of blocking it. A hand-rendered vector map with controlled Chinese typography is genuinely cleaner for my mother-in-law to read than a cluttered Google Maps screenshot would have been — bigger labels, fewer distractions, every name in the script she reads. The constraint didn't degrade the deliverable; it produced a better one.</p>
+
+    <p>We leave in ten days. The full plan — in Chinese, with all ten maps — lives on <a href="/hk-trip.html">a single page</a> the family can open on the plane. Hats, sunscreen, umbrella, and the medications are already on the list.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>
