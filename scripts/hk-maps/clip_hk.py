@@ -26,8 +26,16 @@ for g in geoms:
         g = g.buffer(0)
     if g.intersects(BBOX):
         inter = g.intersection(BBOX)
-        if not inter.is_empty:
+        if inter.is_empty:
+            continue
+        # Keep only area geometries: a polygon that merely touches the bbox edge
+        # can clip to a LineString/Point, which would turn the union into a
+        # GeometryCollection and silently empty the output.
+        if inter.geom_type in ("Polygon", "MultiPolygon"):
             clipped.append(inter)
+        elif inter.geom_type == "GeometryCollection":
+            clipped.extend(p for p in inter.geoms
+                           if p.geom_type in ("Polygon", "MultiPolygon"))
 
 merged = unary_union(clipped)
 

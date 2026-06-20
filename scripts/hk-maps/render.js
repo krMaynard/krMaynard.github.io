@@ -2,9 +2,10 @@
 // Real coastline = Natural Earth 10m (clipped). Rendered to PNG via Playwright
 // Chromium. All labels in Chinese. No network at render time.
 const fs = require('fs');
+const path = require('path');
 const { chromium } = require('playwright'); // npm i playwright && npx playwright install chromium
 
-const LAND = JSON.parse(fs.readFileSync(__dirname + '/hk_land.json', 'utf8'));
+const LAND = JSON.parse(fs.readFileSync(path.join(__dirname, 'hk_land.json'), 'utf8'));
 const W = 1180, H = 860;
 const PR = Math.PI / 180, R = 6378137;
 const mercX = lon => lon * PR;
@@ -167,8 +168,6 @@ function buildSVG(v) {
   </defs>`;
   // water
   svg += `<rect width="${W}" height="${H}" fill="${C.water}"/>`;
-  // subtle water bands
-  svg += `<rect width="${W}" height="${H}" fill="url(#wg)" opacity="0"/>`;
   // land
   svg += `<path d="${landPaths(P)}" fill="${C.land}" stroke="${C.landEdge}" stroke-width="1.1" stroke-linejoin="round"/>`;
   // parks
@@ -272,16 +271,16 @@ function buildSVG(v) {
 }
 
 (async () => {
-  fs.mkdirSync(__dirname + '/out', { recursive: true });
+  fs.mkdirSync(path.join(__dirname, 'out'), { recursive: true });
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport:{width:W,height:H}, deviceScaleFactor:2 });
   for (const v of VIEWS) {
     const svg = buildSVG(v);
     const html = `<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;padding:0;background:#fff}</style></head><body>${svg}</body></html>`;
     await page.setContent(html, { waitUntil:'networkidle' });
-    await page.waitForTimeout(120);
+    await page.evaluate(() => document.fonts.ready);
     const el = await page.$('svg');
-    await el.screenshot({ path: `${__dirname}/out/${v.id}.png` });
+    await el.screenshot({ path: path.join(__dirname, 'out', `${v.id}.png`) });
     console.log('rendered', v.id);
   }
   await browser.close();
