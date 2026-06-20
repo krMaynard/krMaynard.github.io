@@ -465,10 +465,39 @@
 }
 
 /* Language Switcher */
-.lang-divider {
-  color: var(--border-soft);
-  margin: 0;
-  user-select: none;
+/* Desktop language group — replaces the old "|" text dividers with a tidy,
+   bordered cluster. On mobile it becomes a wrapped pill row (see nav media query). */
+.nav-langs {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: 0.3rem;
+  padding-left: 0.9rem;
+  border-left: 1px solid var(--border);
+}
+
+/* Hamburger toggle — hidden on desktop, shown in the mobile nav media query */
+.nav-toggle {
+  display: none;
+  width: 40px;
+  height: 34px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  cursor: pointer;
+  grid-auto-rows: 2px;
+  gap: 4px;
+  place-content: center;
+  place-items: center;
+}
+.nav-toggle-bar {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.22s ease, opacity 0.22s ease;
 }
 
 .lang-switch {
@@ -2023,5 +2052,75 @@ button:focus-visible,
   .reveal {
     opacity: 1 !important;
     transform: none !important;
+  }
+}
+
+/* ============================================================
+   MOBILE NAV — hamburger drawer (collapses the nav at/below 940px)
+   Fixes horizontal overflow: the page links + language switcher
+   no longer overrun the viewport. Desktop nav is unchanged. The
+   breakpoint sits above the widest locale's full nav (CJK labels)
+   so the desktop bar never overflows just above the cutoff. */
+@media (max-width: 940px) {
+  .nav-toggle {
+    display: inline-grid;
+  }
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) {
+    opacity: 0;
+  }
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  .site-nav .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0.4rem 0 0.7rem;
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.10);
+  }
+  [data-theme="dark"] .site-nav .nav-links {
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+  }
+  .site-nav.nav-open .nav-links {
+    display: flex;
+  }
+
+  .site-nav .nav-links a:not(.lang-switch) {
+    display: block;
+    padding: 0.7rem 1.25rem;
+    font-size: 0.98rem;
+  }
+  /* No sliding underline on the stacked mobile links */
+  .site-nav .nav-links a:not(.lang-switch)::after {
+    display: none;
+  }
+
+  .nav-langs {
+    margin: 0.3rem 0 0;
+    padding: 0.65rem 1.25rem;
+    border-left: 0;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .nav-langs .lang-switch {
+    padding: 0.32rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .site-nav .theme-toggle {
+    margin: 0.55rem 1.25rem 0.2rem;
   }
 }
