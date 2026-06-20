@@ -109,18 +109,18 @@
       {% if page.date and page.url contains '/blog/' %}
       {%- assign loc = '' -%}
       {%- assign t_written = 'Written by' -%}
-      {%- assign t_bio = 'Compliance product manager and builder. I write about transparency reporting, AI in everyday work, and language. Previously at Google.' -%}
+      {%- assign t_bio = 'AI product manager and builder. I write about putting AI to work in real products and workflows, transparency reporting, and language. Previously at Google.' -%}
       {%- assign t_work = 'Work' -%}
       {%- assign t_consulting = 'Consulting' -%}
       {%- assign t_contact = 'Email' -%}
       {%- assign t_continue = 'Continue reading' -%}
       {%- assign date_fmt = '%B %-d, %Y' -%}
       {%- if page.lang == 'ja' -%}
-        {%- assign loc = '/ja' -%}{%- assign t_written = '著者' -%}{%- assign t_bio = 'コンプライアンス領域のプロダクトマネージャー兼ビルダー。透明性レポーティング、実務でのAI活用、そして言語について書いています。前職はGoogle。' -%}{%- assign t_work = '実績' -%}{%- assign t_consulting = 'コンサルティング' -%}{%- assign t_contact = 'お問い合わせ' -%}{%- assign t_continue = '続けて読む' -%}{%- assign date_fmt = '%Y年%-m月%-d日' -%}
+        {%- assign loc = '/ja' -%}{%- assign t_written = '著者' -%}{%- assign t_bio = 'AIプロダクトマネージャー兼ビルダー。実際のプロダクトや業務にAIをどう活かすか、透明性レポーティング、そして言語について書いています。前職はGoogle。' -%}{%- assign t_work = '実績' -%}{%- assign t_consulting = 'コンサルティング' -%}{%- assign t_contact = 'お問い合わせ' -%}{%- assign t_continue = '続けて読む' -%}{%- assign date_fmt = '%Y年%-m月%-d日' -%}
       {%- elsif page.lang == 'zh' -%}
-        {%- assign loc = '/zh' -%}{%- assign t_written = '作者' -%}{%- assign t_bio = '合规领域的产品经理与构建者。写透明度报告、把 AI 用于日常工作，以及语言。曾任职于 Google。' -%}{%- assign t_work = '工作经历' -%}{%- assign t_consulting = '咨询服务' -%}{%- assign t_contact = '联系我' -%}{%- assign t_continue = '继续阅读' -%}{%- assign date_fmt = '%Y年%-m月%-d日' -%}
+        {%- assign loc = '/zh' -%}{%- assign t_written = '作者' -%}{%- assign t_bio = 'AI 产品经理与构建者。写如何把 AI 用到真实的产品与工作流中、透明度报告，以及语言。曾任职于 Google。' -%}{%- assign t_work = '工作经历' -%}{%- assign t_consulting = '咨询服务' -%}{%- assign t_contact = '联系我' -%}{%- assign t_continue = '继续阅读' -%}{%- assign date_fmt = '%Y年%-m月%-d日' -%}
       {%- elsif page.lang == 'ko' -%}
-        {%- assign loc = '/ko' -%}{%- assign t_written = '글쓴이' -%}{%- assign t_bio = '컴플라이언스 분야의 프로덕트 매니저이자 빌더. 투명성 리포팅, 실무에서의 AI 활용, 그리고 언어에 대해 씁니다. 이전에는 Google에 있었습니다.' -%}{%- assign t_work = '경력' -%}{%- assign t_consulting = '컨설팅' -%}{%- assign t_contact = '문의하기' -%}{%- assign t_continue = '이어서 읽기' -%}{%- assign date_fmt = '%Y년 %-m월 %-d일' -%}
+        {%- assign loc = '/ko' -%}{%- assign t_written = '글쓴이' -%}{%- assign t_bio = 'AI 프로덕트 매니저이자 빌더. 실제 제품과 업무에 AI를 어떻게 활용하는지, 투명성 리포팅, 그리고 언어에 대해 씁니다. 이전에는 Google에 있었습니다.' -%}{%- assign t_work = '경력' -%}{%- assign t_consulting = '컨설팅' -%}{%- assign t_contact = '문의하기' -%}{%- assign t_continue = '이어서 읽기' -%}{%- assign date_fmt = '%Y년 %-m월 %-d일' -%}
       {%- endif -%}
       <aside class="post-author">
         <div class="post-author-avatar" aria-hidden="true">KM</div>
@@ -144,9 +144,11 @@
         {%- if shown >= 3 -%}{%- break -%}{%- endif -%}
         {%- unless p.url contains '/blog/' -%}{%- continue -%}{%- endunless -%}
         {%- if p.url == page.url -%}{%- continue -%}{%- endif -%}
-        <a class="cr-card" href="{{ p.url }}">
-          <time class="cr-date" datetime="{{ p.date | date: '%Y-%m-%d' }}">{{ p.date | date: date_fmt }}</time>
-          <span class="cr-title">{{ p.title | escape }}</span>
+        <a class="cr-row" href="{{ p.url }}">
+          <span class="cr-body">
+            <span class="cr-title">{{ p.title | escape }}</span>
+            <time class="cr-date" datetime="{{ p.date | date: '%Y-%m-%d' }}">{{ p.date | date: date_fmt }}</time>
+          </span>
         </a>
         {%- assign shown = shown | plus: 1 -%}
       {%- endfor -%}
@@ -154,7 +156,7 @@
       {%- if shown > 0 -%}
       <nav class="continue-reading" aria-label="{{ t_continue }}">
         <p class="section-label">{{ t_continue }}</p>
-        <div class="continue-reading-grid">{{ cards }}</div>
+        <div class="continue-reading-list">{{ cards }}</div>
       </nav>
       {%- endif -%}
       {% endif %}
