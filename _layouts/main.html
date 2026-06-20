@@ -136,7 +136,8 @@
           </div>
         </div>
       </aside>
-      {%- assign posts = site.pages | where_exp: "p", "p.date" | where: "lang", page.lang | sort: "date" | reverse -%}
+      {%- assign current_lang = page.lang | default: 'en' -%}
+      {%- assign posts = site.pages | where_exp: "p", "p.date" | where_exp: "p", "p.lang == current_lang or current_lang == 'en' and p.lang == nil" | sort: "date" | reverse -%}
       {%- assign shown = 0 -%}
       {%- capture cards -%}
       {%- for p in posts -%}
