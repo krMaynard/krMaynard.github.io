@@ -44,6 +44,13 @@
     }
 
     btn.addEventListener('click', function () {
+      // Opening the page menu closes the language menu, if open.
+      var sw = document.querySelector('[data-lang-switcher]');
+      if (sw) {
+        sw.classList.remove('lang-open');
+        var lb = sw.querySelector('[data-lang-button]');
+        if (lb) lb.setAttribute('aria-expanded', 'false');
+      }
       setOpen(!nav.classList.contains('nav-open'));
     });
 
@@ -70,6 +77,51 @@
     function onChange() { if (mq.matches) setOpen(false); }
     if (mq.addEventListener) { mq.addEventListener('change', onChange); }
     else if (mq.addListener) { mq.addListener(onChange); }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+// Language switcher (globe) dropdown
+(function () {
+  function init() {
+    var sw = document.querySelector('[data-lang-switcher]');
+    var btn = sw && sw.querySelector('[data-lang-button]');
+    if (!sw || !btn) return;
+
+    function setOpen(open) {
+      sw.classList.toggle('lang-open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+
+    btn.addEventListener('click', function () {
+      var willOpen = !sw.classList.contains('lang-open');
+      // Opening the language menu closes the mobile page drawer, if open.
+      var nav = document.querySelector('.site-nav');
+      if (nav) {
+        nav.classList.remove('nav-open');
+        var nb = nav.querySelector('[data-nav-toggle]');
+        if (nb) nb.setAttribute('aria-expanded', 'false');
+      }
+      setOpen(willOpen);
+    });
+
+    // Click outside closes.
+    document.addEventListener('click', function (e) {
+      if (sw.classList.contains('lang-open') && !sw.contains(e.target)) setOpen(false);
+    });
+
+    // Escape closes and returns focus to the button.
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && sw.classList.contains('lang-open')) {
+        setOpen(false);
+        btn.focus();
+      }
+    });
   }
 
   if (document.readyState === 'loading') {

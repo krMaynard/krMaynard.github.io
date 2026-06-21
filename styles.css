@@ -465,15 +465,18 @@
 }
 
 /* Language Switcher */
-/* Desktop language group — replaces the old "|" text dividers with a tidy,
-   bordered cluster. On mobile it becomes a wrapped pill row (see nav media query). */
-.nav-langs {
-  display: inline-flex;
+/* Right-hand nav cluster: page links (which collapse to the hamburger on
+   mobile) sit beside the always-visible actions — language globe, theme,
+   and the hamburger toggle. */
+.nav-right {
+  display: flex;
   align-items: center;
-  gap: 0.4rem;
-  margin-left: 0.3rem;
-  padding-left: 0.9rem;
-  border-left: 1px solid var(--border);
+  gap: 1.5rem;
+}
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
 }
 
 /* Hamburger toggle — hidden on desktop, shown in the mobile nav media query */
@@ -500,23 +503,76 @@
   transition: transform 0.22s ease, opacity 0.22s ease;
 }
 
-.lang-switch {
-  font-size: 0.8rem;
+/* Always-visible globe language switcher (button + dropdown menu) */
+.lang-switcher { position: relative; }
+/* Neutralise the global `* { margin: 10px }` on the switcher's inner bits */
+.lang-current svg,
+.lang-current-label,
+.lang-menu li,
+.lang-opt span,
+.lang-opt svg { margin: 0; }
+.lang-current {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  padding: 0.34rem 0.55rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: inherit;
   font-weight: 600;
-  color: var(--brand) !important;
-  padding: 0.15rem 0.45rem;
-  border: 1px solid var(--brand);
-  border-radius: 3px;
-  text-decoration: none;
-  transition: all 0.2s;
+  font-size: 0.85rem;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.lang-current:hover,
+.lang-switcher.lang-open .lang-current {
+  border-color: var(--brand);
+  color: var(--brand);
+}
+.lang-globe { width: 17px; height: 17px; flex: 0 0 auto; }
+.lang-caret {
+  width: 11px;
+  height: 11px;
+  flex: 0 0 auto;
+  opacity: 0.75;
+  transition: transform 0.2s ease;
+}
+.lang-switcher.lang-open .lang-caret { transform: rotate(180deg); }
+.lang-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 180px;
   margin: 0;
+  padding: 0.3rem;
+  list-style: none;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 12px 30px var(--shadow-card);
+  display: none;
+  z-index: 60;
+}
+.lang-switcher.lang-open .lang-menu { display: block; }
+.lang-opt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text);
+  font-size: 0.92rem;
   white-space: nowrap;
 }
-
-.lang-switch:hover {
-  background: var(--brand);
-  color: #fff !important;
-}
+.lang-opt:hover { background: var(--bg-subtle); color: var(--text); }
+.lang-opt.is-current { font-weight: 700; }
+.lang-check { width: 16px; height: 16px; flex: 0 0 auto; color: var(--brand); }
 
 /* Theme Toggle */
 .theme-toggle {
@@ -2111,22 +2167,19 @@ button:focus-visible,
     display: none;
   }
 
-  .nav-langs {
-    margin: 0.3rem 0 0;
-    padding: 0.65rem 1.25rem;
-    border-left: 0;
-    border-top: 1px solid var(--border);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+  /* Keep the always-visible actions tight so name + globe + theme + hamburger
+     fit on a phone. The language globe stays in the bar (not the drawer); on
+     phones it collapses to an icon-only button — the dropdown still lists the
+     full language names. */
+  .nav-right { gap: 0.5rem; }
+  .lang-current-label,
+  .lang-caret { display: none; }
+  .lang-current {
+    width: 38px;
+    height: 34px;
+    padding: 0;
+    gap: 0;
+    justify-content: center;
   }
-  .nav-langs .lang-switch {
-    padding: 0.32rem 0.75rem;
-    font-size: 0.85rem;
-  }
-
-  .site-nav .theme-toggle {
-    margin: 0.55rem 1.25rem 0.2rem;
-    align-self: flex-start;
-  }
+  .lang-globe { width: 19px; height: 19px; }
 }
