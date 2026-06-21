@@ -47,7 +47,7 @@ lang_url_ko: /ko/blog/fable-5-security-review.html
 
     <p>这与我之前写的<a href="/zh/blog/llms-compliance-pm.html">合规工作中的LLM应用</a>遥相呼应：胜算在于产出可验证的结构化任务。对一个小代码库做安全扫查正是如此——把一份有限的清单（注入面、SSRF、侧信道、资源耗尽）穷尽式地过一遍，每个发现都能通过读代码确认，每个修复都能用测试钉死。"穷尽而枯燥"，正是如今模型稳定胜过疲惫人类的地方。</p>
 
-    <p>判断仍然留在我这里。指标端点是否可以保持免认证、演示密钥在非生产环境是否可接受、内存任务存储对演示服务是否够用——这些是关于该服务<em>为何而存在</em>的威胁模型判断，模型也没有假装替我做这些决定。包含测试的完整diff见<a href="https://github.com/krMaynard/research-api/pull/34" target="_blank" rel="noopener">这个拉取请求</a>；测试套件共122项，全部通过。</p>
+    <p>判断仍然留在我这里。指标端点是否可以保持免认证、演示密钥在非生产环境是否可接受、内存任务存储对演示服务是否够用——这些是关于该服务<em>为何而存在</em>的威胁模型判断，模型也没有假装替我做这些决定。包含测试的完整diff见<a href="https://github.com/krMaynard/transparency-report-api/pull/34" target="_blank" rel="noopener">这个拉取请求</a>；测试套件共122项，全部通过。</p>
 
   </div>
 </article>
