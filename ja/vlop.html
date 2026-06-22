@@ -8,107 +8,28 @@ lang_url_ko: /ko/vlop.html
 ---
 
 <div style="padding-top: 2.5rem; margin-bottom: 0.5rem;">
-  <p class="section-label">分析</p>
+  <p class="section-label">ケーススタディ</p>
   <h1 style="margin-top: 0; margin-bottom: 0.5rem;">DSA透明性レポート — VLOPおよびVLOSE</h1>
   <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
-    EU「デジタルサービス法（DSA）」に基づき、超大規模オンラインプラットフォーム（VLOP）および超大規模オンライン検索エンジン（VLOSE）はコンテンツモデレーションに関する透明性レポートを公表する義務があります。
-    このダッシュボードでは、<strong>2025年7月1日〜12月31日</strong>の期間を対象に、
-    25サービスを1つの比較ビューに統合しています。この期間にレポートを公表したすべてのVLOPおよびVLOSEを網羅しており、
-    アダルト動画サイトのPornhub、XVideos、XNXXも含まれます。
-    Stripchatは2025年5月に指定解除され、WhatsApp Channelsは本報告期間後の2026年1月に指定されました。
-    指定の一覧はダッシュボード下部のタイムラインをご覧ください。
+    EU「デジタルサービス法（DSA）」に基づき、超大規模オンラインプラットフォーム（VLOP）および超大規模オンライン検索エンジン（VLOSE）はコンテンツモデレーションに関する透明性レポートを半年ごとに公表する義務があります。
+    このプロジェクトでは、2025年下半期のレポートを25サービス分集約し、クロスプラットフォームで比較できるダッシュボードを作成しました。本期間にアクティブだったVLOP 22社とVLOSE 2社のすべてを対象とし、DSAレポートの全9テーブルを網羅しています：通知、自主的措置、政府命令、異議申立、自動化手段、人的資源、ユーザーリーチ、定性情報。
   </p>
-  <p style="color: var(--text-faint); font-size: 0.85rem; margin-bottom: 2rem; background: transparent;">
-    出典：AliExpress、Amazon、Apple（App Store）、Bing、Booking.com、LinkedIn、Meta（Facebook、Instagram）、Pinterest、Pornhub、SHEIN、Snapchat、Temu、TikTok、Wikipedia、X、XNXX、XVideos、YouTube／Google（6サービス）、Zalandoの各社公式DSA透明性レポート。
-    データはブラウザ内で処理されており、バックエンドへのリクエストは発生しません。
+  <p style="color: var(--text-muted); max-width: 720px; line-height: 1.65; background: transparent;">
+    出典：AliExpress、Amazon、Apple（App Store）、Bing、Booking.com、LinkedIn、Meta（Facebook、Instagram）、Pinterest、Pornhub、SHEIN、Snapchat、Temu、TikTok、Wikipedia、X、XNXX、XVideos、YouTube／Google（6サービス）、Zalando。
+    ソースファイル：<a href="https://github.com/krMaynard/dsa-transparency-data" target="_blank" rel="noopener">github.com/krMaynard/dsa-transparency-data</a>。
   </p>
 </div>
 
-<!-- ── Tabs ──────────────────────────────────────────────── -->
-<div id="vlop-loading" class="td-loading">データ読み込み中…</div>
-
-<div id="vlop-app" hidden>
-
-  <nav class="vlop-tabs" role="tablist" aria-label="レポートセクション">
-    <button class="vlop-tab vlop-tab-active" role="tab" data-tab="t4">通知</button>
-    <button class="vlop-tab" role="tab" data-tab="t5">自主的措置：違法コンテンツ</button>
-    <button class="vlop-tab" role="tab" data-tab="t6">自主的措置：ポリシー違反</button>
-    <button class="vlop-tab" role="tab" data-tab="t3">政府命令</button>
-    <button class="vlop-tab" role="tab" data-tab="t7">異議申立</button>
-    <button class="vlop-tab" role="tab" data-tab="t8">自動化手段</button>
-    <button class="vlop-tab" role="tab" data-tab="t9">人的資源</button>
-    <button class="vlop-tab" role="tab" data-tab="t10">ユーザーリーチ</button>
-    <button class="vlop-tab" role="tab" data-tab="t11">定性情報</button>
-  </nav>
-
-  <!-- ── Filters ─────────────────────────────────────────── -->
-  <div class="td-filters vlop-filters" role="region" aria-label="フィルタ">
-    <div class="td-filter td-filter-wide">
-      <label for="vlop-platform">プラットフォーム</label>
-      <select id="vlop-platform"></select>
-    </div>
-    <div class="td-filter td-filter-wide">
-      <label for="vlop-service">サービス</label>
-      <select id="vlop-service"></select>
-    </div>
-    <div class="td-filter td-filter-wide" id="vlop-cat-wrap">
-      <label for="vlop-category">カテゴリ</label>
-      <select id="vlop-category"></select>
-    </div>
-    <div class="td-filter td-filter-wide" id="vlop-kw-wrap">
-      <label for="vlop-keyword">キーワード</label>
-      <select id="vlop-keyword"></select>
-    </div>
-    <div class="td-filter td-filter-wide" id="vlop-surf-wrap" hidden>
-      <label for="vlop-surface">区分</label>
-      <select id="vlop-surface"></select>
-    </div>
-    <div class="td-filter td-filter-wide" id="vlop-country-wrap" hidden>
-      <label for="vlop-country">国</label>
-      <select id="vlop-country"></select>
-    </div>
-    <button type="button" id="vlop-reset" class="td-reset">フィルタをリセット</button>
-  </div>
-
-  <!-- ── Metric cards ───────────────────────────────────── -->
-  <div id="vlop-metrics" class="td-metrics"></div>
-
-  <!-- ── Charts ────────────────────────────────────────── -->
-  <div id="vlop-charts" class="td-chart-grid"></div>
-
-  <!-- ── Table ─────────────────────────────────────────── -->
-  <div id="vlop-table-wrap" class="td-table-card" hidden>
-    <div class="td-table-head">
-      <h3 id="vlop-table-title">詳細</h3>
-      <span id="vlop-row-count" class="td-row-count"></span>
-    </div>
-    <div class="td-table-scroll">
-      <table class="td-table">
-        <thead><tr id="vlop-table-head"></tr></thead>
-        <tbody id="vlop-table-body"></tbody>
-      </table>
-    </div>
-  </div>
-
+<!-- ── ライブツール CTA ──────────────────────────────── -->
+<div class="card" style="margin: 2rem 0;">
+  <p class="section-label" style="margin: 0 0 0.4rem;">ライブツール</p>
+  <h3 style="margin-top: 0;">データを探索する</h3>
+  <p>完全なデータセットはTransparency Report APIでご利用いただけます — 全9つのDSAテーブルにわたるインタラクティブチャート、構造化クエリ、そしてClaudeを搭載した自然言語クエリボックス。</p>
+  <a href="https://transparency.kieranmaynard.com/reports" class="card-link">ライブダッシュボードを開く &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/portal" class="card-link">研究者ポータル &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/docs" class="card-link">APIドキュメント &rarr;</a>
 </div>
 
-<!-- ── Notes ─────────────────────────────────────────────── -->
-<!-- ── VLOP / VLOSE designation timeline ─────────────────── -->
-<section class="td-table-card" id="vlop-designations" style="margin-top: 2rem;" hidden>
-  <div class="td-table-head">
-    <h3 id="vlop-desig-title">Designations</h3>
-    <span id="vlop-desig-count" class="td-row-count"></span>
-  </div>
-  <p id="vlop-desig-intro" class="td-desig-intro"></p>
-  <div class="td-table-scroll">
-    <table class="td-table">
-      <thead><tr id="vlop-desig-head"></tr></thead>
-      <tbody id="vlop-desig-body"></tbody>
-    </table>
-  </div>
-</section>
-
-<section class="td-readme" id="vlop-readme" hidden>
+<!-- ── Reading the data ────────────────────────────────────── -->
+<section class="td-readme">
   <h2 class="td-section-title">データの読み方</h2>
   <ul class="td-bullets">
     <li><strong>通知（テーブル4）</strong>は、ユーザーまたは信頼できるフラッガーが違法コンテンツと疑われる内容を報告するために提出したものです。1件の通知に複数のアイテムが含まれる場合があります。</li>
@@ -128,45 +49,6 @@ lang_url_ko: /ko/vlop.html
 <hr class="section-divider" />
 
 <p style="color: var(--text-very-faint); font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
-  データ：AliExpress、Amazon、Apple（App Store）、Bing、Booking.com、LinkedIn、Meta（Facebook、Instagram）、Pinterest、Pornhub、SHEIN、Snapchat、Temu、TikTok、Wikimedia Foundation（Wikipedia）、X、XNXX、XVideos、YouTube／Google、Zalandoの各社公式DSA透明性レポート（2025年下半期）。
-  ソースファイル：<a href="https://github.com/krMaynard/dsa-transparency-data">github.com/krMaynard/dsa-transparency-data</a>。
-  分析・可視化：キーラン・メイナード。チャートは<a href="https://www.chartjs.org/">Chart.js</a>を使用。
+  データ：各社公式DSA透明性レポート（2025年下半期）。分析：キーラン・メイナード。
 </p>
 
-<style>
-.vlop-tabs {
-  display: flex;
-  gap: 0.25rem;
-  flex-wrap: wrap;
-  margin-bottom: 1.25rem;
-  border-bottom: 2px solid var(--border);
-  padding-bottom: 0;
-}
-.vlop-tab {
-  background: none;
-  border: none;
-  border-bottom: 3px solid transparent;
-  margin-bottom: -2px;
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-  cursor: pointer;
-  color: var(--text-muted);
-  font-family: inherit;
-  transition: color 0.15s, border-color 0.15s;
-}
-.vlop-tab:hover { color: var(--text); }
-.vlop-tab-active {
-  color: var(--text);
-  border-bottom-color: var(--accent, #4e79a7);
-  font-weight: 600;
-}
-.vlop-filters { margin-bottom: 1.25rem; }
-@media (max-width: 600px) {
-  .vlop-tabs { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; scrollbar-width: none; }
-  .vlop-tabs::-webkit-scrollbar { display: none; }
-  .vlop-tab { font-size: 0.8rem; padding: 0.4rem 0.7rem; white-space: nowrap; }
-}
-</style>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer></script>
-<script src="/vlop-dashboard.js" defer></script>

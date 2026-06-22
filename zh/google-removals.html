@@ -8,23 +8,18 @@ lang_url_ja: /ja/google-removals.html
 lang_url_ko: /ko/google-removals.html
 ---
 
-<div style="padding-top: 2.5rem; margin-bottom: 0.5rem;"><p class="section-label">分析</p></div>
+<div style="padding-top: 2.5rem; margin-bottom: 0.5rem;"><p class="section-label">案例研究</p></div>
 
 <p style="margin-top: 2rem;"><a href="/zh/transparency.html">← 透明度数据</a></p>
 
 <div style="padding-top: 1.5rem; margin-bottom: 0.5rem;">
-  <p class="section-label">仪表板</p>
   <h2 style="margin-top: 0; margin-bottom: 0.5rem;">政府向谷歌提交的内容删除请求</h2>
   <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
     2014年至2024年，我担任<a href="https://transparencyreport.google.com/government-removals/explore">谷歌透明度报告</a>大中华区部分的主要作者之一。
-    本仪表板探索谷歌2019年采用的详细报告格式下的<em>政府删除请求</em>数据，
-    覆盖<strong>13个报告期间</strong>、<strong>160个国家/地区</strong>、<strong>42款谷歌产品</strong>和<strong>22项删除原因</strong>。
+    本项目将谷歌2019年采用的详细报告格式下的<em>政府删除请求</em>数据，
+    构建为覆盖<strong>13个报告期间</strong>、<strong>160个国家/地区</strong>、<strong>42款谷歌产品</strong>和<strong>22项删除原因</strong>的多年趋势探索工具。
     不同于谷歌自身按期呈现的报告，本视图专注于<strong>跨报告期间的趋势分析</strong>：
     每种筛选组合均可生成多年时间序列，支持按国家/地区、申请方、产品或原因进行拆解。
-  </p>
-  <p style="color: var(--text-faint); font-size: 0.85rem; margin-bottom: 2rem; background: transparent;">
-    数据来源：<a href="https://transparencyreport.google.com/government-removals/overview">谷歌透明度报告——政府内容删除请求</a>。
-    数据直接在浏览器中加载处理，不向后端发送任何请求。
   </p>
 </div>
 
@@ -46,103 +41,13 @@ lang_url_ko: /ko/google-removals.html
   </div>
 </section>
 
-<section class="td-dashboard">
-  <div id="td-loading" class="td-loading">数据加载中…</div>
-
-  <div id="td-app" hidden>
-
-    <div class="td-filters" role="region" aria-label="仪表板筛选器">
-      <div class="td-filter">
-        <label for="td-from">起始</label>
-        <select id="td-from"></select>
-      </div>
-      <div class="td-filter">
-        <label for="td-to">截止</label>
-        <select id="td-to"></select>
-      </div>
-      <div class="td-filter td-filter-wide">
-        <label for="td-country">国家/地区</label>
-        <select id="td-country"></select>
-      </div>
-      <div class="td-filter td-filter-wide">
-        <label for="td-requestor">申请方</label>
-        <select id="td-requestor"></select>
-      </div>
-      <div class="td-filter td-filter-wide">
-        <label for="td-product">产品</label>
-        <select id="td-product"></select>
-      </div>
-      <div class="td-filter td-filter-wide">
-        <label for="td-reason">原因</label>
-        <select id="td-reason"></select>
-      </div>
-      <button type="button" id="td-reset" class="td-reset">重置筛选</button>
-    </div>
-
-    <p class="td-range-line">
-      显示报告期间：<strong id="td-range-label">—</strong>
-    </p>
-
-    <div id="td-metrics" class="td-metrics"></div>
-
-    <div class="td-chart-grid">
-      <div class="td-chart-card td-chart-card-wide">
-        <div class="td-chart-head">
-          <h3>各报告期间的删除目标数量</h3>
-          <div class="td-breakdown">
-            <label for="td-breakdown">分类维度</label>
-            <select id="td-breakdown"></select>
-          </div>
-        </div>
-        <div class="td-chart-wrap"><canvas id="td-chart-time" aria-label="时间序列图表"></canvas></div>
-      </div>
-
-      <div class="td-chart-card td-chart-card-wide">
-        <h3>删除率变化趋势</h3>
-        <div class="td-chart-wrap"><canvas id="td-chart-rate" aria-label="删除率变化趋势"></canvas></div>
-      </div>
-
-      <div class="td-chart-card">
-        <h3>目标数量最多的前10个国家/地区</h3>
-        <div class="td-chart-wrap td-chart-tall"><canvas id="td-chart-countries" aria-label="国家/地区柱状图"></canvas></div>
-      </div>
-
-      <div class="td-chart-card">
-        <h3>主要删除原因</h3>
-        <div class="td-chart-wrap td-chart-tall"><canvas id="td-chart-reasons" aria-label="删除原因环形图"></canvas></div>
-      </div>
-
-      <div class="td-chart-card">
-        <h3>被针对的谷歌产品</h3>
-        <div class="td-chart-wrap td-chart-tall"><canvas id="td-chart-products" aria-label="产品柱状图"></canvas></div>
-      </div>
-
-      <div class="td-chart-card">
-        <h3>谷歌的处理情况</h3>
-        <div class="td-chart-wrap td-chart-tall"><canvas id="td-chart-compliance" aria-label="处理情况柱状图"></canvas></div>
-      </div>
-    </div>
-
-    <div class="td-table-card">
-      <div class="td-table-head">
-        <h3>筛选结果（按目标数量前25条）</h3>
-        <span id="td-row-count" class="td-row-count"></span>
-      </div>
-      <div class="td-table-scroll">
-        <table class="td-table">
-          <thead>
-            <tr>
-              <th>期间</th><th>国家/地区</th><th>申请方</th><th>产品</th><th>原因</th>
-              <th class="td-num">目标数量</th><th class="td-num">已删除数量</th>
-            </tr>
-          </thead>
-          <tbody id="td-table-body"></tbody>
-        </table>
-      </div>
-    </div>
-
-  </div>
-</section>
+<!-- ── 实时工具 CTA ──────────────────────────────── -->
+<div class="card" style="margin: 2rem 0;">
+  <p class="section-label" style="margin: 0 0 0.4rem;">实时工具</p>
+  <h3 style="margin-top: 0;">探索数据</h3>
+  <p>完整数据集以交互式仪表板形式提供——支持按报告期间、国家/地区、产品或删除原因筛选，并探索多年趋势图（包括删除率变化趋势和处理结果分类）。</p>
+  <a href="https://transparency.kieranmaynard.com/removals" class="card-link">打开实时仪表板 &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/docs" class="card-link">API文档 &rarr;</a>
+</div>
 
 <section class="td-readme">
   <h2 class="td-section-title">值得关注的几点</h2>
@@ -173,8 +78,6 @@ lang_url_ko: /ko/google-removals.html
 <hr class="section-divider" />
 
 <p style="color: var(--text-very-faint); font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
-  数据来源：<a href="https://transparencyreport.google.com/government-removals/overview">谷歌透明度报告</a>，详细报告格式（2019年至2025年上半年）。分析与可视化：基兰·梅纳德。图表使用<a href="https://www.chartjs.org/">Chart.js</a>。
+  数据来源：<a href="https://transparencyreport.google.com/government-removals/overview">谷歌透明度报告</a>，详细报告格式（2019年至2025年上半年）。分析：基兰·梅纳德。
 </p>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer></script>
-<script src="/transparency-dashboard.js" defer></script>

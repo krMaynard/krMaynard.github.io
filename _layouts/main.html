@@ -47,64 +47,124 @@
 
     <nav class="site-nav">
       <a href="{% if page.lang == 'ja' %}/ja/{% elsif page.lang == 'zh' %}/zh/{% elsif page.lang == 'ko' %}/ko/{% else %}/{% endif %}" class="nav-name">Kieran Maynard</a>
-      <div class="nav-links">
-        {% if page.lang == 'ja' %}
-        <a href="/ja/work.html">実績</a>
-        <a href="/ja/transparency.html">プロダクト</a>
-        <a href="/ja/consulting.html">コンサルティング</a>
-        <a href="/ja/blog.html">ブログ</a>
-        <a href="mailto:kieranmaynard@gmail.com">お問い合わせ</a>
-        {% elsif page.lang == 'zh' %}
-        <a href="/zh/work.html">工作经历</a>
-        <a href="/zh/transparency.html">产品</a>
-        <a href="/zh/consulting.html">咨询服务</a>
-        <a href="/zh/blog.html">博客</a>
-        <a href="mailto:kieranmaynard@gmail.com">联系我</a>
-        {% elsif page.lang == 'ko' %}
-        <a href="/ko/work.html">경력</a>
-        <a href="/ko/transparency.html">제품</a>
-        <a href="/ko/consulting.html">컨설팅</a>
-        <a href="/ko/blog.html">블로그</a>
-        <a href="mailto:kieranmaynard@gmail.com">문의하기</a>
-        {% else %}
-        <a href="/work.html">Work</a>
-        <a href="/transparency.html">Products</a>
-        <a href="/consulting.html">Consulting</a>
-        <a href="/blog.html">Blog</a>
-        <a href="mailto:kieranmaynard@gmail.com">Contact</a>
-        {% endif %}
-        {% if page.lang == 'ja' %}
-        <span class="lang-divider">|</span>
-        <a href="{{ page.lang_url }}" class="lang-switch">EN</a>
-        {% if page.lang_url_zh %}<span class="lang-divider">|</span><a href="{{ page.lang_url_zh }}" class="lang-switch">中文</a>{% endif %}
-        {% if page.lang_url_ko %}<span class="lang-divider">|</span><a href="{{ page.lang_url_ko }}" class="lang-switch">한국어</a>{% endif %}
-        {% elsif page.lang == 'zh' %}
-        <span class="lang-divider">|</span>
-        <a href="{{ page.lang_url }}" class="lang-switch">EN</a>
-        {% if page.lang_url_ja %}<span class="lang-divider">|</span><a href="{{ page.lang_url_ja }}" class="lang-switch">日本語</a>{% endif %}
-        {% if page.lang_url_ko %}<span class="lang-divider">|</span><a href="{{ page.lang_url_ko }}" class="lang-switch">한국어</a>{% endif %}
-        {% elsif page.lang == 'ko' %}
-        <span class="lang-divider">|</span>
-        <a href="{{ page.lang_url }}" class="lang-switch">EN</a>
-        {% if page.lang_url_ja %}<span class="lang-divider">|</span><a href="{{ page.lang_url_ja }}" class="lang-switch">日本語</a>{% endif %}
-        {% if page.lang_url_zh %}<span class="lang-divider">|</span><a href="{{ page.lang_url_zh }}" class="lang-switch">中文</a>{% endif %}
-        {% else %}
-        {% if page.lang_url %}<span class="lang-divider">|</span><a href="{{ page.lang_url }}" class="lang-switch">日本語</a>{% endif %}
-        {% if page.lang_url_zh %}<span class="lang-divider">|</span><a href="{{ page.lang_url_zh }}" class="lang-switch">中文</a>{% endif %}
-        {% if page.lang_url_ko %}<span class="lang-divider">|</span><a href="{{ page.lang_url_ko }}" class="lang-switch">한국어</a>{% endif %}
-        {% endif %}
-        <button type="button" class="cmdk-trigger" data-open-cmdk aria-label="Open command palette">
-          <kbd class="cmdk-shortcut">⌘K</kbd>
-        </button>
-        <button type="button" class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
-          <svg class="theme-icon-dark" viewBox="0 0 20 20" aria-hidden="true" fill="currentColor"><path d="M17.293 13.293A8 8 0 0 1 6.707 2.707a8.001 8.001 0 1 0 10.586 10.586z"/></svg>
-          <svg class="theme-icon-light" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="10" cy="10" r="3.2" fill="currentColor" stroke="none"/><line x1="10" y1="2" x2="10" y2="3.8"/><line x1="10" y1="16.2" x2="10" y2="18"/><line x1="2" y1="10" x2="3.8" y2="10"/><line x1="16.2" y1="10" x2="18" y2="10"/><line x1="3.86" y1="3.86" x2="5.13" y2="5.13"/><line x1="14.87" y1="14.87" x2="16.14" y2="16.14"/><line x1="3.86" y1="16.14" x2="5.13" y2="14.87"/><line x1="14.87" y1="5.13" x2="16.14" y2="3.86"/></svg>
-        </button>
+      {% if page.lang == 'ja' %}{% assign menu_label = 'メニュー' %}{% assign lang_aria = '言語' %}{% assign lang_current = '日本語' %}{% assign url_en = page.lang_url %}{% assign url_ja = page.url %}{% assign url_zh = page.lang_url_zh %}{% assign url_ko = page.lang_url_ko %}
+      {% elsif page.lang == 'zh' %}{% assign menu_label = '菜单' %}{% assign lang_aria = '语言' %}{% assign lang_current = '中文' %}{% assign url_en = page.lang_url %}{% assign url_ja = page.lang_url_ja %}{% assign url_zh = page.url %}{% assign url_ko = page.lang_url_ko %}
+      {% elsif page.lang == 'ko' %}{% assign menu_label = '메뉴' %}{% assign lang_aria = '언어' %}{% assign lang_current = '한국어' %}{% assign url_en = page.lang_url %}{% assign url_ja = page.lang_url_ja %}{% assign url_zh = page.lang_url_zh %}{% assign url_ko = page.url %}
+      {% else %}{% assign menu_label = 'Menu' %}{% assign lang_aria = 'Language' %}{% assign lang_current = 'English' %}{% assign url_en = page.url %}{% assign url_ja = page.lang_url %}{% assign url_zh = page.lang_url_zh %}{% assign url_ko = page.lang_url_ko %}
+      {% endif %}
+      <div class="nav-right">
+        <div class="nav-links" id="nav-menu">
+          {% if page.lang == 'ja' %}
+          <a href="/ja/work.html">実績</a>
+          <a href="/ja/transparency.html">プロダクト</a>
+          <a href="/ja/consulting.html">コンサルティング</a>
+          <a href="/ja/blog.html">ブログ</a>
+          <a href="/ja/contact.html">お問い合わせ</a>
+          {% elsif page.lang == 'zh' %}
+          <a href="/zh/work.html">工作经历</a>
+          <a href="/zh/transparency.html">产品</a>
+          <a href="/zh/consulting.html">咨询服务</a>
+          <a href="/zh/blog.html">博客</a>
+          <a href="/zh/contact.html">联系我</a>
+          {% elsif page.lang == 'ko' %}
+          <a href="/ko/work.html">경력</a>
+          <a href="/ko/transparency.html">제품</a>
+          <a href="/ko/consulting.html">컨설팅</a>
+          <a href="/ko/blog.html">블로그</a>
+          <a href="/ko/contact.html">문의하기</a>
+          {% else %}
+          <a href="/work.html">Work</a>
+          <a href="/transparency.html">Products</a>
+          <a href="/consulting.html">Consulting</a>
+          <a href="/blog.html">Blog</a>
+          <a href="/contact.html">Contact</a>
+          {% endif %}
+          <button type="button" class="cmdk-trigger" data-open-cmdk aria-label="Open command palette">
+            <kbd class="cmdk-shortcut">⌘K</kbd>
+          </button>
+        </div>
+        <div class="nav-actions">
+          <div class="lang-switcher" data-lang-switcher>
+            <button type="button" class="lang-current" data-lang-button aria-expanded="false" aria-controls="lang-menu" aria-label="{{ lang_aria }}">
+              <svg class="lang-globe" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.6 2.7 2.6 15.3 0 18"/><path d="M12 3c-2.6 2.7-2.6 15.3 0 18"/></svg>
+              <span class="lang-current-label">{{ lang_current }}</span>
+              <svg class="lang-caret" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6l4 4 4-4"/></svg>
+            </button>
+            <ul class="lang-menu" id="lang-menu" aria-label="{{ lang_aria }}">
+              {% if url_en %}<li><a class="lang-opt{% if url_en == page.url %} is-current{% endif %}" href="{{ url_en }}"{% if url_en == page.url %} aria-current="page"{% endif %}><span>English</span>{% if url_en == page.url %}<svg class="lang-check" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M3.5 8.5l3 3 6-7"/></svg>{% endif %}</a></li>{% endif %}
+              {% if url_ja %}<li><a class="lang-opt{% if url_ja == page.url %} is-current{% endif %}" href="{{ url_ja }}"{% if url_ja == page.url %} aria-current="page"{% endif %}><span>日本語</span>{% if url_ja == page.url %}<svg class="lang-check" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M3.5 8.5l3 3 6-7"/></svg>{% endif %}</a></li>{% endif %}
+              {% if url_zh %}<li><a class="lang-opt{% if url_zh == page.url %} is-current{% endif %}" href="{{ url_zh }}"{% if url_zh == page.url %} aria-current="page"{% endif %}><span>中文</span>{% if url_zh == page.url %}<svg class="lang-check" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M3.5 8.5l3 3 6-7"/></svg>{% endif %}</a></li>{% endif %}
+              {% if url_ko %}<li><a class="lang-opt{% if url_ko == page.url %} is-current{% endif %}" href="{{ url_ko }}"{% if url_ko == page.url %} aria-current="page"{% endif %}><span>한국어</span>{% if url_ko == page.url %}<svg class="lang-check" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M3.5 8.5l3 3 6-7"/></svg>{% endif %}</a></li>{% endif %}
+            </ul>
+          </div>
+          <button type="button" class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+            <svg class="theme-icon-dark" viewBox="0 0 20 20" aria-hidden="true" fill="currentColor"><path d="M17.293 13.293A8 8 0 0 1 6.707 2.707a8.001 8.001 0 1 0 10.586 10.586z"/></svg>
+            <svg class="theme-icon-light" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="10" cy="10" r="3.2" fill="currentColor" stroke="none"/><line x1="10" y1="2" x2="10" y2="3.8"/><line x1="10" y1="16.2" x2="10" y2="18"/><line x1="2" y1="10" x2="3.8" y2="10"/><line x1="16.2" y1="10" x2="18" y2="10"/><line x1="3.86" y1="3.86" x2="5.13" y2="5.13"/><line x1="14.87" y1="14.87" x2="16.14" y2="16.14"/><line x1="3.86" y1="16.14" x2="5.13" y2="14.87"/><line x1="14.87" y1="5.13" x2="16.14" y2="3.86"/></svg>
+          </button>
+          <button type="button" class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="nav-menu" aria-label="{{ menu_label }}">
+            <span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span>
+          </button>
+        </div>
       </div>
     </nav>
 
     <div class="container">
       {{ content }}
+
+      {% if page.date and page.url contains '/blog/' %}
+      {%- assign loc = '' -%}
+      {%- assign t_written = 'Written by' -%}
+      {%- assign t_bio = 'AI product manager and builder. I write about putting AI to work in real products and workflows, transparency reporting, and language. Previously at Google.' -%}
+      {%- assign t_work = 'Work' -%}
+      {%- assign t_consulting = 'Consulting' -%}
+      {%- assign t_contact = 'Email' -%}
+      {%- assign t_continue = 'Continue reading' -%}
+      {%- assign date_fmt = '%B %-d, %Y' -%}
+      {%- if page.lang == 'ja' -%}
+        {%- assign loc = '/ja' -%}{%- assign t_written = '著者' -%}{%- assign t_bio = 'AIプロダクトマネージャー兼ビルダー。実際のプロダクトや業務にAIをどう活かすか、透明性レポーティング、そして言語について書いています。前職はGoogle。' -%}{%- assign t_work = '実績' -%}{%- assign t_consulting = 'コンサルティング' -%}{%- assign t_contact = 'お問い合わせ' -%}{%- assign t_continue = '続けて読む' -%}{%- assign date_fmt = '%Y年%-m月%-d日' -%}
+      {%- elsif page.lang == 'zh' -%}
+        {%- assign loc = '/zh' -%}{%- assign t_written = '作者' -%}{%- assign t_bio = 'AI 产品经理与构建者。写如何把 AI 用到真实的产品与工作流中、透明度报告，以及语言。曾任职于 Google。' -%}{%- assign t_work = '工作经历' -%}{%- assign t_consulting = '咨询服务' -%}{%- assign t_contact = '联系我' -%}{%- assign t_continue = '继续阅读' -%}{%- assign date_fmt = '%Y年%-m月%-d日' -%}
+      {%- elsif page.lang == 'ko' -%}
+        {%- assign loc = '/ko' -%}{%- assign t_written = '글쓴이' -%}{%- assign t_bio = 'AI 프로덕트 매니저이자 빌더. 실제 제품과 업무에 AI를 어떻게 활용하는지, 투명성 리포팅, 그리고 언어에 대해 씁니다. 이전에는 Google에 있었습니다.' -%}{%- assign t_work = '경력' -%}{%- assign t_consulting = '컨설팅' -%}{%- assign t_contact = '문의하기' -%}{%- assign t_continue = '이어서 읽기' -%}{%- assign date_fmt = '%Y년 %-m월 %-d일' -%}
+      {%- endif -%}
+      <aside class="post-author">
+        <div class="post-author-avatar" aria-hidden="true">KM</div>
+        <div class="post-author-info">
+          <p class="post-author-eyebrow">{{ t_written }}</p>
+          <p class="post-author-name">Kieran Maynard</p>
+          <p class="post-author-bio">{{ t_bio }}</p>
+          <div class="post-author-links">
+            <a href="{{ loc }}/work.html">{{ t_work }}</a>
+            <a href="{{ loc }}/consulting.html">{{ t_consulting }}</a>
+            <a href="mailto:kieranmaynard@gmail.com">{{ t_contact }}</a>
+            <a href="https://github.com/krMaynard" target="_blank" rel="noopener me">GitHub</a>
+          </div>
+        </div>
+      </aside>
+      {%- assign current_lang = page.lang | default: 'en' -%}
+      {%- assign posts = site.pages | where_exp: "p", "p.date" | where: "lang", current_lang | sort: "date" | reverse -%}
+      {%- assign shown = 0 -%}
+      {%- capture cards -%}
+      {%- for p in posts -%}
+        {%- if shown >= 3 -%}{%- break -%}{%- endif -%}
+        {%- unless p.url contains '/blog/' -%}{%- continue -%}{%- endunless -%}
+        {%- if p.url == page.url -%}{%- continue -%}{%- endif -%}
+        <a class="cr-row" href="{{ p.url }}">
+          <span class="cr-body">
+            <span class="cr-title">{{ p.title | escape }}</span>
+            <time class="cr-date" datetime="{{ p.date | date: '%Y-%m-%d' }}">{{ p.date | date: date_fmt }}</time>
+          </span>
+        </a>
+        {%- assign shown = shown | plus: 1 -%}
+      {%- endfor -%}
+      {%- endcapture -%}
+      {%- if shown > 0 -%}
+      <nav class="continue-reading" aria-label="{{ t_continue }}">
+        <p class="section-label">{{ t_continue }}</p>
+        <div class="continue-reading-list">{{ cards }}</div>
+      </nav>
+      {%- endif -%}
+      {% endif %}
     </div>
 
     <footer>Built with <a href="https://claude.ai/code" style="color: inherit;">Claude Code</a>.</footer>

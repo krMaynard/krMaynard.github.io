@@ -1,6 +1,7 @@
 ---
 layout: main
 title: 투명성 보고서 분석
+description: "공개 투명성 보고서를 기반으로 구축된 인터랙티브 대시보드 — Google 정부 삭제 요청 및 EU DSA VLOP 데이터를 다년도 크로스플랫폼 뷰로 결합."
 lang: ko
 lang_url: /transparency.html
 lang_url_ja: /ja/transparency.html
@@ -15,6 +16,25 @@ lang_url_zh: /zh/transparency.html
   </p>
 
   <div class="card-grid">
+    <div class="card featured-card">
+      <p class="section-label">주요 프로젝트 &middot; 실시간 API</p>
+      <h3>DSA VLOP 투명성 쿼리 API</h3>
+      <p>33개 지정 초대형 온라인 플랫폼(H2 2025)의 EU 디지털 서비스법 투명성 데이터를 제공하는 실시간 연구용 API 및 인터랙티브 대시보드. TikTok Research API를 모델로 한 안전한 구조화 쿼리 인터페이스를 채용했으며, 임의 SQL은 허용하지 않습니다. 크로스플랫폼 집행 통계를 탐색하고, 9개 DSA 보고서 테이블에 대한 구조화 쿼리를 실행하거나, Claude 기반 자연어 질문 기능을 사용하세요.</p>
+      <div class="tags">
+        <span class="tag">FastAPI</span>
+        <span class="tag">EU DSA</span>
+        <span class="tag">구조화 쿼리 API</span>
+        <span class="tag">Claude AI</span>
+        <span class="tag">Cloud Run</span>
+        <span class="tag">개인 프로젝트</span>
+      </div>
+      <div class="featured-card__links">
+        <a href="https://transparency.kieranmaynard.com" class="card-link">라이브 대시보드 &rarr;</a>
+        <a href="https://transparency.kieranmaynard.com/portal" class="card-link">연구자 포털 &rarr;</a>
+        <a href="https://transparency.kieranmaynard.com/docs" class="card-link">API 문서 &rarr;</a>
+        <a href="https://github.com/krMaynard/transparency-report-api" class="card-link" target="_blank" rel="noopener">GitHub &rarr;</a>
+      </div>
+    </div>
     <div class="card">
       <p class="section-label" style="margin: 0 0 0.4rem;">도구</p>
       <h3 style="margin-top: 0;">Gemini 이미지 생성 도구</h3>
@@ -24,34 +44,34 @@ lang_url_zh: /zh/transparency.html
         <span class="tag">이미지 생성</span>
         <span class="tag">클라이언트 사이드</span>
       </div>
-      <a href="/ko/image-generator.html" class="card-link">도구 열기 →</a>
+      <a href="/ko/image-generator.html" class="card-link">도구 열기 &rarr;</a>
     </div>
     <div class="card">
       <p class="section-label" style="margin: 0 0 0.4rem;">라이브</p>
-      <h3 style="margin-top: 0;">Google — 정부 삭제 요청</h3>
+      <h3 style="margin-top: 0;">Google &mdash; 정부 삭제 요청</h3>
       <p>Google 제품에서 콘텐츠를 삭제하라는 정부 요청 10년치. 160개국, 42개 제품, 22가지 사유, 13개 보고 기간 — 다년도 트렌드 탐색기로 구축.</p>
       <div class="tags">
         <span class="tag">Google</span>
         <span class="tag">정부 요청</span>
-        <span class="tag">2019–2025</span>
+        <span class="tag">2019&ndash;2025</span>
       </div>
-      <a href="/ko/google-removals.html" class="card-link">대시보드 보기 →</a>
+      <p class="section-label" style="margin: 0.9rem 0 0.25rem; font-size: 0.72rem;">관련 글</p>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0 0 0.75rem;"><a href="/ko/blog/google-removal-observations.html">데이터에서 주목할 세 가지</a></p>
+      <a href="https://transparency.kieranmaynard.com/removals" class="card-link">라이브 대시보드 &rarr;</a>&ensp;<a href="/ko/google-removals.html" class="card-link">케이스 스터디 &rarr;</a>
     </div>
     <div class="card">
       <p class="section-label" style="margin: 0 0 0.4rem;">라이브</p>
-      <h3 style="margin-top: 0;">VLOP 플랫폼 — DSA 투명성 보고서</h3>
-      <p>Google(6개 서비스), X, TikTok, Facebook, Instagram, Pinterest, AliExpress의 H2 2025 EU 디지털 서비스법 보고서 — 통지, 자발적 조치, 정부 명령, 이의 신청을 포함한 단일 크로스플랫폼 뷰로 결합.</p>
+      <h3 style="margin-top: 0;">VLOP 플랫폼 &mdash; DSA 투명성 보고서</h3>
+      <p>25개 서비스의 H2 2025 EU DSA 보고서 — 통지, 자발적 조치, 정부 명령, 이의 신청, 자동화 수단, 인적 자원 등을 포함한 단일 크로스플랫폼 뷰.</p>
       <div class="tags">
-        <span class="tag">Google</span>
-        <span class="tag">X</span>
-        <span class="tag">TikTok</span>
-        <span class="tag">Meta</span>
-        <span class="tag">Pinterest</span>
-        <span class="tag">AliExpress</span>
         <span class="tag">EU DSA</span>
         <span class="tag">H2 2025</span>
+        <span class="tag">33개 플랫폼</span>
+        <span class="tag">9개 테이블</span>
       </div>
-      <a href="/ko/vlop.html" class="card-link">대시보드 보기 →</a>
+      <p class="section-label" style="margin: 0.9rem 0 0.25rem; font-size: 0.72rem;">관련 글</p>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0 0 0.75rem;"><a href="/ko/blog/dsa-vlop-data-limitations.html">데이터가 말해주지 않는 것</a></p>
+      <a href="https://transparency.kieranmaynard.com/reports" class="card-link">라이브 대시보드 &rarr;</a>&ensp;<a href="/ko/vlop.html" class="card-link">케이스 스터디 &rarr;</a>
     </div>
   </div>
 </div>

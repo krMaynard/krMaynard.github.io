@@ -15,3 +15,18 @@ jobs:
           node-version: 20
       - run: node --check vlop-dashboard.js
       - run: npm test
+
+  # Build with the same toolchain GitHub Pages uses (Jekyll 3.10 via the
+  # github-pages gem). CI previously only lint/tested JS, so a Liquid error
+  # that Jekyll 4 tolerates but Pages' Jekyll 3.10 rejects could merge and
+  # silently freeze the live site at the last good deploy. This catches it on
+  # the PR. Build only — deployment stays with the Pages "build and deployment"
+  # workflow on master.
+  pages-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
