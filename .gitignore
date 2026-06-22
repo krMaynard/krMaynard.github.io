@@ -1,2 +1,7 @@
 __pycache__/
 *.pyc
+
+# Jekyll build artifacts (produced by the run-krmaynard-site preview driver)
+_site/
+.jekyll-cache/
+.jekyll-metadata
