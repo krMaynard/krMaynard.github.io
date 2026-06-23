@@ -1,32 +1,29 @@
 ---
 layout: main
 title: Google Government Removal Requests
-description: "10 years of government requests to remove content from Google products — 160 countries, 42 products, 22 reasons, 13 reporting periods in a multi-year trend explorer."
+description: "10 years of government requests to remove content from Google products — 160 countries, 42 products, 22 reasons, 13 reporting periods."
 lang: en
 lang_url: /ja/google-removals.html
 lang_url_zh: /zh/google-removals.html
 lang_url_ko: /ko/google-removals.html
 ---
 
-<div style="padding-top: 2.5rem; margin-bottom: 0.5rem;"><p class="section-label">Analysis</p></div>
+<div style="padding-top: 2.5rem; margin-bottom: 0.5rem;"><p class="section-label">Case study</p></div>
 
 <p style="margin-top: 2rem;"><a href="/transparency.html">← Transparency Data</a></p>
 
 <div style="padding-top: 1.5rem; margin-bottom: 0.5rem;">
-  <p class="section-label">Dashboard</p>
   <h2 style="margin-top: 0; margin-bottom: 0.5rem;">Government Requests to Remove Content from Google</h2>
   <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
     From 2014 to 2024 I was a primary author of the Greater China portion of the
     <a href="https://transparencyreport.google.com/government-removals/explore">Google Transparency Report</a>.
-    This dashboard explores Google's <em>government removal requests</em> dataset
-    (the detailed reporting format Google adopted in 2019) across <strong>13 reporting periods</strong>,
-    <strong>160 countries</strong>, <strong>42 Google products</strong>, and <strong>22 stated reasons</strong> for removal.
-    Unlike Google's own report — which is organized one period at a time — this view is built around <strong>trends across reporting periods</strong>:
-    every filter combination becomes a multi-year time series, and you can break the time series down by country, requestor, product, or reason.
-  </p>
-  <p style="color: var(--text-faint); font-size: 0.85rem; margin-bottom: 2rem; background: transparent;">
-    Source: <a href="https://transparencyreport.google.com/government-removals/overview">Google Transparency Report — Government requests to remove content</a>.
-    Data is loaded directly in your browser; no requests are sent to a backend.
+    This project turns Google's government removal requests dataset
+    (the detailed reporting format Google adopted in 2019) into a multi-period trend explorer across
+    <strong>13 reporting periods</strong>, <strong>160 countries</strong>, <strong>42 Google products</strong>,
+    and <strong>22 stated reasons</strong> for removal.
+    Unlike Google's own report — organized one period at a time — this view puts
+    <strong>trends across reporting periods</strong> front and center: every filter combination becomes
+    a time series you can break down by country, requestor, product, or reason.
   </p>
 </div>
 
@@ -49,119 +46,28 @@ lang_url_ko: /ko/google-removals.html
   </div>
 </section>
 
-<!-- ── Dashboard ──────────────────────────────────────────── -->
-<section class="td-dashboard">
-  <div id="td-loading" class="td-loading">Loading data…</div>
-
-  <div id="td-app" hidden>
-
-    <div class="td-filters" role="region" aria-label="Dashboard filters">
-      <div class="td-filter">
-        <label for="td-from">From</label>
-        <select id="td-from"></select>
-      </div>
-      <div class="td-filter">
-        <label for="td-to">To</label>
-        <select id="td-to"></select>
-      </div>
-      <div class="td-filter td-filter-wide">
-        <label for="td-country">Country</label>
-        <select id="td-country"></select>
-      </div>
-      <div class="td-filter td-filter-wide">
-        <label for="td-requestor">Requestor</label>
-        <select id="td-requestor"></select>
-      </div>
-      <div class="td-filter td-filter-wide">
-        <label for="td-product">Product</label>
-        <select id="td-product"></select>
-      </div>
-      <div class="td-filter td-filter-wide">
-        <label for="td-reason">Reason</label>
-        <select id="td-reason"></select>
-      </div>
-      <button type="button" id="td-reset" class="td-reset">Reset filters</button>
-    </div>
-
-    <p class="td-range-line">
-      Showing reporting periods: <strong id="td-range-label">—</strong>
-    </p>
-
-    <div id="td-metrics" class="td-metrics"></div>
-
-    <div class="td-chart-grid">
-      <div class="td-chart-card td-chart-card-wide">
-        <div class="td-chart-head">
-          <h3>Items targeted for removal, by reporting period</h3>
-          <div class="td-breakdown">
-            <label for="td-breakdown">Break down by</label>
-            <select id="td-breakdown"></select>
-          </div>
-        </div>
-        <div class="td-chart-wrap"><canvas id="td-chart-time" aria-label="Time series chart"></canvas></div>
-      </div>
-
-      <div class="td-chart-card td-chart-card-wide">
-        <h3>Removal rate over time</h3>
-        <div class="td-chart-wrap"><canvas id="td-chart-rate" aria-label="Removal rate over time"></canvas></div>
-      </div>
-
-      <div class="td-chart-card">
-        <h3>Top 10 countries by items targeted</h3>
-        <div class="td-chart-wrap td-chart-tall"><canvas id="td-chart-countries" aria-label="Top countries bar chart"></canvas></div>
-      </div>
-
-      <div class="td-chart-card">
-        <h3>Top reasons cited</h3>
-        <div class="td-chart-wrap td-chart-tall"><canvas id="td-chart-reasons" aria-label="Reasons donut chart"></canvas></div>
-      </div>
-
-      <div class="td-chart-card">
-        <h3>Top Google products targeted</h3>
-        <div class="td-chart-wrap td-chart-tall"><canvas id="td-chart-products" aria-label="Top products bar chart"></canvas></div>
-      </div>
-
-      <div class="td-chart-card">
-        <h3>How Google responded</h3>
-        <div class="td-chart-wrap td-chart-tall"><canvas id="td-chart-compliance" aria-label="Compliance outcomes bar chart"></canvas></div>
-      </div>
-    </div>
-
-    <div class="td-table-card">
-      <div class="td-table-head">
-        <h3>Filtered records (top 25 by items targeted)</h3>
-        <span id="td-row-count" class="td-row-count"></span>
-      </div>
-      <div class="td-table-scroll">
-        <table class="td-table">
-          <thead>
-            <tr>
-              <th>Period</th><th>Country</th><th>Requestor</th><th>Product</th><th>Reason</th>
-              <th class="td-num">Items targeted</th><th class="td-num">Items removed</th>
-            </tr>
-          </thead>
-          <tbody id="td-table-body"></tbody>
-        </table>
-      </div>
-    </div>
-
-  </div>
-</section>
+<!-- ── Live tool CTA ───────────────────────────────────────── -->
+<div class="card" style="margin: 2rem 0;">
+  <p class="section-label" style="margin: 0 0 0.4rem;">Live tool</p>
+  <h3 style="margin-top: 0;">Explore the data</h3>
+  <p>The full dataset is available as an interactive dashboard — filter by period, country, product, or reason, and explore six multi-year trend charts including removal rate over time and compliance outcomes.</p>
+  <a href="https://transparency.kieranmaynard.com/removals" class="card-link">Open live dashboard &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/docs" class="card-link">API docs &rarr;</a>
+</div>
 
 <!-- ── Reading the data ────────────────────────────────────── -->
 <section class="td-readme">
   <h2 class="td-section-title">A few things to look for</h2>
   <ul class="td-bullets">
     <li><strong>Trends, not snapshots.</strong> Set <em>Break down by → Reason</em> with all other filters at default to see how the mix of stated reasons has shifted from 2019 onward — something that's tedious to assemble from Google's per-period views.</li>
-    <li><strong>Country-level trajectories.</strong> Set <em>Break down by → Country</em> to compare the top requesting countries side-by-side over time. The "Change over selected range" metric quantifies the first-to-last-period swing.</li>
-    <li><strong>Removal rate is itself a trend.</strong> The <em>Removal rate over time</em> chart tracks the share of targeted items that Google actually removed across the period range — useful for spotting tightening or loosening compliance posture for a given country, product, or reason.</li>
+    <li><strong>Country-level trajectories.</strong> Set <em>Break down by → Country</em> to compare the top requesting countries side-by-side over time.</li>
+    <li><strong>Removal rate is itself a trend.</strong> The removal rate chart tracks the share of targeted items that Google actually removed across the period range — useful for spotting tightening or loosening compliance posture for a given country, product, or reason.</li>
     <li><strong>Defamation dominates volume in many democracies</strong> — filter <em>Reason → Defamation</em> to see how courts in countries like Russia, Turkey, India, and Brazil drive a large share of items targeted.</li>
     <li><strong>"Government criticism" reveals a different story.</strong> Filter <em>Reason → Government criticism</em> and watch the country distribution and trend line shift sharply.</li>
     <li><strong>Requestor matters.</strong> A <em>Court Order directed at Google</em> carries different operational weight than a <em>Police</em> request or a <em>Government Officials</em> referral — and the mix changes year over year.</li>
   </ul>
   <p style="color: var(--text-faint); font-size: 0.85rem; margin-top: 1.25rem;">
     Important caveats: a "request" is what a government submitted; an "item" is a specific URL, video, account, or piece of content cited in that request. One request can target many items. Google's response categories are
-    <em>removed (legal)</em>, <em>removed (policy)</em>, <em>content already removed</em>, <em>content not found</em>, <em>not enough information</em>, and <em>no action taken</em>. The "removal rate" metric here counts the first three.
+    <em>removed (legal)</em>, <em>removed (policy)</em>, <em>content already removed</em>, <em>content not found</em>, <em>not enough information</em>, and <em>no action taken</em>. The "removal rate" metric counts the first three.
   </p>
 </section>
 
@@ -169,7 +75,7 @@ lang_url_ko: /ko/google-removals.html
 <section style="margin: 2rem 0 1rem;">
   <h2 class="td-section-title">Programmatic access</h2>
   <p style="color: var(--text-muted); max-width: 720px; line-height: 1.65;">
-    The full dataset is queryable via the <a href="https://transparency.kieranmaynard.com">DSA VLOP Transparency Query API</a> — filter by period, country, requestor type, product, or reason, and aggregate any numeric measure with structured JSON queries. The same async job/poll interface serves this Google government removals data alongside the EU DSA VLOP platform data.
+    The full dataset is queryable via the <a href="https://transparency.kieranmaynard.com">Transparency Report API</a> — filter by period, country, requestor type, product, or reason, and aggregate any numeric measure with structured JSON queries. The async job/poll interface handles large aggregations without timeouts.
   </p>
   <p style="margin-top: 0.75rem;">
     <a href="https://transparency.kieranmaynard.com/portal" class="card-link">Get researcher access &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/docs" class="card-link">API docs &rarr;</a>
@@ -180,9 +86,5 @@ lang_url_ko: /ko/google-removals.html
 
 <p style="color: var(--text-very-faint); font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
   Data: <a href="https://transparencyreport.google.com/government-removals/overview">Google Transparency Report</a>,
-  detailed reporting format (2019–H1 2025). Analysis and visualizations by Kieran Maynard. Charts use
-  <a href="https://www.chartjs.org/">Chart.js</a>. No analytics or tracking on this page beyond the site default.
+  detailed reporting format (2019–H1 2025). Analysis and visualizations by Kieran Maynard.
 </p>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer></script>
-<script src="/transparency-dashboard.js" defer></script>
