@@ -46,7 +46,7 @@
 <body>
 
     <nav class="site-nav">
-      <a href="{% if page.lang == 'ja' %}/ja/{% elsif page.lang == 'zh' %}/zh/{% elsif page.lang == 'ko' %}/ko/{% else %}/{% endif %}" class="nav-name">Kieran Maynard</a>
+      <a href="{% if page.lang == 'ja' %}/ja/{% elsif page.lang == 'zh' %}/zh/{% elsif page.lang == 'ko' %}/ko/{% elsif page.lang == 'lzh' %}/lzh/{% elsif page.lang == 'yue' %}/yue/{% else %}/{% endif %}" class="nav-name">Kieran Maynard</a>
       <div class="nav-links">
         {% if page.lang == 'ja' %}
         <a href="/ja/work.html">実績</a>
@@ -66,6 +66,18 @@
         <a href="/ko/consulting.html">컨설팅</a>
         <a href="/ko/blog.html">블로그</a>
         <a href="mailto:kieranmaynard@gmail.com">문의하기</a>
+        {% elsif page.lang == 'lzh' %}
+        <a href="/zh/work.html">事功</a>
+        <a href="/zh/transparency.html">器用</a>
+        <a href="/zh/consulting.html">問策</a>
+        <a href="/zh/blog.html">劄記</a>
+        <a href="mailto:kieranmaynard@gmail.com">馳書</a>
+        {% elsif page.lang == 'yue' %}
+        <a href="/zh/work.html">我啲嘢</a>
+        <a href="/zh/transparency.html">產品</a>
+        <a href="/zh/consulting.html">顧問</a>
+        <a href="/zh/blog.html">網誌</a>
+        <a href="mailto:kieranmaynard@gmail.com">搵我</a>
         {% else %}
         <a href="/work.html">Work</a>
         <a href="/transparency.html">Products</a>
@@ -78,20 +90,42 @@
         <a href="{{ page.lang_url }}" class="lang-switch">EN</a>
         {% if page.lang_url_zh %}<span class="lang-divider">|</span><a href="{{ page.lang_url_zh }}" class="lang-switch">中文</a>{% endif %}
         {% if page.lang_url_ko %}<span class="lang-divider">|</span><a href="{{ page.lang_url_ko }}" class="lang-switch">한국어</a>{% endif %}
+        {% if page.lang_url_lzh %}<span class="lang-divider">|</span><a href="{{ page.lang_url_lzh }}" class="lang-switch">文言</a>{% endif %}
+        {% if page.lang_url_yue %}<span class="lang-divider">|</span><a href="{{ page.lang_url_yue }}" class="lang-switch">粵語</a>{% endif %}
         {% elsif page.lang == 'zh' %}
         <span class="lang-divider">|</span>
         <a href="{{ page.lang_url }}" class="lang-switch">EN</a>
         {% if page.lang_url_ja %}<span class="lang-divider">|</span><a href="{{ page.lang_url_ja }}" class="lang-switch">日本語</a>{% endif %}
         {% if page.lang_url_ko %}<span class="lang-divider">|</span><a href="{{ page.lang_url_ko }}" class="lang-switch">한국어</a>{% endif %}
+        {% if page.lang_url_lzh %}<span class="lang-divider">|</span><a href="{{ page.lang_url_lzh }}" class="lang-switch">文言</a>{% endif %}
+        {% if page.lang_url_yue %}<span class="lang-divider">|</span><a href="{{ page.lang_url_yue }}" class="lang-switch">粵語</a>{% endif %}
         {% elsif page.lang == 'ko' %}
         <span class="lang-divider">|</span>
         <a href="{{ page.lang_url }}" class="lang-switch">EN</a>
         {% if page.lang_url_ja %}<span class="lang-divider">|</span><a href="{{ page.lang_url_ja }}" class="lang-switch">日本語</a>{% endif %}
         {% if page.lang_url_zh %}<span class="lang-divider">|</span><a href="{{ page.lang_url_zh }}" class="lang-switch">中文</a>{% endif %}
+        {% if page.lang_url_lzh %}<span class="lang-divider">|</span><a href="{{ page.lang_url_lzh }}" class="lang-switch">文言</a>{% endif %}
+        {% if page.lang_url_yue %}<span class="lang-divider">|</span><a href="{{ page.lang_url_yue }}" class="lang-switch">粵語</a>{% endif %}
+        {% elsif page.lang == 'lzh' %}
+        <span class="lang-divider">|</span>
+        <a href="{{ page.lang_url }}" class="lang-switch">EN</a>
+        {% if page.lang_url_ja %}<span class="lang-divider">|</span><a href="{{ page.lang_url_ja }}" class="lang-switch">日本語</a>{% endif %}
+        {% if page.lang_url_zh %}<span class="lang-divider">|</span><a href="{{ page.lang_url_zh }}" class="lang-switch">中文</a>{% endif %}
+        {% if page.lang_url_ko %}<span class="lang-divider">|</span><a href="{{ page.lang_url_ko }}" class="lang-switch">한국어</a>{% endif %}
+        {% if page.lang_url_yue %}<span class="lang-divider">|</span><a href="{{ page.lang_url_yue }}" class="lang-switch">粵語</a>{% endif %}
+        {% elsif page.lang == 'yue' %}
+        <span class="lang-divider">|</span>
+        <a href="{{ page.lang_url }}" class="lang-switch">EN</a>
+        {% if page.lang_url_ja %}<span class="lang-divider">|</span><a href="{{ page.lang_url_ja }}" class="lang-switch">日本語</a>{% endif %}
+        {% if page.lang_url_zh %}<span class="lang-divider">|</span><a href="{{ page.lang_url_zh }}" class="lang-switch">中文</a>{% endif %}
+        {% if page.lang_url_ko %}<span class="lang-divider">|</span><a href="{{ page.lang_url_ko }}" class="lang-switch">한국어</a>{% endif %}
+        {% if page.lang_url_lzh %}<span class="lang-divider">|</span><a href="{{ page.lang_url_lzh }}" class="lang-switch">文言</a>{% endif %}
         {% else %}
         {% if page.lang_url %}<span class="lang-divider">|</span><a href="{{ page.lang_url }}" class="lang-switch">日本語</a>{% endif %}
         {% if page.lang_url_zh %}<span class="lang-divider">|</span><a href="{{ page.lang_url_zh }}" class="lang-switch">中文</a>{% endif %}
         {% if page.lang_url_ko %}<span class="lang-divider">|</span><a href="{{ page.lang_url_ko }}" class="lang-switch">한국어</a>{% endif %}
+        {% if page.lang_url_lzh %}<span class="lang-divider">|</span><a href="{{ page.lang_url_lzh }}" class="lang-switch">文言</a>{% endif %}
+        {% if page.lang_url_yue %}<span class="lang-divider">|</span><a href="{{ page.lang_url_yue }}" class="lang-switch">粵語</a>{% endif %}
         {% endif %}
         <button type="button" class="cmdk-trigger" data-open-cmdk aria-label="Open command palette">
           <kbd class="cmdk-shortcut">⌘K</kbd>
