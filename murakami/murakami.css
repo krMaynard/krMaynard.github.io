@@ -511,6 +511,14 @@
   margin: 0;
 }
 
+.mura-essay-note {
+  font-size: 0.85rem;
+  color: var(--text-subtle);
+  border-top: 1px solid var(--border);
+  margin-top: 2rem;
+  padding-top: 1rem;
+}
+
 .mura-essay-body {
   font-size: 1.05rem;
   line-height: 1.85;
