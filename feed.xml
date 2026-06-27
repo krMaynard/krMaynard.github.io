@@ -11,7 +11,7 @@ layout: null
     <atom:link href="https://krmaynard.github.io/feed.xml" rel="self" type="application/rss+xml"/>
     <language>en-us</language>
     {% if posts.first.date %}<lastBuildDate>{{ posts.first.date | date_to_rfc822 }}</lastBuildDate>{% endif %}
-{% for post in posts %}
+{% for post in posts limit: 20 %}
     <item>
       <title>{{ post.title | xml_escape }}</title>
       <link>https://krmaynard.github.io{{ post.url }}</link>
