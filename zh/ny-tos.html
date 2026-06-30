@@ -1,0 +1,54 @@
+---
+layout: main
+title: 纽约州社交媒体服务条款报告
+description: "根据《阻止隐藏仇恨法》，社交媒体公司向纽约州总检察长提交的服务条款报告的存档与目录 — 2025 年第三、第四季度，共 29 份。"
+lang: zh
+lang_url: /ny-tos.html
+lang_url_ja: /ja/ny-tos.html
+lang_url_ko: /ko/ny-tos.html
+---
+
+<div style="padding-top: 2.5rem; margin-bottom: 0.5rem;">
+  <p class="section-label">案例研究</p>
+  <h1 style="margin-top: 0; margin-bottom: 0.5rem;">纽约州社交媒体服务条款报告</h1>
+  <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
+    纽约州的<strong>《阻止隐藏仇恨法》（Stop Hiding Hate Act, S895B）</strong>要求年收入超过 1 亿美元且拥有纽约州用户的
+    社交媒体平台，每年<strong>两次</strong>向州总检察长提交服务条款报告。每份报告说明该平台如何定义并管理
+    仇恨行为、种族主义、极端主义、虚假信息、骚扰以及外国政治干预。
+  </p>
+  <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
+    本项目抓取总检察长的公开索引，存档每一份已发布的报告，并构建一个可引用的扁平目录，涵盖 2025 年第三、第四季度的
+    <strong>全部 29 份报告</strong> — 包括 Meta、Alphabet（YouTube）、TikTok、X、Snap、Reddit、Discord、Roblox、LinkedIn、
+    Amazon（Twitch 与 GoodReads）等。
+  </p>
+  <p style="color: var(--text-muted); max-width: 720px; line-height: 1.65; background: transparent;">
+    来源：<a href="https://ag.ny.gov/resources/organizations/social-media-tos-reporting/reports" target="_blank" rel="noopener">纽约州总检察长 — 社交媒体服务条款报告</a>。
+    存档文件与目录：<a href="https://github.com/krMaynard/dsa-transparency-data/tree/main/ny-tos-reports" target="_blank" rel="noopener">github.com/krMaynard/dsa-transparency-data</a>。
+  </p>
+</div>
+
+<!-- ── Live tool CTA ───────────────────────────────────────── -->
+<div class="card" style="margin: 2rem 0;">
+  <p class="section-label" style="margin: 0 0 0.4rem;">在线工具</p>
+  <h3 style="margin-top: 0;">浏览目录</h3>
+  <p>完整目录可在 Transparency Report API 上查看 — 一个可筛选的报告表格，附有指向总检察长网站报告的链接和存档 PDF 的链接，以及一个公开、只读的 JSON/CSV 接口。</p>
+  <a href="https://transparency.kieranmaynard.com/zh/ny-tos" class="card-link">打开目录 &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/api/ny-tos-reports" class="card-link">JSON API &rarr;</a>
+</div>
+
+<!-- ── Reading the data ────────────────────────────────────── -->
+<section class="td-readme">
+  <h2 class="td-section-title">数据解读</h2>
+  <ul class="td-bullets">
+    <li><strong>这是什么。</strong> 这是叙述性的<em>政策</em>PDF — 各公司对其服务条款和内容管理做法的说明 — 而非 EU DSA 报告那样的机器可读统计表。因此它们以原始 PDF 形式存档，不解析入数据库。</li>
+    <li><strong>公司与平台。</strong> 一些公司会为各个平台或品牌分别提交报告 — 例如 Amazon 为 <em>Twitch</em> 和 <em>GoodReads</em> 提交了不同的报告。</li>
+    <li><strong>周期。</strong> 法律规定每年报告两次；本目录涵盖 2025 年第三、第四季度。</li>
+    <li><strong>访问。</strong> 29 份报告中有 11 份由总检察长的公开目录提供，已在此镜像为存档 PDF。其余 18 份由一个会将匿名访客重定向到登录页面的非公开上传目录提供，因此仅以来源链接形式收录（标记为 <em>auth-required</em>）— 鉴于它们已被公开列出，这几乎可以肯定是配置错误。</li>
+    <li><strong>存档。</strong> 对于已公开的报告，会在开放数据仓库中镜像一份 PDF 快照，以防实时链接失效。</li>
+  </ul>
+</section>
+
+<hr class="section-divider" />
+
+<p style="color: var(--text-very-faint); font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
+  数据：纽约州总检察长社交媒体服务条款报告，2025 年第三至第四季度。存档与分析：Kieran Maynard。除站点默认外，无任何分析或追踪。
+</p>

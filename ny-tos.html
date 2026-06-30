@@ -1,0 +1,55 @@
+---
+layout: main
+title: New York Social Media Terms-of-Service Reports
+description: "An archive and catalogue of the terms-of-service reports social-media companies file with the New York Attorney General under the Stop Hiding Hate Act — 29 filings, 2025 Q3–Q4."
+lang: en
+lang_url: /ja/ny-tos.html
+lang_url_zh: /zh/ny-tos.html
+lang_url_ko: /ko/ny-tos.html
+---
+
+<div style="padding-top: 2.5rem; margin-bottom: 0.5rem;">
+  <p class="section-label">Case study</p>
+  <h1 style="margin-top: 0; margin-bottom: 0.5rem;">New York Social Media Terms-of-Service Reports</h1>
+  <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
+    New York's <strong>Stop Hiding Hate Act</strong> (S895B) requires social-media platforms with over $100&nbsp;million
+    in annual revenue and New York users to file <strong>twice-yearly</strong> terms-of-service reports with the state
+    Attorney General. Each report describes how the platform defines and moderates hateful conduct, racism, extremism,
+    disinformation, harassment, and foreign political interference.
+  </p>
+  <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
+    This project scrapes the Attorney General's public index, archives each published filing, and builds a flat,
+    citable catalogue covering all <strong>29 filings</strong> for 2025 Q3 and Q4 — from Meta, Alphabet (YouTube),
+    TikTok, X, Snap, Reddit, Discord, Roblox, LinkedIn, Amazon (Twitch &amp; GoodReads), and more.
+  </p>
+  <p style="color: var(--text-muted); max-width: 720px; line-height: 1.65; background: transparent;">
+    Source: <a href="https://ag.ny.gov/resources/organizations/social-media-tos-reporting/reports" target="_blank" rel="noopener">NY Attorney General — Social Media ToS reporting</a>.
+    Archived files &amp; catalogue: <a href="https://github.com/krMaynard/dsa-transparency-data/tree/main/ny-tos-reports" target="_blank" rel="noopener">github.com/krMaynard/dsa-transparency-data</a>.
+  </p>
+</div>
+
+<!-- ── Live tool CTA ───────────────────────────────────────── -->
+<div class="card" style="margin: 2rem 0;">
+  <p class="section-label" style="margin: 0 0 0.4rem;">Live tool</p>
+  <h3 style="margin-top: 0;">Browse the catalogue</h3>
+  <p>The full catalogue is available on the Transparency Report API — a filterable table of every filing, with links to the report on the AG site and to an archived copy of the PDF, plus a public, read-only JSON/CSV endpoint.</p>
+  <a href="https://transparency.kieranmaynard.com/ny-tos" class="card-link">Open catalogue &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/api/ny-tos-reports" class="card-link">JSON API &rarr;</a>
+</div>
+
+<!-- ── Reading the data ────────────────────────────────────── -->
+<section class="td-readme">
+  <h2 class="td-section-title">Reading the data</h2>
+  <ul class="td-bullets">
+    <li><strong>What these are.</strong> Narrative <em>policy</em> PDFs — each company's description of its terms of service and moderation practices — not the machine-readable statistical tables of the EU DSA reports. So they're archived as original PDFs, not parsed into a database.</li>
+    <li><strong>Company vs. platform.</strong> Some companies file separately for individual platforms or brands — for example, Amazon files distinct reports for <em>Twitch</em> and <em>GoodReads</em>.</li>
+    <li><strong>Period.</strong> The law mandates twice-yearly reporting; the catalogue covers 2025 Q3 and Q4.</li>
+    <li><strong>Access.</strong> 11 of the 29 filings are served from the AG's public directory and are mirrored here as archived PDFs. The other 18 are served from a private upload directory that redirects anonymous visitors to a login page, so they're catalogued with their source link only (marked <em>auth-required</em>) — almost certainly a misconfiguration, since they're publicly listed.</li>
+    <li><strong>Archived.</strong> Where a filing is public, a snapshot of the PDF is mirrored in the open-data repository in case the live link moves.</li>
+  </ul>
+</section>
+
+<hr class="section-divider" />
+
+<p style="color: var(--text-very-faint); font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
+  Data: New York Attorney General social-media terms-of-service filings, 2025 Q3–Q4. Archive &amp; analysis by Kieran Maynard. No analytics or tracking beyond the site default.
+</p>
