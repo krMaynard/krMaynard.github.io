@@ -40,12 +40,20 @@ def run_claude(prompt: str, timeout: int = 600) -> str:
 
 
 def strip_fences(text: str) -> str:
-    """Remove ```json ... ``` fences if the model added them anyway."""
+    """Return just the JSON object from a model reply.
+
+    Strips ```json fences and any conversational preamble/postamble by taking
+    the span from the first '{' to the last '}'.
+    """
     text = text.strip()
     if text.startswith("```"):
         text = re.sub(r"^```[a-zA-Z]*\n", "", text)
         text = re.sub(r"\n```$", "", text)
-    return text.strip()
+    text = text.strip()
+    start, end = text.find("{"), text.rfind("}")
+    if start != -1 and end != -1 and end > start:
+        return text[start:end + 1]
+    return text
 
 
 def load_prompt(name: str) -> str:
@@ -60,8 +68,10 @@ def gen_lecture(chapter_md: str, out_path: Path) -> None:
 def gen_studypack(chapter_md: str, out_path: Path) -> None:
     raw = strip_fences(run_claude(load_prompt("studypack.md") + chapter_md))
     data = json.loads(raw)  # validate before writing
-    if not isinstance(data.get("key_terms"), list) or not isinstance(data.get("qa"), list):
-        raise ValueError("studypack JSON missing key_terms/qa lists")
+    if (not isinstance(data, dict)
+            or not isinstance(data.get("key_terms"), list)
+            or not isinstance(data.get("qa"), list)):
+        raise ValueError("studypack JSON must be an object with key_terms/qa lists")
     out_path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
 
 

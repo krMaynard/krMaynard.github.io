@@ -55,6 +55,7 @@ def main() -> None:
 
     book = json.loads((args.build / "book.json").read_text(encoding="utf-8"))
     audio = args.build / "audio"
+    audio.mkdir(parents=True, exist_ok=True)  # self-contained if run before/without audio
 
     all_tracks: list[tuple[str, float, Path]] = []
     by_kind: dict[str, list[tuple[str, float, Path]]] = {k: [] for k in ORDER}

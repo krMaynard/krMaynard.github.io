@@ -90,7 +90,9 @@ def silence(path: Path, seconds: float) -> None:
 def concat(parts: list[Path], out: Path) -> None:
     """Concatenate MP3 parts by re-encoding (robust across sample sizes)."""
     listfile = out.with_suffix(".txt")
-    listfile.write_text("".join(f"file '{p.resolve()}'\n" for p in parts))
+    # .as_posix() keeps forward slashes so the concat demuxer parses the list
+    # correctly on Windows too (backslashes would break it).
+    listfile.write_text("".join(f"file '{p.resolve().as_posix()}'\n" for p in parts))
     ffmpeg("-f", "concat", "-safe", "0", "-i", str(listfile),
            "-acodec", "libmp3lame", "-q:a", "4", str(out))
     listfile.unlink(missing_ok=True)
@@ -109,12 +111,12 @@ async def build_lecture(cid: str, title: str, lecture_txt: Path, out: Path) -> N
         seg = tmp / "intro.mp3"
         await say(intro, seg, NARRATOR, LECTURE_RATE)
         parts.append(seg)
+        gap = tmp / "gap.mp3"          # one fixed-length silence, reused between paragraphs
+        silence(gap, 0.6)
         for i, para in enumerate(paras):
             seg = tmp / f"p{i:03d}.mp3"
             await say(para, seg, NARRATOR, LECTURE_RATE)
             parts.append(seg)
-            gap = tmp / f"g{i:03d}.mp3"
-            silence(gap, 0.6)
             parts.append(gap)
         concat(parts, out)
 
@@ -134,21 +136,23 @@ async def build_drill(cid: str, title: str, pack_json: Path, out: Path,
         pre = tmp / "pre.mp3"
         silence(pre, 0.8)
         parts.append(pre)
+        gap = tmp / "gap.mp3"          # the answer-thinking gap, reused each question
+        silence(gap, answer_gap)
+        between = tmp / "between.mp3"  # spacer before the next question
+        silence(between, 1.0)
         for i, item in enumerate(qa):
+            if not isinstance(item, dict):
+                continue
             q, a = item.get("q", "").strip(), item.get("a", "").strip()
             if not q or not a:
                 continue
             qseg = tmp / f"q{i:03d}.mp3"
             await say(f"Question {i + 1}. {q}", qseg, NARRATOR, LECTURE_RATE)
             parts.append(qseg)
-            gap = tmp / f"gap{i:03d}.mp3"
-            silence(gap, answer_gap)
             parts.append(gap)
             aseg = tmp / f"a{i:03d}.mp3"
             await say(f"The answer is: {a}", aseg, ANSWERER, LECTURE_RATE)
             parts.append(aseg)
-            between = tmp / f"b{i:03d}.mp3"
-            silence(between, 1.0)
             parts.append(between)
         concat(parts, out)
 
@@ -163,21 +167,23 @@ async def build_terms(cid: str, title: str, pack_json: Path, out: Path) -> None:
         seg = tmp / "intro.mp3"
         await say(intro, seg, NARRATOR, LECTURE_RATE)
         parts.append(seg)
+        gap = tmp / "gap.mp3"          # term -> definition pause, reused
+        silence(gap, 1.5)
+        between = tmp / "between.mp3"  # spacer before the next term
+        silence(between, 0.9)
         for i, item in enumerate(terms):
+            if not isinstance(item, dict):
+                continue
             term, defn = item.get("term", "").strip(), item.get("definition", "").strip()
             if not term or not defn:
                 continue
             tseg = tmp / f"t{i:03d}.mp3"
             await say(f"{term}.", tseg, NARRATOR, LECTURE_RATE)
             parts.append(tseg)
-            gap = tmp / f"g{i:03d}.mp3"
-            silence(gap, 1.5)
             parts.append(gap)
             dseg = tmp / f"d{i:03d}.mp3"
             await say(defn, dseg, ANSWERER, LECTURE_RATE)
             parts.append(dseg)
-            between = tmp / f"b{i:03d}.mp3"
-            silence(between, 0.9)
             parts.append(between)
         concat(parts, out)
 
