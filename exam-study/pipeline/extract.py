@@ -35,11 +35,26 @@ QUOTE_CLASSES = ("_41-Extract",)
 DROP_CLASS_RE = re.compile(r"Endnotes|End-?NOTES|Chap-Num", re.IGNORECASE)
 
 
+# Superscript endnote reference markers, e.g.
+#   <span class="_99-endnote-number"><a class="_idEndnoteLink">1</a></span>
+# These are stripped structurally (below) rather than by regex, so a genuine
+# sentence-leading number is never mistaken for a footnote marker.
+ENDNOTE_REF_RE = re.compile(r"endnote-number|_idEndnoteLink|_idEndnoteAnchor", re.IGNORECASE)
+
+
+def strip_endnote_refs(soup: BeautifulSoup) -> None:
+    doomed = []
+    for el in soup.find_all(["span", "a", "sup"]):
+        classes = " ".join(el.get("class") or [])
+        href = el.get("href") or ""
+        if ENDNOTE_REF_RE.search(classes) or "endnote" in href.lower():
+            doomed.append(el)
+    for el in doomed:  # decompose after collecting to avoid mutating during iteration
+        el.decompose()
+
+
 def clean_text(text: str) -> str:
-    text = re.sub(r"\s+", " ", text).strip()
-    # Strip footnote reference numbers glued to sentence ends: "alone.” 1" -> "alone.”"
-    text = re.sub(r"([.,;:!?”\"’')])\s+\d{1,3}(?=\s|$)", r"\1", text)
-    return text
+    return re.sub(r"\s+", " ", text).strip()
 
 
 def role_for(classes: list[str]) -> str:
@@ -62,6 +77,7 @@ def role_for(classes: list[str]) -> str:
 def chapter_to_markdown(html: str) -> tuple[str, str]:
     """Return (title, markdown) for one chapter document, dropping endnotes."""
     soup = BeautifulSoup(html, "lxml")
+    strip_endnote_refs(soup)
     lines: list[str] = []
     title = ""
     seen: set[int] = set()
