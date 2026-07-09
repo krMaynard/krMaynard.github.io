@@ -2183,3 +2183,48 @@ button:focus-visible,
   }
   .lang-globe { width: 19px; height: 19px; }
 }
+
+/* ============================================================
+   Consulting page — booking & payment (Cal.com inline embed)
+   ============================================================ */
+.consult-tiers {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.consult-tier {
+  display: flex;
+  flex-direction: column;
+}
+
+.consult-tier-price {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand);
+  margin: 0 0 0.4rem;
+  background: transparent;
+}
+
+.cal-embed {
+  width: 100%;
+  min-height: 620px;
+  overflow: hidden;
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  background: var(--bg-elevated);
+  margin: 0 0 1rem;
+}
+
+.consult-privacy {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin: 0 0 1.5rem;
+}
+
+@media screen and (max-width: 767px) {
+  .consult-tiers {
+    grid-template-columns: 1fr;
+  }
+}
