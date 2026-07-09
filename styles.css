@@ -2228,3 +2228,12 @@ button:focus-visible,
     grid-template-columns: 1fr;
   }
 }
+
+.consult-languages {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  border-left: 3px solid var(--brand);
+  padding: 0.15rem 0 0.15rem 0.85rem;
+  margin: 0 0 1.5rem;
+  line-height: 1.55;
+}

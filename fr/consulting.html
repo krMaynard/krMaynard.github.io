@@ -12,6 +12,37 @@ lang_url_it: /it/consulting.html
 ---
 <h1>Services de conseil</h1>
 
+<p id="book">Réservez une consultation ci-dessous. Les séances payantes se réservent et se règlent en une seule étape — choisissez un créneau, payez en toute sécurité, et vous recevrez automatiquement une invitation d'agenda avec un lien visio.</p>
+
+<p class="consult-languages">Je mène les consultations en <strong>anglais</strong>, en <strong>chinois (中文)</strong> et en <strong>japonais (日本語)</strong> — les trois langues que je parle assez bien pour y travailler. Merci de réserver dans celle qui vous convient le mieux.</p>
+
+<div class="card-grid consult-tiers">
+  <div class="card consult-tier">
+    <p class="consult-tier-price">Gratuit</p>
+    <h3>Appel de cadrage</h3>
+    <p>Un appel de 30 minutes pour déterminer si je peux vous aider et où se trouve le vrai levier. Sans frais, sans pression.</p>
+  </div>
+  <div class="card consult-tier">
+    <p class="consult-tier-price">Séance payante</p>
+    <h3>Séance de travail approfondie</h3>
+    <p>Une séance ciblée de 60 à 90 minutes sur votre problème d'IA agentique, d'audit de processus ou de conformité — avec des recommandations concrètes et actionnables. Réservez et payez ci-dessous.</p>
+  </div>
+  <div class="card consult-tier">
+    <p class="consult-tier-price">Cadrons ensemble</p>
+    <h3>Forfait / projet</h3>
+    <p>Les missions récurrentes ou plus importantes se cadrent d'abord par e-mail — <a href="mailto:kieranmaynard@gmail.com">écrivez-moi</a> et nous définirons le travail ensemble.</p>
+  </div>
+</div>
+
+<!-- Cal.com inline booking embed (live: cal.com/kieranmaynard). Paid event types
+     collect payment via the connected Stripe account as a condition of booking.
+     Update data-cal-link if the Cal.com handle changes. -->
+<div id="cal-inline" class="cal-embed" data-cal-link="kieranmaynard" data-cal-namespace="consultation" role="region" aria-label="Calendrier de réservation de consultation"></div>
+
+<p class="consult-privacy">La réservation est gérée par <a href="https://cal.com" target="_blank" rel="noopener">Cal.com</a> et les paiements par <a href="https://stripe.com" target="_blank" rel="noopener">Stripe</a>. Lorsque vous réservez, les informations que vous saisissez leur sont transmises conformément à leurs politiques de confidentialité respectives.</p>
+
+<hr class="section-divider" />
+
 <p>Je ne suis fidèle à aucun outil. Je suis expert pour tirer le maximum de valeur du meilleur outil du moment — plus tôt que mon entourage, et en production, pas en théorie.</p>
 
 <p>C'est un schéma, et il est ancien. En 2009, le levier était dans les logiciels de répétition espacée et l'OCR ; je m'en suis servi pour apprendre seul le japonais et le chinois jusqu'à une maîtrise professionnelle, des années avant que les applications de langues ne se démocratisent. Quand le levier s'est déplacé vers le SQL et les pipelines de données, j'ai ramené un cycle de reporting de conformité de 60 à 80 heures-personne à moins de 5 heures. Quand c'était l'automatisation de navigateur, j'ai économisé plus de 50 000 $ de temps prestataire avec des outils qui traitaient des dizaines de milliers de dossiers. Le fil conducteur, sur plus de 11 ans chez Google et Roblox, et les années précédentes en tant que linguiste autodidacte, reste le même : repérer où le vrai levier s'est déplacé, devenir compétent rapidement, et en faire un système fiable avant que ce soit une évidence.</p>
@@ -28,3 +59,5 @@ lang_url_it: /it/consulting.html
   <li><strong>Audits de processus :</strong> trouver le goulet d'étranglement manuel qui coûte discrètement le plus, et concevoir son remplacement autour des meilleurs outils d'aujourd'hui.</li>
   <li><strong>IA pour le Trust &amp; Safety et la conformité :</strong> appliquer l'IA et l'automatisation au reporting de transparence et aux obligations réglementaires (DSA, CMA, AB 587) — en les transformant en exigences produit et en systèmes qui les concrétisent.</li>
 </ul>
+
+<script src="{{ site.baseurl }}/cal-embed.js" defer></script>
