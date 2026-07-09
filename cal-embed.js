@@ -16,10 +16,11 @@
   if (!calLink) return;
 
   var namespace = el.getAttribute("data-cal-namespace") || "consultation";
-  var theme =
-    document.documentElement.getAttribute("data-theme") === "dark"
+  var getTheme = function () {
+    return document.documentElement.getAttribute("data-theme") === "dark"
       ? "dark"
       : "light";
+  };
 
   // Standard Cal.com embed bootstrap (loads embed.js on first call).
   (function (C, A, L) {
@@ -60,12 +61,26 @@
   window.Cal("init", namespace, { origin: "https://app.cal.com" });
   window.Cal.ns[namespace]("inline", {
     elementOrSelector: "#cal-inline",
-    config: { layout: "month_view", theme: theme },
+    config: { layout: "month_view", theme: getTheme() },
     calLink: calLink,
   });
   window.Cal.ns[namespace]("ui", {
     hideEventTypeDetails: false,
     layout: "month_view",
-    theme: theme,
+    theme: getTheme(),
+  });
+
+  // Re-theme the embedded calendar when the site's light/dark theme toggles.
+  var observer = new MutationObserver(function (mutations) {
+    for (var i = 0; i < mutations.length; i++) {
+      if (mutations[i].attributeName === "data-theme") {
+        window.Cal.ns[namespace]("ui", { theme: getTheme() });
+        break;
+      }
+    }
+  });
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-theme"],
   });
 })();
