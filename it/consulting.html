@@ -12,6 +12,37 @@ lang_url_de: /de/consulting.html
 ---
 <h1>Servizi di consulenza</h1>
 
+<p id="book">Prenota una consulenza qui sotto. Le sessioni a pagamento si prenotano e si pagano in un unico passaggio — scegli un orario, paga in sicurezza e riceverai automaticamente un invito al calendario con un link video.</p>
+
+<p class="consult-languages">Tengo le consulenze in <strong>inglese</strong>, <strong>cinese (中文)</strong> e <strong>giapponese (日本語)</strong> — le tre lingue che parlo abbastanza bene da lavorarci. Prenota in quella che preferisci.</p>
+
+<div class="card-grid consult-tiers">
+  <div class="card consult-tier">
+    <p class="consult-tier-price">Gratis</p>
+    <h3>Chiamata conoscitiva</h3>
+    <p>Una chiamata di 30 minuti per capire se posso aiutarti e dove sta la vera leva. Senza costi, senza pressioni.</p>
+  </div>
+  <div class="card consult-tier">
+    <p class="consult-tier-price">Sessione a pagamento</p>
+    <h3>Sessione di lavoro approfondita</h3>
+    <p>Una sessione mirata di 60–90 minuti sul tuo problema di IA agentica, audit dei processi o conformità — con raccomandazioni concrete e attuabili. Prenota e paga qui sotto.</p>
+  </div>
+  <div class="card consult-tier">
+    <p class="consult-tier-price">Definiamolo insieme</p>
+    <h3>Retainer / progetto</h3>
+    <p>Gli incarichi ricorrenti o più grandi si definiscono meglio prima via e-mail — <a href="mailto:kieranmaynard@gmail.com">scrivimi</a> e daremo forma al lavoro insieme.</p>
+  </div>
+</div>
+
+<!-- Cal.com inline booking embed (live: cal.com/kieranmaynard). Paid event types
+     collect payment via the connected Stripe account as a condition of booking.
+     Update data-cal-link if the Cal.com handle changes. -->
+<div id="cal-inline" class="cal-embed" data-cal-link="kieranmaynard" data-cal-namespace="consultation" role="region" aria-label="Calendario di prenotazione della consulenza"></div>
+
+<p class="consult-privacy">La prenotazione è gestita da <a href="https://cal.com" target="_blank" rel="noopener">Cal.com</a> e i pagamenti da <a href="https://stripe.com" target="_blank" rel="noopener">Stripe</a>. Quando prenoti, i dati che inserisci vengono condivisi con loro secondo le rispettive informative sulla privacy.</p>
+
+<hr class="section-divider" />
+
 <p>Non sono fedele a nessuno strumento. Sono un esperto nell'ottenere il massimo valore da qualunque sia il migliore in questo momento — prima delle persone attorno a me, e in produzione, non in teoria.</p>
 
 <p>È uno schema, ed è vecchio. Nel 2009 la leva era nei software di ripetizione dilazionata e nell'OCR; li ho usati per imparare da autodidatta giapponese e cinese fino a una fluenza professionale, anni prima che le app per le lingue diventassero diffuse. Quando la leva si è spostata su SQL e pipeline di dati, ho ridotto un ciclo di reporting di conformità da 60–80 ore-persona a meno di 5 ore. Quando è stata l'automazione del browser, ho risparmiato oltre $50k in tempo dei fornitori con strumenti che hanno elaborato decine di migliaia di casi. Il filo conduttore lungo oltre 11 anni tra Google e Roblox, e negli anni precedenti come linguista autodidatta, è sempre lo stesso: capire dove si è spostata la vera leva, diventare fluente in fretta e trasformarla in un sistema affidabile prima che sia ovvio.</p>
@@ -28,3 +59,5 @@ lang_url_de: /de/consulting.html
   <li><strong>Audit dei processi:</strong> individuare il collo di bottiglia manuale che silenziosamente costa di più, e progettare la sostituzione attorno ai migliori strumenti di oggi.</li>
   <li><strong>IA per trust &amp; safety e conformità:</strong> applicare IA e automazione ai report di trasparenza e agli obblighi normativi (DSA, CMA, AB 587) — trasformandoli in requisiti di prodotto e nei sistemi che li realizzano.</li>
 </ul>
+
+<script src="{{ site.baseurl }}/cal-embed.js" defer></script>
