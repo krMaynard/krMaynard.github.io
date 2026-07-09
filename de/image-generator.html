@@ -1,0 +1,324 @@
+---
+layout: main
+title: Bildgenerator
+description: "Erstellen Sie Bilder mit Gemini AI direkt in Ihrem Browser. Ihr API-Schlüssel bleibt lokal — er geht direkt an Googles API und niemals an diese Website."
+lang: de
+lang_url: /image-generator.html
+lang_url_ja: /ja/image-generator.html
+lang_url_zh: /zh/image-generator.html
+lang_url_ko: /ko/image-generator.html
+lang_url_fr: /fr/image-generator.html
+lang_url_es: /es/image-generator.html
+lang_url_it: /it/image-generator.html
+---
+
+<div style="padding-top: 2.5rem; margin-bottom: 3rem;">
+  <p class="section-label">Tool</p>
+  <h1 style="margin-top: 0; margin-bottom: 0.5rem;">Bildgenerator</h1>
+  <p style="color: var(--text-muted); margin-bottom: 2rem; max-width: 720px; line-height: 1.65;">
+    Erstellen Sie Bilder mit Gemini AI. Ihr API-Schlüssel wird nur in diesem Browser verwendet — er wird direkt aus Ihrem Browser an Googles API gesendet und erreicht niemals die Server dieser Website.
+  </p>
+
+  <div class="card" style="margin-bottom: 1.5rem; max-width: 680px;">
+    <h3 style="margin-top: 0; margin-bottom: 0.25rem;">Gemini-API-Schlüssel</h3>
+    <p style="color: var(--text-muted); margin-bottom: 0.9rem; font-size: 0.88rem; line-height: 1.55;">
+      Einen kostenlosen Schlüssel erhalten Sie bei <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a>.
+      Der Schlüssel wird nur in Ihrem Browser gespeichert und direkt an Google gesendet — diese Seite hat kein Backend.
+    </p>
+    <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+      <input type="password" id="api-key-input" placeholder="AIza…" autocomplete="off" aria-label="Gemini-API-Schlüssel"
+             style="flex: 1; min-width: 180px; padding: 0.5rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.9rem; font-family: monospace;" />
+      <button type="button" id="save-key-btn"
+              style="padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid var(--border-soft); background: var(--bg-chip); color: var(--text); cursor: pointer; font-size: 0.88rem; white-space: nowrap;">
+        Im Browser speichern
+      </button>
+      <button type="button" id="clear-key-btn"
+              style="padding: 0.5rem 0.75rem; border-radius: 6px; border: 1px solid var(--border-soft); background: transparent; color: var(--text-muted); cursor: pointer; font-size: 0.88rem;">
+        Löschen
+      </button>
+    </div>
+    <p id="key-status" style="margin: 0.5rem 0 0; font-size: 0.82rem; color: var(--text-muted); min-height: 1.2em;"></p>
+  </div>
+
+  <div class="card" style="margin-bottom: 1.5rem; max-width: 680px;">
+    <h3 style="margin-top: 0; margin-bottom: 1rem;">Generieren</h3>
+
+    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.35rem;">
+      <label for="prompt-input" style="font-size: 0.88rem; color: var(--text-muted);">Prompt</label>
+      <button type="button" id="improve-btn"
+              style="padding: 0.25rem 0.6rem; border-radius: 5px; border: 1px solid var(--border-soft); background: var(--bg-chip); color: var(--text-muted); cursor: pointer; font-size: 0.8rem;">
+        Mit KI verbessern
+      </button>
+    </div>
+    <textarea id="prompt-input" rows="4"
+              placeholder="Eine fotorealistische Berglandschaft zur goldenen Stunde, dramatische Wolken, 4K"
+              style="width: 100%; box-sizing: border-box; padding: 0.6rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.9rem; font-family: inherit; resize: vertical; margin-bottom: 1.1rem; line-height: 1.5;"></textarea>
+
+    <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; align-items: flex-end;">
+      <div>
+        <label for="model-select" style="display: block; margin-bottom: 0.35rem; font-size: 0.88rem; color: var(--text-muted);">Modell</label>
+        <select id="model-select"
+                style="padding: 0.5rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.88rem;">
+          <option value="gemini-3-pro-image">gemini-3-pro-image — höchste Qualität</option>
+          <option value="gemini-3.1-flash-image">gemini-3.1-flash-image — schnell</option>
+        </select>
+      </div>
+      <div>
+        <label for="count-select" style="display: block; margin-bottom: 0.35rem; font-size: 0.88rem; color: var(--text-muted);">Bilder</label>
+        <input type="number" id="count-select" min="1" max="20" value="4"
+               style="width: 5rem; padding: 0.5rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.88rem;" />
+      </div>
+      <div>
+        <label for="aspect-select" style="display: block; margin-bottom: 0.35rem; font-size: 0.88rem; color: var(--text-muted);">Seitenverhältnis</label>
+        <select id="aspect-select"
+                style="padding: 0.5rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.88rem;">
+          <option value="1:1" selected>1:1 — quadratisch</option>
+          <option value="3:4">3:4 — Hochformat</option>
+          <option value="4:3">4:3 — Querformat</option>
+          <option value="9:16">9:16 — hoch</option>
+          <option value="16:9">16:9 — breit</option>
+        </select>
+      </div>
+      <div>
+        <label for="size-select" style="display: block; margin-bottom: 0.35rem; font-size: 0.88rem; color: var(--text-muted);">Auflösung</label>
+        <select id="size-select"
+                style="padding: 0.5rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.88rem;">
+          <option value="512">512 — sparsam</option>
+          <option value="1K" selected>1K — Standard</option>
+          <option value="2K">2K — hoch</option>
+          <option value="4K">4K — maximal</option>
+        </select>
+      </div>
+    </div>
+    <p id="cost-estimate" style="margin: -0.25rem 0 1rem; font-size: 0.82rem; color: var(--text-muted);"></p>
+
+    <button type="button" id="generate-btn"
+            style="padding: 0.6rem 1.6rem; border-radius: 6px; border: none; background: var(--brand); color: #fff; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background 0.15s; letter-spacing: 0.01em;">
+      Generieren
+    </button>
+  </div>
+
+  <div id="status-area" style="max-width: 680px; margin-bottom: 1rem; display: none;">
+    <p id="status-message" style="margin: 0; padding: 0.7rem 1rem; border-radius: 6px; font-size: 0.9rem; background: var(--bg-chip); color: var(--text-muted);"></p>
+  </div>
+
+  <div id="results-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; max-width: 680px;"></div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var KEY_STORAGE = 'gemini-image-gen-key';
+  var keyInput    = document.getElementById('api-key-input');
+  var saveBtn     = document.getElementById('save-key-btn');
+  var clearBtn    = document.getElementById('clear-key-btn');
+  var keyStatus   = document.getElementById('key-status');
+  var promptEl    = document.getElementById('prompt-input');
+  var modelEl     = document.getElementById('model-select');
+  var countEl     = document.getElementById('count-select');
+  var genBtn      = document.getElementById('generate-btn');
+  var statusArea  = document.getElementById('status-area');
+  var statusMsg   = document.getElementById('status-message');
+  var grid        = document.getElementById('results-grid');
+  var costEl      = document.getElementById('cost-estimate');
+  var aspectEl    = document.getElementById('aspect-select');
+  var sizeEl      = document.getElementById('size-select');
+  var improveBtn  = document.getElementById('improve-btn');
+  var IMPROVE_MODEL = 'gemini-2.5-flash';
+  var PRICES      = {
+    'gemini-3-pro-image':     { '512': 0.07, '1K': 0.13, '2K': 0.13, '4K': 0.24 },
+    'gemini-3.1-flash-image': { '512': 0.05, '1K': 0.07, '2K': 0.10, '4K': 0.15 }
+  };
+
+  try {
+    var saved = localStorage.getItem(KEY_STORAGE);
+    if (saved) {
+      keyInput.value = saved;
+      keyStatus.textContent = 'API-Schlüssel aus dem Browser-Speicher geladen.';
+    }
+  } catch (e) {}
+
+  saveBtn.addEventListener('click', function () {
+    var v = keyInput.value.trim();
+    if (!v) { keyStatus.textContent = 'Geben Sie zuerst einen Schlüssel ein.'; return; }
+    try { localStorage.setItem(KEY_STORAGE, v); } catch (e) {}
+    keyStatus.textContent = 'Schlüssel im Browser-Speicher gespeichert.';
+  });
+
+  clearBtn.addEventListener('click', function () {
+    keyInput.value = '';
+    try { localStorage.removeItem(KEY_STORAGE); } catch (e) {}
+    keyStatus.textContent = 'Schlüssel aus dem Browser-Speicher gelöscht.';
+  });
+
+  function updateCostEstimate() {
+    var n = Math.max(1, Math.min(20, parseInt(countEl.value, 10) || 1));
+    var price = (PRICES[modelEl.value] || {})[sizeEl.value] || 0;
+    costEl.innerHTML = 'Geschätzte Kosten: ~$' + (n * price).toFixed(2) + ' (' + n + ' × ~$' + price.toFixed(2) + '/Bild bei ' + sizeEl.value + ') — <a href="https://ai.google.dev/gemini-api/docs/pricing" target="_blank" rel="noopener noreferrer" style="color:inherit;">Google-AI-Preise</a>';
+  }
+  modelEl.addEventListener('change', updateCostEstimate);
+  sizeEl.addEventListener('change', updateCostEstimate);
+  countEl.addEventListener('input', function () {
+    var n = parseInt(countEl.value, 10);
+    if (!isNaN(n) && n > 20) countEl.value = 20;
+    updateCostEstimate();
+  });
+  countEl.addEventListener('change', function () {
+    countEl.value = Math.max(1, Math.min(20, parseInt(countEl.value, 10) || 1));
+    updateCostEstimate();
+  });
+  updateCostEstimate();
+
+  function setStatus(msg, isError) {
+    statusArea.style.display = 'block';
+    statusMsg.textContent = msg;
+    statusMsg.style.color = isError ? 'var(--text)' : 'var(--text-muted)';
+    statusMsg.style.background = isError ? 'rgba(192,57,43,0.1)' : 'var(--bg-chip)';
+  }
+
+  function addImageCard(b64, mime, index, total) {
+    var src  = 'data:' + (mime || 'image/png') + ';base64,' + b64;
+    var card = document.createElement('div');
+    card.style.cssText = 'background:var(--bg-elevated);border:1px solid var(--border-card);border-radius:8px;overflow:hidden;';
+
+    var img = document.createElement('img');
+    img.src = src;
+    img.alt = 'Erzeugtes Bild ' + (index + 1);
+    img.style.cssText = 'width:100%;display:block;';
+
+    var footer = document.createElement('div');
+    footer.style.cssText = 'padding:0.5rem 0.75rem;display:flex;justify-content:space-between;align-items:center;';
+
+    var label = document.createElement('span');
+    label.textContent = total > 1 ? 'Bild ' + (index + 1) : 'Erzeugtes Bild';
+    label.style.cssText = 'font-size:0.82rem;color:var(--text-muted);';
+
+    var dl = document.createElement('a');
+    dl.href = src;
+    dl.download = 'generated-' + Date.now() + '-' + index + '.png';
+    dl.textContent = 'Herunterladen';
+    dl.style.cssText = 'font-size:0.82rem;color:var(--brand);text-decoration:none;font-weight:600;';
+
+    footer.appendChild(label);
+    footer.appendChild(dl);
+    card.appendChild(img);
+    card.appendChild(footer);
+    grid.appendChild(card);
+  }
+
+  function generateOne(apiKey, model, prompt, aspect, size, index, total) {
+    var url  = 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(model) + ':generateContent?key=' + encodeURIComponent(apiKey);
+    var body = JSON.stringify({
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: {
+        responseModalities: ['TEXT', 'IMAGE'],
+        imageConfig: { aspectRatio: aspect, imageSize: size }
+      }
+    });
+    return fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: body
+    }).then(function (resp) {
+      if (!resp.ok) {
+        return resp.json().catch(function () { return null; }).then(function (data) {
+          throw new Error(data && data.error && data.error.message ? data.error.message : 'HTTP ' + resp.status);
+        });
+      }
+      return resp.json().then(function (data) {
+        var parts = (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) || [];
+        for (var i = 0; i < parts.length; i++) {
+          if (parts[i].inlineData && parts[i].inlineData.data) {
+            addImageCard(parts[i].inlineData.data, parts[i].inlineData.mimeType, index, total);
+            return;
+          }
+        }
+        throw new Error('Kein Bild in der Antwort');
+      });
+    });
+  }
+
+  improveBtn.addEventListener('click', function () {
+    var apiKey = keyInput.value.trim();
+    var prompt = promptEl.value.trim();
+    if (!apiKey) { setStatus('Geben Sie zuerst oben Ihren Gemini-API-Schlüssel ein.', true); return; }
+    if (!prompt) { setStatus('Geben Sie einen Prompt zum Verbessern ein.', true); return; }
+
+    improveBtn.disabled = true;
+    improveBtn.textContent = 'Wird verbessert…';
+    genBtn.disabled = true;
+
+    var url  = 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(IMPROVE_MODEL) + ':generateContent?key=' + encodeURIComponent(apiKey);
+    var body = JSON.stringify({
+      contents: [{ parts: [{ text: 'Improve this image generation prompt. Make it more detailed and vivid — add lighting, style, atmosphere, composition, and quality keywords. Return only the improved prompt, no explanation or commentary.\n\nPrompt: ' + prompt }] }]
+    });
+
+    fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body })
+      .then(function (resp) {
+        if (!resp.ok) {
+          return resp.json().catch(function () { return null; }).then(function (data) {
+            throw new Error(data && data.error && data.error.message ? data.error.message : 'HTTP ' + resp.status);
+          });
+        }
+        return resp.json();
+      })
+      .then(function (data) {
+        var parts = (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) || [];
+        var text = '';
+        for (var i = 0; i < parts.length; i++) {
+          if (parts[i].text) { text = parts[i].text.trim(); break; }
+        }
+        text = text.replace(/^```\S*\s*|\s*```$/g, '').trim();
+        text = text.replace(/^["']|["']$/g, '').trim();
+        if (!text) throw new Error('No text in response');
+        promptEl.value = text;
+        setStatus('Prompt verbessert.', false);
+        improveBtn.disabled = false;
+        improveBtn.textContent = 'Mit KI verbessern';
+        genBtn.disabled = false;
+      })
+      .catch(function (err) {
+        setStatus('Verbessern fehlgeschlagen: ' + err.message, true);
+        improveBtn.disabled = false;
+        improveBtn.textContent = 'Mit KI verbessern';
+        genBtn.disabled = false;
+      });
+  });
+
+  genBtn.addEventListener('click', function () {
+    var apiKey = keyInput.value.trim();
+    var prompt = promptEl.value.trim();
+    var model  = modelEl.value;
+    var aspect = aspectEl.value;
+    var size   = sizeEl.value;
+    var count  = Math.max(1, Math.min(20, parseInt(countEl.value, 10) || 1));
+
+    if (!apiKey) { setStatus('Geben Sie zuerst oben Ihren Gemini-API-Schlüssel ein.', true); return; }
+    if (!prompt) { setStatus('Geben Sie einen Prompt ein.', true); return; }
+
+    grid.innerHTML = '';
+    genBtn.disabled = true;
+    genBtn.textContent = 'Wird generiert…';
+    setStatus(count + ' Bild' + (count !== 1 ? 'er' : '') + ' werden generiert…', false);
+
+    var promises = [];
+    for (var i = 0; i < count; i++) {
+      promises.push(generateOne(apiKey, model, prompt, aspect, size, i, count));
+    }
+
+    Promise.allSettled(promises).then(function (results) {
+      var ok     = results.filter(function (r) { return r.status === 'fulfilled'; });
+      var errors = results.filter(function (r) { return r.status === 'rejected'; });
+      if (ok.length === 0) {
+        setStatus('Fehlgeschlagen: ' + errors[0].reason.message, true);
+      } else if (errors.length > 0) {
+        setStatus(ok.length + ' von ' + count + ' erfolgreich. Fehler bei den übrigen: ' + errors[0].reason.message, false);
+      } else {
+        setStatus(count + ' Bild' + (count !== 1 ? 'er' : '') + ' generiert.', false);
+      }
+      genBtn.disabled = false;
+      genBtn.textContent = 'Generieren';
+    });
+  });
+})();
+</script>

@@ -7,7 +7,8 @@
 
   var langUrl     = dialog.getAttribute('data-lang-url') || '';
   var currentLang = dialog.getAttribute('data-lang') || 'en';
-  var pathPrefix  = currentLang === 'ja' ? '/ja' : currentLang === 'zh' ? '/zh' : '';
+  var LOCALES     = ['ja', 'zh', 'ko', 'fr', 'es', 'de', 'it', 'lzh', 'yue', 'bo'];
+  var pathPrefix  = LOCALES.indexOf(currentLang) !== -1 ? '/' + currentLang : '';
 
   var input    = dialog.querySelector('.cmdk-input');
   var listEl   = dialog.querySelector('.cmdk-list');
@@ -33,7 +34,7 @@
 
   if (langUrl) {
     COMMANDS.push({
-      label: currentLang === 'ja' || currentLang === 'zh' ? 'Switch to English' : '日本語で読む',
+      label: currentLang === 'en' ? '日本語で読む' : 'Switch to English',
       hint: 'Language switch',
       url: langUrl,
       keywords: 'language japanese english nihongo'

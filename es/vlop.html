@@ -1,0 +1,61 @@
+---
+layout: main
+title: Informes de transparencia VLOP del DSA
+lang: es
+lang_url: /vlop.html
+lang_url_ja: /ja/vlop.html
+lang_url_zh: /zh/vlop.html
+lang_url_ko: /ko/vlop.html
+lang_url_fr: /fr/vlop.html
+lang_url_de: /de/vlop.html
+lang_url_it: /it/vlop.html
+---
+
+<div style="padding-top: 2.5rem; margin-bottom: 0.5rem;">
+  <p class="section-label">Caso de estudio</p>
+  <h1 style="margin-top: 0; margin-bottom: 0.5rem;">Informes de transparencia del DSA — VLOPs y VLOSEs</h1>
+  <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
+    Bajo la Ley de Servicios Digitales de la UE, las plataformas en línea de muy gran tamaño (VLOPs) y los motores de búsqueda en línea de muy gran tamaño (VLOSEs)
+    deben publicar informes de transparencia semestrales sobre moderación de contenido.
+    Este proyecto agrega los informes de H2 2025 de 25 servicios en un único panel entre plataformas,
+    abarcando las 22 VLOPs activas durante este periodo y los 2 VLOSEs en las 9 tablas de informe del DSA:
+    notificaciones, acciones por iniciativa propia, órdenes gubernamentales, apelaciones, medios automatizados, recursos humanos,
+    alcance de usuarios y descripciones cualitativas.
+  </p>
+  <p style="color: var(--text-muted); max-width: 720px; line-height: 1.65; background: transparent;">
+    Fuentes: AliExpress, Amazon, Apple (App Store), Bing, Booking.com, LinkedIn, Meta (Facebook, Instagram),
+    Pinterest, Pornhub, SHEIN, Snapchat, Temu, TikTok, Wikipedia, X, XNXX, XVideos, YouTube / Google (6 servicios) y Zalando.
+    Archivos de origen en bruto: <a href="https://github.com/krMaynard/dsa-transparency-data" target="_blank" rel="noopener">github.com/krMaynard/dsa-transparency-data</a>.
+  </p>
+</div>
+
+<!-- ── Live tool CTA ───────────────────────────────────────── -->
+<div class="card" style="margin: 2rem 0;">
+  <p class="section-label" style="margin: 0 0 0.4rem;">Herramienta en vivo</p>
+  <h3 style="margin-top: 0;">Explora los datos</h3>
+  <p>El conjunto de datos completo está disponible en la Transparency Report API — gráficos interactivos, consultas estructuradas en las 9 tablas del DSA y un cuadro «Ask» en lenguaje natural impulsado por Claude.</p>
+  <a href="https://transparency.kieranmaynard.com/reports" class="card-link">Abrir panel en vivo &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/portal" class="card-link">Portal de investigadores &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/docs" class="card-link">Documentación de la API &rarr;</a>
+</div>
+
+<!-- ── Reading the data ────────────────────────────────────── -->
+<section class="td-readme">
+  <h2 class="td-section-title">Cómo leer los datos</h2>
+  <ul class="td-bullets">
+    <li><strong>Notificaciones (Tabla 4)</strong> son presentaciones de usuarios o notificadores de confianza que reportan contenido presuntamente ilegal. Una sola notificación puede referirse a varios elementos.</li>
+    <li><strong>Acciones por iniciativa propia (Tablas 5 y 6)</strong> son medidas tomadas proactivamente por una plataforma sin una notificación — la Tabla 5 cubre el contenido ilegal, la Tabla 6 cubre las infracciones de políticas.</li>
+    <li><strong>Órdenes gubernamentales (Tabla 3)</strong> son órdenes de los Estados miembros de la UE para actuar contra contenido o proporcionar información de usuarios.</li>
+    <li><strong>Apelaciones (Tabla 7)</strong> cubre las reclamaciones presentadas ante el mecanismo interno de una plataforma y los órganos de resolución extrajudicial de litigios.</li>
+    <li><strong>Medios automatizados (Tabla 8)</strong> reporta el volumen de acciones de moderación tomadas por medios automatizados frente a la revisión humana, junto con métricas de exactitud, precisión y exhaustividad por servicio e idioma.</li>
+    <li><strong>Recursos humanos (Tabla 9)</strong> reporta el número de moderadores de contenido internos y externos empleados por cada plataforma, incluyendo un desglose por idioma.</li>
+    <li><strong>Alcance de usuarios (Tabla 10)</strong> reporta el promedio mensual de destinatarios activos (AMAR) por Estado miembro de la UE. Algunas plataformas reportan cifras aproximadas: Booking.com usa rangos (se muestra el punto medio); Temu usa la notación «M»; los servicios de Google enlazan a un informe MAR aparte y se omiten.</li>
+    <li><strong>Información cualitativa (Tabla 11)</strong> contiene las descripciones en texto libre de cada servicio sobre la gobernanza de su moderación de contenido, sus medios automatizados y sus recursos humanos.</li>
+    <li><strong>Filas TOTAL</strong> agregan todas las categorías de contenido.</li>
+    <li>Las celdas vacías en los datos de origen se tratan como cero o no aplicable. Las notas contextuales de plataformas individuales no se incluyen en esta vista.</li>
+  </ul>
+</section>
+
+<hr class="section-divider" />
+
+<p style="color: var(--text-very-faint); font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
+  Datos: informes oficiales de transparencia del DSA, H2 2025. Análisis por Kieran Maynard. Sin analíticas ni rastreo más allá del predeterminado del sitio.
+</p>

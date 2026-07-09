@@ -1,0 +1,94 @@
+---
+layout: main
+title: Richieste governative di rimozione a Google
+description: "15 anni di richieste governative di rimozione di contenuti dai prodotti Google — 178 paesi, 61 prodotti, 22 motivazioni, 30 periodi di rendicontazione."
+lang: it
+lang_url: /google-removals.html
+lang_url_ja: /ja/google-removals.html
+lang_url_zh: /zh/google-removals.html
+lang_url_ko: /ko/google-removals.html
+lang_url_fr: /fr/google-removals.html
+lang_url_es: /es/google-removals.html
+lang_url_de: /de/google-removals.html
+---
+
+<div style="padding-top: 2.5rem; margin-bottom: 0.5rem;"><p class="section-label">Caso di studio</p></div>
+
+<p style="margin-top: 2rem;"><a href="/it/transparency.html">← Dati di trasparenza</a></p>
+
+<div style="padding-top: 1.5rem; margin-bottom: 0.5rem;">
+  <h2 style="margin-top: 0; margin-bottom: 0.5rem;">Richieste governative di rimozione di contenuti da Google</h2>
+  <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
+    Dal 2014 al 2024 sono stato uno degli autori principali della parte relativa alla Grande Cina del
+    <a href="https://transparencyreport.google.com/government-removals/explore">Google Transparency Report</a>.
+    Questo progetto trasforma il dataset delle richieste governative di rimozione di Google
+    in un esploratore di tendenze multi-periodo che copre
+    <strong>30 periodi di rendicontazione</strong>, <strong>178 paesi</strong>, <strong>61 prodotti Google</strong>
+    e <strong>22 motivazioni dichiarate</strong> per la rimozione.
+    A differenza del report di Google — organizzato un periodo alla volta — questa vista mette
+    al centro le <strong>tendenze tra i periodi di rendicontazione</strong>: ogni combinazione di filtri diventa
+    una serie temporale che puoi scomporre per paese, richiedente, prodotto o motivazione.
+  </p>
+</div>
+
+<!-- ── What the data shows ─────────────────────────────────── -->
+<section class="td-intro">
+  <h2 class="td-section-title">Cosa cattura questo dataset</h2>
+  <div class="td-callouts">
+    <div class="td-callout">
+      <h3>Chi lo chiede</h3>
+      <p>Tribunali, funzionari governativi, forze di polizia, autorità per la protezione dei dati, agenzie per la tutela dei consumatori, forze armate e altri — suddivisi per <em>richiedente</em> a livello di singolo elemento.</p>
+    </div>
+    <div class="td-callout">
+      <h3>Cosa viene preso di mira</h3>
+      <p>Prodotti Google specifici — Ricerca web, YouTube, Maps, Blogger, Play e altri 37 — insieme alla <em>motivazione</em> dichiarata: diffamazione, privacy, sicurezza nazionale, critica al governo, copyright e altro.</p>
+    </div>
+    <div class="td-callout">
+      <h3>Cosa ha fatto Google</h3>
+      <p>Esiti a livello di singolo elemento: rimosso su base legale, rimosso su base di policy, contenuto già scomparso, contenuto non trovato, informazioni insufficienti per agire, o nessuna azione intrapresa.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Live tool CTA ───────────────────────────────────────── -->
+<div class="card" style="margin: 2rem 0;">
+  <p class="section-label" style="margin: 0 0 0.4rem;">Strumento interattivo</p>
+  <h3 style="margin-top: 0;">Esplora i dati</h3>
+  <p>Il dataset completo è disponibile come dashboard interattiva — filtra per periodo, paese, prodotto o motivazione, ed esplora sei grafici di tendenza pluriennali, tra cui il tasso di rimozione nel tempo e gli esiti di conformità.</p>
+  <a href="https://transparency.kieranmaynard.com/removals" class="card-link">Apri la dashboard interattiva &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/docs" class="card-link">Documentazione API &rarr;</a>
+</div>
+
+<!-- ── Reading the data ────────────────────────────────────── -->
+<section class="td-readme">
+  <h2 class="td-section-title">Alcune cose da cercare</h2>
+  <ul class="td-bullets">
+    <li><strong>Tendenze, non istantanee.</strong> Imposta <em>Scomponi per → Motivazione</em> con tutti gli altri filtri sui valori predefiniti per vedere come la composizione delle motivazioni dichiarate è cambiata dal 2011 in poi — qualcosa di laborioso da ricostruire dalle viste per singolo periodo di Google.</li>
+    <li><strong>Traiettorie a livello di paese.</strong> Imposta <em>Scomponi per → Paese</em> per confrontare fianco a fianco nel tempo i principali paesi richiedenti.</li>
+    <li><strong>Il tasso di rimozione è esso stesso una tendenza.</strong> Il grafico del tasso di rimozione traccia la quota di elementi presi di mira che Google ha effettivamente rimosso nell'intervallo di periodi — utile per individuare un irrigidimento o un allentamento della postura di conformità verso un dato paese, prodotto o motivazione.</li>
+    <li><strong>La diffamazione domina i volumi in molte democrazie</strong> — filtra <em>Motivazione → Diffamazione</em> per vedere come i tribunali di paesi come Russia, Turchia, India e Brasile determinino una quota consistente degli elementi presi di mira.</li>
+    <li><strong>La «critica al governo» racconta una storia diversa.</strong> Filtra <em>Motivazione → Critica al governo</em> e osserva come la distribuzione per paese e la linea di tendenza cambino nettamente.</li>
+    <li><strong>Il richiedente conta.</strong> Un <em>ordine del tribunale rivolto a Google</em> ha un peso operativo diverso da una richiesta della <em>polizia</em> o da una segnalazione di <em>funzionari governativi</em> — e la composizione cambia di anno in anno.</li>
+  </ul>
+  <p style="color: var(--text-faint); font-size: 0.85rem; margin-top: 1.25rem;">
+    Avvertenze importanti: una «richiesta» è ciò che un governo ha presentato; un «elemento» è uno specifico URL, video, account o contenuto citato in quella richiesta. Una singola richiesta può prendere di mira molti elementi. Le categorie di risposta di Google sono
+    <em>rimosso (legale)</em>, <em>rimosso (policy)</em>, <em>contenuto già rimosso</em>, <em>contenuto non trovato</em>, <em>informazioni insufficienti</em> e <em>nessuna azione intrapresa</em>. La metrica del «tasso di rimozione» conta le prime tre.
+  </p>
+</section>
+
+<!-- ── Programmatic access ─────────────────────────────────── -->
+<section style="margin: 2rem 0 1rem;">
+  <h2 class="td-section-title">Accesso programmatico</h2>
+  <p style="color: var(--text-muted); max-width: 720px; line-height: 1.65;">
+    Il dataset completo è interrogabile tramite la <a href="https://transparency.kieranmaynard.com">Transparency Report API</a> — filtra per periodo, paese, tipo di richiedente, prodotto o motivazione, e aggrega qualsiasi misura numerica con query JSON strutturate. L'interfaccia asincrona a job/polling gestisce grandi aggregazioni senza timeout.
+  </p>
+  <p style="margin-top: 0.75rem;">
+    <a href="https://transparency.kieranmaynard.com/portal" class="card-link">Ottieni l'accesso ricercatore &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/docs" class="card-link">Documentazione API &rarr;</a>
+  </p>
+</section>
+
+<hr class="section-divider" />
+
+<p style="color: var(--text-very-faint); font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
+  Dati: <a href="https://transparencyreport.google.com/government-removals/overview">Google Transparency Report</a>,
+  richieste governative di rimozione (2011–secondo semestre 2025). Analisi e visualizzazioni a cura di Kieran Maynard.
+</p>

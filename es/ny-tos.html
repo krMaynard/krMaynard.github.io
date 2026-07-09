@@ -1,0 +1,59 @@
+---
+layout: main
+title: Informes de condiciones de servicio de redes sociales de Nueva York
+description: "Un archivo y catálogo de los informes de condiciones de servicio que las empresas de redes sociales presentan ante el Fiscal General de Nueva York en virtud de la Stop Hiding Hate Act — 29 presentaciones, 3.º–4.º trimestre de 2025."
+lang: es
+lang_url: /ny-tos.html
+lang_url_ja: /ja/ny-tos.html
+lang_url_zh: /zh/ny-tos.html
+lang_url_ko: /ko/ny-tos.html
+lang_url_fr: /fr/ny-tos.html
+lang_url_de: /de/ny-tos.html
+lang_url_it: /it/ny-tos.html
+---
+
+<div style="padding-top: 2.5rem; margin-bottom: 0.5rem;">
+  <p class="section-label">Caso de estudio</p>
+  <h1 style="margin-top: 0; margin-bottom: 0.5rem;">Informes de condiciones de servicio de redes sociales de Nueva York</h1>
+  <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
+    La <strong>Stop Hiding Hate Act</strong> (S895B) de Nueva York exige que las plataformas de redes sociales con más de 100&nbsp;millones de dólares
+    en ingresos anuales y usuarios en Nueva York presenten <strong>dos veces al año</strong> informes de condiciones de servicio ante el
+    Fiscal General del estado. Cada informe describe cómo la plataforma define y modera la conducta de odio, el racismo, el extremismo,
+    la desinformación, el acoso y la injerencia política extranjera.
+  </p>
+  <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
+    Este proyecto rastrea el índice público del Fiscal General, archiva cada presentación publicada y construye un catálogo plano y
+    citable que abarca las <strong>29 presentaciones</strong> del 3.º y 4.º trimestre de 2025 — de Meta, Alphabet (YouTube),
+    TikTok, X, Snap, Reddit, Discord, Roblox, LinkedIn, Amazon (Twitch y GoodReads) y más.
+  </p>
+  <p style="color: var(--text-muted); max-width: 720px; line-height: 1.65; background: transparent;">
+    Fuente: <a href="https://ag.ny.gov/resources/organizations/social-media-tos-reporting/reports" target="_blank" rel="noopener">Fiscal General de Nueva York — informes de condiciones de servicio de redes sociales</a>.
+    Archivos y catálogo: <a href="https://github.com/krMaynard/dsa-transparency-data/tree/main/ny-tos-reports" target="_blank" rel="noopener">github.com/krMaynard/dsa-transparency-data</a>.
+  </p>
+</div>
+
+<!-- ── Live tool CTA ───────────────────────────────────────── -->
+<div class="card" style="margin: 2rem 0;">
+  <p class="section-label" style="margin: 0 0 0.4rem;">Herramienta en vivo</p>
+  <h3 style="margin-top: 0;">Explorar el catálogo</h3>
+  <p>El catálogo completo está disponible en la Transparency Report API — una tabla filtrable de cada presentación, con enlaces al informe en el sitio del Fiscal General y a una copia archivada del PDF, además de un endpoint público de solo lectura en JSON/CSV.</p>
+  <a href="https://transparency.kieranmaynard.com/ny-tos" class="card-link">Abrir catálogo &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/api/ny-tos-reports" class="card-link">API JSON &rarr;</a>
+</div>
+
+<!-- ── Reading the data ────────────────────────────────────── -->
+<section class="td-readme">
+  <h2 class="td-section-title">Cómo leer los datos</h2>
+  <ul class="td-bullets">
+    <li><strong>Qué son.</strong> PDF de <em>políticas</em> en forma narrativa — la descripción que cada empresa hace de sus condiciones de servicio y sus prácticas de moderación — no las tablas estadísticas legibles por máquina de los informes de la EU DSA. Por eso se archivan como PDF originales, sin analizarse en una base de datos.</li>
+    <li><strong>Empresa frente a plataforma.</strong> Algunas empresas presentan informes por separado para plataformas o marcas individuales; por ejemplo, Amazon presenta informes distintos para <em>Twitch</em> y <em>GoodReads</em>.</li>
+    <li><strong>Periodo.</strong> La ley obliga a informar dos veces al año; el catálogo abarca el 3.º y 4.º trimestre de 2025.</li>
+    <li><strong>Acceso.</strong> 11 de las 29 presentaciones se sirven desde el directorio público del Fiscal General y aquí se replican como PDF archivados. Las otras 18 se sirven desde un directorio de carga privado que redirige a los visitantes anónimos a una página de inicio de sesión, por lo que se catalogan solo con su enlace de origen (marcadas como <em>auth-required</em>) — casi con certeza un error de configuración, ya que figuran en el listado público.</li>
+    <li><strong>Archivado.</strong> Cuando una presentación es pública, se replica una instantánea del PDF en el repositorio de datos abiertos por si el enlace en vivo cambia.</li>
+  </ul>
+</section>
+
+<hr class="section-divider" />
+
+<p style="color: var(--text-very-faint); font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
+  Datos: presentaciones de condiciones de servicio de redes sociales ante el Fiscal General de Nueva York, 3.º–4.º trimestre de 2025. Archivo y análisis por Kieran Maynard. Sin analíticas ni seguimiento más allá de lo predeterminado del sitio.
+</p>

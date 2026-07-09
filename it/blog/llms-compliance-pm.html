@@ -1,0 +1,78 @@
+---
+layout: main
+title: "Come uso gli LLM nel lavoro di compliance PM"
+description: "Estrazione dei requisiti, analisi delle lacune e revisione delle bozze — tre flussi di lavoro con gli LLM che si sono davvero radicati nel lavoro di compliance PM, e dove ciascuno si sgretola."
+date: 2026-05-15
+lang: it
+lang_url: /blog/llms-compliance-pm.html
+lang_url_ja: /ja/blog/llms-compliance-pm.html
+lang_url_zh: /zh/blog/llms-compliance-pm.html
+lang_url_ko: /ko/blog/llms-compliance-pm.html
+lang_url_fr: /fr/blog/llms-compliance-pm.html
+lang_url_es: /es/blog/llms-compliance-pm.html
+lang_url_de: /de/blog/llms-compliance-pm.html
+---
+
+<article class="post">
+  <a href="/it/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Scritti</p>
+    <h1>Come uso gli LLM nel lavoro di compliance PM</h1>
+    <time class="news-date" datetime="2026-05-15">15 maggio 2026</time>
+    <div class="tags">
+      <span class="tag">IA/LLM</span>
+      <span class="tag">Compliance PM</span>
+      <span class="tag">Product Management</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>Ho lavorato nelle policy sui contenuti e nella conformità normativa abbastanza a lungo da essere scettico verso le affermazioni del tipo "l'IA automatizzerà X". Quello che ho scoperto è più specifico: ci sono attività particolari nel lavoro di compliance PM in cui gli LLM comprimono i tempi in modo significativo, e attività particolari in cui non aiutano e non ci si dovrebbe fidare. La distinzione conta.</p>
+
+    <h2>Estrazione dei requisiti</h2>
+
+    <p>Il caso d'uso più affidabile è l'analisi del testo normativo. Quando esce una nuova legge o una nuova linea guida regolatoria, il primo compito del PM è capire che cosa richiede davvero — nello specifico, quali dati devono essere catturati, quali categorie devono essere mantenute e in quale formato deve essere prodotto l'output.</p>
+
+    <p>Il procedimento: incollare il testo integrale della legge o del documento di indirizzo nel modello e chiedergli di enumerare ogni elemento di dato rendicontabile. Per ciascun elemento, chiedere se la descrizione corrisponde a qualcosa che l'infrastruttura dati attuale già produce. Poi confrontare quell'output con ciò che i sistemi di dati della piattaforma effettivamente generano, insieme a un esperto di dominio che sa cosa producono quei sistemi.</p>
+
+    <p>Funziona bene perché il testo normativo è preciso e non richiede un giudizio contestuale profondo per essere analizzato. Il modello sta svolgendo un'estrazione strutturata di informazioni — tira fuori elenchi di requisiti e li organizza — cosa che fa in modo affidabile. Dove si sgretola è nell'interpretare definizioni ambigue, che richiedono ancora un giudizio legale. Il modello ti darà una risposta sicura su cosa significhi un requisito ambiguo; quella risposta può riflettere o meno il modo in cui il regolatore leggerà lo stesso testo.</p>
+
+    <p>Il vero valore emerge quando una nuova legge si sovrappone a una esistente. Quando è uscita la California AB 587, stavamo già rendicontando ai sensi dell'articolo 15 dell'EU DSA. I quadri di categorie si sovrappongono parzialmente ma non corrispondono in modo netto — la "disinformazione o cattiva informazione" dell'AB 587 non ha un equivalente diretto nel DSA, e il meccanismo di segnalazione dell'articolo 16 del DSA non ha un analogo californiano. Applicare questo processo di estrazione a entrambi i testi normativi e poi eseguire un confronto strutturato con l'infrastruttura dati esistente ha individuato le lacune con precisione: quali dati avevamo già, cosa andava aggiunto e cosa richiedeva decisioni di definizione prima ancora di poter avviare il lavoro sui dati.</p>
+
+    <h2>Analisi delle lacune tra giurisdizioni</h2>
+
+    <p>Un caso d'uso correlato è mantenere una tabella dei requisiti tra giurisdizioni man mano che gli indirizzi regolatori evolvono. La Commissione DSA ha pubblicato un modello di rendicontazione armonizzato nel 2024; quando ha aggiornato i requisiti di precisione e richiamo per gli strumenti di rilevamento automatizzato nella versione H2 2025, avevo bisogno di capire nello specifico cosa fosse cambiato rispetto al modello H1 e se ciò incidesse su qualcosa che stavamo già producendo.</p>
+
+    <p>Il flusso di lavoro: mantenere una tabella strutturata dei requisiti per giurisdizione — DSA articolo 15, DSA articolo 42, AB 587, S895 e così via — con colonne per i dati specifici richiesti e lo stato attuale dell'infrastruttura. Quando viene pubblicato un nuovo indirizzo, si confronta il nuovo testo con la tabella esistente per segnalare cosa è cambiato. Il modello esegue il confronto; il giudizio del PM sta nel valutare se le modifiche segnalate richiedano lavoro di ingegneria, decisioni di definizione o niente.</p>
+
+    <p>È più rapido che leggere un intero documento di indirizzo aggiornato a memoria della versione precedente, e più affidabile — il modello coglie cose facili da perdere in un testo normativo denso, in particolare cambiamenti nella metodologia di misurazione o nella cadenza di rendicontazione sepolti in una nota a piè di pagina.</p>
+
+    <h2>Revisione della bozza rispetto a una checklist normativa</h2>
+
+    <p>Prima che qualsiasi report normativo passi al Legal per la revisione, confronto una bozza quasi definitiva con la checklist normativa pertinente. Il prompt è semplice: ecco la bozza del report, ecco la legge pertinente, individua tutto ciò che nella legge non è affrontato nel report e segnala tutto ciò che nel report sembra in conflitto con i requisiti della legge.</p>
+
+    <p>Questo coglie omissioni facili da perdere in documenti lunghi — una comunicazione richiesta da un comma che è saltata in un ciclo di revisione, o una categoria presente nella legge ma inavvertitamente accorpata a un'altra nel report. Sono il tipo di errori che emergono nella revisione del Legal e richiedono una revisione completa, il che costa tempo quando si è vicini a una scadenza di deposito.</p>
+
+    <p>Non sostituisce la revisione del Legal. Il modello perderà interpretazioni dipendenti dal contesto e non coglierà problemi di accuratezza sostanziale — non può dirti che il numero di ricorsi rendicontato è sbagliato, solo che il report include una sezione sui ricorsi. Ma è un utile controllo preliminare che riduce la probabilità che la revisione del Legal faccia emergere omissioni strutturali anziché questioni sostanziali.</p>
+
+    <h2>Cosa non funziona</h2>
+
+    <p>Tutto ciò che richiede un giudizio sull'intento regolatorio — cosa un regolatore è effettivamente probabile che faccia applicare, se una determinata comunicazione soddisfi un requisito il cui testo è ambiguo — non funziona bene. Il modello genererà una risposta dall'aria sicura. Quella risposta può riflettere o meno il modo in cui il regolatore legge lo stesso testo, e nel lavoro di compliance la differenza conta.</p>
+
+    <p>Allo stesso modo, tutto ciò che richiede la conoscenza di una specifica storia applicativa, di recenti indirizzi della Commissione o di attività normativa in corso successiva alla data di taglio dell'addestramento è inaffidabile. Il modello non sa ciò che non sa, e la conformità normativa è un ambito in cui agire su informazioni obsolete crea un rischio reale.</p>
+
+    <p>Lo schema che ha funzionato: usare gli LLM per attività di testo strutturate — estrazione, confronto, revisione con checklist — in cui gli input e gli output sono ben definiti e un esperto di dominio può verificare l'output. Non usarli per rispondere a domande su cosa significhi un requisito in un contesto applicativo o su come un regolatore risponderà a un determinato approccio di comunicazione. Queste richiedono una competenza che il modello non possiede e non è in grado di simulare in modo affidabile.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

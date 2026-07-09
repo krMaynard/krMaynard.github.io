@@ -1,0 +1,72 @@
+---
+layout: main
+title: "California AB 587 vs. New York S895: Was sich unterscheidet und warum es zählt"
+description: "Beide Gesetze verlangen von sozialen Medien Transparenzberichte zur Content-Moderation. Ihre Datenanforderungen gehen so weit auseinander, dass getrennte Reporting-Pipelines nötig sind, selbst wenn die Prüfzyklen gemeinsam genutzt werden können."
+date: 2026-04-05
+lang: de
+lang_url: /blog/ab587-vs-s895.html
+lang_url_ja: /ja/blog/ab587-vs-s895.html
+lang_url_zh: /zh/blog/ab587-vs-s895.html
+lang_url_ko: /ko/blog/ab587-vs-s895.html
+lang_url_fr: /fr/blog/ab587-vs-s895.html
+lang_url_es: /es/blog/ab587-vs-s895.html
+lang_url_it: /it/blog/ab587-vs-s895.html
+---
+
+<article class="post">
+  <a href="/de/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Texte</p>
+    <h1>California AB 587 vs. New York S895: Was sich unterscheidet und warum es zählt</h1>
+    <time class="news-date" datetime="2026-04-05">5. April 2026</time>
+    <div class="tags">
+      <span class="tag">Regulierung</span>
+      <span class="tag">Compliance-PM</span>
+      <span class="tag">Product Management</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>Beide Gesetze verlangen von Social-Media-Unternehmen, Transparenzberichte zur Content-Moderation zu veröffentlichen. Sie teilen eine Durchsetzungsstruktur (die Attorneys General der Bundesstaaten), einen allgemeinen Gegenstand (wie Plattformen mit schädlichen Inhalten umgehen) und einen ähnlichen politischen Moment. Doch sie gehen in Punkten auseinander, die operativ ins Gewicht fallen.</p>
+
+    <h2>AB 587: Offenlegung der Richtlinien</h2>
+
+    <p>Kaliforniens AB 587, das im Januar 2024 in Kraft trat, geht es im Kern um Richtlinien-Transparenz. Das Gesetz verpflichtet Plattformen mit durchschnittlich 100 Millionen oder mehr monatlichen Nutzern, ihre Nutzungsbedingungen beim California AG einzureichen und halbjährliche Transparenzberichte zu veröffentlichen, die beschreiben, wie sie diese Bedingungen durchsetzen.</p>
+
+    <p>Die Inhaltskategorien sind im Gesetz definiert: Hassrede oder Rassismus, Desinformation oder Fehlinformation, Belästigung, Radikalisierung oder Extremismus, ausländische politische Einflussnahme, Verkauf oder Konsum kontrollierter Substanzen, Menschenausbeutung sowie Selbstverletzung oder Suizid. Für jede Kategorie müssen Plattformen ihren Durchsetzungsansatz beschreiben — was die Richtlinie abdeckt, welche Erkennungsmethoden verwendet werden und wie viele Durchsetzungsmaßnahmen im Berichtszeitraum ergriffen wurden.</p>
+
+    <p>Die Berichte werden beim California AG eingereicht und von dessen Büro öffentlich veröffentlicht. Das anvisierte Publikum sind ebenso sehr Zivilgesellschaft und Presse wie die Aufsichtsbehörde — AB 587 wurde als Transparenzmechanismus konzipiert, nicht in erster Linie als Durchsetzungshebel.</p>
+
+    <p>Was AB 587 nicht verlangt: präzise operative Daten auf Maßnahmenebene. Das Gesetz fordert aggregierte Zahlen und Richtlinienbeschreibungen. Eine Plattform kann melden, dass sie in der Kategorie „Hassrede" Durchsetzungsmaßnahmen mit einer Kombination aus automatisierter Erkennung und menschlicher Prüfung ergriffen hat, ohne die genaue Anzahl jedes Erkennungstyps oder die Entscheidungsfristen einzelner Fälle anzugeben. Die Berichtspflicht ist real, aber die geforderte Datenpräzision ist vergleichsweise gering.</p>
+
+    <h2>S895: Operative Daten</h2>
+
+    <p>New Yorks S895, das für die 2025 fälligen Berichte gilt, ist operativ konkreter. Plattformen mit einer Million oder mehr New Yorker Nutzern müssen dem New York AG vierteljährliche Berichte vorlegen, die die Anzahl der bearbeiteten Inhalte, die Anzahl der gesperrten oder gelöschten Konten und die Anzahl der bearbeiteten Widersprüche umfassen — jeweils nach Inhaltskategorie aufgeschlüsselt.</p>
+
+    <p>Die Kategorien entsprechen weitgehend denen von AB 587, aber die Datenanforderung ist eine andere. S895 verlangt jedes Quartal Zählwerte konkreter Maßnahmen auf Kategorieebene. Eine Plattform, die nach S895 berichtet, muss beantworten: Wie viele Inhalte wurden im 4. Quartal 2025 wegen „Belästigung" bearbeitet, und wie viele dieser Maßnahmen wurden angefochten und rückgängig gemacht?</p>
+
+    <p>Das ist ein strukturiertes operatives Datenproblem. Die Daten müssen in diesem Granularitätsgrad vorliegen, sie müssen nach Kategorie abfragbar sein und genau genug, um sie bei einem Attorney General eines Bundesstaates einzureichen. Eine Plattform, die Moderationsmaßnahmen in einer gut strukturierten Datenbank erfasst hat, schafft das relativ leicht; eine, die Durchsetzung über Exporte aus Moderationstools verfolgt hat, möglicherweise nicht.</p>
+
+    <h2>Die Divergenz der Infrastruktur</h2>
+
+    <p>Beide Gesetze haben Rahmenwerke mit 10 Kategorien und sich überschneidenden Definitionen, was eine gewisse Effizienz schafft. Eine Plattform kann ihre Inhaltstaxonomie mit beiden im Blick gestalten, und der bereichsübergreifende Prüfprozess — Legal-Prüfung der Daten und Offenlegungen, Policy-Freigabe der Kategorienzuordnungen, Engineering-Datenvalidierung — kann über beide Einreichungen hinweg gemeinsam genutzt werden.</p>
+
+    <p>Aber die zugrunde liegenden Datenanforderungen sind unterschiedlich genug, um getrennte Pipelines zu erfordern. AB-587-Berichte werden aus Richtliniendokumentation und aggregierten Durchsetzungsdaten zusammengestellt; die Präzision dieser Daten kann geringer sein, weil das Gesetz keine exakten Zählwerte in feiner Granularität verlangt. S895-Berichte erfordern exakte Zählwerte, nach Kategorie, pro Quartal. Ein Datenauszug, der für AB 587 funktioniert, erzeugt nicht zwangsläufig die richtige Datenform für S895, und die Validierungskriterien unterscheiden sich.</p>
+
+    <p>Auch die Einreichungsrhythmen unterscheiden sich: AB 587 ist halbjährlich, S895 vierteljährlich. Eine Plattform, die beides im selben Zeitraum einreicht, benötigt zwei koordinierte Produktions-Workflows mit unterschiedlichen Fristen und unterschiedlichen Datenformaten und muss die bereichsübergreifende Prüfkapazität über Einreichungen hinweg teilen, die nicht zugleich anfallen.</p>
+
+    <p>In der Praxis haben wir AB 587 (H2 2025) und S895 (Q4 2025) Anfang 2026 parallel abgewickelt. Die bereichsübergreifende Prüfkapazität wurde geteilt. Die Datenstränge nicht — und der Versuch, sie früh im Prozess in Einklang zu bringen, bevor wir die definitorischen Unterschiede zwischen den beiden Gesetzen vollständig kartiert hatten, kostete Zeit. Die statutbezogene Anforderungskarte im Voraus zu erstellen, bevor die Datenextraktion beginnt, ist die richtige Reihenfolge der Arbeitsschritte.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

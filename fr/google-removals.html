@@ -1,0 +1,94 @@
+---
+layout: main
+title: Demandes gouvernementales de suppression adressées à Google
+description: "15 ans de demandes gouvernementales de suppression de contenu sur les produits Google — 178 pays, 61 produits, 22 motifs, 30 périodes de reporting."
+lang: fr
+lang_url: /google-removals.html
+lang_url_ja: /ja/google-removals.html
+lang_url_zh: /zh/google-removals.html
+lang_url_ko: /ko/google-removals.html
+lang_url_es: /es/google-removals.html
+lang_url_de: /de/google-removals.html
+lang_url_it: /it/google-removals.html
+---
+
+<div style="padding-top: 2.5rem; margin-bottom: 0.5rem;"><p class="section-label">Étude de cas</p></div>
+
+<p style="margin-top: 2rem;"><a href="/fr/transparency.html">← Données de transparence</a></p>
+
+<div style="padding-top: 1.5rem; margin-bottom: 0.5rem;">
+  <h2 style="margin-top: 0; margin-bottom: 0.5rem;">Demandes gouvernementales de suppression de contenu adressées à Google</h2>
+  <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
+    De 2014 à 2024, j'ai été l'un des principaux rédacteurs de la partie Grande Chine du
+    <a href="https://transparencyreport.google.com/government-removals/explore">rapport de transparence de Google</a>.
+    Ce projet transforme le jeu de données des demandes gouvernementales de suppression de Google
+    en un explorateur de tendances multipériodes couvrant
+    <strong>30 périodes de reporting</strong>, <strong>178 pays</strong>, <strong>61 produits Google</strong>
+    et <strong>22 motifs déclarés</strong> de suppression.
+    Contrairement au rapport de Google lui-même — organisé une période à la fois — cette vue place au premier plan les
+    <strong>tendances sur l'ensemble des périodes de reporting</strong> : chaque combinaison de filtres devient
+    une série temporelle que vous pouvez ventiler par pays, par demandeur, par produit ou par motif.
+  </p>
+</div>
+
+<!-- ── What the data shows ─────────────────────────────────── -->
+<section class="td-intro">
+  <h2 class="td-section-title">Ce que ce jeu de données recense</h2>
+  <div class="td-callouts">
+    <div class="td-callout">
+      <h3>Qui demande</h3>
+      <p>Tribunaux, responsables gouvernementaux, police, autorités de protection des données, agences de protection des consommateurs, l'armée, et d'autres — ventilés par <em>demandeur</em> au niveau de l'élément.</p>
+    </div>
+    <div class="td-callout">
+      <h3>Ce qui est visé</h3>
+      <p>Des produits Google précis — Recherche Web, YouTube, Maps, Blogger, Play, et 37 autres — ainsi que le <em>motif</em> déclaré : diffamation, vie privée, sécurité nationale, critique du gouvernement, droit d'auteur, et plus encore.</p>
+    </div>
+    <div class="td-callout">
+      <h3>Ce que Google a fait</h3>
+      <p>Résultats au niveau de l'élément : supprimé pour motifs juridiques, supprimé pour motifs de politique, contenu déjà retiré, contenu introuvable, informations insuffisantes pour agir, ou aucune action entreprise.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Live tool CTA ───────────────────────────────────────── -->
+<div class="card" style="margin: 2rem 0;">
+  <p class="section-label" style="margin: 0 0 0.4rem;">Outil en ligne</p>
+  <h3 style="margin-top: 0;">Explorer les données</h3>
+  <p>Le jeu de données complet est disponible sous forme de tableau de bord interactif — filtrez par période, par pays, par produit ou par motif, et explorez six graphiques de tendances pluriannuelles, dont le taux de suppression au fil du temps et les résultats de conformité.</p>
+  <a href="https://transparency.kieranmaynard.com/removals" class="card-link">Ouvrir le tableau de bord en ligne &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/docs" class="card-link">Documentation de l'API &rarr;</a>
+</div>
+
+<!-- ── Reading the data ────────────────────────────────────── -->
+<section class="td-readme">
+  <h2 class="td-section-title">Quelques points à observer</h2>
+  <ul class="td-bullets">
+    <li><strong>Des tendances, pas des instantanés.</strong> Réglez <em>Ventiler par → Motif</em> en laissant tous les autres filtres par défaut pour voir comment la répartition des motifs déclarés a évolué depuis 2011 — un travail fastidieux à reconstituer à partir des vues par période de Google.</li>
+    <li><strong>Trajectoires par pays.</strong> Réglez <em>Ventiler par → Pays</em> pour comparer côte à côte, au fil du temps, les principaux pays demandeurs.</li>
+    <li><strong>Le taux de suppression est lui-même une tendance.</strong> Le graphique du taux de suppression suit la part des éléments visés que Google a effectivement supprimés sur la plage de périodes — utile pour repérer un durcissement ou un assouplissement de la posture de conformité pour un pays, un produit ou un motif donné.</li>
+    <li><strong>La diffamation domine le volume dans de nombreuses démocraties</strong> — filtrez sur <em>Motif → Diffamation</em> pour voir comment les tribunaux de pays comme la Russie, la Turquie, l'Inde et le Brésil génèrent une large part des éléments visés.</li>
+    <li><strong>La « critique du gouvernement » raconte une autre histoire.</strong> Filtrez sur <em>Motif → Critique du gouvernement</em> et observez la distribution par pays et la courbe de tendance basculer nettement.</li>
+    <li><strong>Le demandeur compte.</strong> Une <em>ordonnance judiciaire visant Google</em> n'a pas le même poids opérationnel qu'une demande de la <em>Police</em> ou une saisine de <em>responsables gouvernementaux</em> — et la répartition change d'une année sur l'autre.</li>
+  </ul>
+  <p style="color: var(--text-faint); font-size: 0.85rem; margin-top: 1.25rem;">
+    Réserves importantes : une « demande » est ce qu'un gouvernement a soumis ; un « élément » est une URL, une vidéo, un compte ou un contenu précis cité dans cette demande. Une même demande peut viser de nombreux éléments. Les catégories de réponse de Google sont
+    <em>supprimé (juridique)</em>, <em>supprimé (politique)</em>, <em>contenu déjà supprimé</em>, <em>contenu introuvable</em>, <em>informations insuffisantes</em> et <em>aucune action entreprise</em>. Le taux de suppression comptabilise les trois premières.
+  </p>
+</section>
+
+<!-- ── Programmatic access ─────────────────────────────────── -->
+<section style="margin: 2rem 0 1rem;">
+  <h2 class="td-section-title">Accès programmatique</h2>
+  <p style="color: var(--text-muted); max-width: 720px; line-height: 1.65;">
+    Le jeu de données complet est interrogeable via la <a href="https://transparency.kieranmaynard.com">Transparency Report API</a> — filtrez par période, par pays, par type de demandeur, par produit ou par motif, et agrégez n'importe quelle mesure numérique à l'aide de requêtes JSON structurées. L'interface asynchrone de type job/polling gère les grandes agrégations sans expiration de délai.
+  </p>
+  <p style="margin-top: 0.75rem;">
+    <a href="https://transparency.kieranmaynard.com/portal" class="card-link">Obtenir un accès chercheur &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/docs" class="card-link">Documentation de l'API &rarr;</a>
+  </p>
+</section>
+
+<hr class="section-divider" />
+
+<p style="color: var(--text-very-faint); font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
+  Données : <a href="https://transparencyreport.google.com/government-removals/overview">rapport de transparence de Google</a>,
+  demandes gouvernementales de suppression (2011 – 2e semestre 2025). Analyse et visualisations par Kieran Maynard.
+</p>

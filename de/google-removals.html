@@ -1,0 +1,94 @@
+---
+layout: main
+title: Behördliche Löschanfragen bei Google
+description: "15 Jahre behördlicher Anfragen zur Löschung von Inhalten aus Google-Produkten — 178 Länder, 61 Produkte, 22 Gründe, 30 Berichtszeiträume."
+lang: de
+lang_url: /google-removals.html
+lang_url_ja: /ja/google-removals.html
+lang_url_zh: /zh/google-removals.html
+lang_url_ko: /ko/google-removals.html
+lang_url_fr: /fr/google-removals.html
+lang_url_es: /es/google-removals.html
+lang_url_it: /it/google-removals.html
+---
+
+<div style="padding-top: 2.5rem; margin-bottom: 0.5rem;"><p class="section-label">Fallstudie</p></div>
+
+<p style="margin-top: 2rem;"><a href="/de/transparency.html">← Transparenzdaten</a></p>
+
+<div style="padding-top: 1.5rem; margin-bottom: 0.5rem;">
+  <h2 style="margin-top: 0; margin-bottom: 0.5rem;">Behördliche Anfragen zur Löschung von Inhalten bei Google</h2>
+  <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
+    Von 2014 bis 2024 war ich einer der Hauptautoren des Greater-China-Teils des
+    <a href="https://transparencyreport.google.com/government-removals/explore">Google-Transparenzberichts</a>.
+    Dieses Projekt verwandelt Googles Datensatz behördlicher Löschanfragen
+    in einen mehrperiodischen Trend-Explorer über
+    <strong>30 Berichtszeiträume</strong>, <strong>178 Länder</strong>, <strong>61 Google-Produkte</strong>
+    und <strong>22 angegebene Löschgründe</strong>.
+    Anders als Googles eigener Bericht — der jeweils einen Zeitraum umfasst — stellt diese Ansicht
+    <strong>Trends über Berichtszeiträume hinweg</strong> in den Mittelpunkt: Jede Filterkombination wird
+    zu einer Zeitreihe, die sich nach Land, Anfragensteller, Produkt oder Grund aufschlüsseln lässt.
+  </p>
+</div>
+
+<!-- ── What the data shows ─────────────────────────────────── -->
+<section class="td-intro">
+  <h2 class="td-section-title">Was dieser Datensatz erfasst</h2>
+  <div class="td-callouts">
+    <div class="td-callout">
+      <h3>Wer anfragt</h3>
+      <p>Gerichte, Regierungsbeamte, Polizei, Datenschutzbehörden, Verbraucherschutzstellen, das Militär und weitere — aufgeschlüsselt nach <em>Anfragensteller</em> auf Item-Ebene.</p>
+    </div>
+    <div class="td-callout">
+      <h3>Was betroffen ist</h3>
+      <p>Bestimmte Google-Produkte — Websuche, YouTube, Maps, Blogger, Play und 37 weitere — samt dem angegebenen <em>Grund</em>: Verleumdung, Privatsphäre, nationale Sicherheit, Regierungskritik, Urheberrecht und mehr.</p>
+    </div>
+    <div class="td-callout">
+      <h3>Was Google getan hat</h3>
+      <p>Ergebnisse auf Item-Ebene: aus rechtlichen Gründen gelöscht, aus Richtliniengründen gelöscht, Inhalt bereits entfernt, Inhalt nicht gefunden, unzureichende Informationen zum Handeln oder keine Maßnahme ergriffen.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Live tool CTA ───────────────────────────────────────── -->
+<div class="card" style="margin: 2rem 0;">
+  <p class="section-label" style="margin: 0 0 0.4rem;">Live-Tool</p>
+  <h3 style="margin-top: 0;">Die Daten erkunden</h3>
+  <p>Der vollständige Datensatz steht als interaktives Dashboard bereit — filtern Sie nach Zeitraum, Land, Produkt oder Grund und erkunden Sie sechs mehrjährige Trend-Diagramme, darunter die Löschrate im Zeitverlauf und die Compliance-Ergebnisse.</p>
+  <a href="https://transparency.kieranmaynard.com/removals" class="card-link">Live-Dashboard öffnen &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/docs" class="card-link">API-Dokumentation &rarr;</a>
+</div>
+
+<!-- ── Reading the data ────────────────────────────────────── -->
+<section class="td-readme">
+  <h2 class="td-section-title">Worauf man achten sollte</h2>
+  <ul class="td-bullets">
+    <li><strong>Trends, keine Momentaufnahmen.</strong> Stellen Sie <em>Aufschlüsseln nach → Grund</em> ein und belassen Sie alle übrigen Filter auf den Standardwerten, um zu sehen, wie sich die Zusammensetzung der angegebenen Gründe seit 2011 verschoben hat — etwas, das aus Googles Ansichten je Zeitraum mühsam zusammenzustellen ist.</li>
+    <li><strong>Verläufe auf Länderebene.</strong> Stellen Sie <em>Aufschlüsseln nach → Land</em> ein, um die häufigsten anfragenden Länder im Zeitverlauf nebeneinander zu vergleichen.</li>
+    <li><strong>Die Löschrate ist selbst ein Trend.</strong> Das Löschraten-Diagramm verfolgt den Anteil der betroffenen Items, die Google im gewählten Zeitraum tatsächlich gelöscht hat — nützlich, um für ein bestimmtes Land, Produkt oder einen Grund eine strengere oder lockerere Compliance-Haltung zu erkennen.</li>
+    <li><strong>Verleumdung dominiert in vielen Demokratien das Volumen</strong> — filtern Sie nach <em>Grund → Verleumdung</em>, um zu sehen, wie Gerichte in Ländern wie Russland, der Türkei, Indien und Brasilien einen großen Anteil der betroffenen Items verursachen.</li>
+    <li><strong>„Regierungskritik“ erzählt eine andere Geschichte.</strong> Filtern Sie nach <em>Grund → Regierungskritik</em> und beobachten Sie, wie sich Länderverteilung und Trendlinie stark verschieben.</li>
+    <li><strong>Der Anfragensteller ist entscheidend.</strong> Ein <em>an Google gerichteter Gerichtsbeschluss</em> hat ein anderes operatives Gewicht als eine <em>Polizei</em>-Anfrage oder eine Meldung durch <em>Regierungsbeamte</em> — und die Zusammensetzung ändert sich von Jahr zu Jahr.</li>
+  </ul>
+  <p style="color: var(--text-faint); font-size: 0.85rem; margin-top: 1.25rem;">
+    Wichtige Vorbehalte: Eine „Anfrage“ ist das, was eine Behörde eingereicht hat; ein „Item“ ist eine bestimmte URL, ein Video, ein Konto oder ein Inhalt, der in dieser Anfrage genannt wird. Eine Anfrage kann viele Items betreffen. Googles Antwortkategorien sind
+    <em>gelöscht (rechtlich)</em>, <em>gelöscht (Richtlinie)</em>, <em>Inhalt bereits entfernt</em>, <em>Inhalt nicht gefunden</em>, <em>unzureichende Informationen</em> und <em>keine Maßnahme ergriffen</em>. Die Kennzahl „Löschrate“ zählt die ersten drei.
+  </p>
+</section>
+
+<!-- ── Programmatic access ─────────────────────────────────── -->
+<section style="margin: 2rem 0 1rem;">
+  <h2 class="td-section-title">Programmatischer Zugriff</h2>
+  <p style="color: var(--text-muted); max-width: 720px; line-height: 1.65;">
+    Der vollständige Datensatz ist über die <a href="https://transparency.kieranmaynard.com">Transparency Report API</a> abfragbar — filtern Sie nach Zeitraum, Land, Anfragensteller-Typ, Produkt oder Grund und aggregieren Sie jede numerische Kennzahl mit strukturierten JSON-Abfragen. Die asynchrone Job-/Poll-Schnittstelle bewältigt große Aggregationen ohne Timeouts.
+  </p>
+  <p style="margin-top: 0.75rem;">
+    <a href="https://transparency.kieranmaynard.com/portal" class="card-link">Forscherzugang erhalten &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/docs" class="card-link">API-Dokumentation &rarr;</a>
+  </p>
+</section>
+
+<hr class="section-divider" />
+
+<p style="color: var(--text-very-faint); font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
+  Daten: <a href="https://transparencyreport.google.com/government-removals/overview">Google-Transparenzbericht</a>,
+  behördliche Löschanfragen (2011–H2 2025). Analyse und Visualisierungen von Kieran Maynard.
+</p>

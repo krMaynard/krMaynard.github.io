@@ -1,0 +1,49 @@
+---
+layout: main
+title: "Los informes de transparencia de California y Nueva York de Roblox ya están publicados"
+description: "Los informes de transparencia de redes sociales estatales de Roblox —California AB 587 (H2 2025) y Nueva York S895 (Q4 2025)— ya están presentados. Ejecutarlos en paralelo determinó cómo construimos la infraestructura de reporte."
+date: 2026-04-01
+lang: es
+lang_url: /blog/roblox-ca-ny-reports.html
+lang_url_ja: /ja/blog/roblox-ca-ny-reports.html
+lang_url_zh: /zh/blog/roblox-ca-ny-reports.html
+lang_url_ko: /ko/blog/roblox-ca-ny-reports.html
+lang_url_fr: /fr/blog/roblox-ca-ny-reports.html
+lang_url_de: /de/blog/roblox-ca-ny-reports.html
+lang_url_it: /it/blog/roblox-ca-ny-reports.html
+---
+
+<article class="post">
+  <a href="/es/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Escritos</p>
+    <h1>Los informes de transparencia de California y Nueva York de Roblox ya están publicados</h1>
+    <time class="news-date" datetime="2026-04-01">1 de abril de 2026</time>
+    <div class="tags">
+      <span class="tag">Roblox</span>
+      <span class="tag">PM de cumplimiento</span>
+      <span class="tag">Transparencia</span>
+      <span class="tag">Regulatorio</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>Ya están presentados dos informes de transparencia de redes sociales estatales: el <a href="https://oag.ca.gov/sites/default/files/Roblox%202025%20H2%20California%20AB587%20Terms%20of%20Service%20Report.pdf">California AB 587 (H2 2025)</a> y el <a href="https://ag.ny.gov/sites/default/files/social-media-policy-report/2025-q4-roblox-corporation-policy.pdf">Nueva York S895 (Q4 2025)</a> de Roblox.</p>
+
+    <p>Las dos leyes se solapan en su alcance, pero divergen en los detalles. La AB 587 se centra en las políticas de moderación de contenido y su aplicación: qué dicen las políticas, qué métodos de detección se utilizan, cifras agregadas de aplicación por categoría. La S895 exige datos operativos más granulares: recuentos de acciones concretas tomadas contra contenido y cuentas, desglosados por categoría, con periodicidad trimestral. Ejecutar ambas presentaciones en paralelo implicó mantener vías de datos separadas mientras se compartía la capacidad de revisión interdepartamental entre Legal, Política e Ingeniería: una restricción útil que obligó a construir una infraestructura de reporte más duradera.</p>
+
+    <p>Otro artículo trata con más detalle <a href="/es/blog/ab587-vs-s895.html">qué distingue a la AB 587 de la S895</a>, incluidas las implicaciones de infraestructura y dónde las dos leyes exigen pipelines de datos diferentes incluso cuando los ciclos de revisión pueden compartirse.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

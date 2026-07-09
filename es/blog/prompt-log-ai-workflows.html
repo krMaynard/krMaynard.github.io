@@ -1,0 +1,68 @@
+---
+layout: main
+title: "Los prompts son objetivos de refactorización: registrar un flujo de trabajo con IA para descubrir qué automatizar"
+description: "Un artículo de ingeniería de LayerX registra sus prompts de IA y los analiza como código para descubrir qué automatizar. Es la táctica basada en datos que he usado en Google y desde entonces —la intuición lo señala, los datos lo prueban— aplicada reflexivamente al propio flujo de trabajo humano-IA."
+date: 2026-06-19
+lang: es
+lang_url: /blog/prompt-log-ai-workflows.html
+lang_url_ja: /ja/blog/prompt-log-ai-workflows.html
+lang_url_zh: /zh/blog/prompt-log-ai-workflows.html
+lang_url_ko: /ko/blog/prompt-log-ai-workflows.html
+lang_url_fr: /fr/blog/prompt-log-ai-workflows.html
+lang_url_de: /de/blog/prompt-log-ai-workflows.html
+lang_url_it: /it/blog/prompt-log-ai-workflows.html
+---
+
+<article class="post">
+  <a href="/es/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Escritos</p>
+    <h1>Los prompts son objetivos de refactorización: registrar un flujo de trabajo con IA para descubrir qué automatizar</h1>
+    <time class="news-date" datetime="2026-06-19">19 de junio de 2026</time>
+    <div class="tags">
+      <span class="tag">IA/LLM</span>
+      <span class="tag">Ingeniería</span>
+      <span class="tag">Flujo de trabajo</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>La táctica en la que más confío en mi propio trabajo es esta: tomar algo que la experiencia señala como mejorable y luego probar el <em>porqué</em> y el <em>cómo</em> con datos reales, en lugar de actuar por corazonada. La intuición te dice dónde mirar; los datos te dicen si tenías razón y qué hacer al respecto. Lo que ha cambiado últimamente es que un LLM puede hacer ese "mirar", a una escala que antes hacía que esta clase de prueba fuera demasiado cara como para molestarse.</p>
+
+    <p>Me apoyé exactamente en esto en Google. En el equipo de Legal Content Policy and Standards, como Policy Lead, tenía una corazonada sobre qué tipos de casos de retirada por vía legal estaban atascando la cola de pendientes y cuáles eran lo bastante rutinarios como para automatizarlos. En lugar de argumentarlo desde la experiencia, hice que un LLM clasificara y resumiera casos a gran escala —miles de ellos— hasta que los datos confirmaran o corrigieran la hipótesis. En Privacy Sandbox, como TPM, la forma era la misma: una sensación sobre qué documentos que iban a revisión legal realmente merecían un escrutinio más profundo, convertida en un pipeline que hacía que un LLM revisara y clasificara cada uno, de modo que la costosa atención humana recayera donde importaba. En ambos casos la intuición fue el punto de partida, no el veredicto. El LLM hizo que el veredicto fuera asequible.</p>
+
+    <p>Por eso me llamó la atención un <a href="https://tech.layerx.co.jp/entry/prompt-log-driven-ai-workflow">artículo de ingeniería reciente de LayerX</a> (de <a href="https://speakerdeck.com/myohei">Maeda Yōhei (前田洋平)</a>, un engineering manager del equipo de la app móvil del producto de finanzas Bakuraku de LayerX, que firma como <a href="https://tech.layerx.co.jp/archive/author/myohei11"><code>id:myohei11</code></a>): porque aplica esa táctica a un objetivo al que yo no había pensado apuntarla: el propio flujo de trabajo con IA. Los ingenieros que trabajan con un agente de codificación todo el día escriben una y otra vez las mismas cosas: "haz commit, push, abre un PR", "atiende los comentarios de la revisión", "arregla el CI que falla". <em>Parece</em> repetitivo, pero una sensación es una base débil para decidir qué automatizar. Así que registran cada prompt enviado al agente, analizan el registro de forma programada y dejan que los patrones que de verdad se repiten digan qué construir. La frase que se me quedó grabada es que <strong>los prompts se convierten en objetivos de refactorización</strong>: las instrucciones a una IA, como el código, son algo que observar, medir y remodelar en piezas reutilizables, y decir lo mismo una docena de veces es duplicación, que es un olor precisamente porque marca una unidad que vale la pena extraer.</p>
+
+    <h2>Cómo funciona</h2>
+
+    <p>La mecánica es deliberadamente modesta. Un hook <code>UserPromptSubmit</code> añade cada prompt a un <code>prompts.jsonl</code> local —una línea JSON con una marca de tiempo, un id de sesión y el texto—, descartando las entradas triviales y demasiado cortas y manteniendo el archivo legible solo para el propietario. Los registros se enmascaran, se guardan en local y se borran a los siete días. (Esa última parte no es un añadido de última hora: un registro de prompts es una constancia de todo lo que has pedido, así que las salvaguardas de privacidad son estructurales, no opcionales.)</p>
+
+    <p>Sobre el registro corren dos vías de detección. Una funciona dentro de una sesión en vivo, advirtiendo en tiempo real cuando vuelve a aparecer la misma operación. La otra es un trabajo programado diario que lee los prompts de la última semana y los agrupa por intención. Ejecutar ambas atrapa más que cualquiera por separado: la vía en tiempo real ve las ráfagas dentro de una conversación, la vía por lotes ve la misma petición dispersa a lo largo de varios días. Cuando un patrón cruza un umbral bajo —tres o más apariciones—, lo publica en Slack, con el resumen del patrón <em>y</em> un prompt listo para usar que sirve para construir la Skill o el comando correspondiente.</p>
+
+    <p>Dos decisiones de diseño hacen que esto sea más que un truco de registro. Primero, el análisis diario usa un LLM para agrupar los prompts <em>semánticamente</em> en lugar de agrupar embeddings, de modo que "haz un PR", "haz commit, push y abre un PR" y "commitea el arreglo y sube un PR" colapsan todos en un solo patrón, porque comparten una intención con independencia de la redacción. Ese es exactamente el agrupamiento difuso y lleno de criterio que los modelos de lenguaje hacen bien y las métricas de similitud rígidas hacen mal: la misma razón por la que el LLM, y no un filtro de palabras clave, era la herramienta adecuada para clasificar aquellos casos legales. Segundo, la automatización se detiene en <em>proponer</em>. Nunca crea ni borra una Skill por su cuenta; un humano aprueba cada una. Eso evita que el sistema críe en silencio una maraña de reglas a medio servir: el modo de fallo que convierte en un lastre a la mayoría de la automatización "auto-mejorable".</p>
+
+    <h2>El giro interesante: IA que mejora cómo trabajamos con IA</h2>
+
+    <p>Lo que hace que esto sea más que un pulcro truco de mantenimiento es hacia dónde apunta. El mismo registro que saca a la luz automatizaciones <em>nuevas</em> también saca a la luz las <em>rotas</em>: si la gente sigue invocando una Skill existente y a continuación le añade más instrucciones —"actualiza también la página de Notion", "publica también en Slack", "no has terminado"—, esa cháchara final es prueba de que la Skill está mal especificada, con criterios de finalización poco claros o un paso que falta. Así el sistema se vuelve sobre sí mismo y aparece un volante de inercia: mejor instrumentación saca a la luz mejores automatizaciones, que a su vez afinan el propio sistema que encuentra la siguiente.</p>
+
+    <p>Ese volante de inercia es la razón por la que creo que el objetivo importa más que el truco. La codificación agéntica se está convirtiendo en el modelo de trabajo por defecto de la ingeniería de software, lo que hace de "cómo interactúan realmente una persona y un agente" una superficie de mejora nueva y en gran medida sin medir. La mayoría de los equipos vuelan a ciegas en ese punto. Los resultados reportados aquí son deliberadamente poco vistosos —29 patrones a lo largo de 691 apariciones, 22 de ellos (76%) convertidos en Skills o comandos, 652 prompts repetidos eliminados; solo el ciclo commit-push-PR apareció 94 veces antes de convertirse en un único comando <code>/ship</code>— y ese es el punto. Este es el trabajo pesado aburrido y de alta frecuencia que es invisible hasta que lo cuentas, y contarlo ahora es barato.</p>
+
+    <h2>La frecuencia es la señal; el apalancamiento es el criterio</h2>
+
+    <p>Dos advertencias me mantienen honesto al respecto. La primera es que la frecuencia no es importancia. Que algo ocurra mucho no significa que valga la pena abstraerlo: hay poco valor real en ahorrarle a un ingeniero teclear unas cuantas palabras. El valor está cuando todo un proceso se vuelve automatizado, repetible y escalable; el conteo solo te dice dónde <em>buscar</em> eso, no que lo hayas encontrado. La segunda es el coste: un registro de prompts es ahora un dato que tienes que gobernar, los prompts capturan solo una porción de un flujo de trabajo, y un montón de Skills marginales puede atascar el entorno hasta que el agente no distingue cuál aplica. Nada de eso es fatal, pero es deuda técnica real, y es la razón por la que la barrera de aprobación humana no es opcional.</p>
+
+    <p>El criterio, en otras palabras, se queda donde le corresponde, y el mayor premio no es ningún flujo de trabajo automatizado concreto. Es mejorar la eficiencia de la propia interacción humano-IA, porque eso es lo que ahora está en la ruta crítica de casi todo el desarrollo. Acelera eso y aceleras todo lo que hay aguas abajo. La corazonada de que algo es repetitivo sigue siendo solo una corazonada; lo nuevo es que probarlo, y actuar en consecuencia, ha pasado de ser un proyecto de investigación a un hábito diario. Voy a empezar a registrar los míos.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

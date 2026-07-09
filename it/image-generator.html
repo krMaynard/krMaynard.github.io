@@ -1,0 +1,324 @@
+---
+layout: main
+title: Generatore di immagini
+description: "Genera immagini con Gemini AI direttamente nel tuo browser. La tua chiave API resta in locale — va direttamente all'API di Google, mai a questo sito."
+lang: it
+lang_url: /image-generator.html
+lang_url_ja: /ja/image-generator.html
+lang_url_zh: /zh/image-generator.html
+lang_url_ko: /ko/image-generator.html
+lang_url_fr: /fr/image-generator.html
+lang_url_es: /es/image-generator.html
+lang_url_de: /de/image-generator.html
+---
+
+<div style="padding-top: 2.5rem; margin-bottom: 3rem;">
+  <p class="section-label">Strumento</p>
+  <h1 style="margin-top: 0; margin-bottom: 0.5rem;">Generatore di immagini</h1>
+  <p style="color: var(--text-muted); margin-bottom: 2rem; max-width: 720px; line-height: 1.65;">
+    Genera immagini con Gemini AI. La tua chiave API viene usata solo in questo browser — viene inviata direttamente dal tuo browser all'API di Google e non raggiunge mai i server di questo sito.
+  </p>
+
+  <div class="card" style="margin-bottom: 1.5rem; max-width: 680px;">
+    <h3 style="margin-top: 0; margin-bottom: 0.25rem;">Chiave API Gemini</h3>
+    <p style="color: var(--text-muted); margin-bottom: 0.9rem; font-size: 0.88rem; line-height: 1.55;">
+      Ottieni una chiave gratuita su <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a>.
+      La chiave viene archiviata solo nel tuo browser e inviata direttamente a Google — questa pagina non ha backend.
+    </p>
+    <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+      <input type="password" id="api-key-input" placeholder="AIza…" autocomplete="off" aria-label="Chiave API Gemini"
+             style="flex: 1; min-width: 180px; padding: 0.5rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.9rem; font-family: monospace;" />
+      <button type="button" id="save-key-btn"
+              style="padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid var(--border-soft); background: var(--bg-chip); color: var(--text); cursor: pointer; font-size: 0.88rem; white-space: nowrap;">
+        Salva nel browser
+      </button>
+      <button type="button" id="clear-key-btn"
+              style="padding: 0.5rem 0.75rem; border-radius: 6px; border: 1px solid var(--border-soft); background: transparent; color: var(--text-muted); cursor: pointer; font-size: 0.88rem;">
+        Cancella
+      </button>
+    </div>
+    <p id="key-status" style="margin: 0.5rem 0 0; font-size: 0.82rem; color: var(--text-muted); min-height: 1.2em;"></p>
+  </div>
+
+  <div class="card" style="margin-bottom: 1.5rem; max-width: 680px;">
+    <h3 style="margin-top: 0; margin-bottom: 1rem;">Genera</h3>
+
+    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.35rem;">
+      <label for="prompt-input" style="font-size: 0.88rem; color: var(--text-muted);">Prompt</label>
+      <button type="button" id="improve-btn"
+              style="padding: 0.25rem 0.6rem; border-radius: 5px; border: 1px solid var(--border-soft); background: var(--bg-chip); color: var(--text-muted); cursor: pointer; font-size: 0.8rem;">
+        Migliora con l'IA
+      </button>
+    </div>
+    <textarea id="prompt-input" rows="4"
+              placeholder="Un paesaggio montano fotorealistico nell'ora dorata, nuvole drammatiche, 4K"
+              style="width: 100%; box-sizing: border-box; padding: 0.6rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.9rem; font-family: inherit; resize: vertical; margin-bottom: 1.1rem; line-height: 1.5;"></textarea>
+
+    <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; align-items: flex-end;">
+      <div>
+        <label for="model-select" style="display: block; margin-bottom: 0.35rem; font-size: 0.88rem; color: var(--text-muted);">Modello</label>
+        <select id="model-select"
+                style="padding: 0.5rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.88rem;">
+          <option value="gemini-3-pro-image">gemini-3-pro-image — qualità massima</option>
+          <option value="gemini-3.1-flash-image">gemini-3.1-flash-image — veloce</option>
+        </select>
+      </div>
+      <div>
+        <label for="count-select" style="display: block; margin-bottom: 0.35rem; font-size: 0.88rem; color: var(--text-muted);">Immagini</label>
+        <input type="number" id="count-select" min="1" max="20" value="4"
+               style="width: 5rem; padding: 0.5rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.88rem;" />
+      </div>
+      <div>
+        <label for="aspect-select" style="display: block; margin-bottom: 0.35rem; font-size: 0.88rem; color: var(--text-muted);">Proporzioni</label>
+        <select id="aspect-select"
+                style="padding: 0.5rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.88rem;">
+          <option value="1:1" selected>1:1 — quadrato</option>
+          <option value="3:4">3:4 — verticale</option>
+          <option value="4:3">4:3 — orizzontale</option>
+          <option value="9:16">9:16 — verticale allungato</option>
+          <option value="16:9">16:9 — orizzontale allungato</option>
+        </select>
+      </div>
+      <div>
+        <label for="size-select" style="display: block; margin-bottom: 0.35rem; font-size: 0.88rem; color: var(--text-muted);">Risoluzione</label>
+        <select id="size-select"
+                style="padding: 0.5rem 0.75rem; border: 1px solid var(--border-soft); border-radius: 6px; background: var(--bg-subtle); color: var(--text); font-size: 0.88rem;">
+          <option value="512">512 — economica</option>
+          <option value="1K" selected>1K — standard</option>
+          <option value="2K">2K — alta</option>
+          <option value="4K">4K — massima</option>
+        </select>
+      </div>
+    </div>
+    <p id="cost-estimate" style="margin: -0.25rem 0 1rem; font-size: 0.82rem; color: var(--text-muted);"></p>
+
+    <button type="button" id="generate-btn"
+            style="padding: 0.6rem 1.6rem; border-radius: 6px; border: none; background: var(--brand); color: #fff; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background 0.15s; letter-spacing: 0.01em;">
+      Genera
+    </button>
+  </div>
+
+  <div id="status-area" style="max-width: 680px; margin-bottom: 1rem; display: none;">
+    <p id="status-message" style="margin: 0; padding: 0.7rem 1rem; border-radius: 6px; font-size: 0.9rem; background: var(--bg-chip); color: var(--text-muted);"></p>
+  </div>
+
+  <div id="results-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; max-width: 680px;"></div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var KEY_STORAGE = 'gemini-image-gen-key';
+  var keyInput    = document.getElementById('api-key-input');
+  var saveBtn     = document.getElementById('save-key-btn');
+  var clearBtn    = document.getElementById('clear-key-btn');
+  var keyStatus   = document.getElementById('key-status');
+  var promptEl    = document.getElementById('prompt-input');
+  var modelEl     = document.getElementById('model-select');
+  var countEl     = document.getElementById('count-select');
+  var genBtn      = document.getElementById('generate-btn');
+  var statusArea  = document.getElementById('status-area');
+  var statusMsg   = document.getElementById('status-message');
+  var grid        = document.getElementById('results-grid');
+  var costEl      = document.getElementById('cost-estimate');
+  var aspectEl    = document.getElementById('aspect-select');
+  var sizeEl      = document.getElementById('size-select');
+  var improveBtn  = document.getElementById('improve-btn');
+  var IMPROVE_MODEL = 'gemini-2.5-flash';
+  var PRICES      = {
+    'gemini-3-pro-image':     { '512': 0.07, '1K': 0.13, '2K': 0.13, '4K': 0.24 },
+    'gemini-3.1-flash-image': { '512': 0.05, '1K': 0.07, '2K': 0.10, '4K': 0.15 }
+  };
+
+  try {
+    var saved = localStorage.getItem(KEY_STORAGE);
+    if (saved) {
+      keyInput.value = saved;
+      keyStatus.textContent = 'Chiave API caricata dall\'archivio del browser.';
+    }
+  } catch (e) {}
+
+  saveBtn.addEventListener('click', function () {
+    var v = keyInput.value.trim();
+    if (!v) { keyStatus.textContent = 'Inserisci prima una chiave.'; return; }
+    try { localStorage.setItem(KEY_STORAGE, v); } catch (e) {}
+    keyStatus.textContent = 'Chiave salvata nell\'archivio del browser.';
+  });
+
+  clearBtn.addEventListener('click', function () {
+    keyInput.value = '';
+    try { localStorage.removeItem(KEY_STORAGE); } catch (e) {}
+    keyStatus.textContent = 'Chiave rimossa dall\'archivio del browser.';
+  });
+
+  function updateCostEstimate() {
+    var n = Math.max(1, Math.min(20, parseInt(countEl.value, 10) || 1));
+    var price = (PRICES[modelEl.value] || {})[sizeEl.value] || 0;
+    costEl.innerHTML = 'Costo stimato: ~$' + (n * price).toFixed(2) + ' (' + n + ' × ~$' + price.toFixed(2) + '/immagine a ' + sizeEl.value + ') — <a href="https://ai.google.dev/gemini-api/docs/pricing" target="_blank" rel="noopener noreferrer" style="color:inherit;">Prezzi di Google AI</a>';
+  }
+  modelEl.addEventListener('change', updateCostEstimate);
+  sizeEl.addEventListener('change', updateCostEstimate);
+  countEl.addEventListener('input', function () {
+    var n = parseInt(countEl.value, 10);
+    if (!isNaN(n) && n > 20) countEl.value = 20;
+    updateCostEstimate();
+  });
+  countEl.addEventListener('change', function () {
+    countEl.value = Math.max(1, Math.min(20, parseInt(countEl.value, 10) || 1));
+    updateCostEstimate();
+  });
+  updateCostEstimate();
+
+  function setStatus(msg, isError) {
+    statusArea.style.display = 'block';
+    statusMsg.textContent = msg;
+    statusMsg.style.color = isError ? 'var(--text)' : 'var(--text-muted)';
+    statusMsg.style.background = isError ? 'rgba(192,57,43,0.1)' : 'var(--bg-chip)';
+  }
+
+  function addImageCard(b64, mime, index, total) {
+    var src  = 'data:' + (mime || 'image/png') + ';base64,' + b64;
+    var card = document.createElement('div');
+    card.style.cssText = 'background:var(--bg-elevated);border:1px solid var(--border-card);border-radius:8px;overflow:hidden;';
+
+    var img = document.createElement('img');
+    img.src = src;
+    img.alt = 'Immagine generata ' + (index + 1);
+    img.style.cssText = 'width:100%;display:block;';
+
+    var footer = document.createElement('div');
+    footer.style.cssText = 'padding:0.5rem 0.75rem;display:flex;justify-content:space-between;align-items:center;';
+
+    var label = document.createElement('span');
+    label.textContent = total > 1 ? 'Immagine ' + (index + 1) : 'Immagine generata';
+    label.style.cssText = 'font-size:0.82rem;color:var(--text-muted);';
+
+    var dl = document.createElement('a');
+    dl.href = src;
+    dl.download = 'generated-' + Date.now() + '-' + index + '.png';
+    dl.textContent = 'Scarica';
+    dl.style.cssText = 'font-size:0.82rem;color:var(--brand);text-decoration:none;font-weight:600;';
+
+    footer.appendChild(label);
+    footer.appendChild(dl);
+    card.appendChild(img);
+    card.appendChild(footer);
+    grid.appendChild(card);
+  }
+
+  function generateOne(apiKey, model, prompt, aspect, size, index, total) {
+    var url  = 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(model) + ':generateContent?key=' + encodeURIComponent(apiKey);
+    var body = JSON.stringify({
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: {
+        responseModalities: ['TEXT', 'IMAGE'],
+        imageConfig: { aspectRatio: aspect, imageSize: size }
+      }
+    });
+    return fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: body
+    }).then(function (resp) {
+      if (!resp.ok) {
+        return resp.json().catch(function () { return null; }).then(function (data) {
+          throw new Error(data && data.error && data.error.message ? data.error.message : 'HTTP ' + resp.status);
+        });
+      }
+      return resp.json().then(function (data) {
+        var parts = (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) || [];
+        for (var i = 0; i < parts.length; i++) {
+          if (parts[i].inlineData && parts[i].inlineData.data) {
+            addImageCard(parts[i].inlineData.data, parts[i].inlineData.mimeType, index, total);
+            return;
+          }
+        }
+        throw new Error('Nessuna immagine nella risposta');
+      });
+    });
+  }
+
+  improveBtn.addEventListener('click', function () {
+    var apiKey = keyInput.value.trim();
+    var prompt = promptEl.value.trim();
+    if (!apiKey) { setStatus('Inserisci prima la tua chiave API Gemini qui sopra.', true); return; }
+    if (!prompt) { setStatus('Inserisci un prompt da migliorare.', true); return; }
+
+    improveBtn.disabled = true;
+    improveBtn.textContent = 'Miglioramento in corso…';
+    genBtn.disabled = true;
+
+    var url  = 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(IMPROVE_MODEL) + ':generateContent?key=' + encodeURIComponent(apiKey);
+    var body = JSON.stringify({
+      contents: [{ parts: [{ text: 'Improve this image generation prompt. Make it more detailed and vivid — add lighting, style, atmosphere, composition, and quality keywords. Return only the improved prompt, no explanation or commentary.\n\nPrompt: ' + prompt }] }]
+    });
+
+    fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body })
+      .then(function (resp) {
+        if (!resp.ok) {
+          return resp.json().catch(function () { return null; }).then(function (data) {
+            throw new Error(data && data.error && data.error.message ? data.error.message : 'HTTP ' + resp.status);
+          });
+        }
+        return resp.json();
+      })
+      .then(function (data) {
+        var parts = (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) || [];
+        var text = '';
+        for (var i = 0; i < parts.length; i++) {
+          if (parts[i].text) { text = parts[i].text.trim(); break; }
+        }
+        text = text.replace(/^```\S*\s*|\s*```$/g, '').trim();
+        text = text.replace(/^["']|["']$/g, '').trim();
+        if (!text) throw new Error('No text in response');
+        promptEl.value = text;
+        setStatus('Prompt migliorato.', false);
+        improveBtn.disabled = false;
+        improveBtn.textContent = 'Migliora con l\'IA';
+        genBtn.disabled = false;
+      })
+      .catch(function (err) {
+        setStatus('Miglioramento non riuscito: ' + err.message, true);
+        improveBtn.disabled = false;
+        improveBtn.textContent = 'Migliora con l\'IA';
+        genBtn.disabled = false;
+      });
+  });
+
+  genBtn.addEventListener('click', function () {
+    var apiKey = keyInput.value.trim();
+    var prompt = promptEl.value.trim();
+    var model  = modelEl.value;
+    var aspect = aspectEl.value;
+    var size   = sizeEl.value;
+    var count  = Math.max(1, Math.min(20, parseInt(countEl.value, 10) || 1));
+
+    if (!apiKey) { setStatus('Inserisci prima la tua chiave API Gemini qui sopra.', true); return; }
+    if (!prompt) { setStatus('Inserisci un prompt.', true); return; }
+
+    grid.innerHTML = '';
+    genBtn.disabled = true;
+    genBtn.textContent = 'Generazione in corso…';
+    setStatus('Generazione di ' + count + ' immagine' + (count !== 1 ? 'i' : '') + ' in corso…', false);
+
+    var promises = [];
+    for (var i = 0; i < count; i++) {
+      promises.push(generateOne(apiKey, model, prompt, aspect, size, i, count));
+    }
+
+    Promise.allSettled(promises).then(function (results) {
+      var ok     = results.filter(function (r) { return r.status === 'fulfilled'; });
+      var errors = results.filter(function (r) { return r.status === 'rejected'; });
+      if (ok.length === 0) {
+        setStatus('Operazione non riuscita: ' + errors[0].reason.message, true);
+      } else if (errors.length > 0) {
+        setStatus(ok.length + ' di ' + count + ' completate. Errore sulle altre: ' + errors[0].reason.message, false);
+      } else {
+        setStatus(count + ' immagine' + (count !== 1 ? 'i' : '') + ' generate.', false);
+      }
+      genBtn.disabled = false;
+      genBtn.textContent = 'Genera';
+    });
+  });
+})();
+</script>

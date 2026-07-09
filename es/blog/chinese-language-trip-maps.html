@@ -1,0 +1,74 @@
+---
+layout: main
+title: "Cómo generé una tanda de mapas de viaje en chino sin navegador ni clave de API"
+description: "Le pedí a Claude Code, en una sesión web en entorno aislado, que hiciera mapas en chino simplificado para cada parada de un viaje a Hong Kong. Sin navegador, sin clave de la API de Maps: solo teselas de mapa en bruto, Pillow y un rodeo por el desplazamiento de coordenadas GCJ-02 que China impone."
+date: 2026-06-22
+lang: es
+lang_url: /blog/chinese-language-trip-maps.html
+lang_url_ja: /ja/blog/chinese-language-trip-maps.html
+lang_url_zh: /zh/blog/chinese-language-trip-maps.html
+lang_url_ko: /ko/blog/chinese-language-trip-maps.html
+lang_url_fr: /fr/blog/chinese-language-trip-maps.html
+lang_url_de: /de/blog/chinese-language-trip-maps.html
+lang_url_it: /it/blog/chinese-language-trip-maps.html
+---
+
+<article class="post">
+  <a href="/es/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Escritos</p>
+    <h1>Cómo generé una tanda de mapas de viaje en chino sin navegador ni clave de API</h1>
+    <time class="news-date" datetime="2026-06-22">22 de junio de 2026</time>
+    <div class="tags">
+      <span class="tag">IA/LLM</span>
+      <span class="tag">Ingeniería</span>
+      <span class="tag">Viajes</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>Preparando un viaje de cuatro días a Hong Kong, quería algo sencillo: un mapa claro para cada parada, rotulado en chino simplificado. Ni un mapa en inglés con un pin encima, ni un muro de enlaces. Doce sitios —el hotel, los museos, Ocean Park, el tranvía del Peak, el aeropuerto— cada uno como su propia captura limpia que pudiera colocar en un folleto imprimible.</p>
+
+    <p>Así que le pedí a Claude Code, funcionando en una sesión web en entorno aislado, que los hiciera. Lo que esperaba que fuera un recado de cinco minutos se convirtió en un breve recorrido por las razones de que «un mapa de Hong Kong, en chino» sea más difícil de lo que parece, incluido un sistema de coordenadas que existe precisamente para hacer más difícil este tipo de cosas.</p>
+
+    <h2>Sin navegador, sin clave de API</h2>
+
+    <p>El enfoque obvio —abrir un sitio de mapas, cambiar el idioma a chino, capturar cada ubicación— quedó descartado por partida doble. La sesión no tenía navegador que manejar, y las prácticas APIs de mapas estáticos quieren todas una clave facturable. Ese desvío resultó ser una virtud, no un defecto. Google y OpenStreetMap rotulan Hong Kong de forma bilingüe o en inglés primero; para etiquetas genuinamente en chino conviene un proveedor chino. La respuesta fueron las teselas de mapa de AutoNavi (高德), que renderizan Hong Kong con nombres en chino simplificado —海洋公园, 太平山顶, 尖沙咀— los mismos que verás en los carteles y en las apps al aterrizar. El plan: descargar las teselas de mapa en bruto de 256×256 y ensamblar cada imagen a mano con Pillow, de Python.</p>
+
+    <h2>El sistema de coordenadas del que nadie te avisa</h2>
+
+    <p>Aquí está el detalle que se comió una hora. Los proveedores de mapas chinos están obligados por ley a usar <strong>GCJ-02</strong>, un sistema de coordenadas ofuscado —coloquialmente «coordenadas de Marte»— que aplica un desplazamiento deliberado y no lineal a la latitud y longitud reales de WGS-84. Si trazas una coordenada GPS real directamente sobre un mapa base chino, tu pin cae a unos cientos de metros: en el edificio de enfrente o en medio del puerto. El desplazamiento <em>es</em> el objetivo: un badén impuesto por el Estado contra los datos geográficos precisos.</p>
+
+    <p>Así que cada coordenada tenía que pasar por la transformación estándar WGS-84 → GCJ-02 <em>antes</em> de cualquier cálculo de teselas: desplazar el punto central a coordenadas de Marte, descargar las teselas alrededor de ese punto desplazado y luego colocar el marcador justo en el centro para que cuadre con el mapa base desplazado. Si te equivocas, cada mapa es sutil y confiadamente incorrecto. Si lo haces bien, nadie se da cuenta, que es justo el trabajo entero de un mapa.</p>
+
+    <h2>Dibujar el mapa</h2>
+
+    <p>Con el problema de las coordenadas resuelto, lo demás es fontanería de imágenes. Para cada ubicación: calcular qué teselas cubren la zona, descargarlas y coserlas en una tarjeta de 760 píxeles de ancho, dejar caer un pin en forma de lágrima en el centro y colocar encima una banda de cabecera con el nombre en chino, un número de índice y el día del viaje. El texto en chino necesita una fuente compatible con CJK; el entorno aislado resultó traer WenQuanYi Zen Hei, que lo resolvió.</p>
+
+    <p>El paso que más me gustó fue la verificación. Las coordenadas introducidas a mano son justo la clase de cosa que parece correcta pero no del todo, así que, tras renderizar, Claude Code volvió a leer sus propias imágenes de salida y cotejó cada pin con los elementos rotulados que había debajo: ¿el marcador del Museo de la Ciencia está de verdad sobre 香港科学馆, o una manzana más al norte? Un par de pines se reajustaron; el Star Ferry, la terminal del tranvía del Peak y el aeropuerto quedaron todos clavados. Un bucle de construir-y-luego-mirar, todavía algo novedoso cuando lo que mira es lo mismo que construyó.</p>
+
+    <h2>La localización no es traducción</h2>
+
+    <p>Los mapas fueron la parte fácil. Las palabras que los rodeaban fueron donde la cosa se volvió humana. El público lee mandarín continental, y el folleto que envolvía los mapas había derivado sin querer hacia el registro del cantonés de Hong Kong. Yo había descrito el hotel como 地铁站上盖 —上盖 es una expresión inmobiliaria hongkonesa impecable para «construido justo encima de la estación», y casi opaca para un lector continental. Pasó a ser 就在地铁站楼上. Luego 离港 → 返程, 手信 → 伴手礼, y 有得逛 —una construcción gramatical cantonesa— → 能逛.</p>
+
+    <p>La comida requería el tratamiento contrario. 烧味饭, 炖奶, 滑蛋 son nombres de platos cantoneses, pero son los nombres reales de los menús reales, así que «corregirlos» habría vuelto incorrecto el folleto. Esos conservaron su nombre y en su lugar recibieron glosas en mandarín —烧味饭（即烧腊饭：叉烧、烧鹅、烧肉饭）. Los propios restaurantes, tras una ronda de comentarios, perdieron del todo sus páginas de mapa dedicadas: uno no navega hasta la cena como navega hasta Ocean Park, así que se quedaron como texto en el plan diario y desaparecieron del índice de mapas. Nada de eso es traducción en el sentido del diccionario. Es registro, dialecto y saber cuándo una palabra es un regionalismo que hay que corregir frente a un nombre propio que hay que dejar en paz.</p>
+
+    <h2>Lo que me llevo</h2>
+
+    <p>Esto aterriza donde no dejo de aterrizar: el trabajo avanza más rápido en tareas que son finitas y verificables. Coser teselas, aplicar una transformación de coordenadas conocida, confirmar que un pin se asienta sobre su etiqueta: cada paso tiene una respuesta correcta que puedes verificar mirando, lo que <a href="/es/blog/fable-5-security-review.html">resuena</a> con lo que encuentro en las revisiones de seguridad y en las herramientas de cumplimiento. El rodeo por GCJ-02 es ese género de trivia de dominio que es tedioso descubrir y trivial aplicar una vez que se conoce: precisamente lo que vale la pena delegar.</p>
+
+    <p>El criterio siguió siendo mío: qué doce sitios cuentan como «principales», que los restaurantes no necesitaban mapas, que un lector de mandarín continental no debería tener que descifrar 上盖. El folleto terminado —doce mapas en chino, un plan día a día y un PDF imprimible— salió de un entorno aislado sin navegador y sin clave de API. Hace un año no habría adivinado que esa era la versión fácil.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

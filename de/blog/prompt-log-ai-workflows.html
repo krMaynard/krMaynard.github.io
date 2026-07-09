@@ -1,0 +1,68 @@
+---
+layout: main
+title: "Prompts sind Refactoring-Ziele: Einen KI-Workflow protokollieren, um zu finden, was sich automatisieren lässt"
+description: "Ein Engineering-Beitrag von LayerX protokolliert seine KI-Prompts und analysiert sie wie Code, um herauszufinden, was sich automatisieren lässt. Es ist der datengetriebene Ansatz, den ich bei Google und seither genutzt habe — die Intuition markiert es, die Daten beweisen es — reflexiv auf den Mensch-KI-Workflow selbst angewandt."
+date: 2026-06-19
+lang: de
+lang_url: /blog/prompt-log-ai-workflows.html
+lang_url_ja: /ja/blog/prompt-log-ai-workflows.html
+lang_url_zh: /zh/blog/prompt-log-ai-workflows.html
+lang_url_ko: /ko/blog/prompt-log-ai-workflows.html
+lang_url_fr: /fr/blog/prompt-log-ai-workflows.html
+lang_url_es: /es/blog/prompt-log-ai-workflows.html
+lang_url_it: /it/blog/prompt-log-ai-workflows.html
+---
+
+<article class="post">
+  <a href="/de/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Texte</p>
+    <h1>Prompts sind Refactoring-Ziele: Einen KI-Workflow protokollieren, um zu finden, was sich automatisieren lässt</h1>
+    <time class="news-date" datetime="2026-06-19">19. Juni 2026</time>
+    <div class="tags">
+      <span class="tag">AI/LLM</span>
+      <span class="tag">Engineering</span>
+      <span class="tag">Workflow</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>Der Ansatz, dem ich in meiner eigenen Arbeit am meisten vertraue, ist dieser: etwas, das die Erfahrung als verbesserungswürdig markiert, als Ausgangspunkt nehmen, dann aber das <em>Warum</em> und <em>Wie</em> mit echten Daten beweisen — statt der Ahnung nachzugeben. Die Intuition sagt einem, wo man hinschauen soll; die Daten sagen einem, ob man richtig lag und was zu tun ist. Was sich in letzter Zeit geändert hat, ist, dass ein LLM das Hinschauen übernehmen kann, in einem Umfang, der diese Art von Beweis früher zu teuer machte, um sich die Mühe zu lohnen.</p>
+
+    <p>Genau darauf habe ich mich bei Google gestützt. Im Team Legal Content Policy and Standards hatte ich als Policy Lead eine Ahnung, welche Arten von rechtlichen Löschfällen den Rückstau verstopften und welche routiniert genug waren, um sie zu automatisieren. Statt es aus Erfahrung zu behaupten, ließ ich ein LLM die Fälle in großem Maßstab — Tausende davon — klassifizieren und zusammenfassen, bis die Daten die Hypothese entweder bestätigten oder korrigierten. In der Privacy Sandbox war es als TPM dieselbe Form: ein Gefühl dafür, welche der zur juristischen Prüfung gehenden Dokumente tatsächlich eine tiefere Betrachtung verdienten, umgesetzt in eine Pipeline, die ein LLM jedes einzelne prüfen und klassifizieren ließ, damit die teure menschliche Aufmerksamkeit dort landete, wo sie zählte. In beiden Fällen war die Intuition der Ausgangspunkt, nicht das Urteil. Das LLM machte das Urteil erschwinglich.</p>
+
+    <p>Deshalb fiel mir ein <a href="https://tech.layerx.co.jp/entry/prompt-log-driven-ai-workflow">jüngerer Engineering-Beitrag von LayerX</a> ins Auge (von <a href="https://speakerdeck.com/myohei">Maeda Yōhei (前田洋平)</a>, einem Engineering Manager im Mobile-App-Team von LayerX' Finanzoperations-Produkt Bakuraku, der als <a href="https://tech.layerx.co.jp/archive/author/myohei11"><code>id:myohei11</code></a> schreibt), weil er diesen Ansatz auf ein Ziel anwendet, auf das ich ihn nicht zu richten gedacht hätte: den KI-Workflow selbst. Ingenieure, die den ganzen Tag mit einem Coding-Agenten arbeiten, tippen immer wieder dieselben Dinge — „committen, pushen, einen PR öffnen", „die Review-Kommentare abarbeiten", „das fehlgeschlagene CI reparieren". Es <em>fühlt sich</em> repetitiv an, aber ein Gefühl ist eine schwache Grundlage für die Entscheidung, was zu automatisieren ist. Also protokollieren sie jeden an den Agenten gesendeten Prompt, analysieren das Log nach Zeitplan und lassen die Muster, die tatsächlich wiederkehren, sagen, was zu bauen ist. Der Satz, der bei mir hängen blieb, ist, dass <strong>Prompts zu Refactoring-Zielen werden</strong>: Anweisungen an eine KI sind, wie Code, etwas, das man beobachten, messen und in wiederverwendbare Bausteine umformen kann — und dasselbe ein Dutzend Mal zu sagen ist Duplikation, die genau deshalb ein „Smell" ist, weil sie eine Einheit markiert, die es zu extrahieren lohnt.</p>
+
+    <h2>Wie es funktioniert</h2>
+
+    <p>Die Mechanik ist bewusst bescheiden. Ein <code>UserPromptSubmit</code>-Hook hängt jeden Prompt an eine lokale <code>prompts.jsonl</code> an — eine JSON-Zeile mit Zeitstempel, Session-ID und dem Text — überspringt trivial kurze Eingaben und hält die Datei nur für den Eigentümer lesbar. Logs werden maskiert, lokal gehalten und nach sieben Tagen gelöscht. (Dieser letzte Teil ist kein nachträglicher Einfall: Ein Prompt-Log ist eine Aufzeichnung all dessen, was man gefragt hat, weshalb die Datenschutz-Leitplanken tragend sind, nicht optional.)</p>
+
+    <p>Zwei Erkennungspfade laufen auf dem Log. Der eine arbeitet innerhalb einer laufenden Session und bemerkt in Echtzeit, wenn dieselbe Operation erneut auftaucht. Der andere ist ein geplanter täglicher Job, der die Prompts der vergangenen Woche liest und sie nach Absicht gruppiert. Beide zusammen zu betreiben fängt mehr ab als jeder allein: Der Echtzeit-Pfad sieht Häufungen innerhalb eines Gesprächs, der Batch-Pfad sieht dieselbe Anfrage über Tage verstreut. Wenn ein Muster eine niedrige Schwelle überschreitet — drei oder mehr Vorkommen — postet es nach Slack, mit der Musterzusammenfassung <em>und</em> einem fertigen Prompt zum Bau der entsprechenden Skill oder des Befehls im Anhang.</p>
+
+    <p>Zwei Designentscheidungen machen daraus mehr als eine Logging-Spielerei. Erstens verwendet die tägliche Analyse ein LLM, um Prompts <em>semantisch</em> zu gruppieren, statt Embeddings zu clustern — sodass „mach einen PR", „committen, pushen und einen PR öffnen" und „committe den Fix und bring einen PR hoch" alle zu einem Muster kollabieren, weil sie unabhängig vom Wortlaut eine Absicht teilen. Genau das ist die unscharfe, urteilsbeladene Gruppierung, in der Sprachmodelle gut und starre Ähnlichkeitsmetriken schlecht sind — derselbe Grund, warum das LLM, nicht ein Schlüsselwortfilter, das richtige Werkzeug war, um jene rechtlichen Fälle zu triagieren. Zweitens hört die Automatisierung beim <em>Vorschlagen</em> auf. Sie erstellt oder löscht niemals von sich aus eine Skill; ein Mensch genehmigt jede einzelne. Das hindert das System daran, stillschweigend ein Dickicht halb nützlicher Regeln zu züchten — der Fehlermodus, der die meisten „selbstverbessernden" Automatisierungen zur Belastung macht.</p>
+
+    <h2>Die interessante Wendung: KI verbessert, wie wir mit KI arbeiten</h2>
+
+    <p>Was das zu mehr als einem ordentlichen Aufräumtrick macht, ist, wohin es zeigt. Dasselbe Log, das <em>neue</em> Automatisierungen zutage fördert, fördert auch <em>kaputte</em> zutage: Wenn Leute immer wieder eine bestehende Skill aufrufen und dann sofort weitere Anweisungen anhängen — „aktualisiere auch die Notion-Seite", „poste es auch nach Slack", „du bist noch nicht fertig" — ist dieses nachlaufende Geplapper ein Beleg dafür, dass die Skill unterspezifiziert ist, mit unklaren Abschlusskriterien oder einem fehlenden Schritt. So richtet sich das System gegen sich selbst, und ein Schwungrad entsteht: Bessere Instrumentierung fördert bessere Automatisierungen zutage, die genau das System schärfen, das die nächste findet.</p>
+
+    <p>Dieses Schwungrad ist der Grund, warum das Ziel meiner Ansicht nach mehr zählt als der Trick. Agentisches Coding wird zum Standard-Arbeitsmodell für Softwareentwicklung — was „wie ein Mensch und ein Agent tatsächlich interagieren" zu einer neuen und weitgehend ungemessenen Fläche für Verbesserung macht. Die meisten Teams tappen dabei im Dunkeln. Die hier berichteten Ergebnisse sind bewusst unglamourös — 29 Muster über 691 Vorkommen, 22 davon (76 %) in Skills oder Befehle umgewandelt, 652 wiederholte Prompts eliminiert; allein der Commit-Push-PR-Zyklus tauchte 94-mal auf, bevor er zu einem einzigen <code>/ship</code>-Befehl wurde — und das ist der Punkt. Das ist die langweilige, hochfrequente Fronarbeit, die unsichtbar bleibt, bis man sie zählt, und das Zählen ist jetzt billig.</p>
+
+    <h2>Frequenz ist das Signal; Hebelwirkung ist das Kriterium</h2>
+
+    <p>Zwei Vorbehalte halten mich dabei ehrlich. Der erste ist, dass Frequenz nicht Bedeutung ist. Nur weil etwas oft passiert, heißt das nicht, dass es sich zu abstrahieren lohnt — es liegt wenig echter Wert darin, einem Ingenieur das Tippen weniger Wörter zu ersparen. Der Wert entsteht, wenn ein ganzer Prozess automatisiert, wiederholbar und skalierbar wird; die Zählung sagt einem nur, wo man danach <em>suchen</em> soll, nicht dass man es gefunden hat. Der zweite sind die Kosten: Ein Prompt-Log ist nun Daten, die man verwalten muss, Prompts erfassen nur einen Ausschnitt eines Workflows, und ein Haufen marginaler Skills kann die Umgebung so verstopfen, dass der Agent nicht mehr erkennt, welche zutrifft. Nichts davon ist fatal, aber es sind echte technische Schulden, und deshalb ist das menschliche Genehmigungstor nicht optional.</p>
+
+    <p>Mit anderen Worten: Das Urteil bleibt dort, wo es hingehört — und der größte Gewinn ist nicht irgendein einzelner automatisierter Workflow. Es ist die Verbesserung der Effizienz der Mensch-KI-Interaktion selbst, denn das ist es, was nun auf dem kritischen Pfad nahezu jeder Entwicklung sitzt. Beschleunigt man das, beschleunigt man alles, was ihm nachgelagert ist. Die Ahnung, dass etwas repetitiv ist, ist immer noch nur eine Ahnung; neu ist, dass es zu beweisen und danach zu handeln von einem Forschungsprojekt zu einer täglichen Gewohnheit geschrumpft ist. Ich werde anfangen, meine zu protokollieren.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

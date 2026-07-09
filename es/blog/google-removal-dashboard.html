@@ -1,0 +1,51 @@
+---
+layout: main
+title: "Nuevo: panel de solicitudes gubernamentales de retirada de Google (2011-2025)"
+description: "Un panel interactivo que convierte las instantáneas por periodo de retiradas gubernamentales de contenido de Google en un explorador de tendencias plurianual, que abarca 30 periodos de reporte, 178 países, 61 productos y 22 motivos de retirada."
+date: 2026-05-11
+lang: es
+lang_url: /blog/google-removal-dashboard.html
+lang_url_ja: /ja/blog/google-removal-dashboard.html
+lang_url_zh: /zh/blog/google-removal-dashboard.html
+lang_url_ko: /ko/blog/google-removal-dashboard.html
+lang_url_fr: /fr/blog/google-removal-dashboard.html
+lang_url_de: /de/blog/google-removal-dashboard.html
+lang_url_it: /it/blog/google-removal-dashboard.html
+---
+
+<article class="post">
+  <a href="/es/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Escritos</p>
+    <h1>Nuevo: panel de solicitudes gubernamentales de retirada de Google (2011-2025)</h1>
+    <time class="news-date" datetime="2026-05-11">11 de mayo de 2026</time>
+    <div class="tags">
+      <span class="tag">Google</span>
+      <span class="tag">Transparencia</span>
+      <span class="tag">Panel</span>
+      <span class="tag">Datos</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>He construido un <a href="/es/transparency.html">panel interactivo</a> sobre los datos públicos de solicitudes gubernamentales de retirada de contenido de Google, convirtiendo las instantáneas por periodo que Google publica en un explorador de tendencias plurianual.</p>
+
+    <p>El conjunto de datos abarca 30 periodos de reporte, de 2011 a finales de 2025, y cubre 178 países y territorios, 61 productos de Google y 22 motivos de retirada declarados. Cada combinación de filtros —país, tipo de solicitante, producto, motivo— genera una serie temporal. Un gráfico aparte sigue la tasa de retirada a lo largo del tiempo para la misma selección.</p>
+
+    <p>Fui uno de los autores principales de la sección de la Gran China del Informe de Transparencia de Google de 2014 a 2024, así que es un conjunto de datos que conozco bien, tanto lo que muestra como dónde están sus límites. La naturaleza autoinformada de los datos, las decisiones de categorización y las decisiones de agregación afectan todas a cómo deben leerse las cifras. El panel está diseñado para hacer que los patrones sean explorables sin necesidad de manipular los CSV subyacentes.</p>
+
+    <p>Todos los datos se procesan en tu navegador. Un artículo posterior trata <a href="/es/blog/google-removal-observations.html">tres cosas concretas que vale la pena notar</a> en los datos una vez que empiezas a explorarlos.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

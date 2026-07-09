@@ -1,0 +1,59 @@
+---
+layout: main
+title: New Yorker Transparenzberichte zu Social-Media-Nutzungsbedingungen
+description: "Ein Archiv und Katalog der Transparenzberichte zu Nutzungsbedingungen, die Social-Media-Unternehmen dem Attorney General von New York gemäß dem Stop Hiding Hate Act vorlegen — 29 Einreichungen, Q3–Q4 2025."
+lang: de
+lang_url: /ny-tos.html
+lang_url_ja: /ja/ny-tos.html
+lang_url_zh: /zh/ny-tos.html
+lang_url_ko: /ko/ny-tos.html
+lang_url_fr: /fr/ny-tos.html
+lang_url_es: /es/ny-tos.html
+lang_url_it: /it/ny-tos.html
+---
+
+<div style="padding-top: 2.5rem; margin-bottom: 0.5rem;">
+  <p class="section-label">Fallstudie</p>
+  <h1 style="margin-top: 0; margin-bottom: 0.5rem;">New Yorker Transparenzberichte zu Social-Media-Nutzungsbedingungen</h1>
+  <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
+    Der <strong>Stop Hiding Hate Act</strong> (S895B) des Bundesstaats New York verpflichtet Social-Media-Plattformen mit über 100&nbsp;Millionen
+    US-Dollar Jahresumsatz und Nutzern in New York dazu, <strong>zweimal jährlich</strong> Berichte über ihre Nutzungsbedingungen beim
+    Attorney General des Bundesstaats einzureichen. Jeder Bericht beschreibt, wie die Plattform hasserfülltes Verhalten, Rassismus, Extremismus,
+    Desinformation, Belästigung und ausländische politische Einflussnahme definiert und moderiert.
+  </p>
+  <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
+    Dieses Projekt erfasst das öffentliche Verzeichnis des Attorney General, archiviert jede veröffentlichte Einreichung und erstellt einen flachen,
+    zitierbaren Katalog, der alle <strong>29 Einreichungen</strong> für Q3 und Q4 2025 umfasst — von Meta, Alphabet (YouTube),
+    TikTok, X, Snap, Reddit, Discord, Roblox, LinkedIn, Amazon (Twitch &amp; GoodReads) und weiteren.
+  </p>
+  <p style="color: var(--text-muted); max-width: 720px; line-height: 1.65; background: transparent;">
+    Quelle: <a href="https://ag.ny.gov/resources/organizations/social-media-tos-reporting/reports" target="_blank" rel="noopener">Attorney General von New York — Social-Media-ToS-Berichterstattung</a>.
+    Archivierte Dateien &amp; Katalog: <a href="https://github.com/krMaynard/dsa-transparency-data/tree/main/ny-tos-reports" target="_blank" rel="noopener">github.com/krMaynard/dsa-transparency-data</a>.
+  </p>
+</div>
+
+<!-- ── Live tool CTA ───────────────────────────────────────── -->
+<div class="card" style="margin: 2rem 0;">
+  <p class="section-label" style="margin: 0 0 0.4rem;">Live-Tool</p>
+  <h3 style="margin-top: 0;">Katalog durchsuchen</h3>
+  <p>Der vollständige Katalog ist über die Transparency Report API verfügbar — eine filterbare Tabelle mit jeder Einreichung, mit Links zum Bericht auf der AG-Website und zu einer archivierten Kopie des PDFs, dazu ein öffentlicher, schreibgeschützter JSON/CSV-Endpunkt.</p>
+  <a href="https://transparency.kieranmaynard.com/ny-tos" class="card-link">Katalog öffnen &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/api/ny-tos-reports" class="card-link">JSON-API &rarr;</a>
+</div>
+
+<!-- ── Reading the data ────────────────────────────────────── -->
+<section class="td-readme">
+  <h2 class="td-section-title">Die Daten lesen</h2>
+  <ul class="td-bullets">
+    <li><strong>Worum es sich handelt.</strong> Narrative <em>Policy</em>-PDFs — die Beschreibung der Nutzungsbedingungen und Moderationspraktiken jedes Unternehmens — nicht die maschinenlesbaren statistischen Tabellen der EU-DSA-Berichte. Sie werden daher als Original-PDFs archiviert und nicht in eine Datenbank geparst.</li>
+    <li><strong>Unternehmen vs. Plattform.</strong> Einige Unternehmen reichen für einzelne Plattformen oder Marken separat ein — beispielsweise reicht Amazon eigene Berichte für <em>Twitch</em> und <em>GoodReads</em> ein.</li>
+    <li><strong>Zeitraum.</strong> Das Gesetz schreibt eine halbjährliche Berichterstattung vor; der Katalog umfasst Q3 und Q4 2025.</li>
+    <li><strong>Zugang.</strong> 11 der 29 Einreichungen werden aus dem öffentlichen Verzeichnis des AG bereitgestellt und sind hier als archivierte PDFs gespiegelt. Die anderen 18 werden aus einem privaten Upload-Verzeichnis bereitgestellt, das anonyme Besucher auf eine Login-Seite umleitet; sie sind daher nur mit ihrem Quelllink katalogisiert (gekennzeichnet als <em>auth-required</em>) — mit ziemlicher Sicherheit ein Konfigurationsfehler, da sie öffentlich gelistet sind.</li>
+    <li><strong>Archiviert.</strong> Wo eine Einreichung öffentlich ist, wird ein Snapshot des PDFs im Open-Data-Repository gespiegelt, falls der Live-Link umzieht.</li>
+  </ul>
+</section>
+
+<hr class="section-divider" />
+
+<p style="color: var(--text-very-faint); font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
+  Daten: Einreichungen zu Social-Media-Nutzungsbedingungen beim Attorney General von New York, Q3–Q4 2025. Archiv &amp; Analyse von Kieran Maynard. Keine Analyse oder Nachverfolgung über die Standardeinstellung der Website hinaus.
+</p>
