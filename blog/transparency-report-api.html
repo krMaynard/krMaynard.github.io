@@ -1,0 +1,74 @@
+---
+layout: main
+title: "One Query Language for Every Platform's Transparency Report"
+description: "What began as a dashboard for EU DSA data grew into a single API spanning more than two dozen platform and regulator transparency datasets — government-request reports, content-moderation stats, and national-law filings — all reachable through one safe, no-SQL query interface."
+date: 2026-07-09
+lang: en
+lang_url: /ja/blog/transparency-report-api.html
+lang_url_zh: /zh/blog/transparency-report-api.html
+lang_url_ko: /ko/blog/transparency-report-api.html
+---
+
+<article class="post">
+  <a href="/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>One Query Language for Every Platform's Transparency Report</h1>
+    <time class="news-date" datetime="2026-07-09">July 9, 2026</time>
+    <div class="tags">
+      <span class="tag">Transparency</span>
+      <span class="tag">Data</span>
+      <span class="tag">Engineering</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>It started as one dashboard. Last spring I built a <a href="/blog/vlop-dashboard.html">cross-platform view of EU DSA transparency data</a> for the 25 designated Very Large Online Platforms, and then <a href="/blog/vlop-dashboard-update.html">filled in all nine report tables</a>. Behind it sat a small FastAPI service. Over the months since, that service quietly became the more interesting artifact — because I kept feeding it other reports, and the same query interface kept absorbing them.</p>
+
+    <p>It now spans more than two dozen distinct transparency datasets, and they are all reachable through a single query model. That is the whole point.</p>
+
+    <h2>The problem is shape, not scarcity</h2>
+
+    <p>Platform transparency data isn't scarce — it's fragmented. Every company publishes in its own shape: Meta ships its enforcement figures through a GraphQL feed, TikTok drops cumulative CSVs, Apple posts wide-sparse spreadsheets, Discord and Snap label sub-tables inside a workbook, and a dozen regulators each mandate their own template. A researcher who wants to compare government removal requests across Google, Microsoft, LinkedIn, TikTok, and Discord has to learn five formats before asking a single question.</p>
+
+    <p>Comparability is the thing transparency reporting is supposed to deliver and almost never does. So the project's real work isn't the web UI — it's normalising all of that into one tidy-long schema and putting one query language in front of it.</p>
+
+    <h2>What's in it now</h2>
+
+    <p>The datasets group into a few families:</p>
+
+    <p><strong>Content-moderation reports.</strong> The EU DSA harmonised template — the 25 VLOPs plus 43 non-VLOP platforms that file the same forms — over a shared nine-table star schema, alongside the big <em>voluntary</em> reports: Meta's Community Standards Enforcement Report and TikTok's Community Guidelines Enforcement Report.</p>
+
+    <p><strong>Government &amp; legal request reports.</strong> Google (both content removals and user-data requests), Microsoft's Law Enforcement Requests Report, LinkedIn, TikTok's government &amp; legal requests, Discord, Apple, GitHub, and Snap — the per-country demand-and-disclosure data these companies publish half-yearly.</p>
+
+    <p><strong>National transparency laws.</strong> India's IT Rules monthly compliance reports, Korea's Naver and Kakao filings (plus the Network Act illegal-content reports), Taiwan's Anti-Fraud Act data, Türkiye's Law No. 5651 reports, Singapore's IMDA Online Safety Code, Japan's new 情プラ法 statistics, Texas HB 20 and Austria's KoPl-G, and China's 12377 and 12321 hotline figures.</p>
+
+    <p><strong>Emerging EU duties and narrative filings.</strong> The Terrorist Content Online Regulation, the AI Act's training-data transparency summaries, Google's Traffic &amp; Disruptions catalogue of internet shutdowns, Android's malware-rate data — plus full-text-searchable prose filings from New York's and California's terms-of-service laws.</p>
+
+    <h2>One query language, no SQL</h2>
+
+    <p>Everything is reachable the same way. The query interface is modelled on the TikTok Research API: you name a table and then describe filters, group-bys, and aggregates as structured parameters. No caller ever writes SQL — the server validates every field against that table's fixed registry and compiles it to a single parameterised <code>SELECT</code>. Long queries run on the async 202-plus-poll pattern, and results come back as JSON or CSV.</p>
+
+    <p>Two seams make it more usable than raw parameters. There's a natural-language "ask" box — an LLM translates a plain-English question into the <em>same</em> structured query, which then goes through the exact same validation boundary, so the model proposes and the validator disposes. And there's an <a href="/blog/fable-5-security-review.html">MCP server</a>, so an AI agent can discover the tables, run a query, and poll for the result without me hand-building a client.</p>
+
+    <h2>The hard part is the caveats</h2>
+
+    <p>Wiring up datasets is easy. Not lying with them is hard. Almost every source carries a footnote that a naïve aggregate would trample: national-security figures are published as banded ranges, not exact counts, so they can't be summed; prevalence and proactive-detection rates are fractions you must never add up; the DSA template embeds an aggregate "total" row right next to its own breakdown rows, so a careless <code>SUM</code> double-counts; and the same template row arrives in a dozen EU languages that have to be reconciled to one canonical key.</p>
+
+    <p>I've tried to encode those caveats as guardrails rather than bury them — the query layer warns when you sum a rate or forget to pin a dimension, and the methodology is written down rather than assumed. The goal isn't a bigger pile of numbers. It's numbers you can actually compare and cite.</p>
+
+    <p>The live dashboard and every dataset page are at <a href="https://transparency.kieranmaynard.com/reports" target="_blank" rel="noopener">transparency.kieranmaynard.com</a>, with the interactive API documented at <a href="https://transparency.kieranmaynard.com/docs" target="_blank" rel="noopener">/docs</a>. If there's a transparency report you'd want to query alongside these, I'm always looking for the next one to fold in.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>
