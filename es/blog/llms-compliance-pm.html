@@ -1,0 +1,78 @@
+---
+layout: main
+title: "Cómo uso los LLM en el trabajo de PM de cumplimiento"
+description: "Extracción de requisitos, análisis de brechas y revisión de borradores: tres flujos de trabajo con LLM que realmente han cuajado en el trabajo de PM de cumplimiento, y dónde falla cada uno."
+date: 2026-05-15
+lang: es
+lang_url: /blog/llms-compliance-pm.html
+lang_url_ja: /ja/blog/llms-compliance-pm.html
+lang_url_zh: /zh/blog/llms-compliance-pm.html
+lang_url_ko: /ko/blog/llms-compliance-pm.html
+lang_url_fr: /fr/blog/llms-compliance-pm.html
+lang_url_de: /de/blog/llms-compliance-pm.html
+lang_url_it: /it/blog/llms-compliance-pm.html
+---
+
+<article class="post">
+  <a href="/es/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Escritos</p>
+    <h1>Cómo uso los LLM en el trabajo de PM de cumplimiento</h1>
+    <time class="news-date" datetime="2026-05-15">15 de mayo de 2026</time>
+    <div class="tags">
+      <span class="tag">IA/LLM</span>
+      <span class="tag">PM de cumplimiento</span>
+      <span class="tag">Gestión de producto</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>He trabajado en política de contenidos y cumplimiento normativo el tiempo suficiente como para ser escéptico ante las afirmaciones de que "la IA automatizará X". Lo que he descubierto es más concreto: hay tareas específicas en el trabajo de PM de cumplimiento donde los LLM comprimen el tiempo de forma significativa, y tareas específicas donde no ayudan y no deberían inspirar confianza. Esa distinción importa.</p>
+
+    <h2>Extracción de requisitos</h2>
+
+    <p>El caso de uso más fiable es el análisis sintáctico de texto legal. Cuando aparece una nueva ley o guía regulatoria, la primera tarea del PM es entender qué exige realmente: en concreto, qué datos hay que capturar, qué categorías hay que mantener y qué formato debe tener el resultado.</p>
+
+    <p>El proceso: pegar el texto completo de la ley o del documento de orientación en el modelo y pedirle que enumere todos los elementos de datos reportables. Para cada elemento, preguntar si la descripción se corresponde con algo que la infraestructura de datos actual ya produce. Luego comparar ese resultado con lo que los sistemas de datos de la plataforma generan de verdad, junto con un experto de dominio que sepa qué producen esos sistemas.</p>
+
+    <p>Esto funciona bien porque el texto legal es preciso y no requiere un juicio contextual profundo para analizarlo. El modelo hace extracción estructurada de información —extraer listas de requisitos y organizarlas—, algo que hace de forma fiable. Donde falla es al interpretar definiciones ambiguas, lo cual todavía exige criterio jurídico. El modelo te dará una respuesta segura sobre qué significa un requisito ambiguo; esa respuesta puede reflejar o no cómo leerá el regulador ese mismo texto.</p>
+
+    <p>El verdadero valor aparece cuando una nueva ley se solapa con una ya existente. Cuando salió la California AB 587, ya estábamos reportando bajo el artículo 15 de la EU DSA. Los marcos de categorías se solapan parcialmente, pero no se corresponden de forma limpia: la "desinformación o información errónea" de la AB 587 no tiene un equivalente directo en la DSA, y el mecanismo de notificación del artículo 16 de la DSA no tiene análogo en California. Aplicar este proceso de extracción a ambos textos legales y luego hacer una comparación estructurada con la infraestructura de datos existente identificó las brechas con precisión: qué datos ya teníamos, qué había que añadir y qué requería decisiones de definición antes siquiera de poder empezar el trabajo de datos.</p>
+
+    <h2>Análisis de brechas entre jurisdicciones</h2>
+
+    <p>Un caso de uso relacionado es mantener una tabla de requisitos entre jurisdicciones a medida que evoluciona la orientación regulatoria. La Comisión de la DSA publicó una plantilla armonizada de reporte en 2024; cuando actualizó los requisitos de precisión y exhaustividad de las herramientas de detección automatizada en la versión de H2 2025, necesitaba entender en concreto qué había cambiado respecto a la plantilla de H1 y si afectaba a algo que ya estábamos produciendo.</p>
+
+    <p>El flujo de trabajo: mantener una tabla estructurada de requisitos por jurisdicción —artículo 15 de la DSA, artículo 42 de la DSA, AB 587, S895, etc.— con columnas para los datos concretos exigidos y el estado actual de la infraestructura. Cuando se publica una nueva guía, se contrasta el nuevo texto con la tabla existente para señalar qué ha cambiado. El modelo hace la comparación; el criterio del PM está en evaluar si los cambios señalados requieren trabajo de ingeniería, decisiones de definición o nada.</p>
+
+    <p>Esto es más rápido que leer un documento de orientación actualizado completo contrastándolo con el recuerdo de la versión anterior, y más fiable: el modelo detecta cosas que es fácil pasar por alto en un texto regulatorio denso, en particular cambios en la metodología de medición o en la periodicidad del reporte enterrados en una nota al pie.</p>
+
+    <h2>Revisión de borradores frente a una lista de verificación legal</h2>
+
+    <p>Antes de que cualquier informe regulatorio pase a revisión de Legal, contrasto un borrador casi final con la lista de verificación legal correspondiente. La instrucción es sencilla: aquí está el borrador del informe, aquí está la ley pertinente, identifica cualquier cosa de la ley que no esté abordada en el informe y señala cualquier cosa del informe que parezca entrar en conflicto con los requisitos de la ley.</p>
+
+    <p>Esto detecta omisiones fáciles de pasar por alto en documentos largos: una divulgación exigida por un apartado que se perdió en un ciclo de revisión, o una categoría que aparece en la ley pero que se combinó por descuido con otra en el informe. Son el tipo de errores que salen a la luz en la revisión de Legal y obligan a una revisión completa, lo que cuesta tiempo cuando estás cerca de una fecha límite de presentación.</p>
+
+    <p>No sustituye a la revisión de Legal. El modelo pasará por alto interpretaciones que dependen del contexto y no detectará problemas sustantivos de exactitud: no puede decirte que el número de apelaciones reportado es incorrecto, solo que el informe incluye una sección de apelaciones. Pero es una comprobación previa útil que reduce la probabilidad de que la revisión de Legal saque a la luz omisiones estructurales en lugar de cuestiones sustantivas.</p>
+
+    <h2>Lo que no funciona</h2>
+
+    <p>Cualquier cosa que requiera criterio sobre la intención regulatoria —qué es probable que un regulador realmente haga cumplir, si una divulgación concreta satisface un requisito cuyo texto es ambiguo— no funciona bien. El modelo generará una respuesta que suena convincente. Esa respuesta puede reflejar o no cómo lee el regulador ese mismo texto, y en el trabajo de cumplimiento, la diferencia importa.</p>
+
+    <p>Del mismo modo, cualquier cosa que requiera conocimiento de un historial de aplicación concreto, de orientación reciente de la comisión o de un proceso normativo pendiente posterior al corte de entrenamiento no es fiable. El modelo no sabe lo que no sabe, y el cumplimiento normativo es un ámbito en el que actuar con información desactualizada crea un riesgo real.</p>
+
+    <p>El patrón que ha funcionado: usar los LLM para tareas de texto estructurado —extracción, comparación, revisión de listas de verificación— donde las entradas y salidas están bien definidas y un experto de dominio puede verificar el resultado. No usarlos para responder preguntas sobre qué significa un requisito en un contexto de aplicación o cómo responderá un regulador a un determinado enfoque de divulgación. Eso requiere una experiencia que el modelo no tiene y no puede simular de forma fiable.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

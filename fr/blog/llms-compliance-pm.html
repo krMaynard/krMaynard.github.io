@@ -1,0 +1,78 @@
+---
+layout: main
+title: "Comment j'utilise les LLM dans mon travail de chef de produit conformité"
+description: "Extraction des exigences, analyse des écarts et relecture de brouillons — trois flux de travail LLM qui ont vraiment tenu dans le métier de chef de produit conformité, et le point où chacun s'effondre."
+date: 2026-05-15
+lang: fr
+lang_url: /blog/llms-compliance-pm.html
+lang_url_ja: /ja/blog/llms-compliance-pm.html
+lang_url_zh: /zh/blog/llms-compliance-pm.html
+lang_url_ko: /ko/blog/llms-compliance-pm.html
+lang_url_es: /es/blog/llms-compliance-pm.html
+lang_url_de: /de/blog/llms-compliance-pm.html
+lang_url_it: /it/blog/llms-compliance-pm.html
+---
+
+<article class="post">
+  <a href="/fr/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Écrits</p>
+    <h1>Comment j'utilise les LLM dans mon travail de chef de produit conformité</h1>
+    <time class="news-date" datetime="2026-05-15">15 mai 2026</time>
+    <div class="tags">
+      <span class="tag">IA/LLM</span>
+      <span class="tag">Chef de produit conformité</span>
+      <span class="tag">Gestion de produit</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>J'ai travaillé dans la politique de contenu et la conformité réglementaire assez longtemps pour être sceptique face aux affirmations du type « l'IA va automatiser X ». Ce que j'ai constaté est plus précis : il existe des tâches particulières dans le métier de chef de produit conformité où les LLM font gagner beaucoup de temps, et d'autres tâches particulières où ils n'aident pas et ne doivent pas être crus. La distinction compte.</p>
+
+    <h2>Extraction des exigences</h2>
+
+    <p>Le cas d'usage le plus fiable est l'analyse d'un texte de loi. Lorsqu'une nouvelle loi ou des orientations réglementaires paraissent, la première tâche du chef de produit est de comprendre ce qu'elles exigent réellement — précisément, quelles données doivent être collectées, quelles catégories doivent être tenues à jour, et quel format doit prendre le résultat.</p>
+
+    <p>Le procédé : coller le texte intégral de la loi ou du document d'orientation dans le modèle et lui demander d'énumérer chaque élément de donnée à déclarer. Pour chaque élément, demander si la description correspond à quelque chose que l'infrastructure de données actuelle produit déjà. Puis comparer ce résultat à ce que les systèmes de données de la plateforme génèrent effectivement, avec un expert du domaine qui sait ce que ces systèmes produisent.</p>
+
+    <p>Cela fonctionne bien parce que le texte de loi est précis et n'exige pas de jugement contextuel approfondi pour être analysé. Le modèle réalise une extraction d'informations structurée — il en tire des listes d'exigences et les organise — ce qu'il fait de manière fiable. Là où cela s'effondre, c'est dans l'interprétation de définitions ambiguës, qui requiert toujours un jugement juridique. Le modèle vous donnera une réponse assurée sur le sens d'une exigence ambiguë ; cette réponse peut ou non refléter la façon dont le régulateur lira le même libellé.</p>
+
+    <p>La vraie valeur apparaît quand une nouvelle loi recoupe une loi existante. Quand la loi californienne AB 587 est parue, nous produisions déjà des rapports au titre de l'article 15 du DSA de l'UE. Les cadres de catégories se recoupent en partie mais ne correspondent pas proprement — la « désinformation ou mésinformation » de l'AB 587 n'a pas d'équivalent direct dans le DSA, et le mécanisme de notification de l'article 16 du DSA n'a pas d'analogue californien. Faire passer les deux textes de loi par ce procédé d'extraction, puis effectuer une comparaison structurée avec l'infrastructure de données existante, a permis d'identifier précisément les écarts : quelles données nous avions déjà, ce qu'il fallait ajouter, et ce qui exigeait des décisions de définition avant même de pouvoir commencer le travail sur les données.</p>
+
+    <h2>Analyse des écarts entre juridictions</h2>
+
+    <p>Un cas d'usage connexe est la tenue d'un tableau d'exigences par juridiction à mesure que les orientations réglementaires évoluent. La Commission du DSA a publié un modèle de reporting harmonisé en 2024 ; lorsqu'elle a mis à jour les exigences de précision et de rappel des outils de détection automatisée dans la version du S2 2025, il me fallait comprendre précisément ce qui avait changé par rapport au modèle du S1 et si cela affectait quoi que ce soit que nous produisions déjà.</p>
+
+    <p>Le flux de travail : tenir un tableau structuré des exigences par juridiction — article 15 du DSA, article 42 du DSA, AB 587, S895, et ainsi de suite — avec des colonnes pour les données précises requises et l'état actuel de l'infrastructure. Lorsque de nouvelles orientations paraissent, faire passer le nouveau texte face au tableau existant pour signaler ce qui a changé. Le modèle réalise la comparaison ; le jugement du chef de produit consiste à évaluer si les changements signalés nécessitent un travail d'ingénierie, des décisions de définition, ou rien du tout.</p>
+
+    <p>C'est plus rapide que de lire un document d'orientation entièrement mis à jour en s'appuyant sur le souvenir de la version antérieure, et plus fiable — le modèle repère des éléments faciles à manquer dans un texte réglementaire dense, en particulier les changements de méthodologie de mesure ou de cadence de reporting enfouis dans une note de bas de page.</p>
+
+    <h2>Relecture d'un brouillon face à une liste de contrôle légale</h2>
+
+    <p>Avant qu'un rapport réglementaire ne parte au service juridique pour relecture, je fais passer un brouillon quasi définitif face à la liste de contrôle légale pertinente. L'invite est simple : voici le brouillon du rapport, voici la loi pertinente, identifie tout ce qui figure dans la loi mais n'est pas traité dans le rapport, et signale tout ce qui, dans le rapport, semble contredire les exigences de la loi.</p>
+
+    <p>Cela permet de repérer des omissions faciles à manquer dans de longs documents — une divulgation requise par un alinéa qui a sauté au cours d'un cycle de révision, ou une catégorie qui figure dans la loi mais a été fusionnée par inadvertance avec une autre dans le rapport. Ce sont le genre d'erreurs qui ressortent lors de la relecture juridique et imposent une révision complète, ce qui coûte du temps quand on approche d'une échéance de dépôt.</p>
+
+    <p>Cela ne remplace pas la relecture juridique. Le modèle passera à côté d'interprétations dépendantes du contexte et ne détectera pas les problèmes d'exactitude sur le fond — il ne peut pas vous dire que le nombre d'appels déclaré est faux, seulement que le rapport comporte une section sur les appels. Mais c'est un contrôle préalable utile qui réduit la probabilité que la relecture juridique fasse ressortir des omissions structurelles plutôt que des questions de fond.</p>
+
+    <h2>Ce qui ne fonctionne pas</h2>
+
+    <p>Tout ce qui exige un jugement sur l'intention réglementaire — ce qu'un régulateur est réellement susceptible de faire appliquer, si une divulgation donnée satisfait une exigence au libellé ambigu — ne fonctionne pas bien. Le modèle produira une réponse à la tonalité assurée. Cette réponse peut ou non refléter la façon dont le régulateur lit le même libellé, et dans le travail de conformité, la différence compte.</p>
+
+    <p>De même, tout ce qui exige la connaissance d'un historique d'application spécifique, d'orientations récentes de la Commission, ou d'une réglementation en cours d'élaboration postérieure à la date limite d'entraînement n'est pas fiable. Le modèle ne sait pas ce qu'il ne sait pas, et la conformité réglementaire est un domaine où agir sur la base d'informations périmées crée un risque réel.</p>
+
+    <p>Le schéma qui a fonctionné : utiliser les LLM pour des tâches de texte structuré — extraction, comparaison, relecture face à une liste de contrôle — où les entrées et les sorties sont bien définies et où un expert du domaine peut vérifier le résultat. Ne pas les utiliser pour répondre à des questions sur le sens d'une exigence dans un contexte d'application, ou sur la façon dont un régulateur réagira à une approche de divulgation donnée. Cela exige une expertise que le modèle ne possède pas et ne peut pas simuler de manière fiable.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

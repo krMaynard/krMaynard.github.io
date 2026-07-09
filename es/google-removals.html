@@ -1,0 +1,94 @@
+---
+layout: main
+title: Solicitudes gubernamentales de eliminación de Google
+description: "15 años de solicitudes gubernamentales para eliminar contenido de los productos de Google — 178 países, 61 productos, 22 motivos, 30 periodos de informe."
+lang: es
+lang_url: /google-removals.html
+lang_url_ja: /ja/google-removals.html
+lang_url_zh: /zh/google-removals.html
+lang_url_ko: /ko/google-removals.html
+lang_url_fr: /fr/google-removals.html
+lang_url_de: /de/google-removals.html
+lang_url_it: /it/google-removals.html
+---
+
+<div style="padding-top: 2.5rem; margin-bottom: 0.5rem;"><p class="section-label">Caso de estudio</p></div>
+
+<p style="margin-top: 2rem;"><a href="/es/transparency.html">← Datos de transparencia</a></p>
+
+<div style="padding-top: 1.5rem; margin-bottom: 0.5rem;">
+  <h2 style="margin-top: 0; margin-bottom: 0.5rem;">Solicitudes gubernamentales para eliminar contenido de Google</h2>
+  <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
+    De 2014 a 2024 fui uno de los autores principales de la parte relativa a la Gran China del
+    <a href="https://transparencyreport.google.com/government-removals/explore">Informe de transparencia de Google</a>.
+    Este proyecto convierte el conjunto de datos de solicitudes gubernamentales de eliminación de Google
+    en un explorador de tendencias multiperiodo a través de
+    <strong>30 periodos de informe</strong>, <strong>178 países</strong>, <strong>61 productos de Google</strong>
+    y <strong>22 motivos declarados</strong> de eliminación.
+    A diferencia del propio informe de Google —organizado periodo por periodo— esta vista pone
+    las <strong>tendencias a lo largo de los periodos de informe</strong> en primer plano: cada combinación de filtros se convierte
+    en una serie temporal que puedes desglosar por país, solicitante, producto o motivo.
+  </p>
+</div>
+
+<!-- ── What the data shows ─────────────────────────────────── -->
+<section class="td-intro">
+  <h2 class="td-section-title">Qué recoge este conjunto de datos</h2>
+  <div class="td-callouts">
+    <div class="td-callout">
+      <h3>Quién solicita</h3>
+      <p>Tribunales, funcionarios de gobierno, policía, autoridades de protección de datos, agencias de protección al consumidor, el ejército y otros — desglosado por <em>solicitante</em> a nivel de elemento.</p>
+    </div>
+    <div class="td-callout">
+      <h3>Qué se ataca</h3>
+      <p>Productos específicos de Google — Búsqueda web, YouTube, Maps, Blogger, Play y otros 37 — junto con el <em>motivo</em> declarado: difamación, privacidad, seguridad nacional, crítica al gobierno, derechos de autor y más.</p>
+    </div>
+    <div class="td-callout">
+      <h3>Qué hizo Google</h3>
+      <p>Resultados a nivel de elemento: eliminado por motivos legales, eliminado por motivos de política, contenido ya inexistente, contenido no encontrado, información insuficiente para actuar, o ninguna acción realizada.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Live tool CTA ───────────────────────────────────────── -->
+<div class="card" style="margin: 2rem 0;">
+  <p class="section-label" style="margin: 0 0 0.4rem;">Herramienta en vivo</p>
+  <h3 style="margin-top: 0;">Explorar los datos</h3>
+  <p>El conjunto de datos completo está disponible como panel interactivo — filtra por periodo, país, producto o motivo, y explora seis gráficos de tendencias multianuales, incluidas la tasa de eliminación a lo largo del tiempo y los resultados de cumplimiento.</p>
+  <a href="https://transparency.kieranmaynard.com/removals" class="card-link">Abrir panel en vivo &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/docs" class="card-link">Documentación de la API &rarr;</a>
+</div>
+
+<!-- ── Reading the data ────────────────────────────────────── -->
+<section class="td-readme">
+  <h2 class="td-section-title">Algunas cosas en las que fijarse</h2>
+  <ul class="td-bullets">
+    <li><strong>Tendencias, no instantáneas.</strong> Ajusta <em>Desglosar por → Motivo</em> con los demás filtros en sus valores predeterminados para ver cómo ha cambiado la combinación de motivos declarados desde 2011 en adelante — algo tedioso de reconstruir a partir de las vistas por periodo de Google.</li>
+    <li><strong>Trayectorias por país.</strong> Ajusta <em>Desglosar por → País</em> para comparar lado a lado, a lo largo del tiempo, los principales países solicitantes.</li>
+    <li><strong>La tasa de eliminación es en sí misma una tendencia.</strong> El gráfico de tasa de eliminación rastrea la proporción de elementos atacados que Google realmente eliminó a lo largo del rango de periodos — útil para detectar un endurecimiento o una relajación de la postura de cumplimiento para un país, producto o motivo dado.</li>
+    <li><strong>La difamación domina el volumen en muchas democracias</strong> — filtra <em>Motivo → Difamación</em> para ver cómo los tribunales de países como Rusia, Turquía, India y Brasil impulsan una gran parte de los elementos atacados.</li>
+    <li><strong>La "crítica al gobierno" revela otra historia.</strong> Filtra <em>Motivo → Crítica al gobierno</em> y observa cómo la distribución por país y la línea de tendencia cambian bruscamente.</li>
+    <li><strong>El solicitante importa.</strong> Una <em>orden judicial dirigida a Google</em> tiene un peso operativo distinto al de una solicitud de la <em>policía</em> o una derivación de <em>funcionarios de gobierno</em> — y la combinación cambia año tras año.</li>
+  </ul>
+  <p style="color: var(--text-faint); font-size: 0.85rem; margin-top: 1.25rem;">
+    Advertencias importantes: una "solicitud" es lo que un gobierno presentó; un "elemento" es una URL, un vídeo, una cuenta o una pieza de contenido concretos citados en esa solicitud. Una sola solicitud puede atacar muchos elementos. Las categorías de respuesta de Google son
+    <em>eliminado (legal)</em>, <em>eliminado (política)</em>, <em>contenido ya eliminado</em>, <em>contenido no encontrado</em>, <em>información insuficiente</em> y <em>ninguna acción realizada</em>. La métrica de "tasa de eliminación" cuenta las tres primeras.
+  </p>
+</section>
+
+<!-- ── Programmatic access ─────────────────────────────────── -->
+<section style="margin: 2rem 0 1rem;">
+  <h2 class="td-section-title">Acceso programático</h2>
+  <p style="color: var(--text-muted); max-width: 720px; line-height: 1.65;">
+    El conjunto de datos completo se puede consultar a través de la <a href="https://transparency.kieranmaynard.com">Transparency Report API</a> — filtra por periodo, país, tipo de solicitante, producto o motivo, y agrega cualquier medida numérica con consultas JSON estructuradas. La interfaz asíncrona de trabajo/sondeo gestiona grandes agregaciones sin tiempos de espera.
+  </p>
+  <p style="margin-top: 0.75rem;">
+    <a href="https://transparency.kieranmaynard.com/portal" class="card-link">Obtener acceso de investigador &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/docs" class="card-link">Documentación de la API &rarr;</a>
+  </p>
+</section>
+
+<hr class="section-divider" />
+
+<p style="color: var(--text-very-faint); font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
+  Datos: <a href="https://transparencyreport.google.com/government-removals/overview">Informe de transparencia de Google</a>,
+  solicitudes gubernamentales de eliminación (2011–2.º semestre de 2025). Análisis y visualizaciones por Kieran Maynard.
+</p>

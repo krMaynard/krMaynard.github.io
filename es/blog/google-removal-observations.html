@@ -1,0 +1,71 @@
+---
+layout: main
+title: "Tres cosas que vale la pena notar en los datos de solicitudes de retirada de Google"
+description: "La difamación y la crítica al gobierno tienen distribuciones por país muy distintas. La tasa de retirada cambia con el tiempo. Y el tipo de solicitante tiene un peso operativo real. Lo que muestran los datos cuando los exploras."
+date: 2026-05-12
+lang: es
+lang_url: /blog/google-removal-observations.html
+lang_url_ja: /ja/blog/google-removal-observations.html
+lang_url_zh: /zh/blog/google-removal-observations.html
+lang_url_ko: /ko/blog/google-removal-observations.html
+lang_url_fr: /fr/blog/google-removal-observations.html
+lang_url_de: /de/blog/google-removal-observations.html
+lang_url_it: /it/blog/google-removal-observations.html
+---
+
+<article class="post">
+  <a href="/es/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Escritos</p>
+    <h1>Tres cosas que vale la pena notar en los datos de solicitudes de retirada de Google</h1>
+    <time class="news-date" datetime="2026-05-12">12 de mayo de 2026</time>
+    <div class="tags">
+      <span class="tag">Google</span>
+      <span class="tag">Transparencia</span>
+      <span class="tag">Datos</span>
+      <span class="tag">Análisis</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>Tras pasar una década como uno de los autores principales de la sección de la Gran China del Informe de Transparencia de Google, es un conjunto de datos que conozco bien, tanto lo que muestra como dónde están sus límites. El <a href="/es/transparency.html">panel que publiqué ayer</a> hace que el conjunto de datos completo sea explorable de formas que las instantáneas estáticas por periodo no permiten. Unas cuantas cosas que vale la pena mirar en concreto.</p>
+
+    <h2>La divergencia entre difamación y crítica al gobierno</h2>
+
+    <p>Las distribuciones por país de los distintos motivos de retirada se ven muy diferentes entre sí. Filtra el panel por «difamación» como motivo declarado y verás dominar a Francia, Alemania, India y Brasil: grandes democracias con sistemas judiciales activos que emiten órdenes de retirada de contenido con regularidad. Los tribunales de estos países aplican la ley nacional de difamación, que abarca un rango de expresión sustancialmente más amplio de lo habitual bajo la ley estadounidense, y emiten órdenes de retirada con la frecuencia suficiente como para que el volumen acumulado a lo largo de 30 periodos de reporte sea grande.</p>
+
+    <p>Cambia a «crítica al gobierno» como motivo declarado y el panorama es distinto: un conjunto más reducido de países, con características de libertad de prensa diferentes, concentra una parte desproporcionada de las solicitudes de esa categoría. El contraste no es sutil: se ve de inmediato en los gráficos de barras y persiste a lo largo de la mayoría de los periodos de reporte.</p>
+
+    <p>Esto importa a la hora de leer el recuento total de solicitudes de cualquier país individual. Un volumen absoluto alto puede reflejar un sistema judicial activo que emite órdenes de retirada por difamación bajo un derecho civil bien establecido, algo de carácter distinto a un recuento alto impulsado por solicitudes de crítica al gobierno. El volumen total en todos los motivos es un instrumento tosco; el desglose por motivo es donde están las señales más interesantes.</p>
+
+    <h2>La tasa de retirada cambia con el tiempo</h2>
+
+    <p>La tasa de retirada —la proporción del contenido solicitado que Google retira efectivamente— varía entre países y a lo largo del tiempo de formas que no son visibles en las instantáneas estáticas. El panel muestra la tasa de retirada como un gráfico de serie temporal aparte para la combinación de filtros que hayas seleccionado.</p>
+
+    <p>Ejecútalo para un país concreto y podrás ver cómo cambia la postura de cumplimiento a lo largo de 30 periodos de reporte. Algunos países muestran tasas relativamente estables en todo el conjunto de datos. Otros muestran puntos de inflexión distintos —un periodo en que la tasa de retirada cae bruscamente, o sube— que se corresponden con algo que ocurre fuera de los datos: una resolución judicial sobre el estándar legal aplicable, un cambio en cómo se categorizaban las solicitudes, o un cambio en el enfoque de Google hacia una jurisdicción concreta.</p>
+
+    <p>Los datos no explican la inflexión; señalan dónde mirar. Para un país del que tienes contexto —donde sabes qué estaba ocurriendo a nivel legal o político en un periodo dado— la vista de serie temporal es una manera de comprobar si ese contexto aparece en los datos de cumplimiento.</p>
+
+    <h2>El tipo de solicitante tiene peso operativo</h2>
+
+    <p>El desglose entre órdenes judiciales, solicitudes policiales y solicitudes ejecutivas o administrativas importa para entender qué representan las cifras. Una orden judicial en la mayoría de las jurisdicciones tiene una fuerza legal mayor que una solicitud policial: el proceso de cumplimiento de Google las trata de forma distinta, y la tasa de retirada difiere en consecuencia. Confundirlas en los totales agregados oscurece esa diferencia.</p>
+
+    <p>La mezcla de tipos de solicitante ha cambiado con el tiempo y varía notablemente por país. Algunos países emiten casi exclusivamente órdenes judiciales; otros se apoyan mucho en solicitudes policiales o en solicitudes de organismos ejecutivos. Esa diferencia afecta a cómo interpretar la tasa de retirada: una tasa de retirada alta sobre órdenes judiciales en un país con un poder judicial que funciona es distinta de una tasa de retirada alta sobre solicitudes policiales en un país con características de Estado de derecho diferentes.</p>
+
+    <p>Filtra el panel por un único tipo de solicitante y el panorama se agudiza considerablemente en comparación con mirar los totales agregados. La combinación conjunta del tipo de solicitante y el motivo declarado te acerca más a entender qué está midiendo realmente los datos de solicitudes de retirada para un país dado.</p>
+
+    <p>El conjunto de datos tiene límites reales: es autoinformado, la categorización es la de Google, y el «motivo declarado» refleja cómo el solicitante caracterizó la solicitud, no necesariamente una evaluación jurídica independiente. Pero dentro de esos límites, los patrones son lo bastante consistentes como para ser informativos. El panel está diseñado para hacer explorables esos patrones sin exigirte manipular los archivos CSV subyacentes.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

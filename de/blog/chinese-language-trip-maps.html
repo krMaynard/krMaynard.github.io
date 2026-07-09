@@ -1,0 +1,74 @@
+---
+layout: main
+title: "Wie ich einen Stapel chinesischsprachiger Reisekarten ohne Browser und ohne API-Key erzeugte"
+description: "Ich bat Claude Code in einer sandboxed Web-Session, für jede Station einer Hongkong-Reise Karten in vereinfachtem Chinesisch zu erstellen. Kein Browser, kein Maps-API-Key — nur rohe Kartenkacheln, Pillow und ein Umweg über Chinas verpflichtenden GCJ-02-Koordinatenversatz."
+date: 2026-06-22
+lang: de
+lang_url: /blog/chinese-language-trip-maps.html
+lang_url_ja: /ja/blog/chinese-language-trip-maps.html
+lang_url_zh: /zh/blog/chinese-language-trip-maps.html
+lang_url_ko: /ko/blog/chinese-language-trip-maps.html
+lang_url_fr: /fr/blog/chinese-language-trip-maps.html
+lang_url_es: /es/blog/chinese-language-trip-maps.html
+lang_url_it: /it/blog/chinese-language-trip-maps.html
+---
+
+<article class="post">
+  <a href="/de/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Texte</p>
+    <h1>Wie ich einen Stapel chinesischsprachiger Reisekarten ohne Browser und ohne API-Key erzeugte</h1>
+    <time class="news-date" datetime="2026-06-22">22. Juni 2026</time>
+    <div class="tags">
+      <span class="tag">AI/LLM</span>
+      <span class="tag">Engineering</span>
+      <span class="tag">Reisen</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>Bei der Planung einer viertägigen Hongkong-Reise wollte ich etwas Einfaches: für jede Station eine klare Karte, beschriftet in vereinfachtem Chinesisch. Keine englische Karte mit einer aufgesetzten Nadel, keine Wand aus Links. Zwölf Orte — das Hotel, die Museen, Ocean Park, die Peak Tram, der Flughafen — jeder als eigener, sauberer Screenshot, den ich in eine druckbare Broschüre einfügen konnte.</p>
+
+    <p>Also bat ich Claude Code, in einer sandboxed Web-Session laufend, sie zu erstellen. Was ich für eine Fünf-Minuten-Besorgung hielt, wurde zu einer kleinen Tour durch die Gründe, warum „eine Karte von Hongkong, auf Chinesisch" schwieriger ist, als es klingt — einschließlich eines Koordinatensystems, das eigens dafür existiert, genau solche Aufgaben zu erschweren.</p>
+
+    <h2>Kein Browser, kein API-Key</h2>
+
+    <p>Der naheliegende Weg — eine Karten-Website öffnen, die Sprache auf Chinesisch umstellen, jeden Ort screenshotten — war gleich doppelt versperrt. Die Session hatte keinen Browser zum Steuern, und die aufgeräumten Static-Map-APIs verlangen allesamt einen kostenpflichtigen Key. Diese Umleitung entpuppte sich als Feature, nicht als Bug. Google und OpenStreetMap beschriften Hongkong zweisprachig oder Englisch-zuerst; für echte chinesische Beschriftungen will man einen chinesischen Anbieter. Die Antwort waren Kartenkacheln von AutoNavi (高德), die Hongkong mit vereinfacht-chinesischen Namen rendern — 海洋公园, 太平山顶, 尖沙咀 — dieselben Namen, die man nach der Landung auf Schildern und in Apps sieht. Der Plan: die rohen 256×256-Kartenkacheln abrufen und jedes Bild von Hand mit Pythons Pillow zusammensetzen.</p>
+
+    <h2>Das Koordinatensystem, vor dem einen niemand warnt</h2>
+
+    <p>Hier ist der Haken, der eine Stunde fraß. Chinesische Kartenanbieter sind gesetzlich verpflichtet, <strong>GCJ-02</strong> zu verwenden, ein verschleiertes Koordinatensystem — umgangssprachlich „Mars-Koordinaten" —, das einen bewussten, nichtlinearen Versatz auf die echten WGS-84-Breiten- und Längengrade anwendet. Trägt man eine echte GPS-Koordinate direkt auf eine chinesische Basiskarte ein, landet die Nadel ein paar Hundert Meter daneben: im Gebäude gegenüber oder draußen im Hafen. Der Versatz <em>ist</em> der Zweck — eine staatlich verordnete Bremsschwelle gegen präzise Geodaten.</p>
+
+    <p>Also musste jede Koordinate <em>vor</em> jeder Kachelrechnung durch die Standard-Transformation WGS-84 → GCJ-02 laufen: den Mittelpunkt in Mars-Koordinaten verschieben, die Kacheln um diesen verschobenen Punkt abrufen und dann die Markierung genau mittig setzen, damit sie zur verschobenen Basiskarte passt. Macht man es falsch, ist jede Karte auf subtile, selbstsichere Weise falsch. Macht man es richtig, merkt es niemand — und genau das ist die ganze Aufgabe einer Karte.</p>
+
+    <h2>Die Karte zeichnen</h2>
+
+    <p>Ist das Koordinatenproblem gelöst, ist der Rest Bild-Klempnerei. Für jeden Ort: ermitteln, welche Kacheln das Gebiet abdecken, sie abrufen und zu einer 760 Pixel breiten Karte zusammenfügen, eine tropfenförmige Nadel in die Mitte setzen und obendrauf ein Kopfband mit dem chinesischen Namen, einer Indexnummer und dem Reisetag legen. Chinesischer Text braucht eine CJK-fähige Schrift; die Sandbox brachte zufällig WenQuanYi Zen Hei mit, die das erledigte.</p>
+
+    <p>Der Schritt, der mir am besten gefiel, war die Verifikation. Von Hand eingetippte Koordinaten sind genau die Art Sache, die plausibel-aber-nicht-ganz richtig ist, also las Claude Code nach dem Rendern seine eigenen Ausgabebilder zurück ein und prüfte jede Nadel gegen die beschrifteten Merkmale darunter — sitzt die Markierung des Wissenschaftsmuseums wirklich auf 香港科学馆 oder einen Block weiter nördlich? Ein paar Nadeln wurden nachjustiert; die Star Ferry, die Endstation der Peak Tram und der Flughafen saßen alle punktgenau. Eine Schleife aus Bauen-dann-Ansehen, immer noch leicht neuartig, wenn das, was schaut, dasselbe ist, das gebaut hat.</p>
+
+    <h2>Lokalisierung ist keine Übersetzung</h2>
+
+    <p>Die Karten waren der leichte Teil. Die Worte drumherum waren die Stelle, an der es menschlich wurde. Das Publikum liest festlandchinesisches Mandarin, doch die Broschüre um die Karten herum war leise in ein Hongkong-Kantonesisch-Register abgedriftet. Ich hatte das Hotel als 地铁站上盖 beschrieben — 上盖 ist tadelloses Hongkonger Immobilien-Vokabular für „direkt über der Station gebaut" und für einen Festland-Leser nahezu undurchsichtig. Daraus wurde 就在地铁站楼上. Dann 离港 → 返程, 手信 → 伴手礼 und 有得逛 — eine kantonesische grammatische Konstruktion — → 能逛.</p>
+
+    <p>Das Essen brauchte die umgekehrte Behandlung. 烧味饭, 炖奶, 滑蛋 sind kantonesische Gerichtsnamen, aber sie sind die tatsächlichen Namen auf den tatsächlichen Speisekarten, sodass ein „Korrigieren" die Broschüre falsch machen würde. Diese behielten ihre Namen und bekamen stattdessen Mandarin-Glossen — 烧味饭（即烧腊饭：叉烧、烧鹅、烧肉饭）. Die Restaurants selbst verloren nach einer Feedback-Runde ihre eigenen Kartenseiten ganz: Man navigiert nicht zum Abendessen, wie man zum Ocean Park navigiert, also blieben sie als Text im Tagesplan und fielen aus dem Kartenindex heraus. Nichts davon ist Übersetzung im Wörterbuchsinn. Es ist Register, Dialekt und das Wissen, wann ein Wort ein zu korrigierender Regionalismus ist und wann ein Eigenname, den man in Ruhe lässt.</p>
+
+    <h2>Was ich daraus mitnehme</h2>
+
+    <p>Das landet dort, wo ich immer wieder lande: Die Arbeit geht bei Aufgaben am schnellsten voran, die endlich und überprüfbar sind. Kacheln zusammenfügen, eine bekannte Koordinatentransformation anwenden, bestätigen, dass eine Nadel auf ihrer Beschriftung sitzt — jeder Schritt hat eine richtige Antwort, die man durch Hinsehen verifizieren kann, was das <a href="/de/blog/fable-5-security-review.html">widerspiegelt</a>, was ich bei Security-Sweeps und Compliance-Tooling erlebe. Der GCJ-02-Umweg ist die Sorte Fachwissen, die mühsam herauszufinden und, einmal bekannt, trivial anzuwenden ist — genau das, was sich auszulagern lohnt.</p>
+
+    <p>Das Urteil blieb meins: welche zwölf Orte als „primär" zählen, dass die Restaurants keine Karten brauchten, dass ein Festland-Mandarin-Leser 上盖 nicht entschlüsseln müssen sollte. Die fertige Broschüre — zwölf chinesischsprachige Karten, ein Tag-für-Tag-Plan und ein druckbares PDF — kam aus einer Sandbox ohne Browser und ohne API-Key. Vor einem Jahr hätte ich nicht vermutet, dass das die einfache Variante ist.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

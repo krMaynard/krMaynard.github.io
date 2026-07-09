@@ -1,0 +1,59 @@
+---
+layout: main
+title: Report sui termini di servizio dei social media dello Stato di New York
+description: "Un archivio e un catalogo dei report sui termini di servizio che le aziende di social media presentano al Procuratore Generale di New York ai sensi dello Stop Hiding Hate Act — 29 depositi, terzo e quarto trimestre 2025."
+lang: it
+lang_url: /ny-tos.html
+lang_url_ja: /ja/ny-tos.html
+lang_url_zh: /zh/ny-tos.html
+lang_url_ko: /ko/ny-tos.html
+lang_url_fr: /fr/ny-tos.html
+lang_url_es: /es/ny-tos.html
+lang_url_de: /de/ny-tos.html
+---
+
+<div style="padding-top: 2.5rem; margin-bottom: 0.5rem;">
+  <p class="section-label">Caso di studio</p>
+  <h1 style="margin-top: 0; margin-bottom: 0.5rem;">Report sui termini di servizio dei social media dello Stato di New York</h1>
+  <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
+    Lo <strong>Stop Hiding Hate Act</strong> (S895B) di New York impone alle piattaforme di social media con oltre 100&nbsp;milioni
+    di dollari di ricavi annui e utenti nello Stato di New York di presentare al Procuratore Generale dello Stato report
+    sui termini di servizio <strong>due volte l'anno</strong>. Ogni report descrive come la piattaforma definisce e modera
+    le condotte d'odio, il razzismo, l'estremismo, la disinformazione, le molestie e le interferenze politiche straniere.
+  </p>
+  <p style="color: var(--text-muted); margin-bottom: 0.75rem; max-width: 720px; line-height: 1.65; background: transparent;">
+    Questo progetto raccoglie l'indice pubblico del Procuratore Generale, archivia ogni deposito pubblicato e costruisce un
+    catalogo piatto e citabile che copre tutti i <strong>29 depositi</strong> del terzo e quarto trimestre 2025 — di Meta,
+    Alphabet (YouTube), TikTok, X, Snap, Reddit, Discord, Roblox, LinkedIn, Amazon (Twitch e GoodReads) e altri ancora.
+  </p>
+  <p style="color: var(--text-muted); max-width: 720px; line-height: 1.65; background: transparent;">
+    Fonte: <a href="https://ag.ny.gov/resources/organizations/social-media-tos-reporting/reports" target="_blank" rel="noopener">Procuratore Generale di New York — Report sui termini di servizio dei social media</a>.
+    File archiviati e catalogo: <a href="https://github.com/krMaynard/dsa-transparency-data/tree/main/ny-tos-reports" target="_blank" rel="noopener">github.com/krMaynard/dsa-transparency-data</a>.
+  </p>
+</div>
+
+<!-- ── Live tool CTA ───────────────────────────────────────── -->
+<div class="card" style="margin: 2rem 0;">
+  <p class="section-label" style="margin: 0 0 0.4rem;">Strumento interattivo</p>
+  <h3 style="margin-top: 0;">Sfoglia il catalogo</h3>
+  <p>Il catalogo completo è disponibile sulla Transparency Report API — una tabella filtrabile di ogni deposito, con link al report sul sito del Procuratore Generale e a una copia archiviata del PDF, oltre a un endpoint JSON/CSV pubblico e in sola lettura.</p>
+  <a href="https://transparency.kieranmaynard.com/ny-tos" class="card-link">Apri il catalogo &rarr;</a>&ensp;<a href="https://transparency.kieranmaynard.com/api/ny-tos-reports" class="card-link">API JSON &rarr;</a>
+</div>
+
+<!-- ── Reading the data ────────────────────────────────────── -->
+<section class="td-readme">
+  <h2 class="td-section-title">Come leggere i dati</h2>
+  <ul class="td-bullets">
+    <li><strong>Di cosa si tratta.</strong> Sono PDF di <em>policy</em> descrittivi — la descrizione che ogni azienda fa dei propri termini di servizio e delle proprie pratiche di moderazione — non le tabelle statistiche leggibili automaticamente dei report EU DSA. Vengono quindi archiviati come PDF originali, non elaborati in un database.</li>
+    <li><strong>Azienda e piattaforma.</strong> Alcune aziende presentano depositi separati per singole piattaforme o marchi — ad esempio, Amazon presenta report distinti per <em>Twitch</em> e <em>GoodReads</em>.</li>
+    <li><strong>Periodo.</strong> La legge impone una rendicontazione due volte l'anno; il catalogo copre il terzo e quarto trimestre 2025.</li>
+    <li><strong>Accesso.</strong> 11 dei 29 depositi sono forniti dalla directory pubblica del Procuratore Generale e sono replicati qui come PDF archiviati. Gli altri 18 sono forniti da una directory di caricamento privata che reindirizza i visitatori anonimi a una pagina di login, quindi sono catalogati solo con il link alla fonte (contrassegnati come <em>auth-required</em>) — con ogni probabilità un errore di configurazione, dato che sono elencati pubblicamente.</li>
+    <li><strong>Archiviato.</strong> Quando un deposito è pubblico, uno snapshot del PDF viene replicato nel repository di dati aperti, nel caso in cui il link originale venga spostato.</li>
+  </ul>
+</section>
+
+<hr class="section-divider" />
+
+<p style="color: var(--text-very-faint); font-size: 0.82rem; margin-bottom: 3rem; background: transparent;">
+  Dati: depositi sui termini di servizio dei social media del Procuratore Generale di New York, terzo e quarto trimestre 2025. Archivio e analisi a cura di Kieran Maynard. Nessuna analisi statistica o tracciamento oltre l'impostazione predefinita del sito.
+</p>

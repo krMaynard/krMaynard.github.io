@@ -1,0 +1,77 @@
+---
+layout: main
+title: "Was das EU-DSA-Transparenz-Reporting tatsächlich verlangt"
+description: "Artikel 15 erfasst alle Vermittlungsdienste jährlich. Artikel 42 fügt halbjährliche, detaillierte VLOP-Pflichten hinzu. Die praktische Kluft ist beträchtlich — und sie zeigt sich in der Reporting-Infrastruktur."
+date: 2026-03-05
+lang: de
+lang_url: /blog/dsa-transparency-requirements.html
+lang_url_ja: /ja/blog/dsa-transparency-requirements.html
+lang_url_zh: /zh/blog/dsa-transparency-requirements.html
+lang_url_ko: /ko/blog/dsa-transparency-requirements.html
+lang_url_fr: /fr/blog/dsa-transparency-requirements.html
+lang_url_es: /es/blog/dsa-transparency-requirements.html
+lang_url_it: /it/blog/dsa-transparency-requirements.html
+---
+
+<article class="post">
+  <a href="/de/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Texte</p>
+    <h1>Was das EU-DSA-Transparenz-Reporting tatsächlich verlangt</h1>
+    <time class="news-date" datetime="2026-03-05">5. März 2026</time>
+    <div class="tags">
+      <span class="tag">EU DSA</span>
+      <span class="tag">Compliance-PM</span>
+      <span class="tag">Regulierung</span>
+      <span class="tag">Product Management</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>Die Transparenz-Berichtspflichten des EU Digital Services Act werden oft verkürzt beschrieben — „einen Bericht zur Content-Moderation veröffentlichen" —, doch die tatsächlichen gesetzlichen Anforderungen sind konkreter, und die Kluft zwischen dem, was verschiedene Plattformtypen berichten müssen, ist beträchtlich.</p>
+
+    <h2>Artikel 15: Die Grundlinie für alle Vermittlungsdienste</h2>
+
+    <p>Artikel 15 gilt für alle Anbieter von Vermittlungsdiensten — Hosting-Dienste, Caching-Dienste, reine Durchleitungsanbieter — unabhängig von der Größe. Er verlangt die jährliche Veröffentlichung eines Transparenzberichts, der vier Bereiche abdeckt.</p>
+
+    <p>Die Zahl der von Behörden der Mitgliedstaaten nach Artikel 9 (Anordnungen zum Vorgehen gegen Inhalte) und Artikel 10 (Anordnungen zur Bereitstellung von Informationen) erhaltenen Anordnungen, samt der medianen Zeit bis zur Befolgung und der Zahl der angefochtenen Anordnungen. Die Zahl der nach Artikel 16 (dem „Melde- und Abhilfeverfahren") erhaltenen Meldungen, aufgeschlüsselt nach Art des mutmaßlich rechtswidrigen Inhalts und der ergriffenen Maßnahme. Auf Eigeninitiative ergriffene Moderationsmaßnahmen gegen rechtswidrige oder gegen die Nutzungsbedingungen verstoßende Inhalte, aufgeschlüsselt nach Inhaltskategorie, den zur Erkennung eingesetzten automatisierten Mitteln und der ergriffenen Maßnahme. Und die Zahl der nach Artikel 21 an außergerichtliche Streitbeilegungsstellen übermittelten Streitigkeiten.</p>
+
+    <p>Für die meisten Plattformen sind diese Anforderungen mit strukturierten Datenexporten zu bewältigen. Eine Plattform, die Meldungen bearbeitet und Moderationsmaßnahmen ergreift, verfügt über die zugrunde liegenden Daten — die Compliance-Arbeit besteht darin, sie in einem einheitlichen Format prüfbar und berichtsfähig zu machen und dieses Format über die Berichtszeiträume hinweg beizubehalten.</p>
+
+    <h2>Artikel 42: Was VLOPs und VLOSEs zusätzlich leisten müssen</h2>
+
+    <p>Für Plattformen, die als Very Large Online Platforms oder Very Large Online Search Engines eingestuft sind — grob: mehr als 45 Millionen aktive monatliche Nutzer in der EU —, erweitert Artikel 42 diese Pflichten erheblich.</p>
+
+    <p>Die Berichtsfrequenz steigt von jährlich auf halbjährlich. Alle sechs Monate müssen VLOPs einen vollständigen Transparenzbericht veröffentlichen, der dieselben Kategorien wie Artikel 15 mit deutlich größerer Granularität abdeckt. Kein Update — ein vollständiger Bericht.</p>
+
+    <p>Aufschlüsselungen nach Inhaltskategorie und Sprache werden verpflichtend. Das kategorieweise Reporting, das Artikel 15 auf hoher Ebene verlangt, wird für VLOPs weit detaillierter: Aufschlüsselungen nach der konkreten Inhaltskategorie innerhalb jeder Art rechtswidriger Inhalte und nach der Sprache des Inhalts. Das erfordert strukturierte Klassifikationsdaten, die jede Moderationsmaßnahme mit einer bestimmten Kategorie in der Taxonomie der Plattform verknüpfen, die ihrerseits auf die im DSA definierten Kategorien abgebildet werden muss. Diese Zuordnung aufzubauen — und sie zu pflegen, während sich sowohl die Plattform-Richtlinien als auch die DSA-Leitlinien weiterentwickeln — ist ein nicht triviales Infrastrukturproblem.</p>
+
+    <p>Daten zu Entscheidungszeiträumen sind erforderlich: die mediane Zeit zwischen Erhalt einer Meldung und dem Ergreifen einer Maßnahme, die mediane Zeit bis zur Benachrichtigung des Nutzers über die Maßnahme und ähnliche operative Kennzahlen. Das sind keine nachträglichen Berechnungen; sie erfordern, dass Zeitstempel an jeder Stufe des Meldebearbeitungs-Workflows erfasst und gespeichert werden. Sind die Zeitstempel nicht vorhanden, wenn man sie braucht, lassen sie sich nicht rekonstruieren.</p>
+
+    <p>Für Nutzerwidersprüche nach Artikel 20 müssen Plattformen die Zahl der eingegangenen Widersprüche, die Zahl der rückgängig gemachten und die mediane Zeit bis zur Entscheidung berichten. Auch dies verlangt, dass die operativen Daten zum Berichtszeitpunkt vorliegen — eine strukturierte Widerspruchs-Pipeline mit Entscheidungs-Tracking, keine von einem Policy-Analysten gepflegte Tabelle.</p>
+
+    <p>Artikel 42(2) fügt Anforderungen speziell für nach Artikel 9 und 10 erhaltene behördliche Anordnungen hinzu, einschließlich der Aufschlüsselung nach dem anordnenden Mitgliedstaat und der angeführten Rechtsgrundlage.</p>
+
+    <h2>Die praktische Kluft</h2>
+
+    <p>Eine Plattform, die nur Meldungen nach Artikel 16 bearbeitet, kann einen Compliance-Workflow um eine strukturierte Datenbank eingehender Meldungen und ausgehender Maßnahmen herum aufbauen. Die Datenform ist relativ einfach und der Takt jährlich. Ein VLOP kann das nicht: Er braucht die Kategorien-Klassifikation zum Zeitpunkt der Moderation (nicht rückwirkend etikettiert), zeitgestempelte Workflow-Stufen über den gesamten Meldungslebenszyklus, eine strukturierte Widerspruchs-Pipeline mit Entscheidungs-Tracking und die organisatorische Kapazität, alle sechs Monate einen vollständigen Bericht zu erstellen und zu veröffentlichen.</p>
+
+    <p>Die Kommission veröffentlichte 2024 eine harmonisierte Berichtsvorlage, die Standardisierung in die Kategorien und Kennzahlen brachte. Die Berichte für H2 2025 sind die ersten, die dieser Vorlage vollständig folgen, einschließlich Precision- und Recall-Indikatoren für automatisierte Erkennungswerkzeuge — was eine Lücke füllt, die das DSA Observatory als Quelle faktisch bedeutungsloser Genauigkeitsdaten unter dem vorherigen Ansatz identifiziert hatte.</p>
+
+    <p>Die Veröffentlichung selbst hat Anforderungen: Berichte müssen an die Transparenzdatenbank der Europäischen Kommission übermittelt (für einzelne Anordnungen und Meldungen) und, wo möglich, in maschinenlesbarem Format auf der Website der Plattform veröffentlicht werden. Die Pflicht zur Datenbankübermittlung ist von der Website-Veröffentlichung getrennt, und die Fristen unterscheiden sich.</p>
+
+    <p>Das Durchsetzungsbild entwickelt sich noch. Die Kommission leitete 2024 förmliche Verfahren gegen X und TikTok ein; der DSA verleiht der Kommission direkte Durchsetzungsbefugnisse gegenüber VLOPs auf eine Weise, die für kleinere, allein unter Artikel 15 operierende Plattformen nicht gilt. Das Reporting richtig zu machen, zählt sowohl als Compliance-Pflicht als auch als primärer Beweismaterial-Nachweis in jedem Kommissionsverfahren.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

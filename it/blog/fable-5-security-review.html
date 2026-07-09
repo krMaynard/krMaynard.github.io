@@ -1,0 +1,68 @@
+---
+layout: main
+title: "Come ho corretto cinque vulnerabilità API con un solo prompt e Claude Fable 5"
+description: "Ho chiesto a Claude Code, con il nuovo modello Fable 5 di Anthropic, di fare una revisione di sicurezza della mia API di ricerca. Ha trovato e corretto cinque problemi reali — SSRF, injection di CSV, un canale laterale temporale — e poi ha verificato i fatti del bot che ha revisionato la sua PR."
+date: 2026-06-11
+lang: it
+lang_url: /blog/fable-5-security-review.html
+lang_url_ja: /ja/blog/fable-5-security-review.html
+lang_url_zh: /zh/blog/fable-5-security-review.html
+lang_url_ko: /ko/blog/fable-5-security-review.html
+lang_url_fr: /fr/blog/fable-5-security-review.html
+lang_url_es: /es/blog/fable-5-security-review.html
+lang_url_de: /de/blog/fable-5-security-review.html
+---
+
+<article class="post">
+  <a href="/it/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Scritti</p>
+    <h1>Come ho corretto cinque vulnerabilità API con un solo prompt e Claude Fable 5</h1>
+    <time class="news-date" datetime="2026-06-11">11 giugno 2026</time>
+    <div class="tags">
+      <span class="tag">AI/LLM</span>
+      <span class="tag">Sicurezza</span>
+      <span class="tag">Engineering</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>Dietro la <a href="/it/vlop.html">dashboard di trasparenza VLOP</a> c'è un piccolo servizio FastAPI — un'API a query strutturate modellata sulla TikTok Research API, che serve dati di trasparenza aggregati del DSA UE. Diversi dei suoi endpoint sono deliberatamente pubblici: un query builder interattivo, una casella "ask" in linguaggio naturale, un feed di panoramica. Gli endpoint pubblici di un servizio in scala hobbistica sono esattamente il punto in cui il debito di sicurezza si accumula in silenzio, perché nulla ti costringe a guardare.</p>
+
+    <p>Così ho chiesto a Claude Code — con <a href="https://www.anthropic.com/news/claude-fable-5-mythos-5">Fable 5</a>, il primo modello della famiglia Claude 5 di Anthropic — di guardare. Il prompt era una riga: <em>"esegui un controllo di sicurezza sull'API e correggi eventuali vulnerabilità."</em> Ciò che è tornato indietro era una pull request con cinque correzioni distinte, ciascuna con test di regressione, più una self-review del proprio diff.</p>
+
+    <h2>Cosa ha trovato</h2>
+
+    <p><strong>Una falla SSRF nelle callback dei webhook.</strong> L'API consente a una query di portare un <code>callback_url</code> a cui viene inviato un POST al termine del job — una classica superficie di server-side request forgery. Il controllo esistente bloccava gli intervalli privati, di loopback, link-local e di metadati cloud, ma il block-listing è la forma sbagliata per questo problema: mancava intervalli che non sono né privati né pubblici, come il carrier-grade NAT (100.64.0.0/10). La correzione inverte il controllo — un target di callback ora deve essere <em>instradabile a livello globale</em>, altrimenti viene rifiutato.</p>
+
+    <p><strong>Injection di formule CSV.</strong> I risultati delle query si esportano in CSV, e il dataset include campi di testo libero provenienti da report di trasparenza di terze parti. Una cella che inizia con <code>=</code>, <code>+</code>, <code>-</code> o <code>@</code> viene eseguita come formula quando il file si apre in Excel o Sheets — il che significa che un valore in un report pubblicato da qualcun altro potrebbe eseguire codice sulla macchina di un ricercatore. Le celle di testo con quei prefissi vengono ora neutralizzate, sia lato server sia nell'esportazione lato client della dashboard.</p>
+
+    <p><strong>Corpi delle richieste e complessità delle query senza limiti.</strong> L'endpoint di query pubblico accetta l'intero modello di query strutturata senza autenticazione. Nulla poneva un limite alla dimensione del corpo di una richiesta o al numero di condizioni che una query poteva accumulare. I corpi oltre un limite vengono ora rifiutati con un 413 prima di qualsiasi lavoro di parsing, e il modello di query stesso limita i valori per condizione, le condizioni per clausola e i campi per richiesta.</p>
+
+    <p><strong>Un canale laterale temporale nei controlli delle chiavi API.</strong> Le chiavi venivano verificate con una ricerca in un dizionario, che si interrompe al primo carattere differente — in linea di principio, la temporizzazione della risposta rivela i prefissi delle chiavi. Il confronto ora è a tempo costante su ogni chiave configurata.</p>
+
+    <p><strong>Più un assortimento di irrobustimenti</strong> — il tipo di voci di piccolo calibro che una passata su checklist intercetta e un manutentore indaffarato no: limiti sui parametri di paginazione, cose del genere.</p>
+
+    <h2>La parte che mi ha sorpreso</h2>
+
+    <p>La pull request ha attivato una revisione automatica da parte di una seconda IA, Gemini Code Assist, che ha lasciato due suggerimenti. Fable 5 li ha valutati entrambi rispetto al codice sorgente effettivo prima di agire — e su uno di essi ha trovato incompleto il ragionamento del bot. Gemini ha segnalato che il parsing in intero di un header <code>Content-Length</code> di lunghezza arbitraria fornito da un attaccante potrebbe consumare CPU. Vero ma marginale. Il problema più acuto, che Fable 5 ha individuato e spiegato nella sua risposta, è che Python 3.11+ si rifiuta di eseguire il parsing di interi oltre circa 4.300 cifre e solleva invece un'eccezione — quindi un header patologico avrebbe prodotto un errore 500 anziché il 413 previsto. Ha inoltre generalizzato la correzione hard-coded di Gemini così che il limite segua quello configurato, e ha aggiunto un test di regressione che invia un header da 5.000 cifre. Un'IA che revisiona la revisione di un'altra IA sul codice della prima IA, avendo ragione sul disaccordo, non era nella mia cartella della tombola per il 2026.</p>
+
+    <h2>Cosa ne traggo</h2>
+
+    <p>Questo fa rima con quanto ho scritto sugli <a href="/it/blog/llms-compliance-pm.html">LLM nel lavoro di conformità</a>: i successi arrivano su compiti strutturati con output verificabili. Una passata di sicurezza su un piccolo codebase è esattamente questo — una checklist finita (superfici di injection, SSRF, canali laterali, esaurimento delle risorse) applicata in modo esaustivo, dove ogni scoperta può essere confermata leggendo il codice e ogni correzione può essere fissata con un test. Esaustivo-e-noioso è il terreno dove ora i modelli battono con affidabilità gli esseri umani stanchi.</p>
+
+    <p>Il giudizio è rimasto a me. Decidere che l'endpoint delle metriche può restare senza autenticazione, che le chiavi demo sono accettabili fuori produzione, che un archivio di job in memoria va bene per un servizio dimostrativo — sono decisioni di threat-model su ciò a cui il servizio <em>serve</em>, e il modello non ha finto il contrario. Il diff completo, test inclusi, è nella <a href="https://github.com/krMaynard/transparency-report-api/pull/34" target="_blank" rel="noopener">pull request</a>; la suite esegue 122 test ed è verde.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

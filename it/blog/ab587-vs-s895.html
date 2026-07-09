@@ -1,0 +1,72 @@
+---
+layout: main
+title: "California AB 587 contro New York S895: cosa cambia e perché è importante"
+description: "Entrambe le leggi richiedono report di trasparenza sulla moderazione dei contenuti dei social media. I loro requisiti sui dati divergono in modi che impongono pipeline di reporting separate, anche quando i cicli di revisione possono essere condivisi."
+date: 2026-04-05
+lang: it
+lang_url: /blog/ab587-vs-s895.html
+lang_url_ja: /ja/blog/ab587-vs-s895.html
+lang_url_zh: /zh/blog/ab587-vs-s895.html
+lang_url_ko: /ko/blog/ab587-vs-s895.html
+lang_url_fr: /fr/blog/ab587-vs-s895.html
+lang_url_es: /es/blog/ab587-vs-s895.html
+lang_url_de: /de/blog/ab587-vs-s895.html
+---
+
+<article class="post">
+  <a href="/it/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Scritti</p>
+    <h1>California AB 587 contro New York S895: cosa cambia e perché è importante</h1>
+    <time class="news-date" datetime="2026-04-05">5 aprile 2026</time>
+    <div class="tags">
+      <span class="tag">Regolamentazione</span>
+      <span class="tag">Compliance PM</span>
+      <span class="tag">Product Management</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>Entrambe le leggi impongono alle aziende di social media di pubblicare report di trasparenza sulla moderazione dei contenuti. Condividono una struttura di applicazione (i procuratori generali statali), una materia generale (come le piattaforme gestiscono i contenuti dannosi) e un momento politico simile. Divergono in modi che contano sul piano operativo.</p>
+
+    <h2>AB 587: divulgazione delle policy</h2>
+
+    <p>La AB 587 della California, entrata in vigore nel gennaio 2024, riguarda fondamentalmente la trasparenza delle policy. La legge richiede alle piattaforme con almeno 100 milioni di utenti medi mensili di depositare i propri termini di servizio presso il procuratore generale della California e di pubblicare report di trasparenza semestrali che descrivano come applicano tali termini.</p>
+
+    <p>Le categorie di contenuto sono definite dalla legge: incitamento all'odio o razzismo, disinformazione o cattiva informazione, molestie, radicalizzazione o estremismo, interferenza politica straniera, vendita o uso di sostanze controllate, sfruttamento di esseri umani, e autolesionismo o suicidio. Per ogni categoria le piattaforme devono descrivere il proprio approccio all'applicazione: cosa copre la policy, quali metodi di rilevamento vengono utilizzati, quante azioni di applicazione sono state adottate nel periodo di riferimento.</p>
+
+    <p>I report vengono depositati presso il procuratore generale della California e pubblicati pubblicamente dall'ufficio del procuratore. Il pubblico previsto è tanto la società civile e la stampa quanto il regolatore: la AB 587 è stata concepita come meccanismo di trasparenza, non principalmente come leva di applicazione.</p>
+
+    <p>Ciò che la AB 587 non richiede: dati operativi precisi a livello di singola azione. La legge chiede dati aggregati e descrizioni delle policy. Una piattaforma può riferire di aver adottato azioni di applicazione nella categoria "incitamento all'odio" usando una combinazione di rilevamento automatizzato e revisione umana, senza specificare i conteggi esatti di ciascun tipo di rilevamento o le tempistiche di decisione dei singoli casi. L'obbligo di reporting è reale, ma la precisione dei dati richiesta è relativamente bassa.</p>
+
+    <h2>S895: dati operativi</h2>
+
+    <p>La S895 di New York, applicabile ai report dovuti nel 2025, è più specifica sul piano operativo. Le piattaforme con almeno un milione di utenti a New York devono depositare report trimestrali presso il procuratore generale di New York che indichino il numero di contenuti oggetto di azione, il numero di account sospesi o chiusi e il numero di ricorsi trattati, il tutto suddiviso per categoria di contenuto.</p>
+
+    <p>Le categorie ricalcano in larga misura quelle della AB 587, ma il requisito sui dati è diverso. La S895 richiede conteggi di azioni specifiche a livello di categoria, ogni trimestre. Una piattaforma che riferisce ai sensi della S895 deve rispondere: nel Q4 2025, quanti contenuti sono stati oggetto di azione per "molestie" e quante di quelle azioni sono state impugnate e ribaltate?</p>
+
+    <p>È un problema di dati operativi strutturati. I dati devono esistere a quel livello di granularità, devono essere interrogabili per categoria e devono essere abbastanza accurati da poter essere depositati presso un procuratore generale statale. Una piattaforma che ha registrato le azioni di moderazione in un database ben strutturato lo ottiene con relativa facilità; una che ha tracciato l'applicazione tramite esportazioni dagli strumenti di moderazione potrebbe non riuscirci.</p>
+
+    <h2>La divergenza infrastrutturale</h2>
+
+    <p>Entrambe le leggi hanno framework a 10 categorie con definizioni che si sovrappongono, il che crea una certa efficienza. Una piattaforma può progettare la propria tassonomia dei contenuti tenendo conto di entrambe, e il processo di revisione interfunzionale — revisione legale dei dati e delle divulgazioni, approvazione delle policy sulle mappature delle categorie, validazione dei dati da parte dell'engineering — può essere condiviso tra i due depositi.</p>
+
+    <p>Ma i requisiti sui dati sottostanti sono abbastanza diversi da richiedere pipeline separate. I report AB 587 sono composti da documentazione delle policy e dati di applicazione aggregati; la precisione di questi dati può essere inferiore perché la legge non richiede conteggi esatti a granularità fine. I report S895 richiedono conteggi esatti, per categoria, per trimestre. Un'estrazione di dati che funziona per la AB 587 non produrrà necessariamente i dati nella forma giusta per la S895, e i criteri di validazione differiscono.</p>
+
+    <p>Anche le cadenze di deposito differiscono: la AB 587 è semestrale, la S895 è trimestrale. Una piattaforma che deposita entrambe nello stesso periodo necessita di due flussi di lavoro di produzione coordinati con scadenze diverse e formati di dati diversi, condividendo la capacità di revisione interfunzionale tra depositi che non ricadono nello stesso momento.</p>
+
+    <p>Nella pratica, abbiamo gestito la AB 587 (H2 2025) e la S895 (Q4 2025) in parallelo all'inizio del 2026. La capacità di revisione interfunzionale è stata condivisa. Le linee di dati no — e il tentativo di riconciliarle presto nel processo, prima di aver mappato completamente le differenze definitorie tra le due leggi, è costato tempo. Costruire in anticipo la mappa dei requisiti per ciascuna legge, prima che inizi l'estrazione dei dati, è il giusto ordine delle operazioni.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

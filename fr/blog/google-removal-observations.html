@@ -1,0 +1,71 @@
+---
+layout: main
+title: "Trois choses à remarquer dans les données de demandes de retrait de Google"
+description: "La diffamation et la critique des gouvernements ont des répartitions par pays très différentes. Le taux de retrait évolue dans le temps. Et le type de demandeur a un poids opérationnel réel. Ce que montrent les données quand on les explore."
+date: 2026-05-12
+lang: fr
+lang_url: /blog/google-removal-observations.html
+lang_url_ja: /ja/blog/google-removal-observations.html
+lang_url_zh: /zh/blog/google-removal-observations.html
+lang_url_ko: /ko/blog/google-removal-observations.html
+lang_url_es: /es/blog/google-removal-observations.html
+lang_url_de: /de/blog/google-removal-observations.html
+lang_url_it: /it/blog/google-removal-observations.html
+---
+
+<article class="post">
+  <a href="/fr/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Écrits</p>
+    <h1>Trois choses à remarquer dans les données de demandes de retrait de Google</h1>
+    <time class="news-date" datetime="2026-05-12">12 mai 2026</time>
+    <div class="tags">
+      <span class="tag">Google</span>
+      <span class="tag">Transparence</span>
+      <span class="tag">Données</span>
+      <span class="tag">Analyse</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>Ayant passé une décennie comme l'un des principaux rédacteurs de la section Grande Chine du Google Transparency Report, c'est un jeu de données que je connais bien — tant ce qu'il montre que ses limites. Le <a href="/fr/transparency.html">tableau de bord que j'ai publié hier</a> rend l'ensemble du jeu de données explorable d'une façon impossible avec les instantanés statiques par période. Voici quelques points qui méritent tout particulièrement l'attention.</p>
+
+    <h2>La divergence diffamation / critique des gouvernements</h2>
+
+    <p>Les répartitions par pays selon les motifs de retrait présentent des visages très différents les uns des autres. Filtrez le tableau de bord sur « diffamation » comme motif déclaré et vous obtenez la France, l'Allemagne, l'Inde et le Brésil en tête — de grandes démocraties dotées de systèmes judiciaires actifs qui émettent régulièrement des injonctions de retrait de contenu. Les tribunaux de ces pays appliquent le droit national de la diffamation, qui couvre un éventail de propos sensiblement plus large que ce qui est habituel en droit américain, et ils émettent des injonctions de retrait assez régulièrement pour que le volume cumulé sur 30 périodes de reporting soit important.</p>
+
+    <p>Passez à « critique des gouvernements » comme motif déclaré et le tableau change : un ensemble plus restreint de pays, aux caractéristiques différentes en matière de liberté de la presse, représente une part disproportionnée des demandes dans cette catégorie. Le contraste n'a rien de subtil — il est immédiatement visible dans les diagrammes en barres et persiste sur la plupart des périodes de reporting.</p>
+
+    <p>Cela compte pour la manière de lire le nombre total de demandes de n'importe quel pays pris isolément. Un volume absolu élevé peut refléter un système judiciaire actif émettant des injonctions de retrait pour diffamation dans le cadre d'un droit civil bien établi, ce qui est de nature différente d'un décompte élevé porté par des demandes de critique des gouvernements. Le volume total tous motifs confondus est un instrument grossier ; c'est dans la ventilation par motif que se trouvent les signaux les plus intéressants.</p>
+
+    <h2>Le taux de retrait évolue dans le temps</h2>
+
+    <p>Le taux de retrait — la part du contenu demandé que Google retire effectivement — varie selon les pays et dans le temps d'une manière que les instantanés statiques ne laissent pas voir. Le tableau de bord affiche le taux de retrait sous forme de graphique de série temporelle distinct pour la combinaison de filtres que vous avez sélectionnée.</p>
+
+    <p>Lancez-le pour un pays donné et vous pouvez observer l'évolution de la posture de conformité sur 30 périodes de reporting. Certains pays affichent des taux relativement stables sur l'ensemble du jeu de données. D'autres présentent des points d'inflexion nets — une période où le taux de retrait chute brutalement, ou grimpe — qui correspondent à un événement extérieur aux données : une décision de justice sur le standard juridique applicable, un changement dans la manière de catégoriser les demandes, ou un changement d'approche de Google envers une juridiction donnée.</p>
+
+    <p>Les données n'expliquent pas l'inflexion ; elles indiquent où regarder. Pour un pays dont vous avez le contexte — où vous savez ce qui se passait juridiquement ou politiquement à une période donnée — la vue en série temporelle est un moyen de vérifier si ce contexte transparaît dans les données de conformité.</p>
+
+    <h2>Le type de demandeur a un poids opérationnel</h2>
+
+    <p>La distinction entre injonctions judiciaires, demandes de la police et demandes de l'exécutif ou de l'administration compte pour comprendre ce que représentent les chiffres. Dans la plupart des juridictions, une injonction judiciaire a une force juridique plus forte qu'une demande de la police — le processus de conformité de Google les traite différemment, et le taux de retrait diffère en conséquence. Les confondre dans des totaux agrégés masque cette différence.</p>
+
+    <p>La composition par type de demandeur a évolué dans le temps et varie sensiblement d'un pays à l'autre. Certains pays n'émettent presque exclusivement que des injonctions judiciaires ; d'autres s'appuient largement sur les demandes de la police ou sur les demandes d'agences de l'exécutif. Cette différence influe sur la façon d'interpréter le taux de retrait : un taux de retrait élevé sur des injonctions judiciaires dans un pays doté d'un pouvoir judiciaire qui fonctionne n'est pas la même chose qu'un taux de retrait élevé sur des demandes de la police dans un pays aux caractéristiques différentes en matière d'État de droit.</p>
+
+    <p>Filtrez le tableau de bord sur un seul type de demandeur et le tableau se précise considérablement par rapport à la lecture des totaux agrégés. La combinaison du type de demandeur et du motif déclaré vous rapproche de la compréhension de ce que les données de demandes de retrait mesurent réellement pour un pays donné.</p>
+
+    <p>Le jeu de données a de véritables limites — il est auto-déclaré, la catégorisation est celle de Google, et le « motif déclaré » reflète la manière dont le demandeur a caractérisé la demande, pas nécessairement une évaluation juridique indépendante. Mais dans ces limites, les schémas sont suffisamment cohérents pour être instructifs. Le tableau de bord est conçu pour rendre ces schémas explorables sans avoir à manipuler les fichiers CSV sous-jacents.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

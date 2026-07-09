@@ -1,0 +1,74 @@
+---
+layout: main
+title: "Comment j'ai généré une pile de cartes de voyage en chinois sans navigateur ni clé d'API"
+description: "J'ai demandé à Claude Code, dans une session web en bac à sable, de créer des cartes en chinois simplifié pour chaque étape d'un voyage à Hong Kong. Pas de navigateur, pas de clé d'API Maps — juste des tuiles de carte brutes, Pillow, et un détour par le décalage de coordonnées GCJ-02 imposé par la Chine."
+date: 2026-06-22
+lang: fr
+lang_url: /blog/chinese-language-trip-maps.html
+lang_url_ja: /ja/blog/chinese-language-trip-maps.html
+lang_url_zh: /zh/blog/chinese-language-trip-maps.html
+lang_url_ko: /ko/blog/chinese-language-trip-maps.html
+lang_url_es: /es/blog/chinese-language-trip-maps.html
+lang_url_de: /de/blog/chinese-language-trip-maps.html
+lang_url_it: /it/blog/chinese-language-trip-maps.html
+---
+
+<article class="post">
+  <a href="/fr/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Écrits</p>
+    <h1>Comment j'ai généré une pile de cartes de voyage en chinois sans navigateur ni clé d'API</h1>
+    <time class="news-date" datetime="2026-06-22">22 juin 2026</time>
+    <div class="tags">
+      <span class="tag">AI/LLM</span>
+      <span class="tag">Ingénierie</span>
+      <span class="tag">Voyage</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>En préparant un voyage de quatre jours à Hong Kong, je voulais quelque chose de simple : une carte claire pour chaque étape, avec les libellés en chinois simplifié. Pas une carte en anglais avec une épingle plantée dessus, pas un mur de liens. Douze lieux — l'hôtel, les musées, Ocean Park, le tramway du Pic, l'aéroport — chacun sous forme d'une capture d'écran nette que je pourrais glisser dans un livret imprimable.</p>
+
+    <p>J'ai donc demandé à Claude Code, dans une session web en bac à sable, de les fabriquer. Ce que je pensais être une course de cinq minutes est devenu un petit tour d'horizon des raisons pour lesquelles « une carte de Hong Kong, en chinois » est plus difficile qu'il n'y paraît — y compris un système de coordonnées qui existe précisément pour rendre ce genre de chose plus difficile.</p>
+
+    <h2>Pas de navigateur, pas de clé d'API</h2>
+
+    <p>L'approche évidente — ouvrir un site de cartes, basculer la langue en chinois, faire une capture de chaque lieu — était écartée pour deux raisons. La session n'avait pas de navigateur à piloter, et les API de cartes statiques bien propres réclament toutes une clé facturable. Ce détour s'est révélé être un atout, pas un défaut. Google et OpenStreetMap étiquettent Hong Kong de façon bilingue ou avec l'anglais en premier ; pour des libellés véritablement chinois, il faut un fournisseur chinois. La réponse : les tuiles de carte AutoNavi (高德), qui affichent Hong Kong avec des noms en chinois simplifié — 海洋公园, 太平山顶, 尖沙咀 — les mêmes noms que vous verrez sur les panneaux et dans les applis une fois sur place. Le plan : récupérer les tuiles de carte brutes en 256×256 et assembler chaque image à la main avec Pillow, la bibliothèque Python.</p>
+
+    <h2>Le système de coordonnées dont personne ne vous avertit</h2>
+
+    <p>Voici le piège qui a englouti une heure. Les fournisseurs de cartes chinois sont légalement tenus d'utiliser <strong>GCJ-02</strong>, un système de coordonnées obfusqué — familièrement appelé « coordonnées de Mars » — qui applique un décalage délibéré et non linéaire aux véritables latitude et longitude WGS-84. Reportez une coordonnée GPS réelle directement sur un fond de carte chinois et votre épingle atterrit à quelques centaines de mètres : dans le bâtiment d'en face, ou en plein milieu du port. Le décalage <em>est</em> le but recherché — un ralentisseur imposé par l'État contre les données géographiques précises.</p>
+
+    <p>Chaque coordonnée devait donc passer par la transformation standard WGS-84 → GCJ-02 <em>avant</em> tout calcul de tuiles : décaler le point central vers les coordonnées de Mars, récupérer les tuiles autour de ce point décalé, puis placer le marqueur pile au centre pour qu'il s'aligne sur le fond de carte décalé. Si vous vous trompez, chaque carte est subtilement, et avec aplomb, fausse. Si vous réussissez, personne ne le remarque — ce qui est tout le travail d'une carte.</p>
+
+    <h2>Dessiner la carte</h2>
+
+    <p>Une fois le problème de coordonnées résolu, le reste n'est que plomberie d'images. Pour chaque lieu : déterminer quelles tuiles couvrent la zone, les récupérer et les coudre sur une carte de 760 pixels de large, déposer une épingle en goutte d'eau au centre, et poser par-dessus un bandeau d'en-tête avec le nom chinois, un numéro d'ordre et le jour du voyage. Le texte chinois exige une police compatible CJK ; le bac à sable était justement livré avec WenQuanYi Zen Hei, qui a fait l'affaire.</p>
+
+    <p>L'étape que j'ai préférée était la vérification. Des coordonnées saisies à la main sont exactement le genre de chose plausiblement-mais-pas-tout-à-fait juste, alors après le rendu, Claude Code a relu ses propres images de sortie et a comparé chaque épingle aux éléments libellés en dessous — le marqueur du musée des Sciences est-il vraiment sur 香港科学馆, ou un pâté de maisons plus au nord ? Quelques épingles ont été légèrement recalées ; le Star Ferry, le terminus du tramway du Pic et l'aéroport ont tous atterri pile au bon endroit. Une boucle construire-puis-regarder, encore un peu inédite quand ce qui regarde est la même chose que ce qui a construit.</p>
+
+    <h2>La localisation n'est pas de la traduction</h2>
+
+    <p>Les cartes étaient la partie facile. Les mots qui les entourent, c'est là que ça devenait humain. Le lectorat lit le mandarin continental, et le livret autour des cartes avait discrètement glissé vers un registre de cantonais hongkongais. J'avais décrit l'hôtel comme 地铁站上盖 — 上盖 est une formule immobilière hongkongaise impeccable pour « construit juste au-dessus de la station », et presque opaque pour un lecteur du continent. C'est devenu 就在地铁站楼上. Puis 离港 → 返程, 手信 → 伴手礼, et 有得逛 — une construction grammaticale cantonaise — → 能逛.</p>
+
+    <p>La nourriture demandait le traitement inverse. 烧味饭, 炖奶, 滑蛋 sont des noms de plats cantonais, mais ce sont les vrais noms sur les vrais menus, alors les « corriger » rendrait le livret faux. Ceux-là ont gardé leur nom et reçu à la place une glose en mandarin — 烧味饭（即烧腊饭：叉烧、烧鹅、烧肉饭）. Les restaurants eux-mêmes, après un tour de retours, ont perdu leurs pages de carte dédiées : on ne se rend pas au dîner comme on se rend à Ocean Park ; ils sont donc restés sous forme de texte dans le plan quotidien et ont disparu de l'index des cartes. Rien de tout cela n'est de la traduction au sens du dictionnaire. C'est du registre, du dialecte, et le fait de savoir quand un mot est un régionalisme à corriger ou un nom propre à laisser tranquille.</p>
+
+    <h2>Ce que j'en retire</h2>
+
+    <p>Cela retombe là où je retombe sans cesse : le travail avance le plus vite sur les tâches finies et vérifiables. Coudre des tuiles, appliquer une transformation de coordonnées connue, confirmer qu'une épingle repose sur son libellé — chaque étape a une bonne réponse que l'on peut vérifier à l'œil, ce qui <a href="/fr/blog/fable-5-security-review.html">fait écho</a> à ce que je constate lors des balayages de sécurité et de l'outillage de conformité. Le détour par GCJ-02 est le genre de trivia de domaine qu'il est fastidieux de découvrir et trivial d'appliquer une fois connu — précisément ce qu'il vaut la peine de déléguer.</p>
+
+    <p>Le jugement, lui, est resté le mien : quels douze lieux comptent comme « principaux », que les restaurants n'avaient pas besoin de cartes, qu'un lecteur de mandarin continental ne devrait pas avoir à décrypter 上盖. Le livret fini — douze cartes en chinois, un plan jour par jour et un PDF imprimable — est sorti d'un bac à sable sans navigateur ni clé d'API. Il y a un an, je n'aurais pas deviné que c'était la version facile.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>
