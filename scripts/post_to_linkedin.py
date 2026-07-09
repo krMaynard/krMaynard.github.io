@@ -2,16 +2,17 @@
 """Post the newest blog entry to LinkedIn, one language at a time.
 
 Reads blog.html, finds the first (newest) .news-entry, and posts it to
-LinkedIn in four languages — English first, then Japanese, Chinese and
-Korean roughly an hour apart. Each language is a separate single-language
+LinkedIn in four languages — Japanese first, then Chinese, Korean and
+English roughly an hour apart. English is posted last so it lands as the
+newest post on the profile page. Each language is a separate single-language
 post that links to the matching localized blog page.
 
 Per-entry progress is tracked in .github/last_linkedin_post as JSON
-(``{"entry_id": …, "posts": {"en": <iso-ts>, …}}``). Each invocation posts
-the next pending language in the sequence, but the non-English follow-ups
+(``{"entry_id": …, "posts": {"ja": <iso-ts>, …}}``). Each invocation posts
+the next pending language in the sequence, but the follow-ups
 only fire once ~LINKEDIN_POST_INTERVAL_MINUTES have elapsed since the
-previous post — so the workflow is run on a blog push (English, immediately)
-and again hourly via cron (the staggered ja/zh/ko follow-ups).
+previous post — so the workflow is run on a blog push (Japanese, immediately)
+and again hourly via cron (the staggered zh/ko/en follow-ups).
 
 Required env vars:
   LINKEDIN_ACCESS_TOKEN   OAuth 2.0 bearer token
@@ -61,9 +62,10 @@ LINKEDIN_TOKEN_URL = "https://www.linkedin.com/oauth/v2/accessToken"
 GITHUB_API_URL = "https://api.github.com"
 MAX_POST_CHARS = 3000
 
-# Languages are posted in this order, one per run. English goes out
-# immediately on a blog push; the rest follow ~INTERVAL minutes apart.
-LANGUAGE_SEQUENCE = ["en", "ja", "zh", "ko"]
+# Languages are posted in this order, one per run. The first language goes
+# out immediately on a blog push; the rest follow ~INTERVAL minutes apart.
+# English is posted last so it's the newest post on the profile page.
+LANGUAGE_SEQUENCE = ["ja", "zh", "ko", "en"]
 # "punctuation" is language-specific guidance (empty where Western/ASCII
 # punctuation is correct, e.g. English and modern Korean).
 LANGUAGES = {
@@ -853,7 +855,7 @@ def main():
         print(f"All languages already posted for {entry['id']}. Nothing to do.")
         return
 
-    # --- Space the non-English follow-ups out by the configured interval ---
+    # --- Space the follow-up posts out by the configured interval ---
     try:
         interval = int(os.environ.get("LINKEDIN_POST_INTERVAL_MINUTES") or DEFAULT_POST_INTERVAL_MINUTES)
     except ValueError:
