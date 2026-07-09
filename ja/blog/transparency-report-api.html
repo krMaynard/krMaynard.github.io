@@ -1,0 +1,74 @@
+---
+layout: main
+title: "すべてのプラットフォームの透明性レポートを、一つのクエリ言語で"
+description: "EU DSAデータのダッシュボードとして始まったものが、20を超えるプラットフォーム・規制当局の透明性データセットを横断する一つのAPIに成長しました。政府からの要請レポート、コンテンツモデレーション統計、各国法に基づく提出物を、SQL不要の安全なクエリインターフェース一つで扱えます。"
+date: 2026-07-09
+lang: ja
+lang_url: /blog/transparency-report-api.html
+lang_url_zh: /zh/blog/transparency-report-api.html
+lang_url_ko: /ko/blog/transparency-report-api.html
+---
+
+<article class="post">
+  <a href="/ja/blog.html" class="post-back">← ブログ</a>
+  <header class="post-header">
+    <p class="section-label">執筆</p>
+    <h1>すべてのプラットフォームの透明性レポートを、一つのクエリ言語で</h1>
+    <time class="news-date" datetime="2026-07-09">2026年7月9日</time>
+    <div class="tags">
+      <span class="tag">透明性</span>
+      <span class="tag">データ</span>
+      <span class="tag">エンジニアリング</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>始まりは一つのダッシュボードでした。昨春、指定された25の超大規模オンラインプラットフォーム（VLOP）向けに、<a href="/ja/blog/vlop-dashboard.html">EU DSA透明性データの横断ビュー</a>を作り、その後<a href="/ja/blog/vlop-dashboard-update.html">9つのレポート表すべてを埋めました</a>。その裏には小さなFastAPIサービスがありました。それから数か月、このサービスの方こそが、いつの間にかより興味深い成果物になっていました――ほかのレポートを次々と流し込んでも、同じクエリインターフェースがそれらを吸収し続けたからです。</p>
+
+    <p>いまや20を超える独立した透明性データセットにまたがり、そのすべてが一つのクエリモデルから到達できます。それがまさに狙いです。</p>
+
+    <h2>問題は「形」であって「不足」ではない</h2>
+
+    <p>プラットフォームの透明性データは不足しているわけではなく、断片化しているのです。各社がそれぞれの形で公開します。MetaはエンフォースメントのデータをGraphQLフィードで出し、TikTokは累積CSVを落とし、Appleは横に広い疎なスプレッドシートを掲載し、DiscordとSnapはワークブック内のサブ表にラベルを付け、十を超える規制当局がそれぞれ独自のテンプレートを義務づけています。Google、Microsoft、LinkedIn、TikTok、Discordの政府による削除要請を比較したい研究者は、たった一つの問いを立てる前に五つの形式を学ばなければなりません。</p>
+
+    <p>比較可能性こそ、透明性レポートが本来もたらすはずでありながら、ほとんど実現できていないものです。だからこのプロジェクトの本当の仕事はWeb UIではありません――それらすべてを一つのtidy-longスキーマに正規化し、その前に一つのクエリ言語を置くことです。</p>
+
+    <h2>いま含まれているもの</h2>
+
+    <p>データセットはいくつかの系統に分かれます。</p>
+
+    <p><strong>コンテンツモデレーションのレポート。</strong>EU DSAの調和テンプレート――25のVLOPに加え、同じ様式で提出する43の非VLOPプラットフォーム――を共通の9表スタースキーマで扱い、あわせて大きな<em>自主的</em>レポートも収録します。Metaのコミュニティ規定エンフォースメントレポート（CSER）と、TikTokのコミュニティガイドラインエンフォースメントレポート（CGER）です。</p>
+
+    <p><strong>政府・法的要請のレポート。</strong>Google（コンテンツ削除とユーザーデータ要請の両方）、Microsoftの法執行機関要請レポート、LinkedIn、TikTokの政府・法的要請、Discord、Apple、GitHub、Snap――これらの企業が半期ごとに公開する国別の要請と開示のデータです。</p>
+
+    <p><strong>各国の透明性法。</strong>インドのIT規則に基づく月次コンプライアンスレポート、韓国のNaverとKakaoの提出物（およびネットワーク法の違法コンテンツレポート）、台湾の詐欺防止法データ、トルコの法律第5651号レポート、シンガポールIMDAのオンライン安全コード、日本の新しい情プラ法の統計、テキサス州HB 20とオーストリアのKoPl-G、そして中国の12377・12321ホットラインの数値です。</p>
+
+    <p><strong>新興のEU義務と記述的な提出物。</strong>テロコンテンツ・オンライン規則、AI法の学習データ透明性サマリー、Googleのインターネット遮断を記録したTraffic &amp; Disruptionsカタログ、Androidのマルウェア率データ――さらに、ニューヨーク州とカリフォルニア州の利用規約法に基づく、全文検索できる散文の提出物も含みます。</p>
+
+    <h2>一つのクエリ言語、SQLは不要</h2>
+
+    <p>すべてが同じ方法で到達できます。クエリインターフェースはTikTok Research APIをモデルにしています。テーブルを指定し、フィルタ、グループ化、集計を構造化パラメータとして記述する――呼び出す側がSQLを書くことは一切ありません。サーバーはすべてのフィールドをそのテーブルの固定レジストリと照合し、一つのパラメータ化された<code>SELECT</code>にコンパイルします。長いクエリは非同期の「202を返してポーリング」パターンで実行され、結果はJSONまたはCSVで返ります。</p>
+
+    <p>生のパラメータより使いやすくしている継ぎ目が二つあります。一つは自然言語の「質問」ボックス――LLMが平易な言葉の問いを<em>同じ</em>構造化クエリに翻訳し、それがまったく同じ検証境界を通ります。モデルは提案し、バリデータが可否を決めるのです。もう一つは<a href="/ja/blog/fable-5-security-review.html">MCPサーバー</a>で、これによりAIエージェントは、私が手作業でクライアントを組まなくても、テーブルを発見し、クエリを実行し、結果をポーリングできます。</p>
+
+    <h2>難しいのは注意書きの方</h2>
+
+    <p>データセットをつなぎ込むのは簡単です。難しいのは、それらで嘘をつかないことです。ほとんどの出典には、素朴な集計が踏みつぶしてしまう脚注が付いています。国家安全保障関連の数値は正確な件数ではなく帯状の範囲で公表されるため、合計できません。プレバレンスやプロアクティブ検知率は分数であり、決して足し合わせてはいけません。DSAテンプレートは内訳の行のすぐ隣に集計の「合計」行を埋め込んでいるため、うかつな<code>SUM</code>は二重計上になります。そして同じテンプレートの行が十を超えるEU言語で届き、それらを一つの正規キーに揃えなければなりません。</p>
+
+    <p>私はそうした注意書きを、隠すのではなくガードレールとして符号化しようとしてきました――クエリ層は、率を合計したり次元の固定を忘れたりすると警告し、方法論は前提にせず書き下しています。目的は数字の山を大きくすることではありません。実際に比較し、引用できる数字にすることです。</p>
+
+    <p>ライブのダッシュボードとすべてのデータセットページは<a href="https://transparency.kieranmaynard.com/reports" target="_blank" rel="noopener">transparency.kieranmaynard.com</a>にあり、対話的なAPIドキュメントは<a href="https://transparency.kieranmaynard.com/docs" target="_blank" rel="noopener">/docs</a>にあります。これらと並べて問い合わせたい透明性レポートがあれば、次に取り込むものをいつでも探しています。</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

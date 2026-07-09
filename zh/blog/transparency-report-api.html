@@ -1,0 +1,74 @@
+---
+layout: main
+title: "用一种查询语言，读懂每个平台的透明度报告"
+description: "最初只是一个EU DSA数据的仪表盘，如今成长为一个横跨二十多个平台与监管机构透明度数据集的API——政府请求报告、内容审核统计、各国法律申报，全都通过一个无需SQL的安全查询接口触达。"
+date: 2026-07-09
+lang: zh
+lang_url: /blog/transparency-report-api.html
+lang_url_ja: /ja/blog/transparency-report-api.html
+lang_url_ko: /ko/blog/transparency-report-api.html
+---
+
+<article class="post">
+  <a href="/zh/blog.html" class="post-back">← 博客</a>
+  <header class="post-header">
+    <p class="section-label">写作</p>
+    <h1>用一种查询语言，读懂每个平台的透明度报告</h1>
+    <time class="news-date" datetime="2026-07-09">2026年7月9日</time>
+    <div class="tags">
+      <span class="tag">透明度</span>
+      <span class="tag">数据</span>
+      <span class="tag">工程</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>它起初只是一个仪表盘。去年春天，我为25家被指定的超大型在线平台（VLOP）搭建了一个<a href="/zh/blog/vlop-dashboard.html">跨平台的EU DSA透明度数据视图</a>，随后又<a href="/zh/blog/vlop-dashboard-update.html">补齐了全部九张报告表</a>。它背后是一个小小的FastAPI服务。此后的几个月里，恰恰是这个服务悄悄变成了更有意思的产物——因为我不断把其他报告灌进去，而同一个查询接口总能把它们吸收进来。</p>
+
+    <p>如今它横跨二十多个各自独立的透明度数据集，而所有这些都能通过一个查询模型触达。这正是全部的意义所在。</p>
+
+    <h2>问题在于形态，而非稀缺</h2>
+
+    <p>平台的透明度数据并不稀缺，而是碎片化的。每家公司都以自己的形态发布：Meta通过GraphQL接口输出其执法数据，TikTok抛出累积的CSV，Apple张贴横向稀疏的电子表格，Discord和Snap在工作簿里给子表打标签，还有十几个监管机构各自强制推行自己的模板。一位研究者若想比较Google、Microsoft、LinkedIn、TikTok和Discord的政府删除请求，在提出哪怕一个问题之前，都得先学会五种格式。</p>
+
+    <p>可比性本是透明度报告理应带来、却几乎从未兑现的东西。所以这个项目真正的工作并不是那个网页界面——而是把所有这些数据规整成一个tidy-long模式，并在它前面放上一种统一的查询语言。</p>
+
+    <h2>目前收录了什么</h2>
+
+    <p>这些数据集可以归为几个家族：</p>
+
+    <p><strong>内容审核报告。</strong>EU DSA的统一模板——25家VLOP，外加43家以同样表格申报的非VLOP平台——共用一套九表星型模式；同时还收录了两份大型的<em>自愿性</em>报告：Meta的社区标准执法报告（CSER）和TikTok的社区准则执法报告（CGER）。</p>
+
+    <p><strong>政府与法律请求报告。</strong>Google（内容删除与用户数据请求两者）、Microsoft的执法请求报告、LinkedIn、TikTok的政府与法律请求、Discord、Apple、GitHub和Snap——这些公司每半年发布一次的按国家统计的请求与披露数据。</p>
+
+    <p><strong>各国透明度法律。</strong>印度IT规则下的月度合规报告、韩国Naver与Kakao的申报（以及《网络法》下的非法内容报告）、台湾《反诈骗法》数据、土耳其第5651号法律报告、新加坡IMDA的在线安全准则、日本新出台的信息流通平台应对法统计、得克萨斯州HB 20与奥地利KoPl-G，以及中国12377与12321举报热线的数字。</p>
+
+    <p><strong>新兴的欧盟义务与叙述性申报。</strong>《恐怖主义内容在线条例》、《人工智能法》的训练数据透明度摘要、Google记录互联网中断的Traffic &amp; Disruptions目录、Android的恶意软件比率数据——以及来自纽约州和加利福尼亚州服务条款法律、可全文检索的散文体申报。</p>
+
+    <h2>一种查询语言，无需SQL</h2>
+
+    <p>一切都以同样的方式触达。查询接口以TikTok Research API为蓝本：你指定一张表，然后把过滤条件、分组和聚合写成结构化参数——调用方从不书写SQL。服务器会将每个字段与该表固定的字段登记表核对，并编译成一条参数化的<code>SELECT</code>。长查询以异步的「返回202再轮询」模式运行，结果以JSON或CSV返回。</p>
+
+    <p>有两处接缝让它比原始参数更好用。一处是自然语言的「提问」框——由大语言模型把平白的问句翻译成<em>同一套</em>结构化查询，再经过完全相同的校验边界：模型只负责提议，校验器负责裁决。另一处是<a href="/zh/blog/fable-5-security-review.html">MCP服务器</a>，让AI智能体无需我手工搭建客户端，就能发现表、运行查询并轮询结果。</p>
+
+    <h2>难的是那些注意事项</h2>
+
+    <p>把数据集接进来很容易，难的是不用它们说谎。几乎每个来源都带着一条脚注，一次天真的聚合就会把它踩碎：国家安全类数字以区间而非精确计数公布，因此不能相加；普遍率与主动检出率是分数，绝不可累加；DSA模板在明细行的旁边就嵌了一行汇总「合计」，因此一个粗心的<code>SUM</code>会重复计数；而同一模板行会以十几种欧盟语言到来，必须归并到一个规范化的键上。</p>
+
+    <p>我一直试图把这些注意事项编码为护栏，而不是把它们埋起来——当你对一个比率求和、或忘了固定某个维度时，查询层会发出警告；方法论则是写下来的，而非默认成立的。目标不是堆出更大一摞数字，而是真正可以比较、可以引用的数字。</p>
+
+    <p>在线仪表盘与每个数据集页面都在<a href="https://transparency.kieranmaynard.com/reports" target="_blank" rel="noopener">transparency.kieranmaynard.com</a>，交互式API文档在<a href="https://transparency.kieranmaynard.com/docs" target="_blank" rel="noopener">/docs</a>。如果有你想与这些数据并排查询的透明度报告，我一直在物色下一个可以纳入的对象。</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>
