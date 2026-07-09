@@ -52,7 +52,7 @@ def main():
                 path = os.path.join(dirpath, fn)
                 text = open(path, encoding="utf-8").read()
                 # only touch the body (after the front matter), never front matter
-                parts = text.split("\n")
+                parts = text.splitlines()
                 end = parts.index("---", 1)
                 head = "\n".join(parts[:end + 1])
                 body = "\n".join(parts[end + 1:])

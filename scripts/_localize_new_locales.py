@@ -42,7 +42,7 @@ def url_for(locale, page):
 
 
 def split_front_matter(text):
-    lines = text.split("\n")
+    lines = text.splitlines()
     assert lines[0] == "---", "no front matter"
     end = lines.index("---", 1)
     fm = lines[1:end]
