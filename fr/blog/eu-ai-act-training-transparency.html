@@ -1,0 +1,87 @@
+---
+layout: main
+title: "Ce que les résumés de données d'entraînement du règlement IA de l'UE révèlent — et ne révèlent pas"
+description: "L'article 53(1)(d) oblige les fournisseurs d'IA à usage général à publier un résumé standardisé de leurs données d'entraînement. J'ai rassemblé ceux déjà déposés dans un jeu de données comparable. L'écart entre qui dépose et qui ne dépose pas est plus instructif que les chiffres — et la grossièreté du modèle est une limite structurelle de ce qu'il peut révéler."
+date: 2026-07-09
+lang: fr
+lang_url: /blog/eu-ai-act-training-transparency.html
+lang_url_ja: /ja/blog/eu-ai-act-training-transparency.html
+lang_url_zh: /zh/blog/eu-ai-act-training-transparency.html
+lang_url_ko: /ko/blog/eu-ai-act-training-transparency.html
+lang_url_es: /es/blog/eu-ai-act-training-transparency.html
+lang_url_de: /de/blog/eu-ai-act-training-transparency.html
+lang_url_it: /it/blog/eu-ai-act-training-transparency.html
+---
+
+<article class="post">
+  <a href="/fr/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Écrits</p>
+    <h1>Ce que les résumés de données d'entraînement du règlement IA de l'UE révèlent — et ne révèlent pas</h1>
+    <time class="news-date" datetime="2026-07-09">9 juillet 2026</time>
+    <div class="tags">
+      <span class="tag">EU AI Act</span>
+      <span class="tag">AI/LLM</span>
+      <span class="tag">Transparence</span>
+      <span class="tag">Données</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>L'article 53(1)(d) du règlement IA de l'UE impose à tout fournisseur d'un modèle d'IA à usage général de publier un « résumé suffisamment détaillé » du contenu utilisé pour l'entraîner, selon un modèle publié par le Bureau de l'IA en juillet 2025. L'obligation est entrée en vigueur le 2 août 2025. Je rassemble depuis quelque temps les résumés effectivement déposés dans un petit jeu de données comparable — accessible sur <a href="https://transparency.kieranmaynard.com/ai-training">transparency.kieranmaynard.com/ai-training</a> — et l'exercice finit par en dire plus sur l'état de la réglementation que sur les modèles.</p>
+
+    <h2>Ce que le modèle demande réellement</h2>
+
+    <p>Le modèle est délibérément modeste. Pour chaque modalité présente dans les données d'entraînement — texte, image, audio, vidéo, autre — le fournisseur coche l'une des trois tranches de taille (pour le texte : moins d'un milliard de tokens, d'un milliard à dix mille milliards, ou plus de dix mille milliards) et décrit le type de contenu. Vient ensuite une série de cases oui/non sur la provenance des données : jeux de données accessibles au public, données sous licence commerciale, données privées de tiers, données que le fournisseur a lui-même collectées (crawlées), données d'utilisateurs et données synthétiques. Plus une date limite d'acquisition des données.</p>
+
+    <p>C'est tout. Pas de nombre de tokens, pas de noms de jeux de données, pas de proportions. La Commission l'a conçu pour donner aux titulaires de droits et au public un point de repère sans forcer les fournisseurs à livrer des secrets d'affaires. Le plafond de ce qu'un résumé isolé peut apprendre est donc fixé bas, à dessein. La valeur, s'il y en a une, vient de leur mise côte à côte — ce que personne d'autre ne faisait, et la raison pour laquelle j'ai construit ce jeu de données. Je normalise chaque tranche de taille en un rang (1 à 3, 0 pour « sans objet ») afin que ces tailles grossières puissent au moins être triées d'un fournisseur à l'autre.</p>
+
+    <h2>Le signal le plus instructif, c'est qui manque à l'appel</h2>
+
+    <p>Lors de ma dernière mise à jour, onze modèles de sept fournisseurs avaient déposé le modèle standardisé : Google (Gemini 3 Pro), Meta (Muse Spark), Microsoft (la famille Phi-4), OpenAI (GPT-5.5), la suisse Swiss AI (Apertus), la polonaise SpeakLeash (Bielik) et Hugging Face (SmolLM3).</p>
+
+    <p>Les absences les plus voyantes sont les laboratoires de pointe qu'on s'attendrait à voir. Anthropic — y compris son modèle phare actuel, Fable 5 — ainsi que Mistral et xAI n'ont <em>pas</em> déposé selon le modèle. Ils divulguent leurs contenus d'entraînement à l'ancienne, en un paragraphe de prose dans une fiche de modèle : « un mélange propriétaire d'informations accessibles au public, de données sous licence et de données générées par nos équipes », ou quelque chose d'approchant. C'est une divulgation réelle, mais ce n'est pas l'artefact standardisé que la réglementation exige désormais, et cela n'est comparable à rien.</p>
+
+    <p>Ce clivage n'oppose pas le refus à la conformité. C'est une couture temporelle inscrite dans la loi. Les modèles mis sur le marché de l'UE <em>après</em> le 2 août 2025 doivent déposer maintenant ; ceux déjà sur le marché avant cette date ont jusqu'au <strong>2 août 2027</strong> pour produire leur résumé. Les modèles présents sur le modèle sont donc, presque exclusivement, soit de tout nouveaux modèles phares ayant franchi la ligne après la date butoir, soit des laboratoires open source et européens qui ont déposé de façon proactive parce que l'ouverture est tout leur argumentaire. Les abstentionnistes sont pour la plupart assis sur le délai transitoire. « Qui a déposé » est aujourd'hui un meilleur indicateur de « qui a récemment sorti un nouveau modèle, ou veut paraître transparent » que de « qui est le plus transparent ».</p>
+
+    <h2>Ce que les données déposées montrent</h2>
+
+    <p>À la lecture transversale des résumés, quelques constats tiennent.</p>
+
+    <p><strong>Tout le monde revendique des données publiques ; la variation intéressante est ailleurs.</strong> Chaque déposant coche « jeux de données accessibles au public ». Cette case ne porte presque aucune information — c'est le ticket d'entrée. Là où les fournisseurs se distinguent vraiment, c'est dans les autres catégories : ont-ils fait tourner leur propre crawler ou se sont-ils appuyés sur des jeux de données publics assemblés par d'autres ; ont-ils acquis des données sous licence commerciale ; ont-ils utilisé des données synthétiques ; et — celle qui se lit comme une véritable divulgation — se sont-ils entraînés sur des données d'utilisateurs. OpenAI coche « oui » pour les données d'utilisateurs, et le résumé précise soigneusement qu'il s'agit de données de produits comme ChatGPT et Codex, non des journaux d'interaction avec le modèle ; Meta coche « oui » aussi. Les laboratoires ouverts et européens — Apertus, Bielik, SmolLM3 — cochent « non », aux côtés d'aucune licence commerciale et d'aucun crawl propre. Les cases oui/non du modèle sont grossières, mais c'est précisément cette colonne qui vous apprend ce qu'une page marketing tairait.</p>
+
+    <p><strong>La tranche de taille supérieure est déjà saturée.</strong> « Plus de dix mille milliards de tokens » est le plus grand seau que le modèle propose pour le texte, et c'est tout simplement la norme désormais : Gemini 3 Pro, Muse Spark, GPT-5.5 et SmolLM3 y logent tous. Un modèle ouvert de 3 milliards de paramètres et un système de pointe déclarent la même tranche de taille de texte. Ce n'est pas une erreur — c'est ce que fait exactement une échelle à trois seuils une fois que le domaine a dépassé le seau supérieur. Elle cesse de discriminer. Les champs de taille servent à séparer un modèle petit ou ancien (Bielik tombe dans la tranche intermédiaire) d'un grand modèle moderne, et sont inutiles pour toute distinction plus fine.</p>
+
+    <p><strong>La couverture des modalités est la coupe la plus nette.</strong> La seule chose que les données séparent nettement, c'est multimodal contre texte seul. Google, Meta et OpenAI déclarent des données d'entraînement d'image, d'audio et de vidéo ; les entrées des laboratoires ouverts sont uniquement textuelles. C'est une distinction réelle et vérifiable, visible d'un coup d'œil d'une façon que les tranches de taille ne sont pas.</p>
+
+    <h2>Les limites sont structurelles, pas accessoires</h2>
+
+    <p>Comme pour les rapports de transparence DSA dont j'ai <a href="/fr/blog/dsa-vlop-data-limitations.html">déjà parlé</a>, les contraintes comptent autant que le contenu, et plusieurs sont ancrées dans le régime lui-même plutôt que dans ma collecte.</p>
+
+    <p><strong>Il n'existe aucun registre.</strong> Personne ne tient une liste canonique des résumés déposés, si bien que « qui a publié » est en soi une question de recherche — j'en ai trouvé plusieurs en remontant depuis une étude universitaire et des fiches de modèles Hugging Face. Chaque fournisseur s'auto-publie où il veut, dans le format qu'il veut. En pratique, cela signifiait un PDF de rapport de transparence chez Google, des PDF à champs de formulaire chez Meta et OpenAI, une « fiche de résumé de données » en markdown chez Microsoft, un PDF dans un dépôt Hugging Face pour Apertus, et — pour SmolLM3 — un widget interactif adossé à une application Gradio, dont j'ai dû extraire le modèle rempli depuis le code source de l'application. Un modèle standardisé publié de cinq façons différentes n'est qu'à moitié standardisé.</p>
+
+    <p><strong>Il n'existe aucun audit.</strong> Chaque case est auto-déclarée ; rien d'externe ne confirme qu'un « non » sur les données crawlées ou les données d'utilisateurs est exact. Et le modèle demande <em>si</em> une source a été utilisée, jamais <em>en quelle quantité</em>, si bien qu'un fournisseur qui s'est massivement entraîné sur des données sous licence et un fournisseur qui n'a touché qu'un seul jeu sous licence cochent la même case. « Accessible au public » n'est jamais défini, il absorbe donc tout, des corpus de recherche soigneusement constitués au web ouvert.</p>
+
+    <p>Rien de tout cela ne rend les données inutiles. Cela en fait ce qu'elles sont : un instantané structuré, auto-déclaré, transversal aux fournisseurs, vraiment utile pour repérer la forme du domaine — qui s'entraîne sur quels types de sources, à peu près à quelle échelle, dans quelles modalités — et trompeur si l'on traite une case cochée comme une quantité mesurée.</p>
+
+    <h2>À quoi s'attendre</h2>
+
+    <p>Les pouvoirs de sanction s'attachent au <strong>2 août 2026</strong> — le Bureau de l'IA pourra agir dès cette date sur un résumé manquant ou insuffisant, avec des amendes pouvant atteindre 3 % du chiffre d'affaires mondial ou 15 millions d'euros. Le basculement plus important arrive avec le délai transitoire du <strong>2 août 2027</strong>, lorsque les modèles préexistants devront eux aussi déposer. C'est là que le jeu de données devient intéressant : les modèles phares qui divulguent aujourd'hui en prose — ceux que je dois laisser de côté — devront produire l'artefact standardisé ou s'exposer à des sanctions, et le signal « qui manque à l'appel » signifiera enfin quelque chose de plus proche de la non-conformité que du calendrier.</p>
+
+    <p>Je m'attends à ce que deux choses deviennent visibles à mesure. D'abord, la tranche supérieure grossière deviendra plus gênante, pas moins : à mesure que davantage de systèmes de pointe s'entassent dans « plus de dix mille milliards de tokens », la pression pour ajouter des seaux plus fins — ou pour déclarer un nombre réel — grandira, car un instrument de transparence incapable de distinguer un modèle à 12 mille milliards de tokens d'un modèle à 50 mille milliards n'apprend pas grand-chose aux régulateurs. Ensuite, la fragmentation des formats empirera avant de s'améliorer, à moins que le Bureau de l'IA ne mette en place un véritable registre ; cent résumés de plus éparpillés sur cent CDN d'entreprise et dépôts de modèles, ce n'est pas un régime de transparence, c'est une chasse au trésor.</p>
+
+    <p>Le modèle est une réelle amélioration par rapport au statu quo antérieur, qui était le néant. Mais l'histoire intéressante dans les données pour l'instant n'est pas ce qu'un modèle divulgue — c'est la couture entre les laboratoires qui ont dû déposer et ceux qui ne l'ont pas encore fait, et à quel point ce seul hasard de calendrier explique aujourd'hui les choses. Je continuerai de mettre à jour le <a href="https://transparency.kieranmaynard.com/ai-training">jeu de données</a> à mesure que l'échéance de 2027 attire le reste du domaine vers le modèle, et nous verrons si la comparabilité survit au contact de cent dépôts supplémentaires.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>
