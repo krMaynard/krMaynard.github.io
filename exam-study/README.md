@@ -58,6 +58,14 @@ Outputs land in `build/` (git-ignored). A committed `samples/` folder holds a
 few tracks and text artifacts so the pipeline's output is reviewable without
 regenerating everything.
 
+## One-page master sheet
+
+`cheatsheet.html` is a self-contained, print-ready quick-reference distilled
+from the generated study packs — the four analysis lenses, the core federal
+sector laws (scope / trigger / enforcer each), state + international
+essentials, and the commonly-confused pairs and exam traps. Open it in a
+browser; `Cmd/Ctrl-P` prints a compact reference. Light/dark aware.
+
 ## Requirements
 
 - **Python 3.11+** with the packages in `requirements.txt`
