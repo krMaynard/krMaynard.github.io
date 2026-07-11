@@ -1,0 +1,77 @@
+---
+layout: main
+title: "Von aggregierten Berichten zu einzelnen Entscheidungen: Die DSA-Transparenzdatenbank kommt hinzu"
+description: "Das Dashboard hatte bereits die aggregierten Transparenzberichte des DSA. Jetzt hat es auch die Daten auf Entscheidungsebene — jede Begründung zu einer Content-Moderationsentscheidung, die Plattformen in der EU einreichen. So wurden aus rund 4 TB täglicher Datenabzüge ein zwei Megabyte großes Dashboard."
+date: 2026-07-11
+lang: de
+lang_url: /blog/dsa-statements-of-reasons.html
+lang_url_ja: /ja/blog/dsa-statements-of-reasons.html
+lang_url_zh: /zh/blog/dsa-statements-of-reasons.html
+lang_url_ko: /ko/blog/dsa-statements-of-reasons.html
+lang_url_fr: /fr/blog/dsa-statements-of-reasons.html
+lang_url_es: /es/blog/dsa-statements-of-reasons.html
+lang_url_it: /it/blog/dsa-statements-of-reasons.html
+---
+
+<article class="post">
+  <a href="/de/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Texte</p>
+    <h1>Von aggregierten Berichten zu einzelnen Entscheidungen: Die DSA-Transparenzdatenbank kommt hinzu</h1>
+    <time class="news-date" datetime="2026-07-11">11. Juli 2026</time>
+    <div class="tags">
+      <span class="tag">EU DSA</span>
+      <span class="tag">VLOP</span>
+      <span class="tag">Daten</span>
+      <span class="tag">Engineering</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>Im <a href="/vlop.html">VLOP-Dashboard</a> ging es bislang um die <em>aggregierten</em> Transparenzberichte des EU-Gesetzes über digitale Dienste (Digital Services Act) — die periodischen Meldungen, in denen eine Plattform nach Kategorien berichtet, wie viele Meldungen sie erhalten und gegen wie viele Inhalte sie über sechs Monate hinweg vorgegangen ist. Das ist einer der beiden Transparenzmechanismen des DSA. Dieses Update fügt den anderen hinzu, und der ist ein ganz anderes Kaliber: die <strong>DSA-Transparenzdatenbank</strong> mit den Begründungen (Statements of Reasons).</p>
+
+    <h2>Was eine Begründung ist</h2>
+
+    <p>Nach Artikel 17 des DSA muss eine in den Anwendungsbereich fallende Plattform, sobald sie einen Inhalt einschränkt — ihn entfernt, den Zugang dazu sperrt, ihn herabstuft, eine Altersbeschränkung verhängt oder ihn demonetarisiert —, dem betroffenen Nutzer eine „Begründung" (statement of reasons) liefern, die die Entscheidung erläutert. Und sie muss eine Kopie dieser Begründung, ohne die personenbezogenen Details, an eine öffentliche <a href="https://transparency.dsa.ec.europa.eu/">Transparenzdatenbank</a> übermitteln, die von der Europäischen Kommission betrieben wird.</p>
+
+    <p>Die aggregierten Berichte sagen einem, was eine Plattform über einen Berichtszeitraum eigenen Angaben nach getan hat. Die Transparenzdatenbank sind die einzelnen Entscheidungen selbst — eine Zeile pro Moderationsmaßnahme, eingereicht in dem Moment, in dem sie geschieht, mit strukturierten Feldern für die Kategorie, die Rechtsgrundlage, ob sie automatisch erkannt wurde, ob die Entscheidung automatisiert war und welche Einschränkung angewendet wurde. Es ist das, was einem lückenlosen, echtzeitnahen Verzeichnis von Content-Moderation auf Entscheidungsebene über die gesamte EU hinweg am nächsten kommt.</p>
+
+    <p>Sie ist außerdem riesig. Plattformen reichen in der Größenordnung von ein paar Milliarden Begründungen pro Monat ein. Der vollständige historische Datenabzug umfasst rund vier Terabyte und wächst jeden Tag.</p>
+
+    <h2>Vier Terabyte passen in kein Dashboard</h2>
+
+    <p>Die interessante Engineering-Frage war also, wie man von vier Terabyte täglicher CSV-Abzüge zu etwas kommt, das hinter eine interaktive Abfrageschnittstelle passt, ohne ein Analytics-Warehouse dahinter zu betreiben.</p>
+
+    <p>Die Antwort lag am Ende im Werkzeug der Kommission selbst. Neben der Datenbank veröffentlicht das DSA-Team ein quelloffenes Python-Toolkit, <a href="https://code.europa.eu/dsa/transparency-database/dsa-tdb"><code>dsa-tdb</code></a>, das die täglichen Abzüge herunterlädt, verifiziert und — entscheidend — <em>vorberechnete monatliche Aggregate</em> veröffentlicht. Statt der rohen Begründungen kann man eine Zeile pro feingranularer Kombination aus Plattform, Tag, Kategorie, Entscheidungsgrundlage, Automatisierung und Einschränkungstyp abrufen, jeweils mit einer Anzahl. Das sind etwa sieben Megabyte gzip-komprimierter CSV pro Monat statt des rohen Datenschwalls.</p>
+
+    <p>Von da an ist es ein Re-Aggregations-Problem. Ich rolle die täglichen Aggregate auf Monate hoch, verdichte sie zu einer Handvoll eindimensionaler Schnitte — Begründungen insgesamt, nach Kategorie, nach Entscheidungsgrundlage, nach Automatisierung, nach Einschränkungstyp — und behalte die 60 volumenstärksten Plattformen, die etwa 99,97 % aller Begründungen ausmachen. Das Ergebnis ist eine aufgeräumte Tabelle im Long-Format: rund 24.500 Zeilen, etwa zwei Megabyte JSON, die den Zeitraum von September 2023 bis heute abdecken. Das wandert in dieselbe schreibgeschützte SQLite-Datenbank wie jeder andere Datensatz und wird zu einer gewöhnlichen abfragbaren Tabelle, erreichbar über dieselbe strukturierte, SQL-freie Abfrageschnittstelle wie der Rest der Seite.</p>
+
+    <h2>Wie die Form der Daten aussieht</h2>
+
+    <p>Das Erste, was auffällt, ist, wie schief das Volumen verteilt ist. Eine Plattform — Google Shopping — macht die große Mehrheit aller Begründungen in der Datenbank aus, in der Größenordnung von Hunderten Millionen pro Monat, fast ausschließlich Produkteinträge, die als für den Marktplatz nicht zulässig ausgelistet wurden. TikTok, Facebook, Pinterest, Amazon und AliExpress bilden den größten Teil des Rests. Eine Handvoll Marktplätze und große soziale Plattformen dominieren; der lange Schwanz aus Hunderten kleinerer Einreicher ist ein Rundungsfehler.</p>
+
+    <p>Darüber hinaus lassen die Felder auf Entscheidungsebene Dinge erkennen, die die aggregierten Berichte nicht sauber sichtbar machen: die Aufteilung zwischen Inhalten, die als <em>rechtswidrig nach dem Gesetz</em> eingeschränkt wurden, und solchen, die <em>mit den eigenen Bedingungen der Plattform unvereinbar</em> sind (weit überwiegend Letzteres), den Anteil der vollständig automatisch getroffenen Entscheidungen gegenüber jenen mit einem Menschen im Ablauf und welche der DSA-Begründungskategorien die Entscheidungen des Monats tatsächlich anführen. Die Seite <code>/dsa-db</code> stellt die monatlichen Gesamtwerte, die volumenstärksten Plattformen im Zeitverlauf, die Kategorienzusammensetzung sowie die Grundlage rechtswidrig-gegenüber-Bedingungen grafisch dar, mit einer Tabelle pro Plattform darunter.</p>
+
+    <h2>Dieselben Vorbehalte, schärfer</h2>
+
+    <p>Alles, was ich <a href="/blog/dsa-vlop-data-limitations.html">über die Grenzen der aggregierten Berichte geschrieben habe</a>, gilt auch hier, und ein paar neue kommen hinzu. Die Kategoriendefinitionen sind weiterhin die jeder Plattform eigenen, sodass plattformübergreifende Kategorievergleiche Vergleiche von plattformdefinierten Konstrukten sind, nicht eines einheitlichen. Die Daten sind nach wie vor selbstberichtet und ungeprüft.</p>
+
+    <p>Und die Aggregation hat ihre eigenen Fallstricke, vor denen die Abfrageschnittstelle warnt. Die eindimensionalen Schnitte partitionieren jeweils dieselbe Menge an Begründungen, sodass eine Kategorienaufschlüsselung sich zurück zum Gesamtwert der Plattform summiert — was bedeutet, dass das Summieren einer Aufschlüsselung <em>zusammen mit</em> dem Gesamtwert doppelt zählt. Der Schnitt nach Einschränkungstyp ist eine Mehrfachauswahl, denn eine Entscheidung kann sowohl Inhalte entfernen als auch ein Konto sperren, sodass sich diese Zeilen überhaupt nicht zum Gesamtwert summieren. Und weil ein paar Marktplätze das Volumen so stark dominieren, misst fast jede plattformübergreifende Summe in Wahrheit nur Google Shopping. Die praktische Regel ist dieselbe, zu der einen die Schnittstelle drängt: einen Abschnitt und in der Regel eine Plattform festlegen, bevor man irgendetwas aggregiert.</p>
+
+    <h2>Zwei Perspektiven auf dasselbe Gesetz</h2>
+
+    <p>Was mir daran gefällt, beide Datensätze an einem Ort zu haben, ist, dass sie unterschiedliche Fragen beantworten. Die aggregierten Berichte sind die eigene Zusammenfassung einer Plattform darüber, was sie über einen Zeitraum getan hat, in ihren eigenen Kategorien, von ihren Rechts- und Policy-Teams vor der Veröffentlichung geprüft. Die Transparenzdatenbank ist der rohe Strom einzelner Entscheidungen, für alle gleich strukturiert, fortlaufend eingereicht. Keine ist ein Ersatz für die andere, und die Diskrepanzen zwischen ihnen sind oft der interessante Teil. Sie nebeneinander zu haben, hinter derselben Abfrageschnittstelle, ist der ganze Sinn.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

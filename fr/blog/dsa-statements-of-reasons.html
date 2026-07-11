@@ -1,0 +1,77 @@
+---
+layout: main
+title: "Des rapports agrégés aux décisions individuelles : l'ajout de la base de données de transparence du DSA"
+description: "Le tableau de bord contenait déjà les rapports de transparence agrégés du DSA. Il contient désormais aussi les données au niveau de la décision — chaque exposé des motifs de modération de contenu que les plateformes déposent auprès de l'UE. Voici comment ~4 To de dumps quotidiens sont devenus un tableau de bord de deux mégaoctets."
+date: 2026-07-11
+lang: fr
+lang_url: /blog/dsa-statements-of-reasons.html
+lang_url_ja: /ja/blog/dsa-statements-of-reasons.html
+lang_url_zh: /zh/blog/dsa-statements-of-reasons.html
+lang_url_ko: /ko/blog/dsa-statements-of-reasons.html
+lang_url_es: /es/blog/dsa-statements-of-reasons.html
+lang_url_de: /de/blog/dsa-statements-of-reasons.html
+lang_url_it: /it/blog/dsa-statements-of-reasons.html
+---
+
+<article class="post">
+  <a href="/fr/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Écrits</p>
+    <h1>Des rapports agrégés aux décisions individuelles : l'ajout de la base de données de transparence du DSA</h1>
+    <time class="news-date" datetime="2026-07-11">11 juillet 2026</time>
+    <div class="tags">
+      <span class="tag">EU DSA</span>
+      <span class="tag">VLOP</span>
+      <span class="tag">Données</span>
+      <span class="tag">Ingénierie</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>Le <a href="/vlop.html">tableau de bord VLOP</a> portait, jusqu'à présent, sur les rapports de transparence <em>agrégés</em> du règlement européen sur les services numériques (DSA) — ces dépôts périodiques où une plateforme rapporte, par catégorie, combien de signalements elle a reçus et combien de contenus elle a traités sur six mois. C'est l'un des deux mécanismes de transparence du DSA. Cette mise à jour ajoute l'autre, qui est une bête très différente : la <strong>base de données de transparence du DSA</strong> et ses exposés des motifs.</p>
+
+    <h2>Ce qu'est un exposé des motifs</h2>
+
+    <p>En vertu de l'article 17 du DSA, chaque fois qu'une plateforme concernée restreint un contenu — le retire, en désactive l'accès, le rétrograde, le soumet à une limite d'âge, le démonétise — elle doit fournir à l'utilisateur touché un « exposé des motifs » expliquant la décision. Et elle doit déposer une copie de cet exposé dans une <a href="https://transparency.dsa.ec.europa.eu/">base de données de transparence</a> publique gérée par la Commission européenne, les données personnelles étant expurgées.</p>
+
+    <p>Les rapports agrégés vous disent ce qu'une plateforme affirme avoir fait sur une période de déclaration. La base de données de transparence, ce sont les décisions individuelles elles-mêmes — une ligne par action de modération, déposée au fil de l'eau, avec des champs structurés pour la catégorie, le fondement juridique, le caractère automatique ou non de la détection, le caractère automatisé ou non de la décision, et la restriction appliquée. C'est ce qui se rapproche le plus d'un registre en temps réel, au niveau de la décision, de la modération de contenu à travers l'UE.</p>
+
+    <p>Elle est aussi colossale. Les plateformes déposent de l'ordre de quelques milliards d'exposés par mois. Le dump historique complet avoisine les quatre téraoctets et grossit chaque jour.</p>
+
+    <h2>On ne met pas quatre téraoctets dans un tableau de bord</h2>
+
+    <p>La question d'ingénierie intéressante était donc : comment passer de quatre téraoctets de dumps CSV quotidiens à quelque chose qui tient derrière une interface de requête interactive, sans entrepôt analytique en coulisses ?</p>
+
+    <p>La réponse s'est trouvée être l'outillage de la Commission elle-même. Aux côtés de la base de données, l'équipe DSA publie une boîte à outils Python open source, <a href="https://code.europa.eu/dsa/transparency-database/dsa-tdb"><code>dsa-tdb</code></a>, qui télécharge les dumps quotidiens, les vérifie et — c'est crucial — publie des <em>agrégats mensuels pré-calculés</em>. Au lieu des exposés bruts, vous pouvez récupérer une ligne par combinaison fine de plateforme, jour, catégorie, fondement de la décision, automatisation et type de restriction, assortie d'un décompte. Cela représente environ sept mégaoctets de CSV gzippé par mois, plutôt que le tuyau d'incendie brut.</p>
+
+    <p>À partir de là, c'est un problème de ré-agrégation. Je fais remonter les agrégats quotidiens au niveau du mois, je les réduis à une poignée de coupes à une seule dimension — total des exposés, par catégorie, par fondement de la décision, par automatisation, par type de restriction — et je conserve les 60 plateformes de plus grand volume, qui représentent environ 99,97 % de tous les exposés. Le résultat est une table soignée, au format long : environ 24 500 lignes, quelque deux mégaoctets de JSON, couvrant de septembre 2023 à aujourd'hui. Cela s'intègre dans la même base de données SQLite en lecture seule que tous les autres jeux de données et devient une table interrogeable ordinaire, accessible depuis la même interface de requête structurée et sans SQL que le reste du site.</p>
+
+    <h2>À quoi ressemble sa forme</h2>
+
+    <p>La première chose que l'on remarque, c'est à quel point le volume est déséquilibré. Une plateforme — Google Shopping — représente la large majorité de tous les exposés de la base, atteignant des centaines de millions par mois, presque exclusivement des fiches produits déréférencées comme hors du périmètre de la place de marché. TikTok, Facebook, Pinterest, Amazon et AliExpress constituent l'essentiel du reste. Une poignée de places de marché et de grandes plateformes sociales dominent ; la longue traîne de centaines de plus petits déposants est une erreur d'arrondi.</p>
+
+    <p>Au-delà, les champs au niveau de la décision permettent de voir des choses que les rapports agrégés ne font pas ressortir clairement : la répartition entre les contenus restreints comme <em>illégaux au regard de la loi</em> et ceux <em>incompatibles avec les propres conditions de la plateforme</em> (très majoritairement ces dernières), la part des décisions prises de façon entièrement automatisée par rapport à celles avec un humain dans la boucle, et lesquelles des catégories d'exposés du DSA les décisions du mois invoquent réellement. La page <code>/dsa-db</code> représente graphiquement les totaux mensuels, les principales plateformes dans le temps, la composition par catégorie et le fondement illégal-versus-conditions, avec en dessous une table par plateforme.</p>
+
+    <h2>Les mêmes réserves, en plus tranchant</h2>
+
+    <p>Tout ce que j'ai <a href="/blog/dsa-vlop-data-limitations.html">écrit sur les limites des rapports agrégés</a> s'applique toujours ici, et deux ou trois nouvelles apparaissent. Les définitions de catégories restent propres à chaque plateforme, de sorte que les comparaisons de catégories entre plateformes comparent des constructions définies par les plateformes, non une construction cohérente. Les données restent auto-déclarées et non auditées.</p>
+
+    <p>Et l'agrégation a ses propres pièges, dont l'interface de requête vous avertit. Les coupes à une seule dimension partitionnent chacune le même ensemble d'exposés, si bien qu'une ventilation par catégorie se resomme au total de la plateforme — ce qui signifie que sommer une ventilation <em>avec</em> le total revient à compter deux fois. La coupe par type de restriction est à sélection multiple, car une même décision peut à la fois retirer un contenu et désactiver un compte, de sorte que ces lignes ne se somment pas du tout au total. Et comme quelques places de marché dominent le volume si lourdement, presque toute somme entre plateformes ne fait en réalité que mesurer Google Shopping. La règle pratique est la même que celle vers laquelle l'interface vous oriente : épinglez une section et, le plus souvent, une plateforme avant d'agréger quoi que ce soit.</p>
+
+    <h2>Deux regards sur une même loi</h2>
+
+    <p>Ce que j'apprécie dans le fait d'avoir les deux jeux de données au même endroit, c'est qu'ils répondent à des questions différentes. Les rapports agrégés sont le résumé, par une plateforme, de ce qu'elle a fait sur une période, dans ses propres catégories, revu par ses équipes juridiques et politiques avant publication. La base de données de transparence est le flux brut des décisions individuelles, structuré de la même façon pour tout le monde, déposé en continu. Aucun ne se substitue à l'autre, et les écarts entre les deux sont souvent la partie intéressante. Les avoir côte à côte, derrière la même interface de requête, c'est tout l'intérêt.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

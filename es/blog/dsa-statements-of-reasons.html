@@ -1,0 +1,77 @@
+---
+layout: main
+title: "De informes agregados a decisiones individuales: incorporar la Base de Datos de Transparencia del DSA"
+description: "El panel ya tenía los informes de transparencia agregados del DSA. Ahora también tiene los datos a nivel de decisión: cada declaración de motivos de moderación de contenido que las plataformas presentan a la UE. Así fue como unos 4 TB de volcados diarios se convirtieron en un panel de dos megabytes."
+date: 2026-07-11
+lang: es
+lang_url: /blog/dsa-statements-of-reasons.html
+lang_url_ja: /ja/blog/dsa-statements-of-reasons.html
+lang_url_zh: /zh/blog/dsa-statements-of-reasons.html
+lang_url_ko: /ko/blog/dsa-statements-of-reasons.html
+lang_url_fr: /fr/blog/dsa-statements-of-reasons.html
+lang_url_de: /de/blog/dsa-statements-of-reasons.html
+lang_url_it: /it/blog/dsa-statements-of-reasons.html
+---
+
+<article class="post">
+  <a href="/es/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Escritos</p>
+    <h1>De informes agregados a decisiones individuales: incorporar la Base de Datos de Transparencia del DSA</h1>
+    <time class="news-date" datetime="2026-07-11">11 de julio de 2026</time>
+    <div class="tags">
+      <span class="tag">EU DSA</span>
+      <span class="tag">VLOP</span>
+      <span class="tag">Datos</span>
+      <span class="tag">Ingeniería</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>El <a href="/vlop.html">panel de VLOP</a> ha girado, hasta ahora, en torno a los informes de transparencia <em>agregados</em> de la Ley de Servicios Digitales (DSA) de la UE: las presentaciones periódicas en las que una plataforma informa, por categoría, de cuántas notificaciones recibió y sobre cuántos elementos de contenido actuó a lo largo de seis meses. Ese es uno de los dos mecanismos de transparencia del DSA. Esta actualización añade el otro, que es un animal muy distinto: la <strong>Base de Datos de Transparencia del DSA</strong> de declaraciones de motivos.</p>
+
+    <h2>Qué es una declaración de motivos</h2>
+
+    <p>Con arreglo al artículo 17 del DSA, siempre que una plataforma dentro del ámbito de aplicación restringe un elemento de contenido —lo retira, deshabilita el acceso a él, lo degrada, le impone una restricción por edad, lo desmonetiza— tiene que dar a la persona afectada una «declaración de motivos» que explique la decisión. Y tiene que presentar una copia de esa declaración a una <a href="https://transparency.dsa.ec.europa.eu/">Base de Datos de Transparencia</a> pública gestionada por la Comisión Europea, con los datos personales eliminados.</p>
+
+    <p>Los informes agregados te dicen lo que una plataforma dice que hizo durante un periodo de referencia. La Base de Datos de Transparencia son las decisiones individuales en sí: una fila por cada acción de moderación, presentada a medida que ocurre, con campos estructurados para la categoría, el fundamento jurídico, si se detectó automáticamente, si la decisión fue automatizada y qué restricción se aplicó. Es lo más parecido que existe a un registro en tiempo real, a nivel de decisión, de la moderación de contenido en toda la UE.</p>
+
+    <p>También es enorme. Las plataformas presentan del orden de un par de miles de millones de declaraciones al mes. El volcado histórico completo ronda los cuatro terabytes y crece cada día.</p>
+
+    <h2>No puedes meter cuatro terabytes en un panel</h2>
+
+    <p>Así que la pregunta interesante de ingeniería era cómo pasar de cuatro terabytes de volcados diarios en CSV a algo que quepa detrás de una interfaz de consulta interactiva sin un almacén de datos analítico por detrás.</p>
+
+    <p>La respuesta resultó ser el propio instrumental de la Comisión. Junto a la base de datos, el equipo del DSA publica una caja de herramientas de Python de código abierto, <a href="https://code.europa.eu/dsa/transparency-database/dsa-tdb"><code>dsa-tdb</code></a>, que descarga los volcados diarios, los verifica y —lo crucial— publica <em>agregados mensuales precalculados</em>. En lugar de las declaraciones en bruto, puedes extraer una fila por cada combinación de grano fino de plataforma, día, categoría, fundamento de la decisión, automatización y tipo de restricción, con un recuento. Eso son unos siete megabytes de CSV comprimido con gzip al mes, en vez de la manguera de datos en bruto.</p>
+
+    <p>A partir de ahí es un problema de reagregación. Consolido los agregados diarios en meses, los colapso en un puñado de cortes de una sola dimensión —total de declaraciones, por categoría, por fundamento de la decisión, por automatización, por tipo de restricción— y me quedo con las 60 plataformas de mayor volumen, que representan alrededor del 99,97 % de todas las declaraciones. El resultado es una tabla ordenada, en formato largo: unas 24 500 filas, unos dos megabytes de JSON, que cubren desde septiembre de 2023 hasta el presente. Eso se integra en la misma base de datos SQLite de solo lectura que cualquier otro conjunto de datos y se convierte en una tabla consultable corriente, alcanzable desde la misma interfaz de consulta estructurada y sin SQL que el resto del sitio.</p>
+
+    <h2>Qué forma tiene</h2>
+
+    <p>Lo primero que notas es lo desigual que es el volumen. Una plataforma —Google Shopping— representa la gran mayoría de todas las declaraciones de la base de datos, llegando a cientos de millones al mes, casi por completo listados de productos retirados por quedar fuera del ámbito del mercado. TikTok, Facebook, Pinterest, Amazon y AliExpress conforman la mayor parte del resto. Un puñado de mercados y grandes plataformas sociales dominan; la larga cola de cientos de declarantes más pequeños es un error de redondeo.</p>
+
+    <p>Más allá de eso, los campos a nivel de decisión te dejan ver cosas que los informes agregados no muestran con claridad: la distinción entre contenido restringido por ser <em>ilegal según la ley</em> frente al <em>incompatible con los propios términos de la plataforma</em> (abrumadoramente esto último), la proporción de decisiones tomadas de forma totalmente automática frente a las que tienen a una persona en el circuito, y cuáles de las categorías de declaración del DSA citan en realidad las decisiones del mes. La página <code>/dsa-db</code> grafica los totales mensuales, las principales plataformas a lo largo del tiempo, la mezcla de categorías y el fundamento ilegal-frente-a-términos, con una tabla por plataforma debajo.</p>
+
+    <h2>Las mismas advertencias, más afiladas</h2>
+
+    <p>Todo lo que <a href="/blog/dsa-vlop-data-limitations.html">escribí sobre las limitaciones de los informes agregados</a> sigue aplicándose aquí, y aparecen un par de nuevas. Las definiciones de categoría siguen siendo propias de cada plataforma, así que las comparaciones de categorías entre plataformas son comparaciones de constructos definidos por cada plataforma, no de uno coherente. Los datos siguen siendo autodeclarados y sin auditar.</p>
+
+    <p>Y la agregación tiene sus propias trampas, sobre las que la interfaz de consulta te advierte. Los cortes de una sola dimensión reparten cada uno el mismo conjunto de declaraciones, así que un desglose por categoría suma de vuelta el total de la plataforma, lo que significa que sumar un desglose <em>junto con</em> el total cuenta dos veces. El corte por tipo de restricción es de selección múltiple, porque una decisión puede a la vez retirar contenido y deshabilitar una cuenta, así que esas filas no suman el total en absoluto. Y como unos pocos mercados dominan el volumen de forma tan aplastante, casi cualquier suma entre plataformas está midiendo en realidad solo a Google Shopping. La regla práctica es la misma hacia la que te empuja la interfaz: fija una sección y normalmente una plataforma antes de agregar nada.</p>
+
+    <h2>Dos lentes sobre la misma ley</h2>
+
+    <p>Lo que me gusta de tener ambos conjuntos de datos en un solo lugar es que responden a preguntas distintas. Los informes agregados son el propio resumen de una plataforma de lo que hizo durante un periodo, en sus propias categorías, revisado por sus equipos jurídicos y de políticas antes de publicarse. La Base de Datos de Transparencia es el flujo en bruto de decisiones individuales, estructurado del mismo modo para todos, presentado de forma continua. Ninguno sustituye al otro, y las discrepancias entre ambos son a menudo la parte interesante. Tenerlos uno junto al otro, detrás de la misma interfaz de consulta, es precisamente el objetivo.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>
