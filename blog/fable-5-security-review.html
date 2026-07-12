@@ -3,7 +3,7 @@ layout: main
 title: "How I Fixed Five API Vulnerabilities with One Prompt and Claude Fable 5"
 description: "I asked Claude Code, running Anthropic's new Fable 5 model, to security-review my research API. It found and fixed five real issues — SSRF, CSV injection, a timing side channel — then fact-checked the bot that reviewed its PR."
 date: 2026-06-11
-og_image: /images/fable-5-security-review.png
+og_image: /images/fable-5-security-review-en.png
 lang: en
 lang_url: /ja/blog/fable-5-security-review.html
 lang_url_zh: /zh/blog/fable-5-security-review.html
@@ -29,7 +29,7 @@ lang_url_it: /it/blog/fable-5-security-review.html
   <div class="post-body">
 
     <figure class="post-figure" style="margin:0 0 2rem;">
-      <img src="/images/fable-5-security-review.png" alt="Article header: Five API fixes from one prompt with Fable 5" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+      <img src="/images/fable-5-security-review-en.png" alt="Article header: How I Fixed Five API Vulnerabilities with One Prompt and Claude Fable 5" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
     </figure>
 
     <p>Behind the <a href="/vlop.html">VLOP transparency dashboard</a> sits a small FastAPI service — a structured-query API modelled on the TikTok Research API, serving aggregated EU DSA transparency data. Several of its endpoints are deliberately public: an interactive query builder, a natural-language "ask" box, an overview feed. Public endpoints on a hobby-scale service are exactly where security debt accumulates quietly, because nothing forces you to look.</p>
@@ -66,7 +66,7 @@ lang_url_it: /it/blog/fable-5-security-review.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
-  "image": "https://krmaynard.github.io/images/fable-5-security-review.png",
+  "image": "https://krmaynard.github.io/images/fable-5-security-review-en.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

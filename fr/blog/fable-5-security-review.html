@@ -3,7 +3,7 @@ layout: main
 title: "Comment j'ai corrigé cinq vulnérabilités d'API avec un seul prompt et Claude Fable 5"
 description: "J'ai demandé à Claude Code, propulsé par le nouveau modèle Fable 5 d'Anthropic, de faire une revue de sécurité de mon API de recherche. Il a trouvé et corrigé cinq vrais problèmes — SSRF, injection CSV, un canal auxiliaire temporel — puis a vérifié les faits avancés par le bot qui a relu sa PR."
 date: 2026-06-11
-og_image: /images/fable-5-security-review.png
+og_image: /images/fable-5-security-review-fr.png
 lang: fr
 lang_url: /blog/fable-5-security-review.html
 lang_url_ja: /ja/blog/fable-5-security-review.html
@@ -29,7 +29,7 @@ lang_url_it: /it/blog/fable-5-security-review.html
   <div class="post-body">
 
     <figure class="post-figure" style="margin:0 0 2rem;">
-      <img src="/images/fable-5-security-review.png" alt="En-tête de l'article : Five API fixes from one prompt with Fable 5" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+      <img src="/images/fable-5-security-review-fr.png" alt="En-tête de l'article : Comment j'ai corrigé cinq vulnérabilités d'API avec un seul prompt et Claude Fable 5" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
     </figure>
 
     <p>Derrière le <a href="/fr/vlop.html">tableau de bord de transparence VLOP</a> tourne un petit service FastAPI — une API de requêtes structurées calquée sur la TikTok Research API, qui sert des données de transparence agrégées du DSA de l'UE. Plusieurs de ses endpoints sont délibérément publics : un constructeur de requêtes interactif, une boîte « demander » en langage naturel, un fil de synthèse. Les endpoints publics d'un service à l'échelle d'un projet perso sont précisément là où la dette de sécurité s'accumule en silence, parce que rien ne vous force à regarder.</p>
@@ -66,7 +66,7 @@ lang_url_it: /it/blog/fable-5-security-review.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
-  "image": "https://krmaynard.github.io/images/fable-5-security-review.png",
+  "image": "https://krmaynard.github.io/images/fable-5-security-review-fr.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"
