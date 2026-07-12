@@ -3,7 +3,7 @@ layout: main
 title: "一条提示词加Claude Fable 5：我如何修复了API的五个安全漏洞"
 description: "我让搭载Anthropic新模型Fable 5的Claude Code对我的研究API做安全审查。它发现并修复了五个真实问题——SSRF、CSV注入、时序侧信道——还对审查其PR的机器人的意见做了事实核查。"
 date: 2026-06-11
-og_image: /images/fable-5-security-review.png
+og_image: /images/fable-5-security-review-zh.png
 lang: zh
 lang_url: /blog/fable-5-security-review.html
 lang_url_ja: /ja/blog/fable-5-security-review.html
@@ -29,7 +29,7 @@ lang_url_it: /it/blog/fable-5-security-review.html
   <div class="post-body">
 
     <figure class="post-figure" style="margin:0 0 2rem;">
-      <img src="/images/fable-5-security-review.png" alt="文章头图：Five API fixes from one prompt with Fable 5" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+      <img src="/images/fable-5-security-review-zh.png" alt="文章头图：一条提示词加Claude Fable 5：我如何修复了API的五个安全漏洞" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
     </figure>
 
     <p><a href="/zh/vlop.html">VLOP透明度仪表盘</a>的背后运行着一个小型FastAPI服务——一个仿照TikTok Research API设计的结构化查询API，提供聚合后的欧盟DSA透明度数据。它的若干端点是有意公开的：交互式查询构建器、自然语言"提问"框、概览数据流。业余规模服务上的公开端点，正是安全债务悄然积累的地方，因为没有任何东西强迫你去检查。</p>
@@ -66,7 +66,7 @@ lang_url_it: /it/blog/fable-5-security-review.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
-  "image": "https://krmaynard.github.io/images/fable-5-security-review.png",
+  "image": "https://krmaynard.github.io/images/fable-5-security-review-zh.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"
