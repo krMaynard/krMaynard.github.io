@@ -1,0 +1,78 @@
+---
+layout: main
+title: "Dai report aggregati alle singole decisioni: aggiungere il Database di trasparenza del DSA"
+description: "La dashboard aveva già i report di trasparenza aggregati del DSA. Ora ha anche i dati a livello di decisione — ogni dichiarazione dei motivi di moderazione dei contenuti che le piattaforme depositano presso l'UE. Ecco come ~4 TB di dump giornalieri sono diventati una dashboard da due megabyte."
+date: 2026-07-11
+og_image: /images/dsa-db-og.png
+lang: it
+lang_url: /blog/dsa-statements-of-reasons.html
+lang_url_ja: /ja/blog/dsa-statements-of-reasons.html
+lang_url_zh: /zh/blog/dsa-statements-of-reasons.html
+lang_url_ko: /ko/blog/dsa-statements-of-reasons.html
+lang_url_fr: /fr/blog/dsa-statements-of-reasons.html
+lang_url_es: /es/blog/dsa-statements-of-reasons.html
+lang_url_de: /de/blog/dsa-statements-of-reasons.html
+---
+
+<article class="post">
+  <a href="/it/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Scritti</p>
+    <h1>Dai report aggregati alle singole decisioni: aggiungere il Database di trasparenza del DSA</h1>
+    <time class="news-date" datetime="2026-07-11">11 luglio 2026</time>
+    <div class="tags">
+      <span class="tag">EU DSA</span>
+      <span class="tag">VLOP</span>
+      <span class="tag">Dati</span>
+      <span class="tag">Engineering</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p>La <a href="/it/vlop.html">dashboard VLOP</a> ha riguardato, finora, i report di trasparenza <em>aggregati</em> del Digital Services Act dell'UE — i depositi periodici in cui una piattaforma riporta, per categoria, quante segnalazioni ha ricevuto e quanti contenuti ha sottoposto ad azione nell'arco di sei mesi. È uno dei due meccanismi di trasparenza del DSA. Questo aggiornamento aggiunge l'altro, che è tutt'altra bestia: il <strong>Database di trasparenza del DSA</strong> delle dichiarazioni dei motivi.</p>
+
+    <h2>Che cos'è una dichiarazione dei motivi</h2>
+
+    <p>Ai sensi dell'Articolo 17 del DSA, ogniqualvolta una piattaforma soggetta alle norme limita un contenuto — lo rimuove, ne disabilita l'accesso, lo declassa, ne limita la fruizione per età, lo demonetizza — deve fornire all'utente interessato una "dichiarazione dei motivi" che spiega la decisione. E deve depositare una copia di tale dichiarazione in un <a href="https://transparency.dsa.ec.europa.eu/">Database di trasparenza</a> pubblico gestito dalla Commissione europea, con i dati personali rimossi.</p>
+
+    <p>I report aggregati ti dicono ciò che una piattaforma dichiara di aver fatto in un periodo di rendicontazione. Il Database di trasparenza è costituito dalle singole decisioni stesse — una riga per ogni azione di moderazione, depositata man mano che avviene, con campi strutturati per la categoria, la base giuridica, se sia stata rilevata automaticamente, se la decisione sia stata automatizzata e quale restrizione sia stata applicata. È la cosa più vicina che esista a un registro in tempo reale, a livello di decisione, della moderazione dei contenuti in tutta l'UE.</p>
+
+    <p>È anche enorme. Le piattaforme depositano nell'ordine di un paio di miliardi di dichiarazioni al mese. Il dump storico completo si aggira intorno ai quattro terabyte e cresce ogni giorno.</p>
+
+    <h2>Non puoi mettere quattro terabyte in una dashboard</h2>
+
+    <p>Perciò l'interessante questione ingegneristica era come passare da quattro terabyte di dump CSV giornalieri a qualcosa che entri dietro un'interfaccia di query interattiva senza un data warehouse analitico a supporto.</p>
+
+    <p>La risposta si è rivelata essere lo strumento della Commissione stessa. Accanto al database, il team DSA pubblica una toolbox Python open source, <a href="https://code.europa.eu/dsa/transparency-database/dsa-tdb"><code>dsa-tdb</code></a>, che scarica i dump giornalieri, li verifica e — cosa cruciale — pubblica <em>aggregati mensili precalcolati</em>. Invece delle dichiarazioni grezze, puoi estrarre una riga per ogni combinazione granulare di piattaforma, giorno, categoria, base della decisione, automazione e tipo di restrizione, con un conteggio. Si tratta di circa sette megabyte di CSV compresso al mese, anziché il flusso grezzo a piena portata.</p>
+
+    <p>Da lì è un problema di ri-aggregazione. Aggrego gli aggregati giornalieri per mese, li riduco a una manciata di tagli monodimensionali — dichiarazioni totali, per categoria, per base della decisione, per automazione, per tipo di restrizione — e mantengo le 60 piattaforme principali per volume, che rappresentano circa il 99,97% di tutte le dichiarazioni. Il risultato è una tabella ordinata, in formato lungo: all'incirca 24.500 righe, circa due megabyte di JSON, che copre da settembre 2023 a oggi. Questo confluisce nello stesso database SQLite di sola lettura di ogni altro dataset e diventa un'ordinaria tabella interrogabile, raggiungibile dalla stessa interfaccia di query strutturata e senza SQL del resto del sito.</p>
+
+    <h2>Che forma ha</h2>
+
+    <p>La prima cosa che si nota è quanto sbilanciato sia il volume. Una piattaforma — Google Shopping — rappresenta la grande maggioranza di tutte le dichiarazioni nel database, arrivando a centinaia di milioni al mese, quasi interamente inserzioni di prodotti rimosse in quanto fuori ambito per il marketplace. TikTok, Facebook, Pinterest, Amazon e AliExpress costituiscono la maggior parte del resto. Una manciata di marketplace e grandi piattaforme social dominano; la lunga coda di centinaia di depositanti più piccoli è un errore di arrotondamento.</p>
+
+    <p>Oltre a questo, i campi a livello di decisione ti permettono di vedere cose che i report aggregati non fanno emergere con chiarezza: la ripartizione tra contenuti limitati in quanto <em>illegali per legge</em> e in quanto <em>incompatibili con i termini della piattaforma stessa</em> (in stragrande maggioranza questi ultimi), la quota di decisioni prese in modo completamente automatico rispetto a quelle con un umano nel processo, e quali delle categorie di dichiarazione del DSA le decisioni del mese effettivamente citino. La pagina <code>/dsa-db</code> traccia i totali mensili, le piattaforme principali nel tempo, il mix di categorie e la base illegale-contro-termini, con una tabella per piattaforma al di sotto.</p>
+
+    <h2>Le stesse avvertenze, più marcate</h2>
+
+    <p>Tutto ciò che ho <a href="/it/blog/dsa-vlop-data-limitations.html">scritto sui limiti dei report aggregati</a> vale ancora qui, e ne compaiono un paio di nuovi. Le definizioni delle categorie sono ancora quelle proprie di ciascuna piattaforma, quindi i confronti tra piattaforme sulle categorie sono confronti tra costrutti definiti dalle piattaforme, non un costrutto coerente. I dati sono ancora auto-dichiarati e non sottoposti a revisione.</p>
+
+    <p>E l'aggregazione ha le sue trappole, sulle quali l'interfaccia di query ti mette in guardia. I tagli monodimensionali partizionano ciascuno lo stesso insieme di dichiarazioni, quindi una ripartizione per categoria somma di nuovo al totale della piattaforma — il che significa che sommare una ripartizione <em>insieme</em> al totale conteggia due volte. Il taglio per tipo di restrizione è a selezione multipla, perché una decisione può sia rimuovere un contenuto sia disabilitare un account, quindi quelle righe non sommano affatto al totale. E poiché pochi marketplace dominano il volume così pesantemente, quasi ogni somma tra piattaforme in realtà misura solo Google Shopping. La regola pratica è la stessa verso cui l'interfaccia ti spinge: fissa una sezione e di solito una piattaforma prima di aggregare qualsiasi cosa.</p>
+
+    <h2>Due lenti sulla stessa legge</h2>
+
+    <p>Ciò che mi piace dell'avere entrambi i dataset in un unico luogo è che rispondono a domande diverse. I report aggregati sono il riepilogo di una piattaforma su ciò che ha fatto in un periodo, nelle sue proprie categorie, esaminato dai suoi team legali e di policy prima della pubblicazione. Il Database di trasparenza è il flusso grezzo delle singole decisioni, strutturato allo stesso modo per tutti, depositato in continuazione. Nessuno dei due è un sostituto dell'altro, e le discrepanze tra loro sono spesso la parte interessante. Averli affiancati, dietro la stessa interfaccia di query, è il punto.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>
