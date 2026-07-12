@@ -3,6 +3,7 @@ layout: main
 title: "China's Anthropomorphic-AI Rules and the Removal of Companion Chatbots"
 description: "In July 2026 three of China's most-used AI apps said they would pull the user-created companion chatbots (智能体) built on them. A look at the new Interim Measures behind the removals — which target companion chatbots, not the autonomous 'agents' the term literally translates to — what the rule covers, and the translation knot that made 'agents' the headline."
 date: 2026-07-10
+og_image: /images/companion-chatbots.png
 lang: en
 lang_url: /ja/blog/china-anthropomorphic-ai-rules.html
 lang_url_zh: /zh/blog/china-anthropomorphic-ai-rules.html
@@ -27,11 +28,15 @@ lang_url_it: /it/blog/china-anthropomorphic-ai-rules.html
   </header>
   <div class="post-body">
 
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/companion-chatbots.png" alt="Editorial card: the Chinese label 智能体 (zhìnéngtǐ) shown in a speech bubble and glossed two ways — 'companion chatbot', what China's new rules remove, versus the literal 'AI agent'." style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
+
     <p>In late June and early July 2026, three of China's most-used consumer AI apps said they would remove the companion chatbots (智能体) built on their platforms. Tencent's Yuanbao (元宝) pulled its feature on June 30; ByteDance's Doubao (豆包) and Alibaba's Tongyi Qianwen (通义千问) both set their removals for July 15. Rendered into English, "big Chinese models remove their agents" reads like a retreat from agentic AI. The actual scope is narrower, and it turns partly on a translation.</p>
 
     <h2>The rule behind the date</h2>
 
-    <p>July 15 is the day the <em>Interim Measures for the Administration of AI Anthropomorphic Interaction Services</em> (《人工智能拟人化互动服务管理暂行办法》) take effect. Five agencies issued them jointly on April 10, 2026: the Cyberspace Administration of China, the National Development and Reform Commission, the Ministry of Industry and Information Technology, the Ministry of Public Security, and the State Administration for Market Regulation.</p>
+    <p>July 15 is the day the <a href="https://www.cac.gov.cn/2026-04/10/c_1777558395078289.htm" target="_blank" rel="noopener"><em>Interim Measures for the Administration of AI Anthropomorphic Interaction Services</em></a> (《人工智能拟人化互动服务管理暂行办法》) take effect. Five agencies issued them jointly on April 10, 2026: the <a href="https://en.wikipedia.org/wiki/Cyberspace_Administration_of_China" target="_blank" rel="noopener">Cyberspace Administration of China</a>, the National Development and Reform Commission, the Ministry of Industry and Information Technology, the Ministry of Public Security, and the State Administration for Market Regulation.</p>
 
     <p>The Measures govern one defined category: AI services that provide "continuous emotional interaction" by simulating a natural person's personality traits, patterns of thought, and communication style. In plain terms, that is virtual companions, AI romantic partners, character role-play, and emotional-support chat — services built around a persona that a user relates to over time.</p>
 
@@ -49,11 +54,11 @@ lang_url_it: /it/blog/china-anthropomorphic-ai-rules.html
 
     <h2>Enforcement context</h2>
 
-    <p>The removals are happening alongside active enforcement. Shanghai's cyberspace administration ran a "Qinglang" (清朗) campaign against "chaos in AI applications" that, by its own reporting, cleared more than 4.87 million pieces of non-compliant information, acted on over 18,000 accounts, and removed more than 14,000 non-compliant user-built companion chatbots (智能体).</p>
+    <p>The removals are happening alongside active enforcement. Shanghai's cyberspace administration ran a <a href="https://en.wikipedia.org/wiki/Operation_Qinglang" target="_blank" rel="noopener">"Qinglang" (清朗) campaign</a> against "chaos in AI applications" that, by its own reporting, cleared more than 4.87 million pieces of non-compliant information, acted on over 18,000 accounts, and removed more than 14,000 non-compliant user-built companion chatbots (智能体).</p>
 
     <h2>Where it fits</h2>
 
-    <p>For anyone tracking how platforms are regulated across jurisdictions, this is a clean example of how wording shapes perception. The EU's DSA counts notices and moderation actions; California's AB 587 asks platforms to describe how their terms define and enforce content categories; China's new Measures single out one product category — anthropomorphic emotional interaction — and set conditions on it. The mid-July removals are the platforms clearing that category ahead of the effective date, not a verdict on agents as a technology. The distinction is easy to lose in translation, which is much of why it is worth stating plainly.</p>
+    <p>For anyone tracking how platforms are regulated across jurisdictions, this is a clean example of how wording shapes perception. The EU's <a href="https://en.wikipedia.org/wiki/Digital_Services_Act" target="_blank" rel="noopener">DSA</a> counts notices and moderation actions; <a href="/blog/ab587-vs-s895.html">California's AB 587</a> asks platforms to describe how their terms define and enforce content categories; China's new Measures single out one product category — anthropomorphic emotional interaction — and set conditions on it. The mid-July removals are the platforms clearing that category ahead of the effective date, not a verdict on agents as a technology. The distinction is easy to lose in translation, which is much of why it is worth stating plainly.</p>
 
   </div>
 </article>
@@ -63,6 +68,7 @@ lang_url_it: /it/blog/china-anthropomorphic-ai-rules.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/companion-chatbots.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"
