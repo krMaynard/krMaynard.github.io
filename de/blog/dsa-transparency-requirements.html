@@ -3,6 +3,7 @@ layout: main
 title: "Was das EU-DSA-Transparenz-Reporting tatsächlich verlangt"
 description: "Artikel 15 erfasst alle Vermittlungsdienste jährlich. Artikel 42 fügt halbjährliche, detaillierte VLOP-Pflichten hinzu. Die praktische Kluft ist beträchtlich — und sie zeigt sich in der Reporting-Infrastruktur."
 date: 2026-03-05
+og_image: /images/dsa-transparency-requirements.png
 lang: de
 lang_url: /blog/dsa-transparency-requirements.html
 lang_url_ja: /ja/blog/dsa-transparency-requirements.html
@@ -27,6 +28,10 @@ lang_url_it: /it/blog/dsa-transparency-requirements.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/dsa-transparency-requirements.png" alt="Artikel-Titelbild: What EU DSA transparency reporting requires" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>Die Transparenz-Berichtspflichten des EU Digital Services Act werden oft verkürzt beschrieben — „einen Bericht zur Content-Moderation veröffentlichen" —, doch die tatsächlichen gesetzlichen Anforderungen sind konkreter, und die Kluft zwischen dem, was verschiedene Plattformtypen berichten müssen, ist beträchtlich.</p>
 
@@ -70,6 +75,7 @@ lang_url_it: /it/blog/dsa-transparency-requirements.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/dsa-transparency-requirements.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

@@ -3,6 +3,7 @@ layout: main
 title: "Novità: dashboard delle richieste governative di rimozione di Google (2011–2025)"
 description: "Una dashboard interattiva che trasforma gli snapshot per periodo delle rimozioni governative di contenuti di Google in un esploratore di tendenze pluriennale, coprendo 30 periodi di reporting, 178 paesi, 61 prodotti e 22 motivi di rimozione."
 date: 2026-05-11
+og_image: /images/google-removal-dashboard.png
 lang: it
 lang_url: /blog/google-removal-dashboard.html
 lang_url_ja: /ja/blog/google-removal-dashboard.html
@@ -28,6 +29,10 @@ lang_url_de: /de/blog/google-removal-dashboard.html
   </header>
   <div class="post-body">
 
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/google-removal-dashboard.png" alt="Intestazione dell'articolo: Google government removal requests, 2011–2025" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
+
     <p>Ho costruito una <a href="/it/transparency.html">dashboard interattiva</a> sui dati pubblici delle richieste governative di rimozione di contenuti di Google — trasformando gli snapshot per periodo che Google pubblica in un esploratore di tendenze pluriennale.</p>
 
     <p>Il dataset abbraccia 30 periodi di reporting dal 2011 alla fine del 2025, coprendo 178 paesi e territori, 61 prodotti Google e 22 motivi di rimozione dichiarati. Ogni combinazione di filtri — paese, tipo di richiedente, prodotto, motivo — genera una serie temporale. Un grafico separato traccia il tasso di rimozione nel tempo per la stessa selezione.</p>
@@ -44,6 +49,7 @@ lang_url_de: /de/blog/google-removal-dashboard.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/google-removal-dashboard.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

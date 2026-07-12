@@ -3,6 +3,7 @@ layout: main
 title: "VLOPのDSAデータを横断的に見るということ：データが語らないこと"
 description: "カテゴリ定義はプラットフォーム間で標準化されていない。データは自己申告である。集計方法も異なる。VLOPダッシュボードが示せること・示せないこと、そしてその限界がデータと同様に重要な理由。"
 date: 2026-05-19
+og_image: /images/dsa-vlop-data-limitations.png
 lang: ja
 lang_url: /blog/dsa-vlop-data-limitations.html
 lang_url_zh: /zh/blog/dsa-vlop-data-limitations.html
@@ -27,6 +28,10 @@ lang_url_it: /it/blog/dsa-vlop-data-limitations.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/dsa-vlop-data-limitations.png" alt="記事ヘッダー画像：A cross-platform DSA view — and its blind spots" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>2日前に公開した<a href="/ja/vlop.html">VLOPダッシュボード</a>は30サービスを単一のビューに統合しています。これは真に有用です——このデータがインタラクティブな形式でプラットフォームをまたいで集計可能になったのは初めてであり、2025年下半期のレポートは委員会の統一テンプレートに初めて完全に準拠したものです。ただし、限界はデータと同様に重要であり、その一部はこの特定のダッシュボードの特性ではなく、DSA透明性報告がどのように機能しているかという構造的な問題です。</p>
 
@@ -66,6 +71,7 @@ lang_url_it: /it/blog/dsa-vlop-data-limitations.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/dsa-vlop-data-limitations.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}",

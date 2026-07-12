@@ -3,6 +3,7 @@ layout: main
 title: "Novedad: panel de transparencia de la EU DSA multiplataforma para las VLOP"
 description: "Un panel interactivo que combina los datos de los informes de transparencia de la EU DSA de H2 2025 de 30 servicios VLOP y VLOSE en una única vista multiplataforma. Todos los datos se procesan en tu navegador."
 date: 2026-05-29
+og_image: /images/vlop-dashboard.png
 lang: es
 lang_url: /blog/vlop-dashboard.html
 lang_url_ja: /ja/blog/vlop-dashboard.html
@@ -28,6 +29,10 @@ lang_url_it: /it/blog/vlop-dashboard.html
   </header>
   <div class="post-body">
 
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/vlop-dashboard.png" alt="Encabezado del artículo: A cross-platform EU DSA dashboard for VLOPs" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
+
     <p>He publicado un <a href="/es/vlop.html">panel interactivo</a> que cubre los informes de transparencia de la Ley de Servicios Digitales de la UE de H2 2025 de las grandes plataformas en línea (VLOP) y los grandes motores de búsqueda en línea (VLOSE).</p>
 
     <p>El panel combina datos de 30 servicios —entre ellos Google (6 productos), X, TikTok, Meta (Facebook e Instagram), Pinterest, AliExpress, Amazon, LinkedIn, Snapchat, Booking.com, SHEIN, Temu, Zalando, Wikimedia (6 servicios) y otros— en una única vista multiplataforma. Cubre las cuatro categorías principales de reporte de la DSA: Notificaciones, Acciones por iniciativa propia (contenido ilegal e infracciones de política mostradas por separado), Órdenes gubernamentales y Apelaciones. Filtra por plataforma, servicio, categoría de contenido y palabra clave. Todos los datos se procesan en tu navegador.</p>
@@ -42,6 +47,7 @@ lang_url_it: /it/blog/vlop-dashboard.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/vlop-dashboard.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

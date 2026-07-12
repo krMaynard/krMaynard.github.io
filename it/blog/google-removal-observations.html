@@ -3,6 +3,7 @@ layout: main
 title: "Tre aspetti da notare nei dati delle richieste di rimozione di Google"
 description: "Diffamazione e critica al governo hanno distribuzioni per paese molto diverse. Il tasso di rimozione varia nel tempo. E il tipo di richiedente ha un peso operativo reale. Cosa mostrano i dati quando li esplori."
 date: 2026-05-12
+og_image: /images/google-removal-observations.png
 lang: it
 lang_url: /blog/google-removal-observations.html
 lang_url_ja: /ja/blog/google-removal-observations.html
@@ -27,6 +28,10 @@ lang_url_de: /de/blog/google-removal-observations.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/google-removal-observations.png" alt="Intestazione dell'articolo: Three things worth noticing in Google's removal data" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>Avendo trascorso un decennio come uno degli autori principali della sezione Greater China del Google Transparency Report, è un dataset che conosco bene — sia ciò che mostra sia dove sono i suoi limiti. La <a href="/it/transparency.html">dashboard che ho pubblicato ieri</a> rende esplorabile l'intero dataset in modi che gli snapshot statici per periodo non consentono. Alcuni aspetti che vale la pena guardare in particolare.</p>
 
@@ -64,6 +69,7 @@ lang_url_de: /de/blog/google-removal-observations.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/google-removal-observations.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

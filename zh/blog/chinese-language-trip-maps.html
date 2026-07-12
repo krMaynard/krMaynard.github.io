@@ -3,6 +3,7 @@ layout: main
 title: "不用浏览器、不用地图API密钥，我做出了一叠中文行程地图"
 description: "我让运行在沙盒网页会话里的Claude Code，为去香港的行程里每个地点生成简体中文地图。没有浏览器，没有地图API密钥——只用地图瓦片、Pillow，外加绕道处理中国强制的GCJ-02坐标偏移。"
 date: 2026-06-22
+og_image: /images/chinese-language-trip-maps.png
 lang: zh
 lang_url: /blog/chinese-language-trip-maps.html
 lang_url_ja: /ja/blog/chinese-language-trip-maps.html
@@ -26,6 +27,10 @@ lang_url_it: /it/blog/chinese-language-trip-maps.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/chinese-language-trip-maps.png" alt="文章头图：A stack of Chinese-language trip maps" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>计划一趟四天的香港行程，我想要的东西很简单：每个要去的地方都有一张清楚的地图，标注用的是简体中文。不是标着一个图钉的英文地图，也不是一堆链接。十二个地点——酒店、博物馆、海洋公园、山顶缆车、机场——每个都做成一张干净的截图，好放进一本能打印的小册子。</p>
 
@@ -67,6 +72,7 @@ lang_url_it: /it/blog/chinese-language-trip-maps.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/chinese-language-trip-maps.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

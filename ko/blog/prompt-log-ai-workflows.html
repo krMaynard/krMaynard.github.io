@@ -3,6 +3,7 @@ layout: main
 title: "프롬프트도 리팩터링 대상이다: AI 워크플로의 로그를 남겨 자동화할 것을 찾아내기"
 description: "LayerX의 엔지니어링 글은 AI에 보내는 프롬프트를 로그로 남기고 코드처럼 분석해 자동화할 것을 찾아낸다. 직관이 후보를 짚고 데이터가 증명하는——내가 Google에서, 그리고 그 뒤로도 써 온 데이터 우선 방식을, 사람과 AI의 워크플로 그 자체에 돌려세운 것이다."
 date: 2026-06-19
+og_image: /images/prompt-log-ai-workflows.png
 lang: ko
 lang_url: /blog/prompt-log-ai-workflows.html
 lang_url_ja: /ja/blog/prompt-log-ai-workflows.html
@@ -26,6 +27,10 @@ lang_url_it: /it/blog/prompt-log-ai-workflows.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/prompt-log-ai-workflows.png" alt="글 헤더 이미지: Prompts are refactoring targets" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>내 일에서 가장 신뢰하는 방식은 이것이다——경험이 "여기는 개선될 것 같다"고 짚는 것을 출발점으로 삼되, 직감대로 움직이는 대신 <em>왜</em> 그리고 <em>어떻게</em> 개선되는지를 실제 데이터로 증명하는 것. 직관은 어디를 봐야 할지 알려주고, 데이터는 내가 옳았는지, 그리고 무엇을 해야 할지 알려준다. 최근 달라진 점은, 그 "보는" 일을 LLM이——예전이라면 증명 자체가 수지에 안 맞을 만한 규모로——해낼 수 있게 됐다는 것이다.</p>
 
@@ -61,6 +66,7 @@ lang_url_it: /it/blog/prompt-log-ai-workflows.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/prompt-log-ai-workflows.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

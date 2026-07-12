@@ -3,6 +3,7 @@ layout: main
 title: "すべてのプラットフォームの透明性レポートを、一つのクエリ言語で"
 description: "EU DSAデータのダッシュボードとして始まったものが、20を超えるプラットフォーム・規制当局の透明性データセットを横断する一つのAPIに成長しました。政府からの要請レポート、コンテンツモデレーション統計、各国法に基づく提出物を、SQL不要の安全なクエリインターフェース一つで扱えます。"
 date: 2026-07-09
+og_image: /images/transparency-report-api.png
 lang: ja
 lang_url: /blog/transparency-report-api.html
 lang_url_zh: /zh/blog/transparency-report-api.html
@@ -22,6 +23,10 @@ lang_url_ko: /ko/blog/transparency-report-api.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/transparency-report-api.png" alt="記事ヘッダー画像：One query language for every transparency report" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>始まりは一つのダッシュボードでした。昨春、指定された25の超大規模オンラインプラットフォーム（VLOP）向けに、<a href="/ja/blog/vlop-dashboard.html">EU DSA透明性データの横断ビュー</a>を作り、その後<a href="/ja/blog/vlop-dashboard-update.html">9つのレポート表すべてを埋めました</a>。その裏には小さなFastAPIサービスがありました。それから数か月、このサービスの方こそが、いつの間にかより興味深い成果物になっていました――ほかのレポートを次々と流し込んでも、同じクエリインターフェースがそれらを吸収し続けたからです。</p>
 
@@ -67,6 +72,7 @@ lang_url_ko: /ko/blog/transparency-report-api.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/transparency-report-api.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

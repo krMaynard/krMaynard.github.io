@@ -3,6 +3,7 @@ layout: main
 title: "Nouveau : un tableau de bord multiplateforme de transparence DSA de l'UE pour les VLOP"
 description: "Un tableau de bord interactif combinant les données des rapports de transparence DSA de l'UE du S2 2025 de 30 services VLOP et VLOSE en une seule vue multiplateforme. Toutes les données sont traitées dans votre navigateur."
 date: 2026-05-29
+og_image: /images/vlop-dashboard.png
 lang: fr
 lang_url: /blog/vlop-dashboard.html
 lang_url_ja: /ja/blog/vlop-dashboard.html
@@ -28,6 +29,10 @@ lang_url_it: /it/blog/vlop-dashboard.html
   </header>
   <div class="post-body">
 
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/vlop-dashboard.png" alt="En-tête de l'article : A cross-platform EU DSA dashboard for VLOPs" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
+
     <p>J'ai publié un <a href="/fr/vlop.html">tableau de bord interactif</a> couvrant les rapports de transparence du règlement européen sur les services numériques du S2 2025 pour les très grandes plateformes en ligne (VLOP) et les très grands moteurs de recherche en ligne (VLOSE).</p>
 
     <p>Le tableau de bord combine les données de 30 services — dont Google (6 produits), X, TikTok, Meta (Facebook et Instagram), Pinterest, AliExpress, Amazon, LinkedIn, Snapchat, Booking.com, SHEIN, Temu, Zalando, Wikimedia (6 services) et d'autres — en une seule vue multiplateforme. Il couvre les quatre grandes catégories de reporting du DSA : les Notifications, les Actions de propre initiative (contenus illégaux et violations de politique affichés séparément), les Injonctions des autorités et les Recours. Filtrez par plateforme, service, catégorie de contenu et mot-clé. Toutes les données sont traitées dans votre navigateur.</p>
@@ -42,6 +47,7 @@ lang_url_it: /it/blog/vlop-dashboard.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/vlop-dashboard.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

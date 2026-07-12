@@ -3,6 +3,7 @@ layout: main
 title: "用一种查询语言，读懂每个平台的透明度报告"
 description: "最初只是一个EU DSA数据的仪表盘，如今成长为一个横跨二十多个平台与监管机构透明度数据集的API——政府请求报告、内容审核统计、各国法律申报，全都通过一个无需SQL的安全查询接口触达。"
 date: 2026-07-09
+og_image: /images/transparency-report-api.png
 lang: zh
 lang_url: /blog/transparency-report-api.html
 lang_url_ja: /ja/blog/transparency-report-api.html
@@ -22,6 +23,10 @@ lang_url_ko: /ko/blog/transparency-report-api.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/transparency-report-api.png" alt="文章头图：One query language for every transparency report" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>它起初只是一个仪表盘。去年春天，我为25家被指定的超大型在线平台（VLOP）搭建了一个<a href="/zh/blog/vlop-dashboard.html">跨平台的EU DSA透明度数据视图</a>，随后又<a href="/zh/blog/vlop-dashboard-update.html">补齐了全部九张报告表</a>。它背后是一个小小的FastAPI服务。此后的几个月里，恰恰是这个服务悄悄变成了更有意思的产物——因为我不断把其他报告灌进去，而同一个查询接口总能把它们吸收进来。</p>
 
@@ -67,6 +72,7 @@ lang_url_ko: /ko/blog/transparency-report-api.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/transparency-report-api.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"
