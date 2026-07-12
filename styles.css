@@ -1750,6 +1750,16 @@ footer {
   margin-bottom: 0.4rem;
   line-height: 1.7;
 }
+.post-hero {
+  margin: 0 0 2rem;
+}
+.post-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
 
 /* ============================================================
    BLOG POST FOOTER — AUTHOR CARD + CONTINUE READING
