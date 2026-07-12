@@ -3,6 +3,7 @@ layout: main
 title: "I prompt sono bersagli di refactoring: registrare un flusso di lavoro con l'IA per scoprire cosa automatizzare"
 description: "Un post di ingegneria di LayerX registra i suoi prompt all'IA e li analizza come codice per scoprire cosa automatizzare. È la mossa data-first che ho usato in Google e da allora — l'intuizione la segnala, i dati la dimostrano — rivolta di riflesso al flusso di lavoro uomo-IA stesso."
 date: 2026-06-19
+og_image: /images/prompt-log-ai-workflows.png
 lang: it
 lang_url: /blog/prompt-log-ai-workflows.html
 lang_url_ja: /ja/blog/prompt-log-ai-workflows.html
@@ -26,6 +27,10 @@ lang_url_de: /de/blog/prompt-log-ai-workflows.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/prompt-log-ai-workflows.png" alt="Intestazione dell'articolo: Prompts are refactoring targets" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>La mossa di cui mi fido di più nel mio lavoro è questa: prendere qualcosa che l'esperienza segnala come migliorabile, poi dimostrare il <em>perché</em> e il <em>come</em> con dati reali — invece di agire d'istinto. L'intuizione ti dice dove guardare; i dati ti dicono se avevi ragione e cosa farne. Ciò che è cambiato di recente è che un LLM può fare il guardare, a una scala che un tempo rendeva questo genere di prova troppo costoso perché valesse la pena.</p>
 
@@ -61,6 +66,7 @@ lang_url_de: /de/blog/prompt-log-ai-workflows.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/prompt-log-ai-workflows.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

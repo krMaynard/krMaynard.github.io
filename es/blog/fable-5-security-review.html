@@ -3,6 +3,7 @@ layout: main
 title: "Cómo corregí cinco vulnerabilidades de API con un solo prompt y Claude Fable 5"
 description: "Le pedí a Claude Code, con el nuevo modelo Fable 5 de Anthropic, que hiciera una revisión de seguridad de mi API de investigación. Encontró y corrigió cinco problemas reales —SSRF, inyección de CSV, un canal lateral de temporización— y luego verificó los hechos del bot que revisó su PR."
 date: 2026-06-11
+og_image: /images/fable-5-security-review.png
 lang: es
 lang_url: /blog/fable-5-security-review.html
 lang_url_ja: /ja/blog/fable-5-security-review.html
@@ -26,6 +27,10 @@ lang_url_it: /it/blog/fable-5-security-review.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/fable-5-security-review.png" alt="Encabezado del artículo: Five API fixes from one prompt with Fable 5" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>Detrás del <a href="/es/vlop.html">panel de transparencia de VLOP</a> hay un pequeño servicio en FastAPI: una API de consultas estructuradas inspirada en la TikTok Research API, que sirve datos agregados de transparencia de la DSA de la UE. Varios de sus endpoints son públicos a propósito: un constructor de consultas interactivo, una casilla de «pregunta» en lenguaje natural, un feed de resumen. Los endpoints públicos de un servicio a escala de hobby son justo donde la deuda de seguridad se acumula en silencio, porque nada te obliga a mirar.</p>
 
@@ -61,6 +66,7 @@ lang_url_it: /it/blog/fable-5-security-review.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/fable-5-security-review.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

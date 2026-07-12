@@ -3,6 +3,7 @@ layout: main
 title: "新公開：VLOPのEU DSA透明性レポートを横断比較するダッシュボード"
 description: "EU DSA（デジタルサービス法）に基づく2025年下半期のVLOPおよびVLOSE透明性レポートを30サービス横断で比較できるインタラクティブダッシュボードを公開。すべてのデータ処理はブラウザ内で完結する。"
 date: 2026-05-29
+og_image: /images/vlop-dashboard.png
 lang: ja
 lang_url: /blog/vlop-dashboard.html
 lang_url_zh: /zh/blog/vlop-dashboard.html
@@ -28,6 +29,10 @@ lang_url_it: /it/blog/vlop-dashboard.html
   </header>
   <div class="post-body">
 
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/vlop-dashboard.png" alt="記事ヘッダー画像：A cross-platform EU DSA dashboard for VLOPs" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
+
     <p>超大型オンラインプラットフォーム（VLOP）および超大型オンライン検索エンジン（VLOSE）の2025年下半期EU デジタルサービス法（DSA）透明性レポートを横断する<a href="/ja/vlop.html">インタラクティブダッシュボード</a>を公開しました。</p>
 
     <p>ダッシュボードはGoogle（6プロダクト）、X、TikTok、Meta（FacebookおよびInstagram）、Pinterest、AliExpress、Amazon、LinkedIn、Snapchat、Booking.com、SHEIN、Temu、Zalando、Wikimedia（6サービス）などを含む計30サービスのデータを単一のプラットフォーム横断ビューに統合しています。DSAの主要4報告カテゴリを対象としています。通知（Notices）、自主的措置（違法コンテンツとポリシー違反を別表示）、政府命令（Government Orders）、および異議申し立て（Appeals）です。プラットフォーム・サービス・コンテンツカテゴリ・キーワードでのフィルタリングが可能で、すべてのデータ処理はブラウザ内で完結します。</p>
@@ -42,6 +47,7 @@ lang_url_it: /it/blog/vlop-dashboard.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/vlop-dashboard.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}",

@@ -3,6 +3,7 @@ layout: main
 title: "프롬프트 한 줄과 Claude Fable 5로 API 보안 취약점 5건을 고친 이야기"
 description: "Anthropic의 신모델 Fable 5를 탑재한 Claude Code에 연구용 API의 보안 점검을 맡겼습니다. SSRF, CSV 인젝션, 타이밍 부채널 등 실제 문제 5건을 찾아 고쳤고, 자신의 PR을 리뷰한 봇의 지적까지 사실 검증했습니다."
 date: 2026-06-11
+og_image: /images/fable-5-security-review.png
 lang: ko
 lang_url: /blog/fable-5-security-review.html
 lang_url_ja: /ja/blog/fable-5-security-review.html
@@ -26,6 +27,10 @@ lang_url_it: /it/blog/fable-5-security-review.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/fable-5-security-review.png" alt="글 헤더 이미지: Five API fixes from one prompt with Fable 5" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p><a href="/ko/vlop.html">VLOP 투명성 대시보드</a> 뒤에는 작은 FastAPI 서비스가 돌아갑니다. TikTok Research API를 본뜬 구조화 쿼리 API로, 집계된 EU DSA 투명성 데이터를 제공합니다. 일부 엔드포인트 — 인터랙티브 쿼리 빌더, 자연어 "질문" 상자, 개요 피드 — 는 의도적으로 공개되어 있습니다. 취미 규모 서비스의 공개 엔드포인트야말로 보안 부채가 조용히 쌓이는 곳입니다. 아무것도 들여다보라고 강제하지 않기 때문입니다.</p>
 
@@ -61,6 +66,7 @@ lang_url_it: /it/blog/fable-5-security-review.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/fable-5-security-review.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

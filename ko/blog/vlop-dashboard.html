@@ -3,6 +3,7 @@ layout: main
 title: "신규: VLOP를 위한 크로스플랫폼 EU DSA 투명성 대시보드"
 description: "30개 VLOP 및 VLOSE 서비스의 H2 2025 EU DSA 투명성 보고서 데이터를 단일 크로스플랫폼 뷰로 결합한 인터랙티브 대시보드. 모든 데이터는 브라우저에서 처리됩니다."
 date: 2026-05-17
+og_image: /images/vlop-dashboard.png
 lang: ko
 lang_url: /blog/vlop-dashboard.html
 lang_url_ja: /ja/blog/vlop-dashboard.html
@@ -28,6 +29,10 @@ lang_url_it: /it/blog/vlop-dashboard.html
   </header>
   <div class="post-body">
 
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/vlop-dashboard.png" alt="글 헤더 이미지: A cross-platform EU DSA dashboard for VLOPs" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
+
     <p>초대형 온라인 플랫폼(VLOP) 및 초대형 온라인 검색 엔진(VLOSE)의 H2 2025 EU 디지털 서비스법 투명성 보고서를 아우르는 <a href="/ko/vlop.html">인터랙티브 대시보드</a>를 발행했습니다.</p>
 
     <p>이 대시보드는 30개 서비스의 데이터를 단일 크로스플랫폼 뷰로 결합합니다. Google(6개 제품), X, TikTok, Meta(Facebook 및 Instagram), Pinterest, AliExpress, Amazon, LinkedIn, Snapchat, Booking.com, SHEIN, Temu, Zalando, Wikimedia(6개 서비스) 등을 포함합니다. DSA의 네 가지 주요 보고 카테고리를 포함합니다. 통지, 자발적 조치(불법 콘텐츠와 정책 위반을 별도로 표시), 정부 명령, 이의 신청. 플랫폼, 서비스, 콘텐츠 카테고리, 키워드로 필터링할 수 있습니다. 모든 데이터는 브라우저에서 처리됩니다.</p>
@@ -42,6 +47,7 @@ lang_url_it: /it/blog/vlop-dashboard.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/vlop-dashboard.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}",

@@ -3,6 +3,7 @@ layout: main
 title: "Lo que los resúmenes de datos de entrenamiento de la Ley de IA de la UE revelan — y lo que no"
 description: "El artículo 53(1)(d) obliga a los proveedores de IA de propósito general a publicar un resumen estandarizado de sus datos de entrenamiento. Reuní los ya presentados en un conjunto de datos comparable. La brecha entre quién presenta y quién no es más reveladora que las cifras — y la tosquedad de la plantilla es un límite estructural de lo que puede revelar."
 date: 2026-07-09
+og_image: /images/eu-ai-act-training-transparency.png
 lang: es
 lang_url: /blog/eu-ai-act-training-transparency.html
 lang_url_ja: /ja/blog/eu-ai-act-training-transparency.html
@@ -27,6 +28,10 @@ lang_url_it: /it/blog/eu-ai-act-training-transparency.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/eu-ai-act-training-transparency.png" alt="Encabezado del artículo: The EU AI Act's training-data summaries" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>El artículo 53(1)(d) de la Ley de IA de la UE obliga a todo proveedor de un modelo de IA de propósito general a publicar un «resumen suficientemente detallado» del contenido usado para entrenarlo, según una plantilla que la Oficina de IA publicó en julio de 2025. La obligación entró en vigor el 2 de agosto de 2025. Llevo un tiempo reuniendo los resúmenes efectivamente presentados en un pequeño conjunto de datos comparable —está disponible en <a href="https://transparency.kieranmaynard.com/ai-training">transparency.kieranmaynard.com/ai-training</a>— y el ejercicio termina diciendo más sobre el estado de la regulación que sobre los modelos.</p>
 
@@ -80,6 +85,7 @@ lang_url_it: /it/blog/eu-ai-act-training-transparency.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/eu-ai-act-training-transparency.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

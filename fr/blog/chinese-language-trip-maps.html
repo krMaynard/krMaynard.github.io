@@ -3,6 +3,7 @@ layout: main
 title: "Comment j'ai généré une pile de cartes de voyage en chinois sans navigateur ni clé d'API"
 description: "J'ai demandé à Claude Code, dans une session web en bac à sable, de créer des cartes en chinois simplifié pour chaque étape d'un voyage à Hong Kong. Pas de navigateur, pas de clé d'API Maps — juste des tuiles de carte brutes, Pillow, et un détour par le décalage de coordonnées GCJ-02 imposé par la Chine."
 date: 2026-06-22
+og_image: /images/chinese-language-trip-maps.png
 lang: fr
 lang_url: /blog/chinese-language-trip-maps.html
 lang_url_ja: /ja/blog/chinese-language-trip-maps.html
@@ -26,6 +27,10 @@ lang_url_it: /it/blog/chinese-language-trip-maps.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/chinese-language-trip-maps.png" alt="En-tête de l'article : A stack of Chinese-language trip maps" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>En préparant un voyage de quatre jours à Hong Kong, je voulais quelque chose de simple : une carte claire pour chaque étape, avec les libellés en chinois simplifié. Pas une carte en anglais avec une épingle plantée dessus, pas un mur de liens. Douze lieux — l'hôtel, les musées, Ocean Park, le tramway du Pic, l'aéroport — chacun sous forme d'une capture d'écran nette que je pourrais glisser dans un livret imprimable.</p>
 
@@ -67,6 +72,7 @@ lang_url_it: /it/blog/chinese-language-trip-maps.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/chinese-language-trip-maps.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

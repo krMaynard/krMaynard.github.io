@@ -3,6 +3,7 @@ layout: main
 title: "Construire une vue DSA multiplateforme : ce que les données ne vous disent pas"
 description: "Les définitions de catégories ne sont pas standardisées d'une plateforme à l'autre. Les données sont auto-déclarées. Les méthodes d'agrégation diffèrent. Ce que le tableau de bord VLOP peut et ne peut pas vous dire — et pourquoi les limites comptent autant que les données."
 date: 2026-05-19
+og_image: /images/dsa-vlop-data-limitations.png
 lang: fr
 lang_url: /blog/dsa-vlop-data-limitations.html
 lang_url_ja: /ja/blog/dsa-vlop-data-limitations.html
@@ -27,6 +28,10 @@ lang_url_it: /it/blog/dsa-vlop-data-limitations.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/dsa-vlop-data-limitations.png" alt="En-tête de l'article : A cross-platform DSA view — and its blind spots" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>Le <a href="/fr/vlop.html">tableau de bord VLOP</a> que j'ai publié il y a deux jours réunit 30 services dans une seule vue. C'est véritablement utile — c'est la première fois que ces données peuvent être agrégées entre plateformes dans un format interactif, et les rapports du H2 2025 sont les premiers à suivre intégralement le modèle harmonisé de la Commission. Mais les limites sont aussi importantes que les données, et certaines d'entre elles sont des problèmes structurels du fonctionnement du reporting de transparence du DSA, et non de simples particularités de ce tableau de bord précis.</p>
 
@@ -66,6 +71,7 @@ lang_url_it: /it/blog/dsa-vlop-data-limitations.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/dsa-vlop-data-limitations.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

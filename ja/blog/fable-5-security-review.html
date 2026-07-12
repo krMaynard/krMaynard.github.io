@@ -3,6 +3,7 @@ layout: main
 title: "プロンプト一つとClaude Fable 5でAPIの脆弱性5件を修正した話"
 description: "Anthropicの新モデルFable 5を搭載したClaude Codeに研究用APIのセキュリティレビューを依頼。SSRF、CSVインジェクション、タイミングサイドチャネルなど実在する5件の問題を発見・修正し、さらにPRをレビューしたボットの指摘までファクトチェックしました。"
 date: 2026-06-11
+og_image: /images/fable-5-security-review.png
 lang: ja
 lang_url: /blog/fable-5-security-review.html
 lang_url_zh: /zh/blog/fable-5-security-review.html
@@ -26,6 +27,10 @@ lang_url_it: /it/blog/fable-5-security-review.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/fable-5-security-review.png" alt="記事ヘッダー画像：Five API fixes from one prompt with Fable 5" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p><a href="/ja/vlop.html">VLOP透明性ダッシュボード</a>の裏側では、小さなFastAPIサービスが動いています。TikTok Research APIを模した構造化クエリAPIで、集計済みのEU DSA透明性データを提供するものです。エンドポイントのいくつか——インタラクティブなクエリビルダー、自然言語の「質問」ボックス、概要フィード——は意図的に公開しています。趣味規模のサービスの公開エンドポイントは、誰も見ることを強制されないがゆえに、セキュリティ負債が静かに溜まる場所そのものです。</p>
 
@@ -61,6 +66,7 @@ lang_url_it: /it/blog/fable-5-security-review.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/fable-5-security-review.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

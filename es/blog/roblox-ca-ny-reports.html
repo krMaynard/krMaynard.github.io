@@ -3,6 +3,7 @@ layout: main
 title: "Los informes de transparencia de California y Nueva York de Roblox ya están publicados"
 description: "Los informes de transparencia de redes sociales estatales de Roblox —California AB 587 (H2 2025) y Nueva York S895 (Q4 2025)— ya están presentados. Ejecutarlos en paralelo determinó cómo construimos la infraestructura de reporte."
 date: 2026-04-01
+og_image: /images/roblox-ca-ny-reports.png
 lang: es
 lang_url: /blog/roblox-ca-ny-reports.html
 lang_url_ja: /ja/blog/roblox-ca-ny-reports.html
@@ -28,6 +29,10 @@ lang_url_it: /it/blog/roblox-ca-ny-reports.html
   </header>
   <div class="post-body">
 
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/roblox-ca-ny-reports.png" alt="Encabezado del artículo: Roblox's California &amp; New York transparency reports" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
+
     <p>Ya están presentados dos informes de transparencia de redes sociales estatales: el <a href="https://oag.ca.gov/sites/default/files/Roblox%202025%20H2%20California%20AB587%20Terms%20of%20Service%20Report.pdf">California AB 587 (H2 2025)</a> y el <a href="https://ag.ny.gov/sites/default/files/social-media-policy-report/2025-q4-roblox-corporation-policy.pdf">Nueva York S895 (Q4 2025)</a> de Roblox.</p>
 
     <p>Las dos leyes se solapan en su alcance, pero divergen en los detalles. La AB 587 se centra en las políticas de moderación de contenido y su aplicación: qué dicen las políticas, qué métodos de detección se utilizan, cifras agregadas de aplicación por categoría. La S895 exige datos operativos más granulares: recuentos de acciones concretas tomadas contra contenido y cuentas, desglosados por categoría, con periodicidad trimestral. Ejecutar ambas presentaciones en paralelo implicó mantener vías de datos separadas mientras se compartía la capacidad de revisión interdepartamental entre Legal, Política e Ingeniería: una restricción útil que obligó a construir una infraestructura de reporte más duradera.</p>
@@ -42,6 +47,7 @@ lang_url_it: /it/blog/roblox-ca-ny-reports.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/roblox-ca-ny-reports.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"
