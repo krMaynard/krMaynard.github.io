@@ -3,6 +3,7 @@ layout: main
 title: "构建VLOP跨平台DSA视图：数据无法告诉你的事"
 description: "各平台的类别定义并未标准化。数据均为自我申报。汇总方式存在差异。VLOP仪表盘能告诉你什么、不能告诉你什么——以及为何局限性与数据本身同等重要。"
 date: 2026-05-19
+og_image: /images/dsa-vlop-data-limitations-zh.png
 lang: zh
 lang_url: /blog/dsa-vlop-data-limitations.html
 lang_url_ja: /ja/blog/dsa-vlop-data-limitations.html
@@ -27,6 +28,10 @@ lang_url_it: /it/blog/dsa-vlop-data-limitations.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/dsa-vlop-data-limitations-zh.png" alt="文章头图：构建VLOP跨平台DSA视图：数据无法告诉你的事" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>我两天前发布的<a href="/zh/vlop.html">VLOP仪表盘</a>将30项服务汇聚在同一视图中。这具有切实的价值——这是这套数据首次能够以交互式格式跨平台聚合，而H2 2025报告也是首批完整遵循委员会统一模板的报告。但局限性与数据本身同等重要，其中部分是DSA透明度报告机制本身的结构性问题，而非本仪表盘的特有缺陷。</p>
 
@@ -66,6 +71,7 @@ lang_url_it: /it/blog/dsa-vlop-data-limitations.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/dsa-vlop-data-limitations-zh.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}",

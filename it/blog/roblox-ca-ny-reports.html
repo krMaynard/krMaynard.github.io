@@ -3,6 +3,7 @@ layout: main
 title: "I report di trasparenza di Roblox per California e New York sono online"
 description: "I report di trasparenza statali sui social media di Roblox — California AB 587 (H2 2025) e New York S895 (Q4 2025) — sono ora depositati. Gestirli in parallelo ha dato forma a come abbiamo costruito l'infrastruttura di rendicontazione."
 date: 2026-04-01
+og_image: /images/roblox-ca-ny-reports-it.png
 lang: it
 lang_url: /blog/roblox-ca-ny-reports.html
 lang_url_ja: /ja/blog/roblox-ca-ny-reports.html
@@ -28,6 +29,10 @@ lang_url_de: /de/blog/roblox-ca-ny-reports.html
   </header>
   <div class="post-body">
 
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/roblox-ca-ny-reports-it.png" alt="Intestazione dell'articolo: I report di trasparenza di Roblox per California e New York sono online" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
+
     <p>Due report di trasparenza statali sui social media sono ora depositati — il <a href="https://oag.ca.gov/sites/default/files/Roblox%202025%20H2%20California%20AB587%20Terms%20of%20Service%20Report.pdf">California AB 587 (H2 2025)</a> e il <a href="https://ag.ny.gov/sites/default/files/social-media-policy-report/2025-q4-roblox-corporation-policy.pdf">New York S895 (Q4 2025)</a> di Roblox.</p>
 
     <p>Le due leggi si sovrappongono per ambito ma divergono sui dettagli. L'AB 587 si concentra sulle policy di moderazione dei contenuti e sulla loro applicazione — cosa dicono le policy, quali metodi di rilevamento vengono usati, cifre aggregate di applicazione per categoria. L'S895 richiede dati operativi più granulari: conteggi di azioni specifiche intraprese contro contenuti e account, suddivisi per categoria, su base trimestrale. Gestire entrambi i depositi in parallelo ha significato mantenere binari di dati separati condividendo al contempo la capacità di revisione interfunzionale tra Legal, Policy ed Engineering — un utile vincolo forzante per costruire un'infrastruttura di rendicontazione più duratura.</p>
@@ -42,6 +47,7 @@ lang_url_de: /de/blog/roblox-ca-ny-reports.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/roblox-ca-ny-reports-it.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

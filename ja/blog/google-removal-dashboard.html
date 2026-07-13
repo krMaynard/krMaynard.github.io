@@ -3,6 +3,7 @@ layout: main
 title: "新公開：Google政府コンテンツ削除要請ダッシュボード（2011〜2025年）"
 description: "Googleが公開する政府からのコンテンツ削除要請データをもとに、30報告期間・178か国・42プロダクト・22の削除理由を横断する複数年のトレンドを探索できるインタラクティブダッシュボードを公開した。"
 date: 2026-05-11
+og_image: /images/google-removal-dashboard-ja.png
 lang: ja
 lang_url: /blog/google-removal-dashboard.html
 lang_url_zh: /zh/blog/google-removal-dashboard.html
@@ -28,6 +29,10 @@ lang_url_it: /it/blog/google-removal-dashboard.html
   </header>
   <div class="post-body">
 
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/google-removal-dashboard-ja.png" alt="記事ヘッダー画像：新公開：Google政府コンテンツ削除要請ダッシュボード（2011〜2025年）" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
+
     <p>Googleが公開している政府からのコンテンツ削除要請データをもとに、<a href="/ja/transparency.html">インタラクティブダッシュボード</a>を作成しました。Googleが公開している期間ごとのスナップショットを、複数年にわたるトレンドを探索できる形に変換したものです。</p>
 
     <p>データセットは2011年から2025年下半期までの30報告期間を対象とし、178か国・地域、61のGoogleプロダクト、22の削除理由を網羅しています。国・申請者の種類・プロダクト・削除理由のあらゆるフィルター組み合わせで時系列グラフが生成され、同じ選択条件での削除率の推移を追う専用チャートも用意しています。</p>
@@ -44,6 +49,7 @@ lang_url_it: /it/blog/google-removal-dashboard.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/google-removal-dashboard-ja.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}",

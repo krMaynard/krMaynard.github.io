@@ -3,6 +3,7 @@ layout: main
 title: "Les invites sont des cibles de refactorisation : journaliser un flux de travail IA pour trouver quoi automatiser"
 description: "Un article d'ingénierie de LayerX journalise ses invites d'IA et les analyse comme du code pour trouver quoi automatiser. C'est la démarche « données d'abord » que j'emploie chez Google et depuis — l'intuition la repère, les données la prouvent — retournée par réflexe sur le flux de travail humain–IA lui-même."
 date: 2026-06-19
+og_image: /images/prompt-log-ai-workflows-fr.png
 lang: fr
 lang_url: /blog/prompt-log-ai-workflows.html
 lang_url_ja: /ja/blog/prompt-log-ai-workflows.html
@@ -26,6 +27,10 @@ lang_url_it: /it/blog/prompt-log-ai-workflows.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/prompt-log-ai-workflows-fr.png" alt="En-tête de l'article : Les invites sont des cibles de refactorisation : journaliser un flux de travail IA pour trouver quoi automatiser" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>La démarche à laquelle je me fie le plus dans mon propre travail est celle-ci : prendre quelque chose que l'expérience signale comme perfectible, puis prouver le <em>pourquoi</em> et le <em>comment</em> avec des données réelles — plutôt que d'agir sur l'intuition. L'intuition vous dit où regarder ; les données vous disent si vous aviez raison et quoi en faire. Ce qui a changé récemment, c'est qu'un LLM peut faire le « regarder », à une échelle qui rendait autrefois ce genre de preuve trop coûteux pour qu'on s'en soucie.</p>
 
@@ -61,6 +66,7 @@ lang_url_it: /it/blog/prompt-log-ai-workflows.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/prompt-log-ai-workflows-fr.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

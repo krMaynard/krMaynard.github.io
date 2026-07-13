@@ -3,6 +3,7 @@ layout: main
 title: "EU AI法の学習データ要約が明かすこと・明かさないこと"
 description: "第53条1項(d)は、汎用AIプロバイダーに学習データの標準化された要約の公表を義務づける。これまでに提出されたものを横断比較できるデータセットにまとめた。数値そのものより、提出した者と提出していない者の隔たりのほうが多くを語る——そしてテンプレートの粗さは、それが語りうることの構造的な限界だ。"
 date: 2026-07-09
+og_image: /images/eu-ai-act-training-transparency-ja.png
 lang: ja
 lang_url: /blog/eu-ai-act-training-transparency.html
 lang_url_zh: /zh/blog/eu-ai-act-training-transparency.html
@@ -27,6 +28,10 @@ lang_url_it: /it/blog/eu-ai-act-training-transparency.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/eu-ai-act-training-transparency-ja.png" alt="記事ヘッダー画像：EU AI法の学習データ要約が明かすこと・明かさないこと" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>EU AI法の第53条1項(d)は、汎用AIモデルのすべてのプロバイダーに対し、AIオフィスが2025年7月に公開したテンプレートに沿って、学習に用いたコンテンツの「十分に詳細な要約」を公表することを求めている。この義務は2025年8月2日に発効した。私は実際に提出された要約を、横断比較できる小さなデータセットに集めてきた——<a href="https://transparency.kieranmaynard.com/ai-training">transparency.kieranmaynard.com/ai-training</a>で公開している——が、この作業はモデルについてよりも、むしろこの規制の現状について多くを物語る結果になった。</p>
 
@@ -80,6 +85,7 @@ lang_url_it: /it/blog/eu-ai-act-training-transparency.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/eu-ai-act-training-transparency-ja.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

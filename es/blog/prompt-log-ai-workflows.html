@@ -3,6 +3,7 @@ layout: main
 title: "Los prompts son objetivos de refactorización: registrar un flujo de trabajo con IA para descubrir qué automatizar"
 description: "Un artículo de ingeniería de LayerX registra sus prompts de IA y los analiza como código para descubrir qué automatizar. Es la táctica basada en datos que he usado en Google y desde entonces —la intuición lo señala, los datos lo prueban— aplicada reflexivamente al propio flujo de trabajo humano-IA."
 date: 2026-06-19
+og_image: /images/prompt-log-ai-workflows-es.png
 lang: es
 lang_url: /blog/prompt-log-ai-workflows.html
 lang_url_ja: /ja/blog/prompt-log-ai-workflows.html
@@ -26,6 +27,10 @@ lang_url_it: /it/blog/prompt-log-ai-workflows.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/prompt-log-ai-workflows-es.png" alt="Encabezado del artículo: Los prompts son objetivos de refactorización: registrar un flujo de trabajo con IA para descubrir qué automatizar" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>La táctica en la que más confío en mi propio trabajo es esta: tomar algo que la experiencia señala como mejorable y luego probar el <em>porqué</em> y el <em>cómo</em> con datos reales, en lugar de actuar por corazonada. La intuición te dice dónde mirar; los datos te dicen si tenías razón y qué hacer al respecto. Lo que ha cambiado últimamente es que un LLM puede hacer ese "mirar", a una escala que antes hacía que esta clase de prueba fuera demasiado cara como para molestarse.</p>
 
@@ -61,6 +66,7 @@ lang_url_it: /it/blog/prompt-log-ai-workflows.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/prompt-log-ai-workflows-es.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

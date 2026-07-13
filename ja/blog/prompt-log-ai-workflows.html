@@ -3,6 +3,7 @@ layout: main
 title: "プロンプトもリファクタリングの対象だ：AIワークフローのログを取り、自動化すべきものを見つける"
 description: "LayerXのエンジニアリング記事は、AIへのプロンプトをログに取りコードのように分析して、自動化すべきものを見つける。直感が候補を挙げ、データが裏づける——Googleで、そしてその後も私が使ってきたデータ起点のやり方を、人とAIのワークフローそのものに向け直したものだ。"
 date: 2026-06-19
+og_image: /images/prompt-log-ai-workflows-ja.png
 lang: ja
 lang_url: /blog/prompt-log-ai-workflows.html
 lang_url_zh: /zh/blog/prompt-log-ai-workflows.html
@@ -26,6 +27,10 @@ lang_url_it: /it/blog/prompt-log-ai-workflows.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/prompt-log-ai-workflows-ja.png" alt="記事ヘッダー画像：プロンプトもリファクタリングの対象だ：AIワークフローのログを取り、自動化すべきものを見つける" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>自分の仕事で最も信頼している進め方はこうだ——経験から「改善できそうだ」と感じたものを起点にし、勘で動くのではなく、<em>なぜ</em>そして<em>どう</em>改善するのかを実データで裏づける。直感はどこを見るべきかを教え、データは自分が正しかったか、そして何をすべきかを教える。近ごろ変わったのは、その「見る」作業をLLMが、かつてなら証明そのものが割に合わないほどの規模でこなせるようになったことだ。</p>
 
@@ -61,6 +66,7 @@ lang_url_it: /it/blog/prompt-log-ai-workflows.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/prompt-log-ai-workflows-ja.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

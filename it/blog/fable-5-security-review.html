@@ -3,6 +3,7 @@ layout: main
 title: "Come ho corretto cinque vulnerabilità API con un solo prompt e Claude Fable 5"
 description: "Ho chiesto a Claude Code, con il nuovo modello Fable 5 di Anthropic, di fare una revisione di sicurezza della mia API di ricerca. Ha trovato e corretto cinque problemi reali — SSRF, injection di CSV, un canale laterale temporale — e poi ha verificato i fatti del bot che ha revisionato la sua PR."
 date: 2026-06-11
+og_image: /images/fable-5-security-review-it.png
 lang: it
 lang_url: /blog/fable-5-security-review.html
 lang_url_ja: /ja/blog/fable-5-security-review.html
@@ -26,6 +27,10 @@ lang_url_de: /de/blog/fable-5-security-review.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/fable-5-security-review-it.png" alt="Intestazione dell'articolo: Come ho corretto cinque vulnerabilità API con un solo prompt e Claude Fable 5" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>Dietro la <a href="/it/vlop.html">dashboard di trasparenza VLOP</a> c'è un piccolo servizio FastAPI — un'API a query strutturate modellata sulla TikTok Research API, che serve dati di trasparenza aggregati del DSA UE. Diversi dei suoi endpoint sono deliberatamente pubblici: un query builder interattivo, una casella "ask" in linguaggio naturale, un feed di panoramica. Gli endpoint pubblici di un servizio in scala hobbistica sono esattamente il punto in cui il debito di sicurezza si accumula in silenzio, perché nulla ti costringe a guardare.</p>
 
@@ -61,6 +66,7 @@ lang_url_de: /de/blog/fable-5-security-review.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/fable-5-security-review-it.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

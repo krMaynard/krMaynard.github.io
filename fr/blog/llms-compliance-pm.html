@@ -3,6 +3,7 @@ layout: main
 title: "Comment j'utilise les LLM dans mon travail de chef de produit conformité"
 description: "Extraction des exigences, analyse des écarts et relecture de brouillons — trois flux de travail LLM qui ont vraiment tenu dans le métier de chef de produit conformité, et le point où chacun s'effondre."
 date: 2026-05-15
+og_image: /images/llms-compliance-pm-fr.png
 lang: fr
 lang_url: /blog/llms-compliance-pm.html
 lang_url_ja: /ja/blog/llms-compliance-pm.html
@@ -26,6 +27,10 @@ lang_url_it: /it/blog/llms-compliance-pm.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/llms-compliance-pm-fr.png" alt="En-tête de l'article : Comment j'utilise les LLM dans mon travail de chef de produit conformité" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>J'ai travaillé dans la politique de contenu et la conformité réglementaire assez longtemps pour être sceptique face aux affirmations du type « l'IA va automatiser X ». Ce que j'ai constaté est plus précis : il existe des tâches particulières dans le métier de chef de produit conformité où les LLM font gagner beaucoup de temps, et d'autres tâches particulières où ils n'aident pas et ne doivent pas être crus. La distinction compte.</p>
 
@@ -71,6 +76,7 @@ lang_url_it: /it/blog/llms-compliance-pm.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/llms-compliance-pm-fr.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

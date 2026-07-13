@@ -3,6 +3,7 @@ layout: main
 title: "コンプライアンスPM業務でのLLM活用法"
 description: "要件抽出、ギャップ分析、ドラフトレビューの3つ——コンプライアンスPMの現場で実際に定着したLLM活用ワークフローと、それぞれの限界。"
 date: 2026-05-15
+og_image: /images/llms-compliance-pm-ja.png
 lang: ja
 lang_url: /blog/llms-compliance-pm.html
 lang_url_zh: /zh/blog/llms-compliance-pm.html
@@ -26,6 +27,10 @@ lang_url_it: /it/blog/llms-compliance-pm.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/llms-compliance-pm-ja.png" alt="記事ヘッダー画像：コンプライアンスPM業務でのLLM活用法" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>コンテンツポリシーと規制コンプライアンスの現場に長く携わってきた者として、「AIがXを自動化する」という主張には懐疑的です。実際に見えてきたのはより具体的なことです。コンプライアンスPM業務の中で、LLMが時間を大幅に圧縮できる特定のタスクと、役に立たず信頼すべきでない特定のタスクがある。この区別が重要です。</p>
 
@@ -71,6 +76,7 @@ lang_url_it: /it/blog/llms-compliance-pm.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/llms-compliance-pm-ja.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}",

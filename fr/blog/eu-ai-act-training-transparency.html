@@ -3,6 +3,7 @@ layout: main
 title: "Ce que les résumés de données d'entraînement du règlement IA de l'UE révèlent — et ne révèlent pas"
 description: "L'article 53(1)(d) oblige les fournisseurs d'IA à usage général à publier un résumé standardisé de leurs données d'entraînement. J'ai rassemblé ceux déjà déposés dans un jeu de données comparable. L'écart entre qui dépose et qui ne dépose pas est plus instructif que les chiffres — et la grossièreté du modèle est une limite structurelle de ce qu'il peut révéler."
 date: 2026-07-09
+og_image: /images/eu-ai-act-training-transparency-fr.png
 lang: fr
 lang_url: /blog/eu-ai-act-training-transparency.html
 lang_url_ja: /ja/blog/eu-ai-act-training-transparency.html
@@ -27,6 +28,10 @@ lang_url_it: /it/blog/eu-ai-act-training-transparency.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/eu-ai-act-training-transparency-fr.png" alt="En-tête de l'article : Ce que les résumés de données d'entraînement du règlement IA de l'UE révèlent — et ne révèlent pas" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>L'article 53(1)(d) du règlement IA de l'UE impose à tout fournisseur d'un modèle d'IA à usage général de publier un « résumé suffisamment détaillé » du contenu utilisé pour l'entraîner, selon un modèle publié par le Bureau de l'IA en juillet 2025. L'obligation est entrée en vigueur le 2 août 2025. Je rassemble depuis quelque temps les résumés effectivement déposés dans un petit jeu de données comparable — accessible sur <a href="https://transparency.kieranmaynard.com/ai-training">transparency.kieranmaynard.com/ai-training</a> — et l'exercice finit par en dire plus sur l'état de la réglementation que sur les modèles.</p>
 
@@ -80,6 +85,7 @@ lang_url_it: /it/blog/eu-ai-act-training-transparency.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/eu-ai-act-training-transparency-fr.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

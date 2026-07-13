@@ -3,6 +3,7 @@ layout: main
 title: "Roblox 캘리포니아 및 뉴욕 투명성 보고서 공개"
 description: "Roblox의 캘리포니아 AB 587(H2 2025) 및 뉴욕 S895(Q4 2025) 주정부 소셜 미디어 투명성 보고서가 제출되었습니다. 병렬로 진행하면서 보고 인프라 구축 방식을 정립했습니다."
 date: 2026-04-01
+og_image: /images/roblox-ca-ny-reports-ko.png
 lang: ko
 lang_url: /blog/roblox-ca-ny-reports.html
 lang_url_ja: /ja/blog/roblox-ca-ny-reports.html
@@ -28,6 +29,10 @@ lang_url_it: /it/blog/roblox-ca-ny-reports.html
   </header>
   <div class="post-body">
 
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/roblox-ca-ny-reports-ko.png" alt="글 헤더 이미지: Roblox 캘리포니아 및 뉴욕 투명성 보고서 공개" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
+
     <p>두 개의 주정부 소셜 미디어 투명성 보고서 제출이 완료되었습니다—Roblox의 <a href="https://oag.ca.gov/sites/default/files/Roblox%202025%20H2%20California%20AB587%20Terms%20of%20Service%20Report.pdf">캘리포니아 AB 587(H2 2025)</a>과 <a href="https://ag.ny.gov/sites/default/files/social-media-policy-report/2025-q4-roblox-corporation-policy.pdf">뉴욕 S895(Q4 2025)</a>입니다.</p>
 
     <p>두 법률은 범위가 겹치지만 세부 내용은 다릅니다. AB 587은 콘텐츠 모더레이션 정책과 그 집행에 초점을 맞춥니다—정책 내용, 탐지 방법, 카테고리별 집계 집행 수치. S895는 더 세분화된 운영 데이터를 요구합니다. 카테고리별로 분기마다 콘텐츠와 계정에 취해진 구체적 조치의 수를 보고해야 합니다. 두 제출을 병렬로 진행하는 것은 법무·정책·엔지니어링 부서 간 교차 검토 역량을 공유하면서 별도의 데이터 트랙을 유지해야 함을 의미했습니다—보다 견고한 보고 인프라 구축을 위한 유용한 제약 조건이었습니다.</p>
@@ -42,6 +47,7 @@ lang_url_it: /it/blog/roblox-ca-ny-reports.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/roblox-ca-ny-reports-ko.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}",

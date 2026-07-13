@@ -3,6 +3,7 @@ layout: main
 title: "Was die Trainingsdaten-Zusammenfassungen der EU-KI-Verordnung verraten — und was nicht"
 description: "Artikel 53 Abs. 1 Buchst. d verpflichtet Anbieter von KI-Modellen mit allgemeinem Verwendungszweck, eine standardisierte Zusammenfassung ihrer Trainingsdaten zu veröffentlichen. Ich habe die bislang eingereichten zu einem vergleichbaren Datensatz zusammengetragen. Die Kluft zwischen denen, die einreichen, und denen, die es nicht tun, ist aufschlussreicher als die Zahlen — und die Grobheit der Vorlage ist eine strukturelle Grenze dessen, was sie überhaupt zeigen kann."
 date: 2026-07-09
+og_image: /images/eu-ai-act-training-transparency-de.png
 lang: de
 lang_url: /blog/eu-ai-act-training-transparency.html
 lang_url_ja: /ja/blog/eu-ai-act-training-transparency.html
@@ -27,6 +28,10 @@ lang_url_it: /it/blog/eu-ai-act-training-transparency.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/eu-ai-act-training-transparency-de.png" alt="Artikel-Titelbild: Was die Trainingsdaten-Zusammenfassungen der EU-KI-Verordnung verraten — und was nicht" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>Artikel 53 Abs. 1 Buchst. d der EU-KI-Verordnung verpflichtet jeden Anbieter eines KI-Modells mit allgemeinem Verwendungszweck, eine „hinreichend detaillierte Zusammenfassung“ der zum Training verwendeten Inhalte zu veröffentlichen — nach einer Vorlage, die das KI-Büro im Juli 2025 herausgegeben hat. Die Pflicht trat am 2. August 2025 in Kraft. Ich sammle seit einer Weile die tatsächlich eingereichten Zusammenfassungen in einem kleinen, vergleichbaren Datensatz — er ist unter <a href="https://transparency.kieranmaynard.com/ai-training">transparency.kieranmaynard.com/ai-training</a> abrufbar — und die Übung sagt am Ende mehr über den Stand der Regulierung aus als über die Modelle.</p>
 
@@ -80,6 +85,7 @@ lang_url_it: /it/blog/eu-ai-act-training-transparency.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/eu-ai-act-training-transparency-de.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

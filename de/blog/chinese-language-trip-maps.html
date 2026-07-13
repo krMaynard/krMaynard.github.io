@@ -3,6 +3,7 @@ layout: main
 title: "Wie ich einen Stapel chinesischsprachiger Reisekarten ohne Browser und ohne API-Key erzeugte"
 description: "Ich bat Claude Code in einer sandboxed Web-Session, für jede Station einer Hongkong-Reise Karten in vereinfachtem Chinesisch zu erstellen. Kein Browser, kein Maps-API-Key — nur rohe Kartenkacheln, Pillow und ein Umweg über Chinas verpflichtenden GCJ-02-Koordinatenversatz."
 date: 2026-06-22
+og_image: /images/chinese-language-trip-maps-de.png
 lang: de
 lang_url: /blog/chinese-language-trip-maps.html
 lang_url_ja: /ja/blog/chinese-language-trip-maps.html
@@ -26,6 +27,10 @@ lang_url_it: /it/blog/chinese-language-trip-maps.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/chinese-language-trip-maps-de.png" alt="Artikel-Titelbild: Wie ich einen Stapel chinesischsprachiger Reisekarten ohne Browser und ohne API-Key erzeugte" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>Bei der Planung einer viertägigen Hongkong-Reise wollte ich etwas Einfaches: für jede Station eine klare Karte, beschriftet in vereinfachtem Chinesisch. Keine englische Karte mit einer aufgesetzten Nadel, keine Wand aus Links. Zwölf Orte — das Hotel, die Museen, Ocean Park, die Peak Tram, der Flughafen — jeder als eigener, sauberer Screenshot, den ich in eine druckbare Broschüre einfügen konnte.</p>
 
@@ -67,6 +72,7 @@ lang_url_it: /it/blog/chinese-language-trip-maps.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/chinese-language-trip-maps-de.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

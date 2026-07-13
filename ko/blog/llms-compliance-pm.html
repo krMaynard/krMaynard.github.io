@@ -3,6 +3,7 @@ layout: main
 title: "컴플라이언스 PM 업무에서 LLM을 활용하는 방법"
 description: "요구사항 추출, 격차 분석, 초안 검토 — 컴플라이언스 PM 업무에서 실제로 정착된 세 가지 LLM 워크플로와 각각이 무너지는 지점."
 date: 2026-05-15
+og_image: /images/llms-compliance-pm-ko.png
 lang: ko
 lang_url: /blog/llms-compliance-pm.html
 lang_url_ja: /ja/blog/llms-compliance-pm.html
@@ -26,6 +27,10 @@ lang_url_it: /it/blog/llms-compliance-pm.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/llms-compliance-pm-ko.png" alt="글 헤더 이미지: 컴플라이언스 PM 업무에서 LLM을 활용하는 방법" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>저는 콘텐츠 정책과 규제 컴플라이언스 분야에서 오랫동안 일해온 만큼 "AI가 X를 자동화할 것"이라는 주장에 회의적입니다. 제가 발견한 것은 더 구체적입니다. 컴플라이언스 PM 업무에서 LLM이 시간을 크게 단축시켜 주는 특정 작업이 있고, 도움이 되지 않으며 신뢰해서는 안 되는 특정 작업이 있습니다. 그 구분이 중요합니다.</p>
 
@@ -71,6 +76,7 @@ lang_url_it: /it/blog/llms-compliance-pm.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/llms-compliance-pm-ko.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}",

@@ -3,6 +3,7 @@ layout: main
 title: "Cómo uso los LLM en el trabajo de PM de cumplimiento"
 description: "Extracción de requisitos, análisis de brechas y revisión de borradores: tres flujos de trabajo con LLM que realmente han cuajado en el trabajo de PM de cumplimiento, y dónde falla cada uno."
 date: 2026-05-15
+og_image: /images/llms-compliance-pm-es.png
 lang: es
 lang_url: /blog/llms-compliance-pm.html
 lang_url_ja: /ja/blog/llms-compliance-pm.html
@@ -26,6 +27,10 @@ lang_url_it: /it/blog/llms-compliance-pm.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/llms-compliance-pm-es.png" alt="Encabezado del artículo: Cómo uso los LLM en el trabajo de PM de cumplimiento" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>He trabajado en política de contenidos y cumplimiento normativo el tiempo suficiente como para ser escéptico ante las afirmaciones de que "la IA automatizará X". Lo que he descubierto es más concreto: hay tareas específicas en el trabajo de PM de cumplimiento donde los LLM comprimen el tiempo de forma significativa, y tareas específicas donde no ayudan y no deberían inspirar confianza. Esa distinción importa.</p>
 
@@ -71,6 +76,7 @@ lang_url_it: /it/blog/llms-compliance-pm.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/llms-compliance-pm-es.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

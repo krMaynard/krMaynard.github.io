@@ -11,6 +11,7 @@ chatbot_worker_url:
 exclude:
   - CLAUDE.md
   - README.md
+  - exam-study
 
 defaults:
 

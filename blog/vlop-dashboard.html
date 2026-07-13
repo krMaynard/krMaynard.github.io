@@ -3,6 +3,7 @@ layout: main
 title: "New: Cross-Platform EU DSA Transparency Dashboard for VLOPs"
 description: "An interactive dashboard combining H2 2025 EU DSA transparency report data from 30 VLOP and VLOSE services into a single cross-platform view. All data processes in your browser."
 date: 2026-05-29
+og_image: /images/vlop-dashboard-en.png
 lang: en
 lang_url: /ja/blog/vlop-dashboard.html
 lang_url_zh: /zh/blog/vlop-dashboard.html
@@ -28,6 +29,10 @@ lang_url_it: /it/blog/vlop-dashboard.html
   </header>
   <div class="post-body">
 
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/vlop-dashboard-en.png" alt="Article header: New: Cross-Platform EU DSA Transparency Dashboard for VLOPs" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
+
     <p>I've published an <a href="/vlop.html">interactive dashboard</a> covering H2 2025 EU Digital Services Act transparency reports across Very Large Online Platforms (VLOPs) and Very Large Online Search Engines (VLOSEs).</p>
 
     <p>The dashboard combines data from 30 services — including Google (6 products), X, TikTok, Meta (Facebook and Instagram), Pinterest, AliExpress, Amazon, LinkedIn, Snapchat, Booking.com, SHEIN, Temu, Zalando, Wikimedia (6 services), and others — into a single cross-platform view. It covers the four main DSA reporting categories: Notices, Own-initiative actions (illegal content and policy violations shown separately), Government Orders, and Appeals. Filter by platform, service, content category, and keyword. All data processes in your browser.</p>
@@ -42,6 +47,7 @@ lang_url_it: /it/blog/vlop-dashboard.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/vlop-dashboard-en.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

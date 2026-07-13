@@ -3,6 +3,7 @@ layout: main
 title: "Come ho generato una serie di mappe di viaggio in cinese senza browser né chiave API"
 description: "Ho chiesto a Claude Code, in una sessione web isolata, di creare mappe in cinese semplificato per ogni tappa di un viaggio a Hong Kong. Nessun browser, nessuna chiave API di Maps — solo tile grezze delle mappe, Pillow e una deviazione attraverso l'offset di coordinate GCJ-02 imposto dalla Cina."
 date: 2026-06-22
+og_image: /images/chinese-language-trip-maps-it.png
 lang: it
 lang_url: /blog/chinese-language-trip-maps.html
 lang_url_ja: /ja/blog/chinese-language-trip-maps.html
@@ -26,6 +27,10 @@ lang_url_de: /de/blog/chinese-language-trip-maps.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/chinese-language-trip-maps-it.png" alt="Intestazione dell'articolo: Come ho generato una serie di mappe di viaggio in cinese senza browser né chiave API" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>Mentre pianificavo un viaggio di quattro giorni a Hong Kong, volevo qualcosa di semplice: una mappa chiara per ogni tappa, etichettata in cinese semplificato. Non una mappa in inglese con un segnaposto appiccicato sopra, né un muro di link. Dodici luoghi — l'hotel, i musei, l'Ocean Park, la tramvia del Peak, l'aeroporto — ciascuno come uno screenshot pulito e a sé stante da inserire in un opuscolo stampabile.</p>
 
@@ -67,6 +72,7 @@ lang_url_de: /de/blog/chinese-language-trip-maps.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/chinese-language-trip-maps-it.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

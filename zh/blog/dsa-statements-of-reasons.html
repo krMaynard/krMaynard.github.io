@@ -1,0 +1,83 @@
+---
+layout: main
+title: "从汇总报告到单项决定：接入DSA透明度数据库"
+description: "仪表盘此前已收录DSA的汇总透明度报告。如今它还接入了决定层级的数据——各平台就每一次内容审核向欧盟提交的理由说明。以下讲述约4 TB的每日数据转储如何变成一个两兆字节的仪表盘。"
+date: 2026-07-11
+og_image: /images/dsa-db-og.png
+lang: zh
+lang_url: /blog/dsa-statements-of-reasons.html
+lang_url_ja: /ja/blog/dsa-statements-of-reasons.html
+lang_url_ko: /ko/blog/dsa-statements-of-reasons.html
+lang_url_fr: /fr/blog/dsa-statements-of-reasons.html
+lang_url_es: /es/blog/dsa-statements-of-reasons.html
+lang_url_de: /de/blog/dsa-statements-of-reasons.html
+lang_url_it: /it/blog/dsa-statements-of-reasons.html
+---
+
+<article class="post">
+  <a href="/zh/blog.html" class="post-back">← 博客</a>
+  <header class="post-header">
+    <p class="section-label">写作</p>
+    <h1>从汇总报告到单项决定：接入DSA透明度数据库</h1>
+    <time class="news-date" datetime="2026-07-11">2026年7月11日</time>
+    <div class="tags">
+      <span class="tag">EU DSA</span>
+      <span class="tag">VLOP</span>
+      <span class="tag">数据</span>
+      <span class="tag">工程</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/dsa-db-og.png" alt="可查询的欧盟DSA透明度数据库" width="1200" height="630">
+    </figure>
+
+
+    <p>迄今为止，<a href="/zh/vlop.html">VLOP仪表盘</a>一直围绕欧盟《数字服务法》（DSA）的<em>汇总</em>透明度报告展开——即平台定期提交的报告，按类别申报其在六个月内收到多少通知、对多少内容采取了处置措施。这只是DSA两套透明度机制中的一套。本次更新接入了另一套，而它是一头截然不同的怪兽：由理由说明（Statements of Reasons）构成的<strong>DSA透明度数据库</strong>。</p>
+
+    <h2>什么是理由说明</h2>
+
+    <p>根据DSA第17条，只要在管辖范围内的平台对某项内容作出限制——删除、禁止访问、降权、设置年龄限制、取消变现——它就必须向受影响的用户提供一份"理由说明"，阐释该项决定。同时，它还必须将这份说明的副本（去除个人信息后）提交至由欧盟委员会运营的公开<a href="https://transparency.dsa.ec.europa.eu/">透明度数据库</a>。</p>
+
+    <p>汇总报告告诉你的是平台自称在某一报告期内做了什么。透明度数据库则是这些单项决定本身——每一次审核行动对应一行，随着行动发生而即时提交，并以结构化字段记录类别、法律依据、是否为自动检测、决定是否为自动作出，以及所施加的限制类型。它是目前最接近全欧盟范围内实时、决定层级内容审核记录的存在。</p>
+
+    <p>它的规模也十分庞大。各平台每月提交的说明达到数十亿份的量级。完整的历史数据转储约为四太字节（TB），并且每天都在增长。</p>
+
+    <h2>你没法把四太字节塞进一个仪表盘</h2>
+
+    <p>因此，有趣的工程问题在于：如何在没有分析数据仓库支撑的情况下，把四太字节的每日CSV转储变成一个可置于交互式查询界面之后的东西。</p>
+
+    <p>答案原来就在委员会自己的工具里。在数据库之外，DSA团队还发布了一套开源Python工具箱<a href="https://code.europa.eu/dsa/transparency-database/dsa-tdb"><code>dsa-tdb</code></a>，它会下载每日转储、进行校验，并且——最关键的是——发布<em>预先计算好的月度汇总</em>。你无需处理原始说明，而是可以按平台、日期、类别、决定依据、自动化情况和限制类型的每一个细分组合各取一行，并附带一个计数。这样每月约为七兆字节的gzip压缩CSV，而不是原始的数据洪流。</p>
+
+    <p>从这里开始，就变成了一个再汇总的问题。我把每日汇总上卷到月度，将它们收拢为若干个单维度切面——说明总数、按类别、按决定依据、按自动化情况、按限制类型——并保留按数量排名前60的平台，它们占了全部说明的约99.97%。结果是一张整洁的长格式表：约24,500行、约两兆字节的JSON，覆盖2023年9月至今。它与其他所有数据集一样，被打包进同一个只读SQLite数据库，成为一张普通的可查询表，可通过与本站其余部分相同的结构化、无SQL查询界面访问。</p>
+
+    <h2>它呈现出的形态</h2>
+
+    <p>你首先会注意到的是数量分布何等失衡。单是一个平台——Google Shopping——就占了数据库中全部说明的绝大多数，每月高达数亿份，几乎全部是因不符合平台市场范围而被下架的商品列表。TikTok、Facebook、Pinterest、Amazon和AliExpress构成了其余的大部分。少数几个电商市场和大型社交平台占据主导地位；而由数百家较小提交方构成的长尾则只是一个四舍五入的误差。</p>
+
+    <p>除此之外，决定层级的字段让你能看到汇总报告无法清晰呈现的东西：内容因<em>依法违法</em>而受限，与因<em>不符合平台自身条款</em>而受限之间的划分（后者占绝对多数）；完全自动作出的决定与有人工参与的决定各占多少比例；以及当月的决定实际援引了DSA的哪些说明类别。<code>/dsa-db</code>页面绘制了月度总数、各头部平台随时间的变化、类别构成，以及违法与条款依据的对比，下方还配有一张分平台表格。</p>
+
+    <h2>同样的注意事项，只是更为尖锐</h2>
+
+    <p>我此前<a href="/zh/blog/dsa-vlop-data-limitations.html">就汇总报告局限性所写的一切</a>在这里依然适用，并且又冒出了几条新的。类别定义仍然各由平台自定，因此跨平台的类别比较是对各平台自定构念之间的比较，而非对某一一致标准的比较。数据仍然是自我申报、未经审计的。</p>
+
+    <p>而这套汇总方式本身也有其陷阱，查询界面会就此向你发出提示。各单维度切面切分的是同一批说明，因此某个类别的细分会重新加总回该平台的总数——这意味着把某个细分<em>连同</em>总数一起相加会造成重复计算。限制类型这一切面是多选的，因为一项决定既可以删除内容、也可以停用账户，所以那些行根本不会加总回总数。此外，由于少数几个电商市场在数量上占据如此压倒性的主导，几乎任何跨平台求和实际上都只是在衡量Google Shopping。实用的规则与界面引导你遵循的那条相同：在对任何数据进行聚合之前，先锁定一个切面，并且通常还要锁定一个平台。</p>
+
+    <h2>审视同一部法律的两重视角</h2>
+
+    <p>把两套数据集放在同一处，我喜欢的一点是它们回答的是不同的问题。汇总报告是平台对自己在某一期间所作所为的自我总结，用的是它自己的类别，并在发布前经过其法务和政策团队审核。透明度数据库则是单项决定的原始流，对所有人以相同方式结构化，持续不断地提交。二者谁都无法替代对方，而它们之间的差异往往才是有意思的部分。让它们并置于同一查询界面之后，正是意义所在。</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

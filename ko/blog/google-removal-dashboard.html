@@ -3,6 +3,7 @@ layout: main
 title: "신규: Google 정부 삭제 요청 대시보드 (2011~2025)"
 description: "Google이 발행하는 보고 기간별 정부 콘텐츠 삭제 스냅샷을 다년도 트렌드 탐색기로 전환한 인터랙티브 대시보드. 30개 보고 기간, 178개국, 61개 제품, 22가지 삭제 사유를 포함합니다."
 date: 2026-05-11
+og_image: /images/google-removal-dashboard-ko.png
 lang: ko
 lang_url: /blog/google-removal-dashboard.html
 lang_url_ja: /ja/blog/google-removal-dashboard.html
@@ -28,6 +29,10 @@ lang_url_it: /it/blog/google-removal-dashboard.html
   </header>
   <div class="post-body">
 
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/google-removal-dashboard-ko.png" alt="글 헤더 이미지: 신규: Google 정부 삭제 요청 대시보드 (2011~2025)" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
+
     <p>Google의 공개 정부 콘텐츠 삭제 요청 데이터를 기반으로 <a href="/ko/transparency.html">인터랙티브 대시보드</a>를 구축했습니다. Google이 발행하는 보고 기간별 스냅샷을 다년도 트렌드 탐색기로 전환한 것입니다.</p>
 
     <p>이 데이터셋은 2011년부터 2025년 하반기까지 30개 보고 기간에 걸쳐 178개국 및 지역, 61개 Google 제품, 22가지 삭제 사유를 포함합니다. 국가, 요청자 유형, 제품, 사유 등 모든 필터 조합이 시계열을 생성합니다. 별도의 차트가 동일한 선택에 대한 삭제율의 시간 변화를 추적합니다.</p>
@@ -44,6 +49,7 @@ lang_url_it: /it/blog/google-removal-dashboard.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/google-removal-dashboard-ko.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}",

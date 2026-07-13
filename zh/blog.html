@@ -18,6 +18,21 @@ lang_url_it: /it/blog.html
 </div>
 
 <div class="news-list">
+  <!-- Entry order matters: the LinkedIn auto-poster (scripts/post_to_linkedin.py) only ever posts the FIRST/topmost .news-entry. When multiple posts share a date, keep the one you want auto-posted on top. -->
+
+  <div class="news-entry" id="2026-07-11">
+    <time class="news-date" datetime="2026-07-11">2026年7月11日</time>
+    <div class="news-body">
+      <h3><a href="/zh/blog/dsa-statements-of-reasons.html">从汇总报告到单项决定：接入DSA透明度数据库</a></h3>
+      <p>仪表盘此前已收录DSA的汇总透明度报告。如今它还接入了决定层级的数据——各平台就每一次内容审核向欧盟提交的理由说明。以下讲述约4 TB的每日数据转储如何变成一个两兆字节的仪表盘。</p>
+      <div class="tags">
+        <span class="tag">EU DSA</span>
+        <span class="tag">VLOP</span>
+        <span class="tag">数据</span>
+        <span class="tag">工程</span>
+      </div>
+    </div>
+  </div>
 
   <div class="news-entry" id="2026-07-10">
     <time class="news-date" datetime="2026-07-10">2026年7月10日</time>
@@ -32,19 +47,6 @@ lang_url_it: /it/blog.html
     </div>
   </div>
 
-  <div class="news-entry" id="2026-07-09">
-    <time class="news-date" datetime="2026-07-09">2026年7月9日</time>
-    <div class="news-body">
-      <h3><a href="/zh/blog/transparency-report-api.html">用一种查询语言，读懂每个平台的透明度报告</a></h3>
-      <p>最初只是一个EU DSA数据的仪表盘，如今成长为一个横跨二十多个平台与监管机构透明度数据集的API——政府请求报告、内容审核统计、各国法律申报，全都通过一个无需SQL的安全查询接口触达。</p>
-      <div class="tags">
-        <span class="tag">透明度</span>
-        <span class="tag">数据</span>
-        <span class="tag">工程</span>
-      </div>
-    </div>
-  </div>
-
   <div class="news-entry" id="2026-07-09-ai-training">
     <time class="news-date" datetime="2026-07-09">2026年7月9日</time>
     <div class="news-body">
@@ -54,6 +56,19 @@ lang_url_it: /it/blog.html
         <span class="tag">EU AI Act</span>
         <span class="tag">AI/LLM</span>
         <span class="tag">透明度</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="news-entry" id="2026-07-09">
+    <time class="news-date" datetime="2026-07-09">2026年7月9日</time>
+    <div class="news-body">
+      <h3><a href="/zh/blog/transparency-report-api.html">用一种查询语言，读懂每个平台的透明度报告</a></h3>
+      <p>最初只是一个EU DSA数据的仪表盘，如今成长为一个横跨二十多个平台与监管机构透明度数据集的API——政府请求报告、内容审核统计、各国法律申报，全都通过一个无需SQL的安全查询接口触达。</p>
+      <div class="tags">
+        <span class="tag">透明度</span>
+        <span class="tag">数据</span>
+        <span class="tag">工程</span>
       </div>
     </div>
   </div>

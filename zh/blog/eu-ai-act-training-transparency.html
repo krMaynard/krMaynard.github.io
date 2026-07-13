@@ -3,6 +3,7 @@ layout: main
 title: "欧盟AI法案的训练数据摘要能揭示什么、不能揭示什么"
 description: "第53(1)(d)条要求通用AI提供方公布标准化的训练数据摘要。我把迄今已提交的摘要整理成了一个可横向比较的数据集。谁提交了、谁没提交，比数字本身更有信息量——而模板的粗糙则是它所能揭示内容的结构性上限。"
 date: 2026-07-09
+og_image: /images/eu-ai-act-training-transparency-zh.png
 lang: zh
 lang_url: /blog/eu-ai-act-training-transparency.html
 lang_url_ja: /ja/blog/eu-ai-act-training-transparency.html
@@ -27,6 +28,10 @@ lang_url_it: /it/blog/eu-ai-act-training-transparency.html
     </div>
   </header>
   <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/eu-ai-act-training-transparency-zh.png" alt="文章头图：欧盟AI法案的训练数据摘要能揭示什么、不能揭示什么" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
 
     <p>欧盟AI法案第53(1)(d)条要求每一家通用AI模型提供方，按照AI办公室于2025年7月发布的模板，公布一份关于其训练所用内容的"足够详细的摘要"。该义务已于2025年8月2日生效。我一直在把实际已提交的摘要收集成一个可横向比较的小型数据集——它已上线于<a href="https://transparency.kieranmaynard.com/ai-training">transparency.kieranmaynard.com/ai-training</a>——而这项工作最终揭示的，与其说是这些模型，不如说是这项监管本身的现状。</p>
 
@@ -80,6 +85,7 @@ lang_url_it: /it/blog/eu-ai-act-training-transparency.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/eu-ai-act-training-transparency-zh.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"

@@ -3,6 +3,7 @@ layout: main
 title: "Nuevo: panel de solicitudes gubernamentales de retirada de Google (2011-2025)"
 description: "Un panel interactivo que convierte las instantáneas por periodo de retiradas gubernamentales de contenido de Google en un explorador de tendencias plurianual, que abarca 30 periodos de reporte, 178 países, 61 productos y 22 motivos de retirada."
 date: 2026-05-11
+og_image: /images/google-removal-dashboard-es.png
 lang: es
 lang_url: /blog/google-removal-dashboard.html
 lang_url_ja: /ja/blog/google-removal-dashboard.html
@@ -28,6 +29,10 @@ lang_url_it: /it/blog/google-removal-dashboard.html
   </header>
   <div class="post-body">
 
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/google-removal-dashboard-es.png" alt="Encabezado del artículo: Nuevo: panel de solicitudes gubernamentales de retirada de Google (2011-2025)" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
+
     <p>He construido un <a href="/es/transparency.html">panel interactivo</a> sobre los datos públicos de solicitudes gubernamentales de retirada de contenido de Google, convirtiendo las instantáneas por periodo que Google publica en un explorador de tendencias plurianual.</p>
 
     <p>El conjunto de datos abarca 30 periodos de reporte, de 2011 a finales de 2025, y cubre 178 países y territorios, 61 productos de Google y 22 motivos de retirada declarados. Cada combinación de filtros —país, tipo de solicitante, producto, motivo— genera una serie temporal. Un gráfico aparte sigue la tasa de retirada a lo largo del tiempo para la misma selección.</p>
@@ -44,6 +49,7 @@ lang_url_it: /it/blog/google-removal-dashboard.html
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/google-removal-dashboard-es.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
   "url": "https://krmaynard.github.io{{ page.url }}"
