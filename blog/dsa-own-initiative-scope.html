@@ -1,7 +1,7 @@
 ---
 layout: main
-title: "Own Initiative or Proactive Detection? How VLOPs Scope Table 6 of Their DSA Reports"
-description: "The DSA's harmonised transparency template asks VLOPs to report content moderation done on their own initiative. Do they report all of it, or only what automated systems flagged? An empirical answer from the first harmonised reports (H2 2025), cross-checked against the Statements-of-Reasons database."
+title: "Two Readings of 'Own Initiative' on DSA Table 6 — and the One Every VLOP Chose"
+description: "The DSA asks VLOPs to report content moderation done on their own initiative — a term open to a narrow and a broad reading. Across the first harmonised reports (H2 2025), every VLOP took the broad reading. An empirical look, cross-checked against the Statements-of-Reasons database."
 date: 2026-07-13
 lang: en
 lang_url: /ja/blog/dsa-own-initiative-scope.html
@@ -17,7 +17,7 @@ lang_url_it: /it/blog/dsa-own-initiative-scope.html
   <a href="/blog.html" class="post-back">← Blog</a>
   <header class="post-header">
     <p class="section-label">Writing</p>
-    <h1>Own Initiative or Proactive Detection? How VLOPs Scope Table 6 of Their DSA Reports</h1>
+    <h1>Two Readings of “Own Initiative” on DSA Table 6 — and the One Every VLOP Chose</h1>
     <time class="news-date" datetime="2026-07-13">July 13, 2026</time>
     <div class="tags">
       <span class="tag">EU DSA</span>
@@ -28,9 +28,9 @@ lang_url_it: /it/blog/dsa-own-initiative-scope.html
   </header>
   <div class="post-body">
 
-    <p><em>Is Table 6 populated with all own-initiative statements of reasons, or only the proactive-detection subset?</em></p>
+    <p><em>The DSA's Table 6 asks platforms to report content moderation done on their “own initiative” — a term open to a narrow and a broad reading. Across the first harmonised reports, every VLOP took the broad one.</em></p>
 
-<p><strong>Bottom line:</strong> Every VLOP scopes the headline Table 6 figure as the <strong>full universe of own-initiative Terms-&amp;-Conditions enforcement actions</strong> — not the proactively-/automatically-detected subset. Proactive detection is reported <em>separately and additionally</em> in its own column, and the data confirms it is a strict subset of the headline number (ranging from <strong>0% to ~99%</strong> of it, depending on the platform). So the answer to "all SoRs or only a subset of proactive detection?" is: <strong>all own-initiative SoRs; proactive detection is the nested sub-count, never the scope.</strong></p>
+<p><strong>Bottom line:</strong> "Own initiative" on Table 6 can be read two ways. On the <strong>narrow</strong> reading, a platform reports only the content it proactively — automatically — detected and actioned itself. On the <strong>broad</strong> reading, it reports <em>all</em> the content moderation it initiated, human- and machine-detected alike, that wasn't compelled by a Member-State order or an Article 16 notice. The two readings can differ by orders of magnitude. Across the first harmonised reporting period (H2 2025), <strong>every VLOP took the broad reading</strong>: the headline own-initiative figure is the full universe of provider-initiated Terms-&amp;-Conditions enforcement, and proactive/automated detection appears only as a <em>nested sub-count</em> within it (<strong>0% to ~99%</strong> of the total, depending on the platform).</p>
 
 <ul><li><strong>Source:</strong> <code>t6_own_initiative_tos</code> on the Transparency Report API (transparency.kieranmaynard.com), reporting period <strong>H2 2025 (2025-07-01 → 2025-12-31)</strong> — the first period under the harmonised template. 24 VLOP services / 18 parent platforms.</li><li><strong>Legal frame:</strong> Commission Implementing Regulation (EU) 2024/2835, Annex sheet <code>6_own_initiative_TC</code> (Art. 15(1)(c) DSA).</li></ul>
 
@@ -63,6 +63,8 @@ lang_url_it: /it/blog/dsa-own-initiative-scope.html
 <ul><li><strong>Own initiative</strong> = <em>who</em> initiated the action (the platform itself, not an order or a user notice).</li><li><strong>Proactive detection</strong> = <em>how</em> the content was found (solely automated means).</li></ul>
 
 <p>A platform can act on its own initiative via <strong>human</strong> review (counts in F, not G), and Col G is explicitly a <strong>subset</strong> of Col F — the API's own field definitions restate this: <code>measures</code> = "Count of own-initiative moderation actions"; <code>automated</code> = "<strong>Of those actions</strong>, the count taken by automated means."</p>
+
+<p>This is the interpretive fork. Read <strong>broadly</strong>, Col F carries every own-initiative action (as its instruction — "the total number of measures" — states) and Col G merely discloses how much of it was automated. Read <strong>narrowly</strong> — treating "own initiative" as shorthand for "what we proactively caught" — a platform would report only the automated-detection figure. The Col F text points to the broad reading; whether platforms actually followed it is an empirical question, settled below.</p>
 
 <hr>
 
@@ -250,19 +252,19 @@ lang_url_it: /it/blog/dsa-own-initiative-scope.html
 
 <p><em>Surfaces handled per the schema's rule ("'All' is the cross-surface total — don't sum it with per-surface rows"): Google services that report per-surface (Search, Maps, Play, YouTube) are summed across surfaces; every other service reports a single cross-surface 'All' total.</em></p>
 
-<h3>Two facts settle the question</h3>
+<h3>Two facts show every VLOP took the broad reading</h3>
 
-<ol><li><strong>Col F ≥ Col G in every single row.</strong> No platform reports the automated-detection count <em>as</em> its own-initiative total. If a VLOP had scoped Table 6 to proactive detection, F would equal G. It never does.</li></ol>
+<ol><li><strong>Col F ≥ Col G in every single row.</strong> No platform reports the automated-detection count <em>as</em> its own-initiative total. Under the narrow reading (Table 6 = proactive detection only), F would equal G. It never does.</li></ol>
 
-<ol><li><strong>The restriction breakdown reconciles to Col F, not to Col G</strong> (ratio ≈ <strong>1.00 for 23 of 24 services</strong>). The 14 restriction-type columns are reported per <em>action</em>, independently of detection method. They sum to the <strong>own-initiative total (F)</strong> — proving F is the complete action universe. Had F been narrowed to proactive detection, the restriction columns (which cover <em>all</em> actions) would over-sum F. They don't.</li></ol>
+<ol><li><strong>The restriction breakdown reconciles to Col F, not to Col G</strong> (ratio ≈ <strong>1.00 for 23 of 24 services</strong>). The 14 restriction-type columns are reported per <em>action</em>, independently of detection method. They sum to the <strong>own-initiative total (F)</strong> — proving F is the complete action universe. Under the narrow reading, the restriction columns (which cover <em>all</em> actions) would over-sum F. They don't.</li></ol>
 
-<p>Together these show the headline metric is the <strong>whole</strong> of own-initiative T&amp;C moderation, with automated detection carved out as an internal subset.</p>
+<p>Together these show every VLOP populated the headline metric with the <strong>whole</strong> of provider-initiated T&amp;C moderation — the broad reading — with automated detection carved out as an internal subset.</p>
 
 <h3>The automated share varies enormously — and that's the point</h3>
 
 <p>Because Col G is a genuine sub-count, its share of Col F is a real behavioural signal, not an artefact of scoping:</p>
 
-<ul><li><strong>Automation-dominant</strong> (≈90–99%): Pinterest, XNXX, AliExpress, X, Google Search/Maps/Play, YouTube — near-total automated detection, but F still exceeds G.</li><li><strong>Mixed</strong> (~60–90%): TikTok, Meta, Temu, Snap, LinkedIn, App Store.</li><li><strong>Human-detection-heavy</strong> (F ≫ G): <strong>Amazon 15.7%</strong>, <strong>Booking.com 7.3%</strong>, <strong>Zalando 22.3%</strong>, <strong>Pornhub 0.04%</strong>, <strong>SHEIN 0%</strong>. These platforms report large own-initiative totals of which little or none was <em>solely</em> automated detection — only possible because Col F counts human/manual-detected actions too. This is the clearest disproof of the "proactive-only" hypothesis.</li></ul>
+<ul><li><strong>Automation-dominant</strong> (≈90–99%): Pinterest, XNXX, AliExpress, X, Google Search/Maps/Play, YouTube — near-total automated detection, but F still exceeds G.</li><li><strong>Mixed</strong> (~60–90%): TikTok, Meta, Temu, Snap, LinkedIn, App Store.</li><li><strong>Human-detection-heavy</strong> (F ≫ G): <strong>Amazon 15.7%</strong>, <strong>Booking.com 7.3%</strong>, <strong>Zalando 22.3%</strong>, <strong>Pornhub 0.04%</strong>, <strong>SHEIN 0%</strong>. These platforms report large own-initiative totals of which little or none was <em>solely</em> automated detection — only possible because Col F counts human/manual-detected actions too. These are the clearest cases of the broad reading — under the narrow reading their Table 6 figures would collapse to a fraction of what they reported.</li></ul>
 
 <p>The same structure holds on the illegal-content sheet (<code>t5</code>): <code>measures ≥ automated</code> throughout (e.g. Google reports 2.7 bn own-initiative illegal-content measures; Shein again reports automated = 0).</p>
 
@@ -566,7 +568,9 @@ lang_url_it: /it/blog/dsa-own-initiative-scope.html
 
 <h2>6. Conclusion</h2>
 
-<p><strong>VLOPs scope the Table 6 own-initiative metric as the entire body of own-initiative T&amp;C enforcement — every action the platform took without an order or a notice — regardless of how the content was detected.</strong> Proactive/automated detection is reported as a separate, nested sub-count (Column G), which the data confirms ranges from 0% to ~99% of the headline figure across platforms. There is no evidence that any VLOP restricts the own-initiative metric to proactively-detected content; the restriction-type breakdown reconciling to the own-initiative total (not the automated sub-total) rules that out.</p>
+<p><strong>Wherever Table 6's "own initiative" could be read narrowly or broadly, every VLOP took the broad reading.</strong> On the detection axis (§1–2), the headline figure is the entire body of provider-initiated T&amp;C enforcement — human- and machine-detected alike — not the proactive-detection subset; automated detection is disclosed only as a nested sub-count (Column G), 0%–99% of the total across platforms, and the restriction-type breakdown reconciling to the own-initiative total (not the automated sub-total) rules out the narrow reading. On the harder, genuinely-unsettled source axis (§5), most VLOPs likewise fold user-flagged T&amp;C actions into own-initiative rather than treating them as notices.</p>
+
+<p>But this is a <strong>convergence of practice, not of clear legal command</strong>. The Regulation compels the broad reading on detection method (Col F's "total number" instruction), yet leaves the source boundary open — and there platforms' classifications diverge wildly (§5). Read Table 6 accordingly: a broad own-initiative aggregate whose cross-platform comparability rests on interpretive choices the template does not fully pin down.</p>
 
 <p><em>Data: <code>t6_own_initiative_tos</code> / <code>t5_own_initiative_illegal</code>, Transparency Report API, generated 2026-05-13, period 2025-07-01/2025-12-31. Legal: Reg. (EU) 2024/2835, Annex sheets 5–6; DSA Art. 15(1)(c).</em></p>
 
