@@ -1,0 +1,576 @@
+---
+layout: main
+title: "Own Initiative or Proactive Detection? How VLOPs Scope Table 6 of Their DSA Reports"
+description: "The DSA's harmonised transparency template asks VLOPs to report content moderation done on their own initiative. Do they report all of it, or only what automated systems flagged? An empirical answer from the first harmonised reports (H2 2025), cross-checked against the Statements-of-Reasons database."
+date: 2026-07-13
+lang: en
+lang_url: /ja/blog/dsa-own-initiative-scope.html
+lang_url_zh: /zh/blog/dsa-own-initiative-scope.html
+lang_url_ko: /ko/blog/dsa-own-initiative-scope.html
+lang_url_fr: /fr/blog/dsa-own-initiative-scope.html
+lang_url_es: /es/blog/dsa-own-initiative-scope.html
+lang_url_de: /de/blog/dsa-own-initiative-scope.html
+lang_url_it: /it/blog/dsa-own-initiative-scope.html
+---
+
+<article class="post">
+  <a href="/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>Own Initiative or Proactive Detection? How VLOPs Scope Table 6 of Their DSA Reports</h1>
+    <time class="news-date" datetime="2026-07-13">July 13, 2026</time>
+    <div class="tags">
+      <span class="tag">EU DSA</span>
+      <span class="tag">VLOP</span>
+      <span class="tag">Transparency</span>
+      <span class="tag">Data</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <p><em>Is Table 6 populated with all own-initiative statements of reasons, or only the proactive-detection subset?</em></p>
+
+<p><strong>Bottom line:</strong> Every VLOP scopes the headline Table 6 figure as the <strong>full universe of own-initiative Terms-&amp;-Conditions enforcement actions</strong> — not the proactively-/automatically-detected subset. Proactive detection is reported <em>separately and additionally</em> in its own column, and the data confirms it is a strict subset of the headline number (ranging from <strong>0% to ~99%</strong> of it, depending on the platform). So the answer to "all SoRs or only a subset of proactive detection?" is: <strong>all own-initiative SoRs; proactive detection is the nested sub-count, never the scope.</strong></p>
+
+<ul><li><strong>Source:</strong> <code>t6_own_initiative_tos</code> on the Transparency Report API (transparency.kieranmaynard.com), reporting period <strong>H2 2025 (2025-07-01 → 2025-12-31)</strong> — the first period under the harmonised template. 24 VLOP services / 18 parent platforms.</li><li><strong>Legal frame:</strong> Commission Implementing Regulation (EU) 2024/2835, Annex sheet <code>6_own_initiative_TC</code> (Art. 15(1)(c) DSA).</li></ul>
+
+<hr>
+
+<h2>1. What the template actually requires (the definitional answer)</h2>
+
+<p>Table 6 is <em>not</em> a single number per category. Each category row carries <strong>two distinct count columns</strong>, defined verbatim in the Implementing Regulation:</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>Col</th>
+<th>Field</th>
+<th>Regulation instruction (verbatim)</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>F</strong></td>
+<td><em>Number of measures taken at the provider's own initiative</em></td>
+<td>"This field must indicate the <strong>total number</strong> of measures that have been taken at the provider's own initiative. Own initiative means that the decision to impose a restriction … <strong>has not been preceded by an order</strong> from a Member State authority <strong>or a notice</strong> submitted through a notice-and-action mechanism (Art. 16)."</td>
+</tr>
+<tr>
+<td><strong>G</strong></td>
+<td><em>Number of measures taken after detection with solely automated means</em></td>
+<td>"This field must indicate the number of measures that were taken at the provider's own initiative <strong>solely using automated means</strong>."</td>
+</tr>
+</tbody></table></div>
+
+<p>The scope of Table 6 is therefore defined by <strong>exclusion</strong> (not order-driven, not notice-driven), <em>not</em> by detection method. "Own initiative" (Col F) and "proactive/automated detection" (Col G) are <strong>orthogonal</strong>:</p>
+
+<ul><li><strong>Own initiative</strong> = <em>who</em> initiated the action (the platform itself, not an order or a user notice).</li><li><strong>Proactive detection</strong> = <em>how</em> the content was found (solely automated means).</li></ul>
+
+<p>A platform can act on its own initiative via <strong>human</strong> review (counts in F, not G), and Col G is explicitly a <strong>subset</strong> of Col F — the API's own field definitions restate this: <code>measures</code> = "Count of own-initiative moderation actions"; <code>automated</code> = "<strong>Of those actions</strong>, the count taken by automated means."</p>
+
+<p>Conflating the two — reporting only proactively-detected actions in the headline column — would understate own-initiative moderation. The empirical question is whether any VLOP does that.</p>
+
+<hr>
+
+<h2>2. What VLOPs actually reported (the empirical answer)</h2>
+
+<p>Per-service TOTAL rows for H2 2025. <strong>Col F</strong> = own-initiative measures; <strong>Col G</strong> = solely-automated detection; the last column is a <strong>scope diagnostic</strong>: the sum of the 14 restriction-type columns (removal, disable, demote, age-restrict, label, suspend, terminate, …) divided by Col F.</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>Service (platform)</th>
+<th class="td-num">Own-initiative measures (Col F)</th>
+<th class="td-num">Solely-automated detection (Col G)</th>
+<th class="td-num">Automated share</th>
+<th class="td-num">Restriction-sum ÷ measures</th>
+</tr></thead><tbody>
+<tr>
+<td>Google Shopping (Google)</td>
+<td class="td-num">2,172,893,605</td>
+<td class="td-num">1,914,796,057</td>
+<td class="td-num">88.1%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Temu (Temu)</td>
+<td class="td-num">768,352,129</td>
+<td class="td-num">658,795,093</td>
+<td class="td-num">85.7%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>TikTok (TikTok)</td>
+<td class="td-num">258,691,522</td>
+<td class="td-num">220,097,575</td>
+<td class="td-num">85.1%</td>
+<td class="td-num">1.01</td>
+</tr>
+<tr>
+<td>AliExpress (Alibaba)</td>
+<td class="td-num">236,256,023</td>
+<td class="td-num">228,211,778</td>
+<td class="td-num">96.6%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Pinterest (Pinterest)</td>
+<td class="td-num">184,341,552</td>
+<td class="td-num">183,242,050</td>
+<td class="td-num">99.4%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Facebook (Meta)</td>
+<td class="td-num">171,807,219</td>
+<td class="td-num">148,905,624</td>
+<td class="td-num">86.7%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Amazon (Amazon)</td>
+<td class="td-num">150,504,153</td>
+<td class="td-num">23,595,638</td>
+<td class="td-num"><strong>15.7%</strong></td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Google Search (Google)</td>
+<td class="td-num">116,348,785</td>
+<td class="td-num">115,467,421</td>
+<td class="td-num">≥99%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>YouTube (Google)</td>
+<td class="td-num">78,205,262</td>
+<td class="td-num">77,426,568</td>
+<td class="td-num">99.0%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Instagram (Meta)</td>
+<td class="td-num">55,916,456</td>
+<td class="td-num">44,990,373</td>
+<td class="td-num">80.5%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Google Maps (Google)</td>
+<td class="td-num">28,944,347</td>
+<td class="td-num">28,338,536</td>
+<td class="td-num">97.9%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>X (X)</td>
+<td class="td-num">20,868,183</td>
+<td class="td-num">19,492,478</td>
+<td class="td-num">93.4%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>App Store (Apple)</td>
+<td class="td-num">16,426,841</td>
+<td class="td-num">10,244,729</td>
+<td class="td-num">62.4%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Snapchat (Snap)</td>
+<td class="td-num">11,279,462</td>
+<td class="td-num">8,822,094</td>
+<td class="td-num">78.2%</td>
+<td class="td-num">0.97</td>
+</tr>
+<tr>
+<td>Multi-Services (Google)</td>
+<td class="td-num">4,537,066</td>
+<td class="td-num">null</td>
+<td class="td-num">not reported</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Google Play (Google)</td>
+<td class="td-num">4,505,637</td>
+<td class="td-num">4,496,508</td>
+<td class="td-num">99.8%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>LinkedIn (Microsoft)</td>
+<td class="td-num">4,006,944</td>
+<td class="td-num">3,499,487</td>
+<td class="td-num">87.3%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>SHEIN (Shein)</td>
+<td class="td-num">2,735,275</td>
+<td class="td-num">0</td>
+<td class="td-num"><strong>0.0%</strong></td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Booking.com (Booking.com)</td>
+<td class="td-num">802,337</td>
+<td class="td-num">58,437</td>
+<td class="td-num"><strong>7.3%</strong></td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>XVideos (WebGroup Czech Rep.)</td>
+<td class="td-num">237,642</td>
+<td class="td-num">228,735</td>
+<td class="td-num">96.3%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Pornhub (Aylo)</td>
+<td class="td-num">190,584</td>
+<td class="td-num">82</td>
+<td class="td-num"><strong>0.04%</strong></td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>XNXX (NKL Associates)</td>
+<td class="td-num">186,967</td>
+<td class="td-num">185,170</td>
+<td class="td-num">99.0%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Bing (Microsoft)</td>
+<td class="td-num">92,550</td>
+<td class="td-num">85,482</td>
+<td class="td-num">92.4%</td>
+<td class="td-num"><strong>0.92</strong></td>
+</tr>
+<tr>
+<td>Zalando (Zalando)</td>
+<td class="td-num">3,272</td>
+<td class="td-num">729</td>
+<td class="td-num">22.3%</td>
+<td class="td-num">1.00</td>
+</tr>
+</tbody></table></div>
+
+<p><em>Surfaces handled per the schema's rule ("'All' is the cross-surface total — don't sum it with per-surface rows"): Google services that report per-surface (Search, Maps, Play, YouTube) are summed across surfaces; every other service reports a single cross-surface 'All' total.</em></p>
+
+<h3>Two facts settle the question</h3>
+
+<ol><li><strong>Col F ≥ Col G in every single row.</strong> No platform reports the automated-detection count <em>as</em> its own-initiative total. If a VLOP had scoped Table 6 to proactive detection, F would equal G. It never does.</li></ol>
+
+<ol><li><strong>The restriction breakdown reconciles to Col F, not to Col G</strong> (ratio ≈ <strong>1.00 for 23 of 24 services</strong>). The 14 restriction-type columns are reported per <em>action</em>, independently of detection method. They sum to the <strong>own-initiative total (F)</strong> — proving F is the complete action universe. Had F been narrowed to proactive detection, the restriction columns (which cover <em>all</em> actions) would over-sum F. They don't.</li></ol>
+
+<p>Together these show the headline metric is the <strong>whole</strong> of own-initiative T&amp;C moderation, with automated detection carved out as an internal subset — exactly as the Regulation intends.</p>
+
+<h3>The automated share varies enormously — and that's the point</h3>
+
+<p>Because Col G is a genuine sub-count, its share of Col F is a real behavioural signal, not an artefact of scoping:</p>
+
+<ul><li><strong>Automation-dominant</strong> (≈90–99%): Pinterest, XNXX, AliExpress, X, Google Search/Maps/Play, YouTube — near-total automated detection, but F still exceeds G.</li><li><strong>Mixed</strong> (~60–90%): TikTok, Meta, Temu, Snap, LinkedIn, App Store.</li><li><strong>Human-detection-heavy</strong> (F ≫ G): <strong>Amazon 15.7%</strong>, <strong>Booking.com 7.3%</strong>, <strong>Zalando 22.3%</strong>, <strong>Pornhub 0.04%</strong>, <strong>SHEIN 0%</strong>. These platforms report large own-initiative totals of which little or none was <em>solely</em> automated detection — only possible because Col F counts human/manual-detected actions too. This is the clearest disproof of the "proactive-only" hypothesis.</li></ul>
+
+<p>The same structure holds on the illegal-content sheet (<code>t5</code>): <code>measures ≥ automated</code> throughout (e.g. Google reports 2.7 bn own-initiative illegal-content measures; Shein again reports automated = 0).</p>
+
+<hr>
+
+<h2>3. Caveats &amp; data-quality notes</h2>
+
+<ul><li><strong>"Measures" vs "statements of reasons."</strong> Table 6 counts <em>measures/actions</em>, which are the events that generate own-initiative T&amp;C statements of reasons. They are the SoR-generating universe, but the two need not be 1:1 (a single SoR can bundle multiple restrictions; some actions on account-level or manifestly illegal content may not each produce a distinct SoR). The finding — F = the full own-initiative set — stands regardless.</li><li><strong>Bing</strong> is the one reconciliation outlier (restriction-sum ÷ measures = 0.92): its filing contains an entry where <code>measures</code> = 7,220 but the restriction columns sum to only 152 (= its automated count). That is an internal inconsistency in Bing's own report, not a different scoping choice; Microsoft's other services (LinkedIn) reconcile cleanly.</li><li><strong>Null vs zero.</strong> Google's "Multi-Services" line and several Google Search sub-surfaces leave Col G <strong>null</strong> (not reported) rather than 0; SHEIN and Google's t5 report an explicit <strong>0</strong>. Treat "not reported" and "zero automated" distinctly.</li><li><strong>Minor over/under-sums</strong> (TikTok 1.01, Snapchat 0.97, AliExpress ~1.003) are within ~1–3% and consistent with a single action carrying multiple restriction types — they do not change the conclusion.</li><li><strong>Comparability.</strong> Figures are H2-2025 VLOP filings only (<code>report_tier = vlop</code>); non-VLOP filers in the same table report over different windows and were excluded.</li></ul>
+
+<hr>
+
+<h2>4. External corroboration: the DSA Statements-of-Reasons database</h2>
+
+<p>The transparency reports are self-declared. The <strong>DSA Transparency Database</strong> (Statements of Reasons) is an independent source: every in-scope moderation decision is filed as an individual SoR, and each SoR carries <code>source_type</code> (incl. <em>Own-initiative</em>) and <code>automated_detection</code> (Yes/No) as <strong>separate</strong> fields. Using the Commission's <code>dsa-tdb</code> re-aggregation (<code>dsa_tdb_metrics</code>, same H2-2025 window), these marginal cuts test the report finding from outside.</p>
+
+<p><strong>Global (all platforms, H2 2025):</strong> the two populations are plainly different sizes —</p>
+
+<ul><li><code>source_type = Own-initiative</code>: <strong>3,633,572,041</strong> SoRs</li><li><code>automated_detection = Yes</code>: <strong>3,150,399,935</strong>  ·  <code>No</code>: <strong>527,615,482</strong></li></ul>
+
+<p>Own-initiative exceeds automated detection by ~0.48 bn, and 528 m SoRs are non-automated. So in the raw filing data, "own initiative" is a strictly larger set than "proactive detection" — the same relationship the report's Col F ⊇ Col G encodes.</p>
+
+<p><strong>Per service — does Table 6's figure track own-initiative or automated detection?</strong> The report's F is compared against each service's SoR own-initiative count and SoR automated-detection count:</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>Service</th>
+<th class="td-num">Report F (own-init measures)</th>
+<th class="td-num">SoR own-initiative</th>
+<th class="td-num">SoR automated-detection=Yes</th>
+<th>F tracks →</th>
+</tr></thead><tbody>
+<tr>
+<td>Google Shopping</td>
+<td class="td-num">2,172,893,605</td>
+<td class="td-num">2,180,900,675</td>
+<td class="td-num">1,922,752,952</td>
+<td>own-init≈auto</td>
+</tr>
+<tr>
+<td>TikTok</td>
+<td class="td-num">258,691,522</td>
+<td class="td-num">169,191,282</td>
+<td class="td-num">164,950,379</td>
+<td>own-init≈auto</td>
+</tr>
+<tr>
+<td>AliExpress</td>
+<td class="td-num">236,256,023</td>
+<td class="td-num">306,847,831</td>
+<td class="td-num">297,571,690</td>
+<td>own-init≈auto</td>
+</tr>
+<tr>
+<td>Pinterest</td>
+<td class="td-num">184,341,552</td>
+<td class="td-num">168,571,015</td>
+<td class="td-num">1,562,875</td>
+<td><strong>own-init</strong></td>
+</tr>
+<tr>
+<td>Facebook</td>
+<td class="td-num">171,807,219</td>
+<td class="td-num">183,874,483</td>
+<td class="td-num">174,149,136</td>
+<td>own-init≈auto</td>
+</tr>
+<tr>
+<td>Amazon</td>
+<td class="td-num">150,504,153</td>
+<td class="td-num">146,259,143</td>
+<td class="td-num">129,608,538</td>
+<td>own-init≈auto</td>
+</tr>
+<tr>
+<td>YouTube</td>
+<td class="td-num">78,205,262</td>
+<td class="td-num">51,494,084</td>
+<td class="td-num">51,324,927</td>
+<td>own-init≈auto</td>
+</tr>
+<tr>
+<td>Instagram</td>
+<td class="td-num">55,916,456</td>
+<td class="td-num">53,092,432</td>
+<td class="td-num">50,830,410</td>
+<td>own-init≈auto</td>
+</tr>
+<tr>
+<td>Google Maps</td>
+<td class="td-num">28,944,347</td>
+<td class="td-num">29,672,404</td>
+<td class="td-num">29,060,102</td>
+<td>own-init≈auto</td>
+</tr>
+<tr>
+<td>Booking.com</td>
+<td class="td-num">802,337</td>
+<td class="td-num">678,643</td>
+<td class="td-num">678,965</td>
+<td>own-init≈auto</td>
+</tr>
+<tr>
+<td>Pornhub</td>
+<td class="td-num">190,584</td>
+<td class="td-num">159,106</td>
+<td class="td-num">48,667</td>
+<td><strong>own-init</strong></td>
+</tr>
+<tr>
+<td>XVideos</td>
+<td class="td-num">237,642</td>
+<td class="td-num">76,420</td>
+<td class="td-num">8,040</td>
+<td><strong>own-init</strong></td>
+</tr>
+<tr>
+<td>SHEIN</td>
+<td class="td-num">2,735,275</td>
+<td class="td-num">79,257</td>
+<td class="td-num">11,612</td>
+<td><strong>own-init</strong></td>
+</tr>
+<tr>
+<td>Google Play</td>
+<td class="td-num">4,505,637</td>
+<td class="td-num">1,507,827</td>
+<td class="td-num">459,916</td>
+<td><strong>own-init</strong></td>
+</tr>
+<tr>
+<td>Temu</td>
+<td class="td-num">768,352,129</td>
+<td class="td-num">134,498,313</td>
+<td class="td-num">134,355,345</td>
+<td>own-init≈auto</td>
+</tr>
+<tr>
+<td>Snapchat</td>
+<td class="td-num">11,279,462</td>
+<td class="td-num">689,602</td>
+<td class="td-num">575,443</td>
+<td>own-init≈auto</td>
+</tr>
+</tbody></table></div>
+
+<p><strong>Two corroborating results:</strong></p>
+
+<ol><li><strong>Magnitude.</strong> For clean matches, report F ≈ SoR own-initiative: Google Shopping <strong>1.00×</strong>, Google Maps 0.98×, Amazon 1.03×, Instagram 1.05×, Facebook 0.93×, Pinterest 1.09×, Booking 1.18×. F reconciles to the own-initiative SoR universe — not to a proactive-detection subset of it.</li></ol>
+
+<ol><li><strong>The discriminator.</strong> In the 5 services where the SoR own-initiative and automated-detection populations diverge by &gt;20% (so the test can actually discriminate), <strong>F is closer to own-initiative in 5 of 5</strong>. The cleanest is <strong>Pinterest</strong>: F = 184 m matches SoR own-initiative 169 m, not SoR automated-detection <strong>1.6 m</strong>. Had Pinterest scoped Table 6 to proactive detection, it would report ~1.6 m. It reports 184 m. Same verdict for SHEIN, Pornhub, XVideos, Google Play.</li></ol>
+
+<p><strong>Caveats (why this is corroboration, not reconciliation):</strong></p>
+
+<ul><li><strong>The two systems count different things.</strong> Reports count <em>measures/actions</em>; the database counts <em>statements of reasons</em>. They are not expected to match exactly, and some diverge sharply: <strong>Temu</strong> (report 768 m vs 134 m SoRs), <strong>SHEIN</strong> (2.7 m vs 90 k), <strong>Snapchat</strong> (11.3 m vs 2.4 m), and <strong>X</strong> (20.9 m vs just 0.2 m SoRs — X files almost no SoRs). These are known report-vs-database gaps (counting unit, de-duplication, timing, under-filing) and do <strong>not</strong> bear on scoping — the scoping test only asks <em>which SoR population</em> F tracks, and even for these it tracks own-initiative.</li><li><strong>Col G ≠ SoR <code>automated_detection=Yes</code>.</strong> Report Col G is <em>solely</em> automated means; the SoR flag is <em>any</em> automated means used to identify content (includes partially-automated). This explains why report automated-share sits below SoR automated-share for Amazon (16% vs 88%) and Booking (7% vs 95%). <strong>Pinterest is the reverse</strong> (report 99% "solely automated" vs SoR 0.9% automated-detection) — an internal inconsistency in Pinterest's own filing between the two systems, worth noting but immaterial to the F-scoping question.</li><li>These are <strong>marginal</strong> cuts (no source×automation×ground joint in the aggregation), so the test is on magnitudes and partitions, not exact cells.</li></ul>
+
+<p>The independent SoR data therefore <strong>corroborates the core finding</strong>: Table 6's own-initiative metric is the full own-initiative population, with proactive/automated detection a distinct, generally smaller sub-population.</p>
+
+<hr>
+
+<h2>5. The scope boundary: are user reports "own initiative"?</h2>
+
+<p>A prior question sits underneath the F/G finding: <strong>what counts as own-initiative in the first place?</strong> The answer is not clean, and it is the template's softest joint.</p>
+
+<p><strong>The exclusion is narrow.</strong> Column F excludes only two triggers — a Member-State order, or "a notice submitted through a notice and action mechanism as referenced in <strong>Article 16</strong>." And Article 16's mechanism is, by its own terms, for notifying content a user "considers to be <strong>illegal content</strong>" — not the channel for "this breaches your Community Standards." So user reports divide three ways:</p>
+
+<ol><li>User reports <strong>illegal</strong> content via the notice-and-action mechanism → Article 16 notice → <strong>out</strong> of Table 6 (belongs in Table 4).</li><li>User reports a <strong>ToS/Community-Standards</strong> violation <em>not</em> through the Article 16 illegal-content mechanism → <strong>not</strong> an Article 16 notice → <strong>not excluded</strong> by Column F's wording.</li><li>Blended report flow → depends on how the platform classifies it.</li></ol>
+
+<p>For category 2 two textual arguments put such reports <strong>inside</strong> Table 6: (i) <em>expressio unius</em> — the definition lists only orders and Article 16 notices as exclusions, so anything else is not carved out; (ii) <em>exhaustive taxonomy</em> — Art. 15(1) routes all moderation into orders (Table 3), Article 16 notices (Table 4), or own-initiative (Tables 5–6), and a non-Article-16 ToS report fits neither of the first two. The counter-reading is channel-based (any notice via the report button is excluded) and matches the intuitive sense of "own initiative," but it isn't what the operational definition says. The Commission has not resolved this, and researchers have flagged it as <a href="https://arxiv.org/html/2605.17655v1"><em>disarranged harmonisation</em></a> across reports.</p>
+
+<p><strong>Empirically, VLOPs have mostly resolved it inclusively — but classify wildly inconsistently.</strong> Using the SoR database's <code>by_source_type</code> cut per service (H2 2025):</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>Service</th>
+<th class="td-num">SoR own-initiative</th>
+<th class="td-num">Other-notification (non-Art16)</th>
+<th class="td-num">Article 16 notice</th>
+<th>Likely reading</th>
+</tr></thead><tbody>
+<tr>
+<td>Google Shopping</td>
+<td class="td-num">99.9%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">0.06%</td>
+<td>folds ~all into own-init</td>
+</tr>
+<tr>
+<td>TikTok</td>
+<td class="td-num">100.0%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">0.04%</td>
+<td>folds ~all into own-init</td>
+</tr>
+<tr>
+<td>AliExpress</td>
+<td class="td-num">99.9%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">0.05%</td>
+<td>folds ~all into own-init</td>
+</tr>
+<tr>
+<td>Pinterest</td>
+<td class="td-num">99.7%</td>
+<td class="td-num">0.29%</td>
+<td class="td-num">0.00%</td>
+<td>folds ~all into own-init</td>
+</tr>
+<tr>
+<td>Facebook</td>
+<td class="td-num">99.9%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">0.10%</td>
+<td>folds ~all into own-init</td>
+</tr>
+<tr>
+<td>Amazon</td>
+<td class="td-num">99.2%</td>
+<td class="td-num">0.12%</td>
+<td class="td-num">0.63%</td>
+<td>folds ~all into own-init</td>
+</tr>
+<tr>
+<td>YouTube</td>
+<td class="td-num">99.3%</td>
+<td class="td-num">0.33%</td>
+<td class="td-num">0.41%</td>
+<td>folds ~all into own-init</td>
+</tr>
+<tr>
+<td>Instagram</td>
+<td class="td-num">99.8%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">0.15%</td>
+<td>folds ~all into own-init</td>
+</tr>
+<tr>
+<td>Google Maps</td>
+<td class="td-num">94.3%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">5.65%</td>
+<td>folds ~all into own-init</td>
+</tr>
+<tr>
+<td>X</td>
+<td class="td-num">0.0%</td>
+<td class="td-num">100.00%</td>
+<td class="td-num">0.00%</td>
+<td>classifies all as <em>notification</em></td>
+</tr>
+<tr>
+<td>Snapchat</td>
+<td class="td-num">28.2%</td>
+<td class="td-num">0.01%</td>
+<td class="td-num">71.78%</td>
+<td>routes most via <em>Art. 16</em></td>
+</tr>
+<tr>
+<td>Booking.com</td>
+<td class="td-num">95.1%</td>
+<td class="td-num">4.76%</td>
+<td class="td-num">0.10%</td>
+<td>folds ~all into own-init</td>
+</tr>
+<tr>
+<td>Google Play</td>
+<td class="td-num">99.7%</td>
+<td class="td-num">0.10%</td>
+<td class="td-num">0.23%</td>
+<td>folds ~all into own-init</td>
+</tr>
+<tr>
+<td>SHEIN</td>
+<td class="td-num">88.0%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">12.04%</td>
+<td>folds ~all into own-init</td>
+</tr>
+<tr>
+<td>Pornhub</td>
+<td class="td-num">83.7%</td>
+<td class="td-num">16.30%</td>
+<td class="td-num">0.01%</td>
+<td><strong>textual</strong> (F tracks OI+ON)</td>
+</tr>
+<tr>
+<td>XVideos</td>
+<td class="td-num">12.7%</td>
+<td class="td-num">1.37%</td>
+<td class="td-num">85.95%</td>
+<td>routes most via <em>Art. 16</em></td>
+</tr>
+</tbody></table></div>
+
+<p>Two readings of this:</p>
+
+<ul><li><strong>The specific "non-Article-16 ToS report" gap is small for VLOPs.</strong> Across these services, <code>other-notification</code> is <strong>0.03%</strong> of classified SoRs — most platforms fold ~everything (≥99%) into own-initiative, i.e. take the inclusive reading by default. So Table 6 for the big platforms already absorbs user-flagged ToS actions; the ambiguity rarely changes their headline number. The clean exception is <strong>Pornhub</strong> (16.3% other-notification), whose Table 6 measure tracks own-initiative <strong>+</strong> other-notification (F ≈ OI+ON, ratio 1.00) — a platform visibly taking the textual reading.</li><li><strong>But the classification itself is wildly inconsistent, which is the real comparability problem.</strong> The same "did a user flag it?" question is answered three incompatible ways: most platforms label ~100% own-initiative; <strong>X</strong> labels 100% <em>other-notification</em>; <strong>Snapchat (72%)</strong> and <strong>XVideos (86%)</strong> route the majority through <em>Article 16 notices</em>. Identical underlying behaviour would land in Table 6 for one platform and Table 4 for another. The ambiguity doesn't vanish — it moves one layer up, into source-type classification, and undermines cross-platform comparability of the own-initiative vs notice split.</li></ul>
+
+<p><em>Caveats: source_type is self-classified by each platform; the near-total "own-initiative" for most VLOPs may partly be a labelling convention rather than genuinely unprompted detection. X files very few SoRs (0.2 m) relative to its Table 6 measures (20.9 m), so its 100%-notification profile is not representative. Marginal cuts only.</em></p>
+
+<hr>
+
+<h2>6. Conclusion</h2>
+
+<p><strong>VLOPs scope the Table 6 own-initiative metric as the entire body of own-initiative T&amp;C enforcement — every action the platform took without an order or a notice — regardless of how the content was detected.</strong> Proactive/automated detection is reported as a separate, nested sub-count (Column G), which the data confirms ranges from 0% to ~99% of the headline figure across platforms. There is no evidence that any VLOP restricts the own-initiative metric to proactively-detected content; the restriction-type breakdown reconciling to the own-initiative total (not the automated sub-total) rules that out.</p>
+
+<p><em>Data: <code>t6_own_initiative_tos</code> / <code>t5_own_initiative_illegal</code>, Transparency Report API, generated 2026-05-13, period 2025-07-01/2025-12-31. Legal: Reg. (EU) 2024/2835, Annex sheets 5–6; DSA Art. 15(1)(c).</em></p>
+
+  </div>
+</article>
