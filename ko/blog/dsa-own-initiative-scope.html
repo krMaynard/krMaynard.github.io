@@ -1,0 +1,591 @@
+---
+layout: main
+title: "‘자체 조치’의 두 가지 해석 — DSA 표 6, 그리고 모든 VLOP의 선택"
+description: "DSA는 VLOP에게 ‘자체 조치’로 수행한 콘텐츠 모더레이션을 보고하도록 요구한다. 이 용어는 좁게도 넓게도 읽힌다. 첫 번째 조화화 보고서(2025년 하반기)에서 모든 VLOP는 넓은 해석을 택했다. 사유 설명서 데이터베이스와 대조한 실증 분석."
+date: 2026-07-13
+og_image: /images/dsa-own-initiative-scope-ko.png
+lang: ko
+lang_url: /blog/dsa-own-initiative-scope.html
+lang_url_ja: /ja/blog/dsa-own-initiative-scope.html
+lang_url_zh: /zh/blog/dsa-own-initiative-scope.html
+---
+
+<article class="post">
+  <a href="/ko/blog.html" class="post-back">← 블로그</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>‘자체 조치’의 두 가지 해석 — DSA 표 6, 그리고 모든 VLOP의 선택</h1>
+    <time class="news-date" datetime="2026-07-13">July 13, 2026</time>
+    <div class="tags">
+      <span class="tag">EU DSA</span>
+      <span class="tag">VLOP</span>
+      <span class="tag">투명성</span>
+      <span class="tag">데이터</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/dsa-own-initiative-scope-ko.png" alt="DSA 표 6에서 ‘자체 조치’의 두 가지 해석" width="1200" height="630">
+    </figure>
+
+    <p><em>DSA의 표 6은 플랫폼이 ‘자체 조치’로 수행한 콘텐츠 모더레이션을 보고하도록 요구한다. 이 용어는 좁게도 넓게도 읽힌다 — 그리고 첫 조화화 보고서에서 모든 VLOP는 넓은 해석을 택했다.</em></p>
+
+<p><strong>핵심 결론:</strong> 표 6의 ‘자체 조치’는 두 가지로 읽을 수 있다. <strong>좁은</strong> 해석에서는 플랫폼이 스스로 능동적으로 — 자동으로 — 탐지해 조치한 콘텐츠만 보고한다. <strong>넓은</strong> 해석에서는 회원국 명령이나 제16조 통지에 의하지 않고 스스로 개시한 <em>모든</em> 콘텐츠 모더레이션을, 사람이 탐지했든 기계가 탐지했든 보고한다. 두 해석은 자릿수만큼 차이 날 수 있다. 첫 조화화 보고 기간(2025년 하반기)에 <strong>모든 VLOP는 넓은 해석을 택했다</strong> — 대표 수치인 자체 조치 건수는 제공자가 개시한 이용약관 집행의 전체이며, 능동적/자동 탐지는 그 안의 <em>중첩된 하위 집계</em>로만 나타난다(플랫폼에 따라 총계의 <strong>0%~약 99%</strong>).</p>
+
+<ul><li><strong>데이터 출처:</strong> Transparency Report API(transparency.kieranmaynard.com)의 <code>t6_own_initiative_tos</code>, 보고 기간 <strong>2025년 하반기(2025-07-01 → 2025-12-31)</strong> — 조화화 템플릿하의 첫 기간. VLOP 서비스 24개 / 모회사 플랫폼 18개.</li><li><strong>법적 근거:</strong> 집행위원회 이행 규정 (EU) 2024/2835, 부속서 시트 <code>6_own_initiative_TC</code>(DSA 제15조(1)(c)).</li></ul>
+
+<hr>
+
+<h2>1. 템플릿이 실제로 요구하는 것(정의상의 답)</h2>
+
+<p>표 6은 카테고리마다 단일 숫자가 <em>아니다</em>. 각 카테고리 행은 <strong>서로 다른 두 개의 집계 열</strong>을 가지며, 이행 규정에 그대로 정의되어 있다:</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>열</th>
+<th>항목</th>
+<th>규정 지침(축자)</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>F</strong></td>
+<td><em>제공자의 자체 조치로 취해진 조치 건수</em></td>
+<td>“본 항목에는 제공자의 자체 조치로 취해진 조치의 <strong>총 건수</strong>를 기재한다. 자체 조치란 제한을 부과하는 결정이 … <strong>회원국 당국의 명령</strong>에도, 제16조에서 정한 통지·조치 메커니즘(Art. 16)을 통해 제출된 <strong>통지</strong>에도 선행되지 않았음을 의미한다.”</td>
+</tr>
+<tr>
+<td><strong>G</strong></td>
+<td><em>Number of measures taken after detection with solely automated means</em></td>
+<td>“본 항목에는 제공자의 자체 조치 중 <strong>오로지 자동화된 수단으로</strong> 취해진 조치 건수를 기재한다.”</td>
+</tr>
+</tbody></table></div>
+
+<p>따라서 표 6의 범위는 탐지 방식이 <em>아니라</em> <strong>배제</strong>(명령 기반도, 통지 기반도 아님)로 정의된다. ‘자체 조치’(F열)와 ‘능동적/자동 탐지’(G열)는 <strong>직교</strong>한다:</p>
+
+<ul><li><strong>자체 조치</strong> ＝ 조치를 <em>누가</em> 개시했는가(명령이나 사용자 통지가 아니라 플랫폼 자신).</li><li><strong>능동적 탐지</strong> ＝ 콘텐츠를 <em>어떻게</em> 발견했는가(오로지 자동화된 수단).</li></ul>
+
+<p>플랫폼은 <strong>사람</strong>의 검토를 통해 자체 조치를 할 수 있으며(G열이 아니라 F열에 계상), G열은 명시적으로 F열의 <strong>부분집합</strong>이다 — API 자체의 필드 정의도 이를 재확인한다: <code>measures</code> ＝ “자체 조치 모더레이션 조치 건수”; <code>automated</code> ＝ “<strong>그중</strong> 자동화된 수단으로 취해진 건수”.</p>
+
+<p>이것이 해석의 분기점이다. <strong>넓게</strong> 읽으면 F열은 모든 자체 조치를(그 지침 — “조치 총 건수” — 대로) 담고, G열은 그중 얼마가 자동이었는지를 밝힐 뿐이다. <strong>좁게</strong> 읽으면 — ‘자체 조치’를 ‘우리가 능동적으로 잡아낸 것’의 약칭으로 취급하면 — 플랫폼은 자동 탐지 수치만 보고하게 된다. F열의 문구는 넓은 해석을 가리킨다. 플랫폼이 실제로 그것을 따랐는지는 실증적 문제이며, 아래에서 규명한다.</p>
+
+<hr>
+
+<h2>2. VLOP가 실제로 보고한 것(실증적 답)</h2>
+
+<p>2025년 하반기 서비스별 TOTAL 행. <strong>F열</strong> ＝ 자체 조치, <strong>G열</strong> ＝ 오로지 자동 탐지; 마지막 열은 <strong>범위 진단</strong>: 14개 제한 유형 열(삭제, 접근 차단, 강등, 연령 제한, 라벨링, 정지, 종료 …)의 합을 F열로 나눈 값.</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>서비스(플랫폼)</th>
+<th class="td-num">자체 조치(F열)</th>
+<th class="td-num">오로지 자동 탐지(G열)</th>
+<th class="td-num">자동화 비율</th>
+<th class="td-num">제한 합계 ÷ 조치</th>
+</tr></thead><tbody>
+<tr>
+<td>Google Shopping (Google)</td>
+<td class="td-num">2,172,893,605</td>
+<td class="td-num">1,914,796,057</td>
+<td class="td-num">88.1%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Temu (Temu)</td>
+<td class="td-num">768,352,129</td>
+<td class="td-num">658,795,093</td>
+<td class="td-num">85.7%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>TikTok (TikTok)</td>
+<td class="td-num">258,691,522</td>
+<td class="td-num">220,097,575</td>
+<td class="td-num">85.1%</td>
+<td class="td-num">1.01</td>
+</tr>
+<tr>
+<td>AliExpress (Alibaba)</td>
+<td class="td-num">236,256,023</td>
+<td class="td-num">228,211,778</td>
+<td class="td-num">96.6%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Pinterest (Pinterest)</td>
+<td class="td-num">184,341,552</td>
+<td class="td-num">183,242,050</td>
+<td class="td-num">99.4%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Facebook (Meta)</td>
+<td class="td-num">171,807,219</td>
+<td class="td-num">148,905,624</td>
+<td class="td-num">86.7%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Amazon (Amazon)</td>
+<td class="td-num">150,504,153</td>
+<td class="td-num">23,595,638</td>
+<td class="td-num"><strong>15.7%</strong></td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Google Search (Google)</td>
+<td class="td-num">116,348,785</td>
+<td class="td-num">115,467,421</td>
+<td class="td-num">≥99%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>YouTube (Google)</td>
+<td class="td-num">78,205,262</td>
+<td class="td-num">77,426,568</td>
+<td class="td-num">99.0%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Instagram (Meta)</td>
+<td class="td-num">55,916,456</td>
+<td class="td-num">44,990,373</td>
+<td class="td-num">80.5%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Google Maps (Google)</td>
+<td class="td-num">28,944,347</td>
+<td class="td-num">28,338,536</td>
+<td class="td-num">97.9%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>X (X)</td>
+<td class="td-num">20,868,183</td>
+<td class="td-num">19,492,478</td>
+<td class="td-num">93.4%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>App Store (Apple)</td>
+<td class="td-num">16,426,841</td>
+<td class="td-num">10,244,729</td>
+<td class="td-num">62.4%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Snapchat (Snap)</td>
+<td class="td-num">11,279,462</td>
+<td class="td-num">8,822,094</td>
+<td class="td-num">78.2%</td>
+<td class="td-num">0.97</td>
+</tr>
+<tr>
+<td>Multi-Services (Google)</td>
+<td class="td-num">4,537,066</td>
+<td class="td-num">null</td>
+<td class="td-num">미보고</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Google Play (Google)</td>
+<td class="td-num">4,505,637</td>
+<td class="td-num">4,496,508</td>
+<td class="td-num">99.8%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>LinkedIn (Microsoft)</td>
+<td class="td-num">4,006,944</td>
+<td class="td-num">3,499,487</td>
+<td class="td-num">87.3%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>SHEIN (Shein)</td>
+<td class="td-num">2,735,275</td>
+<td class="td-num">0</td>
+<td class="td-num"><strong>0.0%</strong></td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Booking.com (Booking.com)</td>
+<td class="td-num">802,337</td>
+<td class="td-num">58,437</td>
+<td class="td-num"><strong>7.3%</strong></td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>XVideos (WebGroup Czech Rep.)</td>
+<td class="td-num">237,642</td>
+<td class="td-num">228,735</td>
+<td class="td-num">96.3%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Pornhub (Aylo)</td>
+<td class="td-num">190,584</td>
+<td class="td-num">82</td>
+<td class="td-num"><strong>0.04%</strong></td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>XNXX (NKL Associates)</td>
+<td class="td-num">186,967</td>
+<td class="td-num">185,170</td>
+<td class="td-num">99.0%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Bing (Microsoft)</td>
+<td class="td-num">92,550</td>
+<td class="td-num">85,482</td>
+<td class="td-num">92.4%</td>
+<td class="td-num"><strong>0.92</strong></td>
+</tr>
+<tr>
+<td>Zalando (Zalando)</td>
+<td class="td-num">3,272</td>
+<td class="td-num">729</td>
+<td class="td-num">22.3%</td>
+<td class="td-num">1.00</td>
+</tr>
+</tbody></table></div>
+
+<p><em>서페이스(surface)는 스키마 규칙(“'All'은 서페이스 통합 합계 — 서페이스별 행과 합산하지 말 것”)에 따라 처리: 서페이스별로 보고하는 Google 서비스(검색, 지도, Play, YouTube)는 서페이스 통합으로 합산하고, 그 외 서비스는 서페이스 통합 'All' 합계 하나만 보고한다.</em></p>
+
+<h3>모든 VLOP가 넓은 해석을 택했음을 보여주는 두 가지 사실</h3>
+
+<ol><li><strong>모든 행에서 F열 ≥ G열.</strong> 어떤 플랫폼도 자동 탐지 수치를 자체 조치 총계<em>로서</em> 보고하지 않는다. 좁은 해석(표 6 ＝ 능동적 탐지만)이라면 F는 G와 같아야 하지만, 결코 그렇지 않다.</li></ol>
+
+<ol><li><strong>제한 유형 분해는 G열이 아니라 F열과 맞아떨어진다</strong>(비율 ≈ <strong>24개 서비스 중 23개가 1.00</strong>). 14개 제한 유형 열은 탐지 방식과 무관하게 <em>조치</em> 단위로 보고된다. 이들의 합은 <strong>자체 조치 총계(F)</strong>가 된다 — F가 완전한 조치 모집단임을 증명한다. 좁은 해석이라면 (<em>모든</em> 조치를 포함하는) 제한 열이 F를 초과해야 하지만, 그렇지 않다.</li></ol>
+
+<p>이를 종합하면, 모든 VLOP가 대표 수치를 제공자가 개시한 이용약관 모더레이션의 <strong>전체</strong> — 넓은 해석 — 로 채우고, 자동 탐지를 내부 부분집합으로 따로 떼어냈음을 알 수 있다.</p>
+
+<h3>자동화 비율은 크게 다르다 — 그리고 그것이 핵심이다</h3>
+
+<p>G열은 진짜 하위 집계이므로, F열에서 그것이 차지하는 비율은 범위 설정의 산물이 아니라 실제 행동 신호다:</p>
+
+<ul><li><strong>자동화 우위</strong>(≈90–99%): Pinterest, XNXX, AliExpress, X, Google 검색/지도/Play, YouTube — 거의 전면 자동 탐지지만 그래도 F가 G를 웃돈다.</li><li><strong>혼합형</strong>(약 60–90%): TikTok, Meta, Temu, Snap, LinkedIn, App Store.</li><li><strong>사람 탐지 비중이 큼</strong>(F ≫ G): <strong>Amazon 15.7%</strong>, <strong>Booking.com 7.3%</strong>, <strong>Zalando 22.3%</strong>, <strong>Pornhub 0.04%</strong>, <strong>SHEIN 0%</strong>. 이 플랫폼들은 큰 자체 조치 총계를 보고하는데, 그중 <em>오로지</em> 자동 탐지였던 것은 극히 적거나 전무하다 — 이는 F열이 사람/수동으로 탐지된 조치도 계상하기에 가능하다. 이들은 넓은 해석의 가장 명확한 사례이며 — 좁은 해석이라면 이들의 표 6 수치는 보고값의 극히 일부로 쪼그라들 것이다.</li></ul>
+
+<p>같은 구조가 위법 콘텐츠 시트(<code>t5</code>)에서도 성립한다: <code>measures ≥ automated</code>가 전반적으로 성립한다(예: Google은 27억 건의 자체 조치 위법 콘텐츠 조치를 보고하고, SHEIN은 여기서도 automated ＝ 0을 보고).</p>
+
+<hr>
+
+<h2>3. 유의 사항 및 데이터 품질 노트</h2>
+
+<ul><li><strong>‘조치’와 ‘사유 설명서’.</strong> 표 6은 <em>조치/액션</em>을 집계하며, 이는 자체 조치 이용약관 사유 설명서(SoR)를 생성하는 사건이다. 이들은 SoR을 낳는 모집단이지만 반드시 1:1은 아니다(하나의 SoR이 여러 제한을 묶을 수 있고, 계정 단위나 명백한 위법 콘텐츠에 대한 일부 조치는 각각 별도의 SoR을 만들지 않을 수 있다). ‘F ＝ 자체 조치 전체’라는 결론은 어느 경우든 성립한다.</li><li><strong>Bing</strong>은 유일한 정합성 이상치다(제한 합계 ÷ 조치 ＝ 0.92): 그 제출에는 <code>measures</code> ＝ 7,220인데 제한 열 합계가 152(＝ 그 자동 탐지 수)에 그치는 항목이 있다. 이는 Bing 자체 보고의 내부 불일치이지 다른 범위 설정 선택이 아니다; Microsoft의 다른 서비스(LinkedIn)는 깔끔하게 맞는다.</li><li><strong>null과 0의 구별.</strong> Google의 “Multi-Services” 행과 여러 Google 검색 하위 서페이스는 G열을 0이 아니라 <strong>null</strong>(미보고)로 둔다; SHEIN과 Google의 t5는 명시적 <strong>0</strong>을 보고한다. ‘미보고’와 ‘자동 0’은 구분해 다뤄야 한다.</li><li><strong>경미한 초과/부족 합계</strong>(TikTok 1.01, Snapchat 0.97, AliExpress 약 1.003)는 약 1–3% 이내로, 하나의 조치가 여러 제한 유형을 수반하는 것과 일치하며 — 결론을 바꾸지 않는다.</li><li><strong>비교 가능성.</strong> 수치는 2025년 하반기 VLOP 제출분만이다(<code>report_tier = vlop</code>); 같은 표의 비-VLOP 제출자는 다른 기간으로 보고하므로 제외했다.</li></ul>
+
+<hr>
+
+<h2>4. 외부 교차 검증: DSA 사유 설명서 데이터베이스</h2>
+
+<p>투명성 보고서는 자기 신고다. <strong>DSA 투명성 데이터베이스</strong>(사유 설명서)는 독립 출처다: 대상 플랫폼이 내리는 각 모더레이션 결정은 개별 SoR로 제출되며, 각 SoR은 <code>source_type</code>(<em>자체 조치</em> 포함)과 <code>automated_detection</code>(Yes/No)을 <strong>서로 별개의</strong> 필드로 담는다. 집행위원회 자체의 <code>dsa-tdb</code> 재집계(<code>dsa_tdb_metrics</code>, 동일한 2025년 하반기 구간)를 사용해, 이 주변 분포들은 보고서의 결론을 외부에서 검증한다.</p>
+
+<p><strong>전체(모든 플랫폼, 2025년 하반기):</strong> 두 모집단은 규모가 명백히 다르다 —</p>
+
+<ul><li><code>source_type = Own-initiative</code>: <strong>3,633,572,041</strong>건의 SoR</li><li><code>automated_detection = Yes</code>: <strong>3,150,399,935</strong>  ·  <code>No</code>: <strong>527,615,482</strong></li></ul>
+
+<p>자체 조치는 자동 탐지를 약 4.8억 건 웃돌고, 5.28억 건의 SoR이 비자동이다. 즉 원자료 제출 데이터에서 ‘자체 조치’는 ‘능동적 탐지’보다 엄격히 큰 집합이며 — 보고서의 Col F ⊇ Col G가 나타내는 관계와 같다.</p>
+
+<p><strong>서비스별 — 표 6의 수치는 자체 조치를 따르는가, 자동 탐지를 따르는가?</strong> 보고서의 F를 각 서비스의 SoR 자체 조치 건수 및 SoR 자동 탐지 건수와 비교한다:</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>서비스</th>
+<th class="td-num">보고 F(자체 조치)</th>
+<th class="td-num">SoR 자체 조치</th>
+<th class="td-num">SoR 자동 탐지＝Yes</th>
+<th>F가 따르는 것 →</th>
+</tr></thead><tbody>
+<tr>
+<td>Google Shopping</td>
+<td class="td-num">2,172,893,605</td>
+<td class="td-num">2,180,900,675</td>
+<td class="td-num">1,922,752,952</td>
+<td>자체 조치≈자동</td>
+</tr>
+<tr>
+<td>TikTok</td>
+<td class="td-num">258,691,522</td>
+<td class="td-num">169,191,282</td>
+<td class="td-num">164,950,379</td>
+<td>자체 조치≈자동</td>
+</tr>
+<tr>
+<td>AliExpress</td>
+<td class="td-num">236,256,023</td>
+<td class="td-num">306,847,831</td>
+<td class="td-num">297,571,690</td>
+<td>자체 조치≈자동</td>
+</tr>
+<tr>
+<td>Pinterest</td>
+<td class="td-num">184,341,552</td>
+<td class="td-num">168,571,015</td>
+<td class="td-num">1,562,875</td>
+<td><strong>own-init</strong></td>
+</tr>
+<tr>
+<td>Facebook</td>
+<td class="td-num">171,807,219</td>
+<td class="td-num">183,874,483</td>
+<td class="td-num">174,149,136</td>
+<td>자체 조치≈자동</td>
+</tr>
+<tr>
+<td>Amazon</td>
+<td class="td-num">150,504,153</td>
+<td class="td-num">146,259,143</td>
+<td class="td-num">129,608,538</td>
+<td>자체 조치≈자동</td>
+</tr>
+<tr>
+<td>YouTube</td>
+<td class="td-num">78,205,262</td>
+<td class="td-num">51,494,084</td>
+<td class="td-num">51,324,927</td>
+<td>자체 조치≈자동</td>
+</tr>
+<tr>
+<td>Instagram</td>
+<td class="td-num">55,916,456</td>
+<td class="td-num">53,092,432</td>
+<td class="td-num">50,830,410</td>
+<td>자체 조치≈자동</td>
+</tr>
+<tr>
+<td>Google Maps</td>
+<td class="td-num">28,944,347</td>
+<td class="td-num">29,672,404</td>
+<td class="td-num">29,060,102</td>
+<td>자체 조치≈자동</td>
+</tr>
+<tr>
+<td>Booking.com</td>
+<td class="td-num">802,337</td>
+<td class="td-num">678,643</td>
+<td class="td-num">678,965</td>
+<td>자체 조치≈자동</td>
+</tr>
+<tr>
+<td>Pornhub</td>
+<td class="td-num">190,584</td>
+<td class="td-num">159,106</td>
+<td class="td-num">48,667</td>
+<td><strong>own-init</strong></td>
+</tr>
+<tr>
+<td>XVideos</td>
+<td class="td-num">237,642</td>
+<td class="td-num">76,420</td>
+<td class="td-num">8,040</td>
+<td><strong>own-init</strong></td>
+</tr>
+<tr>
+<td>SHEIN</td>
+<td class="td-num">2,735,275</td>
+<td class="td-num">79,257</td>
+<td class="td-num">11,612</td>
+<td><strong>own-init</strong></td>
+</tr>
+<tr>
+<td>Google Play</td>
+<td class="td-num">4,505,637</td>
+<td class="td-num">1,507,827</td>
+<td class="td-num">459,916</td>
+<td><strong>own-init</strong></td>
+</tr>
+<tr>
+<td>Temu</td>
+<td class="td-num">768,352,129</td>
+<td class="td-num">134,498,313</td>
+<td class="td-num">134,355,345</td>
+<td>자체 조치≈자동</td>
+</tr>
+<tr>
+<td>Snapchat</td>
+<td class="td-num">11,279,462</td>
+<td class="td-num">689,602</td>
+<td class="td-num">575,443</td>
+<td>자체 조치≈자동</td>
+</tr>
+</tbody></table></div>
+
+<p><strong>두 가지 교차 검증 결과:</strong></p>
+
+<ol><li><strong>규모.</strong> 정합이 뚜렷한 사례에서 보고 F ≈ SoR 자체 조치: Google Shopping <strong>1.00×</strong>, Google Maps 0.98×, Amazon 1.03×, Instagram 1.05×, Facebook 0.93×, Pinterest 1.09×, Booking 1.18×. F는 자체 조치의 SoR 모집단과 맞으며 — 그중 능동적 탐지 부분집합과는 맞지 않는다.</li></ol>
+
+<ol><li><strong>판별.</strong> SoR 자체 조치와 자동 탐지 모집단이 20% 넘게 벌어지는 5개 서비스(이때 검정이 실제로 판별력을 가짐)에서, <strong>5개 중 5개에서 F가 자체 조치에 더 가깝다</strong>. 가장 명확한 것은 <strong>Pinterest</strong>: F ＝ 1억 8,400만이 SoR 자체 조치 1억 6,900만과 일치하고, SoR 자동 탐지 <strong>160만</strong>과는 아니다. Pinterest가 표 6을 능동적 탐지로 한정했다면 약 160만을 보고했겠지만, 1억 8,400만을 보고한다. SHEIN, Pornhub, XVideos, Google Play도 같은 결론.</li></ol>
+
+<p><strong>유의 사항(왜 이것이 교차 검증이지 정밀 대조가 아닌가):</strong></p>
+
+<ul><li><strong>두 시스템은 서로 다른 것을 센다.</strong> 보고서는 <em>조치/액션</em>을, 데이터베이스는 <em>사유 설명서</em>를 센다. 둘이 정확히 일치할 것으로 기대되지 않으며, 크게 벌어지는 경우도 있다: <strong>Temu</strong>(보고 7.68억 대 SoR 1.34억), <strong>SHEIN</strong>(270만 대 9만), <strong>Snapchat</strong>(1,130만 대 240만), <strong>X</strong>(2,090만 대 겨우 20만 — X는 SoR을 거의 제출하지 않는다). 이는 알려진 보고서-데이터베이스 격차(계수 단위, 중복 제거, 시점, 과소 제출)이며 범위 판정에 <strong>영향을 주지 않는다</strong> — 범위 검정은 F가 <em>어느 SoR 모집단</em>을 따르는지만 묻고, 이 경우들에서도 자체 조치를 따른다.</li><li><strong>G열 ≠ SoR <code>automated_detection=Yes</code>.</strong> 보고서의 G열은 <em>오로지</em> 자동화된 수단이지만, SoR 플래그는 콘텐츠 식별에 <em>어떤</em> 자동화 수단이라도 사용된 경우를 뜻한다(부분 자동 포함). 이 때문에 Amazon과 Booking에서 보고서의 자동화 비율이 SoR 자동화 비율보다 낮다(Amazon 16% 대 88%, Booking 7% 대 95%). <strong>Pinterest는 반대</strong>다(보고서 99% ‘오로지 자동’ 대 SoR 0.9% 자동 탐지) — 두 시스템 간 Pinterest 자체 제출의 내부 불일치로, 주목할 만하지만 F열 범위 문제에는 무관하다.</li><li>이들은 <strong>주변</strong> 분포 절단이다(집계에 source×automation×ground 결합이 없음). 따라서 검정은 정확한 셀이 아니라 규모와 분할에 대해 이뤄진다.</li></ul>
+
+<p>따라서 독립적인 SoR 데이터는 <strong>핵심 결론을 뒷받침한다</strong>: 표 6의 자체 조치 수치는 자체 조치의 전체 모집단이며, 능동적/자동 탐지는 그와 구별되는, 대체로 더 작은 하위 모집단이다.</p>
+
+<hr>
+
+<h2>5. 범위 경계: 사용자 신고는 ‘자체 조치’인가?</h2>
+
+<p>F/G 결론 밑에는 더 근본적인 물음이 있다: <strong>애초에 무엇이 자체 조치에 해당하는가?</strong> 그 답은 명료하지 않으며, 템플릿의 가장 약한 이음매다.</p>
+
+<p><strong>배제는 좁다.</strong> F열은 오직 두 가지 계기만 배제한다 — 회원국 명령, 또는 “<strong>제16조</strong>에서 정한 통지·조치 메커니즘을 통해 제출된 통지”. 그리고 제16조의 메커니즘은 그 문언상 사용자가 “<strong>위법 콘텐츠</strong>라고 여기는” 콘텐츠를 신고하기 위한 것이지 — “이건 당신들의 커뮤니티 규범 위반이다”라는 신고의 경로가 아니다. 그래서 사용자 신고는 셋으로 나뉜다:</p>
+
+<ol><li>사용자가 통지·조치 메커니즘을 통해 <strong>위법</strong> 콘텐츠를 신고 → 제16조 통지 → 표 6에서 <strong>제외</strong>(표 4 소관).</li><li>사용자가 제16조 위법 콘텐츠 메커니즘을 <em>거치지 않고</em> <strong>이용약관/커뮤니티 규범</strong> 위반을 신고 → 제16조 통지가 <strong>아님</strong> → F열 문언상 <strong>배제되지 않음</strong>.</li><li>혼합형 신고 흐름 → 플랫폼이 어떻게 분류하느냐에 달림.</li></ol>
+
+<p>2번 범주에 대해서는 그러한 신고를 표 6 <strong>안에</strong> 두는 두 가지 문언적 논거가 있다: (i) <em>명시는 나머지를 배제한다(expressio unius)</em> — 정의는 배제 항목으로 명령과 제16조 통지만 열거하므로 그 밖의 것은 떼어지지 않는다; (ii) <em>망라적 분류</em> — DSA 제15조(1)은 모든 모더레이션을 명령(표 3), 제16조 통지(표 4), 또는 자체 조치(표 5–6)로 배정하는데, 비-제16조 이용약관 신고는 앞의 둘 중 어디에도 들지 않는다. 반대 해석은 경로 기반(신고 버튼을 통한 통지는 모두 배제)으로 ‘자체 조치’의 직관적 의미에는 맞지만, 운영상 정의가 말하는 바는 아니다. 집행위원회는 이를 해결하지 않았고, 연구자들은 이를 보고서 간의 <a href="https://arxiv.org/html/2605.17655v1"><em>흐트러진 조화화</em></a>로 지적한다.</p>
+
+<p><strong>실증적으로 VLOP는 대부분 포괄적으로 처리했다 — 다만 분류는 극도로 제각각이다.</strong> SoR 데이터베이스의 <code>by_source_type</code> 서비스별 절단(2025년 하반기)을 사용하면:</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>서비스</th>
+<th class="td-num">SoR 자체 조치</th>
+<th class="td-num">기타 통보(비-제16조)</th>
+<th class="td-num">제16조 통지</th>
+<th>추정 해석</th>
+</tr></thead><tbody>
+<tr>
+<td>Google Shopping</td>
+<td class="td-num">99.9%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">0.06%</td>
+<td>거의 전부를 자체 조치로 포함</td>
+</tr>
+<tr>
+<td>TikTok</td>
+<td class="td-num">100.0%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">0.04%</td>
+<td>거의 전부를 자체 조치로 포함</td>
+</tr>
+<tr>
+<td>AliExpress</td>
+<td class="td-num">99.9%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">0.05%</td>
+<td>거의 전부를 자체 조치로 포함</td>
+</tr>
+<tr>
+<td>Pinterest</td>
+<td class="td-num">99.7%</td>
+<td class="td-num">0.29%</td>
+<td class="td-num">0.00%</td>
+<td>거의 전부를 자체 조치로 포함</td>
+</tr>
+<tr>
+<td>Facebook</td>
+<td class="td-num">99.9%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">0.10%</td>
+<td>거의 전부를 자체 조치로 포함</td>
+</tr>
+<tr>
+<td>Amazon</td>
+<td class="td-num">99.2%</td>
+<td class="td-num">0.12%</td>
+<td class="td-num">0.63%</td>
+<td>거의 전부를 자체 조치로 포함</td>
+</tr>
+<tr>
+<td>YouTube</td>
+<td class="td-num">99.3%</td>
+<td class="td-num">0.33%</td>
+<td class="td-num">0.41%</td>
+<td>거의 전부를 자체 조치로 포함</td>
+</tr>
+<tr>
+<td>Instagram</td>
+<td class="td-num">99.8%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">0.15%</td>
+<td>거의 전부를 자체 조치로 포함</td>
+</tr>
+<tr>
+<td>Google Maps</td>
+<td class="td-num">94.3%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">5.65%</td>
+<td>거의 전부를 자체 조치로 포함</td>
+</tr>
+<tr>
+<td>X</td>
+<td class="td-num">0.0%</td>
+<td class="td-num">100.00%</td>
+<td class="td-num">0.00%</td>
+<td>classifies all as <em>notification</em></td>
+</tr>
+<tr>
+<td>Snapchat</td>
+<td class="td-num">28.2%</td>
+<td class="td-num">0.01%</td>
+<td class="td-num">71.78%</td>
+<td>routes most via <em>Art. 16</em></td>
+</tr>
+<tr>
+<td>Booking.com</td>
+<td class="td-num">95.1%</td>
+<td class="td-num">4.76%</td>
+<td class="td-num">0.10%</td>
+<td>거의 전부를 자체 조치로 포함</td>
+</tr>
+<tr>
+<td>Google Play</td>
+<td class="td-num">99.7%</td>
+<td class="td-num">0.10%</td>
+<td class="td-num">0.23%</td>
+<td>거의 전부를 자체 조치로 포함</td>
+</tr>
+<tr>
+<td>SHEIN</td>
+<td class="td-num">88.0%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">12.04%</td>
+<td>거의 전부를 자체 조치로 포함</td>
+</tr>
+<tr>
+<td>Pornhub</td>
+<td class="td-num">83.7%</td>
+<td class="td-num">16.30%</td>
+<td class="td-num">0.01%</td>
+<td><strong>textual</strong> (F tracks OI+ON)</td>
+</tr>
+<tr>
+<td>XVideos</td>
+<td class="td-num">12.7%</td>
+<td class="td-num">1.37%</td>
+<td class="td-num">85.95%</td>
+<td>routes most via <em>Art. 16</em></td>
+</tr>
+</tbody></table></div>
+
+<p>이에 대한 두 가지 해석:</p>
+
+<ul><li><strong>‘비-제16조 이용약관 신고’라는 특정 간극은 VLOP에게는 작다.</strong> 이 서비스들 전반에서 <code>other-notification</code>은 분류된 SoR의 <strong>0.03%</strong>에 불과하다 — 대부분의 플랫폼은 거의 전부(≥99%)를 자체 조치로 포함하며, 기본적으로 포괄적 해석을 택한다. 따라서 대형 플랫폼의 표 6은 이미 사용자 신고 이용약관 조치를 흡수하고 있고, 이 모호성이 대표 수치를 바꾸는 일은 드물다. 명확한 예외는 <strong>Pornhub</strong>(기타 통보 16.3%)로, 그 표 6 수치는 자체 조치 <strong>＋</strong> 기타 통보를 따른다(F ≈ OI+ON, 비율 1.00) — 문언적 해석을 뚜렷이 택한 플랫폼이다.</li><li><strong>그러나 분류 자체가 극도로 제각각이며, 이것이 진짜 비교 가능성 문제다.</strong> ‘사용자가 신고했는가?’라는 같은 물음이 서로 양립하지 않는 세 가지 방식으로 답해진다: 대부분 플랫폼은 약 100%를 자체 조치로 분류하고, <strong>X</strong>는 100%를 <em>기타 통보</em>로, <strong>Snapchat(72%)</strong>과 <strong>XVideos(86%)</strong>는 대부분을 <em>제16조 통지</em>로 돌린다. 실제로 동일한 행위가 어떤 플랫폼에서는 표 6에, 다른 플랫폼에서는 표 4에 들어간다. 모호성은 사라지지 않고 — 한 층 위, source_type 분류로 옮겨가 자체 조치 대 통지 구분의 플랫폼 간 비교 가능성을 훼손한다.</li></ul>
+
+<p><em>유의: source_type은 각 플랫폼이 자체 분류한다; 대부분 VLOP에서 거의 전부가 ‘자체 조치’인 것은 진정으로 촉발되지 않은 탐지라기보다 부분적으로 분류 관행을 반영할 수 있다. X는 표 6 조치(2,090만)에 비해 SoR 제출이 매우 적어(20만), 그 100% ‘통보’ 프로필은 대표성이 없다. 주변 분포 절단만.</em></p>
+
+<hr>
+
+<h2>6. 결론</h2>
+
+<p><strong>표 6의 ‘자체 조치’를 좁게든 넓게든 읽을 수 있는 곳이라면 어디서든, 모든 VLOP는 넓은 해석을 택했다.</strong> 탐지 축(§1–2)에서 대표 수치는 제공자가 개시한 이용약관 집행의 전체다 — 사람이든 기계든 탐지했든 — 능동적 탐지 부분집합이 아니다; 자동 탐지는 중첩된 하위 집계(G열)로만 공개되며 플랫폼 전반에서 총계의 0%–99%를 차지하고, 제한 유형 분해가 (자동 하위 집계가 아니라) 자체 조치 총계와 맞아떨어지는 점이 좁은 해석을 배제한다. 더 까다롭고 진정으로 미해결인 출처 축(§5)에서도 대부분의 VLOP는 마찬가지로 사용자 신고 이용약관 조치를 통지로 취급하지 않고 자체 조치에 포함한다.</p>
+
+<p>그러나 이는 <strong>관행의 수렴이지, 명확한 법적 명령의 수렴이 아니다</strong>. 규정은 탐지 방식에 대해서는 넓은 해석을 강제하지만(F열의 ‘총 건수’ 지침), 출처 경계는 열어둔다 — 그리고 그곳에서 플랫폼들의 분류는 크게 갈린다(§5). 표 6은 그에 맞게 읽어야 한다: 플랫폼 간 비교 가능성이 템플릿이 완전히 못박지 않은 해석적 선택에 달려 있는, 넓은 자체 조치 집계값으로.</p>
+
+<p><em>데이터: <code>t6_own_initiative_tos</code> / <code>t5_own_initiative_illegal</code>, Transparency Report API, 생성 2026-05-13, 구간 2025-07-01/2025-12-31. 법령: 규정 (EU) 2024/2835, 부속서 시트 5–6; DSA 제15조(1)(c).</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/dsa-own-initiative-scope-ko.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>
