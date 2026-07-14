@@ -1,0 +1,591 @@
+---
+layout: main
+title: "「自主対応」の二つの解釈 — DSA表6と、全VLOPが選んだ読み方"
+description: "DSAはVLOPに、自らの「自主対応」で行ったコンテンツモデレーションの報告を求める。この語は狭くも広くも読める。最初の調和化報告書（2025年下半期）では、すべてのVLOPが広い解釈を採った。理由説明書データベースと突き合わせた実証分析。"
+date: 2026-07-13
+og_image: /images/dsa-own-initiative-scope-ja.png
+lang: ja
+lang_url: /blog/dsa-own-initiative-scope.html
+lang_url_zh: /zh/blog/dsa-own-initiative-scope.html
+lang_url_ko: /ko/blog/dsa-own-initiative-scope.html
+---
+
+<article class="post">
+  <a href="/ja/blog.html" class="post-back">← ブログ</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>「自主対応」の二つの解釈 — DSA表6と、全VLOPが選んだ読み方</h1>
+    <time class="news-date" datetime="2026-07-13">July 13, 2026</time>
+    <div class="tags">
+      <span class="tag">EU DSA</span>
+      <span class="tag">VLOP</span>
+      <span class="tag">透明性</span>
+      <span class="tag">データ</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/dsa-own-initiative-scope-ja.png" alt="DSA表6における「自主対応」の二つの解釈" width="1200" height="630">
+    </figure>
+
+    <p><em>DSAの表6は、プラットフォームが「自主対応」で行ったコンテンツモデレーションの報告を求めている。この語は狭くも広くも読める——そして最初の調和化報告書では、すべてのVLOPが広い解釈を採った。</em></p>
+
+<p><strong>結論：</strong>表6の「自主対応」は二通りに読める。<strong>狭い</strong>解釈では、プラットフォームは自ら能動的に——自動的に——検知して措置したコンテンツのみを報告する。<strong>広い</strong>解釈では、加盟国命令や第16条通知によらずに自ら開始した<em>すべての</em>コンテンツモデレーションを、人手・機械いずれの検知かを問わず報告する。両解釈は桁違いに異なりうる。最初の調和化報告期間（2025年下半期）において、<strong>すべてのVLOPが広い解釈を採った</strong>——見出しの自主対応の数値はプロバイダ起点の利用規約エンフォースメントの全体であり、能動的／自動検知はその中の<em>入れ子の内訳</em>として現れるにすぎない（プラットフォームにより総数の<strong>0％〜約99％</strong>）。</p>
+
+<ul><li><strong>データ出典：</strong>Transparency Report API（transparency.kieranmaynard.com）の<code>t6_own_initiative_tos</code>、報告期間<strong>2025年下半期（2025-07-01 → 2025-12-31）</strong>——調和化テンプレート下で最初の期間。VLOPサービス24件／親プラットフォーム18社。</li><li><strong>法的枠組み：</strong>欧州委員会実施規則(EU) 2024/2835、附属書シート<code>6_own_initiative_TC</code>（DSA第15条(1)(c)）。</li></ul>
+
+<hr>
+
+<h2>1. テンプレートが実際に求めるもの（定義上の答え）</h2>
+
+<p>表6はカテゴリごとの単一の数値では<em>ない</em>。各カテゴリ行は<strong>二つの別個のカウント列</strong>を持ち、実施規則に逐語的に定義されている：</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>列</th>
+<th>項目</th>
+<th>規則の指示（逐語）</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>F</strong></td>
+<td><em>プロバイダの自主対応として講じられた措置の件数</em></td>
+<td>「本欄には、プロバイダの自主対応として講じられた措置の<strong>総件数</strong>を記載する。自主対応とは、制限を課す決定が…加盟国当局の<strong>命令に先行されておらず</strong>、<strong>また第16条の</strong>通知・行動メカニズムを通じて提出された通知（Art. 16）にも先行されていないことを意味する。」</td>
+</tr>
+<tr>
+<td><strong>G</strong></td>
+<td><em>Number of measures taken after detection with solely automated means</em></td>
+<td>「本欄には、プロバイダの自主対応として<strong>もっぱら自動化された手段</strong>を用いて講じられた措置の件数を記載する。」</td>
+</tr>
+</tbody></table></div>
+
+<p>したがって表6の範囲は、検知方法によって<em>ではなく</em>、<strong>除外</strong>（命令起点でも通知起点でもない）によって定義される。「自主対応」（F列）と「能動的／自動検知」（G列）は<strong>直交する</strong>：</p>
+
+<ul><li><strong>自主対応</strong>＝措置を<em>誰が</em>開始したか（命令やユーザー通知ではなく、プラットフォーム自身）。</li><li><strong>能動的検知</strong>＝コンテンツを<em>どのように</em>発見したか（もっぱら自動化された手段）。</li></ul>
+
+<p>プラットフォームは<strong>人手</strong>のレビューによって自主対応を行うこともでき（G列ではなくF列に計上）、G列はF列の<strong>部分集合</strong>にすぎない——APIのフィールド定義自体がこれを言い換えている：<code>measures</code>＝「自主対応モデレーション措置の件数」、<code>automated</code>＝「<strong>そのうち</strong>自動化された手段で講じられた件数」。</p>
+
+<p>これが解釈の分岐点である。<strong>広く</strong>読めば、F列はすべての自主対応措置を（その指示——「措置の総件数」——のとおり）記載し、G列はそのうちどれだけが自動だったかを示すにすぎない。<strong>狭く</strong>読めば——「自主対応」を「能動的に捕捉したもの」の略と捉えれば——プラットフォームは自動検知の数値のみを報告することになる。F列の文言は広い解釈を指し示す。プラットフォームが実際にそれに従ったかは実証的な問いであり、以下で決着する。</p>
+
+<hr>
+
+<h2>2. VLOPが実際に報告した内容（実証的な答え）</h2>
+
+<p>2025年下半期のサービス別TOTAL行。<strong>F列</strong>＝自主対応措置、<strong>G列</strong>＝もっぱら自動検知。最終列は<strong>範囲の診断</strong>：14種類の制限タイプ列（削除、アクセス無効化、降格、年齢制限、ラベル付け、停止、終了…）の合計をF列で割ったもの。</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>サービス（プラットフォーム）</th>
+<th class="td-num">自主対応措置（F列）</th>
+<th class="td-num">もっぱら自動検知（G列）</th>
+<th class="td-num">自動化の割合</th>
+<th class="td-num">制限合計 ÷ 措置</th>
+</tr></thead><tbody>
+<tr>
+<td>Google Shopping (Google)</td>
+<td class="td-num">2,172,893,605</td>
+<td class="td-num">1,914,796,057</td>
+<td class="td-num">88.1%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Temu (Temu)</td>
+<td class="td-num">768,352,129</td>
+<td class="td-num">658,795,093</td>
+<td class="td-num">85.7%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>TikTok (TikTok)</td>
+<td class="td-num">258,691,522</td>
+<td class="td-num">220,097,575</td>
+<td class="td-num">85.1%</td>
+<td class="td-num">1.01</td>
+</tr>
+<tr>
+<td>AliExpress (Alibaba)</td>
+<td class="td-num">236,256,023</td>
+<td class="td-num">228,211,778</td>
+<td class="td-num">96.6%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Pinterest (Pinterest)</td>
+<td class="td-num">184,341,552</td>
+<td class="td-num">183,242,050</td>
+<td class="td-num">99.4%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Facebook (Meta)</td>
+<td class="td-num">171,807,219</td>
+<td class="td-num">148,905,624</td>
+<td class="td-num">86.7%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Amazon (Amazon)</td>
+<td class="td-num">150,504,153</td>
+<td class="td-num">23,595,638</td>
+<td class="td-num"><strong>15.7%</strong></td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Google Search (Google)</td>
+<td class="td-num">116,348,785</td>
+<td class="td-num">115,467,421</td>
+<td class="td-num">≥99%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>YouTube (Google)</td>
+<td class="td-num">78,205,262</td>
+<td class="td-num">77,426,568</td>
+<td class="td-num">99.0%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Instagram (Meta)</td>
+<td class="td-num">55,916,456</td>
+<td class="td-num">44,990,373</td>
+<td class="td-num">80.5%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Google Maps (Google)</td>
+<td class="td-num">28,944,347</td>
+<td class="td-num">28,338,536</td>
+<td class="td-num">97.9%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>X (X)</td>
+<td class="td-num">20,868,183</td>
+<td class="td-num">19,492,478</td>
+<td class="td-num">93.4%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>App Store (Apple)</td>
+<td class="td-num">16,426,841</td>
+<td class="td-num">10,244,729</td>
+<td class="td-num">62.4%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Snapchat (Snap)</td>
+<td class="td-num">11,279,462</td>
+<td class="td-num">8,822,094</td>
+<td class="td-num">78.2%</td>
+<td class="td-num">0.97</td>
+</tr>
+<tr>
+<td>Multi-Services (Google)</td>
+<td class="td-num">4,537,066</td>
+<td class="td-num">null</td>
+<td class="td-num">未報告</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Google Play (Google)</td>
+<td class="td-num">4,505,637</td>
+<td class="td-num">4,496,508</td>
+<td class="td-num">99.8%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>LinkedIn (Microsoft)</td>
+<td class="td-num">4,006,944</td>
+<td class="td-num">3,499,487</td>
+<td class="td-num">87.3%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>SHEIN (Shein)</td>
+<td class="td-num">2,735,275</td>
+<td class="td-num">0</td>
+<td class="td-num"><strong>0.0%</strong></td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Booking.com (Booking.com)</td>
+<td class="td-num">802,337</td>
+<td class="td-num">58,437</td>
+<td class="td-num"><strong>7.3%</strong></td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>XVideos (WebGroup Czech Rep.)</td>
+<td class="td-num">237,642</td>
+<td class="td-num">228,735</td>
+<td class="td-num">96.3%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Pornhub (Aylo)</td>
+<td class="td-num">190,584</td>
+<td class="td-num">82</td>
+<td class="td-num"><strong>0.04%</strong></td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>XNXX (NKL Associates)</td>
+<td class="td-num">186,967</td>
+<td class="td-num">185,170</td>
+<td class="td-num">99.0%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Bing (Microsoft)</td>
+<td class="td-num">92,550</td>
+<td class="td-num">85,482</td>
+<td class="td-num">92.4%</td>
+<td class="td-num"><strong>0.92</strong></td>
+</tr>
+<tr>
+<td>Zalando (Zalando)</td>
+<td class="td-num">3,272</td>
+<td class="td-num">729</td>
+<td class="td-num">22.3%</td>
+<td class="td-num">1.00</td>
+</tr>
+</tbody></table></div>
+
+<p><em>サーフェスはスキーマの規則（「'All' はサーフェス横断の合計——サーフェス別行と合算しない」）に従って処理：サーフェス別に報告するGoogleのサービス（検索、マップ、Play、YouTube）はサーフェス横断で合算し、その他のサービスはサーフェス横断の 'All' 合計を単一で報告する。</em></p>
+
+<h3>すべてのVLOPが広い解釈を採ったことを示す二つの事実</h3>
+
+<ol><li><strong>全行でF列 ≥ G列。</strong>いずれのプラットフォームも自動検知の数値を自主対応の総数<em>として</em>報告していない。狭い解釈（表6＝能動的検知のみ）であればFはGに等しくなるはずだが、そうなることは決してない。</li></ol>
+
+<ol><li><strong>制限タイプの内訳はG列ではなくF列と整合する</strong>（比率≈<strong>24サービス中23で1.00</strong>）。14の制限タイプ列は検知方法とは独立に<em>措置</em>単位で報告される。それらは<strong>自主対応の総数（F）</strong>に合算され——Fが完全な措置母集団であることを証明する。狭い解釈であれば、（<em>すべての</em>措置を含む）制限列はFを超過するはずだが、そうはならない。</li></ol>
+
+<p>これらを合わせると、すべてのVLOPが見出しの数値をプロバイダ起点の利用規約モデレーションの<strong>全体</strong>——広い解釈——で満たし、自動検知を内部の部分集合として切り出していることが分かる。</p>
+
+<h3>自動化の割合は大きく異なる——そこが要点</h3>
+
+<p>G列は真の内訳であるため、F列に占めるその割合は範囲設定の産物ではなく、実際の行動シグナルである：</p>
+
+<ul><li><strong>自動化優位</strong>（≈90〜99％）：Pinterest、XNXX、AliExpress、X、Google 検索／マップ／Play、YouTube——ほぼ全面的に自動検知だが、それでもFはGを上回る。</li><li><strong>混合</strong>（〜60〜90％）：TikTok、Meta、Temu、Snap、LinkedIn、App Store。</li><li><strong>人手検知が多い</strong>（F ≫ G）：<strong>Amazon 15.7％</strong>、<strong>Booking.com 7.3％</strong>、<strong>Zalando 22.3％</strong>、<strong>Pornhub 0.04％</strong>、<strong>SHEIN 0％</strong>。これらのプラットフォームは大きな自主対応総数を報告しているが、そのうち<em>もっぱら</em>自動検知だったものはごくわずか、あるいは皆無である——これはF列が人手／手動で検知された措置も数えているからこそ可能となる。これらは広い解釈の最も明瞭な事例であり——狭い解釈であれば、それらの表6の数値は報告値のごく一部にまで縮小するはずである。</li></ul>
+
+<p>同じ構造は違法コンテンツのシート（<code>t5</code>）でも成り立つ：<code>measures ≥ automated</code> が全体で成立する（例：Googleは自主対応の違法コンテンツ措置を27億件報告、SHEINはここでも automated ＝ 0 と報告）。</p>
+
+<hr>
+
+<h2>3. 留意点とデータ品質に関する注記</h2>
+
+<ul><li><strong>「措置」と「理由説明書」。</strong>表6は<em>措置／アクション</em>を数えており、それらは自主対応の利用規約に基づく理由説明書（SoR）を生む出来事である。両者はSoRを生む母集団だが、必ずしも1対1ではない（一つのSoRが複数の制限を束ねうるし、アカウント単位や明白な違法コンテンツに対する一部の措置は個別のSoRを生まないことがある）。「F＝自主対応の全体」という所見はいずれにせよ成立する。</li><li><strong>Bing</strong>は唯一の整合性の外れ値（制限合計 ÷ 措置 ＝ 0.92）：その提出には <code>measures</code> ＝ 7,220 でありながら制限列の合計が152（＝自動検知数）にとどまるエントリがある。これはBing自身の報告における内部的な不整合であり、異なる範囲設定の選択ではない。Microsoftの他サービス（LinkedIn）はきれいに整合する。</li><li><strong>null と 0 の区別。</strong>Googleの「Multi-Services」行やいくつかのGoogle検索サブサーフェスは、G列を 0 ではなく<strong>null</strong>（未報告）としている。SHEINおよびGoogleのt5は明示的な<strong>0</strong>を報告している。「未報告」と「自動ゼロ」は区別して扱うこと。</li><li><strong>軽微な過不足</strong>（TikTok 1.01、Snapchat 0.97、AliExpress 約1.003）は約1〜3％以内で、一つの措置が複数の制限タイプを伴うことと整合しており、結論を変えない。</li><li><strong>比較可能性。</strong>数値は2025年下半期のVLOP提出のみ（<code>report_tier = vlop</code>）。同じ表の非VLOP提出者は異なる期間で報告しており、除外した。</li></ul>
+
+<hr>
+
+<h2>4. 外部からの裏付け：DSA理由説明書データベース</h2>
+
+<p>透明性報告書は自己申告である。<strong>DSA透明性データベース</strong>（理由説明書）は独立した情報源であり、対象プラットフォームが行う各モデレーション決定は個別のSoRとして提出され、各SoRは<code>source_type</code>（<em>自主対応</em>を含む）と<code>automated_detection</code>（Yes/No）を<strong>別個の</strong>フィールドとして持つ。委員会自身の<code>dsa-tdb</code>再集計（<code>dsa_tdb_metrics</code>、同じ2025年下半期の期間）を用いて、これらの周辺分布は報告書の所見を外部から検証する。</p>
+
+<p><strong>全体（全プラットフォーム、2025年下半期）：</strong>二つの母集団は明らかに規模が異なる——</p>
+
+<ul><li><code>source_type = Own-initiative</code>：<strong>3,633,572,041</strong>件のSoR</li><li><code>automated_detection = Yes</code>：<strong>3,150,399,935</strong> ・ <code>No</code>：<strong>527,615,482</strong></li></ul>
+
+<p>自主対応は自動検知を約4.8億件上回り、5.28億件のSoRは非自動である。すなわち生の提出データにおいて「自主対応」は「能動的検知」より厳密に大きな集合であり——報告書の Col F ⊇ Col G が符号化する関係と同じである。</p>
+
+<p><strong>サービス別——表6の数値は自主対応と自動検知のどちらを追うか？</strong>報告書のFを、各サービスのSoR自主対応件数およびSoR自動検知件数と比較する：</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>サービス</th>
+<th class="td-num">報告F（自主対応措置）</th>
+<th class="td-num">SoR 自主対応</th>
+<th class="td-num">SoR 自動検知＝Yes</th>
+<th>Fが追うのは →</th>
+</tr></thead><tbody>
+<tr>
+<td>Google Shopping</td>
+<td class="td-num">2,172,893,605</td>
+<td class="td-num">2,180,900,675</td>
+<td class="td-num">1,922,752,952</td>
+<td>自主対応≈自動</td>
+</tr>
+<tr>
+<td>TikTok</td>
+<td class="td-num">258,691,522</td>
+<td class="td-num">169,191,282</td>
+<td class="td-num">164,950,379</td>
+<td>自主対応≈自動</td>
+</tr>
+<tr>
+<td>AliExpress</td>
+<td class="td-num">236,256,023</td>
+<td class="td-num">306,847,831</td>
+<td class="td-num">297,571,690</td>
+<td>自主対応≈自動</td>
+</tr>
+<tr>
+<td>Pinterest</td>
+<td class="td-num">184,341,552</td>
+<td class="td-num">168,571,015</td>
+<td class="td-num">1,562,875</td>
+<td><strong>own-init</strong></td>
+</tr>
+<tr>
+<td>Facebook</td>
+<td class="td-num">171,807,219</td>
+<td class="td-num">183,874,483</td>
+<td class="td-num">174,149,136</td>
+<td>自主対応≈自動</td>
+</tr>
+<tr>
+<td>Amazon</td>
+<td class="td-num">150,504,153</td>
+<td class="td-num">146,259,143</td>
+<td class="td-num">129,608,538</td>
+<td>自主対応≈自動</td>
+</tr>
+<tr>
+<td>YouTube</td>
+<td class="td-num">78,205,262</td>
+<td class="td-num">51,494,084</td>
+<td class="td-num">51,324,927</td>
+<td>自主対応≈自動</td>
+</tr>
+<tr>
+<td>Instagram</td>
+<td class="td-num">55,916,456</td>
+<td class="td-num">53,092,432</td>
+<td class="td-num">50,830,410</td>
+<td>自主対応≈自動</td>
+</tr>
+<tr>
+<td>Google Maps</td>
+<td class="td-num">28,944,347</td>
+<td class="td-num">29,672,404</td>
+<td class="td-num">29,060,102</td>
+<td>自主対応≈自動</td>
+</tr>
+<tr>
+<td>Booking.com</td>
+<td class="td-num">802,337</td>
+<td class="td-num">678,643</td>
+<td class="td-num">678,965</td>
+<td>自主対応≈自動</td>
+</tr>
+<tr>
+<td>Pornhub</td>
+<td class="td-num">190,584</td>
+<td class="td-num">159,106</td>
+<td class="td-num">48,667</td>
+<td><strong>own-init</strong></td>
+</tr>
+<tr>
+<td>XVideos</td>
+<td class="td-num">237,642</td>
+<td class="td-num">76,420</td>
+<td class="td-num">8,040</td>
+<td><strong>own-init</strong></td>
+</tr>
+<tr>
+<td>SHEIN</td>
+<td class="td-num">2,735,275</td>
+<td class="td-num">79,257</td>
+<td class="td-num">11,612</td>
+<td><strong>own-init</strong></td>
+</tr>
+<tr>
+<td>Google Play</td>
+<td class="td-num">4,505,637</td>
+<td class="td-num">1,507,827</td>
+<td class="td-num">459,916</td>
+<td><strong>own-init</strong></td>
+</tr>
+<tr>
+<td>Temu</td>
+<td class="td-num">768,352,129</td>
+<td class="td-num">134,498,313</td>
+<td class="td-num">134,355,345</td>
+<td>自主対応≈自動</td>
+</tr>
+<tr>
+<td>Snapchat</td>
+<td class="td-num">11,279,462</td>
+<td class="td-num">689,602</td>
+<td class="td-num">575,443</td>
+<td>自主対応≈自動</td>
+</tr>
+</tbody></table></div>
+
+<p><strong>裏付けとなる二つの結果：</strong></p>
+
+<ol><li><strong>規模。</strong>整合が明瞭な例では、報告F ≈ SoR自主対応：Google Shopping <strong>1.00×</strong>、Google Maps 0.98×、Amazon 1.03×、Instagram 1.05×、Facebook 0.93×、Pinterest 1.09×、Booking 1.18×。Fは自主対応のSoR母集団と整合し——その能動的検知の部分集合とは整合しない。</li></ol>
+
+<ol><li><strong>判別。</strong>SoR自主対応と自動検知の母集団が20％超乖離する5サービス（判別が実際に可能なケース）では、<strong>5件中5件でFは自主対応に近い</strong>。最も明瞭なのは<strong>Pinterest</strong>：F＝1.84億はSoR自主対応1.69億と一致し、SoR自動検知<strong>160万</strong>とは一致しない。Pinterestが表6を能動的検知に絞っていたなら約160万を報告するはずだが、1.84億を報告している。SHEIN、Pornhub、XVideos、Google Playも同じ判定。</li></ol>
+
+<p><strong>留意点（なぜこれが裏付けであって突合ではないか）：</strong></p>
+
+<ul><li><strong>二つのシステムは異なるものを数えている。</strong>報告書は<em>措置／アクション</em>を、データベースは<em>理由説明書</em>を数える。両者が正確に一致するとは期待されず、大きく乖離する例もある：<strong>Temu</strong>（報告7.68億 対 SoR 1.34億）、<strong>SHEIN</strong>（270万 対 9万）、<strong>Snapchat</strong>（1,130万 対 240万）、<strong>X</strong>（2,090万 対 わずか20万——XはSoRをほとんど提出していない）。これらは既知の報告書対データベースの差（計数単位、重複排除、タイミング、過少提出）であり、範囲設定には<strong>影響しない</strong>——範囲の検証はFが<em>どのSoR母集団</em>を追うかのみを問うており、これらのケースでも自主対応を追っている。</li><li><strong>G列 ≠ SoR <code>automated_detection=Yes</code>。</strong>報告書のG列は<em>もっぱら</em>自動化された手段だが、SoRのフラグはコンテンツ特定に<em>いずれか</em>の自動化された手段が用いられた場合を指す（部分自動を含む）。これが、AmazonやBookingで報告書の自動化割合がSoRの自動化割合を下回る理由である（Amazon 16％ 対 88％、Booking 7％ 対 95％）。<strong>Pinterestは逆</strong>（報告書99％「もっぱら自動」対 SoR 0.9％の自動検知）——これは二つのシステム間のPinterest自身の提出における内部的不整合であり、留意に値するがF列の範囲の問いには影響しない。</li><li>これらは<strong>周辺</strong>分布の切り口である（集計にsource×automation×groundの結合はない）ため、検証は正確なセルではなく規模と分割に対して行う。</li></ul>
+
+<p>したがって独立したSoRデータは<strong>核心的な所見を裏付ける</strong>：表6の自主対応の数値は自主対応の全母集団であり、能動的／自動検知はそれとは別個の、概して小さな部分母集団である。</p>
+
+<hr>
+
+<h2>5. 範囲の境界：ユーザー報告は「自主対応」か？</h2>
+
+<p>F/Gの所見の下には、より根本的な問いがある：<strong>そもそも何が自主対応に当たるのか？</strong>その答えは明快ではなく、テンプレートの最も脆弱な継ぎ目である。</p>
+
+<p><strong>除外は狭い。</strong>F列が除外するのは二つの契機のみ——加盟国命令か、「<strong>第16条</strong>に規定する通知・行動メカニズムを通じて提出された通知」である。そして第16条のメカニズムは、その文言上、ユーザーが「<strong>違法コンテンツ</strong>であると考える」コンテンツの通報のためのものであり——「あなたのコミュニティ規範に反する」という報告の経路ではない。したがってユーザー報告は三つに分かれる：</p>
+
+<ol><li>ユーザーが通知・行動メカニズムを通じて<strong>違法</strong>コンテンツを報告 → 第16条通知 → 表6の<strong>対象外</strong>（表4に属する）。</li><li>ユーザーが第16条の違法コンテンツメカニズムを<em>通さずに</em><strong>利用規約／コミュニティ規範</strong>違反を報告 → 第16条通知<strong>ではない</strong> → F列の文言では<strong>除外されない</strong>。</li><li>混合型の報告フロー → プラットフォームの分類次第。</li></ol>
+
+<p>カテゴリ2については、そうした報告を表6の<strong>内側</strong>に置く二つの文理的論拠がある：(i) <em>明示は他を排除する（expressio unius）</em>——定義は除外として命令と第16条通知のみを列挙しており、それ以外は切り出されていない。(ii) <em>網羅的分類</em>——DSA第15条(1)はすべてのモデレーションを命令（表3）、第16条通知（表4）、または自主対応（表5〜6）に振り分けており、非第16条の利用規約報告は前二者のいずれにも当てはまらない。反対解釈は経路ベース（報告ボタン経由の通知はすべて除外）で、「自主対応」の直感的な意味には合うが、運用上の定義が述べるところではない。委員会はこれを解決しておらず、研究者はこれを報告書間の<a href="https://arxiv.org/html/2605.17655v1"><em>調和化の乱れ</em></a>として指摘している。</p>
+
+<p><strong>実証的には、VLOPは大半を包括的に処理している——ただし分類は著しく不統一である。</strong>SoRデータベースの<code>by_source_type</code>のサービス別切り口（2025年下半期）を用いると：</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>サービス</th>
+<th class="td-num">SoR 自主対応</th>
+<th class="td-num">その他の通報（非第16条）</th>
+<th class="td-num">第16条通知</th>
+<th>想定される解釈</th>
+</tr></thead><tbody>
+<tr>
+<td>Google Shopping</td>
+<td class="td-num">99.9%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">0.06%</td>
+<td>ほぼすべてを自主対応に含める</td>
+</tr>
+<tr>
+<td>TikTok</td>
+<td class="td-num">100.0%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">0.04%</td>
+<td>ほぼすべてを自主対応に含める</td>
+</tr>
+<tr>
+<td>AliExpress</td>
+<td class="td-num">99.9%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">0.05%</td>
+<td>ほぼすべてを自主対応に含める</td>
+</tr>
+<tr>
+<td>Pinterest</td>
+<td class="td-num">99.7%</td>
+<td class="td-num">0.29%</td>
+<td class="td-num">0.00%</td>
+<td>ほぼすべてを自主対応に含める</td>
+</tr>
+<tr>
+<td>Facebook</td>
+<td class="td-num">99.9%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">0.10%</td>
+<td>ほぼすべてを自主対応に含める</td>
+</tr>
+<tr>
+<td>Amazon</td>
+<td class="td-num">99.2%</td>
+<td class="td-num">0.12%</td>
+<td class="td-num">0.63%</td>
+<td>ほぼすべてを自主対応に含める</td>
+</tr>
+<tr>
+<td>YouTube</td>
+<td class="td-num">99.3%</td>
+<td class="td-num">0.33%</td>
+<td class="td-num">0.41%</td>
+<td>ほぼすべてを自主対応に含める</td>
+</tr>
+<tr>
+<td>Instagram</td>
+<td class="td-num">99.8%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">0.15%</td>
+<td>ほぼすべてを自主対応に含める</td>
+</tr>
+<tr>
+<td>Google Maps</td>
+<td class="td-num">94.3%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">5.65%</td>
+<td>ほぼすべてを自主対応に含める</td>
+</tr>
+<tr>
+<td>X</td>
+<td class="td-num">0.0%</td>
+<td class="td-num">100.00%</td>
+<td class="td-num">0.00%</td>
+<td>classifies all as <em>notification</em></td>
+</tr>
+<tr>
+<td>Snapchat</td>
+<td class="td-num">28.2%</td>
+<td class="td-num">0.01%</td>
+<td class="td-num">71.78%</td>
+<td>routes most via <em>Art. 16</em></td>
+</tr>
+<tr>
+<td>Booking.com</td>
+<td class="td-num">95.1%</td>
+<td class="td-num">4.76%</td>
+<td class="td-num">0.10%</td>
+<td>ほぼすべてを自主対応に含める</td>
+</tr>
+<tr>
+<td>Google Play</td>
+<td class="td-num">99.7%</td>
+<td class="td-num">0.10%</td>
+<td class="td-num">0.23%</td>
+<td>ほぼすべてを自主対応に含める</td>
+</tr>
+<tr>
+<td>SHEIN</td>
+<td class="td-num">88.0%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">12.04%</td>
+<td>ほぼすべてを自主対応に含める</td>
+</tr>
+<tr>
+<td>Pornhub</td>
+<td class="td-num">83.7%</td>
+<td class="td-num">16.30%</td>
+<td class="td-num">0.01%</td>
+<td><strong>textual</strong> (F tracks OI+ON)</td>
+</tr>
+<tr>
+<td>XVideos</td>
+<td class="td-num">12.7%</td>
+<td class="td-num">1.37%</td>
+<td class="td-num">85.95%</td>
+<td>routes most via <em>Art. 16</em></td>
+</tr>
+</tbody></table></div>
+
+<p>これには二つの読み方がある：</p>
+
+<ul><li><strong>「非第16条の利用規約報告」という特定の隙間は、VLOPにとっては小さい。</strong>これらのサービス全体で<code>other-notification</code>は分類済みSoRの<strong>0.03％</strong>——大半のプラットフォームはほぼすべて（≥99％）を自主対応に含めており、既定で包括的な解釈を採っている。したがって大手プラットフォームの表6はユーザー申告の利用規約措置をすでに吸収しており、この曖昧さが見出しの数値を変えることはまれである。明瞭な例外は<strong>Pornhub</strong>（その他の通報16.3％）で、その表6の数値は自主対応<strong>＋</strong>その他の通報を追っている（F ≈ OI+ON、比率1.00）——文理的解釈を明白に採っているプラットフォームである。</li><li><strong>しかし分類そのものが著しく不統一であり、これが真の比較可能性の問題である。</strong>「ユーザーが申告したか？」という同じ問いが、三通りの相容れない仕方で答えられている：大半のプラットフォームはほぼ100％を自主対応と分類し、<strong>X</strong>は100％を<em>その他の通報</em>と分類し、<strong>Snapchat（72％）</strong>と<strong>XVideos（86％）</strong>は大半を<em>第16条通知</em>として振り分ける。まったく同じ実態の行動が、あるプラットフォームでは表6に、別のプラットフォームでは表4に入ることになる。曖昧さは消えず——source_typeの分類という一段上の層に移り、自主対応と通知の切り分けのクロスプラットフォーム比較可能性を損なう。</li></ul>
+
+<p><em>留意点：source_typeは各プラットフォームの自己分類であり、大半のVLOPでほぼすべてが「自主対応」であることは、真に自発的な検知というより分類上の慣行を一部反映している可能性がある。Xは表6の措置（2,090万）に比してSoRの提出が極めて少なく（20万）、その100％「通報」プロファイルは代表的ではない。周辺分布の切り口のみ。</em></p>
+
+<hr>
+
+<h2>6. 結論</h2>
+
+<p><strong>表6の「自主対応」が狭くも広くも読めるところでは、どこでもすべてのVLOPが広い解釈を採った。</strong>検知の軸（§1〜2）では、見出しの数値はプロバイダ起点の利用規約エンフォースメントの全体——人手・機械いずれの検知かを問わず——であり、能動的検知の部分集合ではない。自動検知は入れ子の内訳（G列）としてのみ開示され、プラットフォーム全体で総数の0〜99％を占める。そして制限タイプの内訳が（自動の内訳ではなく）自主対応の総数と整合することが、狭い解釈を排除する。より難しく、真に未確定の情報源の軸（§5）でも、大半のVLOPは同様に、ユーザー申告の利用規約措置を通知として扱うのではなく自主対応に含めている。</p>
+
+<p>だがこれは<strong>実務上の収斂であって、明確な法的命令の収斂ではない</strong>。規則は検知方法については広い解釈を強制する（F列の「総件数」の指示）が、情報源の境界は開いたままにしており——そこではプラットフォームの分類が著しく分かれる（§5）。表6はそのように読むべきである：クロスプラットフォームの比較可能性が、テンプレートが完全には確定していない解釈的選択に依存する、広い自主対応の集計値として。</p>
+
+<p><em>データ：<code>t6_own_initiative_tos</code> ／ <code>t5_own_initiative_illegal</code>、Transparency Report API、生成日2026-05-13、期間2025-07-01/2025-12-31。法令：規則(EU) 2024/2835、附属書シート5〜6、DSA第15条(1)(c)。</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/dsa-own-initiative-scope-ja.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

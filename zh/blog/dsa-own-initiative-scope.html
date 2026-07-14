@@ -1,0 +1,591 @@
+---
+layout: main
+title: "“自主处置”的两种解读 — DSA 表6，以及所有 VLOP 的共同选择"
+description: "DSA 要求 VLOP 报告其“自主处置”的内容审核。这个词有狭义和广义两种解读。在首个协调化报告期（2025 下半年），所有 VLOP 都采用了广义解读。基于理由声明数据库的交叉验证实证分析。"
+date: 2026-07-13
+og_image: /images/dsa-own-initiative-scope-zh.png
+lang: zh
+lang_url: /blog/dsa-own-initiative-scope.html
+lang_url_ja: /ja/blog/dsa-own-initiative-scope.html
+lang_url_ko: /ko/blog/dsa-own-initiative-scope.html
+---
+
+<article class="post">
+  <a href="/zh/blog.html" class="post-back">← 博客</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>“自主处置”的两种解读 — DSA 表6，以及所有 VLOP 的共同选择</h1>
+    <time class="news-date" datetime="2026-07-13">July 13, 2026</time>
+    <div class="tags">
+      <span class="tag">EU DSA</span>
+      <span class="tag">VLOP</span>
+      <span class="tag">透明度</span>
+      <span class="tag">数据</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/dsa-own-initiative-scope-zh.png" alt="DSA 表6中“自主处置”的两种解读" width="1200" height="630">
+    </figure>
+
+    <p><em>DSA 的表6要求平台报告其“自主处置”的内容审核。这个词有狭义和广义两种解读——而在首批协调化报告中，所有 VLOP 都采用了广义解读。</em></p>
+
+<p><strong>核心结论：</strong>表6的“自主处置”有两种读法。在<strong>狭义</strong>解读下，平台只报告自己主动——自动——检测并处置的内容。在<strong>广义</strong>解读下，平台报告其自行发起的<em>全部</em>内容审核，无论由人工还是机器检测，只要不是应成员国命令或第16条通知而为。两种解读可能相差数量级。在首个协调化报告期（2025 下半年），<strong>所有 VLOP 都采用了广义解读</strong>——标题性的自主处置数字是平台自行发起的服务条款执法的全集，而主动/自动检测只是其中的<em>嵌套子计数</em>（视平台而定，占总数的<strong>0% 至约 99%</strong>）。</p>
+
+<ul><li><strong>数据来源：</strong>Transparency Report API（transparency.kieranmaynard.com）的 <code>t6_own_initiative_tos</code>，报告期<strong>2025 下半年（2025-07-01 → 2025-12-31）</strong>——协调化模板下的首个报告期。24 项 VLOP 服务 / 18 家母公司平台。</li><li><strong>法律框架：</strong>欧盟委员会实施条例 (EU) 2024/2835，附件工作表 <code>6_own_initiative_TC</code>（DSA 第15条(1)(c)）。</li></ul>
+
+<hr>
+
+<h2>1. 模板实际要求的内容（定义层面的答案）</h2>
+
+<p>表6并非每个类别一个单一数字。每个类别行都带有<strong>两个不同的计数列</strong>，在实施条例中有逐字定义：</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>列</th>
+<th>字段</th>
+<th>条例说明（逐字）</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>F</strong></td>
+<td><em>提供者自主处置所采取的措施数量</em></td>
+<td>“本字段须填写提供者自主处置所采取措施的<strong>总数</strong>。自主处置是指施加限制的决定……<strong>并非应成员国当局的命令</strong>，<strong>亦非应</strong>通过第16条所指的通知—行动机制（Art. 16）提交的通知而作出。”</td>
+</tr>
+<tr>
+<td><strong>G</strong></td>
+<td><em>Number of measures taken after detection with solely automated means</em></td>
+<td>“本字段须填写提供者自主处置中<strong>仅以自动化手段</strong>采取的措施数量。”</td>
+</tr>
+</tbody></table></div>
+
+<p>因此表6的范围由<strong>排除法</strong>界定（既非命令驱动，也非通知驱动），而<em>非</em>由检测方式界定。“自主处置”（F列）与“主动/自动检测”（G列）是<strong>正交的</strong>：</p>
+
+<ul><li><strong>自主处置</strong>＝<em>由谁</em>发起该措施（是平台自身，而非命令或用户通知）。</li><li><strong>主动检测</strong>＝<em>如何</em>发现该内容（仅以自动化手段）。</li></ul>
+
+<p>平台可以通过<strong>人工</strong>审核进行自主处置（计入 F 列而非 G 列），G 列明确是 F 列的<strong>子集</strong>——API 自身的字段定义也重申了这一点：<code>measures</code>＝“自主处置审核措施的数量”；<code>automated</code>＝“<strong>其中</strong>以自动化手段采取的数量”。</p>
+
+<p>这就是解读的分叉点。<strong>广义</strong>读法下，F 列涵盖每一项自主处置措施（正如其说明——“措施总数”——所述），G 列只是披露其中有多少是自动的。<strong>狭义</strong>读法下——把“自主处置”当作“我们主动捕获的内容”的简称——平台只会报告自动检测的数字。F 列的措辞指向广义解读；平台是否真的照此执行是一个实证问题，下文将予以了断。</p>
+
+<hr>
+
+<h2>2. VLOP 实际报告了什么（实证层面的答案）</h2>
+
+<p>2025 下半年按服务列出的 TOTAL 行。<strong>F 列</strong>＝自主处置措施；<strong>G 列</strong>＝仅自动检测；末列是<strong>范围诊断</strong>：14 类限制措施列（删除、禁止访问、降权、年龄限制、加标签、暂停、终止……）之和除以 F 列。</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>服务（平台）</th>
+<th class="td-num">自主处置措施（F 列）</th>
+<th class="td-num">仅自动检测（G 列）</th>
+<th class="td-num">自动化占比</th>
+<th class="td-num">限制之和 ÷ 措施</th>
+</tr></thead><tbody>
+<tr>
+<td>Google Shopping (Google)</td>
+<td class="td-num">2,172,893,605</td>
+<td class="td-num">1,914,796,057</td>
+<td class="td-num">88.1%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Temu (Temu)</td>
+<td class="td-num">768,352,129</td>
+<td class="td-num">658,795,093</td>
+<td class="td-num">85.7%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>TikTok (TikTok)</td>
+<td class="td-num">258,691,522</td>
+<td class="td-num">220,097,575</td>
+<td class="td-num">85.1%</td>
+<td class="td-num">1.01</td>
+</tr>
+<tr>
+<td>AliExpress (Alibaba)</td>
+<td class="td-num">236,256,023</td>
+<td class="td-num">228,211,778</td>
+<td class="td-num">96.6%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Pinterest (Pinterest)</td>
+<td class="td-num">184,341,552</td>
+<td class="td-num">183,242,050</td>
+<td class="td-num">99.4%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Facebook (Meta)</td>
+<td class="td-num">171,807,219</td>
+<td class="td-num">148,905,624</td>
+<td class="td-num">86.7%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Amazon (Amazon)</td>
+<td class="td-num">150,504,153</td>
+<td class="td-num">23,595,638</td>
+<td class="td-num"><strong>15.7%</strong></td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Google Search (Google)</td>
+<td class="td-num">116,348,785</td>
+<td class="td-num">115,467,421</td>
+<td class="td-num">≥99%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>YouTube (Google)</td>
+<td class="td-num">78,205,262</td>
+<td class="td-num">77,426,568</td>
+<td class="td-num">99.0%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Instagram (Meta)</td>
+<td class="td-num">55,916,456</td>
+<td class="td-num">44,990,373</td>
+<td class="td-num">80.5%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Google Maps (Google)</td>
+<td class="td-num">28,944,347</td>
+<td class="td-num">28,338,536</td>
+<td class="td-num">97.9%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>X (X)</td>
+<td class="td-num">20,868,183</td>
+<td class="td-num">19,492,478</td>
+<td class="td-num">93.4%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>App Store (Apple)</td>
+<td class="td-num">16,426,841</td>
+<td class="td-num">10,244,729</td>
+<td class="td-num">62.4%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Snapchat (Snap)</td>
+<td class="td-num">11,279,462</td>
+<td class="td-num">8,822,094</td>
+<td class="td-num">78.2%</td>
+<td class="td-num">0.97</td>
+</tr>
+<tr>
+<td>Multi-Services (Google)</td>
+<td class="td-num">4,537,066</td>
+<td class="td-num">null</td>
+<td class="td-num">未报告</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Google Play (Google)</td>
+<td class="td-num">4,505,637</td>
+<td class="td-num">4,496,508</td>
+<td class="td-num">99.8%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>LinkedIn (Microsoft)</td>
+<td class="td-num">4,006,944</td>
+<td class="td-num">3,499,487</td>
+<td class="td-num">87.3%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>SHEIN (Shein)</td>
+<td class="td-num">2,735,275</td>
+<td class="td-num">0</td>
+<td class="td-num"><strong>0.0%</strong></td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Booking.com (Booking.com)</td>
+<td class="td-num">802,337</td>
+<td class="td-num">58,437</td>
+<td class="td-num"><strong>7.3%</strong></td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>XVideos (WebGroup Czech Rep.)</td>
+<td class="td-num">237,642</td>
+<td class="td-num">228,735</td>
+<td class="td-num">96.3%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Pornhub (Aylo)</td>
+<td class="td-num">190,584</td>
+<td class="td-num">82</td>
+<td class="td-num"><strong>0.04%</strong></td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>XNXX (NKL Associates)</td>
+<td class="td-num">186,967</td>
+<td class="td-num">185,170</td>
+<td class="td-num">99.0%</td>
+<td class="td-num">1.00</td>
+</tr>
+<tr>
+<td>Bing (Microsoft)</td>
+<td class="td-num">92,550</td>
+<td class="td-num">85,482</td>
+<td class="td-num">92.4%</td>
+<td class="td-num"><strong>0.92</strong></td>
+</tr>
+<tr>
+<td>Zalando (Zalando)</td>
+<td class="td-num">3,272</td>
+<td class="td-num">729</td>
+<td class="td-num">22.3%</td>
+<td class="td-num">1.00</td>
+</tr>
+</tbody></table></div>
+
+<p><em>各表面（surface）按 schema 规则处理（“'All' 是跨表面合计——不要与按表面拆分的行相加”）：按表面报告的 Google 服务（搜索、地图、Play、YouTube）跨表面求和，其余服务则各自报告单一的跨表面 'All' 合计。</em></p>
+
+<h3>两个事实表明每家 VLOP 都采用了广义解读</h3>
+
+<ol><li><strong>每一行都有 F 列 ≥ G 列。</strong>没有任何平台把自动检测数字<em>当作</em>其自主处置总数来报告。在狭义解读下（表6 ＝ 仅主动检测），F 应等于 G，但从未如此。</li></ol>
+
+<ol><li><strong>限制措施的拆分与 F 列而非 G 列吻合</strong>（比率 ≈ <strong>24 项服务中有 23 项为 1.00</strong>）。14 类限制措施列是按<em>措施</em>报告的，与检测方式无关。它们之和等于<strong>自主处置总数（F）</strong>——证明 F 是完整的措施全集。若按狭义解读，（涵盖<em>全部</em>措施的）限制列将超过 F，但实际并未如此。</li></ol>
+
+<p>综合来看，每家 VLOP 都以平台自行发起的服务条款审核的<strong>全部</strong>——即广义解读——填充标题性数字，并把自动检测作为内部子集单列出来。</p>
+
+<h3>自动化占比差异极大——而这正是重点</h3>
+
+<p>由于 G 列是真正的子计数，它在 F 列中的占比是真实的行为信号，而非范围设定的产物：</p>
+
+<ul><li><strong>自动化主导</strong>（≈90–99%）：Pinterest、XNXX、AliExpress、X、Google 搜索/地图/Play、YouTube——几乎全部为自动检测，但 F 仍大于 G。</li><li><strong>混合型</strong>（约 60–90%）：TikTok、Meta、Temu、Snap、LinkedIn、App Store。</li><li><strong>人工检测为主</strong>（F ≫ G）：<strong>Amazon 15.7%</strong>、<strong>Booking.com 7.3%</strong>、<strong>Zalando 22.3%</strong>、<strong>Pornhub 0.04%</strong>、<strong>SHEIN 0%</strong>。这些平台报告了庞大的自主处置总数，其中<em>仅</em>自动检测的部分极少甚至为零——这只有在 F 列同样计入人工/手动检测措施时才可能成立。它们是广义解读最清晰的例证——若按狭义解读，其表6数字将缩水到所报告值的一个零头。</li></ul>
+
+<p>同样的结构在违法内容工作表（<code>t5</code>）上也成立：<code>measures ≥ automated</code> 处处成立（例如 Google 报告了 27 亿项自主处置的违法内容措施；SHEIN 在此再次报告 automated ＝ 0）。</p>
+
+<hr>
+
+<h2>3. 注意事项与数据质量说明</h2>
+
+<ul><li><strong>“措施”与“理由声明”。</strong>表6计的是<em>措施/操作</em>，即产生自主处置服务条款理由声明（SoR）的事件。它们是产生 SoR 的全集，但两者未必一一对应（一份 SoR 可能捆绑多项限制；某些账户层级或明显违法内容的措施可能不各自产生独立的 SoR）。“F ＝ 自主处置全集”这一结论无论如何都成立。</li><li><strong>Bing</strong> 是唯一的吻合度异常项（限制之和 ÷ 措施 ＝ 0.92）：其报送中有一条 <code>measures</code> ＝ 7,220、而限制列之和仅为 152（＝其自动检测数）的记录。这是 Bing 自身报告中的内部不一致，而非不同的范围设定选择；Microsoft 的其他服务（LinkedIn）吻合良好。</li><li><strong>null 与 0 之别。</strong>Google 的 “Multi-Services” 行以及若干 Google 搜索子表面把 G 列留为 <strong>null</strong>（未报告）而非 0；SHEIN 与 Google 的 t5 则报告明确的 <strong>0</strong>。应区分“未报告”与“自动为零”。</li><li><strong>轻微的超/欠合计</strong>（TikTok 1.01、Snapchat 0.97、AliExpress 约 1.003）在约 1–3% 以内，与单项措施带有多种限制类型相符——并不改变结论。</li><li><strong>可比性。</strong>数据仅为 2025 下半年的 VLOP 报送（<code>report_tier = vlop</code>）；同一表中的非 VLOP 报送者报告期不同，已予排除。</li></ul>
+
+<hr>
+
+<h2>4. 外部佐证：DSA 理由声明数据库</h2>
+
+<p>透明度报告是自行申报的。<strong>DSA 透明度数据库</strong>（理由声明）是一个独立来源：在范围内的平台所作的每一项审核决定都作为单独的 SoR 报送，每条 SoR 都把 <code>source_type</code>（含<em>自主处置</em>）与 <code>automated_detection</code>（Yes/No）作为<strong>相互独立</strong>的字段。借助委员会自己的 <code>dsa-tdb</code> 再聚合（<code>dsa_tdb_metrics</code>，同为 2025 下半年区间），这些边际切分从外部检验了报告的结论。</p>
+
+<p><strong>全局（所有平台，2025 下半年）：</strong>两个总体的规模显然不同——</p>
+
+<ul><li><code>source_type = Own-initiative</code>：<strong>3,633,572,041</strong> 条 SoR</li><li><code>automated_detection = Yes</code>：<strong>3,150,399,935</strong>  ·  <code>No</code>：<strong>527,615,482</strong></li></ul>
+
+<p>自主处置比自动检测多约 4.8 亿条，且有 5.28 亿条 SoR 为非自动。也就是说，在原始报送数据中，“自主处置”是严格大于“主动检测”的集合——与报告中 Col F ⊇ Col G 所刻画的关系相同。</p>
+
+<p><strong>按服务看——表6的数字追踪的是自主处置还是自动检测？</strong>将报告的 F 与各服务的 SoR 自主处置数量及 SoR 自动检测数量进行比较：</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>服务</th>
+<th class="td-num">报告 F（自主处置措施）</th>
+<th class="td-num">SoR 自主处置</th>
+<th class="td-num">SoR 自动检测＝Yes</th>
+<th>F 追踪 →</th>
+</tr></thead><tbody>
+<tr>
+<td>Google Shopping</td>
+<td class="td-num">2,172,893,605</td>
+<td class="td-num">2,180,900,675</td>
+<td class="td-num">1,922,752,952</td>
+<td>自主处置≈自动</td>
+</tr>
+<tr>
+<td>TikTok</td>
+<td class="td-num">258,691,522</td>
+<td class="td-num">169,191,282</td>
+<td class="td-num">164,950,379</td>
+<td>自主处置≈自动</td>
+</tr>
+<tr>
+<td>AliExpress</td>
+<td class="td-num">236,256,023</td>
+<td class="td-num">306,847,831</td>
+<td class="td-num">297,571,690</td>
+<td>自主处置≈自动</td>
+</tr>
+<tr>
+<td>Pinterest</td>
+<td class="td-num">184,341,552</td>
+<td class="td-num">168,571,015</td>
+<td class="td-num">1,562,875</td>
+<td><strong>own-init</strong></td>
+</tr>
+<tr>
+<td>Facebook</td>
+<td class="td-num">171,807,219</td>
+<td class="td-num">183,874,483</td>
+<td class="td-num">174,149,136</td>
+<td>自主处置≈自动</td>
+</tr>
+<tr>
+<td>Amazon</td>
+<td class="td-num">150,504,153</td>
+<td class="td-num">146,259,143</td>
+<td class="td-num">129,608,538</td>
+<td>自主处置≈自动</td>
+</tr>
+<tr>
+<td>YouTube</td>
+<td class="td-num">78,205,262</td>
+<td class="td-num">51,494,084</td>
+<td class="td-num">51,324,927</td>
+<td>自主处置≈自动</td>
+</tr>
+<tr>
+<td>Instagram</td>
+<td class="td-num">55,916,456</td>
+<td class="td-num">53,092,432</td>
+<td class="td-num">50,830,410</td>
+<td>自主处置≈自动</td>
+</tr>
+<tr>
+<td>Google Maps</td>
+<td class="td-num">28,944,347</td>
+<td class="td-num">29,672,404</td>
+<td class="td-num">29,060,102</td>
+<td>自主处置≈自动</td>
+</tr>
+<tr>
+<td>Booking.com</td>
+<td class="td-num">802,337</td>
+<td class="td-num">678,643</td>
+<td class="td-num">678,965</td>
+<td>自主处置≈自动</td>
+</tr>
+<tr>
+<td>Pornhub</td>
+<td class="td-num">190,584</td>
+<td class="td-num">159,106</td>
+<td class="td-num">48,667</td>
+<td><strong>own-init</strong></td>
+</tr>
+<tr>
+<td>XVideos</td>
+<td class="td-num">237,642</td>
+<td class="td-num">76,420</td>
+<td class="td-num">8,040</td>
+<td><strong>own-init</strong></td>
+</tr>
+<tr>
+<td>SHEIN</td>
+<td class="td-num">2,735,275</td>
+<td class="td-num">79,257</td>
+<td class="td-num">11,612</td>
+<td><strong>own-init</strong></td>
+</tr>
+<tr>
+<td>Google Play</td>
+<td class="td-num">4,505,637</td>
+<td class="td-num">1,507,827</td>
+<td class="td-num">459,916</td>
+<td><strong>own-init</strong></td>
+</tr>
+<tr>
+<td>Temu</td>
+<td class="td-num">768,352,129</td>
+<td class="td-num">134,498,313</td>
+<td class="td-num">134,355,345</td>
+<td>自主处置≈自动</td>
+</tr>
+<tr>
+<td>Snapchat</td>
+<td class="td-num">11,279,462</td>
+<td class="td-num">689,602</td>
+<td class="td-num">575,443</td>
+<td>自主处置≈自动</td>
+</tr>
+</tbody></table></div>
+
+<p><strong>两项佐证结果：</strong></p>
+
+<ol><li><strong>量级。</strong>在吻合清晰的案例中，报告 F ≈ SoR 自主处置：Google Shopping <strong>1.00×</strong>、Google Maps 0.98×、Amazon 1.03×、Instagram 1.05×、Facebook 0.93×、Pinterest 1.09×、Booking 1.18×。F 与自主处置的 SoR 全集吻合——而非其中主动检测的子集。</li></ol>
+
+<ol><li><strong>判别。</strong>在 SoR 自主处置与自动检测两个总体相差超过 20% 的 5 项服务中（此时检验才真正具有判别力），<strong>5 项中有 5 项 F 更接近自主处置</strong>。最清晰的是 <strong>Pinterest</strong>：F ＝ 1.84 亿与 SoR 自主处置 1.69 亿吻合，而非 SoR 自动检测 <strong>160 万</strong>。若 Pinterest 把表6限定为主动检测，本应报告约 160 万，而它报告了 1.84 亿。SHEIN、Pornhub、XVideos、Google Play 结论相同。</li></ol>
+
+<p><strong>注意事项（为何这是佐证而非精确对账）：</strong></p>
+
+<ul><li><strong>两套系统计的是不同的东西。</strong>报告计的是<em>措施/操作</em>；数据库计的是<em>理由声明</em>。两者不应精确一致，有些差异很大：<strong>Temu</strong>（报告 7.68 亿 对 SoR 1.34 亿）、<strong>SHEIN</strong>（270 万 对 9 万）、<strong>Snapchat</strong>（1,130 万 对 240 万）、<strong>X</strong>（2,090 万 对 仅 20 万——X 几乎不报送 SoR）。这些是已知的报告与数据库之间的差距（计数单位、去重、时间、少报），<strong>不</strong>影响范围判定——范围检验只问 F 追踪<em>哪个 SoR 总体</em>，即便在这些案例中它追踪的仍是自主处置。</li><li><strong>G 列 ≠ SoR <code>automated_detection=Yes</code>。</strong>报告的 G 列是<em>仅</em>自动化手段；而 SoR 标记指的是识别内容时使用了<em>任何</em>自动化手段（含部分自动）。这解释了为何在 Amazon 和 Booking 上，报告的自动化占比低于 SoR 的自动化占比（Amazon 16% 对 88%，Booking 7% 对 95%）。<strong>Pinterest 则相反</strong>（报告 99% 为“仅自动”，SoR 却为 0.9% 的自动检测）——这是 Pinterest 在两套系统间自身报送的内部不一致，值得注意但不影响 F 列的范围问题。</li><li>这些是<strong>边际</strong>切分（聚合中没有 source×automation×ground 的联合分布），因此检验针对的是量级与划分，而非精确的单元格。</li></ul>
+
+<p>因此，独立的 SoR 数据<strong>佐证了核心结论</strong>：表6的自主处置数字是自主处置的完整总体，而主动/自动检测是与之不同、总体上更小的子总体。</p>
+
+<hr>
+
+<h2>5. 范围边界：用户举报算不算“自主处置”？</h2>
+
+<p>在 F/G 结论之下还有一个更根本的问题：<strong>究竟什么才算自主处置？</strong>答案并不清晰，这是模板最脆弱的接缝。</p>
+
+<p><strong>排除范围很窄。</strong>F 列只排除两类触发：成员国命令，或“通过<strong>第16条</strong>所指的通知—行动机制提交的通知”。而第16条的机制按其措辞，是用于举报用户“认为属于<strong>违法内容</strong>”的内容——并非“这违反了你们的社区准则”这类举报的渠道。因此用户举报分为三类：</p>
+
+<ol><li>用户通过通知—行动机制举报<strong>违法</strong>内容 → 第16条通知 → <strong>不在</strong>表6之列（属于表4）。</li><li>用户<em>未</em>经第16条违法内容机制而举报<strong>服务条款/社区准则</strong>违规 → <strong>并非</strong>第16条通知 → 按 F 列措辞<strong>不被排除</strong>。</li><li>混合式举报流程 → 取决于平台如何归类。</li></ol>
+
+<p>对于第2类，有两条文义论据将此类举报置于表6<strong>之内</strong>：(i) <em>明示其一即排除其余（expressio unius）</em>——定义只列举命令与第16条通知作为排除项，其余一概未被剔除；(ii) <em>穷尽式分类</em>——DSA 第15条(1)将所有审核归入命令（表3）、第16条通知（表4）或自主处置（表5–6），而非第16条的服务条款举报不属于前两类。相反的读法基于渠道（凡经举报按钮提交的通知一律排除），符合“自主处置”的直觉含义，但并非其操作性定义所述。委员会尚未解决此问题，研究者也将其称为各报告间的<a href="https://arxiv.org/html/2605.17655v1"><em>失序的协调化</em></a>。</p>
+
+<p><strong>就实证而言，VLOP 大多以包容方式处理了这一问题——但归类却极不一致。</strong>使用 SoR 数据库的 <code>by_source_type</code> 按服务切分（2025 下半年）：</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>服务</th>
+<th class="td-num">SoR 自主处置</th>
+<th class="td-num">其他通报（非第16条）</th>
+<th class="td-num">第16条通知</th>
+<th>可能的解读</th>
+</tr></thead><tbody>
+<tr>
+<td>Google Shopping</td>
+<td class="td-num">99.9%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">0.06%</td>
+<td>几乎全部归入自主处置</td>
+</tr>
+<tr>
+<td>TikTok</td>
+<td class="td-num">100.0%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">0.04%</td>
+<td>几乎全部归入自主处置</td>
+</tr>
+<tr>
+<td>AliExpress</td>
+<td class="td-num">99.9%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">0.05%</td>
+<td>几乎全部归入自主处置</td>
+</tr>
+<tr>
+<td>Pinterest</td>
+<td class="td-num">99.7%</td>
+<td class="td-num">0.29%</td>
+<td class="td-num">0.00%</td>
+<td>几乎全部归入自主处置</td>
+</tr>
+<tr>
+<td>Facebook</td>
+<td class="td-num">99.9%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">0.10%</td>
+<td>几乎全部归入自主处置</td>
+</tr>
+<tr>
+<td>Amazon</td>
+<td class="td-num">99.2%</td>
+<td class="td-num">0.12%</td>
+<td class="td-num">0.63%</td>
+<td>几乎全部归入自主处置</td>
+</tr>
+<tr>
+<td>YouTube</td>
+<td class="td-num">99.3%</td>
+<td class="td-num">0.33%</td>
+<td class="td-num">0.41%</td>
+<td>几乎全部归入自主处置</td>
+</tr>
+<tr>
+<td>Instagram</td>
+<td class="td-num">99.8%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">0.15%</td>
+<td>几乎全部归入自主处置</td>
+</tr>
+<tr>
+<td>Google Maps</td>
+<td class="td-num">94.3%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">5.65%</td>
+<td>几乎全部归入自主处置</td>
+</tr>
+<tr>
+<td>X</td>
+<td class="td-num">0.0%</td>
+<td class="td-num">100.00%</td>
+<td class="td-num">0.00%</td>
+<td>classifies all as <em>notification</em></td>
+</tr>
+<tr>
+<td>Snapchat</td>
+<td class="td-num">28.2%</td>
+<td class="td-num">0.01%</td>
+<td class="td-num">71.78%</td>
+<td>routes most via <em>Art. 16</em></td>
+</tr>
+<tr>
+<td>Booking.com</td>
+<td class="td-num">95.1%</td>
+<td class="td-num">4.76%</td>
+<td class="td-num">0.10%</td>
+<td>几乎全部归入自主处置</td>
+</tr>
+<tr>
+<td>Google Play</td>
+<td class="td-num">99.7%</td>
+<td class="td-num">0.10%</td>
+<td class="td-num">0.23%</td>
+<td>几乎全部归入自主处置</td>
+</tr>
+<tr>
+<td>SHEIN</td>
+<td class="td-num">88.0%</td>
+<td class="td-num">0.00%</td>
+<td class="td-num">12.04%</td>
+<td>几乎全部归入自主处置</td>
+</tr>
+<tr>
+<td>Pornhub</td>
+<td class="td-num">83.7%</td>
+<td class="td-num">16.30%</td>
+<td class="td-num">0.01%</td>
+<td><strong>textual</strong> (F tracks OI+ON)</td>
+</tr>
+<tr>
+<td>XVideos</td>
+<td class="td-num">12.7%</td>
+<td class="td-num">1.37%</td>
+<td class="td-num">85.95%</td>
+<td>routes most via <em>Art. 16</em></td>
+</tr>
+</tbody></table></div>
+
+<p>对此有两种解读：</p>
+
+<ul><li><strong>“非第16条服务条款举报”这一特定缺口，对 VLOP 而言很小。</strong>在这些服务中，<code>other-notification</code> 仅占已归类 SoR 的 <strong>0.03%</strong>——大多数平台把几乎全部（≥99%）归入自主处置，即默认采用包容解读。因此大平台的表6其实已经吸收了用户举报的服务条款措施；这一模糊性很少改变其标题性数字。清晰的例外是 <strong>Pornhub</strong>（其他通报占 16.3%），其表6数字追踪的是自主处置<strong>＋</strong>其他通报（F ≈ OI+ON，比率 1.00）——一个明显采用文义解读的平台。</li><li><strong>但归类本身极不一致，这才是真正的可比性问题。</strong>“是否由用户举报？”这同一个问题被以三种互不相容的方式回答：大多数平台把约 100% 归为自主处置；<strong>X</strong> 把 100% 归为<em>其他通报</em>；<strong>Snapchat（72%）</strong>与 <strong>XVideos（86%）</strong>则把大多数归入<em>第16条通知</em>。完全相同的实际行为，在一个平台会落入表6，在另一个平台却落入表4。模糊性并未消失——它上移了一层，进入 source_type 归类，损害了自主处置与通知划分的跨平台可比性。</li></ul>
+
+<p><em>注意事项：source_type 由各平台自行归类；大多数 VLOP 中几乎全部为“自主处置”，可能部分反映的是归类惯例，而非真正未经触发的检测。X 相对其表6措施（2,090 万）报送的 SoR 极少（20 万），其 100% “通报”的画像并不具代表性。仅为边际切分。</em></p>
+
+<hr>
+
+<h2>6. 结论</h2>
+
+<p><strong>凡是表6的“自主处置”可作狭义或广义解读之处，每一家 VLOP 都采用了广义解读。</strong>在检测维度（§1–2），标题性数字是平台自行发起的服务条款执法的全部——无论人工还是机器检测——而非主动检测子集；自动检测仅作为嵌套子计数（G 列）披露，占各平台总数的 0%–99%，而限制类型拆分与自主处置总数（而非自动子计数）吻合，排除了狭义解读。在更棘手、真正悬而未决的来源维度（§5），大多数 VLOP 同样把用户举报的服务条款措施归入自主处置，而非视作通知。</p>
+
+<p>但这是<strong>实践上的趋同，而非明确法律指令上的趋同</strong>。条例在检测方式上强制采用广义解读（F 列的“总数”说明），却让来源边界保持开放——而在那里，各平台的归类大相径庭（§5）。表6应据此解读：它是一个广义的自主处置汇总值，其跨平台可比性取决于模板并未完全钉死的解释性选择。</p>
+
+<p><em>数据：<code>t6_own_initiative_tos</code> / <code>t5_own_initiative_illegal</code>，Transparency Report API，生成于 2026-05-13，区间 2025-07-01/2025-12-31。法规：条例 (EU) 2024/2835，附件工作表 5–6；DSA 第15条(1)(c)。</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/dsa-own-initiative-scope-zh.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>
