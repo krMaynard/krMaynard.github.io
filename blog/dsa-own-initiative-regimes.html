@@ -1,0 +1,132 @@
+---
+layout: main
+title: "One Platform, Three Definitions of \"Proactive\""
+description: "Meta tells the EU it detects 95% of content automatically and tells India its proactive rate is 99% for spam but 69% for violence. 'Proactive' means something different in every regime — and the DSA's aggregate hides the weak spots India's per-area disclosure exposes."
+date: 2026-07-14
+og_image: /images/dsa-own-initiative-regimes-en.png
+lang: en
+published: false
+---
+
+<article class="post">
+  <a href="/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>One Platform, Three Definitions of "Proactive"</h1>
+    <time class="news-date" datetime="2026-07-14">July 14, 2026</time>
+    <div class="tags">
+      <span class="tag">EU DSA</span>
+      <span class="tag">VLOP</span>
+      <span class="tag">Transparency</span>
+      <span class="tag">Data</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/dsa-own-initiative-regimes-en.png" alt="One Platform, Three Definitions of "Proactive"" width="1200" height="630">
+    </figure>
+
+    <p><em>Meta tells the EU it detects 95% of enforced content automatically. It tells India its *proactive rate* is 99% for spam — and 69% for violence. Same company, same year, incomparable numbers, because each regime defines "proactive" differently and discloses it at a different grain.</em></p>
+
+<p><strong>Bottom line:</strong> "Proactive," "automated," and "own-initiative" are not portable metrics. Under <strong>India's IT Rules</strong>, Meta must publish a <em>proactive-detection rate per policy area</em> — and it reveals a huge spread: Facebook proactively catches <strong>99% of spam, 99% of child-sexual-exploitation, 99.7% of suicide/self-injury content, but only ~69–71% of hate speech, violence, and bullying</strong>. Under the <strong>DSA</strong>, Meta publishes a single automated-<em>detection</em> flag (~95% for Facebook) with <strong>no category breakdown</strong> — and the database's marginal-cut design <em>structurally cannot</em> produce one. The regime that looks less prescriptive (India, one country) exposes exactly the weak spots — the contested speech harms — that the DSA's aggregate hides.</p>
+
+<ul><li><strong>Data:</strong> <code>india_metrics</code> (IT Rules 2021 monthly filings, Meta, latest 2023-09) vs <code>dsa_tdb_metrics</code> (H2 2025). Transparency Report API. Part 4 of the own-initiative series (<a href="/blog/dsa-own-initiative-scope.html">Part 1</a> · <a href="/blog/dsa-own-initiative-comparability.html">Part 2</a> · <a href="/blog/dsa-own-initiative-automation.html">Part 3</a>).</li></ul>
+
+<hr>
+
+<h2>India makes Meta show its work, by policy area</h2>
+
+<p>India's IT Rules require significant social-media intermediaries to report, each month, the volume of content "actioned proactively" <strong>and a proactive rate for each policy area</strong>. Facebook's filing:</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>Policy area (Facebook, India IT Rules)</th>
+<th class="td-num">Proactive rate</th>
+</tr></thead><tbody>
+<tr>
+<td>Suicide and Self-Injury</td>
+<td class="td-num">99.7%</td>
+</tr>
+<tr>
+<td>Child Endangerment – Sexual Exploitation</td>
+<td class="td-num">99.2%</td>
+</tr>
+<tr>
+<td>Spam</td>
+<td class="td-num">99.2%</td>
+</tr>
+<tr>
+<td>Violent and Graphic Content</td>
+<td class="td-num">98.5%</td>
+</tr>
+<tr>
+<td>Regulated Goods: Drugs</td>
+<td class="td-num">98.5%</td>
+</tr>
+<tr>
+<td>Dangerous Organizations: Terrorism</td>
+<td class="td-num">98.3%</td>
+</tr>
+<tr>
+<td>Adult Nudity and Sexual Activity</td>
+<td class="td-num">96.4%</td>
+</tr>
+<tr>
+<td>Child Endangerment – Nudity/Physical Abuse</td>
+<td class="td-num">94.3%</td>
+</tr>
+<tr>
+<td><strong>Bullying and Harassment</strong></td>
+<td class="td-num"><strong>70.8%</strong></td>
+</tr>
+<tr>
+<td><strong>Hate Speech</strong></td>
+<td class="td-num"><strong>71.0%</strong></td>
+</tr>
+<tr>
+<td><strong>Violence and Incitement</strong></td>
+<td class="td-num"><strong>69.1%</strong></td>
+</tr>
+</tbody></table></div>
+
+<p>The pattern is the real finding: proactive detection is near-total for content with a clear signal (spam, known CSAM hashes, nudity classifiers) and <strong>drops ~30 points for the context-dependent harms</strong> — hate, harassment, incitement — where a machine can't safely decide alone. Instagram's rates run higher (bullying 98.9%, hate 94.8%), which is itself informative: the <em>same company</em> proactively catches harassment far better on one surface than another. None of this is a single "proactiveness" number.</p>
+
+<hr>
+
+<h2>The DSA can't show you this</h2>
+
+<p>Read Meta's DSA disclosures for the same behaviour and you get:</p>
+
+<ul><li>**One automated-<em>detection</em> rate** — Facebook ~95%, from the SoR <code>automated_detection</code> flag (Part 3).</li><li><strong>No category split of it.</strong> The transparency database publishes <code>by_category</code> and <code>by_automated_detection</code> as <strong>separate marginal cuts</strong> — there is no category × automation joint. You cannot ask "what share of Facebook's <em>hate speech</em> actions were automated?" of the DSA data. The question India answers by design, the DSA structurally cannot.</li><li><strong>A different denominator entirely</strong> — India's rate is "% of actioned content caught before a user report"; the DSA flag is "% of decisions where automated means identified the content," over EU traffic, on a broader content base. The two ~95%/~99% headline numbers are not measuring the same thing and cannot be reconciled.</li></ul>
+
+<p>So a regulator wanting to know <em>"how well does Meta proactively catch hate speech?"</em> — the policy-relevant question — gets a usable answer from India's one-country regime and <strong>no answer at all</strong> from the DSA's continent-wide one. The DSA's aggregate 95% launders the 69% into invisibility.</p>
+
+<hr>
+
+<h2>The general lesson for the series</h2>
+
+<p>This is the cross-regime version of the Part 1–2 problem. "Own-initiative / proactive / automated" is defined:</p>
+
+<ul><li>by <strong>outcome grain</strong> — India per policy area; DSA aggregate;</li><li>by <strong>axis</strong> — India "before a user report"; DSA "by automated means"; Part 3's "decision" vs "detection";</li><li>by <strong>scope</strong> — India traffic vs EU traffic vs global voluntary reports.</li></ul>
+
+<p>Stack a platform's disclosures across regimes and you don't get a richer picture of one quantity — you get several different quantities wearing the same word. Any claim of the form "Platform X is Y% proactive" is meaningless without naming the regime, the axis, the grain, and the denominator.</p>
+
+<p><strong>Caveats.</strong> India's <code>proactive_rate</code> in this dataset is Meta-only and latest 2023-09 (Meta's IT Rules cadence; other Indian filers report volumes, not rates) — so this is an illustrative cross-regime contrast, not a live head-to-head. The DSA figures are H2 2025. Both are self-reported and unaudited.</p>
+
+<p><em>Data: <code>india_metrics</code>, <code>dsa_tdb_metrics</code>, Transparency Report API. Part 4 of the DSA own-initiative series.</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/dsa-own-initiative-regimes-en.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>
