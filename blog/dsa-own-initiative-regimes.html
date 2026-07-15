@@ -27,9 +27,9 @@ published: false
       <img src="/images/dsa-own-initiative-regimes-en.png" alt="One Platform, Three Definitions of "Proactive"" width="1200" height="630">
     </figure>
 
-    <p><em>Meta tells the EU it detects 95% of enforced content automatically. It tells India its *proactive rate* is 99% for spam — and 69% for violence. Same company, same year, incomparable numbers, because each regime defines "proactive" differently and discloses it at a different grain.</em></p>
+    <p><em>Meta tells the EU it detects 95% of enforced content automatically. It told India its *proactive rate* was 99% for spam — and 69% for violence. Same company, incomparable numbers, because each regime defines "proactive" differently, discloses it at a different grain — and on different dates.</em></p>
 
-<p><strong>Bottom line:</strong> "Proactive," "automated," and "own-initiative" are not portable metrics. Under <strong>India's IT Rules</strong>, Meta must publish a <em>proactive-detection rate per policy area</em> — and it reveals a huge spread: Facebook proactively catches <strong>99% of spam, 99% of child-sexual-exploitation, 99.7% of suicide/self-injury content, but only ~69–71% of hate speech, violence, and bullying</strong>. Under the <strong>DSA</strong>, Meta publishes a single automated-<em>detection</em> flag (~95% for Facebook) with <strong>no category breakdown</strong> — and the database's marginal-cut design <em>structurally cannot</em> produce one. The regime that looks less prescriptive (India, one country) exposes exactly the weak spots — the contested speech harms — that the DSA's aggregate hides.</p>
+<p><strong>Bottom line:</strong> "Proactive," "automated," and "own-initiative" are not portable metrics. Under <strong>India's IT Rules</strong>, Meta must publish a <em>proactive-detection rate per policy area</em> — and its filings (latest in this dataset: 2023-09) reveal a huge spread: Facebook proactively catches <strong>99% of spam, 99% of child-sexual-exploitation, 99.7% of suicide/self-injury content, but only ~69–71% of hate speech, violence, and bullying</strong>. Under the <strong>DSA</strong>, Meta publishes a single automated-<em>detection</em> flag (~95% for Facebook, H2 2025) with <strong>no category breakdown</strong> — and none of the DSA's <em>published aggregates</em> surface one. The regime that looks less prescriptive (India, one country) exposes exactly the weak spots — the contested speech harms — that the DSA's aggregate hides.</p>
 
 <ul><li><strong>Data:</strong> <code>india_metrics</code> (IT Rules 2021 monthly filings, Meta, latest 2023-09) vs <code>dsa_tdb_metrics</code> (H2 2025). Transparency Report API. Part 4 of the own-initiative series (<a href="/blog/dsa-own-initiative-scope.html">Part 1</a> · <a href="/blog/dsa-own-initiative-comparability.html">Part 2</a> · <a href="/blog/dsa-own-initiative-automation.html">Part 3</a>).</li></ul>
 
@@ -94,13 +94,13 @@ published: false
 
 <hr>
 
-<h2>The DSA can't show you this</h2>
+<h2>The DSA's published aggregates can't show you this</h2>
 
 <p>Read Meta's DSA disclosures for the same behaviour and you get:</p>
 
-<ul><li>**One automated-<em>detection</em> rate** — Facebook ~95%, from the SoR <code>automated_detection</code> flag (Part 3).</li><li><strong>No category split of it.</strong> The transparency database publishes <code>by_category</code> and <code>by_automated_detection</code> as <strong>separate marginal cuts</strong> — there is no category × automation joint. You cannot ask "what share of Facebook's <em>hate speech</em> actions were automated?" of the DSA data. The question India answers by design, the DSA structurally cannot.</li><li><strong>A different denominator entirely</strong> — India's rate is "% of actioned content caught before a user report"; the DSA flag is "% of decisions where automated means identified the content," over EU traffic, on a broader content base. The two ~95%/~99% headline numbers are not measuring the same thing and cannot be reconciled.</li></ul>
+<ul><li>**One automated-<em>detection</em> rate** — Facebook ~95%, from the SoR <code>automated_detection</code> flag (Part 3).</li><li><strong>No category split in any published aggregate.</strong> The Commission's <code>dsa-tdb</code> aggregates (and this API) publish <code>by_category</code> and <code>by_automated_detection</code> as <strong>separate marginal cuts</strong> — no category × automation joint. The joint <em>does</em> exist at record level — every SoR carries both fields, so a researcher processing the full dumps or the research API can compute "what share of Facebook's hate-speech actions were automated?" — but no report table or published aggregate surfaces it. The question India answers in a monthly filing, the DSA answers only to whoever processes a multi-terabyte database.</li><li><strong>A different denominator entirely</strong> — India's rate is "% of actioned content caught before a user report"; the DSA flag is "% of decisions where automated means identified the content," over EU traffic, on a broader content base. The two ~95%/~99% headline numbers are not measuring the same thing and cannot be reconciled.</li></ul>
 
-<p>So a regulator wanting to know <em>"how well does Meta proactively catch hate speech?"</em> — the policy-relevant question — gets a usable answer from India's one-country regime and <strong>no answer at all</strong> from the DSA's continent-wide one. The DSA's aggregate 95% launders the 69% into invisibility.</p>
+<p>So a regulator wanting to know <em>"how well does Meta proactively catch hate speech?"</em> — the policy-relevant question — gets a usable answer from India's one-country regime and <strong>no published answer</strong> from the DSA's continent-wide one. The DSA's aggregate 95% launders the 69% into invisibility — unless you can process the raw database, which no published statistic does for you.</p>
 
 <hr>
 
@@ -112,7 +112,7 @@ published: false
 
 <p>Stack a platform's disclosures across regimes and you don't get a richer picture of one quantity — you get several different quantities wearing the same word. Any claim of the form "Platform X is Y% proactive" is meaningless without naming the regime, the axis, the grain, and the denominator.</p>
 
-<p><strong>Caveats.</strong> India's <code>proactive_rate</code> in this dataset is Meta-only and latest 2023-09 (Meta's IT Rules cadence; other Indian filers report volumes, not rates) — so this is an illustrative cross-regime contrast, not a live head-to-head. The DSA figures are H2 2025. Both are self-reported and unaudited.</p>
+<p><strong>Caveats.</strong> India's <code>proactive_rate</code> in this dataset is Meta-only and latest 2023-09 (other Indian filers report volumes, not rates); the DSA figures are H2 2025 — a two-year vintage gap spanning classifier generations, so this is an illustrative cross-regime contrast, not a live head-to-head. Both are self-reported and unaudited.</p>
 
 <p><em>Data: <code>india_metrics</code>, <code>dsa_tdb_metrics</code>, Transparency Report API. Part 4 of the DSA own-initiative series.</em></p>
 
