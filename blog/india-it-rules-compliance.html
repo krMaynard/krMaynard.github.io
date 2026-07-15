@@ -1,0 +1,177 @@
+---
+layout: main
+title: "Five million complaints, or 723? India's grievance reports don't add up"
+description: "Under India's IT Rules 2021, eight platforms report monthly user grievances on wildly incompatible scales — ShareChat logged over 5 million complaints in a month while Twitter reported 723 — and the Grievance Appellate Committee allows just 7% of appeals."
+date: 2026-07-14
+og_image: /images/india-it-rules-compliance-en.png
+lang: en
+published: false
+---
+
+<article class="post">
+  <a href="/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>Five million complaints, or 723? India's grievance reports don't add up</h1>
+    <time class="news-date" datetime="2026-07-14">July 14, 2026</time>
+    <div class="tags">
+      <span class="tag">Transparency</span>
+      <span class="tag">Data</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/india-it-rules-compliance-en.png" alt="Five million complaints, or 723? India's grievance reports don't add up" width="1200" height="630">
+    </figure>
+
+    <p><em>Under one law, ShareChat reported over 5 million user complaints in a month while Twitter reported 723 — because "grievance received" means something different on every platform.</em></p>
+
+<p><strong>Bottom line:</strong> India's IT Rules 2021 require every large social-media intermediary to publish a monthly count of user grievances received and actioned, plus its dealings with the Grievance Appellate Committee (GAC). But the eight platforms here count on wildly incompatible scales: ShareChat and Moj report millions of "complaints" a month (apparently every in-app report), Google and Meta tens of thousands of formal grievances, and Twitter and Roblox a few hundred to a few thousand — roughly four orders of magnitude for the same line item. The numbers are self-reported and real, but not comparable, and most platforms have stopped filing.</p>
+
+<ul><li><strong>Data:</strong> <code>india_metrics</code> (grievances, grievances_received, complaints, complaints_received, gac_appeals, gac_orders), Transparency Report API, monthly/half-yearly filings 2021-04 to 2026-05.</li></ul>
+
+<hr>
+
+<h2>The grievance channel: same law, incomparable counts</h2>
+
+<p>Each platform reports a monthly "grievances received" figure, but the definitions diverge completely. ShareChat and Moj file a single lump number in the millions with no category breakdown — consistent with counting every in-app abuse report. Google, Facebook, and Instagram report tens of thousands, sorted into their own taxonomies (Google by legal category, Meta by user-facing issue type). Twitter and Roblox report only formal grievances routed to a Grievance Officer, in the hundreds or low thousands. No two taxonomies match, and the category schemes don't even line up in kind: Facebook's "Fake profile that's pretending to be me" is a user's complaint type; Google's "Copyright" is a legal basis; Roblox's "Violent Content and Gore" is a policy area.</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>Platform</th>
+<th>Reporting window (months)</th>
+<th>Grievance taxonomy</th>
+<th class="td-num">Grievances received, latest month</th>
+</tr></thead><tbody>
+<tr>
+<td>ShareChat</td>
+<td>2021-07 → 2022-04 (6)</td>
+<td>none — single lump</td>
+<td class="td-num">5,011,076</td>
+</tr>
+<tr>
+<td>Moj</td>
+<td>2021-06 → 2022-04 (5)</td>
+<td>none — single lump</td>
+<td class="td-num">2,851,946</td>
+</tr>
+<tr>
+<td>Facebook</td>
+<td>2022-07 → 2023-09 (8)</td>
+<td>10 user-issue types</td>
+<td class="td-num">22,971</td>
+</tr>
+<tr>
+<td>Google</td>
+<td>2021-04 → 2026-05 (62)</td>
+<td>9 legal categories</td>
+<td class="td-num">21,344</td>
+</tr>
+<tr>
+<td>Instagram</td>
+<td>2022-07 → 2023-09 (8)</td>
+<td>8 user-issue types</td>
+<td class="td-num">16,603</td>
+</tr>
+<tr>
+<td>Roblox</td>
+<td>2025-03 → 2026-05 (15)</td>
+<td>40 policy areas (revamped)</td>
+<td class="td-num">2,433</td>
+</tr>
+<tr>
+<td>Twitter/X</td>
+<td>2021-06 → 2022-10 (11)</td>
+<td>12 policy areas</td>
+<td class="td-num">723</td>
+</tr>
+</tbody></table></div>
+
+<p>The gap is not marginal. In its final filing ShareChat reported about 6,900 times more grievances than Twitter did in its own last month — both in 2022, both under the identical rule. Averaged over each platform's reporting life, ShareChat ran about 6.4 million grievances a month against Twitter's 474, a ratio near 13,000-to-1. This is a definitional artifact, not a measure of user unhappiness: a platform that logs every "report" button press will dwarf one counting only escalations to a designated officer.</p>
+
+<p>Coverage is just as fragmented. Google has filed continuously for 62 months and still files (21,344 grievances in May 2026). Everyone else has gone dark: ShareChat and Moj stopped in April 2022, Twitter in October 2022, Facebook and Instagram in September 2023. Roblox began only in March 2025 — and even rewrote its category list mid-stream, producing 40 labels over 15 months. No single month has all eight platforms reporting, so a true cross-platform comparison is impossible.</p>
+
+<h2>The GAC: a tribunal almost nobody appeals to</h2>
+
+<p>The 2023 rules created a Grievance Appellate Committee where users can appeal a platform's grievance decision. In this dataset only Google reports appeal outcomes, and only Google and Meta report at all. Over three years the GAC closed 314 appeals of Google decisions — and sided with the appellant in just 22 of them.</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>Half-year</th>
+<th class="td-num">Closed</th>
+<th class="td-num">Allowed</th>
+<th class="td-num">Rejected</th>
+<th class="td-num">Not admitted</th>
+</tr></thead><tbody>
+<tr>
+<td>2023-03 → 2023-09</td>
+<td class="td-num">12</td>
+<td class="td-num">0</td>
+<td class="td-num">6</td>
+<td class="td-num">6</td>
+</tr>
+<tr>
+<td>2023-10 → 2024-03</td>
+<td class="td-num">11</td>
+<td class="td-num">0</td>
+<td class="td-num">6</td>
+<td class="td-num">5</td>
+</tr>
+<tr>
+<td>2024-04 → 2024-09</td>
+<td class="td-num">27</td>
+<td class="td-num">5</td>
+<td class="td-num">5</td>
+<td class="td-num">17</td>
+</tr>
+<tr>
+<td>2024-10 → 2025-03</td>
+<td class="td-num">47</td>
+<td class="td-num">11</td>
+<td class="td-num">21</td>
+<td class="td-num">15</td>
+</tr>
+<tr>
+<td>2025-04 → 2025-09</td>
+<td class="td-num">97</td>
+<td class="td-num">6</td>
+<td class="td-num">39</td>
+<td class="td-num">52</td>
+</tr>
+<tr>
+<td>2025-10 → 2026-03</td>
+<td class="td-num">120</td>
+<td class="td-num">0</td>
+<td class="td-num">79</td>
+<td class="td-num">41</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td class="td-num"><strong>314</strong></td>
+<td class="td-num"><strong>22</strong></td>
+<td class="td-num"><strong>156</strong></td>
+<td class="td-num"><strong>136</strong></td>
+</tr>
+</tbody></table></div>
+
+<p>Appeal volume is climbing — from 12 closed in the first half-year to 120 in the latest — but the allow rate sits at just 7%, and nearly as many appeals (136) are dismissed as "not admitted" as are rejected on the merits (156). Meta separately reports GAC <em>orders</em>: 26 received across four scattered months of 2023, all 26 complied with, then no further filings. Against grievance volumes in the tens of thousands to millions, appellate review is a rounding error.</p>
+
+<p><strong>Caveats.</strong> Every figure here is self-reported by the platform and unaudited; "grievances received" is defined differently by each filer, so the cross-platform totals must not be summed or ranked as like-for-like. Latest-month values are drawn from each platform's most recent filing, which for most platforms is now years stale — only Google and Roblox report into 2026. Google files GAC appeals in half-year buckets while Meta files monthly, and only Google reports appeal outcomes; the "allowed/rejected/not admitted" columns are additive within Google's data (they sum to closed) but cover no other platform. Data vintage: dataset generated 2026-05-13, latest period 2026-05.</p>
+
+<p><em>Data: india_metrics (grievances, complaints, gac_appeals, gac_orders), Transparency Report API, 2021-04 to 2026-05.</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/india-it-rules-compliance-en.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>
