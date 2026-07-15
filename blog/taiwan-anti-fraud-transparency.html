@@ -1,0 +1,186 @@
+---
+layout: main
+title: "Taiwan's Anti-Fraud Act on Paper: 58,334 Blocked Domains and Three Platforms That Count Differently"
+description: "Taiwan's police reported DNS-blocking 58,334 fraud sites in six months — 68% fake finance/insurance sites — while Google, LINE, and TikTok's statutory anti-fraud reports disclose in incompatible units: URLs, accounts, and videos over three different coverage windows."
+date: 2026-07-14
+og_image: /images/taiwan-anti-fraud-transparency-en.png
+lang: en
+published: false
+---
+
+<article class="post">
+  <a href="/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>Taiwan's Anti-Fraud Act on Paper: 58,334 Blocked Domains and Three Platforms That Count Differently</h1>
+    <time class="news-date" datetime="2026-07-14">July 14, 2026</time>
+    <div class="tags">
+      <span class="tag">Transparency</span>
+      <span class="tag">Data</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/taiwan-anti-fraud-transparency-en.png" alt="Taiwan's Anti-Fraud Act on Paper: 58,334 Blocked Domains and Three Platforms That Count Differently" width="1200" height="630">
+    </figure>
+
+    <p><em>In six months, Taiwan's police reported DNS-blocking 58,334 fraud sites — 68% of them fake finance-and-insurance sites — while the ad platforms' statutory reports count URLs, accounts, and videos that can't be added together.</em></p>
+
+<p><strong>Bottom line:</strong> The National Police Agency's enforcement stream under Article 42 of Taiwan's Anti-Fraud Act (詐欺犯罪危害防制條例) reports 58,334 fraud websites whose DNS resolution was suspended from December 2025 through May 2026, overwhelmingly categorized as fake finance/insurance (金融保險, 68.4%) and e-commerce (電子商務, 19.8%) sites — but the monthly totals are extremely lumpy (25,439 in January 2026, then 1,346 in February), which reads as batch-driven administrative output, not a fraud trend. The designated ad platforms' statutory transparency reports, meanwhile, disclose in three incompatible grains: Google reports URLs, LINE reports suspended accounts, TikTok reports cases and ads — over three different coverage windows.</p>
+
+<ul><li><strong>Data:</strong> taiwan_metrics, Transparency Report API, NPA-165 monthly 2025-12..2026-05; platform windows Google 2024-07..2025-06, LINE 2024-08..2025-09, TikTok 2025-01..2025-09.</li></ul>
+
+<hr>
+
+<h2>What gets DNS-blocked: investment scams, barely any phishing</h2>
+
+<p>The NPA-165 stream tags every blocked site with an official category (網站性質). Two categories carry almost everything: fake finance/insurance sites (39,907) and fake e-commerce sites (11,523) together account for 88.2% of all 58,334 blocks. Classic phishing sites (釣魚網站) are a rounding error — 102 sites, 0.2% — as are fake-friendship, crypto, and loan sites. The blocking machinery is pointed overwhelmingly at the fake-investment-platform ecosystem.</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>Category (網站性質)</th>
+<th class="td-num">2025-12</th>
+<th class="td-num">2026-01</th>
+<th class="td-num">2026-02</th>
+<th class="td-num">2026-03</th>
+<th class="td-num">2026-04</th>
+<th class="td-num">2026-05</th>
+<th class="td-num">Total</th>
+</tr></thead><tbody>
+<tr>
+<td>金融保險 (finance/insurance)</td>
+<td class="td-num">13,131</td>
+<td class="td-num">22,208</td>
+<td class="td-num">675</td>
+<td class="td-num">1,020</td>
+<td class="td-num">1,385</td>
+<td class="td-num">1,488</td>
+<td class="td-num">39,907</td>
+</tr>
+<tr>
+<td>電子商務 (e-commerce)</td>
+<td class="td-num">4,082</td>
+<td class="td-num">2,639</td>
+<td class="td-num">434</td>
+<td class="td-num">1,470</td>
+<td class="td-num">1,089</td>
+<td class="td-num">1,809</td>
+<td class="td-num">11,523</td>
+</tr>
+<tr>
+<td>資訊服務 (information services)</td>
+<td class="td-num">338</td>
+<td class="td-num">276</td>
+<td class="td-num">127</td>
+<td class="td-num">838</td>
+<td class="td-num">884</td>
+<td class="td-num">1,205</td>
+<td class="td-num">3,668</td>
+</tr>
+<tr>
+<td>運輸倉儲 (transport/logistics)</td>
+<td class="td-num">236</td>
+<td class="td-num">275</td>
+<td class="td-num">57</td>
+<td class="td-num">464</td>
+<td class="td-num">803</td>
+<td class="td-num">784</td>
+<td class="td-num">2,619</td>
+</tr>
+<tr>
+<td>All other (12 categories)</td>
+<td class="td-num">107</td>
+<td class="td-num">41</td>
+<td class="td-num">53</td>
+<td class="td-num">104</td>
+<td class="td-num">181</td>
+<td class="td-num">131</td>
+<td class="td-num">617</td>
+</tr>
+<tr>
+<td><strong>All sites</strong></td>
+<td class="td-num"><strong>17,894</strong></td>
+<td class="td-num"><strong>25,439</strong></td>
+<td class="td-num"><strong>1,346</strong></td>
+<td class="td-num"><strong>3,896</strong></td>
+<td class="td-num"><strong>4,342</strong></td>
+<td class="td-num"><strong>5,417</strong></td>
+<td class="td-num"><strong>58,334</strong></td>
+</tr>
+</tbody></table></div>
+
+<p>The monthly shape is dramatic — January 2026 alone is 43.6% of the six-month total, and February collapses to 5.3% of January's figure — but it doesn't survive as a "fraud plunged" story. The boom-bust sits in one category: 88.6% of all finance/insurance blocks land in the first two months. Strip that category out and the residual series (4,763 → 3,231 → 671 → 2,876 → 2,957 → 3,929) is an ordinary dip-and-recover. The likeliest reading is a bulk sweep of investment-scam domains processed in December–January, then steady-state operations; these are counts of administrative blocking actions per month, not a measure of how much fraud exists.</p>
+
+<h2>The platform reports: same law, three different rulers</h2>
+
+<p>Under Articles 32–33, designated ad platforms file statutory 詐欺防制計畫透明度報告. Each publisher discloses a different quantity over a different window, so the reports cannot be summed or ranked.</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>Publisher (window)</th>
+<th>What it reports</th>
+<th class="td-num">Value</th>
+</tr></thead><tbody>
+<tr>
+<td>Google (2024-07..2025-06)</td>
+<td>Government requests received</td>
+<td class="td-num">236</td>
+</tr>
+<tr>
+<td>Google</td>
+<td>URLs named in requests</td>
+<td class="td-num">4,478</td>
+</tr>
+<tr>
+<td>Google</td>
+<td>URLs removed (policy 3,337 + legal 227)</td>
+<td class="td-num">3,564</td>
+</tr>
+<tr>
+<td>LINE (2024-08..2025-09)</td>
+<td>Art. 33 accounts suspended</td>
+<td class="td-num">102,359</td>
+</tr>
+<tr>
+<td>LINE</td>
+<td>— of which via CIB joint project</td>
+<td class="td-num">73,552</td>
+</tr>
+<tr>
+<td>TikTok (2025-01..2025-09)</td>
+<td>MODA notifications received</td>
+<td class="td-num">14</td>
+</tr>
+<tr>
+<td>TikTok</td>
+<td>Ads removed on notification</td>
+<td class="td-num">42</td>
+</tr>
+<tr>
+<td>TikTok (voluntary)</td>
+<td>Fraud ads removed, Taiwan</td>
+<td class="td-num">23,164</td>
+</tr>
+</tbody></table></div>
+
+<p>Google's report reads as a request-response ledger: it reports removing 79.6% of the 4,478 URLs named in 236 government requests, and 93.6% of those removals were under its own policies rather than legal compulsion; 914 URLs were not actioned. LINE reports no URL figures at all — its unit is the account, 102,359 suspended, 71.9% of them through the Criminal Investigation Bureau joint project — while reporting zero Article 32 ad dispositions and zero service-suspension orders. TikTok's statutory numbers are tiny (14 ministry notifications, 42 ads removed), but its voluntary proactive figures in the same filing report 23,164 fraud ads and 31,987 fraud videos removed in Taiwan — roughly 550 removed fraud ads for every one removed on a government notification. The notification pipeline surfaces only a sliver of the enforcement the platform says it does on its own.</p>
+
+<p><strong>Caveats.</strong> All figures are self-reported: NPA-165 reports blocking actions (a site blocked is not a scam prevented, and re-registered domains can be counted again), and platform numbers come from the companies' own statutory filings — "LINE reports suspending 102,359 accounts," not independently verified. Coverage windows differ by publisher and overlap only partially, so cross-platform comparisons of magnitude are meaningless; requests, URLs, accounts, ads, and videos are distinct units, and some metrics are subsets of others (Google's legal + policy removals compose urls_removed; LINE's CIB figure sits inside its Art. 33 total). Meta is a designated platform but its report is not yet retrievable here. NPA data vintage: May 2026; the six-month span is too short to call a trend.</p>
+
+<p><em>Data: taiwan_metrics, Transparency Report API, NPA-165 2025-12..2026-05; Google 2024-07..2025-06; LINE 2024-08..2025-09; TikTok 2025-01..2025-09.</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/taiwan-anti-fraud-transparency-en.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

@@ -1,0 +1,153 @@
+---
+layout: main
+title: "Fifty Notices to One: How Code Actually Gets Taken Down on GitHub"
+description: "GitHub's transparency data 2021-2025: 10,687 DMCA takedown notices vs 204 government takedown requests — 88% of them from Russia, whose action rate collapsed from 89% to 3% as its demands quintupled."
+date: 2026-07-14
+og_image: /images/github-transparency-report-en.png
+lang: en
+published: false
+---
+
+<article class="post">
+  <a href="/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>Fifty Notices to One: How Code Actually Gets Taken Down on GitHub</h1>
+    <time class="news-date" datetime="2026-07-14">July 14, 2026</time>
+    <div class="tags">
+      <span class="tag">Transparency</span>
+      <span class="tag">Data</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/github-transparency-report-en.png" alt="Fifty Notices to One: How Code Actually Gets Taken Down on GitHub" width="1200" height="630">
+    </figure>
+
+    <p><em>Over 2021–2025, GitHub reports processing 10,687 DMCA takedown notices — against just 204 takedown requests from every government on Earth combined, 88% of them from a single country: Russia.</em></p>
+
+<p><strong>Bottom line:</strong> GitHub's transparency data shows that content moderation on the world's largest code host is overwhelmingly a copyright regime, not a government-censorship one — DMCA notices outnumber government takedown requests roughly 50-to-1 across 2021–2025, and 25-to-1 even in 2025, when government demands hit their peak. The biggest caveat is composition: the "government" series is really a Russia series (180 of 204 requests), and GitHub reports actioning almost none of Russia's recent demands — 3 of 97 in 2025 — so the gap between what governments <em>ask</em> and what happens to code is even wider than the request counts suggest.</p>
+
+<ul><li><strong>Data:</strong> github_metrics, Transparency Report API, calendar years 2014–2025 (most series 2021–2025; national-security bands 2014–2025).</li></ul>
+
+<hr>
+
+<h2>Copyright is the moderation regime that actually runs</h2>
+
+<p>GitHub's government-takedown pipeline is tiny. Its DMCA pipeline is an industrial process: roughly two thousand notices processed every year, with counter notices, retractions, and reversals clawing back only about 2% of them (240 over five years, against 10,687 notices). Meanwhile the fastest-growing copyright category is Section 1201 anti-circumvention claims — the legal theory behind the yt-dlp and Twitch-tools disputes — which GitHub reports rising from 92 claims in 2021 to 645 in 2025, a sevenfold jump (and up from just 18 in 2015).</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>Year</th>
+<th class="td-num">DMCA notices processed</th>
+<th class="td-num">§1201 circumvention claims</th>
+<th class="td-num">Gov't takedown requests received</th>
+<th class="td-num">Gov't requests actioned</th>
+</tr></thead><tbody>
+<tr>
+<td>2021</td>
+<td class="td-num">1,828</td>
+<td class="td-num">92</td>
+<td class="td-num">36</td>
+<td class="td-num">33</td>
+</tr>
+<tr>
+<td>2022</td>
+<td class="td-num">2,321</td>
+<td class="td-num">365</td>
+<td class="td-num">12</td>
+<td class="td-num">6</td>
+</tr>
+<tr>
+<td>2023</td>
+<td class="td-num">2,051</td>
+<td class="td-num">406</td>
+<td class="td-num">15</td>
+<td class="td-num">12</td>
+</tr>
+<tr>
+<td>2024</td>
+<td class="td-num">2,023</td>
+<td class="td-num">456</td>
+<td class="td-num">43</td>
+<td class="td-num">14</td>
+</tr>
+<tr>
+<td>2025</td>
+<td class="td-num">2,464</td>
+<td class="td-num">645</td>
+<td class="td-num">98</td>
+<td class="td-num">3</td>
+</tr>
+</tbody></table></div>
+
+<p>If you want to understand what gets code removed from GitHub, the DMCA docket — not any ministry — is where the action is.</p>
+
+<h2>Russia asks more and more, and gets less and less</h2>
+
+<p>Only eleven governments appear in the takedown data at all across five years (Russia, the US, China, India, and a handful of one-off requesters like Singapore and Sri Lanka). Russia accounts for 180 of the 204 requests, and its trajectory is the story: requests roughly quintupled from 2021 to 2025 while GitHub's action rate collapsed from 89% to 3%.</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>Year</th>
+<th class="td-num">Russia requests received</th>
+<th class="td-num">Russia requests actioned</th>
+<th class="td-num">Action rate</th>
+</tr></thead><tbody>
+<tr>
+<td>2021</td>
+<td class="td-num">19</td>
+<td class="td-num">17</td>
+<td class="td-num">89%</td>
+</tr>
+<tr>
+<td>2022</td>
+<td class="td-num">11</td>
+<td class="td-num">5</td>
+<td class="td-num">45%</td>
+</tr>
+<tr>
+<td>2023</td>
+<td class="td-num">11</td>
+<td class="td-num">8</td>
+<td class="td-num">73%</td>
+</tr>
+<tr>
+<td>2024</td>
+<td class="td-num">42</td>
+<td class="td-num">13</td>
+<td class="td-num">31%</td>
+</tr>
+<tr>
+<td>2025</td>
+<td class="td-num">97</td>
+<td class="td-num">3</td>
+<td class="td-num">3%</td>
+</tr>
+</tbody></table></div>
+
+<p>The basis for action changed too. In 2021, GitHub reports processing 20 requests under "local law" (17 of them Russian, geoblocking content in-country). From 2022 through 2025, the local-law count is zero every single year: the only government requests GitHub reports acting on are ones where the flagged content independently violated its own terms of service. In other words, GitHub's data says it stopped honoring legal-compliance takedowns entirely after 2021 — governments now only "succeed" when they point out content GitHub would have removed anyway.</p>
+
+<h2>The quieter pressure: user data, not takedowns</h2>
+
+<p>Governments get far more from GitHub as an evidence locker than as a censor. In 2025 GitHub reports 650 user-information requests received (criminal subpoenas dominate at 385) and 517 disclosures. And the banded national-security series shows a distinct climb: accounts affected by national-security letters and orders sat in the 0–249 band every half-year from 2014 through early 2022, then rose steadily to 2,000–2,249 in the first half of 2025. The number of letters/orders stayed in the lowest band almost throughout (one spike to 750–999 in late 2024), meaning fewer instruments are sweeping in many more accounts.</p>
+
+<p><strong>Caveats.</strong> All figures are GitHub's self-reported counts; "GitHub reports" is doing real work throughout, especially for the claim that it actioned 3 of Russia's 97 requests in 2025 (requests received late in a year may be resolved later, though no prior year shows a lag that large). The government series is dominated by Russia — ex-Russia, all other governments combined sent 24 requests in five years — so "government takedowns" trends are effectively Russia trends. National-security and EU-DSA figures are banded ranges (US-government-mandated bands), not exact counts, and cannot be summed; I compare bands, never totals. DMCA "notices processed" counts notices, not repositories — a single notice can affect many forks. Latest vintage: calendar year 2025 for the annual series, July–December 2025 for national-security bands.</p>
+
+<p><em>Data: github_metrics, Transparency Report API, 2014–2025 (annual series 2021–2025).</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/github-transparency-report-en.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>
