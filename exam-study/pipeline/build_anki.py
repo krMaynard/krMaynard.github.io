@@ -138,43 +138,59 @@ MODEL = genanki.Model(
 
 
 def spoken(it: dict) -> str:
-    """Build the spoken-answer line; spell acronyms so the name cements aurally."""
-    parts = [it["law"] + "."]
-    acr = it.get("acronym", "")
-    if acr and acr.upper() != it["law"].upper():
+    """Build the spoken-answer line; spell acronyms so the name cements aurally.
+
+    Every field is coerced with `str(it.get(k) or "")` so a missing key, a JSON
+    null, or a non-string value can't raise or leak the literal "None".
+    """
+    law = str(it.get("law") or "").strip()
+    parts = [law + "."] if law else []
+    acr = str(it.get("acronym") or "").strip()
+    if acr and acr.upper() != law.upper():
         letters = ". ".join(acr.replace(".", "")) if acr.isupper() or len(acr) <= 6 else acr
         parts.append(letters + ".")
-    if it.get("year"):
-        parts.append(f"Enacted {it['year']}.")
-    if it.get("citation"):
-        cite = it["citation"].replace("§§", "Sections ").replace("§", "Section ")
+    year = str(it.get("year") or "").strip()
+    if year:
+        parts.append(f"Enacted {year}.")
+    citation = str(it.get("citation") or "").strip()
+    if citation:
+        cite = citation.replace("§§", "Sections ").replace("§", "Section ")
         parts.append(cite + ".")
-    if it.get("enforcer"):
-        parts.append("Enforced by " + it["enforcer"])
+    enforcer = str(it.get("enforcer") or "").strip()
+    if enforcer:
+        parts.append("Enforced by " + enforcer)
     return " ".join(parts)
 
 
-async def synth_all(items: list[dict], media_dir: Path) -> dict[str, str]:
+async def synth_all(items: list[dict], media_dir: Path,
+                    concurrency: int = 5) -> dict[str, str]:
+    """Synthesize every answer clip concurrently (bounded), retrying transient
+    failures. A whole deck is one round trip per note, so a semaphore keeps the
+    edge-tts endpoint from being hammered while still overlapping the waits."""
     import edge_tts
     audio: dict[str, str] = {}
-    for it in items:
+    sem = asyncio.Semaphore(concurrency)
+
+    async def synth_one(it: dict) -> None:
         fname = "usreg_" + re.sub(r"[^A-Za-z0-9_]", "_", it["slug"]) + ".mp3"
         path = media_dir / fname
         text = spoken(it)
-        for attempt in range(4):
-            try:
-                await edge_tts.Communicate(text, VOICE, rate="-4%").save(str(path))
-                if path.stat().st_size > 0:
-                    break
-                raise RuntimeError("empty audio")
-            except Exception as e:  # noqa: BLE001
-                if attempt == 3:
-                    print(f"    audio FAILED for {it['slug']}: {e}", file=sys.stderr)
-                    path = None
-                    break
-                await asyncio.sleep(2 ** attempt)
-        if path:
-            audio[it["slug"]] = fname
+        async with sem:
+            for attempt in range(4):
+                try:
+                    path.unlink(missing_ok=True)  # never treat a stale/partial file as success
+                    await edge_tts.Communicate(text, VOICE, rate="-4%").save(str(path))
+                    if path.exists() and path.stat().st_size > 0:
+                        audio[it["slug"]] = fname
+                        return
+                    raise RuntimeError("empty audio")
+                except Exception as e:  # noqa: BLE001
+                    if attempt == 3:
+                        print(f"    audio FAILED for {it['slug']}: {e}", file=sys.stderr)
+                        return
+                    await asyncio.sleep(2 ** attempt)
+
+    await asyncio.gather(*(synth_one(it) for it in items))
     return audio
 
 

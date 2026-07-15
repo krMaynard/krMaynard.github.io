@@ -40,7 +40,9 @@ def extract_json(text: str) -> str:
         text = re.sub(r"^```[a-zA-Z]*\n", "", text)
         text = re.sub(r"\n```$", "", text)
     text = text.strip()
-    start, end = text.find("{"), text.rfind("}")
+    # Accept either a JSON object {...} or a bare array [...] the model may emit.
+    start = min((text.find(c) for c in "{[" if c in text), default=-1)
+    end = max((text.rfind(c) for c in "}]" if c in text), default=-1)
     if start != -1 and end != -1 and end > start:
         return text[start:end + 1]
     return text
@@ -49,14 +51,16 @@ def extract_json(text: str) -> str:
 def gen_cards(chapter_md: str) -> list[dict]:
     raw = extract_json(run_claude((PROMPTS / "cards.md").read_text(encoding="utf-8") + chapter_md))
     data = json.loads(raw)
-    if not isinstance(data, dict) or not isinstance(data.get("items"), list):
-        raise ValueError("cards JSON must be an object with an items list")
+    items = data.get("items") if isinstance(data, dict) else data  # accept {items:[...]} or bare [...]
+    if not isinstance(items, list):
+        raise ValueError("cards JSON must be an object with an items list (or a bare list)")
     clean: list[dict] = []
-    for it in data["items"]:
+    for it in items:
         if not isinstance(it, dict):
             continue
-        if all(str(it.get(k, "")).strip() for k in REQUIRED):
-            clean.append({k: str(it.get(k, "")).strip() for k in
+        # `it.get(k) or ""` (not a "" default) so a JSON null becomes "", never the string "None".
+        if all(str(it.get(k) or "").strip() for k in REQUIRED):
+            clean.append({k: str(it.get(k) or "").strip() for k in
                           ("slug", "law", "acronym", "year", "citation", "scope",
                            "trigger", "enforcer", "key_facts", "scenario")})
     return clean
