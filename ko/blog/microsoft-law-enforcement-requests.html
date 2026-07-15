@@ -1,0 +1,184 @@
+---
+layout: main
+title: "두 나라 클럽: 마이크로소프트에서 실제로 콘텐츠를 받는 곳은 어디인가"
+description: "2017년 이후 427,023건의 형사 법 집행 요청 가운데 마이크로소프트가 고객 콘텐츠를 넘긴 것은 단 19,103건이며, 그중 96%가 미국과 브라질 두 나라로 향했다."
+date: 2026-07-14
+og_image: /images/microsoft-law-enforcement-requests-ko.png
+lang: ko
+published: false
+lang_url: /blog/microsoft-law-enforcement-requests.html
+lang_url_ja: /ja/blog/microsoft-law-enforcement-requests.html
+lang_url_zh: /zh/blog/microsoft-law-enforcement-requests.html
+---
+
+<article class="post">
+  <a href="/ko/blog.html" class="post-back">← 블로그</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>두 나라 클럽: 마이크로소프트에서 실제로 콘텐츠를 받는 곳은 어디인가</h1>
+    <time class="news-date" datetime="2026-07-14">July 14, 2026</time>
+    <div class="tags">
+      <span class="tag">투명성</span>
+      <span class="tag">Data</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/microsoft-law-enforcement-requests-ko.png" alt="마이크로소프트의 법 집행 요청에 대한 콘텐츠 공개 건수를 국가별로 보여주는 차트" width="1200" height="630">
+    </figure>
+
+    <p><em>2017년 이후 427,023건의 형사 법 집행 요청 전체에서 마이크로소프트가 고객 콘텐츠를 넘겼다고 보고한 것은 단 19,103건이며, 그 공개의 96%가 두 나라, 즉 미국과 브라질로 향했다.</em></p>
+
+<p><strong>핵심:</strong> 마이크로소프트의 법 집행 보고서를 보면 실제 콘텐츠(이메일, 문서, 사진)가 회사 밖으로 나가는 일은 거의 없다. 2017-H1부터 2025-H1까지 형사 요청 중 콘텐츠 공개로 이어진 것은 4.5%에 불과하며, 미국(콘텐츠율 12.5%)과 브라질(25.2%)을 제외하면 나머지 전 세계는 309,061건의 요청 중 단 0.27%에서만 콘텐츠를 받았다. 큰 유의점은 이것이 마이크로소프트의 자체 보고 집계라는 점, 그리고 보고서 형식이 2017년에 바뀌었기 때문에 위의 8.5년치 수치는 오로지 '형사(criminal)' 섹션에만 한정된다는 점이다.</p>
+
+<ul><li><strong>데이터:</strong> microsoft_metrics, Transparency Report API, 반기별 2013-H1 – 2025-H1 (형사 섹션 2017-H1 – 2025-H1, 통합 섹션 2013–2016).</li></ul>
+
+<hr>
+
+<h2>네 가지 결과, 그중 드문 하나</h2>
+
+<p>마이크로소프트 보고서에서 모든 형사 절차 요청은 정확히 네 가지 범주 중 하나에 속하며, 이 데이터셋에서 각 범주는 요청 총계를 빠짐없이 나눈다. 2017-H1부터 2025-H1까지 427,023건의 요청은 콘텐츠 공개 19,103건(4.5%), 비콘텐츠 공개 249,613건(58.5%), '데이터 없음' 63,135건(14.8%), 거부 95,172건(22.3%)으로 구성된다. 다시 말해 마이크로소프트가 응할 때(약 63%) 넘기는 것은 압도적으로 가입자 및 거래 메타데이터이며, 고객이 실제로 작성하거나 저장한 내용이 아니다.</p>
+
+<p>요청 건수 자체는 놀라울 만큼 평탄하다. 2017년 이후 모든 반기의 형사 요청은 21,433건에서 28,593건 사이에 머물렀다. 평탄하지 않은 것은 요청당 범위다. 지정된 계정 수는 2025-H1에 101,115개에 달해 최근 반기의 통상적인 약 50,000개의 대략 두 배가 되었으며, 그중 미국 한 곳이 63,279개를 차지한다(2024-H1의 31,018개에서 증가).</p>
+
+<h2>콘텐츠 공개는 두 나라만의 현상</h2>
+
+<p>보고서는 시기에 따라 미국 표기가 일관되지 않으며(대부분의 반기는 'United States', 2023-H1과 2025-H1은 'USA'), 이 둘을 합치면 그림이 뚜렷해진다. 미국은 90,281건의 형사 요청을 제출해 11,293회 콘텐츠를 받았는데, 이는 전 세계 모든 콘텐츠 공개의 59%에 해당한다. 콘텐츠율 25.2%의 브라질이 나머지 대부분을 차지했다. 최대 요청국인 독일은 8.5년 동안 콘텐츠를 한 번도 받지 못했으며, 영국, 프랑스, 인도도 마찬가지다.</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>국가 (형사, 2017-H1–2025-H1)</th>
+<th class="td-num">요청 건수</th>
+<th class="td-num">콘텐츠 공개</th>
+<th class="td-num">콘텐츠율</th>
+<th class="td-num">거부율</th>
+</tr></thead><tbody>
+<tr>
+<td>Germany</td>
+<td class="td-num">80,826</td>
+<td class="td-num">0</td>
+<td class="td-num">0.0%</td>
+<td class="td-num">31.0%</td>
+</tr>
+<tr>
+<td>United States (incl. "USA" rows)</td>
+<td class="td-num">90,281</td>
+<td class="td-num">11,293</td>
+<td class="td-num">12.5%</td>
+<td class="td-num">13.2%</td>
+</tr>
+<tr>
+<td>United Kingdom</td>
+<td class="td-num">57,316</td>
+<td class="td-num">0</td>
+<td class="td-num">0.0%</td>
+<td class="td-num">9.3%</td>
+</tr>
+<tr>
+<td>France</td>
+<td class="td-num">39,771</td>
+<td class="td-num">0</td>
+<td class="td-num">0.0%</td>
+<td class="td-num">29.1%</td>
+</tr>
+<tr>
+<td>Brazil</td>
+<td class="td-num">27,681</td>
+<td class="td-num">6,978</td>
+<td class="td-num">25.2%</td>
+<td class="td-num">29.5%</td>
+</tr>
+<tr>
+<td>India</td>
+<td class="td-num">13,743</td>
+<td class="td-num">0</td>
+<td class="td-num">0.0%</td>
+<td class="td-num">46.4%</td>
+</tr>
+<tr>
+<td>All others</td>
+<td class="td-num">117,405</td>
+<td class="td-num">832</td>
+<td class="td-num">0.7%</td>
+<td class="td-num">—</td>
+</tr>
+</tbody></table></div>
+
+<p>이 이분화는 마이크로소프트가 오랫동안 공개적으로 밝혀온 입장, 즉 강제력이 미치는 관할권에서 구속력 있는 법적 명령(주로 미국의 warrant〔영장〕)에 따라서만 콘텐츠를 공개한다는 입장과 일치한다. 따라서 다른 지역에서의 거의 0에 가까운 공개율은 법적 적용 범위의 산물이지, 각국 경찰이 얼마나 적극적인지를 나타내는 지표가 아니다. 한편 거부율은 편차가 매우 크다. 인도는 요청의 46%가 거부되고 이탈리아는 41%인 반면, 영국은 9%다.</p>
+
+<h2>거부는 10년간 상승해 왔다</h2>
+
+<p>더 오래된 '통합(combined)' 섹션(2013–2016)을 사용하면 추세를 더 과거까지 거슬러 올라갈 수 있지만, 형사 전용 시기와 직접 비교할 수 있는 것은 아니다. 각 섹션 내에서 방향은 동일하다. 마이크로소프트는 접수한 요청 중 거부하는 비율을 점점 늘리고 있다.</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>기간</th>
+<th>섹션</th>
+<th class="td-num">요청 건수</th>
+<th class="td-num">콘텐츠율</th>
+<th class="td-num">비콘텐츠율</th>
+<th class="td-num">거부율</th>
+</tr></thead><tbody>
+<tr>
+<td>2013-H1</td>
+<td>combined</td>
+<td class="td-num">37,196</td>
+<td class="td-num">2.2%</td>
+<td class="td-num">77.2%</td>
+<td class="td-num">2.4%</td>
+</tr>
+<tr>
+<td>2016-H2</td>
+<td>combined</td>
+<td class="td-num">25,837</td>
+<td class="td-num">3.7%</td>
+<td class="td-num">64.3%</td>
+<td class="td-num">15.5%</td>
+</tr>
+<tr>
+<td>2017-H1</td>
+<td>criminal</td>
+<td class="td-num">25,367</td>
+<td class="td-num">4.3%</td>
+<td class="td-num">63.0%</td>
+<td class="td-num">16.6%</td>
+</tr>
+<tr>
+<td>2021-H1</td>
+<td>criminal</td>
+<td class="td-num">27,809</td>
+<td class="td-num">4.4%</td>
+<td class="td-num">50.0%</td>
+<td class="td-num">27.9%</td>
+</tr>
+<tr>
+<td>2025-H1</td>
+<td>criminal</td>
+<td class="td-num">28,593</td>
+<td class="td-num">4.7%</td>
+<td class="td-num">59.3%</td>
+<td class="td-num">22.5%</td>
+</tr>
+</tbody></table></div>
+
+<p>거부율은 2013-H1 요청의 2.4%에서 2016년 말 15.5%까지 올랐고, 이후 형사 시기에는 16.6%에서 2021-H1의 정점인 27.9%까지 상승했다가 그 이후로 22~23% 안팎에 자리 잡았다. 비콘텐츠 공개는 반대 방향으로 움직여 2013년 요청의 77%에서 오늘날에는 50%대 후반으로 내려갔다.</p>
+
+<p><strong>유의점.</strong> 모든 수치는 마이크로소프트의 자체 보고 집계이며, 최신 기간은 2025-H1이다. 수치는 한 번에 하나의 섹션에만 한정된다. '통합'(2013–2016)과 '형사'(2017년 이후)는 서로 다른 보고 체제로 합산해서는 안 되며, 2013년 'skype' 섹션은 '통합'과 겹치고, 규모가 작은 'civil(민사)' 섹션은 결과 지표에서 요청이 아니라 계정 수를 세므로 여기서는 제외했다. 각 비율은 합산한 건수에서 계산한 것이며 백분율을 평균한 것이 아니다. 미국은 두 가지 표기('United States'/'USA')로 나타나 위에서는 합쳤으며, 콘텐츠에 관해서는 집계값이 미국에 크게 치우쳐 있으므로(전체 공개의 59%) 중요한 부분에서는 미국을 제외한 수치를 제시한다.</p>
+
+<p><em>데이터: microsoft_metrics, Transparency Report API, 2013-H1 – 2025-H1.</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/microsoft-law-enforcement-requests-ko.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

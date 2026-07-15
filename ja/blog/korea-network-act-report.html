@@ -1,0 +1,146 @@
+---
+layout: main
+title: "韓国のn番部屋法がGoogleから引き出すもの"
+description: "n番部屋事件を機に生まれた透明性規則の下、Googleは6本の年次報告書で韓国において違法な性的コンテンツとして通報された442,452件のURLを報告している。ディープフェイクは請求全体のわずか0.6%にすぎない。"
+date: 2026-07-14
+og_image: /images/korea-network-act-report-ja.png
+lang: ja
+published: false
+lang_url: /blog/korea-network-act-report.html
+lang_url_zh: /zh/blog/korea-network-act-report.html
+lang_url_ko: /ko/blog/korea-network-act-report.html
+---
+
+<article class="post">
+  <a href="/ja/blog.html" class="post-back">← ブログ</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>韓国のn番部屋法がGoogleから引き出すもの</h1>
+    <time class="news-date" datetime="2026-07-14">July 14, 2026</time>
+    <div class="tags">
+      <span class="tag">透明性</span>
+      <span class="tag">データ</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/korea-network-act-report-ja.png" alt="韓国のネットワーク法に基づくGoogleの通報URL件数の年次推移を示すチャート" width="1200" height="630">
+    </figure>
+
+    <p><em>n番部屋事件を機に生まれた透明性規則の下、Googleは6本の年次報告書で韓国において違法な性的コンテンツとして通報された442,452件のURLを報告している。ディープフェイクは請求全体のわずか0.6%にすぎない。</em></p>
+
+<p><strong>結論:</strong> GoogleのKorea Network Act（韓国ネットワーク法）報告書によれば、通報URL件数は2020年の61件から2024年の158,052件へと爆発的に増加し、その後2025年には115,280件へと減少した。請求のおよそ5件に4件は被害者ではなく政府側の機関が申し立てており、これはおよそ4対1の割合である。ただしこの時系列には重大な留保がある。児童・青少年の性的虐待に関する請求は、報告年度のちょうど境界で2024年の29,821件から2025年の927件へと崩落しており、これは現実世界での減少ではなく、報告または送付経路の変更のように見える。</p>
+
+<ul><li><strong>データ:</strong> korea_network_act_metrics、Transparency Report API、2020〜2025年の年次報告書（2024〜2025年は月次詳細）。</li></ul>
+
+<hr>
+
+<h2>プラットフォームに集計を義務づける法律</h2>
+
+<p>n番部屋デジタル性犯罪事件を受けて、韓国はネットワーク法（第64条の5）と電気通信事業法（第22条の5）を改正し、オンラインサービス提供者に対し、違法に撮影されたコンテンツ、「フェイク」（ディープフェイク）画像、児童・青少年の性的虐待素材への技術的措置を講じることと、それに関する年次報告書を公表することを義務づけた。一般的な透明性報告書とは異なり、この報告書は単一の被害類型に限定されており、2024年報告書以降は申立人・理由・結果ごとに月次で分類されている。</p>
+
+<p>Google（検索とYouTubeを合わせて対象）は、6年分の主要な数値を報告している。</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>年</th>
+<th class="td-num">受領URL数</th>
+<th class="td-num">削除URL数</th>
+<th class="td-num">削除率</th>
+</tr></thead><tbody>
+<tr>
+<td>2020</td>
+<td class="td-num">61</td>
+<td class="td-num">42</td>
+<td class="td-num">68.9%</td>
+</tr>
+<tr>
+<td>2021</td>
+<td class="td-num">31,281</td>
+<td class="td-num">18,294</td>
+<td class="td-num">58.5%</td>
+</tr>
+<tr>
+<td>2022</td>
+<td class="td-num">47,162</td>
+<td class="td-num">38,908</td>
+<td class="td-num">82.5%</td>
+</tr>
+<tr>
+<td>2023</td>
+<td class="td-num">90,616</td>
+<td class="td-num">81,593</td>
+<td class="td-num">90.0%</td>
+</tr>
+<tr>
+<td>2024</td>
+<td class="td-num">158,052</td>
+<td class="td-num">142,211</td>
+<td class="td-num">90.0%</td>
+</tr>
+<tr>
+<td>2025</td>
+<td class="td-num">115,280</td>
+<td class="td-num">92,334</td>
+<td class="td-num">80.1%</td>
+</tr>
+</tbody></table></div>
+
+<p>2020年の数値はタイミングによる産物である。義務が発効したのは2020年末になってからであり、そのため最初の報告書は立ち上げ期のごく一部しかカバーしていない。最初の通年から、件数は2024年のピークまで5倍に増加し（31,281 → 158,052）、その後2025年には27%減少した。このデータセットにはKakaoとNaverの年次サマリーも含まれており、その対照は際立っている。同じ6年間でKakaoは462件のURL受領（391件削除）、Naverは325件（91件削除）を報告している。Googleがこのデータセットの件数のほぼすべてを占めているため、ここでの「韓国のプラットフォーム」という集計値は実質的にGoogleの数値である。</p>
+
+<h2>誰が、何について請求しているのか</h2>
+
+<p>2024〜2025年の月次詳細（273,332件の請求）は、これが主に政府からプラットフォームへのパイプラインであることを示している。機関・団体が217,446件（79.6%）を申し立てたのに対し、被害者やその他の利用者は55,886件（20.4%）であった。理由別では、この法律の本来の対象が支配的である。</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>請求理由（2024〜2025年）</th>
+<th class="td-num">請求件数</th>
+<th class="td-num">割合</th>
+<th class="td-num">削除URL数</th>
+</tr></thead><tbody>
+<tr>
+<td>Illegal photos and videos</td>
+<td class="td-num">240,970</td>
+<td class="td-num">88.2%</td>
+<td class="td-num">206,770</td>
+</tr>
+<tr>
+<td>Child or youth sexual-abuse content</td>
+<td class="td-num">30,748</td>
+<td class="td-num">11.2%</td>
+<td class="td-num">26,923</td>
+</tr>
+<tr>
+<td>Fake images and videos (deepfakes)</td>
+<td class="td-num">1,614</td>
+<td class="td-num">0.6%</td>
+<td class="td-num">852</td>
+</tr>
+</tbody></table></div>
+
+<p>意外なのはディープフェイクの行である。2024年の韓国のディープフェイク危機は「フェイク画像・動画」をこの法律で最も議論されたカテゴリーにしたが、Googleが報告したディープフェイク請求は2024年全体でわずか964件、2025年は650件にすぎない。目に見える急増もある。学校ディープフェイク事件がピークに達する中、2024年6月だけで517件、さらに8月に183件、9月に118件が寄せられた。しかしそれでもなお、このカテゴリーは通常の違法撮影コンテンツの件数には遠く及ばない。ディープフェイク請求は削除に至る割合も最も低く、1,614件の請求に対し852件が削除された（約53%）のに対し、違法な写真・動画は約86%、CSAM（児童性的虐待素材）は約88%であった。Googleがコンテンツを削除しないと報告する場合、最も多く挙げられる理由は「コンテンツが見つからない」で、これは2024年の7,508件のURLから2025年には12,841件へと増加した。</p>
+
+<h2>CSAMの断崖は定義であって、傾向ではない</h2>
+
+<p>データの中で最も劇的な線は、児童・青少年の性的虐待コンテンツである。2024年は毎月1,300〜3,700件の請求で安定していた（合計29,821件）のに、2025年1月は3件、2月は1件、そして年間を通じてもわずか927件であった。CSAM通報の97%もの1年での減少は異例であろう。しかもこの断崖は他のカテゴリーが滑らかに推移する中、2024年報告書と2025年報告書の境界でちょうど発生しており、これは問題の消失ではなく、分類または受付経路の変更（たとえばCSAMがこの請求フローの外部で送付または集計されるようになったこと）の特徴である。2025年のカテゴリー構成はそれを踏まえて扱うべきである。</p>
+
+<p><strong>留保事項。</strong> すべての数値は、プラットフォームが法定報告書の中で自己申告したものであり、「Googleの報告によれば」という表現はここで実質的な意味を持っている。2020年の数値は立ち上げ期の一部しかカバーしておらず、最新の報告書は2025年暦年を対象としている。4つの月次セクションは同一の請求を切り口を変えて示したものであり、受領した請求・理由・削除結果がセクション間で合算されたことは一度もない。このデータでは請求とURLはほぼ1対1であるが（273,332件の請求に対し273,324件の処理URL）、形式的には異なる単位である。2025年のCSAMの崩落はほぼ確実に報告定義の断絶であり、6年間の合計はGoogleが支配的で、KakaoとNaverは合わせて800件未満のURLしか占めていない。</p>
+
+<p><em>データ: korea_network_act_metrics、Transparency Report API、2020〜2025年（2024〜2025年は月次詳細）。</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/korea-network-act-report-ja.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>
