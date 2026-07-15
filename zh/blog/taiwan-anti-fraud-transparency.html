@@ -1,0 +1,189 @@
+---
+layout: main
+title: "纸面上的台湾《打诈条例》：58,334个被封锁域名，以及三个数法各异的平台"
+description: "半年内，台湾警方报告以DNS封锁了58,334个诈骗网站（其中68%为假冒金融保险网站）——而广告平台的法定报告分别统计URL、账号和视频，这些数字无法相加。"
+date: 2026-07-14
+og_image: /images/taiwan-anti-fraud-transparency-zh.png
+lang: zh
+published: false
+lang_url: /blog/taiwan-anti-fraud-transparency.html
+lang_url_ja: /ja/blog/taiwan-anti-fraud-transparency.html
+lang_url_ko: /ko/blog/taiwan-anti-fraud-transparency.html
+---
+
+<article class="post">
+  <a href="/zh/blog.html" class="post-back">← 博客</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>纸面上的台湾《打诈条例》：58,334个被封锁域名，以及三个数法各异的平台</h1>
+    <time class="news-date" datetime="2026-07-14">July 14, 2026</time>
+    <div class="tags">
+      <span class="tag">透明度</span>
+      <span class="tag">Data</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/taiwan-anti-fraud-transparency-zh.png" alt="展示台湾《打诈条例》下DNS封锁与平台报告指标的图表" width="1200" height="630">
+    </figure>
+
+    <p><em>半年内，台湾警方报告以DNS封锁了58,334个诈骗网站（其中68%为假冒金融保险网站）——而广告平台的法定报告分别统计URL、账号和视频，这些数字无法相加。</em></p>
+
+<p><strong>核心结论：</strong>台湾内政部警政署依据《诈欺犯罪危害防制条例》（詐欺犯罪危害防制條例）第42条的执法数据，报告了2025年12月至2026年5月期间被暂停DNS解析的58,334个诈骗网站，其中绝大多数被归类为假冒金融保险（金融保險，68.4%）和电子商务（電子商務，19.8%）网站——但每月总数极不均衡（2026年1月为25,439个，随后2月仅1,346个），这更像是批量处理的行政产出，而非诈骗趋势。与此同时，被指定的广告平台的法定透明度报告以三种互不兼容的口径披露：Google报告URL，LINE报告被停用的账号，TikTok报告案件和广告——而且涵盖三个不同的统计时间窗。</p>
+
+<ul><li><strong>数据：</strong>taiwan_metrics、Transparency Report API、NPA-165 月度 2025-12..2026-05；平台时间窗 Google 2024-07..2025-06、LINE 2024-08..2025-09、TikTok 2025-01..2025-09。</li></ul>
+
+<hr>
+
+<h2>被DNS封锁的是什么：投资骗局，几乎没有钓鱼网站</h2>
+
+<p>NPA-165的数据为每个被封锁的网站标注了官方类别（網站性質）。两个类别几乎囊括了一切：假冒金融保险网站（39,907个）和假冒电子商务网站（11,523个）合计占全部58,334次封锁的88.2%。典型的钓鱼网站（釣魚網站）只是零头——102个，0.2%——假冒交友、加密货币和贷款网站亦然。封锁机制绝大部分对准了假冒投资平台的生态系统。</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>类别（網站性質）</th>
+<th class="td-num">2025-12</th>
+<th class="td-num">2026-01</th>
+<th class="td-num">2026-02</th>
+<th class="td-num">2026-03</th>
+<th class="td-num">2026-04</th>
+<th class="td-num">2026-05</th>
+<th class="td-num">总计</th>
+</tr></thead><tbody>
+<tr>
+<td>金融保險（金融保险）</td>
+<td class="td-num">13,131</td>
+<td class="td-num">22,208</td>
+<td class="td-num">675</td>
+<td class="td-num">1,020</td>
+<td class="td-num">1,385</td>
+<td class="td-num">1,488</td>
+<td class="td-num">39,907</td>
+</tr>
+<tr>
+<td>電子商務（电子商务）</td>
+<td class="td-num">4,082</td>
+<td class="td-num">2,639</td>
+<td class="td-num">434</td>
+<td class="td-num">1,470</td>
+<td class="td-num">1,089</td>
+<td class="td-num">1,809</td>
+<td class="td-num">11,523</td>
+</tr>
+<tr>
+<td>資訊服務（信息服务）</td>
+<td class="td-num">338</td>
+<td class="td-num">276</td>
+<td class="td-num">127</td>
+<td class="td-num">838</td>
+<td class="td-num">884</td>
+<td class="td-num">1,205</td>
+<td class="td-num">3,668</td>
+</tr>
+<tr>
+<td>運輸倉儲（运输仓储）</td>
+<td class="td-num">236</td>
+<td class="td-num">275</td>
+<td class="td-num">57</td>
+<td class="td-num">464</td>
+<td class="td-num">803</td>
+<td class="td-num">784</td>
+<td class="td-num">2,619</td>
+</tr>
+<tr>
+<td>All other (12 categories)</td>
+<td class="td-num">107</td>
+<td class="td-num">41</td>
+<td class="td-num">53</td>
+<td class="td-num">104</td>
+<td class="td-num">181</td>
+<td class="td-num">131</td>
+<td class="td-num">617</td>
+</tr>
+<tr>
+<td><strong>All sites</strong></td>
+<td class="td-num"><strong>17,894</strong></td>
+<td class="td-num"><strong>25,439</strong></td>
+<td class="td-num"><strong>1,346</strong></td>
+<td class="td-num"><strong>3,896</strong></td>
+<td class="td-num"><strong>4,342</strong></td>
+<td class="td-num"><strong>5,417</strong></td>
+<td class="td-num"><strong>58,334</strong></td>
+</tr>
+</tbody></table></div>
+
+<p>每月的形态很戏剧化——仅2026年1月就占了半年总数的43.6%，而2月骤降至1月数字的5.3%——但它撑不起一个「诈骗大幅下降」的故事。这种暴涨暴跌集中在一个类别：全部金融保险封锁中有88.6%落在头两个月。剔除该类别后，剩余序列（4,763 → 3,231 → 671 → 2,876 → 2,957 → 3,929）不过是一次寻常的回落与恢复。最合理的解读是：投资诈骗域名的一次批量清扫在12月至1月被处理，随后进入常态运营；这些是每月行政封锁措施的计数，而非衡量诈骗存量的指标。</p>
+
+<h2>平台报告：同一部法律，三把不同的尺子</h2>
+
+<p>依据第32至33条，被指定的广告平台须提交法定的诈欺防制计划透明度报告（詐欺防制計畫透明度報告）。每家发布者在不同的时间窗内披露不同的量，因此这些报告无法相加或排名。</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>发布者（时间窗）</th>
+<th>报告内容</th>
+<th class="td-num">数值</th>
+</tr></thead><tbody>
+<tr>
+<td>Google (2024-07..2025-06)</td>
+<td>Government requests received</td>
+<td class="td-num">236</td>
+</tr>
+<tr>
+<td>Google</td>
+<td>URLs named in requests</td>
+<td class="td-num">4,478</td>
+</tr>
+<tr>
+<td>Google</td>
+<td>URLs removed (policy 3,337 + legal 227)</td>
+<td class="td-num">3,564</td>
+</tr>
+<tr>
+<td>LINE (2024-08..2025-09)</td>
+<td>Art. 33 accounts suspended</td>
+<td class="td-num">102,359</td>
+</tr>
+<tr>
+<td>LINE</td>
+<td>——其中经由CIB联合项目</td>
+<td class="td-num">73,552</td>
+</tr>
+<tr>
+<td>TikTok (2025-01..2025-09)</td>
+<td>MODA notifications received</td>
+<td class="td-num">14</td>
+</tr>
+<tr>
+<td>TikTok</td>
+<td>Ads removed on notification</td>
+<td class="td-num">42</td>
+</tr>
+<tr>
+<td>TikTok (voluntary)</td>
+<td>已移除诈骗广告，台湾</td>
+<td class="td-num">23,164</td>
+</tr>
+</tbody></table></div>
+
+<p>Google的报告读起来像一份请求-响应台账：它报告移除了236项政府请求所指名的4,478个URL中的79.6%，其中93.6%的移除依据其自身政策而非法律强制；有914个URL未被处理。LINE完全没有报告任何URL数据——其单位是账号，停用了102,359个，其中71.9%通过刑事警察局（Criminal Investigation Bureau）联合项目——同时报告第32条广告处置为零、服务暂停令为零。TikTok的法定数字微不足道（14项部会通知，移除42条广告），但同一份呈报中其自愿的主动数据报告在台湾移除了23,164条诈骗广告和31,987个诈骗视频——每有1条依据政府通知移除的广告，就约有550条被移除的诈骗广告。通知渠道所呈现的，只是该平台声称自己所做执法的冰山一角。</p>
+
+<p><strong>注意事项。</strong>所有数字均为自我申报：NPA-165报告的是封锁措施（封锁一个网站不等于阻止了一起诈骗，重新注册的域名可能被再次计入），而平台数字来自各公司自身的法定呈报——「LINE报告停用了102,359个账号」，并未经独立核实。各发布者的时间窗不同且只部分重叠，因此跨平台的量级比较毫无意义；请求、URL、账号、广告和视频是不同的单位，且部分指标是其他指标的子集（Google的法律加政策移除构成urls_removed，LINE的CIB数字包含在其第33条总数之内）。Meta是被指定平台，但其报告在此尚无法获取。NPA数据版本：2026年5月；半年的跨度太短，不足以判定趋势。</p>
+
+<p><em>数据：taiwan_metrics、Transparency Report API、NPA-165 2025-12..2026-05；Google 2024-07..2025-06；LINE 2024-08..2025-09；TikTok 2025-01..2025-09。</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/taiwan-anti-fraud-transparency-zh.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

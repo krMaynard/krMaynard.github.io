@@ -1,0 +1,156 @@
+---
+layout: main
+title: "50件の通知に対して1件：GitHubで実際にコードが削除される仕組み"
+description: "2021〜2025年、GitHubは10,687件のDMCAテイクダウン通知を処理したと報告している。一方、世界中のすべての政府を合わせたテイクダウン要求はわずか204件で、その88%は単一の国、ロシアからのものだ。"
+date: 2026-07-14
+og_image: /images/github-transparency-report-ja.png
+lang: ja
+published: false
+lang_url: /blog/github-transparency-report.html
+lang_url_zh: /zh/blog/github-transparency-report.html
+lang_url_ko: /ko/blog/github-transparency-report.html
+---
+
+<article class="post">
+  <a href="/ja/blog.html" class="post-back">← ブログ</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>50件の通知に対して1件：GitHubで実際にコードが削除される仕組み</h1>
+    <time class="news-date" datetime="2026-07-14">July 14, 2026</time>
+    <div class="tags">
+      <span class="tag">透明性</span>
+      <span class="tag">データ</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/github-transparency-report-ja.png" alt="GitHubのテイクダウン要求における、DMCA通知と政府要求の件数を比較したチャート" width="1200" height="630">
+    </figure>
+
+    <p><em>2021〜2025年、GitHubは10,687件のDMCAテイクダウン通知を処理したと報告している。一方、世界中のすべての政府を合わせたテイクダウン要求はわずか204件で、その88%は単一の国、ロシアからのものだ。</em></p>
+
+<p><strong>結論：</strong>GitHubの透明性データが示すのは、世界最大のコードホストにおけるコンテンツモデレーションが、政府による検閲ではなく圧倒的に著作権レジームであるということだ。DMCA通知は、2021〜2025年を通じて政府のテイクダウン要求をおよそ50対1で上回り、政府の要求がピークに達した2025年でさえ25対1だった。最大の留保点は構成にある。「政府」の系列は実際にはロシアの系列であり（204件中180件）、GitHubはロシアの最近の要求のほとんどに対応していないと報告している（2025年は97件中3件）。したがって、政府が<em>要求する</em>ものと、実際にコードに起こることとの隔たりは、要求件数が示唆する以上に大きい。</p>
+
+<ul><li><strong>データ：</strong>github_metrics、Transparency Report API、2014〜2025暦年（多くの系列は2021〜2025年、国家安全保障の帯域は2014〜2025年）。</li></ul>
+
+<hr>
+
+<h2>実際に機能しているモデレーションレジームは著作権である</h2>
+
+<p>GitHubの政府によるテイクダウンのパイプラインは微々たるものだ。そのDMCAパイプラインは工業的なプロセスであり、毎年およそ2千件の通知が処理され、反対通知、撤回、取り消しによって取り戻されるのはそのうち約2%にすぎない（5年間で240件、通知10,687件に対して）。一方で最も急成長している著作権カテゴリーはセクション1201の技術的回避防止（アンチサーカムベンション）の申し立てであり——yt-dlpやTwitchツールをめぐる紛争の背後にある法的論拠だ——GitHubの報告によれば2021年の92件から2025年の645件へと7倍に跳ね上がった（2015年のわずか18件からの増加でもある）。</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>年</th>
+<th class="td-num">処理されたDMCA通知</th>
+<th class="td-num">§1201回避申し立て</th>
+<th class="td-num">受領した政府テイクダウン要求</th>
+<th class="td-num">対応された政府要求</th>
+</tr></thead><tbody>
+<tr>
+<td>2021</td>
+<td class="td-num">1,828</td>
+<td class="td-num">92</td>
+<td class="td-num">36</td>
+<td class="td-num">33</td>
+</tr>
+<tr>
+<td>2022</td>
+<td class="td-num">2,321</td>
+<td class="td-num">365</td>
+<td class="td-num">12</td>
+<td class="td-num">6</td>
+</tr>
+<tr>
+<td>2023</td>
+<td class="td-num">2,051</td>
+<td class="td-num">406</td>
+<td class="td-num">15</td>
+<td class="td-num">12</td>
+</tr>
+<tr>
+<td>2024</td>
+<td class="td-num">2,023</td>
+<td class="td-num">456</td>
+<td class="td-num">43</td>
+<td class="td-num">14</td>
+</tr>
+<tr>
+<td>2025</td>
+<td class="td-num">2,464</td>
+<td class="td-num">645</td>
+<td class="td-num">98</td>
+<td class="td-num">3</td>
+</tr>
+</tbody></table></div>
+
+<p>GitHubから何がコードを削除させるのかを理解したいなら、注目すべきは、いかなる省庁でもなくDMCAの案件簿だ。</p>
+
+<h2>ロシアはますます多く要求し、ますます少なくしか得られない</h2>
+
+<p>5年間でテイクダウンデータに登場する政府はわずか11か国にすぎない（ロシア、米国、中国、インド、そしてシンガポールやスリランカのような一度きりの要求国が少数）。ロシアは204件の要求のうち180件を占めており、その軌跡こそが物語だ。要求は2021年から2025年にかけておよそ5倍に増えた一方、GitHubの対応率は89%から3%へと崩壊した。</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>年</th>
+<th class="td-num">ロシアの受領要求</th>
+<th class="td-num">対応されたロシアの要求</th>
+<th class="td-num">対応率</th>
+</tr></thead><tbody>
+<tr>
+<td>2021</td>
+<td class="td-num">19</td>
+<td class="td-num">17</td>
+<td class="td-num">89%</td>
+</tr>
+<tr>
+<td>2022</td>
+<td class="td-num">11</td>
+<td class="td-num">5</td>
+<td class="td-num">45%</td>
+</tr>
+<tr>
+<td>2023</td>
+<td class="td-num">11</td>
+<td class="td-num">8</td>
+<td class="td-num">73%</td>
+</tr>
+<tr>
+<td>2024</td>
+<td class="td-num">42</td>
+<td class="td-num">13</td>
+<td class="td-num">31%</td>
+</tr>
+<tr>
+<td>2025</td>
+<td class="td-num">97</td>
+<td class="td-num">3</td>
+<td class="td-num">3%</td>
+</tr>
+</tbody></table></div>
+
+<p>対応の根拠も変化した。2021年、GitHubは20件の要求を「現地法」に基づいて処理したと報告している（うち17件がロシアのもので、国内でコンテンツをジオブロックした）。2022年から2025年にかけて、現地法に基づく件数は毎年ゼロだ。GitHubが対応したと報告している政府要求は、フラグ付けされたコンテンツがそれ自体でGitHub独自の利用規約に違反していたものだけである。言い換えれば、GitHubのデータは、同社が2021年以降、法令遵守を理由とするテイクダウンを完全に受け入れなくなったと語っている。政府はいまや、GitHubがいずれにせよ削除していたであろうコンテンツを指摘したときにのみ「成功」する。</p>
+
+<h2>より静かな圧力：テイクダウンではなくユーザーデータ</h2>
+
+<p>政府はGitHubから、検閲者としてよりも証拠の保管庫としてはるかに多くを得ている。2025年、GitHubは650件のユーザー情報要求を受領し（刑事召喚状が385件で最多）、517件の開示を行ったと報告している。そして帯域で示された国家安全保障の系列には明確な上昇が見られる。国家安全保障文書（ナショナル・セキュリティ・レターおよび命令）の影響を受けたアカウント数は、2014年から2022年初頭まで半期ごとに0〜249の帯域にとどまっていたが、その後着実に上昇し、2025年上半期には2,000〜2,249に達した。文書・命令の件数はほぼ一貫して最も低い帯域にとどまり（2024年後半に750〜999への1度の急増があった）、これはより少ない手段でより多くのアカウントを一括で取り込んでいることを意味する。</p>
+
+<p><strong>留保。</strong>すべての数値はGitHubの自己申告によるカウントである。「GitHubの報告によれば」という但し書きは全編を通じて実質的な役割を果たしており、特に2025年にロシアの97件の要求のうち3件に対応したという主張についてそうだ（年の後半に受領した要求は後に解決される場合があるが、これほど大きな遅れを示した前年はない）。政府の系列はロシアが支配的であり——ロシアを除くと、他のすべての政府を合わせて5年間で24件の要求を送っただけだ——したがって「政府によるテイクダウン」の傾向は実質的にロシアの傾向である。国家安全保障とEU DSAの数値は帯域範囲（米国政府が義務付けた帯域）であって正確なカウントではなく、合算できない。私は帯域を比較するのであって、決して合計しない。DMCAの「処理された通知」は通知を数えるものであってリポジトリを数えるものではない——単一の通知が多数のフォークに影響する場合がある。最新のヴィンテージ：年次系列は2025暦年、国家安全保障の帯域は2025年7〜12月。</p>
+
+<p><em>データ：github_metrics、Transparency Report API、2014〜2025年（年次系列は2021〜2025年）。</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/github-transparency-report-ja.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>
