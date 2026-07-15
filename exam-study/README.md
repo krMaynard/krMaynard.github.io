@@ -97,6 +97,11 @@ chapters ──cards.py──▶ build/cards.json ──build_anki.py──▶ b
 Build it with `make cards && make anki` (or `make cards ONLY=8` for one chapter),
 then double-click the `.apkg` to import. Cards are tagged by chapter.
 
+A **pre-built deck is committed** at `decks/cipp-us-regulations.apkg` (175
+regulations → 508 cards, all with audio) so you can import without running the
+pipeline. Because the deck/model IDs are fixed, re-importing a freshly built
+deck updates those cards in place and keeps your review scheduling.
+
 ## Requirements
 
 - **Python 3.11+** with the packages in `requirements.txt`
