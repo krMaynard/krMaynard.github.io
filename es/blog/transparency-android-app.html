@@ -1,0 +1,78 @@
+---
+layout: main
+title: "El panel de transparencia, ahora en tu bolsillo"
+description: "El explorador de datos de transparencia es ahora una app nativa para Android y escritorio — una sola base de código Kotlin Multiplatform, una interfaz Compose pensada primero para el móvil, la misma API en vivo y nada de SQL. Esto es lo que se lanzó y por qué una sola base de código cubre ambas plataformas."
+date: 2026-07-15
+og_image: /images/transparency-app-hero.png
+lang: es
+lang_url: /blog/transparency-android-app.html
+lang_url_ja: /ja/blog/transparency-android-app.html
+lang_url_zh: /zh/blog/transparency-android-app.html
+lang_url_ko: /ko/blog/transparency-android-app.html
+lang_url_fr: /fr/blog/transparency-android-app.html
+lang_url_de: /de/blog/transparency-android-app.html
+lang_url_it: /it/blog/transparency-android-app.html
+---
+
+<article class="post">
+  <a href="/es/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Escritos</p>
+    <h1>El panel de transparencia, ahora en tu bolsillo</h1>
+    <time class="news-date" datetime="2026-07-15">15 de julio de 2026</time>
+    <div class="tags">
+      <span class="tag">Kotlin Multiplatform</span>
+      <span class="tag">Compose</span>
+      <span class="tag">Android</span>
+      <span class="tag">Ingeniería</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-figure" style="max-width: 340px; margin: 0 auto 2.25rem;">
+      <img src="/images/transparency-app-swipe.gif" alt="Deslizando por la app Transparency: resumen, retiradas gubernamentales, el explorador de conjuntos de datos y un gráfico en vivo, todo dentro del marco de un teléfono" style="width:100%;height:auto;border-radius:18px;" />
+      <figcaption style="text-align:center; color: var(--text-muted); font-size: 0.85rem; margin-top: 0.75rem;">Resumen → retiradas → explorador de conjuntos de datos → un gráfico en vivo, todo desde la misma API.</figcaption>
+    </figure>
+
+    <p>La <a href="/es/transparency.html">API de consulta de transparencia</a> lleva ya un tiempo con un panel web. Lo que no tenía era un icono en la pantalla de inicio. Así que el explorador de datos es ahora una app nativa — funciona en Android y en el escritorio, desde una única base de código <a href="https://www.jetbrains.com/kotlin-multiplatform/" target="_blank" rel="noopener">Kotlin Multiplatform</a>, y habla con exactamente la misma API pública que el sitio web.</p>
+
+    <p>Puedes <a href="/downloads/transparency-app.apk" download>descargar la versión de Android</a> e instalarla manualmente hoy mismo.</p>
+
+    <h2>¿Por qué una app?</h2>
+
+    <p>La mayor parte de estos datos son algo que consultas, no algo que te sientas a estudiar — una tendencia de retiradas, cómo se comparan las cifras de una plataforma con las de otra, qué aspecto tienen las solicitudes de un país determinado en este periodo. Eso es una interacción de teléfono, no de escritorio. Un panel que presupone una pantalla ancha y un ratón hace que el vistazo rápido sea más difícil de lo que debería. La app está construida al revés: primero el teléfono, y los diseños anchos son lo que se expande a partir de ahí, y no al contrario.</p>
+
+    <h2>Una base de código, dos plataformas</h2>
+
+    <p>Todo lo relevante vive en un único conjunto de fuentes compartido: los DTO, el cliente Ktor que llama a <code>/api/overview</code> y <code>/api/explore</code>, el repositorio que construye cada consulta, y cada pantalla y gráfico. Compose Multiplatform renderiza esa misma interfaz en Android y en una ventana de escritorio. Solo dos cosas son específicas de cada plataforma — el punto de entrada (un <code>Activity</code> en Android, una ventana en el escritorio) y el motor HTTP, conectados mediante <code>expect</code>/<code>actual</code> de Kotlin para que Android use OkHttp y el escritorio use CIO. No hay una segunda implementación de la app que mantener sincronizada, porque no hay una segunda implementación.</p>
+
+    <p>La misma disciplina que mantiene honesta a la API se traslada al cliente: nunca envía SQL. Una consulta es un <code>ExploreRequest</code> estructurado — un nombre de tabla más filtros tipados, agrupaciones y agregados — que el servidor valida y compila. La app construye esas solicitudes; no construye cadenas de texto. Añadir una nueva vista de conjunto de datos es un método del repositorio, no una consulta escrita a mano.</p>
+
+    <h2>Primero el móvil, y en serio</h2>
+
+    <p>El diseño mide su propio ancho y se adapta. Por debajo de un punto de ruptura es un teléfono: navegación inferior, una sola columna y un flujo de exploración que va de lista → detalle como esperarías en una pantalla pequeña. Por encima, las mismas pantallas se expanden en un riel de navegación y una vista maestro-detalle. Como las pantallas no tienen estado — el estado se eleva a un único view-model que expone un estado de interfaz inmutable como <code>StateFlow</code> — los composables idénticos se renderizan en un teléfono, en una ventana de escritorio y en el arnés de capturas que produjo los fotogramas de arriba.</p>
+
+    <p>Los gráficos se dibujan en el lienzo de Compose en lugar de obtenerse de un servicio de imágenes, así que se ven nítidos a cualquier densidad y son honestos sobre lo que muestran — las bandas siguen siendo bandas, las tasas nunca se suman, y un periodo sin datos se lee como sin datos en lugar de como un cero.</p>
+
+    <h2>Los detalles de Android que vale la pena cuidar</h2>
+
+    <p>Una app nativa debe sentirse nativa, lo que es un montón de pequeñas cosas: un icono de lanzador adaptable con una capa monocroma para los iconos con temática, accesos directos de lanzador que saltan directamente a la vista de retiradas o al explorador de conjuntos de datos, predictive-back para que el gesto de retroceso del sistema muestre una vista previa de adónde te diriges, y ajustes de idioma por app que aparecen en la propia lista de Android — la app ya está traducida a ocho idiomas, así que respeta el que elijas ahí. La versión de lanzamiento pasa por R8 con reducción de recursos, que es como una app Compose completa acaba pesando alrededor de 1,5 MB.</p>
+
+    <h2>Cómo conseguirla</h2>
+
+    <p>El APK de Android es <a href="/downloads/transparency-app.apk" download>una descarga directa</a> — habilita las instalaciones desde tu navegador y ábrelo. Son los mismos datos, el mismo modelo de consulta y las mismas salvedades que el <a href="https://transparency.kieranmaynard.com" target="_blank" rel="noopener">panel web</a>; solo que ahora vive en tu pantalla de inicio. La versión de escritorio se ejecuta desde la misma base de código si prefieres tenerla en una ventana.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/transparency-app-hero.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>
