@@ -1,0 +1,164 @@
+---
+layout: main
+title: "22倍的差距：Android恶意软件实际落在哪里"
+description: "Google报告称，2024年末菲律宾的手机携带有害应用的可能性约为日本手机的22倍，而受管理的企业设备比整体设备群干净约8倍。"
+date: 2026-07-14
+og_image: /images/android-pha-rates-zh.png
+lang: zh
+published: false
+lang_url: /blog/android-pha-rates.html
+lang_url_ja: /ja/blog/android-pha-rates.html
+lang_url_ko: /ko/blog/android-pha-rates.html
+---
+
+<article class="post">
+  <a href="/zh/blog.html" class="post-back">← 博客</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>22倍的差距：Android恶意软件实际落在哪里</h1>
+    <time class="news-date" datetime="2026-07-14">July 14, 2026</time>
+    <div class="tags">
+      <span class="tag">透明度</span>
+      <span class="tag">数据</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/android-pha-rates-zh.png" alt="按国家、设备管理状态和Android版本划分的PHA（有害应用）率柱状图" width="1200" height="630">
+    </figure>
+
+    <p><em>Google报告称，2024年末菲律宾的手机携带有害应用的可能性约为日本手机的22倍，而受管理的企业设备比整体设备群干净约8倍。</em></p>
+
+<p><strong>核心结论：</strong>Google的Android安全透明度报告追踪“潜在有害应用”（PHA）率——即被标记为恶意的设备或安装量的占比——而最引人注目的模式并非时间，而是地点与管理方式。对于截至2024-12-31的12个月窗口，Google报告菲律宾的PHA率为安装量的0.218%，印度为0.202%，而日本为0.010%、德国为0.016%：在Google单列的十个国家之间，差距超过20倍。受管理的企业设备（0.012%）远低于全部设备率（0.099%）。使这无法成为一个整洁的“Android正变得更安全”故事的告诫是：全部设备率自2019年以来一直在0.1%附近横向徘徊，并未下降；而且Google公布的国家名单逐年变化。</p>
+
+<ul><li><strong>数据：</strong>android_metrics（installs_by_country、devices_with_pha、installs、devices_by_version）、Transparency Report API、2018–2024年的12个月滚动窗口以及2017-Q1–2024-Q4的季度切分。</li></ul>
+
+<hr>
+
+<h2>地理主导风险</h2>
+
+<p>在源数据中PHA率是小于1的分数；下面以截至2024-12-31的滚动年份的安装量百分比显示。Google公布了十个国家，它们清晰地分为高暴露的新兴市场与低暴露的成熟市场。</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>国家</th>
+<th class="td-num">PHA率（安装量）</th>
+</tr></thead><tbody>
+<tr>
+<td>Philippines (PH)</td>
+<td class="td-num">0.218%</td>
+</tr>
+<tr>
+<td>India (IN)</td>
+<td class="td-num">0.202%</td>
+</tr>
+<tr>
+<td>Russia (RU)</td>
+<td class="td-num">0.109%</td>
+</tr>
+<tr>
+<td>Brazil (BR)</td>
+<td class="td-num">0.094%</td>
+</tr>
+<tr>
+<td>Indonesia (ID)</td>
+<td class="td-num">0.085%</td>
+</tr>
+<tr>
+<td>Turkey (TR)</td>
+<td class="td-num">0.034%</td>
+</tr>
+<tr>
+<td>Mexico (MX)</td>
+<td class="td-num">0.032%</td>
+</tr>
+<tr>
+<td>United States (US)</td>
+<td class="td-num">0.032%</td>
+</tr>
+<tr>
+<td>Germany (DE)</td>
+<td class="td-num">0.016%</td>
+</tr>
+<tr>
+<td>Japan (JP)</td>
+<td class="td-num">0.010%</td>
+</tr>
+</tbody></table></div>
+
+<p>前五名均处于日本水平的6–22倍。印度是我核查过的每一个窗口中都保持高位的唯一国家（2020年0.122%、2022年0.212%、2024年0.202%）。不过这一排名并非完全稳定：日本自身在2020年末报告为0.091%——接近印度当年的水平——随后到2024年降至其十分之一，而俄罗斯在2022年飙升至0.226%。因此“发展中市场携带更多恶意软件”这一解读适用于最新的快照，但不应被当作固定的规律。</p>
+
+<h2>受管理的设备，以及并不存在的趋势</h2>
+
+<p>数据中最持久的差距是管理方式，而非地理。受企业管理的设备——锁定、精选的应用目录——在Google公布的每一年都报告出比一般人群低一个数量级的PHA率。数据中<em>没有</em>的是一条干净的下降趋势：全部设备率在一个狭窄的区间内来回波动，而Google Play的安装率实际上在2022–2023年飙升后又回落。</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>年末</th>
+<th class="td-num">全部设备</th>
+<th class="td-num">企业设备</th>
+<th class="td-num">Google Play安装量</th>
+</tr></thead><tbody>
+<tr>
+<td>2019</td>
+<td class="td-num">0.103%</td>
+<td class="td-num">0.005%</td>
+<td class="td-num">0.099%</td>
+</tr>
+<tr>
+<td>2020</td>
+<td class="td-num">0.122%</td>
+<td class="td-num">0.004%</td>
+<td class="td-num">0.064%</td>
+</tr>
+<tr>
+<td>2021</td>
+<td class="td-num">0.086%</td>
+<td class="td-num">0.005%</td>
+<td class="td-num">0.052%</td>
+</tr>
+<tr>
+<td>2022</td>
+<td class="td-num">0.094%</td>
+<td class="td-num">0.003%</td>
+<td class="td-num">0.211%</td>
+</tr>
+<tr>
+<td>2023</td>
+<td class="td-num">0.159%</td>
+<td class="td-num">0.007%</td>
+<td class="td-num">0.193%</td>
+</tr>
+<tr>
+<td>2024</td>
+<td class="td-num">0.099%</td>
+<td class="td-num">0.012%</td>
+<td class="td-num">0.082%</td>
+</tr>
+</tbody></table></div>
+
+<p>2024年末企业设备比全部设备干净8倍，在2019–2022年间干净20–30倍。Google Play安装率并非一个单调的成功故事：它从0.052%（2021年）增长了两倍多到0.211%（2022年），随后回落至0.082%。无论是什么导致了这一跃升，“逐年稳步下降”都不是这些数字所呈现的。</p>
+
+<h2>更新的Android，更低的风险</h2>
+
+<p>Google的按版本切分（对每个Android版本上被标记PHA的设备占比的单独测量）指向与常识相同的方向：最新的版本最安全。对于截至2024-12-31的季度，Android 15报告为0.257%，而0.393%（13）、0.402%（14）、0.520%（11）和0.543%（12）。按PHA类型划分，同一季度的Google Play检出以权限提升（Privilege Escalation，28%）、间谍软件（Spyware，26%）和风险软件（Riskware，21%）为主，话费欺诈（Toll Fraud）和木马（Trojans）构成其余的大部分。</p>
+
+<p><strong>告诫。</strong>每一个数字都是Google自我报告的PHA率，是一个小于1的分数，绝不可跨国家、版本或类别相加——每一个都是独立的率。这四种切分使用了不同的分母（设备对安装量）和窗口（12个月滚动对季度），因此跨切分的比较是方向性的，而非精确的；尤其是按版本的率与全部设备率的测量方式不同，且数值更高。Google仅公布十个国家，其成员逐年变动，因此地理排名反映的是Google选择披露的样本组，而非全球普查。数据时点：最新窗口截至2024-12-31。</p>
+
+<p><em>数据：android_metrics（installs_by_country、devices_with_pha、installs、devices_by_version、installs_by_category）、Transparency Report API、2018-2024年的滚动窗口以及2017-Q1–2024-Q4的季度。</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/android-pha-rates-zh.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>
