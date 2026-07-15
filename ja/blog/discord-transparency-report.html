@@ -1,0 +1,168 @@
+---
+layout: main
+title: "児童の安全がDiscordの執行マシンを動かしている"
+description: "2024年上半期、Discordは357,056件のアカウントを無効化したと報告し、そのうち半数弱の178,165件が「児童の安全」という単一区分によるものだった。透明性データが示すDiscordの信頼と安全業務の重心。"
+date: 2026-07-14
+og_image: /images/discord-transparency-report-ja.png
+lang: ja
+published: false
+lang_url: /blog/discord-transparency-report.html
+lang_url_zh: /zh/blog/discord-transparency-report.html
+lang_url_ko: /ko/blog/discord-transparency-report.html
+---
+
+<article class="post">
+  <a href="/ja/blog.html" class="post-back">← ブログ</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>児童の安全がDiscordの執行マシンを動かしている</h1>
+    <time class="news-date" datetime="2026-07-14">July 14, 2026</time>
+    <div class="tags">
+      <span class="tag">透明性</span>
+      <span class="tag">データ</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/discord-transparency-report-ja.png" alt="Discordの執行措置をポリシー区分別に示した棒グラフ" width="1200" height="630">
+    </figure>
+
+    <p><em>2024年上半期に、Discordは357,056件のアカウントを無効化したと報告している。そのうち半数弱の178,165件が、単一のポリシー区分「児童の安全（Child Safety）」によるものだった。</em></p>
+
+<p><strong>結論:</strong> Discord自身の透明性データは、児童保護が同社のTrust &amp; Safety（信頼と安全）業務の重心になったことを示している。児童の安全は2024年上半期に無効化された全アカウントの49.9%を占め、他のあらゆるポリシーを大きく上回った。またDiscordから米国の全米行方不明・被搾取児童センター（NCMEC）への通報件数は、2022年第1四半期の10,695件から2023年第4四半期の55,955件へと、およそ5倍に増加した。最大の留意点として、これらは自己申告の数値であり、報告の集計単位が2024年に四半期から半期へと切り替わっている（そのため2024年上半期は比較のために半分にする必要がある）ほか、初期の四半期の一つ（2022年第2四半期）はソースデータ上で2022年第1四半期をそのまま複製しているにすぎない。</p>
+
+<ul><li><strong>データ:</strong> <code>discord_metrics</code>、Transparency Report API、2022年第1四半期から2024年上半期まで（2022〜2023年は四半期、2024年からは半期）。</li></ul>
+
+<hr>
+
+<h2>アカウントとサーバーは異なる理由で措置を受ける</h2>
+
+<p>Discordは個々のアカウントとサーバー全体を同じポリシーのメニューに基づいて処罰するが、その内訳は著しく異なる。アカウントは圧倒的に児童の安全を理由に無効化される。人ではなくコミュニティをホストするサーバーは、規制対象または違法行為（Regulated or Illegal Activities）——薬物、武器、ハッキング、金融詐欺を包括的にカバーする区分——を理由に削除されることが最も多く、そこでは児童の安全は2位にとどまる。</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>ポリシー区分</th>
+<th class="td-num">無効化されたアカウント</th>
+<th class="td-num">削除されたサーバー</th>
+</tr></thead><tbody>
+<tr>
+<td>Child Safety</td>
+<td class="td-num">178,165</td>
+<td class="td-num">7,462</td>
+</tr>
+<tr>
+<td>搾取的・望まれないコンテンツ</td>
+<td class="td-num">48,571</td>
+<td class="td-num">1,835</td>
+</tr>
+<tr>
+<td>Regulated or Illegal Activities</td>
+<td class="td-num">26,810</td>
+<td class="td-num">15,107</td>
+</tr>
+<tr>
+<td>Deceptive Practices</td>
+<td class="td-num">24,322</td>
+<td class="td-num">1,207</td>
+</tr>
+<tr>
+<td>暴力的・グロテスクなコンテンツ</td>
+<td class="td-num">20,657</td>
+<td class="td-num">3,163</td>
+</tr>
+<tr>
+<td>ハラスメント・いじめ</td>
+<td class="td-num">19,283</td>
+<td class="td-num">1,210</td>
+</tr>
+<tr>
+<td><strong>All categories (total)</strong></td>
+<td class="td-num"><strong>357,056</strong></td>
+<td class="td-num"><strong>41,002</strong></td>
+</tr>
+</tbody></table></div>
+
+<p>児童の安全はアカウント無効化の49.9%を占めるが、サーバー削除ではわずか18%にとどまる。一方、規制対象または違法行為はサーバー削除の36.8%を占めるが、アカウント無効化では7.5%にすぎない。言い換えれば、Discordは主に加害者を排除するために人をBANし、主に違法な取引の場やコミュニティを排除するためにサーバーを閉鎖していると報告している。</p>
+
+<h2>NCMECへの通報の急増</h2>
+
+<p>このデータセットで最も明確な傾向は、Discordが米国におけるオンライン児童性的虐待コンテンツの法定の集約機関であるNCMECに提出する通報件数の増加である。そのほぼすべては「メディア通報」——フラグが立てられた画像や動画——であり、「グルーミングまたは危険性のエスカレーション」はそれよりはるかに少ない件数である。</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>期間</th>
+<th class="td-num">メディア通報</th>
+<th class="td-num">グルーミング／危険性</th>
+<th class="td-num">NCMECへの合計</th>
+</tr></thead><tbody>
+<tr>
+<td>2022-Q1</td>
+<td class="td-num">10,641</td>
+<td class="td-num">54</td>
+<td class="td-num">10,695</td>
+</tr>
+<tr>
+<td>2022-Q3</td>
+<td class="td-num">14,303</td>
+<td class="td-num">63</td>
+<td class="td-num">14,366</td>
+</tr>
+<tr>
+<td>2023-Q1</td>
+<td class="td-num">20,001</td>
+<td class="td-num">125</td>
+<td class="td-num">20,126</td>
+</tr>
+<tr>
+<td>2023-Q2</td>
+<td class="td-num">36,323</td>
+<td class="td-num">158</td>
+<td class="td-num">36,481</td>
+</tr>
+<tr>
+<td>2023-Q3</td>
+<td class="td-num">51,674</td>
+<td class="td-num">242</td>
+<td class="td-num">51,916</td>
+</tr>
+<tr>
+<td>2023-Q4</td>
+<td class="td-num">55,638</td>
+<td class="td-num">317</td>
+<td class="td-num">55,955</td>
+</tr>
+<tr>
+<td>2024-H1*</td>
+<td class="td-num">103,035</td>
+<td class="td-num">609</td>
+<td class="td-num">103,644</td>
+</tr>
+</tbody></table></div>
+
+<p>&lt;small&gt;*半期の数値。四半期あたり約51,800件で、2023年第4四半期と同水準。ソースが2022年第1四半期を複製しているため、2022年第2四半期は除外している。&lt;/small&gt;</p>
+
+<p>四半期ごとに見ると、通報の合計は2022年初頭から2023年終盤にかけて約5.2倍に増加し、グルーミングのエスカレーションはさらに速く——54件から317件へと、およそ6倍に——増加した。2024年の半期の数値を四半期換算（約51,800件）にすると、そのペースは2023年第4四半期に対して上昇を続けているというより横ばいに見える。ここでの数値の増加は多義的だ。プラットフォーム上の虐待の増加、検出ツールの改善、あるいはその両方を反映しうるが、Discordの報告ではこの二つを切り分けることはできない。</p>
+
+<h2>リクエストの内訳：圧倒的に米国中心</h2>
+
+<p>グローバルなチャットプラットフォームでありながら、Discordの政府データ要請の負荷は大きく国内に偏っている。2024年上半期には、米国政府からの情報要請3,782件（うち3,223件で情報を提供）を報告している一方、国際的な要請は40か国にまたがってわずか545件だった。ブラジル（106件）、ドイツ（90件）、英国（64件）が国際的な列を牽引しているが、単独で米国の法執行機関の件数に迫る外国政府はなく、米国からの要請は他のすべてを合わせた件数のおよそ7倍に上る。</p>
+
+<p><strong>留意点。</strong> ここでのあらゆる数値はDiscordの自己申告によるものであり、独立した監査ではなく同社独自のポリシー分類と検出システムを反映している。報告期間は四半期（2022〜2023年）から半期（2024年）へと変わるため、2024年上半期の合計は2023年の四半期と比較する前に半分にする必要がある。2024年にかけてのNCMEC通報と米国からの要請の見かけ上の急増は、この集計単位の変化を考慮するとほぼ解消する。2022年第2四半期のNCMEC内訳は元データ上で2022年第1四半期の正確な複製であり、除外した。異議申立ての承認率などの割合は報告された率として保存されており、合算は一切していない。「無効化されたアカウント」は個別のユーザーではなく措置の件数を数えたものであり、2022年の非常に大きなアカウント無効化の合計（2022年第1四半期には100万件超）は、後に大幅に減少した大量のスパム削除を反映している。</p>
+
+<p><em>データ: <code>discord_metrics</code>、Transparency Report API、2022年第1四半期〜2024年上半期。</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/discord-transparency-report-ja.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>
