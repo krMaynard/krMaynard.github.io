@@ -1,0 +1,78 @@
+---
+layout: main
+title: "把透明度仪表盘装进口袋"
+description: "透明度数据浏览器现已成为原生的 Android 与桌面应用——单一 Kotlin Multiplatform 代码库、移动优先的 Compose 界面、相同的实时 API，且不使用 SQL。本文介绍交付了什么，以及为何一套代码库就能覆盖两端。"
+date: 2026-07-15
+og_image: /images/transparency-app-hero.png
+lang: zh
+lang_url: /blog/transparency-android-app.html
+lang_url_ja: /ja/blog/transparency-android-app.html
+lang_url_ko: /ko/blog/transparency-android-app.html
+lang_url_fr: /fr/blog/transparency-android-app.html
+lang_url_es: /es/blog/transparency-android-app.html
+lang_url_de: /de/blog/transparency-android-app.html
+lang_url_it: /it/blog/transparency-android-app.html
+---
+
+<article class="post">
+  <a href="/zh/blog.html" class="post-back">← 博客</a>
+  <header class="post-header">
+    <p class="section-label">写作</p>
+    <h1>把透明度仪表盘装进口袋</h1>
+    <time class="news-date" datetime="2026-07-15">2026年7月15日</time>
+    <div class="tags">
+      <span class="tag">Kotlin Multiplatform</span>
+      <span class="tag">Compose</span>
+      <span class="tag">Android</span>
+      <span class="tag">工程</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-figure" style="max-width: 340px; margin: 0 auto 2.25rem;">
+      <img src="/images/transparency-app-swipe.gif" alt="在 Transparency 应用中滑动浏览：概览、政府删除请求、数据集浏览器，以及一张实时图表，全部呈现在手机框内" style="width:100%;height:auto;border-radius:18px;" />
+      <figcaption style="text-align:center; color: var(--text-muted); font-size: 0.85rem; margin-top: 0.75rem;">概览 → 删除请求 → 数据集浏览器 → 一张实时图表，全部来自同一个 API。</figcaption>
+    </figure>
+
+    <p><a href="/zh/transparency.html">透明度查询 API</a> 早已有了网页仪表盘，缺的只是一个主屏幕图标。于是这个数据浏览器如今成了原生应用——它在 Android 和桌面端运行，源自单一的 <a href="https://www.jetbrains.com/kotlin-multiplatform/" target="_blank" rel="noopener">Kotlin Multiplatform</a> 代码库，并与网站所用的完全相同的公开 API 通信。</p>
+
+    <p>你现在就可以<a href="/downloads/transparency-app.apk" download>下载 Android 版本</a>并旁加载安装。</p>
+
+    <h2>为什么要做成应用</h2>
+
+    <p>这类数据大多是你顺手一看的东西，而非坐下来钻研的对象——某个删除趋势、某个平台的数字与另一个平台相比如何、某个国家/地区本期的请求是什么样。这是手机上的交互，而非桌面上的。一个默认宽屏加鼠标的仪表盘，会让这种快速一瞥变得比应有的更麻烦。这个应用是反过来构建的：手机优先，宽屏布局是在此基础上扩展而来，而不是相反。</p>
+
+    <h2>一套代码库，两个平台</h2>
+
+    <p>所有重要的东西都存在于一个共享源集里：DTO、调用 <code>/api/overview</code> 和 <code>/api/explore</code> 的 Ktor 客户端、构建每个查询的仓库，以及每一个屏幕和图表。Compose Multiplatform 在 Android 和桌面窗口中渲染同一套 UI。只有两样东西是分平台的——入口点（Android 上是 <code>Activity</code>，桌面上是一个窗口）和 HTTP 引擎，二者通过 Kotlin 的 <code>expect</code>/<code>actual</code> 接线，于是 Android 用上 OkHttp，桌面用上 CIO。没有需要保持同步的第二套应用实现，因为根本不存在第二套实现。</p>
+
+    <p>让 API 保持诚实的那套纪律，也延续到了客户端：它从不发送 SQL。一个查询是结构化的 <code>ExploreRequest</code>——一个表名，加上带类型的过滤条件、分组和聚合——由服务器校验并编译。应用构建的是这些请求，而不是拼接字符串。新增一个数据集视图是写一个仓库方法，而不是手写一条查询。</p>
+
+    <h2>移动优先，而且是认真的</h2>
+
+    <p>布局会测量自身宽度并自适应。低于某个断点时它是一部手机：底部导航、单栏，以及一个按小屏预期从列表 → 详情推进的 Explore 流程。高于该断点时，同样这些屏幕会展开为导航栏加主从视图。因为这些屏幕是无状态的——状态被提升到单个视图模型中，以 <code>StateFlow</code> 的形式暴露一个不可变的 UI 状态——完全相同的可组合项会在手机上、桌面窗口中，以及生成上方那些画面的截图工具里渲染。</p>
+
+    <p>图表是画在 Compose 画布上的，而不是从某个图像服务拉取的，因此它们在任何像素密度下都清晰，并且如实反映所展示的内容——区间始终是区间，比率绝不会被相加，没有数据的时期会读作没有数据，而不是一个零。</p>
+
+    <h2>值得做的那些 Android 细节</h2>
+
+    <p>原生应用应当有原生的感觉，而这是一堆小事的集合：一个自适应启动图标，附带用于主题化图标的单色图层；直接跳转到删除请求视图或数据集浏览器的启动器快捷方式；预测式返回，让系统的返回手势预览你将去往何处；以及会出现在 Android 自身列表中的按应用语言设置——这个应用已经翻译成八种语言，因此你在那里选哪种，它就遵从哪种。发布版本经过 R8 处理并启用了资源压缩，一个完整的 Compose 应用正是这样落到约 1.5 MB。</p>
+
+    <h2>获取方式</h2>
+
+    <p>Android APK 是<a href="/downloads/transparency-app.apk" download>直接下载</a>的——在浏览器中允许安装，然后打开它即可。它的数据、查询模型，以及各项注意事项都与<a href="https://transparency.kieranmaynard.com" target="_blank" rel="noopener">网页仪表盘</a>相同；只是现在它住在了你的主屏幕上。如果你更愿意把它放在窗口里，桌面版本运行自同一套代码库。</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/transparency-app-hero.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

@@ -1,0 +1,78 @@
+---
+layout: main
+title: "透明性ダッシュボードをポケットに"
+description: "透明性データエクスプローラーが、ネイティブのAndroid・デスクトップアプリになった。Kotlin Multiplatformの単一コードベース、モバイルファーストのComposeによるUI、同じライブAPI、そしてSQLなし。何をリリースしたのか、そしてなぜ一つのコードベースで両方をカバーできるのかを紹介する。"
+date: 2026-07-15
+og_image: /images/transparency-app-hero.png
+lang: ja
+lang_url: /blog/transparency-android-app.html
+lang_url_zh: /zh/blog/transparency-android-app.html
+lang_url_ko: /ko/blog/transparency-android-app.html
+lang_url_fr: /fr/blog/transparency-android-app.html
+lang_url_es: /es/blog/transparency-android-app.html
+lang_url_de: /de/blog/transparency-android-app.html
+lang_url_it: /it/blog/transparency-android-app.html
+---
+
+<article class="post">
+  <a href="/ja/blog.html" class="post-back">← ブログ</a>
+  <header class="post-header">
+    <p class="section-label">執筆</p>
+    <h1>透明性ダッシュボードをポケットに</h1>
+    <time class="news-date" datetime="2026-07-15">2026年7月15日</time>
+    <div class="tags">
+      <span class="tag">Kotlin Multiplatform</span>
+      <span class="tag">Compose</span>
+      <span class="tag">Android</span>
+      <span class="tag">エンジニアリング</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-figure" style="max-width: 340px; margin: 0 auto 2.25rem;">
+      <img src="/images/transparency-app-swipe.gif" alt="透明性アプリをスワイプする様子：概要、政府による削除要請、データセットブラウザ、ライブチャートを、すべて電話の画面フレーム内で表示" style="width:100%;height:auto;border-radius:18px;" />
+      <figcaption style="text-align:center; color: var(--text-muted); font-size: 0.85rem; margin-top: 0.75rem;">概要 → 削除要請 → データセットブラウザ → ライブチャート。すべて同じAPIから。</figcaption>
+    </figure>
+
+    <p><a href="/ja/transparency.html">透明性クエリAPI</a>には、以前からWebダッシュボードがあった。なかったのは、ホーム画面のアイコンだ。そこでデータエクスプローラーをネイティブアプリにした——単一の<a href="https://www.jetbrains.com/kotlin-multiplatform/" target="_blank" rel="noopener">Kotlin Multiplatform</a>コードベースから、Androidでもデスクトップでも動作し、Webサイトとまったく同じ公開APIと通信する。</p>
+
+    <p><a href="/downloads/transparency-app.apk" download>Android版をダウンロード</a>して、今すぐサイドロードできる。</p>
+
+    <h2>そもそもなぜアプリなのか</h2>
+
+    <p>このデータの多くは、腰を据えて研究するものではなく、ちょっと確認するものだ——削除の傾向、あるプラットフォームの数値が別の数値とどう比べられるか、ある国の要請が今期どうなっているか。それはデスクトップではなく、電話での操作だ。広い画面とマウスを前提としたダッシュボードは、その手軽な確認を必要以上に難しくする。このアプリは逆から作られている。まず電話、そして広いレイアウトはそこから広がるものであって、その逆ではない。</p>
+
+    <h2>一つのコードベース、二つのプラットフォーム</h2>
+
+    <p>意味のあるものはすべて、一つの共有ソースセットに収まっている。DTO、<code>/api/overview</code>と<code>/api/explore</code>を呼び出すKtorクライアント、各クエリを組み立てるリポジトリ、そしてすべての画面とチャートだ。Compose Multiplatformが、その同じUIをAndroidでもデスクトップウィンドウでも描画する。プラットフォームごとに異なるのは二つだけ——エントリポイント（Androidでは<code>Activity</code>、デスクトップではウィンドウ）と、HTTPエンジンだ。後者はKotlinの<code>expect</code>/<code>actual</code>で結線され、AndroidではOkHttp、デスクトップではCIOが使われる。同期を保つべきアプリの二つ目の実装は存在しない。二つ目の実装そのものがないからだ。</p>
+
+    <p>APIを誠実に保つのと同じ規律が、クライアントにも引き継がれている。SQLは決して送らない。クエリは構造化された<code>ExploreRequest</code>——テーブル名に、型付きのフィルタ、グループ化、集計を加えたもの——であり、サーバーがそれを検証してコンパイルする。アプリはそうしたリクエストを組み立てるのであって、文字列を組み立てるのではない。新しいデータセットビューを追加するのは、手書きのクエリではなく、リポジトリのメソッドだ。</p>
+
+    <h2>モバイルファースト、それも本気で</h2>
+
+    <p>レイアウトは自らの幅を測って適応する。ブレークポイントを下回ると電話になる。ボトムナビゲーション、単一カラム、そして小さな画面で期待どおりにリスト→詳細と進むExploreフローだ。それを超えると、同じ画面がナビゲーションレールとマスター・ディテールビューへと広がる。画面がステートレスだから——状態は単一のビューモデルに巻き上げられ、不変のUI状態を<code>StateFlow</code>として公開する——まったく同じコンポーザブルが、電話でも、デスクトップウィンドウでも、上のフレームを生成したスクリーンショットハーネスでも描画される。</p>
+
+    <p>チャートは画像サービスから取得するのではなく、Composeのキャンバス上に描画される。だからどんな解像度でも鮮明で、示す内容に誠実だ——帯は帯のままで、率が合計されることはなく、データのない期間はゼロではなくデータなしとして読める。</p>
+
+    <h2>手を抜かないAndroidのディテール</h2>
+
+    <p>ネイティブアプリはネイティブに感じられるべきで、それは小さな工夫の積み重ねだ。テーマ対応アイコン用のモノクロレイヤーを備えたアダプティブランチャーアイコン、削除要請ビューやデータセットブラウザへ直接飛べるランチャーショートカット、システムの戻るジェスチャーで遷移先をプレビューできる予測型戻る（predictive-back）、そしてAndroid自身の一覧に表示されるアプリごとの言語設定——アプリはすでに8言語に翻訳されているので、そこで選んだ言語を尊重する。リリースビルドはリソース圧縮を伴うR8を通しており、それによってフル機能のComposeアプリが約1.5MBに収まる。</p>
+
+    <h2>入手する</h2>
+
+    <p>Android APKは<a href="/downloads/transparency-app.apk" download>直接ダウンロード</a>できる——ブラウザからのインストールを有効にして開くだけだ。データも、クエリモデルも、留意点も<a href="https://transparency.kieranmaynard.com" target="_blank" rel="noopener">Webダッシュボード</a>と同じで、それがいまホーム画面に載っているだけだ。ウィンドウで使いたければ、同じコードベースからデスクトップビルドも動く。</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/transparency-app-hero.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>
