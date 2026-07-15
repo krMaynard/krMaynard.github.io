@@ -5,8 +5,10 @@
 #   make combine    per-chapter markdown -> one full-book markdown
 #   make generate   chapters -> lecture scripts + study packs (Claude CLI)
 #   make audio      scripts/packs -> narrated MP3s + playlists (edge-tts)
+#   make cards      chapters -> US-regulation fact cards (Claude CLI)
+#   make anki       cards -> Anki .apkg deck with TTS audio (genanki + edge-tts)
 #   make all        extract + combine + generate + audio + playlist
-#   make ONLY=1 ...  restrict generate/audio to chapter 1 (comma-sep list)
+#   make ONLY=1 ...  restrict generate/audio/cards to chapter 1 (comma-sep list)
 #
 # System deps: ffmpeg (audio assembly) and the `claude` CLI (generation).
 
@@ -19,7 +21,7 @@ PY     ?= python3
 
 ONLYFLAG := $(if $(ONLY),--only $(ONLY),)
 
-.PHONY: all setup extract combine generate audio playlist clean distclean
+.PHONY: all setup extract combine generate audio playlist cards anki clean distclean
 
 all: extract combine generate audio playlist
 
@@ -43,6 +45,12 @@ audio:
 
 playlist:
 	$(PY) pipeline/playlist.py --build $(BUILD)
+
+cards:
+	$(PY) pipeline/cards.py --build $(BUILD) $(ONLYFLAG) --skip-existing
+
+anki:
+	$(PY) pipeline/build_anki.py --build $(BUILD)
 
 clean:          ## remove generated audio only
 	rm -rf $(BUILD)/audio

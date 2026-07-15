@@ -66,10 +66,41 @@ sector laws (scope / trigger / enforcer each), state + international
 essentials, and the commonly-confused pairs and exam traps. Open it in a
 browser; `Cmd/Ctrl-P` prints a compact reference. Light/dark aware.
 
+## Anki regulations deck (rote recall)
+
+For the facts you can't reason your way to — exact law **names, acronyms, years,
+citations, and enforcers** — a separate track builds a spaced-repetition deck:
+
+```
+chapters ──cards.py──▶ build/cards.json ──build_anki.py──▶ build/cipp-us-regulations.apkg
+```
+
+- **`cards.py`** — asks `claude -p` to pull, from each chapter, every specifically
+  named U.S. law/rule/case that has a memorizable name **and** a hard fact,
+  as `{law, acronym, year, citation, scope, trigger, enforcer, key_facts,
+  scenario}`. Merged and de-duplicated by slug into `build/cards.json`.
+- **`build_anki.py`** — builds a `.apkg` (via `genanki`) with one structured
+  **"US Reg"** note per regulation. Anki generates up to **four cards** from each:
+
+  1. **Scenario → Law** — a plain fact-pattern on the front, "which U.S. law?" —
+     mirrors how the exam asks (you reason the concept; the card drills the name).
+  2. **Acronym → Full name + year.**
+  3. **Law → Year & Citation** (only if a citation exists — the template skips
+     otherwise, so no blank cards).
+  4. **Law → Enforcer** (+ private-right-of-action).
+
+  Each note carries a spoken-answer **MP3** (edge-tts, acronyms spelled out)
+  played on the back. Deck/model IDs are fixed and each note's GUID derives from
+  its slug, so re-importing an updated deck **updates cards in place** instead of
+  duplicating them — your review scheduling survives a re-generate.
+
+Build it with `make cards && make anki` (or `make cards ONLY=8` for one chapter),
+then double-click the `.apkg` to import. Cards are tagged by chapter.
+
 ## Requirements
 
 - **Python 3.11+** with the packages in `requirements.txt`
-  (`beautifulsoup4`, `lxml`, `edge-tts`).
+  (`beautifulsoup4`, `lxml`, `edge-tts`, `genanki`).
 - **ffmpeg** on `PATH` (audio assembly).
 - The **`claude` CLI**, authenticated (generation). No API key handling lives in
   the code — it shells out to `claude -p`.
