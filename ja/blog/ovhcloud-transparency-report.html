@@ -1,0 +1,153 @@
+---
+layout: main
+title: "テイクダウンゼロのDSA報告書：OVHcloudの2024年の数字を読み解く"
+description: "欧州最大のクラウドホスティング事業者OVHcloudは2024年に330万件の不正利用報告を受けたが、DSAの対象範囲に入ったのはわずか28%だった。コンテンツ削除ゼロのDSA透明性報告書を読み解く。"
+date: 2026-07-14
+og_image: /images/ovhcloud-transparency-report-ja.png
+lang: ja
+published: false
+lang_url: /blog/ovhcloud-transparency-report.html
+lang_url_zh: /zh/blog/ovhcloud-transparency-report.html
+lang_url_ko: /ko/blog/ovhcloud-transparency-report.html
+---
+
+<article class="post">
+  <a href="/ja/blog.html" class="post-back">← ブログ</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>テイクダウンゼロのDSA報告書：OVHcloudの2024年の数字を読み解く</h1>
+    <time class="news-date" datetime="2026-07-16">July 16, 2026</time>
+    <div class="tags">
+      <span class="tag">透明性</span>
+      <span class="tag">データ</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/ovhcloud-transparency-report-ja.png" alt="OVHcloudの2024年DSA透明性報告書の主要指標" width="1200" height="630">
+    </figure>
+
+    <p><em>欧州最大のクラウドホスティング事業者は2024年に330万件の不正利用報告を受けたが、デジタルサービス法（DSA）の対象範囲に入ったのはそのうちわずか28%にすぎず、当局から命令を送ってきた国はたった5か国だった。</em></p>
+
+<p><strong>結論：</strong> ルーベ拠点のホスティング大手OVHcloudは、そのDSA透明性報告書をインフラ仲介者として提出している。つまり顧客が保存する内容を見ることも選択的に削除することもできないホストであり、そのためソーシャルプラットフォームとは異なり<strong>コンテンツ削除は一切報告していない</strong>。しかし同社が開示している内容は示唆に富む。2024年に受け取った<strong>3,296,689</strong>件の報告のうち、DSAの対象範囲に入ったのはわずか<strong>923,765件（28%）</strong>で、残りの72%は法律上の「コンテンツ」に当たらないインフラ関連の不正利用（DDoS、マルウェア、スパム）だった。そして同社が受け取った当局命令は極端に集中しており、命令は合計<strong>6,919</strong>件、そのうちフランスとベルギーの2か国だけで<strong>90.6%</strong>を占めた。最大の留保は定義上のものだ。これはホスティング事業者の視点から見た数字であり、「違法コンテンツ」とは投稿ではなく顧客のサーバーを意味するため、これらの数字はいずれもプラットフォームのモデレーション統計とは比較できない。</p>
+
+<ul><li><strong>データ：</strong> ovhcloud_metrics、Transparency Report API；OVHcloud DSA透明性報告書、2024年2月17日〜12月31日。</li></ul>
+
+<hr>
+
+<h2>5か国、そのうち2か国がほぼすべてを送っていた</h2>
+
+<p>DSAは仲介者に対し、違法コンテンツへの対処または情報の提供を求めて加盟国の当局から受け取った命令を報告するよう義務付けている（第9条、第10条、第15条）。OVHcloudが2024年について挙げているのはわずか<strong>5</strong>か国で、その分布は極端に偏っている。<strong>フランス（3,339）</strong>と<strong>ベルギー（2,932）</strong>を合わせると、命令総数6,919件のうち6,271件、すなわち90.6%を占め、残りをドイツ（293）、ポーランド（306）、スペイン（49）が構成する。フランスに本社を置くフランス企業にとってフランスが首位なのは驚くにあたらないが、ベルギーがほぼ肩を並べていることこそ、この表でより目を引く一行だ。</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>発信国</th>
+<th class="td-num">受け取った命令数</th>
+<th class="td-num">対応までの中央値</th>
+</tr></thead><tbody>
+<tr>
+<td>France</td>
+<td class="td-num">3,339</td>
+<td class="td-num">8 h</td>
+</tr>
+<tr>
+<td>Belgium</td>
+<td class="td-num">2,932</td>
+<td class="td-num">8 h</td>
+</tr>
+<tr>
+<td>Poland</td>
+<td class="td-num">306</td>
+<td class="td-num">8 h</td>
+</tr>
+<tr>
+<td>Germany</td>
+<td class="td-num">293</td>
+<td class="td-num">16 h</td>
+</tr>
+<tr>
+<td>Spain</td>
+<td class="td-num">49</td>
+<td class="td-num">145 h</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td class="td-num"><strong>6,919</strong></td>
+<td class="td-num">—</td>
+</tr>
+</tbody></table></div>
+
+<p>OVHcloudによれば、大半の命令には中央値8時間で対応した。唯一の異常値はスペインで、命令を実行するまでの中央値は<strong>145時間</strong>、およそ6日に及んだ。ただしその件数はわずか（49件）であり、いくつかの遅い事例が中央値を大きく動かしている。</p>
+
+<h2>ホストが実際に受け取るもの：その大半は「コンテンツ」ではない</h2>
+
+<p>報告件数は命令とは正反対の物語を語る。OVHcloudは第16条の不正利用報告フォームを通じて2024年に<strong>330万</strong>件の報告を記録したが、DSA関連の違法コンテンツ通知としてカウントしているのはわずか<strong>923,765</strong>件で、残りの<strong>2,372,924件（72%）</strong>は違法な<em>コンテンツ</em>ではなくインフラに影響を及ぼす活動、すなわちDDoS攻撃、侵入、スパム、マルウェアに関するものだ。対象範囲内の通知の中では、一つのカテゴリーが他を圧倒している。<strong>知的財産権侵害が794,377件、全体の86%</strong>である。フィッシング（96,075）が大きく引き離された2位で、本当に深刻なカテゴリーは数の上では小さい。児童性的虐待の報告が2,415件、暴力的・衝撃的なものが1,055件だ。</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>カテゴリー</th>
+<th class="td-num">通知数</th>
+<th class="td-num">対象範囲内での割合</th>
+<th class="td-num">自動処理</th>
+<th class="td-num">対応の中央値</th>
+</tr></thead><tbody>
+<tr>
+<td>IP infringement</td>
+<td class="td-num">794,377</td>
+<td class="td-num">86.0%</td>
+<td class="td-num">42.8%</td>
+<td class="td-num">1.2 s</td>
+</tr>
+<tr>
+<td>Phishing</td>
+<td class="td-num">96,075</td>
+<td class="td-num">10.4%</td>
+<td class="td-num">49.5%</td>
+<td class="td-num">3.3 s</td>
+</tr>
+<tr>
+<td>Other</td>
+<td class="td-num">29,843</td>
+<td class="td-num">3.2%</td>
+<td class="td-num">5.9%</td>
+<td class="td-num">3.2 s</td>
+</tr>
+<tr>
+<td>CSAM</td>
+<td class="td-num">2,415</td>
+<td class="td-num">0.3%</td>
+<td class="td-num">2.2%</td>
+<td class="td-num">0.6 s</td>
+</tr>
+<tr>
+<td>Violent / shocking</td>
+<td class="td-num">1,055</td>
+<td class="td-num">0.1%</td>
+<td class="td-num">9.5%</td>
+<td class="td-num">0.6 s</td>
+</tr>
+</tbody></table></div>
+
+<p>（各割合はDSA対象範囲の合計923,765件に対する比率である。第6のカテゴリーであるデータ保護に関する苦情は4,642件の報告を集めたが、この合計からは除外されている。データ保護違反はDSAの「違法コンテンツ」ではなく、まさにそのために6つのカテゴリーの合計が928,407件になる一方で、見出しとなる対象範囲内の数字は923,765件となっている。）</p>
+
+<p>自動化の列にこそOVHcloudのインフラ事業者としての姿勢が表れている。大量かつ低深刻度の流入が最も自動化されており、フィッシングの49.5%とIP報告の42.8%が人手を介さずに処理される一方、判断を要する不正利用カテゴリー（CSAM 2.2%、暴力的 9.5%）はほぼ全面的に手作業だ。対応時間の中央値は、プラットフォームが報告する時間や日ではなく<strong>秒</strong>単位で測られている。ホストにとって「対応」とはモデレーションの判断ではなく、トリアージと振り分けだからだ。</p>
+
+<p><strong>留保事項。</strong> あらゆる数字はOVHcloudの自己申告であり、これは<strong>EUの統一様式ではなく説明形式のPDF</strong>であるため、そのカテゴリーは同社独自のものであり、他の提出者のものとはきれいに対応しない。報告期間（2024年2月17日〜12月31日）は部分的な初年度であり、いまや大半のプラットフォームが報告する2025年下半期の期間より前のものであるため、時期の比較はできない。原資料の数字表記は一貫しておらず、フランスの命令は「3 339」と印字される一方でベルギーは「2932」となっているが、両方とも公表されたとおり正確に再現している。最も重要なのは、これが<em>ホスティング</em>の報告書だという点だ。ここでの「違法コンテンツ」とは顧客のサイトまたはサーバーを意味し、OVHcloudはコンテンツ固有の通知をモデレーションするのではなく顧客に転送するため、これらはいずれもソーシャルプラットフォームが意味するようなコンテンツモデレーションを測るものではない。最新データ：2024年通年。</p>
+
+<p><em>データ：ovhcloud_metrics、Transparency Report API、2024-02-17 → 2024-12-31。</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/ovhcloud-transparency-report-ja.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

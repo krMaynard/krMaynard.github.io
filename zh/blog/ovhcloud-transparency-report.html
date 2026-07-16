@@ -1,0 +1,153 @@
+---
+layout: main
+title: "零下架的DSA报告：透视OVHcloud的2024年数据"
+description: "欧洲最大的云托管商OVHcloud在2024年收到330万份滥用举报，但其中仅有28%属于《数字服务法》的适用范围。透视这份零内容下架的DSA透明度报告。"
+date: 2026-07-14
+og_image: /images/ovhcloud-transparency-report-zh.png
+lang: zh
+published: false
+lang_url: /blog/ovhcloud-transparency-report.html
+lang_url_ja: /ja/blog/ovhcloud-transparency-report.html
+lang_url_ko: /ko/blog/ovhcloud-transparency-report.html
+---
+
+<article class="post">
+  <a href="/zh/blog.html" class="post-back">← 博客</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>零下架的DSA报告：透视OVHcloud的2024年数据</h1>
+    <time class="news-date" datetime="2026-07-16">July 16, 2026</time>
+    <div class="tags">
+      <span class="tag">透明度</span>
+      <span class="tag">数据</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/ovhcloud-transparency-report-zh.png" alt="OVHcloud 2024年DSA透明度报告的关键指标" width="1200" height="630">
+    </figure>
+
+    <p><em>欧洲最大的云托管商在2024年收到330万份滥用举报，但其中仅有28%属于《数字服务法》（DSA）的适用范围，而向其发出任何命令的仅有五个国家的主管机关。</em></p>
+
+<p><strong>核心结论：</strong> 总部位于鲁贝的托管巨头OVHcloud，是以基础设施中介的身份提交其DSA透明度报告的——即一个既无法查看、也无法选择性删除客户所存储内容的托管方——因此与社交平台不同，它<strong>完全没有报告任何内容下架</strong>。而它所披露的内容颇具启示：在2024年收到的<strong>3,296,689</strong>份举报中，仅有<strong>923,765份（28%）</strong>落入DSA适用范围，其余72%属于基础设施滥用（DDoS、恶意软件、垃圾信息），在法律意义上并不构成“内容”。而它收到的主管机关命令极度集中——命令共计<strong>6,919</strong>份，其中仅法国和比利时两国就发出了<strong>90.6%</strong>。最大的保留在于定义层面：这是从托管服务商视角看到的图景，此处的“非法内容”指的是客户的服务器，而非一条帖子，因此这些数字均无法与平台的审核统计相比较。</p>
+
+<ul><li><strong>数据：</strong> ovhcloud_metrics、Transparency Report API；OVHcloud DSA透明度报告，2024年2月17日至12月31日。</li></ul>
+
+<hr>
+
+<h2>五个国家，其中两个几乎发出了全部命令</h2>
+
+<p>DSA要求中介方报告其从成员国主管机关处收到的、要求对非法内容采取行动或提交信息的命令（第9、10和15条）。OVHcloud为2024年仅列出<strong>五个</strong>来源国，且分布极不均衡：<strong>法国（3,339）</strong>和<strong>比利时（2,932）</strong>合计占6,919份命令总数中的6,271份——即90.6%——其余由德国（293）、波兰（306）和西班牙（49）构成。对一家总部设在法国的法国公司而言，法国居首并不令人意外；而比利时几乎与之持平，才是表中更为引人注目的一行。</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>来源国</th>
+<th class="td-num">收到的命令数</th>
+<th class="td-num">履行时间中位数</th>
+</tr></thead><tbody>
+<tr>
+<td>France</td>
+<td class="td-num">3,339</td>
+<td class="td-num">8 h</td>
+</tr>
+<tr>
+<td>Belgium</td>
+<td class="td-num">2,932</td>
+<td class="td-num">8 h</td>
+</tr>
+<tr>
+<td>Poland</td>
+<td class="td-num">306</td>
+<td class="td-num">8 h</td>
+</tr>
+<tr>
+<td>Germany</td>
+<td class="td-num">293</td>
+<td class="td-num">16 h</td>
+</tr>
+<tr>
+<td>Spain</td>
+<td class="td-num">49</td>
+<td class="td-num">145 h</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td class="td-num"><strong>6,919</strong></td>
+<td class="td-num">—</td>
+</tr>
+</tbody></table></div>
+
+<p>OVHcloud表示，它以8小时的中位数处理了大部分命令。唯一的异常值是西班牙，其执行命令的时间中位数达<strong>145小时</strong>——约六天——而命令数仅有区区（49）份，因此少数几起处理缓慢的案例便将中位数大幅拉高。</p>
+
+<h2>托管方实际收到的：大多并非“内容”</h2>
+
+<p>举报量所讲述的故事与命令恰恰相反。OVHcloud通过其第16条滥用举报表单在2024年记录了<strong>330万</strong>份举报，但它仅将<strong>923,765</strong>份计为与DSA相关的非法内容通知；其余<strong>2,372,924份（72%）</strong>涉及的是影响基础设施、而非构成违法<em>内容</em>的活动——DDoS攻击、入侵、垃圾信息、恶意软件。在适用范围内的通知中，有一类远远压过其余：<strong>知识产权侵权达794,377份，占总数的86%</strong>。钓鱼（96,075）远远排在第二，而真正严重的类别在数量上很小——2,415份儿童性虐待举报和1,055份暴力或令人不适内容。</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>类别</th>
+<th class="td-num">通知数</th>
+<th class="td-num">占适用范围比例</th>
+<th class="td-num">自动处理</th>
+<th class="td-num">处理时间中位数</th>
+</tr></thead><tbody>
+<tr>
+<td>IP infringement</td>
+<td class="td-num">794,377</td>
+<td class="td-num">86.0%</td>
+<td class="td-num">42.8%</td>
+<td class="td-num">1.2 s</td>
+</tr>
+<tr>
+<td>Phishing</td>
+<td class="td-num">96,075</td>
+<td class="td-num">10.4%</td>
+<td class="td-num">49.5%</td>
+<td class="td-num">3.3 s</td>
+</tr>
+<tr>
+<td>Other</td>
+<td class="td-num">29,843</td>
+<td class="td-num">3.2%</td>
+<td class="td-num">5.9%</td>
+<td class="td-num">3.2 s</td>
+</tr>
+<tr>
+<td>CSAM</td>
+<td class="td-num">2,415</td>
+<td class="td-num">0.3%</td>
+<td class="td-num">2.2%</td>
+<td class="td-num">0.6 s</td>
+</tr>
+<tr>
+<td>Violent / shocking</td>
+<td class="td-num">1,055</td>
+<td class="td-num">0.1%</td>
+<td class="td-num">9.5%</td>
+<td class="td-num">0.6 s</td>
+</tr>
+</tbody></table></div>
+
+<p>（各百分比均为占DSA适用范围总数923,765份的比例。第六个类别——数据保护投诉——收到4,642份举报，但被排除在该总数之外——数据保护违规并非DSA意义上的“非法内容”，这正是为何六个类别相加为928,407份，而作为标题的适用范围内数字却是923,765份。）</p>
+
+<p>自动化这一列最能显现OVHcloud的基础设施定位：大量且低严重度的举报流最为自动化——49.5%的钓鱼举报和42.8%的知识产权举报无需人工即可处理——而需要判断的滥用类别（CSAM 2.2%、暴力 9.5%）则几乎完全依靠人工。响应时间的中位数以<strong>秒</strong>计，而非平台所报告的小时或天，因为对托管方而言，“处理”是分流与转派，而非审核决定。</p>
+
+<p><strong>保留事项。</strong> 每一个数字均由OVHcloud自行报告，且这是一份<strong>叙述性PDF，而非欧盟统一模板</strong>，因此其类别是公司自定的，无法与其他报送方的数据清晰对应。报告期（2024年2月17日至12月31日）是不完整的首年，且早于目前大多数平台所报告的2025年下半年窗口，故不可作时间上的比较。原始资料中的数字格式并不一致——法国的命令印为“3 339”，而比利时的则为“2932”——两者均按公布原样精确再现。最重要的是，这是一份<em>托管</em>报告：此处的“非法内容”指客户的网站或服务器，且OVHcloud会将针对特定内容的通知转发给客户，而非自行审核，因此这一切都并非在衡量社交平台意义上的内容审核。最新数据：2024年全年。</p>
+
+<p><em>数据：ovhcloud_metrics、Transparency Report API，2024-02-17 → 2024-12-31。</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/ovhcloud-transparency-report-zh.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

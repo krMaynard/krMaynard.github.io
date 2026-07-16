@@ -1,0 +1,153 @@
+---
+layout: main
+title: "The DSA Report With No Takedowns: Inside OVHcloud's 2024 Numbers"
+description: "Europe's largest cloud host, OVHcloud, received 3.3 million abuse reports in 2024 — but only 28% were in DSA scope, and France and Belgium sent 90% of its authority orders. Inside a hosting intermediary's DSA transparency report."
+date: 2026-07-16
+og_image: /images/ovhcloud-transparency-report-en.png
+lang: en
+lang_url: /ja/blog/ovhcloud-transparency-report.html
+lang_url_zh: /zh/blog/ovhcloud-transparency-report.html
+lang_url_ko: /ko/blog/ovhcloud-transparency-report.html
+published: false
+---
+
+<article class="post">
+  <a href="/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>The DSA Report With No Takedowns: Inside OVHcloud's 2024 Numbers</h1>
+    <time class="news-date" datetime="2026-07-16">July 16, 2026</time>
+    <div class="tags">
+      <span class="tag">Transparency</span>
+      <span class="tag">Data</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/ovhcloud-transparency-report-en.png" alt="The DSA Report With No Takedowns: Inside OVHcloud's 2024 Numbers" width="1200" height="630">
+    </figure>
+
+    <p><em>Europe's biggest cloud host received 3.3 million abuse reports in 2024 — but only 28% of them were even in scope for the Digital Services Act, and just five countries' authorities sent it any orders at all.</em></p>
+
+<p><strong>Bottom line:</strong> OVHcloud, the Roubaix-based hosting giant, files its DSA transparency report as an infrastructure intermediary — a host that cannot see or selectively remove what its customers store — so unlike a social platform it reports <strong>no content removals at all</strong>. What it does disclose is telling: of <strong>3,296,689</strong> reports it received in 2024, only <strong>923,765 (28%)</strong> fell within DSA scope, the other 72% being infrastructure abuse (DDoS, malware, spam) that isn't "content" under the law. And the authority orders it received were extraordinarily concentrated — <strong>6,919</strong> orders in total, of which France and Belgium alone sent <strong>90.6%</strong>. The biggest caveat is definitional: this is a hosting provider's-eye view, where "illegal content" means a customer's server, not a post, so none of these figures are comparable to a platform's moderation stats.</p>
+
+<ul><li><strong>Data:</strong> ovhcloud_metrics, Transparency Report API; OVHcloud DSA transparency report, 17 Feb – 31 Dec 2024.</li></ul>
+
+<hr>
+
+<h2>Five countries, and two of them sent almost everything</h2>
+
+<p>The DSA obliges intermediaries to report the orders they receive from member-state authorities to act against illegal content or to hand over information (Articles 9, 10 and 15). OVHcloud names just <strong>five</strong> origin countries for 2024, and the distribution is lopsided: <strong>France (3,339)</strong> and <strong>Belgium (2,932)</strong> together account for 6,271 of the 6,919 total orders — 90.6% — while Germany (293), Poland (306) and Spain (49) make up the rest. That France leads is unsurprising for a French company headquartered in France; Belgium's near-parity is the more striking line in the table.</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>Origin</th>
+<th class="td-num">Orders received</th>
+<th class="td-num">Median time to comply</th>
+</tr></thead><tbody>
+<tr>
+<td>France</td>
+<td class="td-num">3,339</td>
+<td class="td-num">8 h</td>
+</tr>
+<tr>
+<td>Belgium</td>
+<td class="td-num">2,932</td>
+<td class="td-num">8 h</td>
+</tr>
+<tr>
+<td>Poland</td>
+<td class="td-num">306</td>
+<td class="td-num">8 h</td>
+</tr>
+<tr>
+<td>Germany</td>
+<td class="td-num">293</td>
+<td class="td-num">16 h</td>
+</tr>
+<tr>
+<td>Spain</td>
+<td class="td-num">49</td>
+<td class="td-num">145 h</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td class="td-num"><strong>6,919</strong></td>
+<td class="td-num">—</td>
+</tr>
+</tbody></table></div>
+
+<p>OVHcloud says it acted on most orders with a median of 8 hours. The one outlier is Spain, where the median time to give effect to an order was <strong>145 hours</strong> — roughly six days — against a handful (49) of orders, so a few slow cases move the median a long way.</p>
+
+<h2>What a host actually gets: mostly not "content"</h2>
+
+<p>Report volume tells the opposite story to the orders. Through its Article 16 abuse form OVHcloud logged <strong>3.3 million</strong> reports in 2024, but it counts only <strong>923,765</strong> as DSA-relevant illegal-content notices; the remaining <strong>2,372,924 (72%)</strong> concern activities — DDoS attacks, intrusions, spam, malware — that affect infrastructure rather than being unlawful <em>content</em>. Within the in-scope notices, one category swamps the rest: <strong>intellectual-property infringement at 794,377 notices, 86% of the total</strong>. Phishing (96,075) is a distant second, and the genuinely severe categories are numerically small — 2,415 child-sexual-abuse reports and 1,055 violent-or-shocking.</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>Category</th>
+<th class="td-num">Notices</th>
+<th class="td-num">Share of in-scope</th>
+<th class="td-num">Handled automatically</th>
+<th class="td-num">Median action</th>
+</tr></thead><tbody>
+<tr>
+<td>IP infringement</td>
+<td class="td-num">794,377</td>
+<td class="td-num">86.0%</td>
+<td class="td-num">42.8%</td>
+<td class="td-num">1.2 s</td>
+</tr>
+<tr>
+<td>Phishing</td>
+<td class="td-num">96,075</td>
+<td class="td-num">10.4%</td>
+<td class="td-num">49.5%</td>
+<td class="td-num">3.3 s</td>
+</tr>
+<tr>
+<td>Other</td>
+<td class="td-num">29,843</td>
+<td class="td-num">3.2%</td>
+<td class="td-num">5.9%</td>
+<td class="td-num">3.2 s</td>
+</tr>
+<tr>
+<td>CSAM</td>
+<td class="td-num">2,415</td>
+<td class="td-num">0.3%</td>
+<td class="td-num">2.2%</td>
+<td class="td-num">0.6 s</td>
+</tr>
+<tr>
+<td>Violent / shocking</td>
+<td class="td-num">1,055</td>
+<td class="td-num">0.1%</td>
+<td class="td-num">9.5%</td>
+<td class="td-num">0.6 s</td>
+</tr>
+</tbody></table></div>
+
+<p>(The percentages are shares of the 923,765 DSA-scope total. A sixth category, data-protection complaints, drew 4,642 reports but is excluded from that total — data-protection breaches aren't DSA "illegal content," which is exactly why the six categories sum to 928,407 while the headline in-scope figure is 923,765.)</p>
+
+<p>The automation column is where OVHcloud's infrastructure posture shows: the high-volume, low-severity streams are the most automated — 49.5% of phishing and 42.8% of IP reports are handled without a human — while abuse categories that demand judgment (CSAM 2.2%, violent 9.5%) are almost entirely manual. Median response times are measured in <strong>seconds</strong>, not the hours or days platforms report, because for a host "action" is triage and routing, not a moderation decision.</p>
+
+<p><strong>Caveats.</strong> Every figure is self-reported by OVHcloud, and this is a <strong>narrative PDF, not the EU harmonised template</strong>, so its categories are the company's own and don't map cleanly onto other filers'. The report period (17 Feb – 31 Dec 2024) is a partial first year and predates the H2 2025 window most platforms now report, so it isn't time-comparable. Number formatting in the source is inconsistent — France's orders print as "3 339" but Belgium's as "2932" — and both are reproduced exactly as published. Most important, this is a <em>hosting</em> report: "illegal content" here means a customer's site or server, and OVHcloud forwards content-specific notices to the customer rather than moderating, so none of this measures content moderation in the sense a social platform would. Latest data: full-year 2024.</p>
+
+<p><em>Data: ovhcloud_metrics, Transparency Report API, 2024-02-17 → 2024-12-31.</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/ovhcloud-transparency-report-en.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>
