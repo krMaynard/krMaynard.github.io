@@ -1,0 +1,73 @@
+---
+layout: main
+title: "Uber paie 14,8 milliards de dollars pour 60 millions d'utilisateurs que les régulateurs n'ont jamais comptés"
+description: "L'offre d'Uber de 14,8 milliards de dollars pour Delivery Hero repose sur environ 60 millions d'utilisateurs actifs mensuels annoncés — un chiffre qui n'apparaît nulle part dans les données de transparence du DSA de l'UE. Ce que montre réellement le seul rapport de Delivery Hero que l'on puisse obtenir."
+date: 2026-07-16
+og_image: /images/uber-delivery-hero-dsa-fr.png
+lang: fr
+lang_url: /blog/uber-delivery-hero-dsa.html
+lang_url_ja: /ja/blog/uber-delivery-hero-dsa.html
+lang_url_zh: /zh/blog/uber-delivery-hero-dsa.html
+lang_url_ko: /ko/blog/uber-delivery-hero-dsa.html
+lang_url_es: /es/blog/uber-delivery-hero-dsa.html
+lang_url_de: /de/blog/uber-delivery-hero-dsa.html
+lang_url_it: /it/blog/uber-delivery-hero-dsa.html
+---
+
+<article class="post">
+  <a href="/fr/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Écrits</p>
+    <h1>Uber paie 14,8 milliards de dollars pour 60 millions d'utilisateurs que les régulateurs n'ont jamais comptés</h1>
+    <time class="news-date" datetime="2026-07-16">16 juillet 2026</time>
+    <div class="tags">
+      <span class="tag">Uber</span>
+      <span class="tag">Delivery Hero</span>
+      <span class="tag">EU DSA</span>
+      <span class="tag">Transparence</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/uber-delivery-hero-dsa-fr.png" alt="En-tête de l'article : Uber paie 14,8 milliards de dollars pour 60 millions d'utilisateurs que les régulateurs n'ont jamais comptés" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
+
+    <p>Uber <a href="https://www.bloomberg.com/news/articles/2026-07-16/uber-agrees-to-buy-delivery-hero-as-food-sector-consolidates">a accepté cette semaine de racheter Delivery Hero</a> pour 14,8 milliards de dollars — 41,50&nbsp;€ par action, une opération entièrement en actions, des activités sur 50 marchés. La statistique phare de la couverture médiatique&nbsp;: Uber accède à <a href="https://www.spokesman.com/stories/2026/jul/15/uber-in-15-billion-deal-for-delivery-hero-to-creat/">environ 60 millions d'utilisateurs actifs mensuels</a>, principalement sur des marchés où il est aujourd'hui à peine présent.</p>
+
+    <p>Le problème avec ce chiffre&nbsp;: c'est le seul dont nous disposons.</p>
+
+    <p>J'exploite une <a href="https://transparency.kieranmaynard.com">API de requêtes sur les rapports de transparence des plateformes</a> — dépôts au titre du DSA de l'UE, demandes de retrait émanant des gouvernements, et tout le reste. Le DSA oblige les plateformes à publier leurs nombres d'utilisateurs dans l'UE (la moyenne mensuelle des destinataires actifs du service, ou AMAR) précisément pour que les régulateurs n'aient pas à croire sur parole les chiffres des présentations aux investisseurs. Mon instantané actuel couvre le second semestre 2025, avec des déclarations de nombres d'utilisateurs de 90 services et des décisions de modération de contenu de 60 plateformes.</p>
+
+    <p>Delivery Hero apparaît exactement zéro fois dans ces données. Ni sous son propre nom, ni en tant que Glovo, ni en tant que foodora, ni en tant qu'efood.</p>
+
+    <p>Ce n'est pas qu'ils se cachent — c'est mieux que ça. Delivery Hero entretient consciencieusement une <a href="https://www.deliveryhero.com/digital-services-act/">page de déclaration DSA</a>, mise à jour en février dernier, couvrant précisément la même fenêtre de six mois que mon instantané (juillet–décembre 2025). Elle nomme les quatre marques de l'UE — foodora, Glovo, efood, foody — et divulgue pour chacune la même chose&nbsp;: le nombre d'utilisateurs est «&nbsp;estimé bien en dessous du seuil&nbsp;» de désignation comme très grande plateforme en ligne. Quatre marques, quatre estimations, zéro chiffre. La ligne des 45 millions d'utilisateurs du seuil VLOP est le seul nombre de la page, et il appartient au règlement, pas à l'entreprise.</p>
+
+    <p>La page renvoie bien vers deux rapports de transparence DSA, là où les vrais chiffres devraient se trouver. Le lien du rapport 2025 renvoie une erreur 404 — et le fichier qu'il désigne n'a jamais été capturé par l'Internet Archive&nbsp;; du point de vue des archives publiques, c'est comme s'il n'existait pas. Le rapport de transparence manque à la page de transparence.</p>
+
+    <p>Le rapport 2024 est la seule chose que l'on puisse réellement obtenir, et je l'ai obtenue&nbsp;: un ZIP de fichiers CSV datant de l'ère pré-harmonisation, avant l'entrée en vigueur du modèle de rapport obligatoire de la Commission pour les périodes commençant en juillet 2025. Voici, dans son intégralité, une année de gouvernance des contenus sur les quatre plateformes européennes de Delivery Hero. Injonctions des autorités des États membres&nbsp;: zéro, partout. Notifications de contenus illicites&nbsp;: 4&nbsp;419 pour Glovo, 42 pour efood, 25 pour foodora, 9 pour foody — environ 4&nbsp;500 en douze mois, contre les 4,65 millions de notifications que les grandes plateformes de mon jeu de données ont enregistrées en six. Aucun nombre d'utilisateurs nulle part dans le ZIP, et le champ «&nbsp;date de publication&nbsp;» de trois des quatre marques affiche encore <code>YYYY-MM-DD</code>. Personne — ni l'entreprise, ni apparemment qui que ce soit — ne lit ces fichiers attentivement.</p>
+
+    <p>Ce qui rend le 404 d'autant plus cuisant&nbsp;: le rapport 2025, celui qui manque, serait le premier de Delivery Hero déposé selon le modèle harmonisé désormais obligatoire de l'UE. Le premier rapport au format contraignant, lisible par machine et comparable est celui qu'on ne peut pas télécharger.</p>
+
+    <p>La seule entreprise de livraison de repas qui figure dans mon jeu de données est Just Eat Takeaway, le rival de Delivery Hero — et même son dépôt confirme le constat. Elle a soumis un rapport de transparence DSA pour 2025 avec une prose appliquée sur la gouvernance de la modération et les moyens automatisés, mais sa ligne AMAR est littéralement null. Un tableau de nombres d'utilisateurs sans nombre d'utilisateurs.</p>
+
+    <p>L'actif au cœur d'une transaction de 14,8 milliards de dollars est donc mesuré entièrement par le vendeur. Soixante millions d'utilisateurs actifs mensuels, <a href="https://www.spokesman.com/stories/2026/jul/15/uber-in-15-billion-deal-for-delivery-hero-to-creat/">42 milliards de dollars de réservations brutes</a>, et pas un seul chiffre déposé dans le cadre d'un régime conçu pour vérifier exactement ce type d'affirmation — le nombre pour les investisseurs, le haussement d'épaules pour les régulateurs. La livraison de repas est l'une des zones mortes du reporting de transparence&nbsp;: assez grande pour redessiner l'empreinte mondiale d'Uber, assez petite marque par marque pour rester invisible.</p>
+
+    <p>Les actionnaires d'Uber auront droit à une due diligence. Le reste d'entre nous a droit à un communiqué de presse.</p>
+
+    <p><em>Chiffres du DSA de l'UE interrogés via mon <a href="https://transparency.kieranmaynard.com">API de transparence</a> (instantané S2 2025). Les déclarations par marque de Delivery Hero proviennent de sa <a href="https://www.deliveryhero.com/digital-services-act/">page DSA</a> (dernière mise à jour le 27 février 2026)&nbsp;; les décomptes de notifications par marque proviennent des CSV de son rapport de transparence 2024 (période de référence&nbsp;: février 2024–février 2025). Couverture de la transaction&nbsp;: <a href="https://www.bloomberg.com/news/articles/2026-07-16/uber-agrees-to-buy-delivery-hero-as-food-sector-consolidates">Bloomberg</a>, <a href="https://techcrunch.com/2026/07/16/ubers-14-8b-delivery-hero-deal-would-nearly-double-its-global-footprint/">TechCrunch</a>, <a href="https://www.spokesman.com/stories/2026/jul/15/uber-in-15-billion-deal-for-delivery-hero-to-creat/">AP via The Spokesman-Review</a>.</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/uber-delivery-hero-dsa-fr.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>
