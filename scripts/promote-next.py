@@ -40,6 +40,7 @@ def _post_path(lang, slug):
     return f"{REPO}/blog/{slug}.html" if lang == "en" else f"{REPO}/{lang}/blog/{slug}.html"
 
 MONTHS = {
+    "en": "January February March April May June July August September October November December".split(),
     "fr": "janvier février mars avril mai juin juillet août septembre octobre novembre décembre".split(),
     "de": "Januar Februar März April Mai Juni Juli August September Oktober November Dezember".split(),
     "it": "gennaio febbraio marzo aprile maggio giugno luglio agosto settembre ottobre novembre dicembre".split(),
@@ -52,10 +53,18 @@ def date_display(lang, d):
     if lang == "de": return f"{d.day}. {MONTHS['de'][d.month-1]} {d.year}"
     if lang == "it": return f"{d.day} {MONTHS['it'][d.month-1]} {d.year}"
     if lang == "es": return f"{d.day} de {MONTHS['es'][d.month-1]} de {d.year}"
-    return d.strftime("%B ") + f"{d.day}, {d.year}"
+    return f"{MONTHS['en'][d.month-1]} {d.day}, {d.year}"
+
+def _read(path):
+    with open(path, encoding="utf-8") as f:
+        return f.read()
+
+def _write(path, content):
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(content)
 
 def card(lang, slug, d):
-    s = open(_post_path(lang, slug)).read()
+    s = _read(_post_path(lang, slug))
     title = re.search(r"<h1>(.*?)</h1>", s, re.S).group(1).strip()
     body = s.split('<div class="post-body">', 1)[1]
     exc = re.search(r"<p><em>(.*?)</em></p>", body, re.S).group(1).strip()
@@ -73,18 +82,20 @@ def promote(slug, d, dry):
     changed = []
     for lang in ["en"] + web_langs(slug):
         post = _post_path(lang, slug)
-        s = open(post).read()
+        s = _read(post)
         if "published: false" not in s:
             raise SystemExit(f"{post} is not a draft (already published?)")
         s = s.replace("published: false\n", "")
         s = re.sub(r"date: \d{4}-\d{2}-\d{2}", f"date: {d.isoformat()}", s, count=1)
         bl = f"{REPO}/blog.html" if lang == "en" else f"{REPO}/{lang}/blog.html"
-        b = open(bl).read()
+        b = _read(bl)
         idx = b.find('<div class="news-entry"')
+        if idx == -1:
+            raise SystemExit(f"{bl} has no news-entry insertion point")
         c = card(lang, slug, d)
         if not dry:
-            open(post, "w").write(s)
-            open(bl, "w").write(b[:idx] + c + b[idx:])
+            _write(post, s)
+            _write(bl, b[:idx] + c + b[idx:])
         changed += [post, bl]
     return changed
 
@@ -97,7 +108,7 @@ def main():
     else:
         slug = next((s for s in RELEASE_ORDER
                      if os.path.exists(_post_path("en", s))
-                     and "published: false" in open(_post_path("en", s)).read()), None)
+                     and "published: false" in _read(_post_path("en", s))), None)
     if not slug:
         print(""); return
     changed = promote(slug, d, dry)
