@@ -1,0 +1,99 @@
+---
+layout: main
+title: "Gemini Code Assist의 GitHub 리뷰어가 오늘 종료됩니다 — 다음은 어디로"
+description: "구글이 2026년 7월 17일 GitHub 코드 리뷰용 소비자 Gemini Code Assist 앱을 종료합니다. 무료·개인 등급을 단계적으로 접는 마지막 절차입니다. 실제로 무엇이 끝나는지, 구글은 대신 무엇을 쓰길 바라는지, 그리고 눈여겨볼 만한 AI PR 리뷰 대안들."
+date: 2026-07-17
+og_image: /images/gemini-code-assist-deprecation-ko.png
+lang: ko
+lang_url: /blog/gemini-code-assist-deprecation.html
+lang_url_ja: /ja/blog/gemini-code-assist-deprecation.html
+lang_url_zh: /zh/blog/gemini-code-assist-deprecation.html
+lang_url_fr: /fr/blog/gemini-code-assist-deprecation.html
+lang_url_es: /es/blog/gemini-code-assist-deprecation.html
+lang_url_de: /de/blog/gemini-code-assist-deprecation.html
+lang_url_it: /it/blog/gemini-code-assist-deprecation.html
+---
+
+<article class="post">
+  <a href="/ko/blog.html" class="post-back">← 블로그</a>
+  <header class="post-header">
+    <p class="section-label">글쓰기</p>
+    <h1>Gemini Code Assist의 GitHub 리뷰어가 오늘 종료됩니다 — 다음은 어디로</h1>
+    <time class="news-date" datetime="2026-07-17">2026년 7월 17일</time>
+    <div class="tags">
+      <span class="tag">Gemini Code Assist</span>
+      <span class="tag">AI 코드 리뷰</span>
+      <span class="tag">개발자 도구</span>
+      <span class="tag">GitHub</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/gemini-code-assist-deprecation-ko.png" alt="글 헤더 이미지: Gemini Code Assist의 GitHub 리뷰어가 오늘 종료됩니다 — 다음은 어디로" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
+
+    <p>Gemini에게 풀 리퀘스트 리뷰를 맡겨 왔다면, 오늘이 바로 그 봇이 조용해지는 날입니다. <strong>2026년 7월 17일</strong>부로 구글은 <a href="https://developers.google.com/gemini-code-assist/docs/deprecations">GitHub용 소비자 버전 Gemini Code Assist를 종료했습니다</a> — 여러분의 PR에 자동화된 코드 리뷰와 요약을 남겨 주던 그 앱 말입니다. 봄부터 단계적으로 진행되어 온 무료·개인 등급 축소의 마지막 절차입니다.</p>
+
+    <p>각 요소가 서로 다른 날짜에 꺼졌으므로, 전체 순서를 짚어 보겠습니다.</p>
+
+    <ul>
+      <li><strong>2026년 6월 18일</strong> — Gemini Code Assist IDE 확장 프로그램과 Gemini CLI가 개인용 Gemini Code Assist 및 Google AI Pro·Ultra 요금제에 대해 <a href="https://9to5google.com/2026/06/17/gemini-cli-code-assist-shutting-down/">요청 처리를 중단했습니다</a>.</li>
+      <li><strong>2026년 7월 17일 (오늘)</strong> — 소비자용 Gemini Code Assist GitHub 앱이 코드 리뷰 활동을 종료합니다.</li>
+    </ul>
+
+    <p>누구도 성급하게 걱정하기 전에 짚어 둘 중요한 단서 하나 — 이것은 <em>소비자</em> 이야기입니다. 여러분의 조직이 Gemini Code Assist Standard나 Enterprise 라이선스를 유료로 이용하고 있다면, 구글은 그것들이 <strong>영향을 받지 않는다</strong>고 밝힙니다 — IDE 어시스트, CLI, GitHub 리뷰가 그대로 유지됩니다. 끝나는 것은 많은 1인 개발자와 소규모 팀이 자신의 저장소에 연결해 두었던 무료·개인용 진입로입니다.</p>
+
+    <h2>구글이 여러분에게 바라는 것</h2>
+
+    <p>구글이 제시하는 마이그레이션 경로는 5월 I/O에서 공개한 "에이전트 우선" 플랫폼 <a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">Antigravity</a>와, 그 터미널 동반 도구인 <strong>Antigravity CLI</strong>입니다 — Antigravity 2.0 데스크톱 앱과 동일한 에이전트 하니스를 공유하는 Go 재작성판입니다. 5월 19일부터 <a href="https://antigravity.google/download">antigravity.google/download</a>에서 이용할 수 있으며, 여러분의 Agent Skills, Hooks, Subagents, Extensions(이제는 "플러그인")가 그대로 이어집니다. 구글은 출시 시점에 <a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">완전한 기능 동등성은 없다</a>고 솔직하게 밝히고 있습니다.</p>
+
+    <p>하지만 그 간극에 주목하세요. Antigravity CLI는 <em>여러분이 조종하는 에이전트</em>입니다 — 터미널과 에디터에서 동작하는 대화형 코딩 어시스턴트죠. 오늘 실제로 꺼진 것은 <em>요청하지 않아도 여러분의 GitHub PR을 지켜보고 댓글을 달아 주던 자동 리뷰어</em>였습니다. 이 둘은 같은 일이 아니며, 구글은 소비자용 GitHub 봇을 그대로 대체할 물건을 내놓고 있지 않습니다. 그러니 여러분이 아쉬워할 것이 바로 그 PR 리뷰라면, 솔직한 답은 이렇습니다. Antigravity만으로는 부족하고, 전용 코드 리뷰 도구가 필요할 가능성이 높습니다.</p>
+
+    <h2>GitHub PR 리뷰 작업을 위한 대안</h2>
+
+    <p>좋은 소식 — 지금 이 분야는 개발자 도구 시장에서 가장 붐비는 구석 중 하나입니다. 대략 여러분이 바꿔야 할 것이 적은 순서대로 정리하면 이렇습니다.</p>
+
+    <ul>
+      <li><strong><a href="https://github.com/features/copilot">GitHub Copilot code review</a></strong> — 이미 Copilot을 유료로 쓰고 있다면 가장 저항이 적은 길입니다. GitHub에 기본 내장되어 있어 새로운 연동이 전혀 필요 없고, 요약 아래에 CodeQL과 ESLint 스캔을 얹어 줍니다. 전용 도구보다는 얕지만, 켜는 즉시 쓸 수 있습니다.</li>
+      <li><strong><a href="https://www.coderabbit.ai/">CodeRabbit</a></strong> — 가장 인기 있는 전용 AI 리뷰어로, PR 안에 구조화된 줄 단위 피드백을 바로 남깁니다. 유료 등급은 개발자당 월 $24 정도부터 시작하며, 오픈소스와 공개 저장소를 위한 무료 등급도 있습니다 — Gemini 봇이 하던 일에 가장 근접한 대체재입니다.</li>
+      <li><strong><a href="https://www.qodo.ai/">Qodo Merge</a></strong>(옛 Codium/PR-Agent) — PR 요약, 리뷰, 인라인 제안을 제공하며, 테스트 생성과 거버넌스까지 원하는 팀을 겨냥합니다. 핵심인 <a href="https://github.com/qodo-ai/pr-agent">PR-Agent</a>가 오픈소스라, 자신의 diff를 또 다른 SaaS에 넘기고 싶지 않다면 직접 셀프 호스팅할 수 있습니다.</li>
+      <li><strong><a href="https://www.greptile.com/">Greptile</a></strong> — diff만이 아니라 코드베이스 전체의 깊은 맥락에 기댑니다. 더 넓은 저장소의 맥락에서만 드러나는 문제를 잡아내는 데 강합니다. 개발자당 월 $30 정도입니다.</li>
+      <li><strong><a href="https://www.anthropic.com/claude-code">Claude Code</a></strong> — 차라리 CI에서 에이전트를 돌리고 싶다면, 그 GitHub Action이 PR을 리뷰(그리고 PR을 열 수도)해 주므로 무엇을 검사할지 정확히 스크립트로 짤 수 있습니다. 호스팅형 봇보다 설정이 많지만, 워크플로를 여러분이 온전히 소유합니다. (밝혀 두자면, 이 글도 그것으로 초안을 작성했습니다.)</li>
+    </ul>
+
+    <p>여러분의 충성심이 특별히 구글의 모델을 향해 있다면, Gemini는 이들 중 여럿을 통해 이용할 수 있다는 점에 유의하세요 — 봇을 포기하기 위해 모델까지 포기할 필요는 없습니다.</p>
+
+    <h2>제가 대신 구축한 방식</h2>
+
+    <p>결국 제 저장소 31개에 걸쳐 작동하는 소규모의 공급업체 중립적 리뷰 대기열을 구성했고, 보호된 32번째 저장소에는 <a href="https://github.com/krMaynard/krMaynard.github.io/pull/179">모든 검사를 통과한 풀 리퀘스트</a>로 준비해 두었습니다. <a href="https://github.com/krMaynard/krMaynard.github.io/blob/master/.github/workflows/codex-review-queue.yml">GitHub Actions 워크플로</a>가 브랜치 이름, PR 본문 또는 커밋 작성자·세션 메타데이터를 통해 Claude가 작성한 변경 사항을 식별합니다. 해당 풀 리퀘스트가 생성, 업데이트, 재오픈 또는 리뷰 준비 완료되면 <code>codex-review</code> 라벨을 붙입니다. Codex는 이 대기열에서 전체 diff와 해결되지 않은 리뷰 스레드를 읽고, 기존 CI를 확인하고, 관련 로컬 테스트를 실행한 뒤 근거가 포함된 리뷰를 게시하거나 범위를 좁힌 수정 사항을 푸시합니다. 성공적으로 끝나면 대기열 라벨은 <code>codex-reviewed</code>로 바뀌고, 새 커밋이 들어오면 해당 상태가 제거되어 다시 대기열에 등록됩니다. 병합은 여전히 별도의 명시적인 결정입니다.</p>
+
+    <p>GitHub App 하나를 설치하는 것보다 구성할 것이 많지만, 제가 실제로 중요하게 생각한 부분은 유지됩니다. 모든 리비전에 대한 자동 리뷰, 눈에 보이는 상태, 재현 가능한 검사, 그리고 코드를 작성한 에이전트가 최종 리뷰까지 맡아야 한다는 가정을 피할 수 있습니다.</p>
+
+    <h3>실제로 Gemini 리뷰는 얼마나 좋았을까?</h3>
+
+    <p>앱을 대체하기 전에 풀 리퀘스트 10개의 리뷰 기록을 감사했습니다. Gemini는 요약 리뷰 10건과 <strong>인라인 지적 40건</strong>을 남겼습니다. 우선순위별로는 높음 5건, 보안-중간 1건, 중간 34건이었습니다. 40건 중 39건은 조치할 가치가 있었고 1건은 오탐으로 판단했습니다. 댓글 단위의 <strong>유용률은 97.5%</strong>였습니다. 같은 임시 파일 문제가 세 호출 지점에서 반복된 경우처럼 중복 사례를 묶으면, 약 <strong>27개의 서로 다른 문제 패턴</strong>에 해당합니다.</p>
+
+    <p>유용한 발견은 구체적이었습니다. 누락된 오류 처리, 안전하지 않은 인증서 저장소 변경, Unicode와 로캘에 대한 잘못된 가정, 이식성 없는 systemd 설정, 잘못된 HTML, 예외 시 실행되지 않는 정리 경로, 누락된 도구 사전 조건 등이었습니다. Gemini는 수정 방법이 명확한 국소적 결함에 특히 강했습니다. 반면 중복 통합과 전체 워크플로 추론에는 약점이 있었습니다. 여러 파일이나 언어판에서 같은 근본 원인을 반복 지적했고, 한 번은 노트북 JSON을 Python 튜플로 오해했으며, 이후 2차 리뷰가 발견한 멱등성 경쟁 조건은 놓쳤습니다. 제 평가는 긍정적이지만 한계가 분명합니다. 봇은 실질적인 가치를 많이 만들었지만, 각 의견의 검증과 개별 줄을 넘어 전체를 보는 리뷰어는 여전히 필요했습니다.</p>
+
+    <h2>요점</h2>
+
+    <p>구글이 AI 보조 개발을 죽인 것은 아닙니다. 통합한 것입니다. 소비자용 Gemini Code Assist 도구들은 Antigravity로 흡수되고 있고, 엔터프라이즈 라이선스는 변함없이 이어집니다. 하지만 우리 상당수가 기대어 온 그 특정한 편의 — 모든 PR에 조용히 댓글을 달아 주던 무료 리뷰어 — 는 오늘부로 사라졌고, Antigravity는 그것의 곧바른 대체품이 아닙니다. Antigravity로 옮겨 가면 구글의 세계 안에 머무르게 되고, Copilot의 리뷰어나 CodeRabbit, Qodo, Greptile을 집어 들면 PR 리뷰를 되찾게 됩니다. 어느 쪽이든, 다음 풀 리퀘스트가 리뷰 없이 지나가기 전에 대체재를 연결해 두기에 오늘이 좋은 날입니다.</p>
+
+    <p><em>출처: 구글의 <a href="https://developers.google.com/gemini-code-assist/docs/deprecations">Gemini Code Assist deprecations</a> 페이지(종료 날짜와 엔터프라이즈 예외 조항)와 <a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">Gemini CLI → Antigravity CLI 전환</a> 게시글, 그리고 <a href="https://9to5google.com/2026/06/17/gemini-cli-code-assist-shutting-down/">9to5Google</a>의 보도. 도구별 세부 사항은 2026년 7월 기준 각 벤더의 사이트에서 가져왔으며, 가격은 자주 바뀌므로 결정하기 전에 확인하세요.</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/gemini-code-assist-deprecation-ko.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}",
+  "inLanguage": "{{ page.lang | default: 'en' }}"
+}
+</script>
