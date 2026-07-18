@@ -1,0 +1,29 @@
+{
+  "timezone": "America/Los_Angeles",
+  "daily_cron_utc": "15 15 * * *",
+  "items": [
+    "dsa-appeals-do-they-work",
+    "dsa-moderator-headcount",
+    "meta-cser-eight-years",
+    "apple-transparency-report",
+    "google-user-data-requests",
+    "microsoft-law-enforcement-requests",
+    "github-transparency-report",
+    "tiktok-two-transparency-streams",
+    "snap-transparency-report",
+    "discord-transparency-report",
+    "android-pha-rates",
+    "singapore-online-safety-scores",
+    "australia-bose-findings",
+    "eu-tco-transparency",
+    "turkey-5651-reports",
+    "korea-naver-kakao-requests",
+    "korea-network-act-report",
+    "japan-johoplatform-act",
+    "india-it-rules-compliance",
+    "taiwan-anti-fraud-transparency",
+    "china-report-hotlines",
+    "texas-austria-youtube-reports",
+    "linkedin-government-requests"
+  ]
+}

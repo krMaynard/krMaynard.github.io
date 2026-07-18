@@ -11,22 +11,31 @@ Web language set is per post (EU-topic posts add fr/de/it/es on top of
 ja/zh/ko). Self-contained: card title/excerpt/tags are read from the posts.
 
 Usage:  python3 scripts/promote-next.py [--date YYYY-MM-DD] [--slug SLUG] [--dry-run]
+        python3 scripts/promote-next.py --list
 Commits but does NOT push. Prints the promoted slug ("" if none left).
 """
-import os, re, sys, subprocess, datetime
+import datetime
+import json
+import os
+import re
+import subprocess
+import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-RELEASE_ORDER = [
-    "dsa-appeals-do-they-work", "dsa-moderator-headcount", "meta-cser-eight-years",
-    "apple-transparency-report", "google-user-data-requests", "microsoft-law-enforcement-requests",
-    "github-transparency-report", "tiktok-two-transparency-streams", "snap-transparency-report",
-    "discord-transparency-report", "android-pha-rates", "singapore-online-safety-scores",
-    "australia-bose-findings", "eu-tco-transparency", "turkey-5651-reports",
-    "korea-naver-kakao-requests", "korea-network-act-report", "japan-johoplatform-act",
-    "india-it-rules-compliance", "taiwan-anti-fraud-transparency", "china-report-hotlines",
-    "texas-austria-youtube-reports", "linkedin-government-requests",
-]
+QUEUE_PATH = os.path.join(REPO, "data", "dsa-publish-queue.json")
+
+
+def release_order():
+    with open(QUEUE_PATH, encoding="utf-8") as f:
+        queue = json.load(f)
+    items = queue.get("items")
+    if not isinstance(items, list) or not items or not all(isinstance(s, str) and s for s in items):
+        raise SystemExit(f"{QUEUE_PATH}: items must be a non-empty list of slugs")
+    duplicates = sorted({slug for slug in items if items.count(slug) > 1})
+    if duplicates:
+        raise SystemExit(f"{QUEUE_PATH}: duplicate slugs: {', '.join(duplicates)}")
+    return items
 # EU-topic posts: localized into fr/de/it/es too, and posted to LinkedIn in de/fr/en.
 EU_POSTS = {"eu-tco-transparency", "dsa-appeals-do-they-work", "dsa-moderator-headcount",
             "texas-austria-youtube-reports", "turkey-5651-reports"}
@@ -99,16 +108,30 @@ def promote(slug, d, dry):
         changed += [post, bl]
     return changed
 
+
+def is_staged(slug):
+    post = _post_path("en", slug)
+    return os.path.exists(post) and "published: false" in _read(post)
+
+
+def print_queue():
+    for position, slug in enumerate(release_order(), 1):
+        status = "queued" if is_staged(slug) else "published"
+        print(f"{position:02d}\t{status}\t{slug}")
+
 def main():
     args = sys.argv[1:]
+    if "--list" in args:
+        print_queue()
+        return
     dry = "--dry-run" in args
     d = datetime.date.fromisoformat(args[args.index("--date")+1]) if "--date" in args else datetime.date.today()
     if "--slug" in args:
         slug = args[args.index("--slug")+1]
+        if not is_staged(slug):
+            raise SystemExit(f"{slug} is not a staged post")
     else:
-        slug = next((s for s in RELEASE_ORDER
-                     if os.path.exists(_post_path("en", s))
-                     and "published: false" in _read(_post_path("en", s))), None)
+        slug = next((s for s in release_order() if is_staged(s)), None)
     if not slug:
         print(""); return
     changed = promote(slug, d, dry)
