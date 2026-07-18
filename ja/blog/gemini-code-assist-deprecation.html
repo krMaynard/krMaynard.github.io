@@ -72,7 +72,7 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
 
     <h3>実際、Geminiのレビューはどれほど良かったのか</h3>
 
-    <p>アプリを置き換える前に、10件のプルリクエストのレビュー記録を監査しました。Geminiは10件の概要レビューと<strong>40件のインライン指摘</strong>を投稿し、その内訳は高優先度5件、セキュリティ中優先度1件、中優先度34件でした。40件中39件を対応価値あり、1件を誤検知と判断しました。コメント単位の<strong>有用率は97.5%</strong>です。同じ一時ファイルの問題が3か所で繰り返された例などをまとめると、指摘はおよそ<strong>27種類の異なる問題パターン</strong>に相当しました。</p>
+    <p>アプリを置き換える前に10件のプルリクエストを監査しました。そして停止予定日にこの記事を仕上げている間、GeminiはこのPRもレビューし、ローカライズとSEOに関する妥当な指摘をさらに14件追加しました。11件のレビュー全体で<strong>54件のインライン指摘</strong>があり、内訳は高優先度5件、セキュリティ中優先度1件、中優先度48件でした。54件中53件を対応価値あり、1件を誤検知と判断し、コメント単位の<strong>有用率は98.1%</strong>でした。6つの翻訳で同じメタデータ項目が欠けていた例などをまとめると、およそ<strong>31種類の異なる問題パターン</strong>です。この最後のレビューは、Googleが公表した消費者向け停止日が7月17日のままでも、停止が瞬時ではなかったことを示しています。</p>
 
     <p>有用だった指摘は具体的でした。エラー処理の欠如、証明書ストアの危険な変更、Unicodeやロケールへの誤った前提、移植性のないsystemd設定、壊れたHTML、例外時に機能しない後処理、必要ツールの確認漏れなどです。Geminiは、修正方法が明確な局所的欠陥に特に強い一方、整理統合やワークフロー全体の推論は弱めでした。同じ根本原因を複数ファイルや言語版で重複して指摘し、ノートブックのJSONをPythonのタプルと誤読したことが1度あり、後の二次レビューで見つかった冪等性の競合も見逃しました。評価は好意的ですが限定付きです。実際の価値は大きかったものの、各コメントの検証と行単位を超えて見るレビュアーは依然として必要でした。</p>
 
@@ -93,6 +93,7 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
   "image": "https://krmaynard.github.io/images/gemini-code-assist-deprecation-ja.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
-  "url": "https://krmaynard.github.io{{ page.url }}"
+  "url": "https://krmaynard.github.io{{ page.url }}",
+  "inLanguage": "{{ page.lang | default: 'en' }}"
 }
 </script>

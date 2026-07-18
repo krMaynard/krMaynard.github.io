@@ -72,7 +72,7 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
 
     <h3>¿Qué tan bueno fue Gemini en realidad?</h3>
 
-    <p>Antes de sustituir la aplicación, audité el historial de revisión de 10 pull requests. Gemini publicó 10 revisiones resumidas y <strong>40 observaciones en línea</strong>: 5 marcadas como prioridad alta, 1 como seguridad-media y 34 como media. Consideré que 39 de las 40 eran accionables y una era un falso positivo, lo que da una <strong>tasa de utilidad del 97,5&nbsp;%</strong> por comentario. Al agrupar instancias repetidas del mismo problema —por ejemplo, un error con archivos temporales repetido en tres puntos de llamada— representaban aproximadamente <strong>27 patrones de problemas distintos</strong>.</p>
+    <p>Antes de sustituir la aplicación, audité el historial de 10 pull requests. Mientras terminaba este artículo en la fecha prevista de cierre, Gemini también revisó esta PR y añadió 14 observaciones válidas de localización y SEO. En las 11 revisiones publicó <strong>54 observaciones en línea</strong>: 5 de prioridad alta, 1 de seguridad-media y 48 medias. Consideré accionables 53 de las 54 y una como falso positivo, una <strong>tasa de utilidad del 98,1&nbsp;%</strong> por comentario. Al agrupar repeticiones —como un campo de metadatos ausente en seis traducciones— representan aproximadamente <strong>31 patrones de problemas distintos</strong>. Esa última revisión muestra que el corte no fue instantáneo, aunque la fecha de cierre publicada por Google siguió siendo el 17 de julio.</p>
 
     <p>Los hallazgos útiles eran concretos: gestión de errores ausente, modificación insegura del almacén de certificados, supuestos incorrectos sobre Unicode y la configuración regional, configuración de systemd no portable, HTML mal formado, rutas de limpieza que fallaban ante excepciones y requisitos de herramientas omitidos. Gemini destacó en defectos locales con una corrección clara. Fue menos eficaz al consolidar duplicados y razonar sobre el flujo completo: varios comentarios repetían la misma causa raíz en distintos archivos o idiomas; una vez interpretó JSON de un notebook como una tupla de Python; y no detectó una carrera de idempotencia que apareció en una segunda revisión. Mi valoración es favorable pero limitada: el bot aportó mucho valor real, aunque sus comentarios seguían necesitando verificación y un revisor capaz de mirar más allá de líneas individuales.</p>
 
@@ -93,6 +93,7 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
   "image": "https://krmaynard.github.io/images/gemini-code-assist-deprecation-es.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
-  "url": "https://krmaynard.github.io{{ page.url }}"
+  "url": "https://krmaynard.github.io{{ page.url }}",
+  "inLanguage": "{{ page.lang | default: 'en' }}"
 }
 </script>

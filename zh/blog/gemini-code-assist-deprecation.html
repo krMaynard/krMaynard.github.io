@@ -22,8 +22,8 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
     <time class="news-date" datetime="2026-07-17">2026年7月17日</time>
     <div class="tags">
       <span class="tag">Gemini Code Assist</span>
-      <span class="tag">AI Code Review</span>
-      <span class="tag">Developer Tools</span>
+      <span class="tag">AI代码审查</span>
+      <span class="tag">开发者工具</span>
       <span class="tag">GitHub</span>
     </div>
   </header>
@@ -46,7 +46,7 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
 
     <h2>Google希望你怎么做</h2>
 
-    <p>Google自己给出的迁移路径是<a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">Antigravity</a>——它在5月I/O大会上发布的"以智能体为先"（agent-first）的平台——外加它的终端搭档<strong>Antigravity CLI</strong>，这是一个用Go语言重写的版本，与Antigravity 2.0桌面应用共享同一套智能体框架。它自5月19日起可在<a href="https://antigravity.google/download">antigravity.google/download</a>获取，你的Agent Skills、Hooks、Subagents和Extensions（现称"plugins"）都可以延续使用。Google坦言，<a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">在发布之初并不具备完整的功能对等</a>。</p>
+    <p>Google自己给出的迁移路径是<a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">Antigravity</a>——它在5月I/O大会上发布的“以智能体为先”（agent-first）的平台——外加它的终端搭档<strong>Antigravity CLI</strong>，这是一个用Go语言重写的版本，与Antigravity 2.0桌面应用共享同一套智能体框架。它自5月19日起可在<a href="https://antigravity.google/download">antigravity.google/download</a>获取，你的Agent Skills、Hooks、Subagents和Extensions（现称“plugins”）都可以延续使用。Google坦言，<a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">在发布之初并不具备完整的功能对等</a>。</p>
 
     <p>但请注意其中的落差。Antigravity CLI是一个<em>由你驱动的智能体</em>——你终端和编辑器里的一个交互式编码助手。而今天真正关停的那个东西，是一个<em>盯着你GitHub PR、无需你开口就自动评论的自动审查器</em>。这两者做的不是同一件事，而且Google并没有为消费者版的GitHub机器人推出一个一对一的替代品。所以，如果你会怀念的是那种PR审查，那么诚实的答案是：你八成需要的是一款专门的代码审查工具，而不只是Antigravity。</p>
 
@@ -72,7 +72,7 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
 
     <h3>Gemini的实际表现如何？</h3>
 
-    <p>在替换这个应用之前，我审计了10个拉取请求的审查记录。Gemini发布了10份总结审查和<strong>40条行内意见</strong>：5条标为高优先级、1条为安全中优先级、34条为中优先级。我判断其中39条值得采取行动，1条为误报；按评论计算，<strong>有用率为97.5%</strong>。将同一问题的重复实例合并后——例如同一个临时文件错误在三个调用点重复出现——这些意见约对应<strong>27种不同的问题模式</strong>。</p>
+    <p>在替换这个应用之前，我审计了10个拉取请求。随后，在预定关停日完成本文时，Gemini也审查了这篇文章的PR，又提出14条有效的本地化和SEO意见。11次审查共发布了<strong>54条行内意见</strong>：5条高优先级、1条安全中优先级、48条中优先级。我判断其中53条值得采取行动，1条为误报；按评论计算，<strong>有用率为98.1%</strong>。合并同一问题的重复实例——例如六种译文缺少同一个元数据字段——后，约对应<strong>31种不同的问题模式</strong>。这次最后的审查表明，尽管Google公布的消费者版关停日期仍是7月17日，切换并非瞬间完成。</p>
 
     <p>有用的发现都很具体：缺少错误处理、不安全地修改证书存储、对Unicode和区域设置的错误假设、不可移植的systemd配置、格式错误的HTML、异常发生时失效的清理路径，以及遗漏的工具依赖检查。Gemini尤其擅长发现修复方式明确的局部缺陷，但在归并重复问题和理解完整工作流方面较弱：有些评论在不同文件或语言版本中重复同一根因；它曾把笔记本JSON误读成Python元组；也没有发现后来由第二轮审查找出的幂等性竞态。我的结论总体正面但有边界：机器人确实创造了大量价值，但每条意见仍需验证，也仍需要能够跳出单行代码审视全局的审查者。</p>
 

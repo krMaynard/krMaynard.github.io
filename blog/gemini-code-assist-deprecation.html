@@ -72,7 +72,7 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
 
     <h3>How good was Gemini, actually?</h3>
 
-    <p>I audited the review record from 10 pull requests before replacing the app. Gemini posted 10 summary reviews and <strong>40 inline findings</strong>: 5 marked high priority, 1 security-medium, and 34 medium. I judged 39 of the 40 actionable and one a false positive, a <strong>97.5% useful-finding rate</strong> at the comment level. After grouping repeated instances of the same problem—such as one temporary-file mistake repeated at three call sites—the comments represented roughly <strong>27 distinct issue patterns</strong>.</p>
+    <p>I audited the review record from 10 pull requests before replacing the app. Then, while I was finalizing this article on the scheduled shutdown date, Gemini reviewed this PR too and added 14 more valid localization and SEO findings. Across all 11 reviews, Gemini posted <strong>54 inline findings</strong>: 5 marked high priority, 1 security-medium, and 48 medium. I judged 53 of the 54 actionable and one a false positive, a <strong>98.1% useful-finding rate</strong> at the comment level. After grouping repeated instances of the same problem—such as one missing metadata field across six translations—the comments represented roughly <strong>31 distinct issue patterns</strong>. That last review shows the cutoff was not instantaneous, even though Google's published consumer shutdown date remained July 17.</p>
 
     <p>The useful findings were concrete: missing error handling, unsafe certificate-store mutation, Unicode and locale assumptions, non-portable systemd configuration, malformed HTML, cleanup paths that failed on exceptions, and missing tool prerequisites. Gemini was especially good at local defects with a clear fix. It was less good at consolidation and whole-workflow reasoning: several comments duplicated the same root cause across files or locales, it misread notebook JSON as a Python tuple once, and it did not catch a later idempotency race that a second review found. My takeaway is favorable but bounded: the bot produced a lot of real value, yet its comments still needed verification and a reviewer looking beyond individual lines.</p>
 
@@ -93,6 +93,7 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
   "image": "https://krmaynard.github.io/images/gemini-code-assist-deprecation-en.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
-  "url": "https://krmaynard.github.io{{ page.url }}"
+  "url": "https://krmaynard.github.io{{ page.url }}",
+  "inLanguage": "{{ page.lang | default: 'en' }}"
 }
 </script>

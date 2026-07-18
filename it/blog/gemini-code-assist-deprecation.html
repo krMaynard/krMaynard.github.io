@@ -23,7 +23,7 @@ lang_url_de: /de/blog/gemini-code-assist-deprecation.html
     <div class="tags">
       <span class="tag">Gemini Code Assist</span>
       <span class="tag">AI Code Review</span>
-      <span class="tag">Developer Tools</span>
+      <span class="tag">Strumenti per sviluppatori</span>
       <span class="tag">GitHub</span>
     </div>
   </header>
@@ -72,7 +72,7 @@ lang_url_de: /de/blog/gemini-code-assist-deprecation.html
 
     <h3>Quanto era valido Gemini, in concreto?</h3>
 
-    <p>Prima di sostituire l'app ho esaminato la cronologia di revisione di 10 pull request. Gemini ha pubblicato 10 revisioni riepilogative e <strong>40 osservazioni inline</strong>: 5 contrassegnate come priorità alta, 1 sicurezza-media e 34 media. Ho giudicato 39 osservazioni su 40 utilizzabili e una un falso positivo, pari a un <strong>tasso di utilità del 97,5%</strong> a livello di commento. Raggruppando le occorrenze ripetute dello stesso problema — per esempio lo stesso errore sui file temporanei in tre punti di chiamata — rappresentavano circa <strong>27 schemi di problemi distinti</strong>.</p>
+    <p>Prima di sostituire l'app ho esaminato 10 pull request. Mentre completavo questo articolo nella data prevista per lo spegnimento, Gemini ha revisionato anche questa PR e aggiunto 14 osservazioni valide su localizzazione e SEO. Nelle 11 revisioni ha pubblicato <strong>54 osservazioni inline</strong>: 5 ad alta priorità, 1 sicurezza-media e 48 media. Ne ho giudicate 53 utilizzabili e una un falso positivo, pari a un <strong>tasso di utilità del 98,1%</strong> per commento. Raggruppando le ripetizioni — come un campo di metadati mancante in sei traduzioni — corrispondono a circa <strong>31 schemi di problemi distinti</strong>. Quest'ultima revisione mostra che il taglio non è stato istantaneo, anche se la data di spegnimento consumer pubblicata da Google restava il 17 luglio.</p>
 
     <p>I risultati utili erano concreti: gestione degli errori mancante, modifica non sicura dell'archivio certificati, presupposti errati su Unicode e locale, configurazione systemd non portabile, HTML malformato, percorsi di pulizia che fallivano in caso di eccezione e prerequisiti degli strumenti mancanti. Gemini era particolarmente efficace sui difetti locali con una correzione chiara. Lo era meno nel consolidare i duplicati e nel ragionare sull'intero workflow: diversi commenti ripetevano la stessa causa in file o lingue differenti, una volta ha scambiato il JSON di un notebook per una tupla Python e non ha individuato una race condition di idempotenza scoperta da una seconda revisione. Il mio giudizio è favorevole ma circoscritto: il bot ha prodotto molto valore reale, ma i suoi commenti richiedevano comunque verifica e un revisore capace di guardare oltre le singole righe.</p>
 
@@ -93,6 +93,7 @@ lang_url_de: /de/blog/gemini-code-assist-deprecation.html
   "image": "https://krmaynard.github.io/images/gemini-code-assist-deprecation-it.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
-  "url": "https://krmaynard.github.io{{ page.url }}"
+  "url": "https://krmaynard.github.io{{ page.url }}",
+  "inLanguage": "{{ page.lang | default: 'en' }}"
 }
 </script>

@@ -72,7 +72,7 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
 
     <h3>Quelle était réellement la qualité de Gemini&nbsp;?</h3>
 
-    <p>Avant de remplacer l'application, j'ai audité l'historique de revue de 10 pull requests. Gemini a publié 10 synthèses et <strong>40 remarques en ligne</strong>&nbsp;: 5 classées priorité haute, 1 sécurité-moyenne et 34 moyennes. J'ai jugé 39 des 40 remarques exploitables et une seule comme faux positif, soit un <strong>taux d'utilité de 97,5&nbsp;%</strong> au niveau des commentaires. Après regroupement des occurrences répétées d'un même problème — par exemple une même erreur de fichier temporaire à trois points d'appel — elles représentaient environ <strong>27 types de problèmes distincts</strong>.</p>
+    <p>Avant de remplacer l'application, j'ai audité 10 pull requests. Pendant que je terminais cet article à la date d'arrêt prévue, Gemini a aussi examiné cette PR et ajouté 14 remarques valides de localisation et de SEO. Sur les 11 revues, Gemini a publié <strong>54 remarques en ligne</strong>&nbsp;: 5 de priorité haute, 1 sécurité-moyenne et 48 moyennes. J'en ai jugé 53 exploitables et une comme faux positif, soit un <strong>taux d'utilité de 98,1&nbsp;%</strong> par commentaire. Après regroupement des répétitions — tel un champ de métadonnées absent dans six traductions — elles représentent environ <strong>31 types de problèmes distincts</strong>. Cette dernière revue montre que la coupure n'a pas été instantanée, même si la date d'arrêt grand public publiée par Google restait le 17 juillet.</p>
 
     <p>Les constats utiles étaient concrets&nbsp;: gestion d'erreurs absente, modification dangereuse du magasin de certificats, hypothèses erronées sur Unicode et la locale, configuration systemd non portable, HTML mal formé, nettoyage défaillant lors d'exceptions et prérequis d'outils manquants. Gemini était particulièrement bon sur les défauts locaux assortis d'une correction claire. Il l'était moins pour regrouper les doublons et raisonner sur l'ensemble du workflow&nbsp;: plusieurs commentaires répétaient la même cause dans différents fichiers ou langues, il a une fois confondu du JSON de notebook avec un tuple Python, et il n'a pas repéré une condition de concurrence d'idempotence trouvée lors d'une seconde revue. Mon bilan est favorable mais nuancé&nbsp;: le bot a apporté beaucoup de valeur réelle, mais ses remarques devaient toujours être vérifiées par une personne capable de regarder au-delà d'une ligne isolée.</p>
 
@@ -93,6 +93,7 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
   "image": "https://krmaynard.github.io/images/gemini-code-assist-deprecation-fr.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
-  "url": "https://krmaynard.github.io{{ page.url }}"
+  "url": "https://krmaynard.github.io{{ page.url }}",
+  "inLanguage": "{{ page.lang | default: 'en' }}"
 }
 </script>
