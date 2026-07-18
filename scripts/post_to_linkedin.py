@@ -2,8 +2,8 @@
 """Post the newest blog entry to LinkedIn, one language at a time.
 
 Reads blog.html, finds the first (newest) .news-entry, and posts it to
-LinkedIn in four languages — Japanese first, then Chinese, Korean and
-English roughly an hour apart. English is posted last so it lands as the
+LinkedIn in five languages — Japanese first, then Chinese, Korean and
+Spanish, with English last, roughly an hour apart. English is posted last so it lands as the
 newest post on the profile page. Each language is a separate single-language
 post that links to the matching localized blog page.
 
@@ -65,7 +65,7 @@ MAX_POST_CHARS = 3000
 # Languages are posted in this order, one per run. The first language goes
 # out immediately on a blog push; the rest follow ~INTERVAL minutes apart.
 # English is posted last so it's the newest post on the profile page.
-LANGUAGE_SEQUENCE = ["ja", "zh", "ko", "en"]
+LANGUAGE_SEQUENCE = ["ja", "zh", "ko", "es", "en"]
 # "punctuation" is language-specific guidance (empty where Western/ASCII
 # punctuation is correct, e.g. English and modern Korean).
 LANGUAGES = {
@@ -683,7 +683,7 @@ def build_post_text(entry, lang, commentary=None, llm_hashtags=None):
     trimmed = body[:budget]
     # ja/zh don't separate words with spaces, so rsplit on a space could discard
     # most of the post — only trim to a word boundary for space-delimited langs.
-    if lang in ("en", "ko") and " " in trimmed:
+    if lang not in ("ja", "zh") and " " in trimmed:
         trimmed = trimmed.rsplit(" ", 1)[0]
     parts[2] = trimmed + "…"
     return "\n".join(parts)
