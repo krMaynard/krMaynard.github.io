@@ -1,7 +1,7 @@
 ---
 layout: main
 title: "Gemini Code Assist的GitHub代码审查今天关停——接下来该去哪里"
-description: "2026年7月17日，Google关闭面向消费者的Gemini Code Assist在GitHub上的代码审查应用，这是逐步收尾免费/个人版的最后一步。究竟哪些功能要终止、Google希望你改用什么，以及值得一看的AI PR审查替代方案。"
+description: "2026年7月17日，Google关闭面向消费者的Gemini Code Assist在GitHub上的代码审查应用，这是逐步收尾免费/个人版的最后一步。究竟哪些功能要终止、Google希望你改用什么，以及我用来替代它的Codex审查队列。"
 date: 2026-07-17
 og_image: /images/gemini-code-assist-deprecation-zh.png
 lang: zh
@@ -50,20 +50,6 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
 
     <p>但请注意其中的落差。Antigravity CLI是一个<em>由你驱动的智能体</em>——你终端和编辑器里的一个交互式编码助手。而今天真正关停的那个东西，是一个<em>盯着你GitHub PR、无需你开口就自动评论的自动审查器</em>。这两者做的不是同一件事，而且Google并没有为消费者版的GitHub机器人推出一个一对一的替代品。所以，如果你会怀念的是那种PR审查，那么诚实的答案是：你八成需要的是一款专门的代码审查工具，而不只是Antigravity。</p>
 
-    <h2>面向GitHub PR审查这项工作的替代方案</h2>
-
-    <p>好消息是——这正是当下开发者工具市场里最拥挤的角落之一。大致按你需要改动的多少从少到多排列：</p>
-
-    <ul>
-      <li><strong><a href="https://github.com/features/copilot">GitHub Copilot code review</a></strong>——如果你已经在为Copilot付费，这是阻力最小的路径。它原生于GitHub，无需任何新的集成，并在摘要之下叠加了CodeQL和ESLint扫描。比那些专门工具浅一些，但开启起来即刻可用。</li>
-      <li><strong><a href="https://www.coderabbit.ai/">CodeRabbit</a></strong>——最受欢迎的专门AI审查器，直接在PR里发布结构化的逐行反馈。付费档位起价约为每位开发者每月24美元，并为开源和公开仓库提供免费档位——是最接近替代Gemini机器人所做之事的现成之选。</li>
-      <li><strong><a href="https://www.qodo.ai/">Qodo Merge</a></strong>（原名Codium/PR-Agent）——提供PR摘要、审查和内联建议，面向那些同时还想要测试生成与治理能力的团队。其<a href="https://github.com/qodo-ai/pr-agent">PR-Agent</a>核心是开源的，因此如果你不愿把自己的代码差异交给又一个SaaS，也可以自行托管。</li>
-      <li><strong><a href="https://www.greptile.com/">Greptile</a></strong>——依托的是深度的、整个代码库范围的上下文，而不仅仅是代码差异；在捕捉那些只有放在更大仓库语境中才说得通的问题上很强。约为每位开发者每月30美元。</li>
-      <li><strong><a href="https://www.anthropic.com/claude-code">Claude Code</a></strong>——如果你更愿意在CI中运行一个智能体，它的GitHub Action可以审查PR（也能创建PR），因此你可以精确地脚本化要检查的内容。比一个托管的机器人需要更多设置，但工作流由你掌控。（如实相告：本文就是用它起草的。）</li>
-    </ul>
-
-    <p>如果你偏爱的恰恰是Google的模型，那么请注意，上述其中几款都支持Gemini——你不必为了放弃这个机器人而放弃这个模型。</p>
-
     <h2>我的替代方案</h2>
 
     <p>我最终为自己的31个代码库搭建了一个小型、供应商中立的审查队列；受保护的第32个代码库已通过一个<a href="https://github.com/krMaynard/krMaynard.github.io/pull/179">检查全部通过的拉取请求</a>做好准备。一个<a href="https://github.com/krMaynard/krMaynard.github.io/blob/master/.github/workflows/codex-review-queue.yml">GitHub Actions工作流</a>会通过分支名、PR正文或提交作者与会话元数据识别Claude创建的更改。当相应拉取请求被打开、更新、重新打开或标记为可供审查时，它会添加<code>codex-review</code>标签。Codex从队列中读取完整差异和未解决的审查线程，检查现有CI，运行相关的本地测试，并发布有证据支持的审查意见或推送范围明确的修复。成功完成后，队列标签会替换为<code>codex-reviewed</code>；新的提交会取消这一状态并重新排队。合并仍然是一个独立且必须明确作出的决定。</p>
@@ -78,9 +64,9 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
 
     <h2>要点小结</h2>
 
-    <p>Google并没有扼杀AI辅助开发；它把它整合了。面向消费者的Gemini Code Assist工具正被并入Antigravity，而企业许可则原封不动地继续运行。但很多人所依赖的那份具体便利——一个默默为每个PR评论的免费审查器——从今天起就没有了，而Antigravity并不是它的直接替代。迁移到Antigravity能让你继续留在Google的世界里；而选用Copilot的审查器、CodeRabbit、Qodo或Greptile，则能把你的PR审查找回来。无论选哪条路，今天都是把替代方案接好的好日子——趁下一个拉取请求还没在无人审查中溜走之前。</p>
+    <p>Google并没有扼杀AI辅助开发；它把它整合了。面向消费者的Gemini Code Assist工具正被并入Antigravity，而企业许可则原封不动地继续运行。但很多人所依赖的那份具体便利——一个默默为每个PR评论的免费审查器——从今天起就没有了，而Antigravity并不是它的直接替代。迁移到Antigravity能让你继续留在Google的世界里；而我选择了另一条路，把PR审查交给了Codex，于是每一次修订都仍会得到检查。无论选哪条路，今天都是把替代方案接好的好日子——趁下一个拉取请求还没在无人审查中溜走之前。</p>
 
-    <p><em>资料来源：Google的<a href="https://developers.google.com/gemini-code-assist/docs/deprecations">Gemini Code Assist弃用</a>页面（关停日期与企业版豁免），及其<a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">Gemini CLI → Antigravity CLI过渡</a>文章；以及<a href="https://9to5google.com/2026/06/17/gemini-cli-code-assist-shutting-down/">9to5Google</a>的报道。工具详情来自各供应商官网，截至2026年7月；定价经常变动，请在决定前先行核实。</em></p>
+    <p><em>资料来源：Google的<a href="https://developers.google.com/gemini-code-assist/docs/deprecations">Gemini Code Assist弃用</a>页面（关停日期与企业版豁免），及其<a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">Gemini CLI → Antigravity CLI过渡</a>文章；以及<a href="https://9to5google.com/2026/06/17/gemini-cli-code-assist-shutting-down/">9to5Google</a>的报道。我的替代方案运行在<a href="https://developers.openai.com/codex/integrations/github">OpenAI的Codex GitHub集成</a>之上；驱动它的<a href="https://github.com/krMaynard/krMaynard.github.io/blob/master/.github/workflows/codex-review-queue.yml">工作流</a>在本仓库中公开可见。</em></p>
 
   </div>
 </article>

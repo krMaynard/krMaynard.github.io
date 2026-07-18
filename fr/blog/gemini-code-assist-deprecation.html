@@ -1,7 +1,7 @@
 ---
 layout: main
 title: "Le relecteur GitHub de Gemini Code Assist s'éteint aujourd'hui — où aller ensuite"
-description: "Google désactive l'application grand public Gemini Code Assist pour la revue de code sur GitHub le 17 juillet 2026, dernière étape de l'arrêt progressif de l'offre gratuite/individuelle. Ce qui prend fin exactement, ce que Google veut que vous utilisiez à la place, et les alternatives de revue de PR par IA à considérer."
+description: "Google désactive l'application grand public Gemini Code Assist pour la revue de code sur GitHub le 17 juillet 2026, dernière étape de l'arrêt progressif de l'offre gratuite/individuelle. Ce qui prend fin exactement, ce que Google veut que vous utilisiez à la place, et la file de revue Codex que j'utilise à sa place."
 date: 2026-07-17
 og_image: /images/gemini-code-assist-deprecation-fr.png
 lang: fr
@@ -50,20 +50,6 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
 
     <p>Mais notez l'écart. Antigravity CLI est un <em>agent que vous pilotez</em> — un assistant de codage interactif dans votre terminal et votre éditeur. Ce qui s'est réellement éteint aujourd'hui, c'était un <em>relecteur automatisé qui surveillait vos PR GitHub et les commentait sans qu'on le lui demande</em>. Ce ne sont pas les mêmes tâches, et Google ne livre pas de remplaçant équivalent pour le bot GitHub grand public. Donc si ce qui va vous manquer, ce sont les revues de PR, la réponse honnête est&nbsp;: il vous faut probablement un outil de revue de code dédié, et pas seulement Antigravity.</p>
 
-    <h2>Alternatives pour la tâche de revue de PR sur GitHub</h2>
-
-    <p>Bonne nouvelle — c'est l'un des recoins les plus encombrés du marché des outils pour développeurs en ce moment. À peu près par ordre de ce que vous auriez le moins à changer&nbsp;:</p>
-
-    <ul>
-      <li><strong><a href="https://github.com/features/copilot">GitHub Copilot code review</a></strong> — la voie de moindre résistance si vous payez déjà pour Copilot. C'est natif à GitHub, cela ne requiert aucune nouvelle intégration, et cela superpose l'analyse CodeQL et ESLint sous les résumés. Plus superficiel que les outils dédiés, mais activable instantanément.</li>
-      <li><strong><a href="https://www.coderabbit.ai/">CodeRabbit</a></strong> — le relecteur IA dédié le plus populaire, qui publie des retours structurés ligne par ligne directement dans la PR. Les offres payantes démarrent autour de 24&nbsp;$/développeur/mois, avec une offre gratuite pour l'open source et les dépôts publics — le remplaçant le plus proche de ce que faisait le bot Gemini.</li>
-      <li><strong><a href="https://www.qodo.ai/">Qodo Merge</a></strong> (anciennement Codium/PR-Agent) — résumés de PR, revue et suggestions en ligne, à destination des équipes qui veulent aussi de la génération de tests et de la gouvernance. Son cœur <a href="https://github.com/qodo-ai/pr-agent">PR-Agent</a> est open source, vous pouvez donc l'héberger vous-même si vous préférez ne pas confier vos diffs à un autre SaaS.</li>
-      <li><strong><a href="https://www.greptile.com/">Greptile</a></strong> — s'appuie sur un contexte profond de l'ensemble de la base de code plutôt que sur le seul diff&nbsp;; efficace pour repérer les problèmes qui n'ont de sens que dans le contexte du dépôt élargi. Autour de 30&nbsp;$/développeur/mois.</li>
-      <li><strong><a href="https://www.anthropic.com/claude-code">Claude Code</a></strong> — si vous préférez faire tourner un agent en CI, sa GitHub Action relit les PR (et peut en ouvrir), vous scriptez donc exactement ce qui est vérifié. Plus de configuration qu'un bot hébergé, mais vous êtes maître du flux de travail. (En toute transparence&nbsp;: ce billet a été rédigé avec.)</li>
-    </ul>
-
-    <p>Si votre fidélité va spécifiquement aux modèles de Google, notez que Gemini est disponible via plusieurs de ces outils — vous n'avez pas à abandonner le modèle pour abandonner le bot.</p>
-
     <h2>Ce que j'ai mis en place à la place</h2>
 
     <p>J'ai finalement assemblé une petite file de revue indépendante des fournisseurs pour 31 de mes dépôts, le 32e dépôt protégé étant prêt dans <a href="https://github.com/krMaynard/krMaynard.github.io/pull/179">une pull request dont tous les contrôles sont au vert</a>. Un <a href="https://github.com/krMaynard/krMaynard.github.io/blob/master/.github/workflows/codex-review-queue.yml">workflow GitHub Actions</a> reconnaît la contribution de Claude grâce au nom de branche, au corps de la PR ou aux métadonnées d'auteur et de session des commits. Lorsqu'une de ces pull requests est ouverte, mise à jour, rouverte ou déclarée prête à être relue, il ajoute le libellé <code>codex-review</code>. Codex prend la file en charge, lit le diff complet et les fils de revue non résolus, vérifie la CI existante, exécute les tests locaux pertinents et publie soit une revue étayée, soit une correction strictement ciblée. Une passe réussie remplace le libellé par <code>codex-reviewed</code> ; tout nouveau commit annule cet état et remet la PR dans la file. La fusion reste une décision distincte et explicite.</p>
@@ -78,9 +64,9 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
 
     <h2>Ce qu'il faut en retenir</h2>
 
-    <p>Google n'a pas tué le développement assisté par IA&nbsp;; il l'a consolidé. Les outils grand public Gemini Code Assist sont intégrés à Antigravity, et les licences entreprise poursuivent leur cours sans changement. Mais la commodité précise sur laquelle beaucoup d'entre nous s'appuyaient — un relecteur gratuit qui commentait discrètement chaque PR — a disparu depuis aujourd'hui, et Antigravity n'en est pas un remplacement direct. Migrer vers Antigravity vous garde dans l'univers de Google&nbsp;; adopter le relecteur de Copilot, CodeRabbit, Qodo ou Greptile vous rend vos revues de PR. Quoi qu'il en soit, aujourd'hui est un bon jour pour brancher le remplaçant avant que la prochaine pull request ne passe sans relecture.</p>
+    <p>Google n'a pas tué le développement assisté par IA&nbsp;; il l'a consolidé. Les outils grand public Gemini Code Assist sont intégrés à Antigravity, et les licences entreprise poursuivent leur cours sans changement. Mais la commodité précise sur laquelle beaucoup d'entre nous s'appuyaient — un relecteur gratuit qui commentait discrètement chaque PR — a disparu depuis aujourd'hui, et Antigravity n'en est pas un remplacement direct. Migrer vers Antigravity vous garde dans l'univers de Google&nbsp;; j'ai pris l'autre chemin et confié la revue des PR à Codex, de sorte que chaque révision reste vérifiée. Quoi qu'il en soit, aujourd'hui est un bon jour pour brancher le remplaçant avant que la prochaine pull request ne passe sans relecture.</p>
 
-    <p><em>Sources&nbsp;: la page <a href="https://developers.google.com/gemini-code-assist/docs/deprecations">des dépréciations de Gemini Code Assist</a> de Google (dates d'arrêt et exception entreprise) et son billet sur la <a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">transition de Gemini CLI vers Antigravity CLI</a>&nbsp;; reportage de <a href="https://9to5google.com/2026/06/17/gemini-cli-code-assist-shutting-down/">9to5Google</a>. Les détails sur les outils proviennent du site de chaque fournisseur en juillet 2026&nbsp;; les tarifs changent souvent, vérifiez donc avant de vous engager.</em></p>
+    <p><em>Sources&nbsp;: la page <a href="https://developers.google.com/gemini-code-assist/docs/deprecations">des dépréciations de Gemini Code Assist</a> de Google (dates d'arrêt et exception entreprise) et son billet sur la <a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">transition de Gemini CLI vers Antigravity CLI</a>&nbsp;; reportage de <a href="https://9to5google.com/2026/06/17/gemini-cli-code-assist-shutting-down/">9to5Google</a>. Mon remplaçant repose sur l'<a href="https://developers.openai.com/codex/integrations/github">intégration GitHub de Codex d'OpenAI</a>&nbsp;; le <a href="https://github.com/krMaynard/krMaynard.github.io/blob/master/.github/workflows/codex-review-queue.yml">workflow qui le pilote</a> est public dans ce dépôt.</em></p>
 
   </div>
 </article>
