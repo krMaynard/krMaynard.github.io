@@ -1,0 +1,86 @@
+---
+layout: main
+title: "Il reviewer GitHub di Gemini Code Assist si spegne oggi — dove andare adesso"
+description: "Google spegne l'app consumer di Gemini Code Assist per la revisione del codice su GitHub il 17 luglio 2026, ultimo passo nella dismissione del piano gratuito/individuale. Cosa finisce davvero, cosa Google vuole che usi al suo posto e le alternative di AI PR-review che vale la pena valutare."
+date: 2026-07-17
+og_image: /images/gemini-code-assist-deprecation-it.png
+lang: it
+lang_url: /blog/gemini-code-assist-deprecation.html
+lang_url_ja: /ja/blog/gemini-code-assist-deprecation.html
+lang_url_zh: /zh/blog/gemini-code-assist-deprecation.html
+lang_url_ko: /ko/blog/gemini-code-assist-deprecation.html
+lang_url_fr: /fr/blog/gemini-code-assist-deprecation.html
+lang_url_es: /es/blog/gemini-code-assist-deprecation.html
+lang_url_de: /de/blog/gemini-code-assist-deprecation.html
+---
+
+<article class="post">
+  <a href="/it/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Scritti</p>
+    <h1>Il reviewer GitHub di Gemini Code Assist si spegne oggi — dove andare adesso</h1>
+    <time class="news-date" datetime="2026-07-17">17 luglio 2026</time>
+    <div class="tags">
+      <span class="tag">Gemini Code Assist</span>
+      <span class="tag">AI Code Review</span>
+      <span class="tag">Developer Tools</span>
+      <span class="tag">GitHub</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/gemini-code-assist-deprecation-it.png" alt="Intestazione dell'articolo: il reviewer GitHub di Gemini Code Assist si spegne oggi — dove andare adesso" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
+
+    <p>Se lasci che Gemini riveda le tue pull request, oggi è il giorno in cui il bot ammutolisce. A partire dal <strong>17 luglio 2026</strong>, Google ha <a href="https://developers.google.com/gemini-code-assist/docs/deprecations">spento la versione consumer di Gemini Code Assist su GitHub</a> — l'app che pubblicava revisioni del codice e riepiloghi automatici sulle tue PR. È l'ultimo passo di una dismissione a tappe dei piani gratuito e individuale in corso dalla primavera.</p>
+
+    <p>Ecco la sequenza completa, perché i pezzi si sono spenti in date diverse:</p>
+
+    <ul>
+      <li><strong>18 giugno 2026</strong> — le estensioni IDE di Gemini Code Assist e la Gemini CLI <a href="https://9to5google.com/2026/06/17/gemini-cli-code-assist-shutting-down/">hanno smesso di servire richieste</a> per Gemini Code Assist per privati e per i piani Google AI Pro e Ultra.</li>
+      <li><strong>17 luglio 2026 (oggi)</strong> — l'app GitHub consumer di Gemini Code Assist cessa la sua attività di revisione del codice.</li>
+    </ul>
+
+    <p>Una precisazione importante prima che qualcuno vada nel panico: questa è la storia <em>consumer</em>. Se la tua organizzazione paga una licenza Gemini Code Assist Standard o Enterprise, Google dice che quelle sono <strong>non interessate</strong> — l'assist nell'IDE, la CLI e le revisioni su GitHub continuano a funzionare. Ciò che finisce è la porta d'accesso gratuita/individuale che molti sviluppatori solitari e piccoli team avevano collegato ai propri repository.</p>
+
+    <h2>Cosa Google vuole che tu faccia</h2>
+
+    <p>Il percorso di migrazione proposto da Google è <a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">Antigravity</a>, la piattaforma «agent-first» presentata all'I/O di maggio, più il suo compagno da terminale, <strong>Antigravity CLI</strong> — una riscrittura in Go che condivide lo stesso agent harness dell'app desktop Antigravity 2.0. È disponibile dal 19 maggio su <a href="https://antigravity.google/download">antigravity.google/download</a>, e i tuoi Agent Skills, Hooks, Subagents ed Extensions (ora «plugin») vengono trasferiti. Google è chiara sul fatto che al lancio <a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">non c'è piena parità di funzionalità</a>.</p>
+
+    <p>Ma nota il divario. Antigravity CLI è un <em>agente che guidi tu</em> — un assistente di coding interattivo nel tuo terminale e nel tuo editor. La cosa che oggi si è effettivamente spenta era un <em>reviewer automatico che sorvegliava le tue PR su GitHub e le commentava senza che glielo si chiedesse</em>. Non sono lo stesso lavoro, e Google non sta rilasciando un sostituto identico per il bot GitHub consumer. Quindi se ciò che ti mancherà sono le revisioni delle PR, la risposta onesta è: probabilmente ti serve uno strumento dedicato di code review, non solo Antigravity.</p>
+
+    <h2>Alternative per il lavoro di revisione delle PR su GitHub</h2>
+
+    <p>Buone notizie — questo è oggi uno degli angoli più affollati del mercato degli strumenti per sviluppatori. All'incirca in ordine di quanto poco dovresti cambiare:</p>
+
+    <ul>
+      <li><strong><a href="https://github.com/features/copilot">GitHub Copilot code review</a></strong> — la via di minor resistenza se già paghi Copilot. È nativo di GitHub, non richiede alcuna nuova integrazione e affianca ai riepiloghi la scansione con CodeQL ed ESLint. Più superficiale degli strumenti dedicati, ma si attiva all'istante.</li>
+      <li><strong><a href="https://www.coderabbit.ai/">CodeRabbit</a></strong> — il reviewer AI dedicato più diffuso, che pubblica feedback strutturati riga per riga direttamente nella PR. I piani a pagamento partono da circa 24 $/sviluppatore/mese, con un piano gratuito per progetti open-source e repository pubblici — il sostituto più immediato di ciò che faceva il bot Gemini.</li>
+      <li><strong><a href="https://www.qodo.ai/">Qodo Merge</a></strong> (già Codium/PR-Agent) — riepiloghi delle PR, revisione e suggerimenti inline, pensato per team che vogliono anche generazione di test e governance. Il suo nucleo <a href="https://github.com/qodo-ai/pr-agent">PR-Agent</a> è open source, quindi puoi fare self-hosting se preferisci non affidare i tuoi diff a un altro SaaS.</li>
+      <li><strong><a href="https://www.greptile.com/">Greptile</a></strong> — si appoggia a un contesto profondo dell'intero codebase anziché al solo diff; forte nel cogliere problemi che hanno senso solo nel contesto del repository più ampio. Intorno ai 30 $/sviluppatore/mese.</li>
+      <li><strong><a href="https://www.anthropic.com/claude-code">Claude Code</a></strong> — se preferisci far girare un agente in CI, la sua GitHub Action rivede le PR (e può aprirle), così definisci via script esattamente cosa viene controllato. Più configurazione di un bot ospitato, ma il workflow è tuo. (Per trasparenza: questo articolo è stato redatto con esso.)</li>
+    </ul>
+
+    <p>Se la tua fedeltà è specificamente ai modelli di Google, nota che Gemini è disponibile attraverso molti di questi — non devi rinunciare al modello per rinunciare al bot.</p>
+
+    <h2>La conclusione</h2>
+
+    <p>Google non ha ucciso lo sviluppo assistito dall'IA; lo ha consolidato. Gli strumenti consumer di Gemini Code Assist vengono confluiti in Antigravity, e le licenze enterprise proseguono invariate. Ma la comodità specifica su cui molti di noi contavano — un reviewer gratuito che commentava discretamente ogni PR — da oggi è sparita, e Antigravity non ne è uno scambio diretto. Migrare ad Antigravity ti tiene nel mondo di Google; adottare il reviewer di Copilot, CodeRabbit, Qodo o Greptile ti restituisce le revisioni delle PR. In un modo o nell'altro, oggi è una buona giornata per collegare il sostituto prima che la prossima pull request resti senza revisione.</p>
+
+    <p><em>Fonti: la pagina <a href="https://developers.google.com/gemini-code-assist/docs/deprecations">Gemini Code Assist deprecations</a> di Google (date di spegnimento ed esclusione enterprise) e il suo post sulla <a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">transizione da Gemini CLI ad Antigravity CLI</a>; il reportage di <a href="https://9to5google.com/2026/06/17/gemini-cli-code-assist-shutting-down/">9to5Google</a>. I dettagli sugli strumenti provengono dai siti di ciascun fornitore a luglio 2026; i prezzi cambiano spesso, quindi verifica prima di impegnarti.</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/gemini-code-assist-deprecation-it.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>
