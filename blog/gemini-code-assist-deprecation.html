@@ -1,7 +1,7 @@
 ---
 layout: main
 title: "Gemini Code Assist's GitHub Reviewer Shuts Off Today — Where to Go Next"
-description: "Google turns off the consumer Gemini Code Assist app for GitHub code review on July 17, 2026, the last step in winding down the free/individual tier. What's actually ending, what Google wants you to use instead, and the AI PR-review alternatives worth a look."
+description: "Google turns off the consumer Gemini Code Assist app for GitHub code review on July 17, 2026, the last step in winding down the free/individual tier. What's actually ending, what Google wants you to use instead, and the Codex review queue I run in its place."
 date: 2026-07-17
 og_image: /images/gemini-code-assist-deprecation-en.png
 lang: en
@@ -50,20 +50,6 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
 
     <p>But notice the gap. Antigravity CLI is an <em>agent you drive</em> — an interactive coding assistant in your terminal and editor. The thing that actually switched off today was an <em>automated reviewer that watched your GitHub PRs and commented on them without being asked</em>. Those aren't the same job, and Google isn't shipping a like-for-like replacement for the consumer GitHub bot. So if what you'll miss is the PR reviews, the honest answer is: you probably want a dedicated code-review tool, not just Antigravity.</p>
 
-    <h2>Alternatives for the GitHub PR-review job</h2>
-
-    <p>Good news — this is one of the most crowded corners of the developer-tools market right now. Roughly in order of how little you'd have to change:</p>
-
-    <ul>
-      <li><strong><a href="https://github.com/features/copilot">GitHub Copilot code review</a></strong> — the path of least resistance if you already pay for Copilot. It's native to GitHub, requires zero new integrations, and layers CodeQL and ESLint scanning under the summaries. Shallower than the dedicated tools, but instant to turn on.</li>
-      <li><strong><a href="https://www.coderabbit.ai/">CodeRabbit</a></strong> — the most popular dedicated AI reviewer, posting structured line-by-line feedback right in the PR. Paid tiers start around $24/developer/month, with a free tier for open-source and public repos — the closest drop-in for what the Gemini bot did.</li>
-      <li><strong><a href="https://www.qodo.ai/">Qodo Merge</a></strong> (formerly Codium/PR-Agent) — PR summaries, review, and inline suggestions, aimed at teams that also want test generation and governance. Its <a href="https://github.com/qodo-ai/pr-agent">PR-Agent</a> core is open source, so you can self-host if you'd rather not hand your diffs to another SaaS.</li>
-      <li><strong><a href="https://www.greptile.com/">Greptile</a></strong> — leans on deep, whole-codebase context rather than just the diff; strong on catching issues that only make sense in the context of the wider repo. Around $30/developer/month.</li>
-      <li><strong><a href="https://www.anthropic.com/claude-code">Claude Code</a></strong> — if you'd rather run an agent in CI, its GitHub Action reviews PRs (and can open them), so you script exactly what gets checked. More setup than a hosted bot, but you own the workflow. (Full disclosure: this post was drafted with it.)</li>
-    </ul>
-
-    <p>If your loyalty is to Google's models specifically, note that Gemini is available through several of these — you don't have to give up the model to give up the bot.</p>
-
     <h2>What I replaced it with</h2>
 
     <p>I ended up wiring together a small, vendor-neutral review queue across 31 of my repositories, with a protected 32nd repository staged in <a href="https://github.com/krMaynard/krMaynard.github.io/pull/179">a green pull request</a>. A <a href="https://github.com/krMaynard/krMaynard.github.io/blob/master/.github/workflows/codex-review-queue.yml">GitHub Actions workflow</a> recognizes Claude authorship from the branch name, PR body, or commit author and session metadata. When one of those pull requests is opened, updated, reopened, or marked ready for review, it adds a <code>codex-review</code> label. Codex picks up that queue, reads the full diff and unresolved review threads, checks the existing CI, runs relevant local tests, and either posts an evidence-backed review or pushes a narrowly scoped fix. A successful pass replaces the queue label with <code>codex-reviewed</code>; a new commit removes that assurance and queues the PR again. Merging remains a separate, explicit decision.</p>
@@ -78,9 +64,9 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
 
     <h2>The takeaway</h2>
 
-    <p>Google didn't kill AI-assisted development; it consolidated it. The consumer Gemini Code Assist tools are being folded into Antigravity, and enterprise licenses roll on unchanged. But the specific convenience a lot of us leaned on — a free reviewer that quietly commented on every PR — is gone as of today, and Antigravity isn't a straight swap for it. Migrating to Antigravity keeps you in Google's world; picking up Copilot's reviewer, CodeRabbit, Qodo, or Greptile gets your PR reviews back. Either way, today's a good day to wire up the replacement before the next pull request goes unreviewed.</p>
+    <p>Google didn't kill AI-assisted development; it consolidated it. The consumer Gemini Code Assist tools are being folded into Antigravity, and enterprise licenses roll on unchanged. But the specific convenience a lot of us leaned on — a free reviewer that quietly commented on every PR — is gone as of today, and Antigravity isn't a straight swap for it. Migrating to Antigravity keeps you in Google's world; I went the other way and handed PR review to Codex, so every revision still gets checked. Either way, today's a good day to make the replacement deliberate — before the next pull request goes unreviewed.</p>
 
-    <p><em>Sources: Google's <a href="https://developers.google.com/gemini-code-assist/docs/deprecations">Gemini Code Assist deprecations</a> page (shutdown dates and enterprise carve-out) and its <a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">Gemini CLI → Antigravity CLI transition</a> post; reporting from <a href="https://9to5google.com/2026/06/17/gemini-cli-code-assist-shutting-down/">9to5Google</a>. Tool details are from each vendor's site as of July 2026; pricing changes often, so check before you commit.</em></p>
+    <p><em>Sources: Google's <a href="https://developers.google.com/gemini-code-assist/docs/deprecations">Gemini Code Assist deprecations</a> page (shutdown dates and enterprise carve-out) and its <a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">Gemini CLI → Antigravity CLI transition</a> post; reporting from <a href="https://9to5google.com/2026/06/17/gemini-cli-code-assist-shutting-down/">9to5Google</a>. My replacement runs on <a href="https://developers.openai.com/codex/integrations/github">OpenAI's Codex GitHub integration</a>; the workflow that drives it is <a href="https://github.com/krMaynard/krMaynard.github.io/blob/master/.github/workflows/codex-review-queue.yml">public in this repo</a>.</em></p>
 
   </div>
 </article>
