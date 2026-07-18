@@ -66,7 +66,7 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
 
     <h2>私が代わりに構築したもの</h2>
 
-    <p>最終的に、20のリポジトリを対象とする小規模でベンダー中立のレビューキューを組みました。<a href="https://github.com/krMaynard/krMaynard.github.io/blob/master/.github/workflows/codex-review-queue.yml">GitHub Actionsワークフロー</a>が、Claude作成のプルリクエストのオープン、更新、再オープン、またはレビュー準備完了を検知し、<code>codex-review</code>ラベルを付けます。Codexはそのキューから、差分全体と未解決のレビュースレッドを読み、既存のCIを確認し、関連するローカルテストを実行します。そのうえで、根拠を示したレビューを投稿するか、範囲を限定した修正をプッシュします。レビューが完了するとラベルは<code>codex-reviewed</code>に変わり、新しいコミットが入ると再びレビュー待ちになります。マージは引き続き、明示的に別途判断します。</p>
+    <p>最終的に、20を超えるリポジトリを対象とする小規模でベンダー中立のレビューキューを組みました。<a href="https://github.com/krMaynard/krMaynard.github.io/blob/master/.github/workflows/codex-review-queue.yml">GitHub Actionsワークフロー</a>が、ブランチ名、PR本文、またはコミットの作者・セッションメタデータからClaude作成を識別します。該当するプルリクエストがオープン、更新、再オープン、またはレビュー準備完了になると、<code>codex-review</code>ラベルを付けます。Codexはそのキューから、差分全体と未解決のレビュースレッドを読み、既存のCIを確認し、関連するローカルテストを実行します。そのうえで、根拠を示したレビューを投稿するか、範囲を限定した修正をプッシュします。レビューが完了するとラベルは<code>codex-reviewed</code>に変わり、新しいコミットが入ると再びレビュー待ちになります。マージは引き続き、明示的に別途判断します。</p>
 
     <p>単一のGitHub Appを入れるより配管は増えますが、私が本当に必要としていた部分は保てます。つまり、各リビジョンの自動レビュー、見える状態、再現可能なチェック、そしてコードを書いたエージェントを最終レビュアーにもする必要がないことです。</p>
 
