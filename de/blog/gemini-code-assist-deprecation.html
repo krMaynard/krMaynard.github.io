@@ -22,8 +22,8 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
     <time class="news-date" datetime="2026-07-17">17. Juli 2026</time>
     <div class="tags">
       <span class="tag">Gemini Code Assist</span>
-      <span class="tag">AI Code Review</span>
-      <span class="tag">Developer Tools</span>
+      <span class="tag">KI-Code-Review</span>
+      <span class="tag">Entwicklerwerkzeuge</span>
       <span class="tag">GitHub</span>
     </div>
   </header>
@@ -46,7 +46,7 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
 
     <h2>Was Google Ihnen empfiehlt</h2>
 
-    <p>Googles eigener Migrationspfad ist <a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">Antigravity</a>, die im Mai auf der I/O vorgestellte „agent-first"-Plattform, samt ihrem Terminal-Begleiter <strong>Antigravity CLI</strong> — einer Go-Neufassung, die dasselbe Agent-Gerüst nutzt wie die Desktop-App Antigravity 2.0. Sie ist seit dem 19. Mai unter <a href="https://antigravity.google/download">antigravity.google/download</a> verfügbar, und Ihre Agent Skills, Hooks, Subagents und Extensions (jetzt „Plugins") werden übernommen. Google sagt offen, dass es zum Start <a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">keine vollständige Funktionsparität</a> gibt.</p>
+    <p>Googles eigener Migrationspfad ist <a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">Antigravity</a>, die im Mai auf der I/O vorgestellte „agent-first“-Plattform, samt ihrem Terminal-Begleiter <strong>Antigravity CLI</strong> — einer Go-Neufassung, die dasselbe Agent-Gerüst nutzt wie die Desktop-App Antigravity 2.0. Sie ist seit dem 19. Mai unter <a href="https://antigravity.google/download">antigravity.google/download</a> verfügbar, und Ihre Agent Skills, Hooks, Subagents und Extensions (jetzt „Plugins“) werden übernommen. Google sagt offen, dass es zum Start <a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">keine vollständige Funktionsparität</a> gibt.</p>
 
     <p>Doch beachten Sie die Lücke. Antigravity CLI ist ein <em>Agent, den Sie steuern</em> — ein interaktiver Programmierassistent in Ihrem Terminal und Editor. Was heute tatsächlich abgeschaltet wurde, war ein <em>automatisierter Reviewer, der Ihre GitHub-PRs beobachtete und sie ungefragt kommentierte</em>. Das sind nicht dieselben Aufgaben, und Google liefert keinen gleichwertigen Ersatz für den Verbraucher-GitHub-Bot. Wenn Ihnen also die PR-Prüfungen fehlen werden, lautet die ehrliche Antwort: Sie brauchen wahrscheinlich ein spezialisiertes Codeprüfungswerkzeug, nicht nur Antigravity.</p>
 
@@ -58,7 +58,7 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
 
     <h3>Wie gut war Gemini tatsächlich?</h3>
 
-    <p>Bevor ich die App ersetzte, habe ich den Review-Verlauf von 10 Pull Requests ausgewertet. Gemini veröffentlichte 10 zusammenfassende Reviews und <strong>40 Inline-Hinweise</strong>: 5 mit hoher Priorität, 1 mit Sicherheitspriorität mittel und 34 mit mittlerer Priorität. 39 der 40 Hinweise bewertete ich als umsetzbar, einen als Fehlalarm — eine <strong>Nützlichkeitsquote von 97,5&nbsp;%</strong> auf Kommentarebene. Fasst man wiederholte Vorkommen desselben Problems zusammen, etwa denselben Fehler mit temporären Dateien an drei Aufrufstellen, entsprechen sie ungefähr <strong>27 unterschiedlichen Problemmustern</strong>.</p>
+    <p>Bevor ich die App ersetzte, wertete ich den Review-Verlauf von 10 Pull Requests aus. Während ich diesen Artikel am vorgesehenen Abschalttag fertigstellte, prüfte Gemini auch diesen PR und meldete 14 weitere berechtigte Lokalisierungs- und SEO-Probleme. In allen 11 Reviews veröffentlichte Gemini <strong>54 Inline-Hinweise</strong>: 5 mit hoher Priorität, 1 mit Sicherheitspriorität mittel und 48 mit mittlerer Priorität. 53 der 54 Hinweise bewertete ich als umsetzbar, einen als Fehlalarm — eine <strong>Nützlichkeitsquote von 98,1&nbsp;%</strong> auf Kommentarebene. Fasst man Wiederholungen wie ein fehlendes Metadatenfeld in sechs Übersetzungen zusammen, entsprechen sie ungefähr <strong>31 unterschiedlichen Problemmustern</strong>. Dieses letzte Review zeigt, dass die Abschaltung nicht augenblicklich erfolgte, obwohl Googles veröffentlichtes Abschaltdatum für Verbraucher der 17. Juli blieb.</p>
 
     <p>Die nützlichen Funde waren konkret: fehlende Fehlerbehandlung, unsichere Änderungen am Zertifikatsspeicher, falsche Annahmen über Unicode und Locale, nicht portable systemd-Konfiguration, fehlerhaftes HTML, bei Ausnahmen versagende Bereinigung und fehlende Werkzeugvoraussetzungen. Gemini war besonders gut bei lokalen Fehlern mit klarer Korrektur. Weniger gut war es beim Zusammenführen von Duplikaten und beim Denken über den gesamten Workflow: Mehrere Kommentare wiederholten dieselbe Ursache in verschiedenen Dateien oder Sprachen, einmal deutete es Notebook-JSON fälschlich als Python-Tupel, und eine später in einem zweiten Review gefundene Idempotenz-Race-Condition übersah es. Mein Fazit ist positiv, aber begrenzt: Der Bot lieferte viel echten Nutzen, doch seine Hinweise mussten weiterhin geprüft werden — von jemandem, der über einzelne Zeilen hinausblickt.</p>
 
@@ -79,6 +79,7 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
   "image": "https://krmaynard.github.io/images/gemini-code-assist-deprecation-de.png",
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
   "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
-  "url": "https://krmaynard.github.io{{ page.url }}"
+  "url": "https://krmaynard.github.io{{ page.url }}",
+  "inLanguage": "{{ page.lang | default: 'en' }}"
 }
 </script>

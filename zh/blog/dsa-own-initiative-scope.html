@@ -1,7 +1,7 @@
 ---
 layout: main
 title: "“自主处置”的两种解读 — DSA 表6，以及所有 VLOP 的共同选择"
-description: "DSA 要求 VLOP 报告其“自主处置”的内容审核。这个词有狭义和广义两种解读。在首个协调化报告期（2025 下半年），所有 VLOP 都采用了广义解读。基于理由声明数据库的交叉验证实证分析。"
+description: "DSA 要求 VLOP 报告其“自主处置”的内容审核。这个词有狭义和广义两种解读。在首个协调化报告期（2025 下半年），没有任何一家 VLOP 按狭义口径填报。基于理由声明数据库的交叉验证实证分析。"
 date: 2026-07-13
 og_image: /images/dsa-own-initiative-scope-zh.png
 lang: zh
@@ -29,9 +29,9 @@ lang_url_ko: /ko/blog/dsa-own-initiative-scope.html
       <img src="/images/dsa-own-initiative-scope-zh.png" alt="DSA 表6中“自主处置”的两种解读" width="1200" height="630">
     </figure>
 
-    <p><em>DSA 的表6要求平台报告其“自主处置”的内容审核。这个词有狭义和广义两种解读——而在首批协调化报告中，所有 VLOP 都采用了广义解读。</em></p>
+    <p><em>DSA 的表6要求平台报告其“自主处置”的内容审核。这个词有狭义和广义两种解读——而在首批协调化报告中，没有任何一家 VLOP 按狭义口径填报。</em></p>
 
-<p><strong>核心结论：</strong>表6的“自主处置”有两种读法。在<strong>狭义</strong>解读下，平台只报告自己主动——自动——检测并处置的内容。在<strong>广义</strong>解读下，平台报告其自行发起的<em>全部</em>内容审核，无论由人工还是机器检测，只要不是应成员国命令或第16条通知而为。两种解读可能相差数量级。在首个协调化报告期（2025 下半年），<strong>所有 VLOP 都采用了广义解读</strong>——标题性的自主处置数字是平台自行发起的服务条款执法的全集，而主动/自动检测只是其中的<em>嵌套子计数</em>（视平台而定，占总数的<strong>0% 至约 99%</strong>）。</p>
+<p><strong>核心结论：</strong>表6的“自主处置”有两种读法。在<strong>狭义</strong>解读下，平台只报告自己主动——自动——检测并处置的内容。在<strong>广义</strong>解读下，平台报告其自行发起的<em>全部</em>内容审核，无论由人工还是机器检测，只要不是应成员国命令或第16条通知而为。两种解读可能相差数量级。在首个协调化报告期（2025 下半年），<strong>没有任何 VLOP 按狭义口径填报——凡数据足以判别之处，均为广义解读</strong>——标题性的自主处置数字是平台自行发起的服务条款执法的全集，而主动/自动检测只是其中的<em>嵌套子计数</em>（视平台而定，占总数的<strong>0% 至约 99%</strong>）。</p>
 
 <ul><li><strong>数据来源：</strong>Transparency Report API（transparency.kieranmaynard.com）的 <code>t6_own_initiative_tos</code>，报告期<strong>2025 下半年（2025-07-01 → 2025-12-31）</strong>——协调化模板下的首个报告期。24 项 VLOP 服务 / 18 家母公司平台。</li><li><strong>法律框架：</strong>欧盟委员会实施条例 (EU) 2024/2835，附件工作表 <code>6_own_initiative_TC</code>（DSA 第15条(1)(c)）。</li></ul>
 
@@ -251,15 +251,14 @@ lang_url_ko: /ko/blog/dsa-own-initiative-scope.html
 </tr>
 </tbody></table></div>
 
-<p><em>各表面（surface）按 schema 规则处理（“'All' 是跨表面合计——不要与按表面拆分的行相加”）：按表面报告的 Google 服务（搜索、地图、Play、YouTube）跨表面求和，其余服务则各自报告单一的跨表面 'All' 合计。</em></p>
+<p><em>各表面（surface）按 schema 规则处理（“'All' 是跨表面合计——不要与按表面拆分的行相加”）：按表面报告的 Google 服务（搜索、地图、Play、YouTube）跨表面求和，其余服务则各自报告单一的跨表面 'All' 合计。另需注意：Google 搜索的按表面行（域名、主机、URL 级……）未必是可严格相加的单位，其合计值仅供参考。</em></p>
 
-<h3>两个事实表明每家 VLOP 都采用了广义解读</h3>
+<h3>两个排除狭义口径的事实</h3>
 
-<ol><li><strong>每一行都有 F 列 ≥ G 列。</strong>没有任何平台把自动检测数字<em>当作</em>其自主处置总数来报告。在狭义解读下（表6 ＝ 仅主动检测），F 应等于 G，但从未如此。</li></ol>
+<ol><li><strong>每一行都有 F 列 ≥ G 列。</strong>没有任何平台把自动检测数字<em>当作</em>其自主处置总数来报告。在狭义解读下（表6 ＝ 仅主动检测），F 应等于 G，但从未如此。</li>
+<li><strong>限制措施的拆分与 F 列而非 G 列吻合</strong>（比率 ≈ <strong>24 项服务中有 23 项为 1.00</strong>）。14 类限制措施列是按<em>措施</em>报告的，与检测方式无关。它们之和等于<strong>自主处置总数（F）</strong>。这在一定程度上是模板本身的算术——限制列本就应加总为 F，认真填报者在两种口径下都会通过——但它确认 F 是一个连贯的措施计数而非被截断的数字，并揪出了唯一对不上的申报（Bing）。F 究竟包含什么，独立证据来自第 4 节的 SoR 交叉核对。</li></ol>
 
-<ol><li><strong>限制措施的拆分与 F 列而非 G 列吻合</strong>（比率 ≈ <strong>24 项服务中有 23 项为 1.00</strong>）。14 类限制措施列是按<em>措施</em>报告的，与检测方式无关。它们之和等于<strong>自主处置总数（F）</strong>——证明 F 是完整的措施全集。若按狭义解读，（涵盖<em>全部</em>措施的）限制列将超过 F，但实际并未如此。</li></ol>
-
-<p>综合来看，每家 VLOP 都以平台自行发起的服务条款审核的<strong>全部</strong>——即广义解读——填充标题性数字，并把自动检测作为内部子集单列出来。</p>
+<p>综合来看，这两点在申报表层面排除了狭义口径；F 确实涵盖平台自行发起审核之<strong>全部</strong>的正面确认，来自第 4 节的独立 SoR 交叉核对。</p>
 
 <h3>自动化占比差异极大——而这正是重点</h3>
 
@@ -413,9 +412,8 @@ lang_url_ko: /ko/blog/dsa-own-initiative-scope.html
 
 <p><strong>两项佐证结果：</strong></p>
 
-<ol><li><strong>量级。</strong>在吻合清晰的案例中，报告 F ≈ SoR 自主处置：Google Shopping <strong>1.00×</strong>、Google Maps 0.98×、Amazon 1.03×、Instagram 1.05×、Facebook 0.93×、Pinterest 1.09×、Booking 1.18×。F 与自主处置的 SoR 全集吻合——而非其中主动检测的子集。</li></ol>
-
-<ol><li><strong>判别。</strong>在 SoR 自主处置与自动检测两个总体相差超过 20% 的 5 项服务中（此时检验才真正具有判别力），<strong>5 项中有 5 项 F 更接近自主处置</strong>。最清晰的是 <strong>Pinterest</strong>：F ＝ 1.84 亿与 SoR 自主处置 1.69 亿吻合，而非 SoR 自动检测 <strong>160 万</strong>。若 Pinterest 把表6限定为主动检测，本应报告约 160 万，而它报告了 1.84 亿。SHEIN、Pornhub、XVideos、Google Play 结论相同。</li></ol>
+<ol><li><strong>量级。</strong>在吻合清晰的案例中，报告 F ≈ SoR 自主处置：Google Shopping <strong>1.00×</strong>、Google Maps 0.98×、Amazon 1.03×、Instagram 1.05×、Facebook 0.93×、Pinterest 1.09×、Booking 1.18×。F 与自主处置的 SoR 全集吻合——而非其中主动检测的子集。</li>
+<li><strong>判别。</strong>在 SoR 自主处置与自动检测两个总体相差超过 20% 的 5 项服务中（此时检验才真正具有判别力），<strong>5 项中有 5 项 F 更接近自主处置</strong>。最清晰的是 <strong>Pinterest</strong>：F ＝ 1.84 亿与 SoR 自主处置 1.69 亿吻合，而非 SoR 自动检测 <strong>160 万</strong>。若 Pinterest 把表6限定为主动检测，本应报告约 160 万，而它报告了 1.84 亿。SHEIN、Pornhub、XVideos、Google Play 结论相同。（其余服务与广义解读一致，但其两个 SoR 总体过于接近，无法据以判别。）</li></ol>
 
 <p><strong>注意事项（为何这是佐证而非精确对账）：</strong></p>
 
@@ -569,7 +567,7 @@ lang_url_ko: /ko/blog/dsa-own-initiative-scope.html
 
 <h2>6. 结论</h2>
 
-<p><strong>凡是表6的“自主处置”可作狭义或广义解读之处，每一家 VLOP 都采用了广义解读。</strong>在检测维度（§1–2），标题性数字是平台自行发起的服务条款执法的全部——无论人工还是机器检测——而非主动检测子集；自动检测仅作为嵌套子计数（G 列）披露，占各平台总数的 0%–99%，而限制类型拆分与自主处置总数（而非自动子计数）吻合，排除了狭义解读。在更棘手、真正悬而未决的来源维度（§5），大多数 VLOP 同样把用户举报的服务条款措施归入自主处置，而非视作通知。</p>
+<p><strong>凡是表6的“自主处置”可作狭义或广义解读之处，没有任何一家 VLOP 按狭义口径填报——且凡能以独立数据检验的申报，均显示为广义解读。</strong>在检测维度（§1–2），标题性数字是平台自行发起的服务条款执法的全部——无论人工还是机器检测——而非主动检测子集；自动检测仅作为嵌套子计数（G 列）披露，占各平台总数的 0%–99%，而限制类型拆分与自主处置总数（而非自动子计数）吻合，排除了狭义解读。在更棘手、真正悬而未决的来源维度（§5），大多数 VLOP 同样把用户举报的服务条款措施归入自主处置，而非视作通知。</p>
 
 <p>但这是<strong>实践上的趋同，而非明确法律指令上的趋同</strong>。条例在检测方式上强制采用广义解读（F 列的“总数”说明），却让来源边界保持开放——而在那里，各平台的归类大相径庭（§5）。表6应据此解读：它是一个广义的自主处置汇总值，其跨平台可比性取决于模板并未完全钉死的解释性选择。</p>
 
