@@ -1,0 +1,142 @@
+---
+layout: main
+title: "도난 휴대폰에서 iCloud 계정으로: Apple 투명성 데이터 12년"
+description: "2013년, 정부는 계정 요청 1건당 기기 요청 8건을 Apple에 보냈다. 2025년 상반기에는 계정 요청 29,825건이 기록상 처음으로 기기 요청을 앞질렀다."
+date: 2026-07-14
+og_image: /images/apple-transparency-report-ko.png
+lang: ko
+published: false
+lang_url: /blog/apple-transparency-report.html
+lang_url_ja: /ja/blog/apple-transparency-report.html
+lang_url_zh: /zh/blog/apple-transparency-report.html
+---
+
+<article class="post">
+  <a href="/ko/blog.html" class="post-back">← 블로그</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>도난 휴대폰에서 iCloud 계정으로: Apple 투명성 데이터 12년</h1>
+    <time class="news-date" datetime="2026-07-14">July 14, 2026</time>
+    <div class="tags">
+      <span class="tag">투명성</span>
+      <span class="tag">데이터</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/apple-transparency-report-ko.png" alt="Apple 정부 데이터 요청에서 기기 요청과 계정 요청의 12년 추이를 보여주는 차트" width="1200" height="630">
+    </figure>
+
+    <p><em>2013년, 정부는 계정 요청 1건당 기기 요청 8건을 Apple에 보냈다. 2025년 상반기, 계정 요청은 29,825건에 이르러 기록상 처음으로 기기 요청을 앞질렀다.</em></p>
+
+<p><strong>핵심 결론:</strong> Apple의 보고에 따르면, 정부의 <em>계정</em> 데이터(iCloud 콘텐츠, 가입자 기록) 요구는 2013년 이후 약 18배 증가했다——2013년 상반기 1,646건에서 2025년 상반기 29,825건으로——반면 <em>기기</em> 요청(대개 분실·도난 휴대폰 수사)은 두 배 늘어나는 데 그쳤다. 그 결과 2025년 상반기는 계정이 기기를 앞지른 첫 반기가 되었다. 주된 유의점은 이것이 Apple 자체 집계라는 점, 그리고 가장 민감한 부분——미국 국가안보(national security) 및 영국 IPA(Investigatory Powers Act) 요구——가 구간 범위로만 공개되며 2017년 이후 그 폭이 <em>더 넓어졌다</em>는 점이다.</p>
+
+<ul><li><strong>데이터:</strong> <code>apple_requests</code>, <code>apple_national_security</code>, Transparency Report API, 2013년 상반기 – 2025년 상반기(반기 단위).</li></ul>
+
+<hr>
+
+<h2>전환점: 계정이 기기를 앞지르다</h2>
+
+<p>기기 요청은 Apple에서 가장 오래되고 가장 큰 범주로——12년간 701,068건인 데 비해 계정 요청은 241,435건이다. 그러나 추세선은 정반대 방향을 가리킨다. 기기 건수는 2015년 이후 반기당 25,000~33,000건 안팎을 오르내렸다(2024년 상반기에는 40,905건으로 급증했으며, 이 중 미국만 12,043건을 보냈다). 계정 요청은 거의 매 기간 증가해 왔다.</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>기간</th>
+<th class="td-num">기기 요청</th>
+<th class="td-num">계정 요청</th>
+</tr></thead><tbody>
+<tr>
+<td>2013년 상반기</td>
+<td class="td-num">12,442</td>
+<td class="td-num">1,646</td>
+</tr>
+<tr>
+<td>2016년 상반기</td>
+<td class="td-num">33,006</td>
+<td class="td-num">2,564</td>
+</tr>
+<tr>
+<td>2019년 상반기</td>
+<td class="td-num">31,778</td>
+<td class="td-num">6,480</td>
+</tr>
+<tr>
+<td>2022년 상반기</td>
+<td class="td-num">29,022</td>
+<td class="td-num">14,005</td>
+</tr>
+<tr>
+<td>2024년 상반기</td>
+<td class="td-num">40,905</td>
+<td class="td-num">25,496</td>
+</tr>
+<tr>
+<td>2025년 상반기</td>
+<td class="td-num">28,825</td>
+<td class="td-num">29,825</td>
+</tr>
+</tbody></table></div>
+
+<p>이 증가는 한 나라만의 현상이 아니다: 최대 계정 요청국인 미국을 제외해도, 미국 외 계정 요청은 여전히 약 19배 늘어 2013년 상반기 719건에서 2025년 상반기 13,836건이 되었다. 2025년 상반기에 Apple은 28,825건의 기기 요청 중 20,212건(약 70%)에 대해 일부 데이터를 제공했다고 보고했다.</p>
+
+<h2>누가 요청하나: 독일의 휴대폰, 미국의 클라우드</h2>
+
+<p>두 범주는 무게중심이 다르다. 독일은 2013년 이후 전체 기기 요청 중 258,740건을 차지하며——세계 전체의 약 37%로, 미국(129,774건)과 브라질(54,425건)을 합친 것보다 많다——이는 도난 사건에서 독일 경찰이 기기 식별자를 조회한다는 잘 알려진 패턴과 일치한다. 계정 요청은 미국의 이야기다: 미국은 241,435건 중 131,241건(54%)을 제출했고, 2025년 상반기에 그 15,989건의 계정 요청은 그다음 4개국(브라질, 독일, 영국, 프랑스)의 합계를 넘어섰다.</p>
+
+<h2>국가안보: 구간 범위가 드러내는 것과 드러내지 않는 것</h2>
+
+<p>미국 FISA/NSL 요구와 영국 수사권한법(Investigatory Powers Act) 영장은 범위로만 보고되며, 하한·상한은 합산 불가능하다——이를 더해 총계로 만들 수 없다. 구간이 <em>보여줄 수</em> 있는 것은 방향성이다. 2013년부터 2017년까지 Apple은 미국 “국가안보(national security)”를 250 단위의 단일 통합 구간으로 보고했고, 그 하한이 폭발적으로 늘었다: 2013년 상반기 0~249에서 2017년 하반기 16,005~16,249로——하한만으로도 0에서 1만 6천 이상으로 상승했다. 이후 2018년에 보고가 FISA 콘텐츠, FISA 비콘텐츠, NSL로 분할되어 각각 500 단위 구간이 되었고, 거의 모든 칸이 5년 내내 “0~499”로 표시되었다——이 범주 변경은 시계열을 더 유익하게 만들기는커녕 정보량을 줄였고, 2018년 전후 비교를 불가능하게 만들었다.</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>기간</th>
+<th class="td-num">미국 FISA 콘텐츠</th>
+<th class="td-num">영국 IPA 콘텐츠</th>
+</tr></thead><tbody>
+<tr>
+<td>2022년 상반기</td>
+<td class="td-num">0–499</td>
+<td class="td-num">0–499</td>
+</tr>
+<tr>
+<td>2023년 하반기</td>
+<td class="td-num">500–999</td>
+<td class="td-num">500–999</td>
+</tr>
+<tr>
+<td>2024년 하반기</td>
+<td class="td-num">500–999</td>
+<td class="td-num">1,000–1,499</td>
+</tr>
+<tr>
+<td>2025년 상반기</td>
+<td class="td-num">500–999</td>
+<td class="td-num">1,500–1,999</td>
+</tr>
+</tbody></table></div>
+
+<p>가장 새로운 신호는 영국발이다: 영국 IPA 콘텐츠 영장은 2022년 상반기에 0~499로 처음 등장했고 이후 매년 구간 하한이 상승해 2025년 상반기에는 1,500~1,999에 이르렀다——그 무렵에는 미국 FISA 콘텐츠 요청 자체보다 높은 구간이 되었다.</p>
+
+<h2>콘텐츠 모더레이션의 한 조각: App Store 삭제</h2>
+
+<p>앱 삭제 요청은 이 데이터셋에서 2018년 하반기 – 2021년 하반기에만 나타난다: 정부 요청은 총 481건으로, 2,120건의 앱 삭제로 이어졌다. 여기서는 구성이 모든 것을 좌우한다——중국 본토가 그 요청 중 374건(78%)을 제출했고, 삭제 건수의 1,693건(80%)을 차지한다. 러시아는 37건으로 큰 격차의 2위다. 중국을 제외하면 전 세계 나머지 전체는 반기당 약 15건의 삭제 요청에 그쳤다.</p>
+
+<p><strong>유의사항.</strong> 모든 수치는 Apple의 자체 보고 집계로, 감사받지 않았으며 Apple 자체의 범주 정의에 따라 형성된 것이다; “요청”은 유형 간 비교가 불가능하다(기기 요청 1건이 수백 대의 기기를 지정할 수 있다——2025년 상반기의 28,825건 요청에서는 662,705대의 기기가 지정되었다). 국가안보 수치는 구간 범위이며 그 경계는 결코 합산해서는 안 되고, 2018년의 범주 분할이 시계열을 끊어 놓았다. 기기 총계는 독일에, 계정 총계는 미국에, 앱 삭제 총계는 중국에 크게 치우쳐 있다; 최신 데이터는 2025년 상반기이며, 삭제 데이터는 2021년 하반기에서 끝난다.</p>
+
+<p><em>데이터: apple_requests, apple_national_security, Transparency Report API, 2013년 상반기 – 2025년 상반기.</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/apple-transparency-report-ko.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

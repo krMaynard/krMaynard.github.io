@@ -1,0 +1,189 @@
+---
+layout: main
+title: "紙の上の台湾・詐欺防制法：ブロックされた58,334ドメインと、数え方が異なる3つのプラットフォーム"
+description: "半年で台湾の警察は58,334件の詐欺サイト（うち68%が偽の金融・保険サイト）をDNSブロックしたと報告した。一方、広告プラットフォームの法定報告書はURL、アカウント、動画を数えており、それらは足し合わせることができない。"
+date: 2026-07-14
+og_image: /images/taiwan-anti-fraud-transparency-ja.png
+lang: ja
+published: false
+lang_url: /blog/taiwan-anti-fraud-transparency.html
+lang_url_zh: /zh/blog/taiwan-anti-fraud-transparency.html
+lang_url_ko: /ko/blog/taiwan-anti-fraud-transparency.html
+---
+
+<article class="post">
+  <a href="/ja/blog.html" class="post-back">← ブログ</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>紙の上の台湾・詐欺防制法：ブロックされた58,334ドメインと、数え方が異なる3つのプラットフォーム</h1>
+    <time class="news-date" datetime="2026-07-14">July 14, 2026</time>
+    <div class="tags">
+      <span class="tag">透明性</span>
+      <span class="tag">Data</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/taiwan-anti-fraud-transparency-ja.png" alt="台湾の詐欺防制法に基づくDNSブロックとプラットフォーム報告の指標を示す図表" width="1200" height="630">
+    </figure>
+
+    <p><em>半年で台湾の警察は58,334件の詐欺サイト（うち68%が偽の金融・保険サイト）をDNSブロックしたと報告した。一方、広告プラットフォームの法定報告書はURL、アカウント、動画を数えており、それらは足し合わせることができない。</em></p>
+
+<p><strong>結論：</strong>台湾の詐欺犯罪危害防制条例（詐欺犯罪危害防制條例）第42条に基づく内政部警政署の執行データは、2025年12月から2026年5月までにDNS解決が停止された58,334件の詐欺ウェブサイトを報告しており、その圧倒的多数が偽の金融・保険（金融保險、68.4%）およびeコマース（電子商務、19.8%）サイトに分類される——しかし月次合計は極端にばらつきが大きく（2026年1月に25,439件、その後2月に1,346件）、これは詐欺の傾向というよりバッチ処理による行政的アウトプットと読める。一方、指定された広告プラットフォームの法定透明性報告書は、互いに整合しない3つの粒度で開示している：GoogleはURLを、LINEは停止されたアカウントを、TikTokは事案と広告を報告しており——しかも3つの異なる対象期間にわたっている。</p>
+
+<ul><li><strong>データ：</strong>taiwan_metrics、Transparency Report API、NPA-165 月次 2025-12..2026-05；プラットフォームの対象期間 Google 2024-07..2025-06、LINE 2024-08..2025-09、TikTok 2025-01..2025-09。</li></ul>
+
+<hr>
+
+<h2>DNSブロックの対象：投資詐欺が中心、フィッシングはごくわずか</h2>
+
+<p>NPA-165のデータは、ブロックされた各サイトに公式カテゴリ（網站性質）を付与している。2つのカテゴリがほぼすべてを占める：偽の金融・保険サイト（39,907件）と偽のeコマースサイト（11,523件）を合わせると、全58,334件のブロックの88.2%に達する。典型的なフィッシングサイト（釣魚網站）は誤差の範囲——102件、0.2%——であり、偽の交際、暗号資産、融資サイトも同様である。ブロックの仕組みは圧倒的に偽の投資プラットフォームのエコシステムに向けられている。</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>カテゴリ（網站性質）</th>
+<th class="td-num">2025-12</th>
+<th class="td-num">2026-01</th>
+<th class="td-num">2026-02</th>
+<th class="td-num">2026-03</th>
+<th class="td-num">2026-04</th>
+<th class="td-num">2026-05</th>
+<th class="td-num">合計</th>
+</tr></thead><tbody>
+<tr>
+<td>金融保險（金融・保険）</td>
+<td class="td-num">13,131</td>
+<td class="td-num">22,208</td>
+<td class="td-num">675</td>
+<td class="td-num">1,020</td>
+<td class="td-num">1,385</td>
+<td class="td-num">1,488</td>
+<td class="td-num">39,907</td>
+</tr>
+<tr>
+<td>電子商務（eコマース）</td>
+<td class="td-num">4,082</td>
+<td class="td-num">2,639</td>
+<td class="td-num">434</td>
+<td class="td-num">1,470</td>
+<td class="td-num">1,089</td>
+<td class="td-num">1,809</td>
+<td class="td-num">11,523</td>
+</tr>
+<tr>
+<td>資訊服務（情報サービス）</td>
+<td class="td-num">338</td>
+<td class="td-num">276</td>
+<td class="td-num">127</td>
+<td class="td-num">838</td>
+<td class="td-num">884</td>
+<td class="td-num">1,205</td>
+<td class="td-num">3,668</td>
+</tr>
+<tr>
+<td>運輸倉儲（運輸・倉庫）</td>
+<td class="td-num">236</td>
+<td class="td-num">275</td>
+<td class="td-num">57</td>
+<td class="td-num">464</td>
+<td class="td-num">803</td>
+<td class="td-num">784</td>
+<td class="td-num">2,619</td>
+</tr>
+<tr>
+<td>All other (12 categories)</td>
+<td class="td-num">107</td>
+<td class="td-num">41</td>
+<td class="td-num">53</td>
+<td class="td-num">104</td>
+<td class="td-num">181</td>
+<td class="td-num">131</td>
+<td class="td-num">617</td>
+</tr>
+<tr>
+<td><strong>All sites</strong></td>
+<td class="td-num"><strong>17,894</strong></td>
+<td class="td-num"><strong>25,439</strong></td>
+<td class="td-num"><strong>1,346</strong></td>
+<td class="td-num"><strong>3,896</strong></td>
+<td class="td-num"><strong>4,342</strong></td>
+<td class="td-num"><strong>5,417</strong></td>
+<td class="td-num"><strong>58,334</strong></td>
+</tr>
+</tbody></table></div>
+
+<p>月次の形状は劇的だ——2026年1月だけで半年間の合計の43.6%を占め、2月は1月の数値の5.3%まで落ち込む——が、「詐欺が激減した」という物語としては成り立たない。この急騰・急落は1つのカテゴリに集中している：全金融・保険ブロックの88.6%が最初の2か月に集中している。そのカテゴリを除くと、残りの系列（4,763 → 3,231 → 671 → 2,876 → 2,957 → 3,929）はごく普通の落ち込みと回復である。最も妥当な読み方は、投資詐欺ドメインの一括掃討が12月〜1月に処理され、その後は定常運用に移行したというものだ；これらは月ごとの行政的ブロック措置の件数であり、詐欺がどれだけ存在するかの尺度ではない。</p>
+
+<h2>プラットフォームの報告書：同じ法律、3つの異なる物差し</h2>
+
+<p>第32〜33条に基づき、指定された広告プラットフォームは法定の詐欺防制計画透明度報告書（詐欺防制計畫透明度報告）を提出する。各事業者は異なる期間にわたって異なる量を開示するため、報告書を合算したり順位付けしたりすることはできない。</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>事業者（期間）</th>
+<th>報告内容</th>
+<th class="td-num">値</th>
+</tr></thead><tbody>
+<tr>
+<td>Google (2024-07..2025-06)</td>
+<td>Government requests received</td>
+<td class="td-num">236</td>
+</tr>
+<tr>
+<td>Google</td>
+<td>URLs named in requests</td>
+<td class="td-num">4,478</td>
+</tr>
+<tr>
+<td>Google</td>
+<td>URLs removed (policy 3,337 + legal 227)</td>
+<td class="td-num">3,564</td>
+</tr>
+<tr>
+<td>LINE (2024-08..2025-09)</td>
+<td>Art. 33 accounts suspended</td>
+<td class="td-num">102,359</td>
+</tr>
+<tr>
+<td>LINE</td>
+<td>——うちCIB共同プロジェクト経由</td>
+<td class="td-num">73,552</td>
+</tr>
+<tr>
+<td>TikTok (2025-01..2025-09)</td>
+<td>MODA notifications received</td>
+<td class="td-num">14</td>
+</tr>
+<tr>
+<td>TikTok</td>
+<td>Ads removed on notification</td>
+<td class="td-num">42</td>
+</tr>
+<tr>
+<td>TikTok (voluntary)</td>
+<td>削除された詐欺広告、台湾</td>
+<td class="td-num">23,164</td>
+</tr>
+</tbody></table></div>
+
+<p>Googleの報告書は要求・応答の台帳として読める：236件の政府要求で指名された4,478件のURLのうち79.6%を削除したと報告しており、それらの削除の93.6%は法的強制ではなく自社のポリシーに基づくものだった；914件のURLは対応されなかった。LINEはURLの数値をまったく報告していない——その単位はアカウントであり、102,359件を停止し、そのうち71.9%は刑事局（Criminal Investigation Bureau）の共同プロジェクトを通じたものだった——一方で第32条の広告処分はゼロ、サービス停止命令もゼロと報告している。TikTokの法定数値はごく小さい（省庁通知14件、広告削除42件）が、同じ提出書類における自主的な能動的数値では、台湾で23,164件の詐欺広告と31,987件の詐欺動画を削除したと報告している——政府通知に基づいて削除された1件につき、およそ550件の詐欺広告を削除している計算だ。通知パイプラインは、プラットフォームが自主的に行っていると主張する執行のごく一部しか表面化させていない。</p>
+
+<p><strong>留意点。</strong>すべての数値は自己申告である：NPA-165はブロック措置を報告しており（サイトのブロックは詐欺の防止と同義ではなく、再登録されたドメインは再度カウントされうる）、プラットフォームの数値は各社自身の法定提出書類に由来する——「LINEは102,359件のアカウントを停止したと報告している」のであって、独立して検証されたものではない。対象期間は事業者ごとに異なり部分的にしか重ならないため、規模のプラットフォーム間比較は無意味である；要求、URL、アカウント、広告、動画は別個の単位であり、一部の指標は他の指標の部分集合である（Googleの法的＋ポリシーによる削除がurls_removedを構成し、LINEのCIB数値は第33条の合計の内側にある）。Metaは指定プラットフォームだが、その報告書はここではまだ取得できない。NPAデータの時点：2026年5月；半年という期間は傾向を語るには短すぎる。</p>
+
+<p><em>データ：taiwan_metrics、Transparency Report API、NPA-165 2025-12..2026-05；Google 2024-07..2025-06；LINE 2024-08..2025-09；TikTok 2025-01..2025-09。</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/taiwan-anti-fraud-transparency-ja.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

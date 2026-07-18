@@ -1,0 +1,142 @@
+---
+layout: main
+title: "盗難携帯からiCloudアカウントへ：Apple透明性データの12年"
+description: "2013年、政府はアカウント要請1件につきデバイス要請8件をAppleに送っていた。2025年上半期には、アカウント要請（29,825件）が記録上初めてデバイス要請を上回った。"
+date: 2026-07-14
+og_image: /images/apple-transparency-report-ja.png
+lang: ja
+published: false
+lang_url: /blog/apple-transparency-report.html
+lang_url_zh: /zh/blog/apple-transparency-report.html
+lang_url_ko: /ko/blog/apple-transparency-report.html
+---
+
+<article class="post">
+  <a href="/ja/blog.html" class="post-back">← ブログ</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>盗難携帯からiCloudアカウントへ：Apple透明性データの12年</h1>
+    <time class="news-date" datetime="2026-07-14">July 14, 2026</time>
+    <div class="tags">
+      <span class="tag">透明性</span>
+      <span class="tag">データ</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/apple-transparency-report-ja.png" alt="Appleの政府データ要請におけるデバイス要請とアカウント要請の12年間の推移を示すチャート" width="1200" height="630">
+    </figure>
+
+    <p><em>2013年、政府はアカウント要請1件につき8件のデバイス要請をAppleに送っていた。2025年上半期、アカウント要請は29,825件に達し、記録上初めてデバイス要請を上回った。</em></p>
+
+<p><strong>結論：</strong>Appleの報告によれば、政府による<em>アカウント</em>データ（iCloudコンテンツ、加入者記録）の要請は2013年以降およそ18倍に増加した——2013年上半期の1,646件から2025年上半期の29,825件へ——一方で<em>デバイス</em>要請（通常は紛失・盗難携帯の捜査）はわずかに倍増しただけだった。そのため2025年上半期は、アカウントがデバイスを上回った最初の半期となった。主な留保事項は、これがApple自身の自己申告集計である点、そして最も機微な部分——米国の国家安全保障（national security）および英国IPA（Investigatory Powers Act）に基づく要請——が帯状の範囲としてのみ公表され、2017年以降その幅が<em>広く</em>なった点である。</p>
+
+<ul><li><strong>データ：</strong><code>apple_requests</code>、<code>apple_national_security</code>、Transparency Report API、2013年上半期～2025年上半期（半期区分）。</li></ul>
+
+<hr>
+
+<h2>転換点：アカウントがデバイスを上回る</h2>
+
+<p>デバイス要請はAppleの最も古く最大のカテゴリーであり——12年間で701,068件、対するアカウント要請は241,435件だ。しかし傾向線は逆方向を指している。デバイスの件数は2015年以降、半期あたり25,000～33,000前後を上下してきた（2024年上半期には40,905件へと急増し、そのうち米国だけで12,043件を送っている）。アカウント要請はほぼ毎期増加してきた。</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>期間</th>
+<th class="td-num">デバイス要請</th>
+<th class="td-num">アカウント要請</th>
+</tr></thead><tbody>
+<tr>
+<td>2013年上半期</td>
+<td class="td-num">12,442</td>
+<td class="td-num">1,646</td>
+</tr>
+<tr>
+<td>2016年上半期</td>
+<td class="td-num">33,006</td>
+<td class="td-num">2,564</td>
+</tr>
+<tr>
+<td>2019年上半期</td>
+<td class="td-num">31,778</td>
+<td class="td-num">6,480</td>
+</tr>
+<tr>
+<td>2022年上半期</td>
+<td class="td-num">29,022</td>
+<td class="td-num">14,005</td>
+</tr>
+<tr>
+<td>2024年上半期</td>
+<td class="td-num">40,905</td>
+<td class="td-num">25,496</td>
+</tr>
+<tr>
+<td>2025年上半期</td>
+<td class="td-num">28,825</td>
+<td class="td-num">29,825</td>
+</tr>
+</tbody></table></div>
+
+<p>この増加は一国だけの特殊事情ではない。最大のアカウント要請国である米国を除いても、米国外のアカウント要請は約19倍に増え、2013年上半期の719件から2025年上半期の13,836件へと伸びた。2025年上半期、Appleは28,825件のデバイス要請のうち20,212件（約70%）について何らかのデータを提供したと報告している。</p>
+
+<h2>要請する側：ドイツの携帯、アメリカのクラウド</h2>
+
+<p>この2つのカテゴリーは重心が異なる。ドイツは2013年以降の全デバイス要請のうち258,740件を占め——世界全体の約37%にあたり、米国（129,774件）とブラジル（54,425件）を合わせたよりも多い——これは盗難事件でドイツ警察がデバイス識別子を照会するという、よく知られたパターンと一致する。アカウント要請はアメリカの物語だ。米国は241,435件のうち131,241件（54%）を提出し、2025年上半期にはその15,989件のアカウント要請が、次に多い4か国（ブラジル、ドイツ、英国、フランス）の合計を上回った。</p>
+
+<h2>国家安全保障：帯状の範囲が明かすもの、明かさないもの</h2>
+
+<p>米国のFISA/NSLに基づく要請と英国のInvestigatory Powers Act（捜査権限法）に基づく令状は、範囲としてのみ報告され、下限・上限は加算不可能である——それらを合計して総数にすることはできない。帯が<em>示せる</em>のは方向性だ。2013年から2017年まで、Appleは米国の「国家安全保障（national security）」を250刻みの単一の統合帯で報告しており、その下限が爆発的に増加した：2013年上半期の0～249から2017年下半期には16,005～16,249へ——下限だけでもゼロから1万6千超へと上昇した。その後2018年に報告はFISAコンテンツ、FISA非コンテンツ、NSLに分割され、それぞれ500刻みの帯となり、ほぼすべてのセルが5年連続で「0～499」と表示された——このカテゴリー変更は系列をより有益にするどころか、かえって情報量を減らし、2018年前後の比較を不可能にした。</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>期間</th>
+<th class="td-num">米国FISAコンテンツ</th>
+<th class="td-num">英国IPAコンテンツ</th>
+</tr></thead><tbody>
+<tr>
+<td>2022年上半期</td>
+<td class="td-num">0–499</td>
+<td class="td-num">0–499</td>
+</tr>
+<tr>
+<td>2023年下半期</td>
+<td class="td-num">500–999</td>
+<td class="td-num">500–999</td>
+</tr>
+<tr>
+<td>2024年下半期</td>
+<td class="td-num">500–999</td>
+<td class="td-num">1,000–1,499</td>
+</tr>
+<tr>
+<td>2025年上半期</td>
+<td class="td-num">500–999</td>
+<td class="td-num">1,500–1,999</td>
+</tr>
+</tbody></table></div>
+
+<p>最も新しいシグナルは英国発だ。英国IPAのコンテンツ令状は2022年上半期に0～499で初めて登場し、それ以降毎年その帯の下限が上昇を続け、2025年上半期には1,500～1,999に達した——その時点で、米国FISAコンテンツ要請そのものよりも高い帯となっていた。</p>
+
+<h2>コンテンツモデレーションの一角：App Storeの削除</h2>
+
+<p>アプリ削除要請は、このデータセットでは2018年下半期～2021年下半期にのみ現れる：政府要請は合計481件で、2,120件のアプリ削除につながった。ここでは構成がすべてを支配している——中国本土がそれらの要請のうち374件（78%）を提出し、削除の1,693件（80%）を占めている。ロシアは37件で大きく離された2位だ。中国を除くと、世界の残り全体では半期あたり約15件の削除要請にとどまった。</p>
+
+<p><strong>留保事項。</strong>すべての数値はAppleの自己申告集計であり、監査を受けておらず、Apple独自のカテゴリー定義によって形作られている。「要請」はタイプ間で比較可能ではない（1件のデバイス要請が数百台のデバイスを指定しうる——2025年上半期の28,825件の要請では662,705台のデバイスが指定された）。国家安全保障の数値は帯状の範囲であり、その境界は決して合計してはならず、2018年のカテゴリー分割が時系列を分断している。デバイス総数はドイツに、アカウント総数は米国に、アプリ削除総数は中国に大きく偏っている。最新のデータは2025年上半期のものだが、削除データは2021年下半期で終わっている。</p>
+
+<p><em>データ：apple_requests、apple_national_security、Transparency Report API、2013年上半期～2025年上半期。</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/apple-transparency-report-ja.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

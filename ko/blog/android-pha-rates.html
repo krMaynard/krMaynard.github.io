@@ -1,0 +1,164 @@
+---
+layout: main
+title: "22배 격차: Android 악성코드가 실제로 착지하는 곳"
+description: "Google 보고에 따르면 2024년 말 필리핀의 휴대폰은 일본의 휴대폰보다 유해 앱을 지닐 가능성이 약 22배 높았으며, 관리되는 기업 기기는 일반 기기군보다 약 8배 더 깨끗했다."
+date: 2026-07-14
+og_image: /images/android-pha-rates-ko.png
+lang: ko
+published: false
+lang_url: /blog/android-pha-rates.html
+lang_url_ja: /ja/blog/android-pha-rates.html
+lang_url_zh: /zh/blog/android-pha-rates.html
+---
+
+<article class="post">
+  <a href="/ko/blog.html" class="post-back">← 블로그</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>22배 격차: Android 악성코드가 실제로 착지하는 곳</h1>
+    <time class="news-date" datetime="2026-07-14">July 14, 2026</time>
+    <div class="tags">
+      <span class="tag">투명성</span>
+      <span class="tag">데이터</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/android-pha-rates-ko.png" alt="국가별, 기기 관리 상태별, Android 버전별 PHA(유해 앱) 비율을 보여주는 막대그래프" width="1200" height="630">
+    </figure>
+
+    <p><em>Google 보고에 따르면 2024년 말 필리핀의 휴대폰은 일본의 휴대폰보다 유해 앱을 지닐 가능성이 약 22배 높았으며, 한편 관리되는 기업 기기는 일반 기기군보다 약 8배 더 깨끗했다.</em></p>
+
+<p><strong>핵심 결론:</strong> Google의 Android 보안 투명성 보고서는 '잠재적 유해 애플리케이션'(PHA) 비율, 즉 악성으로 표시된 기기 또는 설치의 비중을 추적한다. 그리고 두드러진 패턴은 시간이 아니라 장소와 관리 방식이다. 2024-12-31로 끝나는 12개월 구간에 대해 Google은 PHA 비율을 필리핀에서 설치의 0.218%, 인도에서 0.202%로 보고하는 반면, 일본은 0.010%, 독일은 0.016%로, Google이 구분하는 열 개 국가에 걸쳐 20배가 넘는 격차를 보인다. 관리되는 기업 기기(0.012%)는 전체 기기 비율(0.099%)을 훨씬 밑돌았다. 이것이 'Android가 점점 안전해지고 있다'는 깔끔한 이야기로 귀결되지 못하게 하는 단서는 이렇다: 전체 기기 비율은 2019년 이래 0.1% 근처에서 옆으로 표류했을 뿐 떨어지지 않았고, Google이 공표하는 대상 국가 명단은 해마다 바뀐다.</p>
+
+<ul><li><strong>데이터:</strong> android_metrics(installs_by_country, devices_with_pha, installs, devices_by_version), Transparency Report API, 2018–2024년 12개월 롤링 윈도 및 2017-Q1–2024-Q4 분기별 구분.</li></ul>
+
+<hr>
+
+<h2>지리가 위험을 좌우한다</h2>
+
+<p>PHA 비율은 원본 데이터에서 1 미만의 소수이며, 아래에서는 2024-12-31로 끝나는 롤링 연도에 대해 설치 대비 백분율로 표시한다. Google은 열 개 국가를 공표하며, 이들은 고노출 신흥 시장과 저노출 성숙 시장으로 깔끔하게 나뉜다.</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>국가</th>
+<th class="td-num">PHA 비율(설치)</th>
+</tr></thead><tbody>
+<tr>
+<td>Philippines (PH)</td>
+<td class="td-num">0.218%</td>
+</tr>
+<tr>
+<td>India (IN)</td>
+<td class="td-num">0.202%</td>
+</tr>
+<tr>
+<td>Russia (RU)</td>
+<td class="td-num">0.109%</td>
+</tr>
+<tr>
+<td>Brazil (BR)</td>
+<td class="td-num">0.094%</td>
+</tr>
+<tr>
+<td>Indonesia (ID)</td>
+<td class="td-num">0.085%</td>
+</tr>
+<tr>
+<td>Turkey (TR)</td>
+<td class="td-num">0.034%</td>
+</tr>
+<tr>
+<td>Mexico (MX)</td>
+<td class="td-num">0.032%</td>
+</tr>
+<tr>
+<td>United States (US)</td>
+<td class="td-num">0.032%</td>
+</tr>
+<tr>
+<td>Germany (DE)</td>
+<td class="td-num">0.016%</td>
+</tr>
+<tr>
+<td>Japan (JP)</td>
+<td class="td-num">0.010%</td>
+</tr>
+</tbody></table></div>
+
+<p>상위 다섯 개국은 모두 일본 비율의 6–22배에 자리한다. 내가 확인한 모든 구간에서 높은 수준을 유지한 유일한 국가는 인도다(2020년 0.122%, 2022년 0.212%, 2024년 0.202%). 다만 이 순위가 완전히 안정적인 것은 아니다: 일본 자체가 2020년 말에는 0.091%—그해 인도 수준에 가까운—를 보고했다가 2024년까지 그 10분의 1로 떨어졌고, 러시아는 2022년 0.226%로 급등했다. 따라서 '개발도상 시장이 악성코드를 더 많이 지닌다'는 해석은 최신 스냅숏에는 들어맞지만 고정된 법칙으로 취급해서는 안 된다.</p>
+
+<h2>관리되는 기기, 그리고 존재하지 않는 추세</h2>
+
+<p>이 데이터에서 가장 지속적인 격차는 지리가 아니라 관리 방식이다. 기업이 관리하는 기기—잠금 설정되고 선별된 앱 카탈로그를 갖춘—는 Google이 공표하는 모든 해에 일반 집단보다 한 자릿수 낮은 PHA 비율을 보고한다. 데이터에 <em>없는</em> 것은 깔끔한 하향 추세다: 전체 기기 비율은 좁은 구간 안에서 오르내렸고, Google Play의 설치 비율은 오히려 2022–2023년에 급등했다가 후퇴했다.</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>연말</th>
+<th class="td-num">전체 기기</th>
+<th class="td-num">기업 기기</th>
+<th class="td-num">Google Play 설치</th>
+</tr></thead><tbody>
+<tr>
+<td>2019</td>
+<td class="td-num">0.103%</td>
+<td class="td-num">0.005%</td>
+<td class="td-num">0.099%</td>
+</tr>
+<tr>
+<td>2020</td>
+<td class="td-num">0.122%</td>
+<td class="td-num">0.004%</td>
+<td class="td-num">0.064%</td>
+</tr>
+<tr>
+<td>2021</td>
+<td class="td-num">0.086%</td>
+<td class="td-num">0.005%</td>
+<td class="td-num">0.052%</td>
+</tr>
+<tr>
+<td>2022</td>
+<td class="td-num">0.094%</td>
+<td class="td-num">0.003%</td>
+<td class="td-num">0.211%</td>
+</tr>
+<tr>
+<td>2023</td>
+<td class="td-num">0.159%</td>
+<td class="td-num">0.007%</td>
+<td class="td-num">0.193%</td>
+</tr>
+<tr>
+<td>2024</td>
+<td class="td-num">0.099%</td>
+<td class="td-num">0.012%</td>
+<td class="td-num">0.082%</td>
+</tr>
+</tbody></table></div>
+
+<p>2024년 말 기업 기기는 전체 기기보다 8배 더 깨끗했고, 2019–2022년에는 20–30배 더 깨끗했다. Google Play 설치 비율은 단조로운 성공 이야기가 아니다: 0.052%(2021년)에서 0.211%(2022년)로 세 배 넘게 늘었다가 다시 0.082%로 떨어졌다. 그 급등을 무엇이 이끌었든, '매년 꾸준한 감소'는 이 수치들이 보여주는 모습이 아니다.</p>
+
+<h2>더 새로운 Android, 더 낮은 위험</h2>
+
+<p>Google의 버전별 구분(각 Android 버전에서 PHA로 표시된 기기의 비중을 별도로 측정한 것)은 상식과 같은 방향을 가리킨다: 최신 릴리스가 가장 안전하다. 2024-12-31로 끝나는 분기에 대해 Android 15는 0.257%를 보고했으며, 이에 비해 0.393%(13), 0.402%(14), 0.520%(11), 0.543%(12)였다. PHA 유형별로는, 같은 분기의 Google Play 탐지가 권한 상승(Privilege Escalation, 28%), 스파이웨어(Spyware, 26%), 리스크웨어(Riskware, 21%)로 대부분을 차지했고, 통행료 사기(Toll Fraud)와 트로이목마(Trojans)가 나머지 대부분을 구성했다.</p>
+
+<p><strong>유의점.</strong> 모든 수치는 Google이 자체 보고한 PHA 비율로, 1 미만의 소수이며 국가·버전·범주에 걸쳐 결코 합산해서는 안 된다—각각이 독립된 비율이다. 네 가지 구분은 서로 다른 분모(기기 대 설치)와 윈도(12개월 롤링 대 분기)를 사용하므로 구분을 넘나드는 비교는 방향성일 뿐 정확하지 않다; 특히 버전별 비율은 전체 기기 비율과 다른 방식으로 측정되어 더 높게 나온다. Google은 열 개 국가만 공표하고 그 구성원은 해마다 바뀌므로, 지리적 순위는 Google이 공개하기로 선택한 표본군을 반영한 것이지 전 세계 전수조사가 아니다. 데이터 시점: 최신 윈도는 2024-12-31로 끝난다.</p>
+
+<p><em>데이터: android_metrics(installs_by_country, devices_with_pha, installs, devices_by_version, installs_by_category), Transparency Report API, 2018-2024년 롤링 윈도 및 2017-Q1–2024-Q4 분기.</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/android-pha-rates-ko.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

@@ -1,0 +1,192 @@
+---
+layout: main
+title: "Snapchat的审核员实际删除了什么"
+description: "性内容和骚扰占Snap在2024年末所采取执法措施的三分之二——而它处理得最谨慎的类别，恰恰是处理速度最慢的类别。"
+date: 2026-07-14
+og_image: /images/snap-transparency-report-zh.png
+lang: zh
+published: false
+lang_url: /blog/snap-transparency-report.html
+lang_url_ja: /ja/blog/snap-transparency-report.html
+lang_url_ko: /ko/blog/snap-transparency-report.html
+---
+
+<article class="post">
+  <a href="/zh/blog.html" class="post-back">← 博客</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>Snapchat的审核员实际删除了什么</h1>
+    <time class="news-date" datetime="2026-07-14">July 14, 2026</time>
+    <div class="tags">
+      <span class="tag">透明度</span>
+      <span class="tag">数据</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/snap-transparency-report-zh.png" alt="展示Snap信任与安全执法数据的题图" width="1200" height="630">
+    </figure>
+
+    <p><em>性内容和骚扰占Snap在2024年末所采取执法措施的三分之二——而它处理得最谨慎的类别，恰恰是处理速度最慢的类别。</em></p>
+
+<p><strong>核心结论：</strong>2024年下半年，Snap报告称对568万个独立账户采取了1,003万次信任与安全（Trust &amp; Safety）执法措施，且分布极不均衡：性内容（38.5%）、骚扰与欺凌（27.1%）、毒品（11.1%）和儿童性剥削（9.6%）合计占Snap所有处置行动的86%。一个明确的告诫是，这些是自行报告的<em>措施</em>次数，而非违规行为或人数的统计——单个账户可能被多次处置，而哪一次归入哪一类则由Snap自己的类别定义决定。</p>
+
+<ul><li><strong>数据：</strong><code>snap_metrics</code>（Overview of Our T&amp;S Enforcements；United States &amp; International Government Information Requests；Combating CSEA），Transparency Report API，时段为2024-H1和2024-H2。</li></ul>
+
+<hr>
+
+<h2>类别构成由四大类别主导</h2>
+
+<p>Snap的全球执法在其十三个违规类别中分布并不均匀。仅性内容一项所引发的措施，就超过了排在最后的十一个类别之和。下表列出了2024-H2的执法数量、各类别占总数的比例，以及Snap所报告的处理时间中位数——最快与最慢类别之间的差距才是更耐人寻味的部分。</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>违规类别</th>
+<th class="td-num">执法数量（2024-H2）</th>
+<th class="td-num">占比</th>
+<th class="td-num">处理时间中位数（分钟）</th>
+</tr></thead><tbody>
+<tr>
+<td>Sexual Content</td>
+<td class="td-num">3,860,331</td>
+<td class="td-num">38.5%</td>
+<td class="td-num">1.5</td>
+</tr>
+<tr>
+<td>Harassment and Bullying</td>
+<td class="td-num">2,716,966</td>
+<td class="td-num">27.1%</td>
+<td class="td-num">7.0</td>
+</tr>
+<tr>
+<td>Drugs</td>
+<td class="td-num">1,113,629</td>
+<td class="td-num">11.1%</td>
+<td class="td-num">5.9</td>
+</tr>
+<tr>
+<td>Child Sexual Exploitation</td>
+<td class="td-num">961,359</td>
+<td class="td-num">9.6%</td>
+<td class="td-num">23.4</td>
+</tr>
+<tr>
+<td>Spam</td>
+<td class="td-num">357,999</td>
+<td class="td-num">3.6%</td>
+<td class="td-num">0.8</td>
+</tr>
+<tr>
+<td>Hate Speech</td>
+<td class="td-num">324,478</td>
+<td class="td-num">3.2%</td>
+<td class="td-num">26.6</td>
+</tr>
+<tr>
+<td>Other Regulated Goods</td>
+<td class="td-num">247,535</td>
+<td class="td-num">2.5%</td>
+<td class="td-num">7.8</td>
+</tr>
+<tr>
+<td>Weapons</td>
+<td class="td-num">211,860</td>
+<td class="td-num">2.1%</td>
+<td class="td-num">0.7</td>
+</tr>
+<tr>
+<td>威胁与暴力</td>
+<td class="td-num">199,920</td>
+<td class="td-num">2.0%</td>
+<td class="td-num">8.1</td>
+</tr>
+<tr>
+<td>自残与自杀</td>
+<td class="td-num">15,910</td>
+<td class="td-num">0.2%</td>
+<td class="td-num">9.9</td>
+</tr>
+<tr>
+<td><strong>All categories</strong></td>
+<td class="td-num"><strong>10,032,110</strong></td>
+<td class="td-num"><strong>100%</strong></td>
+<td class="td-num">—</td>
+</tr>
+</tbody></table></div>
+
+<p>有两种模式格外突出。其一，处置量集中在自动检测最容易的领域：性图像和垃圾信息可通过模式匹配识别，Snap在远不到两分钟内即可处理完毕。其二，需要人工判断的类别耗时最长——仇恨言论（26.6分钟）和儿童性剥削（23.4分钟）是最慢的两类，尽管CSE承担着最重的法律风险。处理速度似乎与内容的模糊性相关，而非严重性。</p>
+
+<p>与上一个半年相比，执法总数小幅上升（970万 → 1,003万，+3.4%），但其内部的变动更为显著。骚扰与欺凌激增19%，自残与自杀执法增长至2.4倍（6,509 → 15,910），而毒品下降19%，儿童性剥削下降18%。Snap另行报告称，其CSEA项目在2024-H2向NCMEC提交了417,842份报告，低于2024-H1的632,436份——34%的降幅可能反映违规行为减少、检测方式变化，或两者兼有，在缺乏更多时段数据的情况下不应据此作任何解读。</p>
+
+<h2>美国政府是Snap最大的单一数据请求方</h2>
+
+<p>执法是一种手段；应对执法机关则是另一种。2024-H2，Snap报告收到24,246份美国政府信息请求，涉及40,251个账户——比世界上所有其他国家的总和还多（20,445份国际请求，其中法国以6,208份、德国以5,705份居前）。</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>美国法律程序</th>
+<th class="td-num">请求数</th>
+<th class="td-num">指定账户数</th>
+<th class="td-num">提供部分数据</th>
+</tr></thead><tbody>
+<tr>
+<td>Search Warrant</td>
+<td class="td-num">14,293</td>
+<td class="td-num">21,649</td>
+<td class="td-num">82%</td>
+</tr>
+<tr>
+<td>Subpoena / Summons</td>
+<td class="td-num">5,877</td>
+<td class="td-num">12,571</td>
+<td class="td-num">82%</td>
+</tr>
+<tr>
+<td>Emergency Disclosure</td>
+<td class="td-num">3,196</td>
+<td class="td-num">3,906</td>
+<td class="td-num">71%</td>
+</tr>
+<tr>
+<td>Court Order</td>
+<td class="td-num">500</td>
+<td class="td-num">1,696</td>
+<td class="td-num">84%</td>
+</tr>
+<tr>
+<td>Pen Register / Trap &amp; Trace</td>
+<td class="td-num">368</td>
+<td class="td-num">410</td>
+<td class="td-num">83%</td>
+</tr>
+<tr>
+<td>Wiretap</td>
+<td class="td-num">12</td>
+<td class="td-num">19</td>
+<td class="td-num">100%</td>
+</tr>
+</tbody></table></div>
+
+<p>在大多数程序类型中，Snap对约五分之四的请求提供了至少部分数据。应答率最低的是紧急披露请求（Emergency Disclosure Requests，71%）——这是唯一没有法院监督的渠道，由服务商自行判断紧急情况是否属实。这恰恰是人们预期平台最常拒绝之处，数据也印证了这一点。</p>
+
+<h2>注意事项</h2>
+
+<p>此处的每一项数字均由Snap自行报告，且仅涵盖两个半年时段（2024-H1和2024-H2），因此所谓“趋势”只是单次的阶跃变化，而非已确立的方向。执法计数是<em>措施</em>次数，而非独立的违规或用户数量，且不可与其他表格相加——T&amp;S中的“儿童性剥削”数字（961,359次措施）所采用的定义，与专门的CSEA章节中的内容处置计数（1,228,929）不同，不应混为一谈。“提供部分数据”的百分比是比率，不能跨行求和或求平均。处理时间为中位数，无法说明最慢的那些案例。类别定义和检测系统均为Snap自有，且可能在不同报告之间发生变化。</p>
+
+<p><em>数据：<code>snap_metrics</code>（T&amp;S Enforcements、US &amp; International Government Information Requests、CSEA），Transparency Report API，2024-H1和2024-H2。</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/snap-transparency-report-zh.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

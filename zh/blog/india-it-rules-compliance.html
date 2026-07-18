@@ -1,0 +1,180 @@
+---
+layout: main
+title: "五百万件投诉，还是723件？印度的申诉报告对不上账"
+description: "在同一部印度《2021年信息技术规则》之下，ShareChat一个月报告了超过500万件用户投诉，而Twitter报告了723件——因为「收到的申诉」在每个平台上含义都不同。"
+date: 2026-07-14
+og_image: /images/india-it-rules-compliance-zh.png
+lang: zh
+published: false
+lang_url: /blog/india-it-rules-compliance.html
+lang_url_ja: /ja/blog/india-it-rules-compliance.html
+lang_url_ko: /ko/blog/india-it-rules-compliance.html
+---
+
+<article class="post">
+  <a href="/zh/blog.html" class="post-back">← 博客</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>五百万件投诉，还是723件？印度的申诉报告对不上账</h1>
+    <time class="news-date" datetime="2026-07-14">July 14, 2026</time>
+    <div class="tags">
+      <span class="tag">透明度</span>
+      <span class="tag">数据</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/india-it-rules-compliance-zh.png" alt="柱状图，显示印度各平台月度申诉数量相差数个数量级" width="1200" height="630">
+    </figure>
+
+    <p><em>在同一部法律之下，ShareChat一个月报告了超过500万件用户投诉，而Twitter报告了723件——因为「收到的申诉」在每个平台上含义都不同。</em></p>
+
+<p><strong>核心结论：</strong>印度《2021年信息技术规则》要求每一家大型社交媒体中介机构按月公布收到并处理的用户申诉数量，以及其与申诉上诉委员会（GAC）之间的往来。但此处的八个平台采用的计量尺度彼此完全不可比：ShareChat和Moj每月报告数百万件「投诉」（似乎把每一次应用内举报都计入），Google和Meta报告数万件正式申诉，Twitter和Roblox则报告数百到数千件——同一项目上相差约四个数量级。这些数字是自行申报的、真实的，但并不可比，而且多数平台已停止提交。</p>
+
+<ul><li><strong>数据：</strong><code>india_metrics</code>（grievances、grievances_received、complaints、complaints_received、gac_appeals、gac_orders），Transparency Report API，2021-04至2026-05的月度／半年度提交。</li></ul>
+
+<hr>
+
+<h2>申诉渠道：同一部法律，不可比的数量</h2>
+
+<p>每个平台都按月报告一个「收到的申诉」数字，但定义完全分歧。ShareChat和Moj提交的是数百万量级的单一总数，没有任何分类明细——与把每一次应用内滥用举报都计入的做法相符。Google、Facebook和Instagram报告数万件，按各自的分类体系归类（Google按法律类别，Meta按面向用户的问题类型）。Twitter和Roblox只报告转交给申诉官（Grievance Officer）的正式申诉，数量在数百至低位数千之间。没有两套分类体系相互吻合，而且这些分类框架连种类都对不齐：Facebook的「冒充我的虚假账号」是一种用户投诉类型；Google的「版权」是一项法律依据；Roblox的「暴力内容与血腥」是一个政策领域。</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>平台</th>
+<th>报告时段（月数）</th>
+<th>申诉分类体系</th>
+<th class="td-num">收到的申诉（最近一个月）</th>
+</tr></thead><tbody>
+<tr>
+<td>ShareChat</td>
+<td>2021-07 → 2022-04 (6)</td>
+<td>none — single lump</td>
+<td class="td-num">5,011,076</td>
+</tr>
+<tr>
+<td>Moj</td>
+<td>2021-06 → 2022-04 (5)</td>
+<td>none — single lump</td>
+<td class="td-num">2,851,946</td>
+</tr>
+<tr>
+<td>Facebook</td>
+<td>2022-07 → 2023-09 (8)</td>
+<td>10 user-issue types</td>
+<td class="td-num">22,971</td>
+</tr>
+<tr>
+<td>Google</td>
+<td>2021-04 → 2026-05 (62)</td>
+<td>9 legal categories</td>
+<td class="td-num">21,344</td>
+</tr>
+<tr>
+<td>Instagram</td>
+<td>2022-07 → 2023-09 (8)</td>
+<td>8 user-issue types</td>
+<td class="td-num">16,603</td>
+</tr>
+<tr>
+<td>Roblox</td>
+<td>2025-03 → 2026-05 (15)</td>
+<td>40 policy areas (revamped)</td>
+<td class="td-num">2,433</td>
+</tr>
+<tr>
+<td>Twitter/X</td>
+<td>2021-06 → 2022-10 (11)</td>
+<td>12 policy areas</td>
+<td class="td-num">723</td>
+</tr>
+</tbody></table></div>
+
+<p>这一差距并非微不足道。在最后一次提交中，ShareChat报告的申诉数量约为Twitter在其最后一个月所报告数量的6,900倍——两者都在2022年，都在同一条规则之下。按各平台报告存续期取平均，ShareChat每月约有640万件申诉，而Twitter为474件，比率接近13,000比1。这是定义上的产物，而非用户不满程度的衡量：一个记录每一次「举报」按钮点击的平台，必然会让一个只统计上报至指定专员的平台相形见绌。</p>
+
+<p>覆盖情况同样支离破碎。Google已连续提交62个月，至今仍在提交（2026年5月为21,344件申诉）。其余平台均已沉寂：ShareChat和Moj于2022年4月停止，Twitter于2022年10月，Facebook和Instagram于2023年9月。Roblox直到2025年3月才开始——而且中途还重写了分类清单，15个月内产生了40个标签。没有任何一个月份是全部八个平台都在报告的，因此真正的跨平台比较根本无法进行。</p>
+
+<h2>GAC：几乎无人上诉的裁决机构</h2>
+
+<p>2023年的规则设立了申诉上诉委员会（GAC），用户可在此对平台的申诉处理决定提起上诉。在本数据集中，只有Google报告上诉结果，而且只有Google和Meta有任何报告。三年间，GAC结案了314件针对Google决定的上诉——其中仅有22件支持了上诉人。</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>半年</th>
+<th class="td-num">结案</th>
+<th class="td-num">支持</th>
+<th class="td-num">驳回</th>
+<th class="td-num">不予受理</th>
+</tr></thead><tbody>
+<tr>
+<td>2023-03 → 2023-09</td>
+<td class="td-num">12</td>
+<td class="td-num">0</td>
+<td class="td-num">6</td>
+<td class="td-num">6</td>
+</tr>
+<tr>
+<td>2023-10 → 2024-03</td>
+<td class="td-num">11</td>
+<td class="td-num">0</td>
+<td class="td-num">6</td>
+<td class="td-num">5</td>
+</tr>
+<tr>
+<td>2024-04 → 2024-09</td>
+<td class="td-num">27</td>
+<td class="td-num">5</td>
+<td class="td-num">5</td>
+<td class="td-num">17</td>
+</tr>
+<tr>
+<td>2024-10 → 2025-03</td>
+<td class="td-num">47</td>
+<td class="td-num">11</td>
+<td class="td-num">21</td>
+<td class="td-num">15</td>
+</tr>
+<tr>
+<td>2025-04 → 2025-09</td>
+<td class="td-num">97</td>
+<td class="td-num">6</td>
+<td class="td-num">39</td>
+<td class="td-num">52</td>
+</tr>
+<tr>
+<td>2025-10 → 2026-03</td>
+<td class="td-num">120</td>
+<td class="td-num">0</td>
+<td class="td-num">79</td>
+<td class="td-num">41</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td class="td-num"><strong>314</strong></td>
+<td class="td-num"><strong>22</strong></td>
+<td class="td-num"><strong>156</strong></td>
+<td class="td-num"><strong>136</strong></td>
+</tr>
+</tbody></table></div>
+
+<p>上诉数量在攀升——从第一个半年结案12件增至最近的120件——但支持率仅为7%，且以「不予受理」被驳回的上诉（136件）几乎与实体审查中被驳回的（156件）一样多。Meta另行报告GAC<em>命令</em>：在2023年零散的四个月中收到26件，全部26件均已遵从，此后再无提交。相较于数万至数百万件的申诉量，上诉审查不过是可忽略的零头。</p>
+
+<p><strong>注意事项。</strong>此处每一个数字均由平台自行申报且未经审计；「收到的申诉」由每家提交者各自定义，因此跨平台的总数不得作为同类项相加或排名。最近一个月的数值取自各平台最新一次提交，而对多数平台而言如今已陈旧多年——只有Google和Roblox报告至2026年。Google按半年为区间提交GAC上诉，Meta则按月提交，且只有Google报告上诉结果；「支持／驳回／不予受理」各列在Google的数据内部是可加的（其和等于结案数），但不涵盖任何其他平台。数据版本：数据集生成于2026-05-13，最新时段为2026-05。</p>
+
+<p><em>数据：india_metrics（grievances、complaints、gac_appeals、gac_orders），Transparency Report API，2021-04至2026-05。</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/india-it-rules-compliance-zh.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

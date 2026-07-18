@@ -1,0 +1,146 @@
+---
+layout: main
+title: "What Korea's Nth Room Law Extracts From Google"
+description: "Under the transparency rule born of the Nth Room scandal, Google reports 442,452 URLs flagged as illegal sexual content in Korea across six annual reports — flagged volume exploding from 61 (2020) to 158,052 (2024) — with deepfakes just 0.6%."
+date: 2026-07-14
+og_image: /images/korea-network-act-report-en.png
+lang: en
+lang_url: /ja/blog/korea-network-act-report.html
+lang_url_zh: /zh/blog/korea-network-act-report.html
+lang_url_ko: /ko/blog/korea-network-act-report.html
+published: false
+---
+
+<article class="post">
+  <a href="/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>What Korea's Nth Room Law Extracts From Google</h1>
+    <time class="news-date" datetime="2026-07-14">July 14, 2026</time>
+    <div class="tags">
+      <span class="tag">Transparency</span>
+      <span class="tag">Data</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/korea-network-act-report-en.png" alt="What Korea's Nth Room Law Extracts From Google" width="1200" height="630">
+    </figure>
+
+    <p><em>Under the transparency rule born of the Nth Room scandal, Google reports 442,452 URLs flagged as illegal sexual content in Korea across six annual reports — and deepfakes account for just 0.6% of the requests.</em></p>
+
+<p><strong>Bottom line:</strong> Google's Korea Network Act reports show flagged-URL volume exploding from 61 in 2020 to 158,052 in 2024 before easing to 115,280 in 2025, with roughly four in five requests filed by government-side agencies rather than victims — but the series has a hard caveat: child/youth sexual-abuse requests collapse from 29,821 in 2024 to 927 in 2025 at an exact report-year boundary, which looks like a reporting or routing change, not a real-world drop.</p>
+
+<ul><li><strong>Data:</strong> korea_network_act_metrics, Transparency Report API, annual reports 2020–2025 (monthly detail 2024–2025).</li></ul>
+
+<hr>
+
+<h2>A law that makes platforms count</h2>
+
+<p>After the Nth Room digital-sex-crime scandal, Korea amended its Network Act (Art. 64-5) and Telecommunications Business Act (Art. 22-5) to force online service providers to take technical measures against illegally filmed content, "fake" (deepfake) imagery, and child/youth sexual-abuse material — and to publish an annual report about it. Unlike general transparency reports, this one is scoped to a single harm and, since the 2024 report, broken down monthly by complainant, reason, and outcome.</p>
+
+<p>Google (covering Search and YouTube jointly) reports six years of headline figures:</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>Year</th>
+<th class="td-num">URLs received</th>
+<th class="td-num">URLs removed</th>
+<th class="td-num">Removal rate</th>
+</tr></thead><tbody>
+<tr>
+<td>2020</td>
+<td class="td-num">61</td>
+<td class="td-num">42</td>
+<td class="td-num">68.9%</td>
+</tr>
+<tr>
+<td>2021</td>
+<td class="td-num">31,281</td>
+<td class="td-num">18,294</td>
+<td class="td-num">58.5%</td>
+</tr>
+<tr>
+<td>2022</td>
+<td class="td-num">47,162</td>
+<td class="td-num">38,908</td>
+<td class="td-num">82.5%</td>
+</tr>
+<tr>
+<td>2023</td>
+<td class="td-num">90,616</td>
+<td class="td-num">81,593</td>
+<td class="td-num">90.0%</td>
+</tr>
+<tr>
+<td>2024</td>
+<td class="td-num">158,052</td>
+<td class="td-num">142,211</td>
+<td class="td-num">90.0%</td>
+</tr>
+<tr>
+<td>2025</td>
+<td class="td-num">115,280</td>
+<td class="td-num">92,334</td>
+<td class="td-num">80.1%</td>
+</tr>
+</tbody></table></div>
+
+<p>The 2020 figure is an artifact of timing — the obligations took effect only at the end of 2020, so the first report covers a startup sliver. From the first full year, volume grew five-fold to the 2024 peak (31,281 → 158,052), then fell 27% in 2025. The dataset also carries annual summaries from Kakao and Naver, and the contrast is stark: over the same six years Kakao reports 462 URLs received (391 removed) and Naver 325 (91 removed) — Google accounts for essentially all of the volume in this dataset, so any "Korean platforms" aggregate here is really a Google number.</p>
+
+<h2>Who asks, and about what</h2>
+
+<p>The 2024–2025 monthly detail (273,332 requests) shows this is mostly a government-to-platform pipeline: agencies and organizations filed 217,446 requests (79.6%) versus 55,886 from victims and other users (20.4%). By reason, the law's original target dominates:</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>Request reason (2024–2025)</th>
+<th class="td-num">Requests</th>
+<th class="td-num">Share</th>
+<th class="td-num">URLs removed</th>
+</tr></thead><tbody>
+<tr>
+<td>Illegal photos and videos</td>
+<td class="td-num">240,970</td>
+<td class="td-num">88.2%</td>
+<td class="td-num">206,770</td>
+</tr>
+<tr>
+<td>Child or youth sexual-abuse content</td>
+<td class="td-num">30,748</td>
+<td class="td-num">11.2%</td>
+<td class="td-num">26,923</td>
+</tr>
+<tr>
+<td>Fake images and videos (deepfakes)</td>
+<td class="td-num">1,614</td>
+<td class="td-num">0.6%</td>
+<td class="td-num">852</td>
+</tr>
+</tbody></table></div>
+
+<p>The deepfake row is the surprise. Korea's 2024 deepfake crisis made "fake images and videos" the law's most-discussed category, yet Google reports only 964 deepfake requests in all of 2024 and 650 in 2025. There is a visible spike — 517 requests in June 2024 alone, plus 183 in August and 118 in September as the school-deepfake scandal peaked — but even then the category never approaches the volume of ordinary illegally filmed content. Deepfake requests also end in removal least often: 852 removed against 1,614 requested (~53%), versus ~86% for illegal photos/videos and ~88% for CSAM. When Google reports not removing content, the dominant stated reason is "content not found," which grew from 7,508 URLs in 2024 to 12,841 in 2025.</p>
+
+<h2>The CSAM cliff is a definition, not a trend</h2>
+
+<p>The most dramatic line in the data is child/youth sexual-abuse content: a steady 1,300–3,700 requests every month of 2024 (29,821 total), then 3 in January 2025, 1 in February, and only 927 for the whole year. A 97% one-year drop in CSAM reporting would be extraordinary — and the cliff lands exactly at the boundary between the 2024 and 2025 reports while other categories move smoothly, which is the signature of a classification or intake-channel change (for instance, CSAM being routed or counted outside this request stream), not of the problem disappearing. Treat the 2025 category mix accordingly.</p>
+
+<p><strong>Caveats.</strong> All figures are self-reported by the platforms in their statutory reports; "Google reports" is doing real work here. The 2020 numbers cover only a partial startup period, and the latest report covers calendar 2025. The four monthly sections are cross-cuts of the same requests, so requests received, reasons, and removal outcomes were never summed across sections. Requests and URLs are nearly 1:1 in this data (273,332 requests vs 273,324 processed URLs) but are formally different units. The 2025 CSAM collapse is almost certainly a reporting-definition break; six-year totals are Google-dominated, with Kakao and Naver contributing under 800 URLs combined.</p>
+
+<p><em>Data: korea_network_act_metrics, Transparency Report API, 2020–2025 (monthly detail 2024–2025).</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/korea-network-act-report-en.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>
