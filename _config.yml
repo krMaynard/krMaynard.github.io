@@ -2,6 +2,11 @@
 # Leave blank to disable analytics entirely.
 google_analytics: G-BEVY8S3VS5
 
+url: https://kieranmaynard.com
+
+plugins:
+  - jekyll-sitemap
+
 # Chatbot: set this to the deployed worker's /chat URL to enable the AI chat
 # widget (Claude-backed; see chatbot-worker/README.md to build + deploy it).
 # Leave blank (or remove the line) to disable the chatbot.
