@@ -1,0 +1,164 @@
+---
+layout: main
+title: "The 22x Gap: Where Android Malware Actually Lands"
+description: "Google's Android Transparency Report shows harmful-app rates vary ~22x by country (Philippines 0.218% vs Japan 0.010% at end-2024), managed enterprise devices run ~8x cleaner than the general fleet, and the all-device rate has drifted sideways near 0.1% rather than falling."
+date: 2026-07-14
+og_image: /images/android-pha-rates-en.png
+lang: en
+lang_url: /ja/blog/android-pha-rates.html
+lang_url_zh: /zh/blog/android-pha-rates.html
+lang_url_ko: /ko/blog/android-pha-rates.html
+published: false
+---
+
+<article class="post">
+  <a href="/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>The 22x Gap: Where Android Malware Actually Lands</h1>
+    <time class="news-date" datetime="2026-07-14">July 14, 2026</time>
+    <div class="tags">
+      <span class="tag">Transparency</span>
+      <span class="tag">Data</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/android-pha-rates-en.png" alt="The 22x Gap: Where Android Malware Actually Lands" width="1200" height="630">
+    </figure>
+
+    <p><em>Google reports that at the end of 2024 a phone in the Philippines was ~22 times likelier to carry a harmful app than one in Japan — while managed enterprise devices ran ~8 times cleaner than the general fleet.</em></p>
+
+<p><strong>Bottom line:</strong> Google's Android security Transparency Report tracks the "Potentially Harmful Application" (PHA) rate — the share of devices or installs flagged as malicious — and the striking pattern is not time but place and management. For the 12-month window ending 2024-12-31, Google reports a PHA rate of 0.218% of installs in the Philippines and 0.202% in India, versus 0.010% in Japan and 0.016% in Germany: a spread of more than 20x across the ten countries Google breaks out. Managed enterprise devices (0.012%) stayed far below the all-device rate (0.099%). The caveat that keeps this from being a tidy "Android is getting safer" story: the all-device rate has drifted sideways near 0.1% since 2019, not fallen, and the country panel Google publishes changes from year to year.</p>
+
+<ul><li><strong>Data:</strong> android_metrics (installs_by_country, devices_with_pha, installs, devices_by_version), Transparency Report API, 12-month rolling windows 2018–2024 and quarterly cuts 2017-Q1–2024-Q4.</li></ul>
+
+<hr>
+
+<h2>Geography dominates the risk</h2>
+
+<p>PHA rates are a fraction of 1 in the source data; below they are shown as percentages of installs for the rolling year ending 2024-12-31. Google publishes ten countries, and they split cleanly into high-exposure emerging markets and low-exposure mature ones.</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>Country</th>
+<th class="td-num">PHA rate (installs)</th>
+</tr></thead><tbody>
+<tr>
+<td>Philippines (PH)</td>
+<td class="td-num">0.218%</td>
+</tr>
+<tr>
+<td>India (IN)</td>
+<td class="td-num">0.202%</td>
+</tr>
+<tr>
+<td>Russia (RU)</td>
+<td class="td-num">0.109%</td>
+</tr>
+<tr>
+<td>Brazil (BR)</td>
+<td class="td-num">0.094%</td>
+</tr>
+<tr>
+<td>Indonesia (ID)</td>
+<td class="td-num">0.085%</td>
+</tr>
+<tr>
+<td>Turkey (TR)</td>
+<td class="td-num">0.034%</td>
+</tr>
+<tr>
+<td>Mexico (MX)</td>
+<td class="td-num">0.032%</td>
+</tr>
+<tr>
+<td>United States (US)</td>
+<td class="td-num">0.032%</td>
+</tr>
+<tr>
+<td>Germany (DE)</td>
+<td class="td-num">0.016%</td>
+</tr>
+<tr>
+<td>Japan (JP)</td>
+<td class="td-num">0.010%</td>
+</tr>
+</tbody></table></div>
+
+<p>The top five all sit at 6–22x the Japanese rate. India is the one country that stays elevated across every window I checked (0.122% in 2020, 0.212% in 2022, 0.202% in 2024). The ranking is not perfectly stable, though: Japan itself reported 0.091% at end-2020 — near India's level that year — before falling to a tenth of that by 2024, and Russia spiked to 0.226% in 2022. So the "developing markets carry more malware" reading holds for the latest snapshot but should not be treated as a fixed law.</p>
+
+<h2>Managed devices, and the trend that isn't</h2>
+
+<p>The most durable gap in the data is management, not geography. Enterprise-managed devices — locked down, curated app catalogs — report a PHA rate an order of magnitude below the general population in every year Google publishes. What is <em>not</em> in the data is a clean downward trend: the all-device rate has oscillated in a narrow band, and Google Play's install rate actually spiked in 2022–2023 before receding.</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>Year-end</th>
+<th class="td-num">All devices</th>
+<th class="td-num">Enterprise devices</th>
+<th class="td-num">Google Play installs</th>
+</tr></thead><tbody>
+<tr>
+<td>2019</td>
+<td class="td-num">0.103%</td>
+<td class="td-num">0.005%</td>
+<td class="td-num">0.099%</td>
+</tr>
+<tr>
+<td>2020</td>
+<td class="td-num">0.122%</td>
+<td class="td-num">0.004%</td>
+<td class="td-num">0.064%</td>
+</tr>
+<tr>
+<td>2021</td>
+<td class="td-num">0.086%</td>
+<td class="td-num">0.005%</td>
+<td class="td-num">0.052%</td>
+</tr>
+<tr>
+<td>2022</td>
+<td class="td-num">0.094%</td>
+<td class="td-num">0.003%</td>
+<td class="td-num">0.211%</td>
+</tr>
+<tr>
+<td>2023</td>
+<td class="td-num">0.159%</td>
+<td class="td-num">0.007%</td>
+<td class="td-num">0.193%</td>
+</tr>
+<tr>
+<td>2024</td>
+<td class="td-num">0.099%</td>
+<td class="td-num">0.012%</td>
+<td class="td-num">0.082%</td>
+</tr>
+</tbody></table></div>
+
+<p>Enterprise devices ran 8x cleaner than all devices at end-2024, and were 20–30x cleaner in 2019–2022. The Google Play install rate is not a monotonic success story: it more than tripled from 0.052% (2021) to 0.211% (2022) before falling back to 0.082%. Whatever drove that bump, "steady annual decline" is not what these numbers show.</p>
+
+<h2>Newer Android, lower risk</h2>
+
+<p>Google's per-version cut (a separate measurement of the share of devices on each Android version flagged with a PHA) points the same way as common sense: the newest release is the safest. For the quarter ending 2024-12-31, Android 15 reported 0.257%, versus 0.393% (13), 0.402% (14), 0.520% (11) and 0.543% (12). By PHA type, the same quarter's Google Play detections were dominated by Privilege Escalation (28%), Spyware (26%) and Riskware (21%), with Toll Fraud and Trojans making up most of the rest.</p>
+
+<p><strong>Caveats.</strong> Every figure is Google's own self-reported PHA rate, a fraction of 1 that must never be summed across countries, versions or categories — each is an independent rate. The four cuts use different denominators (devices vs. installs) and windows (12-month rolling vs. quarterly), so cross-cut comparisons are directional, not exact; the per-version rates in particular are measured differently from the all-device rate and run higher. Google publishes only ten countries and their membership shifts between years, so the geographic ranking reflects the panel Google chose to disclose, not a global census. Data vintage: latest window ends 2024-12-31.</p>
+
+<p><em>Data: android_metrics (installs_by_country, devices_with_pha, installs, devices_by_version, installs_by_category), Transparency Report API, rolling windows 2018-2024 and quarters 2017-Q1–2024-Q4.</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/android-pha-rates-en.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

@@ -1,0 +1,142 @@
+---
+layout: main
+title: "From Stolen Phones to iCloud Accounts: Twelve Years of Apple Transparency Data"
+description: "Twelve years of Apple Transparency Report data: government account-data requests grew 18-fold and overtook device requests for the first time in 2025 H1, US/UK national-security demands hide in banded ranges, and China dominates App Store takedowns."
+date: 2026-07-14
+og_image: /images/apple-transparency-report-en.png
+lang: en
+lang_url: /ja/blog/apple-transparency-report.html
+lang_url_zh: /zh/blog/apple-transparency-report.html
+lang_url_ko: /ko/blog/apple-transparency-report.html
+published: false
+---
+
+<article class="post">
+  <a href="/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>From Stolen Phones to iCloud Accounts: Twelve Years of Apple Transparency Data</h1>
+    <time class="news-date" datetime="2026-07-14">July 14, 2026</time>
+    <div class="tags">
+      <span class="tag">Transparency</span>
+      <span class="tag">Data</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-hero">
+      <img src="/images/apple-transparency-report-en.png" alt="From Stolen Phones to iCloud Accounts: Twelve Years of Apple Transparency Data" width="1200" height="630">
+    </figure>
+
+    <p><em>In 2013, governments sent Apple eight device requests for every account request. In the first half of 2025, account requests — 29,825 of them — outnumbered device requests for the first time on record.</em></p>
+
+<p><strong>Bottom line:</strong> Apple reports that government demands for <em>account</em> data (iCloud content, subscriber records) have grown roughly 18-fold since 2013 — from 1,646 requests in 2013 H1 to 29,825 in 2025 H1 — while <em>device</em> requests (typically lost/stolen-phone investigations) merely doubled, so 2025 H1 is the first half-year in which accounts overtook devices; the main caveat is that this is Apple's own self-reported tally, and the most sensitive slice — US national-security and UK IPA demands — is published only as banded ranges that got <em>wider</em> after 2017.</p>
+
+<ul><li><strong>Data:</strong> <code>apple_requests</code>, <code>apple_national_security</code>, Transparency Report API, 2013 H1 – 2025 H1 (half-year periods).</li></ul>
+
+<hr>
+
+<h2>The flip: accounts overtake devices</h2>
+
+<p>Device requests are Apple's oldest and largest category — 701,068 requests over the twelve years, versus 241,435 account requests. But the trend lines point in opposite directions. Device volumes have oscillated around 25,000–33,000 per half since 2015 (with a spike to 40,905 in 2024 H1, when the US alone sent 12,043). Account requests have climbed almost every period.</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>Period</th>
+<th class="td-num">Device requests</th>
+<th class="td-num">Account requests</th>
+</tr></thead><tbody>
+<tr>
+<td>2013 H1</td>
+<td class="td-num">12,442</td>
+<td class="td-num">1,646</td>
+</tr>
+<tr>
+<td>2016 H1</td>
+<td class="td-num">33,006</td>
+<td class="td-num">2,564</td>
+</tr>
+<tr>
+<td>2019 H1</td>
+<td class="td-num">31,778</td>
+<td class="td-num">6,480</td>
+</tr>
+<tr>
+<td>2022 H1</td>
+<td class="td-num">29,022</td>
+<td class="td-num">14,005</td>
+</tr>
+<tr>
+<td>2024 H1</td>
+<td class="td-num">40,905</td>
+<td class="td-num">25,496</td>
+</tr>
+<tr>
+<td>2025 H1</td>
+<td class="td-num">28,825</td>
+<td class="td-num">29,825</td>
+</tr>
+</tbody></table></div>
+
+<p>The growth is not a one-country artifact: strip out the United States (the largest account requester) and ex-US account requests still rose about 19-fold, from 719 in 2013 H1 to 13,836 in 2025 H1. In 2025 H1 Apple reports providing some data for 20,212 of 28,825 device requests (about 70%).</p>
+
+<h2>Who asks: Germany's phones, America's clouds</h2>
+
+<p>The two categories have different centers of gravity. Germany accounts for 258,740 of all device requests since 2013 — about 37% of the world total, more than the US (129,774) and Brazil (54,425) combined — consistent with the well-known pattern of German police running device identifiers in theft cases. Account requests are an American story: the US filed 131,241 of 241,435 (54%), and in 2025 H1 its 15,989 account requests exceeded the next four countries (Brazil, Germany, UK, France) combined.</p>
+
+<h2>National security: what banded ranges do and don't reveal</h2>
+
+<p>US FISA/NSL demands and UK Investigatory Powers Act warrants are reported only as ranges, and the low/high bounds are non-additive — you cannot sum them into totals. What the bands <em>can</em> show is direction. From 2013 to 2017 Apple reported a single combined US "national security" band in 250-wide increments, and the floor exploded: 0–249 in 2013 H1 to 16,005–16,249 by 2017 H2 — the lower bound alone rose from zero to over sixteen thousand. Then in 2018 the reporting split into FISA Content, FISA Non-Content and NSLs, each in 500-wide bands, and nearly every cell read "0–499" for five straight years — a category change that made the series less informative, not more, and makes pre/post-2018 comparison impossible.</p>
+
+<div class="table-wrap"><table class="td-table">
+<thead><tr>
+<th>Period</th>
+<th class="td-num">US FISA Content</th>
+<th class="td-num">UK IPA Content</th>
+</tr></thead><tbody>
+<tr>
+<td>2022 H1</td>
+<td class="td-num">0–499</td>
+<td class="td-num">0–499</td>
+</tr>
+<tr>
+<td>2023 H2</td>
+<td class="td-num">500–999</td>
+<td class="td-num">500–999</td>
+</tr>
+<tr>
+<td>2024 H2</td>
+<td class="td-num">500–999</td>
+<td class="td-num">1,000–1,499</td>
+</tr>
+<tr>
+<td>2025 H1</td>
+<td class="td-num">500–999</td>
+<td class="td-num">1,500–1,999</td>
+</tr>
+</tbody></table></div>
+
+<p>The newest signal is British: UK IPA content warrants first appear in 2022 H1 at 0–499 and the band floor has climbed every year since, reaching 1,500–1,999 in 2025 H1 — by then a higher band than US FISA content requests themselves.</p>
+
+<h2>The content-moderation slice: App Store takedowns</h2>
+
+<p>App takedown requests appear only for 2018 H2 – 2021 H2 in this dataset: 481 government requests in total, leading to 2,120 app removals. Composition dominates everything here — China mainland filed 374 of those requests (78%) and accounts for 1,693 of the removals (80%). Russia is a distant second at 37 requests. Ex-China, the entire rest of the world averaged about 15 takedown requests per half-year.</p>
+
+<p><strong>Caveats.</strong> All figures are Apple's self-reported counts, unaudited and shaped by Apple's own category definitions; "requests" are not comparable across types (one device request can name hundreds of devices — 662,705 devices were specified in 2025 H1's 28,825 requests). National-security figures are banded ranges whose bounds must never be summed, and the 2018 category split breaks the time series. Device totals are heavily skewed by Germany, account totals by the US, and app-takedown totals by China; latest data vintage is 2025 H1, while takedown data ends in 2021 H2.</p>
+
+<p><em>Data: apple_requests, apple_national_security, Transparency Report API, 2013 H1 – 2025 H1.</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/apple-transparency-report-en.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

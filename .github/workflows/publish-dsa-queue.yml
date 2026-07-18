@@ -1,0 +1,107 @@
+name: Publish next queued transparency post
+
+on:
+  schedule:
+    # 08:15 PDT / 07:15 PST. GitHub cron is always UTC.
+    - cron: "15 15 * * *"
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: "Optional staged slug to publish ahead of the evergreen queue"
+        required: false
+        type: string
+      publish_date:
+        description: "Optional publication date (YYYY-MM-DD; defaults to today)"
+        required: false
+        type: string
+
+concurrency:
+  group: dsa-publish-queue
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  propose-publication:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 20
+
+      - name: Stop if a publication PR is awaiting merge
+        id: gate
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          open_pr=$(gh pr list --state open --json number,headRefName \
+            --jq '[.[] | select(.headRefName | startswith("automation/dsa-publish-"))][0].number // empty')
+          if [[ -n "$open_pr" ]]; then
+            echo "Publication PR #$open_pr is still open; leaving the queue untouched."
+            echo "blocked=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "blocked=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Promote selected post
+        if: steps.gate.outputs.blocked == 'false'
+        id: promote
+        env:
+          REQUESTED_SLUG: ${{ inputs.slug }}
+          REQUESTED_DATE: ${{ inputs.publish_date }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          branch="automation/dsa-publish-${GITHUB_RUN_ID}"
+          git switch -c "$branch"
+
+          args=()
+          [[ -n "$REQUESTED_SLUG" ]] && args+=(--slug "$REQUESTED_SLUG")
+          [[ -n "$REQUESTED_DATE" ]] && args+=(--date "$REQUESTED_DATE")
+          slug=$(python3 scripts/promote-next.py "${args[@]}")
+
+          echo "slug=$slug" >> "$GITHUB_OUTPUT"
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+          if [[ -z "$slug" ]]; then
+            echo "Queue is empty; nothing to publish."
+          fi
+
+      - name: Test promoted site
+        if: steps.promote.outputs.slug != ''
+        run: npm test
+
+      - name: Verify GitHub Pages build
+        if: steps.promote.outputs.slug != ''
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+
+      - name: Push publication branch and open PR
+        if: steps.promote.outputs.slug != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.promote.outputs.branch }}
+          SLUG: ${{ steps.promote.outputs.slug }}
+        run: |
+          git push --set-upstream origin "$BRANCH"
+          gh label create scheduled-publish --color 1d76db \
+            --description "Daily queued publication" --force
+          gh pr create \
+            --base master \
+            --head "$BRANCH" \
+            --title "Publish queued post: $SLUG" \
+            --label scheduled-publish \
+            --body "Automated one-post publication from \`data/dsa-publish-queue.json\`.
+
+          This run promoted **$SLUG** and passed the site tests and GitHub Pages build. Merge this PR to publish it. If a timely post should go first, close this PR and manually run **Publish next queued transparency post** with its slug; the evergreen queue will resume on the following run.
+
+          Workflow evidence: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
