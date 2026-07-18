@@ -64,6 +64,12 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
 
     <p>여러분의 충성심이 특별히 구글의 모델을 향해 있다면, Gemini는 이들 중 여럿을 통해 이용할 수 있다는 점에 유의하세요 — 봇을 포기하기 위해 모델까지 포기할 필요는 없습니다.</p>
 
+    <h2>제가 대신 구축한 방식</h2>
+
+    <p>결국 제 저장소 20개에 걸쳐 작동하는 소규모의 공급업체 중립적 리뷰 대기열을 구성했습니다. <a href="https://github.com/krMaynard/krMaynard.github.io/blob/master/.github/workflows/codex-review-queue.yml">GitHub Actions 워크플로</a>가 Claude가 작성한 풀 리퀘스트의 생성, 업데이트, 재오픈 또는 리뷰 준비 완료를 감지해 <code>codex-review</code> 라벨을 붙입니다. Codex는 이 대기열에서 전체 diff와 해결되지 않은 리뷰 스레드를 읽고, 기존 CI를 확인하고, 관련 로컬 테스트를 실행한 뒤 근거가 포함된 리뷰를 게시하거나 범위를 좁힌 수정 사항을 푸시합니다. 성공적으로 끝나면 대기열 라벨은 <code>codex-reviewed</code>로 바뀌고, 새 커밋이 들어오면 해당 상태가 제거되어 다시 대기열에 등록됩니다. 병합은 여전히 별도의 명시적인 결정입니다.</p>
+
+    <p>GitHub App 하나를 설치하는 것보다 구성할 것이 많지만, 제가 실제로 중요하게 생각한 부분은 유지됩니다. 모든 리비전에 대한 자동 리뷰, 눈에 보이는 상태, 재현 가능한 검사, 그리고 코드를 작성한 에이전트가 최종 리뷰까지 맡아야 한다는 가정을 피할 수 있습니다.</p>
+
     <h2>요점</h2>
 
     <p>구글이 AI 보조 개발을 죽인 것은 아닙니다. 통합한 것입니다. 소비자용 Gemini Code Assist 도구들은 Antigravity로 흡수되고 있고, 엔터프라이즈 라이선스는 변함없이 이어집니다. 하지만 우리 상당수가 기대어 온 그 특정한 편의 — 모든 PR에 조용히 댓글을 달아 주던 무료 리뷰어 — 는 오늘부로 사라졌고, Antigravity는 그것의 곧바른 대체품이 아닙니다. Antigravity로 옮겨 가면 구글의 세계 안에 머무르게 되고, Copilot의 리뷰어나 CodeRabbit, Qodo, Greptile을 집어 들면 PR 리뷰를 되찾게 됩니다. 어느 쪽이든, 다음 풀 리퀘스트가 리뷰 없이 지나가기 전에 대체재를 연결해 두기에 오늘이 좋은 날입니다.</p>

@@ -64,6 +64,12 @@ lang_url_de: /de/blog/gemini-code-assist-deprecation.html
 
     <p>Se la tua fedeltà è specificamente ai modelli di Google, nota che Gemini è disponibile attraverso molti di questi — non devi rinunciare al modello per rinunciare al bot.</p>
 
+    <h2>Con cosa l'ho sostituito</h2>
+
+    <p>Alla fine ho configurato una piccola coda di revisione indipendente dal fornitore per 20 dei miei repository. Un <a href="https://github.com/krMaynard/krMaynard.github.io/blob/master/.github/workflows/codex-review-queue.yml">workflow GitHub Actions</a> rileva quando una pull request creata da Claude viene aperta, aggiornata, riaperta o contrassegnata come pronta per la revisione, quindi aggiunge l'etichetta <code>codex-review</code>. Codex prende in carico la coda, legge l'intero diff e i thread di revisione irrisolti, controlla la CI esistente, esegue i test locali pertinenti e pubblica una revisione supportata da evidenze oppure invia una correzione strettamente circoscritta. Al termine di una revisione riuscita, l'etichetta viene sostituita da <code>codex-reviewed</code>; un nuovo commit annulla quello stato e rimette la PR in coda. Il merge resta una decisione separata ed esplicita.</p>
+
+    <p>Richiede più configurazione rispetto all'installazione di una singola GitHub App, ma conserva ciò che per me contava davvero: revisione automatica a ogni modifica, stato visibile, controlli riproducibili e nessuna presunzione che l'agente che scrive il codice debba esserne anche il revisore finale.</p>
+
     <h2>La conclusione</h2>
 
     <p>Google non ha ucciso lo sviluppo assistito dall'IA; lo ha consolidato. Gli strumenti consumer di Gemini Code Assist vengono confluiti in Antigravity, e le licenze enterprise proseguono invariate. Ma la comodità specifica su cui molti di noi contavano — un reviewer gratuito che commentava discretamente ogni PR — da oggi è sparita, e Antigravity non ne è uno scambio diretto. Migrare ad Antigravity ti tiene nel mondo di Google; adottare il reviewer di Copilot, CodeRabbit, Qodo o Greptile ti restituisce le revisioni delle PR. In un modo o nell'altro, oggi è una buona giornata per collegare il sostituto prima che la prossima pull request resti senza revisione.</p>

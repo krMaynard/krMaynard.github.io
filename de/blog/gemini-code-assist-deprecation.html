@@ -64,6 +64,12 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
 
     <p>Wenn Ihre Loyalität speziell Googles Modellen gilt, sei angemerkt, dass Gemini über mehrere dieser Werkzeuge verfügbar ist — Sie müssen das Modell nicht aufgeben, um den Bot aufzugeben.</p>
 
+    <h2>Wodurch ich es ersetzt habe</h2>
+
+    <p>Am Ende habe ich für 20 meiner Repositories eine kleine, anbieterunabhängige Review-Warteschlange eingerichtet. Ein <a href="https://github.com/krMaynard/krMaynard.github.io/blob/master/.github/workflows/codex-review-queue.yml">GitHub-Actions-Workflow</a> erkennt, wenn ein von Claude erstellter Pull Request geöffnet, aktualisiert, erneut geöffnet oder als reviewbereit markiert wird, und vergibt das Label <code>codex-review</code>. Codex übernimmt die Warteschlange, liest den vollständigen Diff und ungelöste Review-Threads, prüft die bestehende CI, führt relevante lokale Tests aus und veröffentlicht entweder ein belegtes Review oder pusht eine eng begrenzte Korrektur. Nach einem erfolgreichen Durchlauf wird das Label durch <code>codex-reviewed</code> ersetzt; ein neuer Commit hebt diesen Status auf und stellt den PR erneut an. Das Mergen bleibt eine separate, ausdrückliche Entscheidung.</p>
+
+    <p>Das ist mehr Verkabelung als die Installation einer einzelnen GitHub App, bewahrt aber genau das, worauf es mir ankam: automatische Reviews bei jeder Überarbeitung, einen sichtbaren Status, reproduzierbare Prüfungen und keine Annahme, dass der Agent, der den Code schreibt, zugleich dessen letzter Reviewer sein sollte.</p>
+
     <h2>Das Fazit</h2>
 
     <p>Google hat die KI-gestützte Entwicklung nicht getötet; es hat sie konsolidiert. Die Verbraucher-Werkzeuge von Gemini Code Assist werden in Antigravity überführt, und Enterprise-Lizenzen laufen unverändert weiter. Doch der konkrete Komfort, auf den sich viele von uns verließen — ein kostenloser Reviewer, der still jeden PR kommentierte — ist seit heute weg, und Antigravity ist kein direkter Ersatz dafür. Die Migration zu Antigravity hält Sie in Googles Welt; Copilots Reviewer, CodeRabbit, Qodo oder Greptile zu nehmen, holt Ihre PR-Prüfungen zurück. So oder so ist heute ein guter Tag, um den Ersatz einzurichten, bevor der nächste Pull Request ungeprüft bleibt.</p>

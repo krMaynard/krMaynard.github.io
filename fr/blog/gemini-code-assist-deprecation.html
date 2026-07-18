@@ -64,6 +64,12 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
 
     <p>Si votre fidélité va spécifiquement aux modèles de Google, notez que Gemini est disponible via plusieurs de ces outils — vous n'avez pas à abandonner le modèle pour abandonner le bot.</p>
 
+    <h2>Ce que j'ai mis en place à la place</h2>
+
+    <p>J'ai finalement assemblé une petite file de revue indépendante des fournisseurs pour 20 de mes dépôts. Un <a href="https://github.com/krMaynard/krMaynard.github.io/blob/master/.github/workflows/codex-review-queue.yml">workflow GitHub Actions</a> surveille les pull requests créées par Claude lorsqu'elles sont ouvertes, mises à jour, rouvertes ou déclarées prêtes à être relues, puis ajoute le libellé <code>codex-review</code>. Codex prend la file en charge, lit le diff complet et les fils de revue non résolus, vérifie la CI existante, exécute les tests locaux pertinents et publie soit une revue étayée, soit une correction strictement ciblée. Une passe réussie remplace le libellé par <code>codex-reviewed</code> ; tout nouveau commit annule cet état et remet la PR dans la file. La fusion reste une décision distincte et explicite.</p>
+
+    <p>Cela demande davantage de plomberie que l'installation d'une seule GitHub App, mais conserve ce qui comptait vraiment pour moi : une revue automatique à chaque révision, un état visible, des vérifications reproductibles et aucune obligation de confier la revue finale à l'agent qui a écrit le code.</p>
+
     <h2>Ce qu'il faut en retenir</h2>
 
     <p>Google n'a pas tué le développement assisté par IA&nbsp;; il l'a consolidé. Les outils grand public Gemini Code Assist sont intégrés à Antigravity, et les licences entreprise poursuivent leur cours sans changement. Mais la commodité précise sur laquelle beaucoup d'entre nous s'appuyaient — un relecteur gratuit qui commentait discrètement chaque PR — a disparu depuis aujourd'hui, et Antigravity n'en est pas un remplacement direct. Migrer vers Antigravity vous garde dans l'univers de Google&nbsp;; adopter le relecteur de Copilot, CodeRabbit, Qodo ou Greptile vous rend vos revues de PR. Quoi qu'il en soit, aujourd'hui est un bon jour pour brancher le remplaçant avant que la prochaine pull request ne passe sans relecture.</p>

@@ -64,6 +64,12 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
 
     <p>If your loyalty is to Google's models specifically, note that Gemini is available through several of these — you don't have to give up the model to give up the bot.</p>
 
+    <h2>What I replaced it with</h2>
+
+    <p>I ended up wiring together a small, vendor-neutral review queue across 20 of my repositories. A <a href="https://github.com/krMaynard/krMaynard.github.io/blob/master/.github/workflows/codex-review-queue.yml">GitHub Actions workflow</a> watches for a Claude-authored pull request to be opened, updated, reopened, or marked ready for review, then adds a <code>codex-review</code> label. Codex picks up that queue, reads the full diff and unresolved review threads, checks the existing CI, runs relevant local tests, and either posts an evidence-backed review or pushes a narrowly scoped fix. A successful pass replaces the queue label with <code>codex-reviewed</code>; a new commit removes that assurance and queues the PR again. Merging remains a separate, explicit decision.</p>
+
+    <p>It is more plumbing than installing a single GitHub App, but it preserves the part I actually cared about: automatic review on every revision, with visible state, reproducible checks, and no assumption that the agent writing the code should also be its final reviewer.</p>
+
     <h2>The takeaway</h2>
 
     <p>Google didn't kill AI-assisted development; it consolidated it. The consumer Gemini Code Assist tools are being folded into Antigravity, and enterprise licenses roll on unchanged. But the specific convenience a lot of us leaned on — a free reviewer that quietly commented on every PR — is gone as of today, and Antigravity isn't a straight swap for it. Migrating to Antigravity keeps you in Google's world; picking up Copilot's reviewer, CodeRabbit, Qodo, or Greptile gets your PR reviews back. Either way, today's a good day to wire up the replacement before the next pull request goes unreviewed.</p>

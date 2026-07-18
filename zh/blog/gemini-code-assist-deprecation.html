@@ -64,6 +64,12 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
 
     <p>如果你偏爱的恰恰是Google的模型，那么请注意，上述其中几款都支持Gemini——你不必为了放弃这个机器人而放弃这个模型。</p>
 
+    <h2>我的替代方案</h2>
+
+    <p>我最终为自己的20个代码库搭建了一个小型、供应商中立的审查队列。一个<a href="https://github.com/krMaynard/krMaynard.github.io/blob/master/.github/workflows/codex-review-queue.yml">GitHub Actions工作流</a>会监听由Claude创建的拉取请求在打开、更新、重新打开或标记为可供审查时的事件，然后添加<code>codex-review</code>标签。Codex从队列中读取完整差异和未解决的审查线程，检查现有CI，运行相关的本地测试，并发布有证据支持的审查意见或推送范围明确的修复。成功完成后，队列标签会替换为<code>codex-reviewed</code>；新的提交会取消这一状态并重新排队。合并仍然是一个独立且必须明确作出的决定。</p>
+
+    <p>这比安装单个GitHub App需要更多配置，但保留了我真正重视的部分：每次修订都自动审查、状态清晰可见、检查可以复现，而且不必默认让编写代码的代理同时充当最终审查者。</p>
+
     <h2>要点小结</h2>
 
     <p>Google并没有扼杀AI辅助开发；它把它整合了。面向消费者的Gemini Code Assist工具正被并入Antigravity，而企业许可则原封不动地继续运行。但很多人所依赖的那份具体便利——一个默默为每个PR评论的免费审查器——从今天起就没有了，而Antigravity并不是它的直接替代。迁移到Antigravity能让你继续留在Google的世界里；而选用Copilot的审查器、CodeRabbit、Qodo或Greptile，则能把你的PR审查找回来。无论选哪条路，今天都是把替代方案接好的好日子——趁下一个拉取请求还没在无人审查中溜走之前。</p>
