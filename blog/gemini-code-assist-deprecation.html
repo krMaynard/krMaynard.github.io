@@ -1,0 +1,84 @@
+---
+layout: main
+title: "Gemini Code Assist's GitHub Reviewer Shuts Off Today — Where to Go Next"
+description: "Google turns off the consumer Gemini Code Assist app for GitHub code review on July 17, 2026, the last step in winding down the free/individual tier. What's actually ending, what Google wants you to use instead, and the Codex review queue I run in its place."
+date: 2026-07-17
+og_image: /images/gemini-code-assist-deprecation-en.png
+lang: en
+lang_url: /ja/blog/gemini-code-assist-deprecation.html
+lang_url_zh: /zh/blog/gemini-code-assist-deprecation.html
+lang_url_ko: /ko/blog/gemini-code-assist-deprecation.html
+lang_url_fr: /fr/blog/gemini-code-assist-deprecation.html
+lang_url_es: /es/blog/gemini-code-assist-deprecation.html
+lang_url_de: /de/blog/gemini-code-assist-deprecation.html
+lang_url_it: /it/blog/gemini-code-assist-deprecation.html
+---
+
+<article class="post">
+  <a href="/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>Gemini Code Assist's GitHub Reviewer Shuts Off Today — Where to Go Next</h1>
+    <time class="news-date" datetime="2026-07-17">July 17, 2026</time>
+    <div class="tags">
+      <span class="tag">Gemini Code Assist</span>
+      <span class="tag">AI Code Review</span>
+      <span class="tag">Developer Tools</span>
+      <span class="tag">GitHub</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/gemini-code-assist-deprecation-en.png" alt="Article header: Gemini Code Assist's GitHub reviewer shuts off today — where to go next" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
+
+    <p>If you let Gemini review your pull requests, today is the day the bot goes quiet. As of <strong>July 17, 2026</strong>, Google has <a href="https://developers.google.com/gemini-code-assist/docs/deprecations">shut down the consumer version of Gemini Code Assist on GitHub</a> — the app that posted automated code reviews and summaries on your PRs. It's the last step in a staged wind-down of the free and individual tiers that has been rolling out since the spring.</p>
+
+    <p>Here's the full sequence, because the pieces turned off on different dates:</p>
+
+    <ul>
+      <li><strong>June 18, 2026</strong> — the Gemini Code Assist IDE extensions and the Gemini CLI <a href="https://9to5google.com/2026/06/17/gemini-cli-code-assist-shutting-down/">stopped serving requests</a> for Gemini Code Assist for individuals and for the Google AI Pro and Ultra plans.</li>
+      <li><strong>July 17, 2026 (today)</strong> — the consumer Gemini Code Assist GitHub app ends its code-review activity.</li>
+    </ul>
+
+    <p>One important caveat before anyone panics: this is the <em>consumer</em> story. If your organization pays for a Gemini Code Assist Standard or Enterprise license, Google says those are <strong>unaffected</strong> — your IDE assist, CLI, and GitHub reviews keep running. What's ending is the free/individual on-ramp that a lot of solo developers and small teams had wired into their repos.</p>
+
+    <h2>What Google wants you to do</h2>
+
+    <p>Google's own migration path is <a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">Antigravity</a>, the "agent-first" platform it unveiled at I/O in May, plus its terminal companion, <strong>Antigravity CLI</strong> — a Go rewrite that shares the same agent harness as the Antigravity 2.0 desktop app. It's been available since May 19 at <a href="https://antigravity.google/download">antigravity.google/download</a>, and your Agent Skills, Hooks, Subagents, and Extensions (now "plugins") carry over. Google is upfront that there's <a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">no full feature parity at launch</a>.</p>
+
+    <p>But notice the gap. Antigravity CLI is an <em>agent you drive</em> — an interactive coding assistant in your terminal and editor. The thing that actually switched off today was an <em>automated reviewer that watched your GitHub PRs and commented on them without being asked</em>. Those aren't the same job, and Google isn't shipping a like-for-like replacement for the consumer GitHub bot. So if what you'll miss is the PR reviews, the honest answer is: you probably want a dedicated code-review tool, not just Antigravity.</p>
+
+    <h2>What I replaced it with</h2>
+
+    <p>I ended up wiring together a small, vendor-neutral review queue across 31 of my repositories, with a protected 32nd repository staged in <a href="https://github.com/krMaynard/krMaynard.github.io/pull/179">a green pull request</a>. A <a href="https://github.com/krMaynard/krMaynard.github.io/blob/master/.github/workflows/codex-review-queue.yml">GitHub Actions workflow</a> recognizes Claude authorship from the branch name, PR body, or commit author and session metadata. When one of those pull requests is opened, updated, reopened, or marked ready for review, it adds a <code>codex-review</code> label. Codex picks up that queue, reads the full diff and unresolved review threads, checks the existing CI, runs relevant local tests, and either posts an evidence-backed review or pushes a narrowly scoped fix. A successful pass replaces the queue label with <code>codex-reviewed</code>; a new commit removes that assurance and queues the PR again. Merging remains a separate, explicit decision.</p>
+
+    <p>It is more plumbing than installing a single GitHub App, but it preserves the part I actually cared about: automatic review on every revision, with visible state, reproducible checks, and no assumption that the agent writing the code should also be its final reviewer.</p>
+
+    <h3>How good was Gemini, actually?</h3>
+
+    <p>I audited the review record from 10 pull requests before replacing the app. Gemini posted 10 summary reviews and <strong>40 inline findings</strong>: 5 marked high priority, 1 security-medium, and 34 medium. I judged 39 of the 40 actionable and one a false positive, a <strong>97.5% useful-finding rate</strong> at the comment level. After grouping repeated instances of the same problem—such as one temporary-file mistake repeated at three call sites—the comments represented roughly <strong>27 distinct issue patterns</strong>.</p>
+
+    <p>The useful findings were concrete: missing error handling, unsafe certificate-store mutation, Unicode and locale assumptions, non-portable systemd configuration, malformed HTML, cleanup paths that failed on exceptions, and missing tool prerequisites. Gemini was especially good at local defects with a clear fix. It was less good at consolidation and whole-workflow reasoning: several comments duplicated the same root cause across files or locales, it misread notebook JSON as a Python tuple once, and it did not catch a later idempotency race that a second review found. My takeaway is favorable but bounded: the bot produced a lot of real value, yet its comments still needed verification and a reviewer looking beyond individual lines.</p>
+
+    <h2>The takeaway</h2>
+
+    <p>Google didn't kill AI-assisted development; it consolidated it. The consumer Gemini Code Assist tools are being folded into Antigravity, and enterprise licenses roll on unchanged. But the specific convenience a lot of us leaned on — a free reviewer that quietly commented on every PR — is gone as of today, and Antigravity isn't a straight swap for it. Migrating to Antigravity keeps you in Google's world; I went the other way and handed PR review to Codex, so every revision still gets checked. Either way, today's a good day to make the replacement deliberate — before the next pull request goes unreviewed.</p>
+
+    <p><em>Sources: Google's <a href="https://developers.google.com/gemini-code-assist/docs/deprecations">Gemini Code Assist deprecations</a> page (shutdown dates and enterprise carve-out) and its <a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">Gemini CLI → Antigravity CLI transition</a> post; reporting from <a href="https://9to5google.com/2026/06/17/gemini-cli-code-assist-shutting-down/">9to5Google</a>. My replacement runs on <a href="https://developers.openai.com/codex/integrations/github">OpenAI's Codex GitHub integration</a>; the workflow that drives it is <a href="https://github.com/krMaynard/krMaynard.github.io/blob/master/.github/workflows/codex-review-queue.yml">public in this repo</a>.</em></p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/gemini-code-assist-deprecation-en.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>
