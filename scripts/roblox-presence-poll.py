@@ -175,6 +175,7 @@ def main():
                 "members": obj(item.get("group")).get("memberCount"),
                 "verified": obj(item.get("group")).get("hasVerifiedBadge", False),
                 "role": obj(item.get("role")).get("name"),
+                "roleId": obj(item.get("role")).get("id"),
                 "rank": obj(item.get("role")).get("rank"),
             }
             for item in memberships if isinstance(item, dict)
@@ -223,6 +224,126 @@ def main():
         avatar_configurations[uid] = avatar_details(fetch_or(
             f"https://avatar.roblox.com/v1/users/{uid}/avatar", None
         ))
+
+    # ── Enrich public groups with details, roles, games, and icons ──
+    group_ids = sorted({
+        item.get("id")
+        for memberships in groups.values() if isinstance(memberships, list)
+        for item in memberships if isinstance(item, dict) and isinstance(item.get("id"), int)
+    })
+    group_icons = {}
+    if group_ids:
+        icon_response = fetch_or(
+            "https://thumbnails.roblox.com/v1/groups/icons?groupIds="
+            + ",".join(str(group_id) for group_id in group_ids)
+            + "&size=150x150&format=Png&isCircular=false",
+            {"data": []},
+        )
+        icon_items = icon_response.get("data") if isinstance(icon_response, dict) else None
+        if isinstance(icon_items, list):
+            group_icons = {
+                item.get("targetId"): item.get("imageUrl")
+                for item in icon_items if isinstance(item, dict) and isinstance(item.get("targetId"), int)
+            }
+
+    group_enrichment = {}
+    for group_id in group_ids:
+        details = fetch_or(f"https://groups.roblox.com/v1/groups/{group_id}", None)
+        roles_response = fetch_or(f"https://groups.roblox.com/v1/groups/{group_id}/roles", None)
+        role_items = roles_response.get("roles") if isinstance(roles_response, dict) else None
+        role_counts = {
+            item.get("id"): item.get("memberCount")
+            for item in role_items if isinstance(item, dict) and isinstance(item.get("id"), int)
+        } if isinstance(role_items, list) else {}
+        games = fetch_data(
+            f"https://games.roblox.com/v2/groups/{group_id}/games?accessFilter=Public&sortOrder=Desc&limit=10"
+        )
+        group_enrichment[group_id] = {
+            "description": details.get("description") if isinstance(details, dict) else None,
+            "owner": obj(details.get("owner")).get("username") if isinstance(details, dict) else None,
+            "publicEntryAllowed": details.get("publicEntryAllowed") if isinstance(details, dict) else None,
+            "shout": obj(details.get("shout")).get("body") if isinstance(details, dict) else None,
+            "iconUrl": group_icons.get(group_id),
+            "roleCounts": role_counts,
+            "experiences": [
+                experience(item) for item in games if isinstance(item, dict)
+            ] if games is not None else None,
+        }
+
+    for memberships in groups.values():
+        if not isinstance(memberships, list):
+            continue
+        for membership in memberships:
+            enrichment = group_enrichment.get(membership.get("id"), {})
+            membership.update({key: value for key, value in enrichment.items() if key != "roleCounts"})
+            membership["roleMembers"] = obj(enrichment.get("roleCounts")).get(membership.get("roleId"))
+
+    # ── Enrich every surfaced experience in three batch requests ──
+    experience_lists = [experiences, favorite_experiences]
+    for enrichment in group_enrichment.values():
+        experience_lists.append({"group": enrichment.get("experiences")})
+    experience_items = [
+        item
+        for collection in experience_lists
+        for items in collection.values() if isinstance(items, list)
+        for item in items if isinstance(item, dict)
+    ]
+    universe_ids = sorted({item.get("id") for item in experience_items if isinstance(item.get("id"), int)})
+    if universe_ids:
+        joined_ids = ",".join(str(universe_id) for universe_id in universe_ids)
+        details = fetch_data(f"https://games.roblox.com/v1/games?universeIds={joined_ids}")
+        votes = fetch_data(f"https://games.roblox.com/v1/games/votes?universeIds={joined_ids}")
+        icons = fetch_data(
+            "https://thumbnails.roblox.com/v1/games/icons?universeIds=" + joined_ids
+            + "&returnPolicy=PlaceHolder&size=150x150&format=Png&isCircular=false"
+        )
+        detail_map = {item.get("id"): item for item in details or [] if isinstance(item, dict)}
+        vote_map = {item.get("id"): item for item in votes or [] if isinstance(item, dict)}
+        icon_map = {item.get("targetId"): item for item in icons or [] if isinstance(item, dict)}
+        for item in experience_items:
+            universe_id = item.get("id")
+            detail = detail_map.get(universe_id, {})
+            vote = vote_map.get(universe_id, {})
+            icon = icon_map.get(universe_id, {})
+            item.update({
+                "playing": detail.get("playing"),
+                "favorites": detail.get("favoritedCount"),
+                "maxPlayers": detail.get("maxPlayers"),
+                "genre": detail.get("genre"),
+                "copyingAllowed": detail.get("copyingAllowed"),
+                "apiAccessAllowed": detail.get("studioAccessToApisAllowed"),
+                "upVotes": vote.get("upVotes"),
+                "downVotes": vote.get("downVotes"),
+                "iconUrl": icon.get("imageUrl"),
+            })
+
+    # ── Sample public Economy metadata for currently equipped catalog assets ──
+    inventory_types = set(INVENTORY_ASSET_TYPES.split(","))
+    equipped_assets = [
+        item
+        for avatar in avatar_configurations.values() if isinstance(avatar, dict)
+        for item in avatar.get("assets") or []
+        if isinstance(item, dict) and item.get("type") in inventory_types and isinstance(item.get("id"), int)
+    ]
+    asset_metadata = {}
+    for asset_id in sorted({item["id"] for item in equipped_assets}):
+        details = fetch_or(f"https://economy.roblox.com/v2/assets/{asset_id}/details", None)
+        if not isinstance(details, dict):
+            continue
+        asset_metadata[asset_id] = {
+            "creator": obj(details.get("Creator")).get("Name"),
+            "creatorType": obj(details.get("Creator")).get("CreatorType"),
+            "price": details.get("PriceInRobux"),
+            "sales": details.get("Sales"),
+            "forSale": details.get("IsForSale"),
+            "limited": details.get("IsLimited") or details.get("IsLimitedUnique"),
+        }
+    for item in equipped_assets:
+        item["metadata"] = asset_metadata.get(item.get("id"))
+    for inventory in inventories.values():
+        for item in inventory.get("items") or []:
+            if item.get("assetId") in asset_metadata:
+                item["metadata"] = asset_metadata[item["assetId"]]
 
     result = {
         "users": USERS,

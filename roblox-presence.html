@@ -67,9 +67,21 @@
     .data-item a:hover { text-decoration: underline; }
     .data-meta { display: block; color: var(--text-faint); font-size: 0.75rem; }
     .data-description { display: block; margin-top: 0.15rem; color: var(--text-subtle); }
+    .data-icon { width: 42px; height: 42px; object-fit: cover; border-radius: 7px; float: left; margin: 0 0.6rem 0.35rem 0; }
+    .data-item::after { content: ""; display: block; clear: both; }
     .empty-data { margin: 0.6rem 0 0; color: var(--text-faint); font-size: 0.8rem; }
     .api-note { max-width: 760px; margin: 1.5rem auto 0; color: var(--text-muted); font-size: 0.8rem; line-height: 1.55; }
     .api-note summary { cursor: pointer; color: var(--text-strong); font-weight: 600; }
+    .api-access { max-width: 900px; margin: 2rem auto 0; }
+    .api-access h2 { color: var(--text-strong); text-align: center; }
+    .api-access p { color: var(--text-muted); text-align: center; font-size: 0.85rem; }
+    .api-table-wrap { overflow-x: auto; }
+    .api-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; color: var(--text-muted); }
+    .api-table th, .api-table td { border-bottom: 1px solid var(--border-soft); padding: 0.65rem; text-align: left; vertical-align: top; }
+    .api-table th { color: var(--text-strong); }
+    .access-public { color: #208844; font-weight: 700; }
+    .access-conditional { color: #b26a00; font-weight: 700; }
+    .access-auth { color: #c0392b; font-weight: 700; }
   </style>
 </head>
 <body>
@@ -86,6 +98,26 @@
         <summary>What “public” means here</summary>
         <p>No Roblox login, cookie, or API key is used. The snapshot comes from Roblox's public users, presence, friends, games, groups, inventory, avatar, and thumbnails services. Results can vary with account privacy settings and endpoint availability; an unavailable endpoint is labeled instead of being reported as an empty result. The friend-list endpoint is public too, but this demo intentionally does not republish third-party account identities. Badge and follower/following lists currently require authentication.</p>
       </details>
+      <section class="api-access" aria-labelledby="api-access-heading">
+        <h2 id="api-access-heading">Public API access tested</h2>
+        <p>Observed without a Roblox login, cookie, or API key. Roblox can change endpoint access at any time.</p>
+        <div class="api-table-wrap">
+          <table class="api-table">
+            <thead><tr><th>Data</th><th>Anonymous result</th><th>Shown here</th></tr></thead>
+            <tbody>
+              <tr><td>Profiles, username history, presence, social counts</td><td class="access-public">Public</td><td>Yes</td></tr>
+              <tr><td>Created/favorite experiences, live players, visits, favorites, votes, settings, icons</td><td class="access-public">Public</td><td>Yes</td></tr>
+              <tr><td>Groups, roles, role populations, owners, descriptions, group experiences, icons</td><td class="access-public">Public</td><td>Yes</td></tr>
+              <tr><td>Inventory, limited collectibles, avatar configuration, saved outfits</td><td class="access-conditional">Public when account settings allow</td><td>Inventory, collectibles, avatar; outfits when present</td></tr>
+              <tr><td>Per-asset creator, price, sales and limited status</td><td class="access-public">Public per item</td><td>Equipped catalog assets</td></tr>
+              <tr><td>Friend identities</td><td class="access-public">Public</td><td>No—third-party identities intentionally excluded</td></tr>
+              <tr><td>Earned badges; follower/following identity lists</td><td class="access-auth">401: authentication required</td><td>No; public counts remain shown</td></tr>
+              <tr><td>Batch catalog item details</td><td class="access-auth">403: XSRF token required</td><td>No; public per-item Economy endpoint used instead</td></tr>
+              <tr><td>Robux, transactions, purchases, messages, account/security settings</td><td class="access-auth">Account-private</td><td>No; not queried</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
     </div>
     <div class="presence-footer">
       Latest snapshot from <a href="https://presence.roblox.com/docs" target="_blank" rel="noopener">Roblox APIs</a>
@@ -182,12 +214,31 @@
         list.forEach(function (item) {
           if (!item || typeof item !== 'object') return;
           var li = document.createElement('li'); li.className = 'data-item';
+          if (item.iconUrl) {
+            var icon = document.createElement('img'); icon.className = 'data-icon'; icon.src = item.iconUrl; icon.alt = '';
+            icon.addEventListener('error', function () { this.remove(); }); li.appendChild(icon);
+          }
           var placeId = validId(item.rootPlaceId);
           li.appendChild(placeId ? link('https://www.roblox.com/games/' + placeId, item.name || 'Untitled experience') : document.createTextNode(item.name || 'Untitled experience'));
           var meta = document.createElement('span'); meta.className = 'data-meta';
           meta.textContent = number(item.visits) + (Number(item.visits) === 1 ? ' visit' : ' visits') + ' · created ' + date(item.created) +
             ' · updated ' + date(item.updated) + (item.creator ? ' · by ' + item.creator : '');
           li.appendChild(meta);
+          var analytics = [];
+          if (item.playing != null) analytics.push(number(item.playing) + ' playing');
+          if (item.favorites != null) analytics.push(number(item.favorites) + ' favorites');
+          if (item.maxPlayers != null) analytics.push(number(item.maxPlayers) + ' max players');
+          if (item.upVotes != null || item.downVotes != null) analytics.push(number(item.upVotes || 0) + '↑ / ' + number(item.downVotes || 0) + '↓');
+          if (item.genre) analytics.push(item.genre);
+          if (analytics.length) {
+            var analyticsMeta = document.createElement('span'); analyticsMeta.className = 'data-meta';
+            analyticsMeta.textContent = analytics.join(' · '); li.appendChild(analyticsMeta);
+          }
+          if (item.copyingAllowed != null || item.apiAccessAllowed != null) {
+            var settings = document.createElement('span'); settings.className = 'data-meta';
+            settings.textContent = 'Copying ' + (item.copyingAllowed ? 'allowed' : 'disabled') + ' · Studio API access ' + (item.apiAccessAllowed ? 'allowed' : 'disabled');
+            li.appendChild(settings);
+          }
           if (item.description) {
             var description = document.createElement('span'); description.className = 'data-description';
             description.textContent = item.description; li.appendChild(description);
@@ -211,12 +262,34 @@
         list.forEach(function (item) {
           if (!item || typeof item !== 'object') return;
           var li = document.createElement('li'); li.className = 'data-item';
+          if (item.iconUrl) {
+            var icon = document.createElement('img'); icon.className = 'data-icon'; icon.src = item.iconUrl; icon.alt = '';
+            icon.addEventListener('error', function () { this.remove(); }); li.appendChild(icon);
+          }
           var groupId = validId(item.id);
           li.appendChild(groupId ? link('https://www.roblox.com/communities/' + groupId, item.name || 'Unnamed group') : document.createTextNode(item.name || 'Unnamed group'));
           if (item.verified) li.appendChild(document.createTextNode(' ✓'));
           var meta = document.createElement('span'); meta.className = 'data-meta';
-          meta.textContent = (item.role || 'Member') + ' (rank ' + number(item.rank) + ') · ' + number(item.members) + ' members';
+          meta.textContent = (item.role || 'Member') + ' (rank ' + number(item.rank) +
+            (item.roleMembers != null ? ', ' + number(item.roleMembers) + ' in role' : '') + ') · ' +
+            number(item.members) + ' group members' + (item.owner ? ' · owner ' + item.owner : '') +
+            (item.publicEntryAllowed == null ? '' : item.publicEntryAllowed ? ' · open entry' : ' · approval required');
           li.appendChild(meta); ul.appendChild(li);
+          if (item.description) {
+            var description = document.createElement('span'); description.className = 'data-description';
+            description.textContent = item.description; li.appendChild(description);
+          }
+          if (Array.isArray(item.experiences) && item.experiences.length) {
+            var games = document.createElement('span'); games.className = 'data-description';
+            games.textContent = 'Group experiences: ';
+            item.experiences.forEach(function (game, index) {
+              if (!game || typeof game !== 'object') return;
+              if (index) games.appendChild(document.createTextNode(', '));
+              var placeId = validId(game.rootPlaceId);
+              games.appendChild(placeId ? link('https://www.roblox.com/games/' + placeId, game.name || 'Untitled') : document.createTextNode(game.name || 'Untitled'));
+            });
+            li.appendChild(games);
+          }
         });
         body.appendChild(ul);
       }
@@ -247,6 +320,14 @@
           if (item.acquired) details.push('acquired ' + date(item.acquired));
           if (item.serialNumber != null) details.push('serial #' + number(item.serialNumber));
           if (item.recentAveragePrice != null) details.push(number(item.recentAveragePrice) + ' recent average price');
+          var metadata = item.metadata;
+          if (metadata && typeof metadata === 'object') {
+            if (metadata.creator) details.push('by ' + metadata.creator + (metadata.creatorType ? ' (' + metadata.creatorType + ')' : ''));
+            if (metadata.price != null) details.push(number(metadata.price) + ' Robux');
+            if (metadata.sales != null) details.push(number(metadata.sales) + ' sales');
+            if (metadata.limited) details.push('limited');
+            else if (metadata.forSale != null) details.push(metadata.forSale ? 'for sale' : 'off sale');
+          }
           if (details.length) {
             var meta = document.createElement('span'); meta.className = 'data-meta';
             meta.textContent = details.join(' · '); li.appendChild(meta);
