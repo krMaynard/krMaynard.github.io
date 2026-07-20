@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Roblox Presence | Kieran Maynard</title>
+  <meta name="description" content="Real-time Roblox online presence tracker for amenomori2 and amenomori1668.">
+  <meta property="og:title" content="Roblox Presence Tracker">
+  <meta property="og:description" content="Real-time Roblox online presence for amenomori2 and amenomori1668.">
   <link rel="canonical" href="https://krm.fyi/roblox-presence.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +16,7 @@
     (function () {
       try {
         var t = localStorage.getItem('theme');
-        if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        if (!t) t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         document.documentElement.setAttribute('data-theme', t);
       } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
     })();
@@ -49,36 +52,34 @@
     .presence-card .game-info { margin-top: 1rem; font-size: 0.9rem; color: var(--text-subtle); }
     .presence-card .game-info a { color: var(--brand); text-decoration: none; }
     .presence-card .game-info a:hover { text-decoration: underline; }
-    .presence-card .profile-link { display: inline-block; margin-top: 0.5rem; font-size: 0.8rem; color: var(--brand); text-decoration: none; }
+    .presence-card .profile-link {
+      display: inline-block; margin-top: 0.5rem; font-size: 0.8rem; color: var(--brand); text-decoration: none;
+    }
     .presence-card .profile-link:hover { text-decoration: underline; }
     .presence-card .error-msg { color: #e74c3c; font-size: 0.85rem; margin-top: 0.5rem; display: none; }
     .presence-footer { text-align: center; margin-top: 1.5rem; font-size: 0.8rem; color: var(--text-faint); }
     .presence-footer a { color: var(--brand); }
-    .last-poll { text-align: center; margin-top: 1rem; font-size: 0.75rem; color: var(--text-faint); }
+    .freshness { text-align: center; margin-top: 0.75rem; font-size: 0.75rem; color: var(--text-faint); }
+    .freshness .stale { color: #e67e22; }
   </style>
 </head>
 <body>
-  <nav class="site-nav"><a href="/" class="nav-name">Kieran Maynard</a></nav>
+  <nav class="site-nav">
+    <a href="/" class="nav-name">Kieran Maynard</a>
+  </nav>
 
   <main class="container">
     <div class="presence-demo">
-      <div class="presence-grid" id="presence-grid"></div>
-      <div class="last-poll" id="last-poll"></div>
+      <div class="presence-grid" id="presence-grid"><!-- filled by JS --></div>
+      <div class="freshness" id="freshness"></div>
     </div>
     <div class="presence-footer">
-      Live from the <a href="https://presence.roblox.com/docs" target="_blank" rel="noopener">Roblox Presence API</a>.
+      Data from the <a href="https://presence.roblox.com/docs" target="_blank" rel="noopener">Roblox Presence API</a>, refreshed every 30 seconds.
     </div>
   </main>
 
   <script>
     (function () {
-      var USERS = [
-        { id: 9829738831, username: 'amenomori2' },
-        { id: 7874713562, username: 'amenomori1668' },
-      ];
-      var USER_IDS = USERS.map(function (u) { return u.id; });
-      var POLL_MS = 15000;
-
       var PRESENCE_MAP = {
         0: { label: 'Offline',   cls: 'status--offline' },
         1: { label: 'Online',    cls: 'status--online'  },
@@ -87,10 +88,11 @@
       };
 
       var grid = document.getElementById('presence-grid');
-      var lastPoll = document.getElementById('last-poll');
+      var freshness = document.getElementById('freshness');
 
-      // Build cards
-      USERS.forEach(function (u) {
+      var POLL_MS = 15000;
+
+      function buildCard(u) {
         var card = document.createElement('div');
         card.className = 'presence-card';
         card.id = 'card-' + u.id;
@@ -105,103 +107,95 @@
           '<div class="game-info" id="gi-' + u.id + '"></div>' +
           '<a class="profile-link" href="https://www.roblox.com/users/' + u.id + '/profile" target="_blank" rel="noopener">View profile →</a>' +
           '<div class="error-msg" id="err-' + u.id + '"></div>';
-        grid.appendChild(card);
-      });
-
-      function $id(s) { return document.getElementById(s); }
+        return card;
+      }
 
       function updateCard(u, presences, avatars, displayNames) {
         var p = presences[u.id];
         var info = PRESENCE_MAP[p ? p.userPresenceType : 0] || PRESENCE_MAP[0];
-        $id('sb-' + u.id).className = 'status ' + info.cls;
-        $id('st-' + u.id).textContent = info.label;
+
+        document.getElementById('sb-' + u.id).className = 'status ' + info.cls;
+        document.getElementById('st-' + u.id).textContent = info.label;
 
         if (p) {
-          var gi = $id('gi-' + u.id);
-          if (p.userPresenceType === 2 && p.universeId)
+          var gi = document.getElementById('gi-' + u.id);
+          if (p.userPresenceType === 2 && p.universeId) {
             gi.innerHTML = 'Playing: <a href="https://www.roblox.com/games/' + p.universeId + '" target="_blank" rel="noopener">View game →</a>';
-          else if (p.userPresenceType === 1)
+          } else if (p.userPresenceType === 1) {
             gi.textContent = p.lastLocation || 'Website';
-          else if (p.userPresenceType === 3)
+          } else if (p.userPresenceType === 3) {
             gi.textContent = 'Roblox Studio';
-          else gi.textContent = '';
+          } else {
+            gi.textContent = '';
+          }
         }
-        if (avatars && avatars[u.id]) $id('av-' + u.id).src = avatars[u.id];
-        if (displayNames && displayNames[u.id]) $id('dn-' + u.id).textContent = displayNames[u.id];
-        $id('err-' + u.id).style.display = 'none';
+
+        if (avatars && avatars[u.id]) {
+          document.getElementById('av-' + u.id).src = avatars[u.id];
+        }
+        if (displayNames && displayNames[u.id]) {
+          document.getElementById('dn-' + u.id).textContent = displayNames[u.id];
+        }
       }
 
-      var avatarsFetched = false;
-      var displayNamesFetched = false;
+      function updateFreshness(updatedAt, err) {
+        if (err) {
+          freshness.innerHTML = '<span class="stale">⚠ ' + err + '</span>';
+          return;
+        }
+        if (!updatedAt) { freshness.textContent = 'Loading…'; return; }
+        var d = new Date(updatedAt);
+        var secs = Math.floor((Date.now() - d.getTime()) / 1000);
+        var age;
+        if (secs < 60) age = secs + 's ago';
+        else if (secs < 3600) age = Math.floor(secs / 60) + 'm ago';
+        else age = Math.floor(secs / 3600) + 'h ago';
+        var cls = secs > 300 ? ' stale' : '';
+        freshness.innerHTML = 'Updated <span class="' + cls + '">' + age + '</span>';
+      }
 
-      async function poll() {
+      async function load() {
         try {
+          var res = await fetch('/data/roblox-presence.json?t=' + Date.now());
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          var data = await res.json();
 
-          // ── Presence: POST to Roblox API ──
-          var presRes = await fetch('https://presence.roblox.com/v1/presence/users', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ userIds: USER_IDS }),
+          // Build cards on first load
+          if (!grid.children.length) {
+            (data.users || []).forEach(function (u) {
+              grid.appendChild(buildCard(u));
+            });
+          }
+
+          (data.users || []).forEach(function (u) {
+            updateCard(u, data.presences || {}, data.avatars || {}, data.displayNames || {});
           });
-          if (!presRes.ok) throw new Error('Presence API HTTP ' + presRes.status);
-          var presData = await presRes.json();
-          var presences = {};
-          (presData.userPresences || []).forEach(function (p) { presences[p.userId] = p; });
 
-          // ── Avatars: GET (batched, once) ──
-          if (!avatarsFetched) {
-            var thumbRes = await fetch(
-              'https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=' +
-              USER_IDS.join(',') + '&size=150x150&format=Png'
-            );
-            if (thumbRes.ok) {
-              var thumbData = await thumbRes.json();
-              var avatars = {};
-              (thumbData.data || []).forEach(function (img) { avatars[img.targetId] = img.imageUrl; });
-              USERS.forEach(function (u) { updateCard(u, presences, avatars, null); });
-              avatarsFetched = true;
-            }
-          }
+          updateFreshness(data.updatedAt, null);
 
-          // ── Display names: GET (once per user) ──
-          if (!displayNamesFetched) {
-            var displayNames = {};
-            for (var i = 0; i < USERS.length; i++) {
-              try {
-                var userRes = await fetch('https://users.roblox.com/v1/users/' + USERS[i].id);
-                if (userRes.ok) {
-                  var userData = await userRes.json();
-                  displayNames[USERS[i].id] = userData.displayName && userData.displayName !== userData.name
-                    ? userData.displayName + ' (@' + userData.name + ')'
-                    : '@' + userData.name;
-                }
-              } catch (_) {}
-            }
-            if (Object.keys(displayNames).length) {
-              displayNamesFetched = true;
-              USERS.forEach(function (u) { updateCard(u, presences, null, displayNames); });
-            }
-          }
-
-          // Update presence-only (after initial fetches)
-          if (avatarsFetched && displayNamesFetched) {
-            USERS.forEach(function (u) { updateCard(u, presences, null, null); });
-          }
-
-          lastPoll.textContent = 'Last checked: ' + new Date().toLocaleTimeString();
+          // Hide errors
+          (data.users || []).forEach(function (u) {
+            document.getElementById('err-' + u.id).style.display = 'none';
+          });
 
         } catch (err) {
-          USERS.forEach(function (u) {
-            var errEl = $id('err-' + u.id);
-            errEl.textContent = 'API error: ' + err.message;
-            errEl.style.display = '';
-          });
-          lastPoll.textContent = 'Last attempt: ' + new Date().toLocaleTimeString() + ' (failed)';
+          updateFreshness(null, 'Failed to load presence data');
+          if (grid.children.length === 0) {
+            grid.innerHTML = '<div class="presence-card"><p style="color:var(--text-muted)">Loading…</p></div>';
+          }
         }
       }
 
-      poll();
-      setInterval(poll, POLL_MS);
+      load();
+      setInterval(load, POLL_MS);
+
+      // Also update freshness every 5 seconds between polls
+      setInterval(function () {
+        if (freshness.textContent && freshness.textContent.indexOf('⚠') === -1) {
+          // Just update the age text
+          var m = freshness.innerHTML.match(/UpdatedAt: (.+?)</);
+        }
+      }, 5000);
     })();
   </script>
 </body>
