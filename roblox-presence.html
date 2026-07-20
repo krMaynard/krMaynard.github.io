@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Roblox Presence | Kieran Maynard</title>
-  <meta name="description" content="Latest Roblox presence snapshot for amenomori2 and amenomori1668.">
+  <title>Roblox Public API Account Demo | Kieran Maynard</title>
+  <meta name="description" content="A demonstration of the profile, presence, social, experience, group, and username data exposed by Roblox's unauthenticated public APIs.">
   <link rel="canonical" href="https://kieranmaynard.com/roblox-presence.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +13,10 @@
   <script>(function(){try{var t=localStorage.getItem('theme');if(!t)t=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)}catch(e){document.documentElement.setAttribute('data-theme','light')}})()</script>
   <style>
     .presence-demo { max-width: 900px; margin: 3rem auto; }
-    .presence-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .demo-intro { max-width: 760px; margin: 0 auto 2rem; text-align: center; }
+    .demo-intro h1 { color: var(--text-strong); margin-bottom: 0.75rem; }
+    .demo-intro p { color: var(--text-muted); line-height: 1.65; }
+    .presence-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; align-items: start; }
     .presence-card {
       background: var(--bg-elevated); border: 1px solid var(--border-card);
       border-radius: 12px; padding: 2rem 1.75rem; box-shadow: 0 4px 24px var(--shadow-card); text-align: center;
@@ -40,7 +43,7 @@
     .presence-card .game-info a { color: var(--brand); text-decoration: none; }
     .presence-card .game-info a:hover { text-decoration: underline; }
     .presence-card .stats {
-      display: flex; justify-content: center; gap: 1.25rem; margin-top: 0.75rem;
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.35rem 1rem; margin-top: 0.75rem;
       font-size: 0.8rem; color: var(--text-muted);
     }
     .presence-card .stats span { white-space: nowrap; }
@@ -54,14 +57,35 @@
     .presence-footer a { color: var(--brand); }
     .freshness { text-align: center; margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-faint); }
     .freshness .stale { color: #e67e22; }
+    .public-data { margin-top: 1.25rem; text-align: left; border-top: 1px solid var(--border-soft); padding-top: 0.5rem; }
+    .data-section { border-bottom: 1px solid var(--border-soft); padding: 0.75rem 0; }
+    .data-section:last-child { border-bottom: 0; }
+    .data-section summary { cursor: pointer; color: var(--text-strong); font-weight: 700; font-size: 0.9rem; }
+    .data-list { list-style: none; padding: 0; margin: 0.6rem 0 0; display: grid; gap: 0.65rem; }
+    .data-item { font-size: 0.82rem; color: var(--text-muted); line-height: 1.45; }
+    .data-item a { color: var(--brand); font-weight: 600; text-decoration: none; }
+    .data-item a:hover { text-decoration: underline; }
+    .data-meta { display: block; color: var(--text-faint); font-size: 0.75rem; }
+    .data-description { display: block; margin-top: 0.15rem; color: var(--text-subtle); }
+    .empty-data { margin: 0.6rem 0 0; color: var(--text-faint); font-size: 0.8rem; }
+    .api-note { max-width: 760px; margin: 1.5rem auto 0; color: var(--text-muted); font-size: 0.8rem; line-height: 1.55; }
+    .api-note summary { cursor: pointer; color: var(--text-strong); font-weight: 600; }
   </style>
 </head>
 <body>
   <nav class="site-nav"><a href="/" class="nav-name">Kieran Maynard</a></nav>
   <main class="container">
     <div class="presence-demo">
+      <header class="demo-intro">
+        <h1>What Roblox's public APIs reveal</h1>
+        <p>This page uses only unauthenticated Roblox endpoints. It combines presence snapshots with public profile details, social counts, created and favorited experiences, group memberships and roles, and username history for two accounts I control.</p>
+      </header>
       <div class="presence-grid" id="grid"></div>
       <div class="freshness" id="freshness" role="status" aria-live="polite"></div>
+      <details class="api-note">
+        <summary>What “public” means here</summary>
+        <p>No Roblox login, cookie, or API key is used. The snapshot comes from Roblox's public users, presence, friends, games, groups, and thumbnails services. Results can vary with account privacy settings and endpoint availability; an unavailable endpoint is labeled instead of being reported as an empty result.</p>
+      </details>
     </div>
     <div class="presence-footer">
       Latest snapshot from <a href="https://presence.roblox.com/docs" target="_blank" rel="noopener">Roblox APIs</a>
@@ -81,19 +105,32 @@
       var freshness = document.getElementById('freshness');
 
       function buildCard(u) {
+        var userId = validId(u.id);
+        var username = String(u.username || 'Roblox user');
+        if (!userId) throw new Error('Invalid Roblox user ID');
         var c = document.createElement('div');
-        c.className = 'presence-card'; c.id = 'card-' + u.id;
+        c.className = 'presence-card'; c.id = 'card-' + userId;
         c.innerHTML =
-          '<img class="avatar" id="av-' + u.id + '" alt="' + u.username + ' avatar" hidden />' +
-          '<div class="username">' + u.username + '</div>' +
-          '<div class="handle" id="hn-' + u.id + '">@' + u.username + '</div>' +
-          '<div class="bio" id="bio-' + u.id + '"></div>' +
-          '<div class="status status--offline" id="sb-' + u.id + '"><span class="status-dot"></span><span id="st-' + u.id + '">…</span></div>' +
-          '<div class="game-info" id="gi-' + u.id + '"></div>' +
-          '<div class="stats" id="stats-' + u.id + '"></div>' +
-          '<a class="profile-link" href="https://www.roblox.com/users/' + u.id + '/profile" target="_blank" rel="noopener">View profile →</a>' +
-          '<div class="error-msg" id="err-' + u.id + '"></div>';
-        c.querySelector('.avatar').addEventListener('error', function () { this.hidden = true; });
+          '<img class="avatar" id="av-' + userId + '" hidden />' +
+          '<div class="username"></div>' +
+          '<div class="handle" id="hn-' + userId + '"></div>' +
+          '<div class="bio" id="bio-' + userId + '"></div>' +
+          '<div class="status status--offline" id="sb-' + userId + '"><span class="status-dot"></span><span id="st-' + userId + '">…</span></div>' +
+          '<div class="game-info" id="gi-' + userId + '"></div>' +
+          '<div class="stats" id="stats-' + userId + '"></div>' +
+          '<a class="profile-link" href="https://www.roblox.com/users/' + userId + '/profile" target="_blank" rel="noopener">View profile →</a>' +
+          '<div class="public-data">' +
+            '<details class="data-section" id="created-' + userId + '" open><summary>Created experiences</summary><div></div></details>' +
+            '<details class="data-section" id="groups-' + userId + '" open><summary>Group memberships</summary><div></div></details>' +
+            '<details class="data-section" id="favorites-' + userId + '"><summary>Favorite experiences</summary><div></div></details>' +
+            '<details class="data-section" id="history-' + userId + '"><summary>Previous usernames</summary><div></div></details>' +
+          '</div>' +
+          '<div class="error-msg" id="err-' + userId + '"></div>';
+        var avatar = c.querySelector('.avatar');
+        avatar.alt = username + ' avatar';
+        avatar.addEventListener('error', function () { this.hidden = true; });
+        c.querySelector('.username').textContent = username;
+        c.querySelector('.handle').textContent = '@' + username;
         return c;
       }
 
@@ -106,16 +143,101 @@
         return y + 'y' + (m ? ' ' + m + 'mo' : '');
       }
 
-      function updateCard(u, presences, avatars, profiles) {
-        var p = presences[u.id];
+      function validId(value) {
+        var id = Number(value);
+        return Number.isSafeInteger(id) && id > 0 ? id : null;
+      }
+
+      function number(value) {
+        return value !== null && value !== '' && Number.isFinite(Number(value)) ? Number(value).toLocaleString() : 'unknown';
+      }
+
+      function date(value) {
+        if (!value) return 'unknown date';
+        var parsed = new Date(value);
+        return Number.isFinite(parsed.getTime()) ? parsed.toLocaleDateString() : 'unknown date';
+      }
+
+      function link(href, label) {
+        var a = document.createElement('a');
+        a.href = href; a.target = '_blank'; a.rel = 'noopener'; a.textContent = label;
+        return a;
+      }
+
+      function renderExperiences(sectionId, label, items) {
+        var section = document.getElementById(sectionId);
+        var available = Array.isArray(items);
+        var list = Array.isArray(items) ? items : [];
+        section.querySelector('summary').textContent = label + ' (' + list.length + ')';
+        var body = section.querySelector('div'); body.replaceChildren();
+        if (!list.length) {
+          var empty = document.createElement('p'); empty.className = 'empty-data';
+          empty.textContent = available ? 'None returned by the public API.' : 'Endpoint unavailable in this snapshot.'; body.appendChild(empty); return;
+        }
+        var ul = document.createElement('ul'); ul.className = 'data-list';
+        list.forEach(function (item) {
+          var li = document.createElement('li'); li.className = 'data-item';
+          var placeId = validId(item.rootPlaceId);
+          li.appendChild(placeId ? link('https://www.roblox.com/games/' + placeId, item.name || 'Untitled experience') : document.createTextNode(item.name || 'Untitled experience'));
+          var meta = document.createElement('span'); meta.className = 'data-meta';
+          meta.textContent = number(item.visits) + (Number(item.visits) === 1 ? ' visit' : ' visits') + ' · created ' + date(item.created) +
+            ' · updated ' + date(item.updated) + (item.creator ? ' · by ' + item.creator : '');
+          li.appendChild(meta);
+          if (item.description) {
+            var description = document.createElement('span'); description.className = 'data-description';
+            description.textContent = item.description; li.appendChild(description);
+          }
+          ul.appendChild(li);
+        });
+        body.appendChild(ul);
+      }
+
+      function renderGroups(sectionId, items) {
+        var section = document.getElementById(sectionId);
+        var available = Array.isArray(items);
+        var list = Array.isArray(items) ? items : [];
+        section.querySelector('summary').textContent = 'Group memberships (' + list.length + ')';
+        var body = section.querySelector('div'); body.replaceChildren();
+        if (!list.length) {
+          var empty = document.createElement('p'); empty.className = 'empty-data';
+          empty.textContent = available ? 'No public group memberships.' : 'Endpoint unavailable in this snapshot.'; body.appendChild(empty); return;
+        }
+        var ul = document.createElement('ul'); ul.className = 'data-list';
+        list.forEach(function (item) {
+          var li = document.createElement('li'); li.className = 'data-item';
+          var groupId = validId(item.id);
+          li.appendChild(groupId ? link('https://www.roblox.com/communities/' + groupId, item.name || 'Unnamed group') : document.createTextNode(item.name || 'Unnamed group'));
+          if (item.verified) li.appendChild(document.createTextNode(' ✓'));
+          var meta = document.createElement('span'); meta.className = 'data-meta';
+          meta.textContent = (item.role || 'Member') + ' (rank ' + number(item.rank) + ') · ' + number(item.members) + ' members';
+          li.appendChild(meta); ul.appendChild(li);
+        });
+        body.appendChild(ul);
+      }
+
+      function renderHistory(sectionId, items) {
+        var section = document.getElementById(sectionId);
+        var available = Array.isArray(items);
+        var list = Array.isArray(items) ? items : [];
+        section.querySelector('summary').textContent = 'Previous usernames (' + list.length + ')';
+        var body = section.querySelector('div'); body.replaceChildren();
+        var p = document.createElement('p'); p.className = 'empty-data';
+        p.textContent = list.length ? list.join(', ') : available ? 'No previous usernames returned.' : 'Endpoint unavailable in this snapshot.'; body.appendChild(p);
+      }
+
+      function updateCard(u, data) {
+        var p = (data.presences || {})[u.id];
         var info = PMAP[p ? p.type : 0] || PMAP[0];
         document.getElementById('sb-' + u.id).className = 'status ' + info.cls;
         document.getElementById('st-' + u.id).textContent = info.label;
 
+        var gi = document.getElementById('gi-' + u.id);
+        gi.textContent = '';
         if (p) {
-          var gi = document.getElementById('gi-' + u.id);
-          if (p.type === 2 && p.placeId)
-            gi.innerHTML = '<a href="https://www.roblox.com/games/' + p.placeId + '" target="_blank" rel="noopener">View game →</a>';
+          var placeId = validId(p.placeId);
+          if (p.type === 2 && placeId) {
+            gi.replaceChildren(link('https://www.roblox.com/games/' + placeId, 'View game →'));
+          }
           else if (p.type === 1)
             gi.textContent = p.lastLocation || 'Website';
           else if (p.type === 3)
@@ -123,29 +245,37 @@
           else gi.textContent = '';
         }
 
-        if (avatars && avatars[u.id]) {
+        var avatars = data.avatars || {};
+        if (avatars[u.id]) {
           var avatar = document.getElementById('av-' + u.id);
           avatar.src = avatars[u.id];
           avatar.hidden = false;
         }
 
-        var prof = profiles && profiles[u.id];
+        var profiles = data.profiles || {};
+        var prof = profiles[u.id];
         if (prof) {
+          if (prof.displayName) document.querySelector('#card-' + u.id + ' .username').textContent = prof.displayName + (prof.verified ? ' ✓' : '');
           document.getElementById('bio-' + u.id).textContent = prof.description || '';
           var stats = [];
-          if (prof.friends != null) stats.push('<span><strong>' + prof.friends + '</strong> friends</span>');
-          if (prof.followers != null) stats.push('<span><strong>' + prof.followers + '</strong> followers</span>');
+          if (prof.friends != null) stats.push('<span><strong>' + number(prof.friends) + '</strong> friends</span>');
+          if (prof.followers != null) stats.push('<span><strong>' + number(prof.followers) + '</strong> followers</span>');
+          if (prof.following != null) stats.push('<span><strong>' + number(prof.following) + '</strong> following</span>');
           var age = ageStr(prof.ageDays);
           if (age) stats.push('<span>joined <strong>' + age + '</strong> ago</span>');
           document.getElementById('stats-' + u.id).innerHTML = stats.join(' · ');
         }
+        renderExperiences('created-' + u.id, 'Created experiences', (data.experiences || {})[u.id]);
+        renderGroups('groups-' + u.id, (data.groups || {})[u.id]);
+        renderExperiences('favorites-' + u.id, 'Favorite experiences', (data.favoriteExperiences || {})[u.id]);
+        renderHistory('history-' + u.id, (data.usernameHistory || {})[u.id]);
       }
 
       function updateFreshness(updatedAt, err) {
         if (err) { freshness.innerHTML = '<span class="stale">⚠ ' + err + '</span>'; return; }
         if (!updatedAt) { freshness.textContent = ''; return; }
         var timestamp = new Date(updatedAt).getTime();
-        if (!Number.isFinite(timestamp)) { updateFreshness(null, 'Update time unavailable'); return; }
+        if (!Number.isFinite(timestamp)) { freshness.innerHTML = '<span class="stale">⚠ Update time unavailable</span>'; return; }
         var secs = Math.max(0, Math.floor((Date.now() - timestamp) / 1000));
         var age = secs < 60 ? secs + 's' : secs < 3600 ? Math.floor(secs / 60) + 'm' : Math.floor(secs / 3600) + 'h';
         freshness.innerHTML = (secs > 300 ? '⚠ Snapshot is stale · ' : 'Updated ') +
@@ -163,7 +293,7 @@
             grid.dataset.initialized = 'true';
           }
           (data.users || []).forEach(function (u) {
-            updateCard(u, data.presences || {}, data.avatars || {}, data.profiles || {});
+            updateCard(u, data);
           });
           updateFreshness(data.updatedAt, null);
         } catch (err) {

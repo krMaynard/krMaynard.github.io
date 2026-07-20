@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-"""Poll Roblox APIs and output JSON for static site consumption."""
-import json, sys, urllib.request
+"""Poll unauthenticated Roblox APIs and output JSON for the public-data demo."""
+import json
+import urllib.request
 from datetime import datetime, timezone
 
 USERS = [
@@ -10,17 +11,49 @@ USERS = [
 
 def fetch(url, data=None):
     req = urllib.request.Request(url, data=data,
-        headers={"Content-Type": "application/json", "Accept": "application/json"})
+        headers={
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "User-Agent": "kieranmaynard-public-api-demo/1.0",
+        })
     with urllib.request.urlopen(req, timeout=10) as resp:
         return json.loads(resp.read().decode())
+
+def fetch_or(url, default):
+    """Return a fallback when an optional public endpoint is unavailable."""
+    try:
+        return fetch(url)
+    except Exception:
+        return default
+
+def fetch_data(url):
+    """Return an endpoint's data list, or None when the endpoint failed."""
+    response = fetch_or(url, None)
+    return response.get("data", []) if isinstance(response, dict) else None
+
+def experience(item):
+    root_place = item.get("rootPlace") or {}
+    return {
+        "id": item.get("id"),
+        "rootPlaceId": root_place.get("id"),
+        "name": item.get("name"),
+        "description": item.get("description"),
+        "created": item.get("created"),
+        "updated": item.get("updated"),
+        "visits": item.get("placeVisits"),
+        "creator": (item.get("creator") or {}).get("name"),
+    }
 
 def main():
     ids = ",".join(str(u["id"]) for u in USERS)
     uid_list = [u["id"] for u in USERS]
 
     # ── Presence ──
-    pres_data = fetch("https://presence.roblox.com/v1/presence/users",
-                      data=json.dumps({"userIds": uid_list}).encode())
+    try:
+        pres_data = fetch("https://presence.roblox.com/v1/presence/users",
+                          data=json.dumps({"userIds": uid_list}).encode())
+    except Exception:
+        pres_data = {"userPresences": []}
     presences = {}
     for p in pres_data.get("userPresences", []):
         presences[p["userId"]] = {
@@ -31,19 +64,19 @@ def main():
         }
 
     # ── Avatars (batched headshot) ──
-    thumb = fetch(f"https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds={ids}&size=150x150&format=Png")
+    thumb = fetch_or(f"https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds={ids}&size=150x150&format=Png", {"data": []})
     avatars = {img["targetId"]: img.get("imageUrl") for img in thumb.get("data", [])}
 
-    # ── Profiles, friends, followers (per user) ──
+    # ── Profiles, social graph, experiences, and groups (per user) ──
     profiles = {}
+    experiences = {}
+    favorite_experiences = {}
+    groups = {}
+    username_history = {}
     for u in USERS:
         uid = u["id"]
-        try:
-            prof = fetch(f"https://users.roblox.com/v1/users/{uid}")
-            fcount = fetch(f"https://friends.roblox.com/v1/users/{uid}/friends/count")
-            followers = fetch(f"https://friends.roblox.com/v1/users/{uid}/followers/count")
-            following = fetch(f"https://friends.roblox.com/v1/users/{uid}/followings/count")
-
+        prof = fetch_or(f"https://users.roblox.com/v1/users/{uid}", None)
+        if prof:
             created = prof.get("created", "")
             age_days = None
             if created:
@@ -51,21 +84,51 @@ def main():
                 age_days = (datetime.now(timezone.utc) - created_dt).days
 
             profiles[uid] = {
+                "displayName": prof.get("displayName"),
                 "description": prof.get("description", ""),
+                "verified": prof.get("hasVerifiedBadge", False),
                 "created": created[:10] if created else None,  # YYYY-MM-DD
                 "ageDays": age_days,
-                "friends": fcount.get("count", 0),
-                "followers": followers.get("count", 0),
-                "following": following.get("count", 0),
+                "friends": fetch_or(f"https://friends.roblox.com/v1/users/{uid}/friends/count", {}).get("count"),
+                "followers": fetch_or(f"https://friends.roblox.com/v1/users/{uid}/followers/count", {}).get("count"),
+                "following": fetch_or(f"https://friends.roblox.com/v1/users/{uid}/followings/count", {}).get("count"),
             }
-        except Exception:
+        else:
             profiles[uid] = {}
+
+        games = fetch_data(f"https://games.roblox.com/v2/users/{uid}/games?accessFilter=Public&sortOrder=Desc&limit=10")
+        experiences[uid] = [experience(item) for item in games] if games is not None else None
+
+        favorites = fetch_data(f"https://games.roblox.com/v2/users/{uid}/favorite/games?accessFilter=Public&sortOrder=Desc&limit=10")
+        favorite_experiences[uid] = [experience(item) for item in favorites] if favorites is not None else None
+
+        memberships = fetch_data(f"https://groups.roblox.com/v2/users/{uid}/groups/roles")
+        groups[uid] = [
+            {
+                "id": (item.get("group") or {}).get("id"),
+                "name": (item.get("group") or {}).get("name"),
+                "members": (item.get("group") or {}).get("memberCount"),
+                "verified": (item.get("group") or {}).get("hasVerifiedBadge", False),
+                "role": (item.get("role") or {}).get("name"),
+                "rank": (item.get("role") or {}).get("rank"),
+            }
+            for item in memberships
+        ] if memberships is not None else None
+
+        history = fetch_data(f"https://users.roblox.com/v1/users/{uid}/username-history?limit=10&sortOrder=Desc")
+        username_history[uid] = [
+            item.get("name") for item in history if item.get("name")
+        ] if history is not None else None
 
     result = {
         "users": USERS,
         "presences": presences,
         "avatars": avatars,
         "profiles": profiles,
+        "experiences": experiences,
+        "favoriteExperiences": favorite_experiences,
+        "groups": groups,
+        "usernameHistory": username_history,
         "updatedAt": datetime.now(timezone.utc).isoformat(),
     }
 
