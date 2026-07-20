@@ -229,7 +229,7 @@
 
       function updateCard(u, data) {
         var userId = validId(u.id);
-        if (!userId) return;
+        if (!userId || !document.getElementById('card-' + userId)) return;
         var p = (data.presences || {})[userId];
         var info = PMAP[p ? p.type : 0] || PMAP[0];
         document.getElementById('sb-' + userId).className = 'status ' + info.cls;
