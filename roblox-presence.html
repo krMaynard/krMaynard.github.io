@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Roblox Presence | Kieran Maynard</title>
-  <meta name="description" content="Real-time Roblox presence for amenomori2 and amenomori1668.">
-  <link rel="canonical" href="https://krm.fyi/roblox-presence.html">
+  <meta name="description" content="Latest Roblox presence snapshot for amenomori2 and amenomori1668.">
+  <link rel="canonical" href="https://kieranmaynard.com/roblox-presence.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
@@ -61,10 +61,10 @@
   <main class="container">
     <div class="presence-demo">
       <div class="presence-grid" id="grid"></div>
-      <div class="freshness" id="freshness"></div>
+      <div class="freshness" id="freshness" role="status" aria-live="polite"></div>
     </div>
     <div class="presence-footer">
-      Data from <a href="https://presence.roblox.com/docs" target="_blank" rel="noopener">Roblox APIs</a> · refreshed every 60s
+      Latest snapshot from <a href="https://presence.roblox.com/docs" target="_blank" rel="noopener">Roblox APIs</a>
     </div>
   </main>
 
@@ -84,7 +84,7 @@
         var c = document.createElement('div');
         c.className = 'presence-card'; c.id = 'card-' + u.id;
         c.innerHTML =
-          '<img class="avatar" id="av-' + u.id + '" src="" alt="' + u.username + '" />' +
+          '<img class="avatar" id="av-' + u.id + '" alt="' + u.username + ' avatar" hidden />' +
           '<div class="username">' + u.username + '</div>' +
           '<div class="handle" id="hn-' + u.id + '">@' + u.username + '</div>' +
           '<div class="bio" id="bio-' + u.id + '"></div>' +
@@ -93,6 +93,7 @@
           '<div class="stats" id="stats-' + u.id + '"></div>' +
           '<a class="profile-link" href="https://www.roblox.com/users/' + u.id + '/profile" target="_blank" rel="noopener">View profile →</a>' +
           '<div class="error-msg" id="err-' + u.id + '"></div>';
+        c.querySelector('.avatar').addEventListener('error', function () { this.hidden = true; });
         return c;
       }
 
@@ -113,8 +114,8 @@
 
         if (p) {
           var gi = document.getElementById('gi-' + u.id);
-          if (p.type === 2 && p.universeId)
-            gi.innerHTML = '<a href="https://www.roblox.com/games/' + p.universeId + '" target="_blank" rel="noopener">View game →</a>';
+          if (p.type === 2 && p.placeId)
+            gi.innerHTML = '<a href="https://www.roblox.com/games/' + p.placeId + '" target="_blank" rel="noopener">View game →</a>';
           else if (p.type === 1)
             gi.textContent = p.lastLocation || 'Website';
           else if (p.type === 3)
@@ -122,8 +123,11 @@
           else gi.textContent = '';
         }
 
-        if (avatars && avatars[u.id])
-          document.getElementById('av-' + u.id).src = avatars[u.id];
+        if (avatars && avatars[u.id]) {
+          var avatar = document.getElementById('av-' + u.id);
+          avatar.src = avatars[u.id];
+          avatar.hidden = false;
+        }
 
         var prof = profiles && profiles[u.id];
         if (prof) {
@@ -140,9 +144,12 @@
       function updateFreshness(updatedAt, err) {
         if (err) { freshness.innerHTML = '<span class="stale">⚠ ' + err + '</span>'; return; }
         if (!updatedAt) { freshness.textContent = ''; return; }
-        var secs = Math.floor((Date.now() - new Date(updatedAt).getTime()) / 1000);
+        var timestamp = new Date(updatedAt).getTime();
+        if (!Number.isFinite(timestamp)) { updateFreshness(null, 'Update time unavailable'); return; }
+        var secs = Math.max(0, Math.floor((Date.now() - timestamp) / 1000));
         var age = secs < 60 ? secs + 's' : secs < 3600 ? Math.floor(secs / 60) + 'm' : Math.floor(secs / 3600) + 'h';
-        freshness.innerHTML = 'Updated <span class="' + (secs > 300 ? 'stale' : '') + '">' + age + ' ago</span>';
+        freshness.innerHTML = (secs > 300 ? '⚠ Snapshot is stale · ' : 'Updated ') +
+          '<span class="' + (secs > 300 ? 'stale' : '') + '">' + age + ' ago</span>';
       }
 
       async function load() {
@@ -150,16 +157,19 @@
           var res = await fetch('/data/roblox-presence.json?t=' + Date.now());
           if (!res.ok) throw new Error('HTTP ' + res.status);
           var data = await res.json();
-          if (!grid.children.length)
+          if (grid.dataset.initialized !== 'true') {
+            grid.innerHTML = '';
             (data.users || []).forEach(function (u) { grid.appendChild(buildCard(u)); });
+            grid.dataset.initialized = 'true';
+          }
           (data.users || []).forEach(function (u) {
             updateCard(u, data.presences || {}, data.avatars || {}, data.profiles || {});
           });
           updateFreshness(data.updatedAt, null);
         } catch (err) {
           updateFreshness(null, 'Failed to load');
-          if (!grid.children.length)
-            grid.innerHTML = '<div class="presence-card"><p style="color:var(--text-muted)">Loading…</p></div>';
+          if (grid.dataset.initialized !== 'true')
+            grid.innerHTML = '<div class="presence-card"><p style="color:var(--text-muted)">Presence data is temporarily unavailable. Retrying…</p></div>';
         }
       }
 
