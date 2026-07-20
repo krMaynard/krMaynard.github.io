@@ -280,19 +280,19 @@
             description.textContent = item.description; li.appendChild(description);
           }
           if (Array.isArray(item.experiences) && item.experiences.length) {
-            var validExperiences = item.experiences.filter(function (game) {
-              return game && typeof game === 'object';
+            var games = null;
+            item.experiences.forEach(function (game) {
+              if (!game || typeof game !== 'object') return;
+              if (!games) {
+                games = document.createElement('span'); games.className = 'data-description';
+                games.textContent = 'Group experiences: ';
+              } else {
+                games.appendChild(document.createTextNode(', '));
+              }
+              var placeId = validId(game.rootPlaceId);
+              games.appendChild(placeId ? link('https://www.roblox.com/games/' + placeId, game.name || 'Untitled') : document.createTextNode(game.name || 'Untitled'));
             });
-            if (validExperiences.length) {
-              var games = document.createElement('span'); games.className = 'data-description';
-              games.textContent = 'Group experiences: ';
-              validExperiences.forEach(function (game, index) {
-                if (index) games.appendChild(document.createTextNode(', '));
-                var placeId = validId(game.rootPlaceId);
-                games.appendChild(placeId ? link('https://www.roblox.com/games/' + placeId, game.name || 'Untitled') : document.createTextNode(game.name || 'Untitled'));
-              });
-              li.appendChild(games);
-            }
+            if (games) li.appendChild(games);
           }
         });
         body.appendChild(ul);
