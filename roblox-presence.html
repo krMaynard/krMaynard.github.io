@@ -441,7 +441,7 @@
         renderHistory('history-' + userId, (data.usernameHistory || {})[userId]);
       }
 
-      function updateFreshness(updatedAt, err) {
+      function updateFreshness(updatedAt, err, fallbackUsed) {
         if (err) { freshness.innerHTML = '<span class="stale">⚠ ' + err + '</span>'; return; }
         if (!updatedAt) { freshness.textContent = ''; return; }
         var timestamp = new Date(updatedAt).getTime();
@@ -449,7 +449,8 @@
         var secs = Math.max(0, Math.floor((Date.now() - timestamp) / 1000));
         var age = secs < 60 ? secs + 's' : secs < 3600 ? Math.floor(secs / 60) + 'm' : Math.floor(secs / 3600) + 'h';
         freshness.innerHTML = (secs > 300 ? '⚠ Snapshot is stale · ' : 'Updated ') +
-          '<span class="' + (secs > 300 ? 'stale' : '') + '">' + age + ' ago</span>';
+          '<span class="' + (secs > 300 ? 'stale' : '') + '">' + age + ' ago</span>' +
+          (fallbackUsed ? ' · some values are last known' : '');
       }
 
       async function load() {
@@ -467,7 +468,7 @@
           (data.users || []).forEach(function (u) {
             updateCard(u, data);
           });
-          updateFreshness(data.updatedAt, null);
+          updateFreshness(data.updatedAt, null, data.fallbackUsed === true);
         } catch (err) {
           updateFreshness(null, 'Failed to load');
           if (grid.dataset.initialized !== 'true')
