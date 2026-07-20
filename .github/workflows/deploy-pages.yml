@@ -33,7 +33,7 @@ jobs:
       - name: Poll public Roblox APIs
         run: |
           snapshot="$RUNNER_TEMP/roblox-presence.json"
-          python3 scripts/roblox-presence-poll.py > "$snapshot"
+          python3 scripts/roblox-presence-poll.py --fallback data/roblox-presence.json > "$snapshot"
           python3 -m json.tool "$snapshot" >/dev/null
           mv "$snapshot" data/roblox-presence.json
 

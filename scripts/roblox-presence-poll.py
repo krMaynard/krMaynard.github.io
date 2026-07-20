@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Poll unauthenticated Roblox APIs and output JSON for the public-data demo."""
+import argparse
 import json
 import urllib.request
 from datetime import datetime, timezone
@@ -86,6 +87,44 @@ def avatar_details(response):
             for item in emotes if isinstance(item, dict)
         ] if isinstance(emotes, list) else None,
     }
+
+def merge_missing(current, previous):
+    """Fill failed/missing sub-responses from the last deployed snapshot."""
+    if current is None:
+        return previous, previous is not None
+    if isinstance(current, dict) and isinstance(previous, dict):
+        if not current and previous:
+            return previous, True
+        merged = dict(current)
+        used = False
+        for key, old_value in previous.items():
+            if key not in merged:
+                merged[key] = old_value
+                used = True
+            else:
+                merged[key], filled = merge_missing(merged[key], old_value)
+                used = used or filled
+        return merged, used
+    if isinstance(current, list) and isinstance(previous, list):
+        identity_keys = ("id", "assetId", "rootPlaceId", "name")
+        key = next((candidate for candidate in identity_keys
+                    if any(isinstance(item, dict) and item.get(candidate) is not None for item in current)), None)
+        if not key:
+            return current, False
+        previous_by_id = {
+            item.get(key): item for item in previous
+            if isinstance(item, dict) and item.get(key) is not None
+        }
+        merged = []
+        used = False
+        for item in current:
+            old_item = previous_by_id.get(item.get(key)) if isinstance(item, dict) else None
+            if old_item is not None:
+                item, filled = merge_missing(item, old_item)
+                used = used or filled
+            merged.append(item)
+        return merged, used
+    return current, False
 
 def main():
     ids = ",".join(str(u["id"]) for u in USERS)
@@ -360,7 +399,20 @@ def main():
         "updatedAt": datetime.now(timezone.utc).isoformat(),
     }
 
-    print(json.dumps(result))
+    return result
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--fallback", help="Previous snapshot used only for failed sub-endpoints")
+    args = parser.parse_args()
+    snapshot = main()
+    fallback_used = False
+    if args.fallback:
+        try:
+            with open(args.fallback, encoding="utf-8") as fallback_file:
+                previous_snapshot = json.load(fallback_file)
+            snapshot, fallback_used = merge_missing(snapshot, previous_snapshot)
+        except (OSError, json.JSONDecodeError):
+            pass
+    snapshot["fallbackUsed"] = fallback_used
+    print(json.dumps(snapshot))
