@@ -1,0 +1,53 @@
+name: Deploy Pages with fresh Roblox data
+
+on:
+  push:
+    branches: [master]
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out site
+        uses: actions/checkout@v6
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Poll public Roblox APIs
+        run: |
+          snapshot="$RUNNER_TEMP/roblox-presence.json"
+          python3 scripts/roblox-presence-poll.py > "$snapshot"
+          python3 -m json.tool "$snapshot" >/dev/null
+          mv "$snapshot" data/roblox-presence.json
+
+      - name: Build site
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./_site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
