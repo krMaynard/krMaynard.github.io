@@ -9,6 +9,14 @@ USERS = [
     {"id": 7874713562, "username": "amenomori1668"},
 ]
 
+INVENTORY_ASSET_TYPES = ",".join([
+    "Hat", "Shirt", "Pants", "TShirt", "Gear", "HairAccessory",
+    "FaceAccessory", "NeckAccessory", "ShoulderAccessory", "FrontAccessory",
+    "BackAccessory", "WaistAccessory", "TShirtAccessory", "ShirtAccessory",
+    "PantsAccessory", "JacketAccessory", "SweaterAccessory", "ShortsAccessory",
+    "DressSkirtAccessory",
+])
+
 def fetch(url, data=None):
     req = urllib.request.Request(url, data=data,
         headers={
@@ -46,6 +54,37 @@ def experience(item):
         "updated": item.get("updated"),
         "visits": item.get("placeVisits"),
         "creator": obj(item.get("creator")).get("name"),
+    }
+
+def inventory_item(item):
+    return {
+        "assetId": item.get("assetId"),
+        "name": item.get("name") or item.get("assetName"),
+        "type": item.get("assetType"),
+        "acquired": item.get("created"),
+    }
+
+def avatar_details(response):
+    if not isinstance(response, dict):
+        return None
+    assets = response.get("assets")
+    emotes = response.get("emotes")
+    return {
+        "type": response.get("playerAvatarType"),
+        "scales": obj(response.get("scales")),
+        "bodyColors": obj(response.get("bodyColors")),
+        "assets": [
+            {
+                "id": item.get("id"),
+                "name": item.get("name"),
+                "type": obj(item.get("assetType")).get("name"),
+            }
+            for item in assets if isinstance(item, dict)
+        ] if isinstance(assets, list) else None,
+        "emotes": [
+            {"name": item.get("assetName"), "assetId": item.get("assetId"), "type": "Emote"}
+            for item in emotes if isinstance(item, dict)
+        ] if isinstance(emotes, list) else None,
     }
 
 def main():
@@ -89,6 +128,9 @@ def main():
     favorite_experiences = {}
     groups = {}
     username_history = {}
+    inventories = {}
+    collectibles = {}
+    avatar_configurations = {}
     for u in USERS:
         uid = u["id"]
         prof = fetch_or(f"https://users.roblox.com/v1/users/{uid}", None)
@@ -144,6 +186,44 @@ def main():
             if isinstance(item, dict) and item.get("name")
         ] if history is not None else None
 
+        inventory_url = (
+            f"https://inventory.roblox.com/v2/users/{uid}/inventory"
+            f"?assetTypes={INVENTORY_ASSET_TYPES}&sortOrder=Desc&limit=100"
+        )
+        inventory_response = fetch_or(inventory_url, None)
+        if isinstance(inventory_response, dict):
+            can_view = True
+        else:
+            visibility = fetch_or(
+                f"https://inventory.roblox.com/v1/users/{uid}/can-view-inventory", None
+            )
+            can_view = visibility.get("canView") if isinstance(visibility, dict) else None
+        inventory_data = inventory_response.get("data") if isinstance(inventory_response, dict) else None
+        inventories[uid] = {
+            "visible": can_view,
+            "items": [
+                inventory_item(item) for item in inventory_data if isinstance(item, dict)
+            ] if isinstance(inventory_data, list) else None,
+            "truncated": bool(inventory_response.get("nextPageCursor"))
+            if isinstance(inventory_response, dict) else False,
+        }
+
+        collectible_data = fetch_data(
+            f"https://inventory.roblox.com/v1/users/{uid}/assets/collectibles?sortOrder=Desc&limit=100"
+        )
+        collectibles[uid] = [
+            {
+                **inventory_item(item),
+                "serialNumber": item.get("serialNumber"),
+                "recentAveragePrice": item.get("recentAveragePrice"),
+            }
+            for item in collectible_data if isinstance(item, dict)
+        ] if collectible_data is not None else None
+
+        avatar_configurations[uid] = avatar_details(fetch_or(
+            f"https://avatar.roblox.com/v1/users/{uid}/avatar", None
+        ))
+
     result = {
         "users": USERS,
         "presences": presences,
@@ -153,6 +233,9 @@ def main():
         "favoriteExperiences": favorite_experiences,
         "groups": groups,
         "usernameHistory": username_history,
+        "inventories": inventories,
+        "collectibles": collectibles,
+        "avatarConfigurations": avatar_configurations,
         "updatedAt": datetime.now(timezone.utc).isoformat(),
     }
 
