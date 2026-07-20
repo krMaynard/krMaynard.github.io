@@ -111,15 +111,19 @@ def merge_missing(current, previous):
                     if any(isinstance(item, dict) and item.get(candidate) is not None for item in current)), None)
         if not key:
             return current, False
-        previous_by_id = {
-            item.get(key): item for item in previous
-            if isinstance(item, dict) and type(item.get(key)) in (int, str)
-        }
+        previous_by_id = {}
+        for item in previous:
+            if isinstance(item, dict):
+                item_id = item.get(key)
+                valid_item_id = isinstance(item_id, (int, str)) and not isinstance(item_id, bool)
+                if valid_item_id:
+                    previous_by_id[item_id] = item
         merged = []
         used = False
         for item in current:
             item_id = item.get(key) if isinstance(item, dict) else None
-            old_item = previous_by_id.get(item_id) if type(item_id) in (int, str) else None
+            valid_item_id = isinstance(item_id, (int, str)) and not isinstance(item_id, bool)
+            old_item = previous_by_id.get(item_id) if valid_item_id else None
             if old_item is not None:
                 item, filled = merge_missing(item, old_item)
                 used = used or filled
