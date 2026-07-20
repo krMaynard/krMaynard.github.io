@@ -103,6 +103,7 @@
 
       var grid = document.getElementById('grid');
       var freshness = document.getElementById('freshness');
+      if (!grid || !freshness) return;
 
       function buildCard(u) {
         var userId = validId(u.id);
