@@ -29,10 +29,14 @@ def fetch_or(url, default):
 def fetch_data(url):
     """Return an endpoint's data list, or None when the endpoint failed."""
     response = fetch_or(url, None)
-    return response.get("data", []) if isinstance(response, dict) else None
+    data = response.get("data") if isinstance(response, dict) else None
+    return data if isinstance(data, list) else None
+
+def obj(value):
+    return value if isinstance(value, dict) else {}
 
 def experience(item):
-    root_place = item.get("rootPlace") or {}
+    root_place = obj(item.get("rootPlace"))
     return {
         "id": item.get("id"),
         "rootPlaceId": root_place.get("id"),
@@ -41,7 +45,7 @@ def experience(item):
         "created": item.get("created"),
         "updated": item.get("updated"),
         "visits": item.get("placeVisits"),
-        "creator": (item.get("creator") or {}).get("name"),
+        "creator": obj(item.get("creator")).get("name"),
     }
 
 def main():
@@ -55,7 +59,12 @@ def main():
     except Exception:
         pres_data = {"userPresences": []}
     presences = {}
-    for p in pres_data.get("userPresences", []):
+    presence_items = pres_data.get("userPresences", []) if isinstance(pres_data, dict) else []
+    if not isinstance(presence_items, list):
+        presence_items = []
+    for p in presence_items:
+        if not isinstance(p, dict) or "userId" not in p or "userPresenceType" not in p:
+            continue
         presences[p["userId"]] = {
             "type": p["userPresenceType"],
             "lastLocation": p.get("lastLocation"),
@@ -65,7 +74,14 @@ def main():
 
     # ── Avatars (batched headshot) ──
     thumb = fetch_or(f"https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds={ids}&size=150x150&format=Png", {"data": []})
-    avatars = {img["targetId"]: img.get("imageUrl") for img in thumb.get("data", [])}
+    thumbnail_items = thumb.get("data", []) if isinstance(thumb, dict) else []
+    if not isinstance(thumbnail_items, list):
+        thumbnail_items = []
+    avatars = {
+        img["targetId"]: img.get("imageUrl")
+        for img in thumbnail_items
+        if isinstance(img, dict) and isinstance(img.get("targetId"), int)
+    }
 
     # ── Profiles, social graph, experiences, and groups (per user) ──
     profiles = {}
@@ -76,12 +92,15 @@ def main():
     for u in USERS:
         uid = u["id"]
         prof = fetch_or(f"https://users.roblox.com/v1/users/{uid}", None)
-        if prof:
+        if isinstance(prof, dict):
             created = prof.get("created", "")
             age_days = None
             if created:
-                created_dt = datetime.fromisoformat(created.replace("Z", "+00:00"))
-                age_days = (datetime.now(timezone.utc) - created_dt).days
+                try:
+                    created_dt = datetime.fromisoformat(created.replace("Z", "+00:00"))
+                    age_days = (datetime.now(timezone.utc) - created_dt).days
+                except (AttributeError, TypeError, ValueError):
+                    pass
 
             profiles[uid] = {
                 "displayName": prof.get("displayName"),
@@ -97,27 +116,32 @@ def main():
             profiles[uid] = {}
 
         games = fetch_data(f"https://games.roblox.com/v2/users/{uid}/games?accessFilter=Public&sortOrder=Desc&limit=10")
-        experiences[uid] = [experience(item) for item in games] if games is not None else None
+        experiences[uid] = [
+            experience(item) for item in games if isinstance(item, dict)
+        ] if games is not None else None
 
         favorites = fetch_data(f"https://games.roblox.com/v2/users/{uid}/favorite/games?accessFilter=Public&sortOrder=Desc&limit=10")
-        favorite_experiences[uid] = [experience(item) for item in favorites] if favorites is not None else None
+        favorite_experiences[uid] = [
+            experience(item) for item in favorites if isinstance(item, dict)
+        ] if favorites is not None else None
 
         memberships = fetch_data(f"https://groups.roblox.com/v2/users/{uid}/groups/roles")
         groups[uid] = [
             {
-                "id": (item.get("group") or {}).get("id"),
-                "name": (item.get("group") or {}).get("name"),
-                "members": (item.get("group") or {}).get("memberCount"),
-                "verified": (item.get("group") or {}).get("hasVerifiedBadge", False),
-                "role": (item.get("role") or {}).get("name"),
-                "rank": (item.get("role") or {}).get("rank"),
+                "id": obj(item.get("group")).get("id"),
+                "name": obj(item.get("group")).get("name"),
+                "members": obj(item.get("group")).get("memberCount"),
+                "verified": obj(item.get("group")).get("hasVerifiedBadge", False),
+                "role": obj(item.get("role")).get("name"),
+                "rank": obj(item.get("role")).get("rank"),
             }
-            for item in memberships
+            for item in memberships if isinstance(item, dict)
         ] if memberships is not None else None
 
         history = fetch_data(f"https://users.roblox.com/v1/users/{uid}/username-history?limit=10&sortOrder=Desc")
         username_history[uid] = [
-            item.get("name") for item in history if item.get("name")
+            item.get("name") for item in history
+            if isinstance(item, dict) and item.get("name")
         ] if history is not None else None
 
     result = {

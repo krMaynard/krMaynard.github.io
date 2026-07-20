@@ -176,6 +176,7 @@
         }
         var ul = document.createElement('ul'); ul.className = 'data-list';
         list.forEach(function (item) {
+          if (!item || typeof item !== 'object') return;
           var li = document.createElement('li'); li.className = 'data-item';
           var placeId = validId(item.rootPlaceId);
           li.appendChild(placeId ? link('https://www.roblox.com/games/' + placeId, item.name || 'Untitled experience') : document.createTextNode(item.name || 'Untitled experience'));
@@ -204,6 +205,7 @@
         }
         var ul = document.createElement('ul'); ul.className = 'data-list';
         list.forEach(function (item) {
+          if (!item || typeof item !== 'object') return;
           var li = document.createElement('li'); li.className = 'data-item';
           var groupId = validId(item.id);
           li.appendChild(groupId ? link('https://www.roblox.com/communities/' + groupId, item.name || 'Unnamed group') : document.createTextNode(item.name || 'Unnamed group'));
@@ -226,12 +228,14 @@
       }
 
       function updateCard(u, data) {
-        var p = (data.presences || {})[u.id];
+        var userId = validId(u.id);
+        if (!userId) return;
+        var p = (data.presences || {})[userId];
         var info = PMAP[p ? p.type : 0] || PMAP[0];
-        document.getElementById('sb-' + u.id).className = 'status ' + info.cls;
-        document.getElementById('st-' + u.id).textContent = info.label;
+        document.getElementById('sb-' + userId).className = 'status ' + info.cls;
+        document.getElementById('st-' + userId).textContent = info.label;
 
-        var gi = document.getElementById('gi-' + u.id);
+        var gi = document.getElementById('gi-' + userId);
         gi.textContent = '';
         if (p) {
           var placeId = validId(p.placeId);
@@ -246,29 +250,29 @@
         }
 
         var avatars = data.avatars || {};
-        if (avatars[u.id]) {
-          var avatar = document.getElementById('av-' + u.id);
-          avatar.src = avatars[u.id];
+        if (avatars[userId]) {
+          var avatar = document.getElementById('av-' + userId);
+          avatar.src = avatars[userId];
           avatar.hidden = false;
         }
 
         var profiles = data.profiles || {};
-        var prof = profiles[u.id];
-        if (prof) {
-          if (prof.displayName) document.querySelector('#card-' + u.id + ' .username').textContent = prof.displayName + (prof.verified ? ' ✓' : '');
-          document.getElementById('bio-' + u.id).textContent = prof.description || '';
+        var prof = profiles[userId];
+        if (prof && typeof prof === 'object') {
+          if (prof.displayName) document.querySelector('#card-' + userId + ' .username').textContent = prof.displayName + (prof.verified ? ' ✓' : '');
+          document.getElementById('bio-' + userId).textContent = prof.description || '';
           var stats = [];
           if (prof.friends != null) stats.push('<span><strong>' + number(prof.friends) + '</strong> friends</span>');
           if (prof.followers != null) stats.push('<span><strong>' + number(prof.followers) + '</strong> followers</span>');
           if (prof.following != null) stats.push('<span><strong>' + number(prof.following) + '</strong> following</span>');
           var age = ageStr(prof.ageDays);
           if (age) stats.push('<span>joined <strong>' + age + '</strong> ago</span>');
-          document.getElementById('stats-' + u.id).innerHTML = stats.join(' · ');
+          document.getElementById('stats-' + userId).innerHTML = stats.join(' · ');
         }
-        renderExperiences('created-' + u.id, 'Created experiences', (data.experiences || {})[u.id]);
-        renderGroups('groups-' + u.id, (data.groups || {})[u.id]);
-        renderExperiences('favorites-' + u.id, 'Favorite experiences', (data.favoriteExperiences || {})[u.id]);
-        renderHistory('history-' + u.id, (data.usernameHistory || {})[u.id]);
+        renderExperiences('created-' + userId, 'Created experiences', (data.experiences || {})[userId]);
+        renderGroups('groups-' + userId, (data.groups || {})[userId]);
+        renderExperiences('favorites-' + userId, 'Favorite experiences', (data.favoriteExperiences || {})[userId]);
+        renderHistory('history-' + userId, (data.usernameHistory || {})[userId]);
       }
 
       function updateFreshness(updatedAt, err) {
@@ -287,6 +291,8 @@
           var res = await fetch('/data/roblox-presence.json?t=' + Date.now());
           if (!res.ok) throw new Error('HTTP ' + res.status);
           var data = await res.json();
+          if (!data || typeof data !== 'object' || !Array.isArray(data.users))
+            throw new Error('Invalid snapshot');
           if (grid.dataset.initialized !== 'true') {
             grid.innerHTML = '';
             (data.users || []).forEach(function (u) { grid.appendChild(buildCard(u)); });
