@@ -78,13 +78,13 @@
     <div class="presence-demo">
       <header class="demo-intro">
         <h1>What Roblox's public APIs reveal</h1>
-        <p>This page uses only unauthenticated Roblox endpoints. It combines presence snapshots with public profile details, social counts, created and favorited experiences, group memberships and roles, and username history for two accounts I control.</p>
+        <p>This page uses only unauthenticated Roblox endpoints. It combines presence snapshots with public profile details, social counts, created and favorited experiences, group memberships and roles, owned inventory, equipped avatar assets, collectibles, and username history for two accounts I control.</p>
       </header>
       <div class="presence-grid" id="grid"></div>
       <div class="freshness" id="freshness" role="status" aria-live="polite"></div>
       <details class="api-note">
         <summary>What “public” means here</summary>
-        <p>No Roblox login, cookie, or API key is used. The snapshot comes from Roblox's public users, presence, friends, games, groups, and thumbnails services. Results can vary with account privacy settings and endpoint availability; an unavailable endpoint is labeled instead of being reported as an empty result.</p>
+        <p>No Roblox login, cookie, or API key is used. The snapshot comes from Roblox's public users, presence, friends, games, groups, inventory, avatar, and thumbnails services. Results can vary with account privacy settings and endpoint availability; an unavailable endpoint is labeled instead of being reported as an empty result. The friend-list endpoint is public too, but this demo intentionally does not republish third-party account identities. Badge and follower/following lists currently require authentication.</p>
       </details>
     </div>
     <div class="presence-footer">
@@ -123,6 +123,9 @@
           '<div class="public-data">' +
             '<details class="data-section" id="created-' + userId + '" open><summary>Created experiences</summary><div></div></details>' +
             '<details class="data-section" id="groups-' + userId + '" open><summary>Group memberships</summary><div></div></details>' +
+            '<details class="data-section" id="avatar-' + userId + '" open><summary>Avatar configuration</summary><div></div></details>' +
+            '<details class="data-section" id="inventory-' + userId + '"><summary>Owned inventory</summary><div></div></details>' +
+            '<details class="data-section" id="collectibles-' + userId + '"><summary>Limited collectibles</summary><div></div></details>' +
             '<details class="data-section" id="favorites-' + userId + '"><summary>Favorite experiences</summary><div></div></details>' +
             '<details class="data-section" id="history-' + userId + '"><summary>Previous usernames</summary><div></div></details>' +
           '</div>' +
@@ -228,6 +231,83 @@
         p.textContent = list.length ? list.join(', ') : available ? 'No previous usernames returned.' : 'Endpoint unavailable in this snapshot.'; body.appendChild(p);
       }
 
+      function renderAssetList(body, items, emptyMessage) {
+        if (!items.length) {
+          var empty = document.createElement('p'); empty.className = 'empty-data';
+          empty.textContent = emptyMessage; body.appendChild(empty); return;
+        }
+        var ul = document.createElement('ul'); ul.className = 'data-list';
+        items.forEach(function (item) {
+          if (!item || typeof item !== 'object') return;
+          var li = document.createElement('li'); li.className = 'data-item';
+          var assetId = validId(item.assetId || item.id);
+          li.appendChild(assetId ? link('https://www.roblox.com/catalog/' + assetId, item.name || 'Unnamed asset') : document.createTextNode(item.name || 'Unnamed asset'));
+          var details = [];
+          if (item.type) details.push(item.type);
+          if (item.acquired) details.push('acquired ' + date(item.acquired));
+          if (item.serialNumber != null) details.push('serial #' + number(item.serialNumber));
+          if (item.recentAveragePrice != null) details.push(number(item.recentAveragePrice) + ' recent average price');
+          if (details.length) {
+            var meta = document.createElement('span'); meta.className = 'data-meta';
+            meta.textContent = details.join(' · '); li.appendChild(meta);
+          }
+          ul.appendChild(li);
+        });
+        body.appendChild(ul);
+      }
+
+      function renderAvatar(sectionId, avatar) {
+        var section = document.getElementById(sectionId);
+        var assets = avatar && Array.isArray(avatar.assets) ? avatar.assets : [];
+        var emotes = avatar && Array.isArray(avatar.emotes) ? avatar.emotes : [];
+        section.querySelector('summary').textContent = 'Avatar configuration (' + assets.length + ' assets, ' + emotes.length + ' emotes)';
+        var body = section.querySelector('div'); body.replaceChildren();
+        if (!avatar || typeof avatar !== 'object') {
+          var unavailable = document.createElement('p'); unavailable.className = 'empty-data';
+          unavailable.textContent = 'Endpoint unavailable in this snapshot.'; body.appendChild(unavailable); return;
+        }
+        var configuration = document.createElement('p'); configuration.className = 'empty-data';
+        var scales = avatar.scales || {};
+        var colors = avatar.bodyColors || {};
+        configuration.textContent = (avatar.type || 'Unknown rig') + ' · height ' + number(scales.height) + ' · width ' + number(scales.width) + ' · body type ' + number(scales.bodyType) +
+          ' · color IDs H' + number(colors.headColorId) + '/T' + number(colors.torsoColorId) + '/RA' + number(colors.rightArmColorId) + '/LA' + number(colors.leftArmColorId) + '/RL' + number(colors.rightLegColorId) + '/LL' + number(colors.leftLegColorId);
+        body.appendChild(configuration);
+        renderAssetList(body, assets.concat(emotes), 'No equipped assets or emotes returned.');
+      }
+
+      function renderInventory(sectionId, inventory) {
+        var section = document.getElementById(sectionId);
+        var items = inventory && Array.isArray(inventory.items) ? inventory.items : [];
+        section.querySelector('summary').textContent = 'Owned inventory (' + items.length + (inventory && inventory.truncated ? '+' : '') + ')';
+        var body = section.querySelector('div'); body.replaceChildren();
+        if (!inventory || inventory.visible == null) {
+          var unavailable = document.createElement('p'); unavailable.className = 'empty-data';
+          unavailable.textContent = 'Inventory visibility endpoint unavailable.'; body.appendChild(unavailable); return;
+        }
+        if (inventory.visible === false) {
+          var privateMessage = document.createElement('p'); privateMessage.className = 'empty-data';
+          privateMessage.textContent = 'This account has a private inventory.'; body.appendChild(privateMessage); return;
+        }
+        if (!Array.isArray(inventory.items)) {
+          var failed = document.createElement('p'); failed.className = 'empty-data';
+          failed.textContent = 'Public inventory endpoint unavailable in this snapshot.'; body.appendChild(failed); return;
+        }
+        renderAssetList(body, items, 'No matching public inventory items.');
+      }
+
+      function renderCollectibles(sectionId, items) {
+        var section = document.getElementById(sectionId);
+        var available = Array.isArray(items);
+        var list = available ? items : [];
+        section.querySelector('summary').textContent = 'Limited collectibles (' + list.length + ')';
+        var body = section.querySelector('div'); body.replaceChildren();
+        if (!available) {
+          var unavailable = document.createElement('p'); unavailable.className = 'empty-data';
+          unavailable.textContent = 'Endpoint unavailable in this snapshot.'; body.appendChild(unavailable); return;
+        }
+        renderAssetList(body, list, 'No limited collectibles returned.');
+      }
+
       function updateCard(u, data) {
         var userId = validId(u.id);
         if (!userId) return;
@@ -273,6 +353,9 @@
         }
         renderExperiences('created-' + userId, 'Created experiences', (data.experiences || {})[userId]);
         renderGroups('groups-' + userId, (data.groups || {})[userId]);
+        renderAvatar('avatar-' + userId, (data.avatarConfigurations || {})[userId]);
+        renderInventory('inventory-' + userId, (data.inventories || {})[userId]);
+        renderCollectibles('collectibles-' + userId, (data.collectibles || {})[userId]);
         renderExperiences('favorites-' + userId, 'Favorite experiences', (data.favoriteExperiences || {})[userId]);
         renderHistory('history-' + userId, (data.usernameHistory || {})[userId]);
       }
