@@ -113,13 +113,13 @@ def merge_missing(current, previous):
             return current, False
         previous_by_id = {
             item.get(key): item for item in previous
-            if isinstance(item, dict) and isinstance(item.get(key), (int, str))
+            if isinstance(item, dict) and type(item.get(key)) in (int, str)
         }
         merged = []
         used = False
         for item in current:
             item_id = item.get(key) if isinstance(item, dict) else None
-            old_item = previous_by_id.get(item_id) if isinstance(item_id, (int, str)) else None
+            old_item = previous_by_id.get(item_id) if type(item_id) in (int, str) else None
             if old_item is not None:
                 item, filled = merge_missing(item, old_item)
                 used = used or filled
