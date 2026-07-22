@@ -467,12 +467,56 @@ def _normalize_cjk_punctuation(text):
     return "".join(out)
 
 
+# Anti-slop guidance distilled from the no-ai-slop skill
+# (github.com/krMaynard/no-ai-slop). Injected into the generation, critique,
+# and revision prompts so drafts read as human rather than machine-written.
+# The pattern rules are language-agnostic; the English filler-word list is
+# appended only for the English post (see _anti_slop_rules).
+_ANTI_SLOP_PATTERNS = (
+    "- No throat-clearing or faux-insight openers (\"Here's the thing\", \"What "
+    "most people miss\", \"The uncomfortable truth is\"). Make the point directly.\n"
+    "- No engagement-bait or rhetorical setups (\"What if I told you\", \"Let that "
+    "sink in\", a reflexive closing \"What do you think?\"). If you ask a question, "
+    "make it a real, specific one.\n"
+    "- No binary contrasts (\"It's not X, it's Y\"), no negative listing (\"Not a X. "
+    "Not a Y.\"), no fragments dropped in for drama.\n"
+    "- No importance puffery (\"marks a pivotal moment\", \"a testament to\", \"game "
+    "changer\", \"this changes everything\") and no vague hype. State the concrete "
+    "fact and let the reader judge whether it matters.\n"
+    "- No weasel attribution (\"experts agree\", \"studies show\") unless the blog "
+    "post names the source.\n"
+    "- Be concrete: use the specific names, numbers, dates, and mechanisms from the "
+    "post. Don't smooth a specific fact into generic importance.\n"
+    "- Use active voice and direct verbs; don't let inanimate things perform human "
+    "actions.\n"
+    "- No emoji, no decorative bold, no fake-strong verbs. Use em dashes sparingly "
+    "(ideally none in a post this short).\n"
+    "- End on a concrete takeaway, next step, or genuine question — never a summary "
+    "recap or a fake-profound mic-drop line."
+)
+_ANTI_SLOP_EN_WORDS = (
+    "\n- Cut filler and inflated words: delve, leverage, utilize, foster, "
+    "streamline, robust, seamless, cutting-edge, elevate, transformative, "
+    "\"it's worth noting\", \"at the end of the day\", \"in today's world\", "
+    "\"when it comes to\". Prefer the plain word."
+)
+
+
+def _anti_slop_rules(lang):
+    """Return the anti-slop rule bullets, with English-only filler words appended."""
+    rules = _ANTI_SLOP_PATTERNS
+    if lang == "en":
+        rules += _ANTI_SLOP_EN_WORDS
+    return rules
+
+
 def _build_commentary_prompt(title, content, lang):
     meta = LANGUAGES[lang]
     if lang == "en":
         lang_clause = "Write the post in English."
         tone_guidelines = (
-            "- Open with a strong hook (one short sentence that stops the scroll)\n"
+            "- Open on a concrete specific from the post — a real number, fact, or "
+            "finding — not a generic scroll-stopping line\n"
             "- Conversational first-person tone\n"
             "- 100–150 words\n"
         )
@@ -484,7 +528,8 @@ def _build_commentary_prompt(title, content, lang):
         )
         tone_guidelines = (
             f"- Natural, fluent {meta['name']} in a professional LinkedIn tone\n"
-            "- Open with a strong hook that stops the scroll\n"
+            "- Open on a concrete specific from the post (a number, fact, or "
+            "finding), not a generic hook\n"
             "- Roughly 100–150 words (adjust naturally for the language)\n"
         )
     hashtag_lang_note = (
@@ -504,7 +549,10 @@ def _build_commentary_prompt(title, content, lang):
         f"{tone_guidelines}"
         "- Short paragraphs separated by blank lines — LinkedIn formatting\n"
         f"{punctuation_note}"
-        "- End with a brief question or observation to invite engagement\n\n"
+        "- End on a concrete takeaway or a genuine, specific question — not generic "
+        "engagement-bait\n\n"
+        "Write like a sharp human, not a content machine:\n"
+        f"{_anti_slop_rules(lang)}\n\n"
         "Guidelines for HASHTAGS:\n"
         "- Choose 3–5 relevant LinkedIn hashtags that will maximise reach\n"
         "- Mix broad professional tags with topic-specific ones\n"
@@ -569,11 +617,15 @@ def _build_critique_prompt(title, commentary, lang):
         "reviewing a draft LinkedIn post before it is published for Kieran Maynard, "
         "a product manager specialising in AI, compliance, and content policy.\n\n"
         f"Critique the draft below for natural, native-level {meta['name']} fluency "
-        "and LinkedIn impact. Pay particular attention to:\n"
+        "and whether it reads as written by a sharp human rather than an AI. Pay "
+        "particular attention to:\n"
         f"- Phrasing that sounds translated, stilted, or unnatural to a native {meta['name']} reader\n"
         "- Word choice, idiom, grammar, and an appropriate professional register/tone\n"
         + (f"- Punctuation: {meta['punctuation']}\n" if meta.get("punctuation") else "")
-        + "- Whether the opening hook is strong and the post reads smoothly on LinkedIn\n\n"
+        + "- Whether the opening leads with a concrete specific rather than a generic "
+        "hook, and the post reads smoothly on LinkedIn\n"
+        "- Any of these AI-slop patterns, which should be flagged and cut:\n"
+        f"{_anti_slop_rules(lang)}\n\n"
         "List the concrete edits you would make as short, specific bullet points. If "
         "the draft is already excellent, say so briefly. Do NOT rewrite the post — "
         "give only the critique.\n\n"
@@ -587,9 +639,12 @@ def _build_revision_prompt(title, commentary, critique, lang):
     return (
         f"You are a senior native {meta['name']} editor and LinkedIn copywriter.\n\n"
         f"Revise the draft LinkedIn post below, in {meta['name']}, applying the editor "
-        "critique to maximise native-level fluency and LinkedIn impact. Preserve the "
-        "original meaning, first-person voice, approximate length, and paragraph "
-        "structure (short paragraphs separated by blank lines).\n\n"
+        "critique to maximise native-level fluency while keeping it readable as the "
+        "work of a sharp human, not an AI. Preserve the original meaning, first-person "
+        "voice, approximate length, and paragraph structure (short paragraphs "
+        "separated by blank lines).\n\n"
+        "Do not introduce (or leave in place) any AI-slop patterns:\n"
+        f"{_anti_slop_rules(lang)}\n\n"
         + (f"{meta['punctuation']}\n\n" if meta.get("punctuation") else "")
         + "Return ONLY the revised post body — no preamble, no commentary, no hashtags, "
         "and no surrounding quotation marks.\n\n"
