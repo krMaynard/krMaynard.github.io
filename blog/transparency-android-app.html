@@ -1,7 +1,7 @@
 ---
 layout: main
 title: "Putting the Transparency Dashboard in Your Pocket"
-description: "The transparency data explorer is now a native Android and desktop app — one Kotlin Multiplatform codebase, a mobile-first Compose UI, the same live API, and no SQL. Here's what shipped and why one codebase covers both."
+description: "The transparency data explorer is now a native Android and desktop app, one Kotlin Multiplatform codebase, a mobile-first Compose UI, the same live API, and no SQL. Here's what shipped and why one codebase covers both."
 date: 2026-07-15
 og_image: /images/transparency-app-hero.png
 lang: en
@@ -34,33 +34,33 @@ lang_url_it: /it/blog/transparency-android-app.html
       <figcaption style="text-align:center; color: var(--text-muted); font-size: 0.85rem; margin-top: 0.75rem;">Overview → removals → dataset browser → a live chart, all from the same API.</figcaption>
     </figure>
 
-    <p>The <a href="/transparency.html">transparency query API</a> has had a web dashboard for a while. What it didn't have was a home-screen icon. So the data explorer is now a native app — it runs on Android and on the desktop, from a single <a href="https://www.jetbrains.com/kotlin-multiplatform/" target="_blank" rel="noopener">Kotlin Multiplatform</a> codebase, and it talks to the exact same public API the website does.</p>
+    <p>The <a href="/transparency.html">transparency query API</a> has had a web dashboard for a while. What it didn't have was a home-screen icon. So the data explorer is now a native app, it runs on Android and on the desktop, from a single <a href="https://www.jetbrains.com/kotlin-multiplatform/" target="_blank" rel="noopener">Kotlin Multiplatform</a> codebase, and it talks to the exact same public API the website does.</p>
 
     <p>You can <a href="/downloads/transparency-app.apk" download>download the Android build</a> and sideload it today.</p>
 
     <h2>Why an app at all</h2>
 
-    <p>Most of this data is something you check, not something you sit and study — a removal trend, how one platform's numbers compare to another's, what a given country's requests look like this period. That's a phone interaction, not a desktop one. A dashboard that assumes a wide screen and a mouse makes the quick look harder than it should be. The app is built the other way around: phone first, and the wide layouts are what expands from there, rather than the reverse.</p>
+    <p>Most of this data is something you check, not something you sit and study, a removal trend, how one platform's numbers compare to another's, what a given country's requests look like this period. That's a phone interaction, not a desktop one. A dashboard that assumes a wide screen and a mouse makes the quick look harder than it should be. The app is built the other way around: phone first, and the wide layouts are what expands from there, rather than the reverse.</p>
 
     <h2>One codebase, two platforms</h2>
 
-    <p>Everything meaningful lives in one shared source set: the DTOs, the Ktor client that calls <code>/api/overview</code> and <code>/api/explore</code>, the repository that builds each query, and every screen and chart. Compose Multiplatform renders that same UI on Android and in a desktop window. Only two things are per-platform — the entry point (an <code>Activity</code> on Android, a window on the desktop) and the HTTP engine, wired through Kotlin's <code>expect</code>/<code>actual</code> so Android gets OkHttp and the desktop gets CIO. There's no second implementation of the app to keep in sync, because there's no second implementation.</p>
+    <p>Everything meaningful lives in one shared source set: the DTOs, the Ktor client that calls <code>/api/overview</code> and <code>/api/explore</code>, the repository that builds each query, and every screen and chart. Compose Multiplatform renders that same UI on Android and in a desktop window. Only two things are per-platform, the entry point (an <code>Activity</code> on Android, a window on the desktop) and the HTTP engine, wired through Kotlin's <code>expect</code>/<code>actual</code> so Android gets OkHttp and the desktop gets CIO. There's no second implementation of the app to keep in sync, because there's no second implementation.</p>
 
-    <p>The same discipline that keeps the API honest carries into the client: it never sends SQL. A query is a structured <code>ExploreRequest</code> — a table name plus typed filters, group-bys, and aggregates — that the server validates and compiles. The app builds those requests; it doesn't build strings. Adding a new dataset view is a repository method, not a hand-written query.</p>
+    <p>The same discipline that keeps the API honest carries into the client: it never sends SQL. A query is a structured <code>ExploreRequest</code>, a table name plus typed filters, group-bys, and aggregates, that the server validates and compiles. The app builds those requests; it doesn't build strings. Adding a new dataset view is a repository method, not a hand-written query.</p>
 
     <h2>Mobile-first, and it means it</h2>
 
-    <p>The layout measures its own width and adapts. Below a breakpoint it's a phone: bottom navigation, a single column, and an Explore flow that goes list → detail the way you'd expect on a small screen. Above it, the same screens expand into a navigation rail and a master-detail view. Because the screens are stateless — state is hoisted into a single view-model exposing an immutable UI state as a <code>StateFlow</code> — the identical composables render on a phone, in a desktop window, and in the screenshot harness that produced the frames above.</p>
+    <p>The layout measures its own width and adapts. Below a breakpoint it's a phone: bottom navigation, a single column, and an Explore flow that goes list → detail the way you'd expect on a small screen. Above it, the same screens expand into a navigation rail and a master-detail view. The screens are stateless. A single view-model exposes immutable UI state as a <code>StateFlow</code>, so the same composables render on a phone, in a desktop window, and in the screenshot process that produced the frames above.</p>
 
-    <p>Charts are drawn on the Compose canvas rather than pulled from an image service, so they're crisp at any density and honest about what they show — bands stay bands, rates never get summed, and a period with no data reads as no data instead of a zero.</p>
+    <p>Charts are drawn on the Compose canvas rather than pulled from an image service, so they're crisp at any density and honest about what they show, bands stay bands, rates never get summed, and a period with no data reads as no data instead of a zero.</p>
 
     <h2>The Android details worth doing</h2>
 
-    <p>A native app should feel native, which is a pile of small things: an adaptive launcher icon with a monochrome layer for themed icons, launcher shortcuts that jump straight to the removals view or the dataset browser, predictive-back so the system's back gesture previews where you're headed, and per-app language settings that surface in Android's own list — the app is already translated into eight languages, so it honors whichever one you pick there. The release build runs through R8 with resource shrinking, which is how a full Compose app lands around 1.5 MB.</p>
+    <p>A native app should feel native, which is a pile of small things: an adaptive launcher icon with a monochrome layer for themed icons, launcher shortcuts that jump straight to the removals view or the dataset browser, predictive-back so the system's back gesture previews where you're headed, and per-app language settings that surface in Android's own list, the app is already translated into eight languages, so it honors whichever one you pick there. The release build runs through R8 with resource shrinking, which is how a full Compose app lands around 1.5 MB.</p>
 
     <h2>Get it</h2>
 
-    <p>The Android APK is <a href="/downloads/transparency-app.apk" download>a direct download</a> — enable installs from your browser and open it. It's the same data, the same query model, and the same caveats as the <a href="https://transparency.kieranmaynard.com" target="_blank" rel="noopener">web dashboard</a>; it just lives on your home screen now. The desktop build runs from the same codebase if you'd rather have it in a window.</p>
+    <p>The Android APK is <a href="/downloads/transparency-app.apk" download>a direct download</a>, enable installs from your browser and open it. It's the same data, the same query model, and the same caveats as the <a href="https://transparency.kieranmaynard.com" target="_blank" rel="noopener">web dashboard</a>; it just lives on your home screen now. The desktop build runs from the same codebase if you'd rather have it in a window.</p>
 
   </div>
 </article>

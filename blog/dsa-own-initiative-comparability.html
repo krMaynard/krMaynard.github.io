@@ -27,11 +27,11 @@ published: false
       <img src="/images/dsa-own-initiative-comparability-en.png" alt="Are VLOP "Own-Initiative" Numbers Comparable? A Cross-Platform Audit" width="1200" height="630">
     </figure>
 
-    <p><em>Part 1 showed every VLOP filing points to the broad reading of "own initiative." Part 2 asks whether the resulting numbers can be compared across platforms — or even reconciled with each platform's own second DSA disclosure. Both answers are no.</em></p>
+    <p><em>Part 1 showed every VLOP filing points to the broad reading of "own initiative." Part 2 asks whether the resulting numbers can be compared across platforms, or even reconciled with each platform's own second DSA disclosure. Both answers are no.</em></p>
 
-<p><strong>Bottom line:</strong> The DSA's own-initiative metric fails two independent comparability tests. (1) Platforms <strong>classify</strong> the same behaviour incompatibly: marketplaces file ~100% of moderation as "own initiative," while community/review platforms file the majority as user "notifications" — so the <em>denominator</em> of "own initiative" means opposite things. (2) For a concentrated tail of platforms, the two mandated disclosures — the harmonised report (Table 5/6) and the Statements of Reasons (SoR) — <strong>don't reconcile</strong>: report-to-SoR ratios run from 0.8× to <strong>35×</strong>. And the two systems don't even cover the same services: search engines (Google Search, Bing) file the harmonised report but — as VLOSEs rather than online platforms — owe <strong>no Statements of Reasons at all</strong> under Article 24(5), putting 2.8 bn reported actions structurally outside the database. The single number "own-initiative content moderation" is not a like-for-like quantity across the ecosystem.</p>
+<p><strong>Bottom line:</strong> The DSA's own-initiative metric fails two independent comparability tests. (1) Platforms <strong>classify</strong> the same behaviour incompatibly: marketplaces file ~100% of moderation as "own initiative," while community/review platforms file the majority as user "notifications", so the <em>denominator</em> of "own initiative" means opposite things. (2) For a concentrated tail of platforms, the two mandated disclosures, the harmonised report (Table 5/6) and the Statements of Reasons (SoR), <strong>don't reconcile</strong>: report-to-SoR ratios run from 0.8× to <strong>35×</strong>. And the two systems don't even cover the same services: search engines (Google Search, Bing) file the harmonised report but, as VLOSEs rather than online platforms, owe <strong>no Statements of Reasons at all</strong> under Article 24(5), putting 2.8 bn reported actions structurally outside the database. The single number "own-initiative content moderation" is not a like-for-like quantity across the ecosystem.</p>
 
-<ul><li><strong>Data:</strong> <code>dsa_tdb_metrics</code> (SoR database, H2 2025), <code>t5_own_initiative_illegal</code> + <code>t6_own_initiative_tos</code> (harmonised VLOP reports, H2 2025). Transparency Report API.</li><li><strong>Follows:</strong> <a href="/blog/dsa-own-initiative-scope.html">Part 1 — Two Readings of "Own Initiative" on DSA Table 6</a>.</li></ul>
+<ul><li><strong>Data:</strong> <code>dsa_tdb_metrics</code> (SoR database, H2 2025), <code>t5_own_initiative_illegal</code> + <code>t6_own_initiative_tos</code> (harmonised VLOP reports, H2 2025). Transparency Report API.</li><li><strong>Follows:</strong> <a href="/blog/dsa-own-initiative-scope.html">Part 1, Two Readings of "Own Initiative" on DSA Table 6</a>.</li></ul>
 
 <hr>
 
@@ -148,7 +148,7 @@ published: false
 
 <h2>2. A platform's two DSA disclosures don't reconcile</h2>
 
-<p>The harmonised report (Table 5/6) and the SoR database are both mandatory, both cover H2 2025, and both purport to count own-initiative moderation. For online platforms they should be in the same ballpark per service. Most are — and a concentrated tail is not:</p>
+<p>The harmonised report (Table 5/6) and the SoR database are both mandatory, both cover H2 2025, and both purport to count own-initiative moderation. For online platforms they should be in the same ballpark per service. Most are, and a concentrated tail is not:</p>
 
 <div class="table-wrap"><table class="td-table">
 <thead><tr>
@@ -161,7 +161,7 @@ published: false
 <td>Google Search</td>
 <td class="td-num">2,819,509,898</td>
 <td class="td-num">0</td>
-<td class="td-num"><em>exempt — VLOSE, no SoR duty</em></td>
+<td class="td-num"><em>exempt, VLOSE, no SoR duty</em></td>
 </tr>
 <tr>
 <td>X</td>
@@ -279,17 +279,17 @@ published: false
 </tr>
 </tbody></table></div>
 
-<p>Two tiers emerge. A <strong>well-behaved cluster</strong> (Google Shopping, Amazon, Instagram, Maps, Facebook, Pinterest, Booking, YouTube) reconciles within ~1.5× — their report and their SoR filings tell the same story. Then a <strong>divergent tail</strong> where the two disclosures are 3×–35× apart (SHEIN, LinkedIn, Snapchat, Temu). The naive aggregate looks dramatic — reports claim 2.0× more actions than appear as SoRs (7.0 bn vs 3.4 bn) — but that headline is mostly an artefact: drop the SoR-exempt search engines and it falls to <strong>1.22×</strong>; drop Temu as well and the rest of the ecosystem reconciles at <strong>1.03×</strong>. The finding is not a global gap but a <strong>concentrated tail</strong>.</p>
+<p>Two tiers emerge. A <strong>well-behaved cluster</strong> (Google Shopping, Amazon, Instagram, Maps, Facebook, Pinterest, Booking, YouTube) reconciles within ~1.5×, their report and their SoR filings tell the same story. Then a <strong>divergent tail</strong> where the two disclosures are 3×–35× apart (SHEIN, LinkedIn, Snapchat, Temu). The naive aggregate looks dramatic, reports claim 2.0× more actions than appear as SoRs (7.0 bn vs 3.4 bn), but that headline is mostly an artefact: drop the SoR-exempt search engines and it falls to <strong>1.22×</strong>; drop Temu as well and the rest of the ecosystem reconciles at <strong>1.03×</strong>. The finding is not a global gap but a <strong>concentrated tail</strong>.</p>
 
-<p>Some of this is the legitimate <em>measures ≠ statements</em> gap flagged in Part 1 (one action can bundle several SoRs, or none). Unit differences can legitimately vary by product type (account-level actions bundle into statements differently on a marketplace than a social network), so some spread is expected. But 3×–35× on services whose peers reconcile at ~1.0× points to <strong>per-platform methodology choices</strong> — each drawing the boundary of "a reportable own-initiative action" somewhere different — not unit conversion alone.</p>
+<p>Some of this is the legitimate <em>measures ≠ statements</em> gap flagged in Part 1 (one action can bundle several SoRs, or none). Unit differences can legitimately vary by product type (account-level actions bundle into statements differently on a marketplace than a social network), so some spread is expected. But 3×–35× on services whose peers reconcile at ~1.0× points to <strong>per-platform methodology choices</strong>, each drawing the boundary of "a reportable own-initiative action" somewhere different, not unit conversion alone.</p>
 
-<h3>The 2.7-billion-action blind spot — legal, but consequential</h3>
+<h3>The 2.7-billion-action blind spot, legal, but consequential</h3>
 
-<p>Google Search reports <strong>2,703,161,113 own-initiative <em>illegal-content</em> actions</strong> in Table 5 (search delistings on legal grounds). The <strong>entire SoR database contains 7,578,061 illegal-ground SoRs</strong> — from <em>all platforms combined</em>. The explanation is legal, not scandalous: Google Search is a <strong>VLOSE</strong>, and the Article 17/24(5) statement-of-reasons machinery attaches to <em>hosting services and online platforms</em> — search engines file the harmonised report but owe no SoRs. (An earlier draft of this analysis framed the gap as under-filing; that was wrong.)</p>
+<p>Google Search reports <strong>2,703,161,113 own-initiative <em>illegal-content</em> actions</strong> in Table 5 (search delistings on legal grounds). The <strong>entire SoR database contains 7,578,061 illegal-ground SoRs</strong>, from <em>all platforms combined</em>. The explanation is legal, not scandalous: Google Search is a <strong>VLOSE</strong>, and the Article 17/24(5) statement-of-reasons machinery attaches to <em>hosting services and online platforms</em>, search engines file the harmonised report but owe no SoRs. (An earlier draft of this analysis framed the gap as under-filing; that was wrong.)</p>
 
-<p>The consequence still matters: <strong>the SoR database is structurally blind to search-engine moderation</strong>, which happens to be the largest own-initiative line in the whole harmonised corpus. A researcher treating the database as "the record of EU content moderation" silently misses ~2.7 bn search delistings, and sees illegal-ground moderation as a rounding error (7.6 m) when the reports put it in the billions. The two disclosure systems don't just count differently — they cover different populations of services.</p>
+<p>The consequence still matters: <strong>the SoR database is structurally blind to search-engine moderation</strong>, which happens to be the largest own-initiative line in the whole harmonised corpus. A researcher treating the database as "the record of EU content moderation" silently misses ~2.7 bn search delistings, and sees illegal-ground moderation as a rounding error (7.6 m) when the reports put it in the billions. The two disclosure systems don't just count differently, they cover different populations of services.</p>
 
-<p><em>(Of the other zero-SoR rows: App Store's absence — 16 m reported measures, no SoR trace despite volumes far above the database's aggregation cut — is the one genuinely unexplained case. XNXX and Zalando may simply fall below the top-60 volume cut, and name-matching between the two datasets is manual, so small-service absences are weak evidence.)</em></p>
+<p><em>(Of the other zero-SoR rows: App Store's absence, 16 m reported measures, no SoR trace despite volumes far above the database's aggregation cut, is the one genuinely unexplained case. XNXX and Zalando may simply fall below the top-60 volume cut, and name-matching between the two datasets is manual, so small-service absences are weak evidence.)</em></p>
 
 <hr>
 
@@ -297,11 +297,11 @@ published: false
 
 <p>Part 1 established that no VLOP files on the narrow reading of "own initiative." Part 2 shows that agreement is superficial: <strong>beneath the shared broad reading, the metric is not comparable and not self-consistent.</strong></p>
 
-<ul><li><strong>Across platforms</strong>, "own initiative" is populated on structurally different definitions — a marketplace's ~100% and a community platform's ~2% are not on the same axis.</li><li><strong>Within a platform</strong>, the two mandatory disclosures diverge 3×–35× for a concentrated tail (SHEIN, LinkedIn, Snapchat, Temu) while most of the ecosystem reconciles at ~1×; and the largest own-initiative line in the harmonised corpus (Google Search, 2.7 bn) sits <strong>structurally outside</strong> the SoR database, which does not cover search engines.</li></ul>
+<ul><li><strong>Across platforms</strong>, "own initiative" is populated on structurally different definitions, a marketplace's ~100% and a community platform's ~2% are not on the same axis.</li><li><strong>Within a platform</strong>, the two mandatory disclosures diverge 3×–35× for a concentrated tail (SHEIN, LinkedIn, Snapchat, Temu) while most of the ecosystem reconciles at ~1×; and the largest own-initiative line in the harmonised corpus (Google Search, 2.7 bn) sits <strong>structurally outside</strong> the SoR database, which does not cover search engines.</li></ul>
 
-<p>The practical upshot for anyone using this data: <strong>never aggregate or rank "own-initiative" figures across platforms without first pinning <code>source_type</code> classification, checking whether the service is even in scope of the SoR duty, and reconciling report-vs-database per platform.</strong> The headline number is an interpretive artefact, not a measurement — which is the deeper cost of the under-defined boundary Part 1 identified.</p>
+<p>The practical upshot for anyone using this data: <strong>never aggregate or rank "own-initiative" figures across platforms without first pinning <code>source_type</code> classification, checking whether the service is even in scope of the SoR duty, and reconciling report-vs-database per platform.</strong> The headline number is an interpretive artefact, not a measurement, which is the deeper cost of the under-defined boundary Part 1 identified.</p>
 
-<p><em>Data: <code>dsa_tdb_metrics</code>, <code>t5_own_initiative_illegal</code>, <code>t6_own_initiative_tos</code>, Transparency Report API, H2 2025 (2025-07-01/2025-12-31). SoR source-type/ground cuts are marginal (Commission <code>dsa-tdb</code> re-aggregation); report figures are <code>category_is_total</code>, VLOP tier. Philosophy cutoffs (95/50/30%) are heuristics — Roblox (58% notification) and Kleinanzeigen (56%) are borderline rather than pure cases. All figures come from a single aggregation pipeline; none were spot-checked against platforms' filed spreadsheets.</em></p>
+<p><em>Data: <code>dsa_tdb_metrics</code>, <code>t5_own_initiative_illegal</code>, <code>t6_own_initiative_tos</code>, Transparency Report API, H2 2025 (2025-07-01/2025-12-31). SoR source-type/ground cuts are marginal (Commission <code>dsa-tdb</code> re-aggregation); report figures are <code>category_is_total</code>, VLOP tier. Philosophy cutoffs (95/50/30%) are heuristics, Roblox (58% notification) and Kleinanzeigen (56%) are borderline rather than pure cases. All figures come from a single aggregation pipeline; none were spot-checked against platforms' filed spreadsheets.</em></p>
 
   </div>
 </article>

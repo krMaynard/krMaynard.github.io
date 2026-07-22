@@ -33,33 +33,33 @@ lang_url_it: /it/blog/google-removal-observations.html
       <img src="/images/google-removal-observations-en.png" alt="Article header: Three Things Worth Noticing in the Google Removal Request Data" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
     </figure>
 
-    <p>Having spent a decade as a primary author of the Greater China section of the Google Transparency Report, this is a dataset I know well — both what it shows and where its limits are. The <a href="/transparency.html">dashboard I published yesterday</a> makes the full dataset explorable in ways the static per-period snapshots don't. A few things worth specifically looking at.</p>
+    <p>Having spent a decade as a primary author of the Greater China section of the Google Transparency Report, this is a dataset I know well, both what it shows and where its limits are. The <a href="/transparency.html">dashboard I published yesterday</a> makes the full dataset explorable in ways the static per-period snapshots don't. A few things worth specifically looking at.</p>
 
     <h2>The defamation / government criticism divergence</h2>
 
-    <p>The country distributions for different removal reasons look very different from each other. Filter the dashboard to "defamation" as the stated reason and you get France, Germany, India, and Brazil dominating — large democracies with active court systems that regularly issue content removal orders. Courts in these countries apply national defamation law, which covers a substantially broader range of speech than is typical under US law, and they issue removal orders regularly enough that the cumulative volume over 30 reporting periods is large.</p>
+    <p>The country distributions for different removal reasons look very different from each other. Filter the dashboard to "defamation" as the stated reason and you get France, Germany, India, and Brazil dominating, large democracies with active court systems that regularly issue content removal orders. Courts in these countries apply national defamation law, which covers a substantially broader range of speech than is typical under US law, and they issue removal orders regularly enough that the cumulative volume over 30 reporting periods is large.</p>
 
-    <p>Switch to "government criticism" as the stated reason and the picture is different: a narrower set of countries, with different press freedom characteristics, accounts for a disproportionate share of requests in that category. The contrast isn't subtle — it's visible immediately in the bar charts and persists across most reporting periods.</p>
+    <p>Switch to "government criticism" as the stated reason and the picture is different: a narrower set of countries, with different press freedom characteristics, accounts for a disproportionate share of requests in that category. The contrast isn't subtle, it's visible immediately in the bar charts and persists across most reporting periods.</p>
 
     <p>This matters for how you read any individual country's total request count. A high absolute volume may reflect an active court system issuing defamation removal orders under well-established civil law, which is different in character from a high count driven by government criticism requests. Total volume across all reasons is a blunt instrument; the reason breakdown is where the more interesting signals are.</p>
 
     <h2>Removal rate shifts over time</h2>
 
-    <p>Removal rate — the share of requested content that Google actually removes — varies across countries and over time in ways that aren't visible from static snapshots. The dashboard shows removal rate as a separate time-series chart for whatever filter combination you've selected.</p>
+    <p>Removal rate, the share of requested content that Google actually removes, varies across countries and over time in ways that aren't visible from static snapshots. The dashboard shows removal rate as a separate time-series chart for whatever filter combination you've selected.</p>
 
-    <p>Run it for a specific country and you can watch the compliance posture shift over 30 reporting periods. Some countries show rates that are relatively stable across the full dataset. Others show distinct inflection points — a period where removal rate drops sharply, or rises — that correspond to something happening outside the data: a court ruling about the applicable legal standard, a change in how requests were being categorized, or a change in Google's approach to a particular jurisdiction.</p>
+    <p>Run it for a specific country and you can watch the compliance posture shift over 30 reporting periods. Some countries show rates that are relatively stable across the full dataset. Others show distinct inflection points, a period where removal rate drops sharply, or rises, that correspond to something happening outside the data: a court ruling about the applicable legal standard, a change in how requests were being categorized, or a change in Google's approach to a particular jurisdiction.</p>
 
-    <p>The data doesn't explain the inflection; it identifies where to look. For a country where you have context — where you know what was happening legally or politically in a given period — the time-series view is a way to check whether that context shows up in the compliance data.</p>
+    <p>The data doesn't explain the inflection; it identifies where to look. For a country where you have context, where you know what was happening legally or politically in a given period, the time-series view is a way to check whether that context shows up in the compliance data.</p>
 
     <h2>Requestor type carries operational weight</h2>
 
-    <p>The breakdown between court orders, police requests, and executive or administrative requests matters for understanding what the numbers represent. A court order in most jurisdictions carries stronger legal force than a police request — Google's compliance process treats them differently, and the removal rate differs accordingly. Conflating them in aggregate totals obscures that difference.</p>
+    <p>The breakdown between court orders, police requests, and executive or administrative requests matters for understanding what the numbers represent. A court order in most jurisdictions carries stronger legal force than a police request, Google's compliance process treats them differently, and the removal rate differs accordingly. Conflating them in aggregate totals obscures that difference.</p>
 
     <p>The requestor type mix has changed over time and varies significantly by country. Some countries issue almost exclusively court orders; others rely heavily on police requests or requests from executive agencies. That difference affects how to interpret the removal rate: a high removal rate on court orders in a country with a functioning judiciary is different from a high removal rate on police requests in a country with different rule-of-law characteristics.</p>
 
     <p>Filter the dashboard to a single requestor type and the picture sharpens considerably compared to looking at aggregate totals. The combination of requestor type and stated reason together gets you closer to understanding what the removal request data is actually measuring for a given country.</p>
 
-    <p>The dataset has real limits — it's self-reported, the categorization is Google's, and the "stated reason" reflects how the requestor characterized the request, not necessarily an independent legal assessment. But within those limits, the patterns are consistent enough to be informative. The dashboard is designed to make those patterns explorable without requiring you to manipulate the underlying CSV files.</p>
+    <p>The dataset has real limits, it's self-reported, the categorization is Google's, and the "stated reason" reflects how the requestor characterized the request, not necessarily an independent legal assessment. But within those limits, the patterns are consistent enough to be informative. The dashboard is designed to make those patterns explorable without requiring you to manipulate the underlying CSV files.</p>
 
   </div>
 </article>
