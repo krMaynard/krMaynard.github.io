@@ -5,13 +5,17 @@ on:
     branches: [master]
     paths:
       - blog.html
-      - ja/blog.html
   # Hourly cron drives the staggered zh/ko/en follow-up posts after the
   # initial Japanese post (the script no-ops when nothing is due). English
   # posts last so it's the newest post on the profile page.
   schedule:
     - cron: "0 * * * *"
   workflow_dispatch:
+    inputs:
+      blog_file:
+        description: "Optional one-off source listing (defaults to blog.html)"
+        required: false
+        default: "blog.html"
 
 # Serialize runs so the push-triggered and cron-triggered jobs don't race on
 # the cached tracking state.
@@ -71,8 +75,7 @@ jobs:
           GH_PAT: ${{ secrets.GH_PAT }}
           # Provided automatically by GitHub Actions
           GITHUB_REPOSITORY: ${{ github.repository }}
-          # Japanese-only entries are published from the Japanese listing.
-          LINKEDIN_BLOG_FILE: ja/blog.html
+          LINKEDIN_BLOG_FILE: ${{ inputs.blog_file || 'blog.html' }}
         run: python scripts/post_to_linkedin.py
 
       # Persist the updated state for the next run. The run_id key is unique, so
