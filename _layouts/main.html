@@ -39,6 +39,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ site.baseurl }}/styles.css">
     <link rel="alternate" type="application/rss+xml" title="Kieran Maynard — Blog" href="{{ site.baseurl }}/feed.xml">
+    {% if site.email_verification_origin_trial_token != blank %}
+    <meta http-equiv="origin-trial" content="{{ site.email_verification_origin_trial_token }}">
+    {% endif %}
     <script>
       (function () {
         try {
@@ -250,6 +253,30 @@
       {%- endif -%}
       {% endif %}
     </div>
+
+    {% if site.newsletter_worker_url != blank and page.lang == 'en' %}
+    <aside class="newsletter-signup" aria-labelledby="newsletter-title">
+      <div>
+        <p class="section-label">Newsletter</p>
+        <h2 id="newsletter-title">New writing, occasionally</h2>
+        <p>Get new posts about AI products, transparency, policy, and language by email.</p>
+      </div>
+      <form action="{{ site.newsletter_worker_url }}/subscribe" method="post" data-newsletter-form>
+        <label class="sr-only" for="newsletter-email">Email address</label>
+        <div class="newsletter-fields">
+          <input id="newsletter-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+          <input name="token" type="hidden" autocomplete="email-verification-token" data-evp-token>
+          <input name="nonce" type="hidden" data-evp-nonce>
+          <input name="return_url" type="hidden" value="{{ page.url | absolute_url }}">
+          <button type="submit">Subscribe</button>
+        </div>
+        <p class="newsletter-note">No tracking pixels. Unsubscribe with one click.</p>
+        <p class="newsletter-status" data-newsletter-status aria-live="polite"></p>
+      </form>
+    </aside>
+    <script>window.NEWSLETTER_WORKER_URL = {{ site.newsletter_worker_url | jsonify }};</script>
+    <script src="{{ site.baseurl }}/newsletter.js" defer></script>
+    {% endif %}
 
     <footer>Built with <a href="https://claude.ai/code" style="color: inherit;">Claude Code</a>.</footer>
 
