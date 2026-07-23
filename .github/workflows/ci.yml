@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 22
       - run: node --check vlop-dashboard.js
       - run: npm test
       - run: npm ci
