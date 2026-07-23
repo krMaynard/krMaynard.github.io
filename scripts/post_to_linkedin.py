@@ -70,6 +70,13 @@ LANGUAGE_SEQUENCE = ["ja", "zh", "ko", "es", "en"]
 # punctuation is correct, e.g. English and modern Korean).
 LANGUAGES = {
     "en": {"name": "English", "url_prefix": "", "punctuation": ""},
+    "ja-en": {
+        "name": "Japanese followed by English", "url_prefix": "/ja",
+        "punctuation": (
+            "In the Japanese portion, use full-width Japanese punctuation "
+            "(、。！？「」（）). Use normal English punctuation in the English portion."
+        ),
+    },
     "ja": {
         "name": "Japanese", "url_prefix": "/ja",
         "punctuation": (
@@ -519,6 +526,18 @@ def _build_commentary_prompt(title, content, lang):
             "finding — not a generic scroll-stopping line\n"
             "- Conversational first-person tone\n"
             "- 100–150 words\n"
+        )
+    elif lang == "ja-en":
+        lang_clause = (
+            "Write one bilingual post with the complete Japanese version first, "
+            "then the complete English version. Separate them with a blank line and "
+            "the line \"English below.\" Do not alternate paragraph by paragraph."
+        )
+        tone_guidelines = (
+            "- Natural, fluent Japanese followed by natural, fluent English\n"
+            "- Keep both versions concise and equivalent in meaning\n"
+            "- Open each version on the concrete personal connection to Fukuoka\n"
+            "- Roughly 100–150 words total across both languages\n"
         )
     else:
         lang_clause = (
@@ -1011,7 +1030,7 @@ def main():
         )
 
     # --- Deterministic backstop: fix half-width ASCII punctuation in zh/ja ---
-    if commentary and next_lang in ("zh", "ja"):
+    if commentary and next_lang in ("zh", "ja", "ja-en"):
         commentary = _normalize_cjk_punctuation(commentary)
 
     # --- Post to LinkedIn ---
