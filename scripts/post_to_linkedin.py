@@ -934,6 +934,9 @@ def main():
     posts = state["posts"]
 
     seq = entry.get("li_langs", "").split() or LANGUAGE_SEQUENCE
+    configured_langs = os.environ.get("LINKEDIN_LANGUAGES", "").split()
+    if configured_langs:
+        seq = [lang for lang in seq if lang in configured_langs]
     next_lang = next((lang for lang in seq if lang not in posts), None)
     if next_lang is None:
         print(f"All languages already posted for {entry['id']}. Nothing to do.")
