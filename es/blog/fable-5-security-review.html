@@ -1,7 +1,7 @@
 ---
 layout: main
 title: "Cómo corregí cinco vulnerabilidades de API con un solo prompt y Claude Fable 5"
-description: "Le pedí a Claude Code, con el nuevo modelo Fable 5 de Anthropic, que hiciera una revisión de seguridad de mi API de investigación. Encontró y corrigió cinco problemas reales —SSRF, inyección de CSV, un canal lateral de temporización— y luego verificó los hechos del bot que revisó su PR."
+description: "Le pedí a Claude Code, con el nuevo modelo Fable 5 de Anthropic, que hiciera una revisión de seguridad de mi API de investigación. Encontró y corrigió cinco problemas reales, SSRF, inyección de CSV, un canal lateral de temporización, y luego verificó los hechos del bot que revisó su PR."
 date: 2026-06-11
 og_image: /images/fable-5-security-review-es.png
 lang: es
@@ -34,7 +34,7 @@ lang_url_it: /it/blog/fable-5-security-review.html
 
     <p>Detrás del <a href="/es/vlop.html">panel de transparencia de VLOP</a> hay un pequeño servicio en FastAPI: una API de consultas estructuradas inspirada en la TikTok Research API, que sirve datos agregados de transparencia de la DSA de la UE. Varios de sus endpoints son públicos a propósito: un constructor de consultas interactivo, una casilla de «pregunta» en lenguaje natural, un feed de resumen. Los endpoints públicos de un servicio a escala de hobby son justo donde la deuda de seguridad se acumula en silencio, porque nada te obliga a mirar.</p>
 
-    <p>Así que le pedí a Claude Code —con <a href="https://www.anthropic.com/news/claude-fable-5-mythos-5">Fable 5</a>, el primer modelo de la familia Claude 5 de Anthropic— que mirara. El prompt fue una sola línea: <em>«haz una revisión de seguridad de la API y corrige cualquier vulnerabilidad».</em> Lo que devolvió fue un pull request con cinco correcciones distintas, cada una con pruebas de regresión, más una autorrevisión de su propio diff.</p>
+    <p>Así que le pedí a Claude Code, con <a href="https://www.anthropic.com/news/claude-fable-5-mythos-5">Fable 5</a>, el primer modelo de la familia Claude 5 de Anthropic, que mirara. El prompt fue una sola línea: <em>«haz una revisión de seguridad de la API y corrige cualquier vulnerabilidad».</em> Lo que devolvió fue un pull request con cinco correcciones distintas, cada una con pruebas de regresión, más una autorrevisión de su propio diff.</p>
 
     <h2>Lo que encontró</h2>
 

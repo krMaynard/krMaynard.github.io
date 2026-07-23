@@ -1,6 +1,6 @@
 ---
 layout: main
-title: "Le relecteur GitHub de Gemini Code Assist s'éteint aujourd'hui — où aller ensuite"
+title: "Le relecteur GitHub de Gemini Code Assist s'éteint aujourd'hui, où aller ensuite"
 description: "Google désactive l'application grand public Gemini Code Assist pour la revue de code sur GitHub le 17 juillet 2026, dernière étape de l'arrêt progressif de l'offre gratuite/individuelle. Ce qui prend fin exactement, ce que Google veut que vous utilisiez à la place, et la file de revue Codex que j'utilise à sa place."
 date: 2026-07-17
 og_image: /images/gemini-code-assist-deprecation-fr.png
@@ -18,7 +18,7 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
   <a href="/fr/blog.html" class="post-back">← Blog</a>
   <header class="post-header">
     <p class="section-label">Écrits</p>
-    <h1>Le relecteur GitHub de Gemini Code Assist s'éteint aujourd'hui — où aller ensuite</h1>
+    <h1>Le relecteur GitHub de Gemini Code Assist s'éteint aujourd'hui, où aller ensuite</h1>
     <time class="news-date" datetime="2026-07-17">17 juillet 2026</time>
     <div class="tags">
       <span class="tag">Gemini Code Assist</span>
@@ -30,25 +30,25 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
   <div class="post-body">
 
     <figure class="post-figure" style="margin:0 0 2rem;">
-      <img src="/images/gemini-code-assist-deprecation-fr.png" alt="En-tête de l'article : le relecteur GitHub de Gemini Code Assist s'éteint aujourd'hui — où aller ensuite" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+      <img src="/images/gemini-code-assist-deprecation-fr.png" alt="En-tête de l'article : le relecteur GitHub de Gemini Code Assist s'éteint aujourd'hui, où aller ensuite" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
     </figure>
 
-    <p>Si vous laissiez Gemini relire vos pull requests, c'est aujourd'hui que le bot se tait. Depuis le <strong>17 juillet 2026</strong>, Google a <a href="https://developers.google.com/gemini-code-assist/docs/deprecations">désactivé la version grand public de Gemini Code Assist sur GitHub</a> — l'application qui publiait des revues de code et des résumés automatisés sur vos PR. C'est la dernière étape d'un arrêt échelonné des offres gratuite et individuelle, en cours de déploiement depuis le printemps.</p>
+    <p>Si vous laissiez Gemini relire vos pull requests, c'est aujourd'hui que le bot se tait. Depuis le <strong>17 juillet 2026</strong>, Google a <a href="https://developers.google.com/gemini-code-assist/docs/deprecations">désactivé la version grand public de Gemini Code Assist sur GitHub</a>, l'application qui publiait des revues de code et des résumés automatisés sur vos PR. C'est la dernière étape d'un arrêt échelonné des offres gratuite et individuelle, en cours de déploiement depuis le printemps.</p>
 
     <p>Voici la séquence complète, car les différents éléments se sont éteints à des dates distinctes&nbsp;:</p>
 
     <ul>
-      <li><strong>18 juin 2026</strong> — les extensions IDE de Gemini Code Assist et la Gemini CLI <a href="https://9to5google.com/2026/06/17/gemini-cli-code-assist-shutting-down/">ont cessé de traiter les requêtes</a> pour Gemini Code Assist pour les particuliers ainsi que pour les forfaits Google AI Pro et Ultra.</li>
-      <li><strong>17 juillet 2026 (aujourd'hui)</strong> — l'application GitHub grand public Gemini Code Assist met fin à son activité de revue de code.</li>
+      <li><strong>18 juin 2026</strong>, les extensions IDE de Gemini Code Assist et la Gemini CLI <a href="https://9to5google.com/2026/06/17/gemini-cli-code-assist-shutting-down/">ont cessé de traiter les requêtes</a> pour Gemini Code Assist pour les particuliers ainsi que pour les forfaits Google AI Pro et Ultra.</li>
+      <li><strong>17 juillet 2026 (aujourd'hui)</strong>, l'application GitHub grand public Gemini Code Assist met fin à son activité de revue de code.</li>
     </ul>
 
-    <p>Une précaution importante avant que quiconque ne panique&nbsp;: il s'agit ici du volet <em>grand public</em>. Si votre organisation paie une licence Gemini Code Assist Standard ou Enterprise, Google indique que celles-ci sont <strong>non concernées</strong> — votre assistance dans l'IDE, la CLI et les revues GitHub continuent de fonctionner. Ce qui prend fin, c'est la porte d'entrée gratuite/individuelle que beaucoup de développeurs indépendants et de petites équipes avaient branchée sur leurs dépôts.</p>
+    <p>Une précaution importante avant que quiconque ne panique&nbsp;: il s'agit ici du volet <em>grand public</em>. Si votre organisation paie une licence Gemini Code Assist Standard ou Enterprise, Google indique que celles-ci sont <strong>non concernées</strong>, votre assistance dans l'IDE, la CLI et les revues GitHub continuent de fonctionner. Ce qui prend fin, c'est la porte d'entrée gratuite/individuelle que beaucoup de développeurs indépendants et de petites équipes avaient branchée sur leurs dépôts.</p>
 
     <h2>Ce que Google veut que vous fassiez</h2>
 
-    <p>Le chemin de migration proposé par Google est <a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">Antigravity</a>, la plateforme «&nbsp;agent-first&nbsp;» dévoilée à I/O en mai, accompagnée de son pendant en terminal, <strong>Antigravity CLI</strong> — une réécriture en Go qui partage le même harnais d'agent que l'application de bureau Antigravity 2.0. Elle est disponible depuis le 19 mai sur <a href="https://antigravity.google/download">antigravity.google/download</a>, et vos Agent Skills, Hooks, Subagents et Extensions (désormais «&nbsp;plugins&nbsp;») sont repris. Google le dit franchement&nbsp;: il n'y a <a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">pas de parité fonctionnelle complète au lancement</a>.</p>
+    <p>Le chemin de migration proposé par Google est <a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">Antigravity</a>, la plateforme «&nbsp;agent-first&nbsp;» dévoilée à I/O en mai, accompagnée de son pendant en terminal, <strong>Antigravity CLI</strong>, une réécriture en Go qui partage le même harnais d'agent que l'application de bureau Antigravity 2.0. Elle est disponible depuis le 19 mai sur <a href="https://antigravity.google/download">antigravity.google/download</a>, et vos Agent Skills, Hooks, Subagents et Extensions (désormais «&nbsp;plugins&nbsp;») sont repris. Google le dit franchement&nbsp;: il n'y a <a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">pas de parité fonctionnelle complète au lancement</a>.</p>
 
-    <p>Mais notez l'écart. Antigravity CLI est un <em>agent que vous pilotez</em> — un assistant de codage interactif dans votre terminal et votre éditeur. Ce qui s'est réellement éteint aujourd'hui, c'était un <em>relecteur automatisé qui surveillait vos PR GitHub et les commentait sans qu'on le lui demande</em>. Ce ne sont pas les mêmes tâches, et Google ne livre pas de remplaçant équivalent pour le bot GitHub grand public. Donc si ce qui va vous manquer, ce sont les revues de PR, la réponse honnête est&nbsp;: il vous faut probablement un outil de revue de code dédié, et pas seulement Antigravity.</p>
+    <p>Mais notez l'écart. Antigravity CLI est un <em>agent que vous pilotez</em>, un assistant de codage interactif dans votre terminal et votre éditeur. Ce qui s'est réellement éteint aujourd'hui, c'était un <em>relecteur automatisé qui surveillait vos PR GitHub et les commentait sans qu'on le lui demande</em>. Ce ne sont pas les mêmes tâches, et Google ne livre pas de remplaçant équivalent pour le bot GitHub grand public. Donc si ce qui va vous manquer, ce sont les revues de PR, la réponse honnête est&nbsp;: il vous faut probablement un outil de revue de code dédié, et pas seulement Antigravity.</p>
 
     <h2>Ce que j'ai mis en place à la place</h2>
 
@@ -58,13 +58,13 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
 
     <h3>Quelle était réellement la qualité de Gemini&nbsp;?</h3>
 
-    <p>Avant de remplacer l'application, j'ai audité 10 pull requests. Pendant que je terminais cet article à la date d'arrêt prévue, Gemini a aussi examiné cette PR et ajouté 14 remarques valides de localisation et de SEO. Sur les 11 revues, Gemini a publié <strong>54 remarques en ligne</strong>&nbsp;: 5 de priorité haute, 1 sécurité-moyenne et 48 moyennes. J'en ai jugé 53 exploitables et une comme faux positif, soit un <strong>taux d'utilité de 98,1&nbsp;%</strong> par commentaire. Après regroupement des répétitions — tel un champ de métadonnées absent dans six traductions — elles représentent environ <strong>31 types de problèmes distincts</strong>. Cette dernière revue montre que la coupure n'a pas été instantanée, même si la date d'arrêt grand public publiée par Google restait le 17 juillet.</p>
+    <p>Avant de remplacer l'application, j'ai audité 10 pull requests. Pendant que je terminais cet article à la date d'arrêt prévue, Gemini a aussi examiné cette PR et ajouté 14 remarques valides de localisation et de SEO. Sur les 11 revues, Gemini a publié <strong>54 remarques en ligne</strong>&nbsp;: 5 de priorité haute, 1 sécurité-moyenne et 48 moyennes. J'en ai jugé 53 exploitables et une comme faux positif, soit un <strong>taux d'utilité de 98,1&nbsp;%</strong> par commentaire. Après regroupement des répétitions, tel un champ de métadonnées absent dans six traductions, elles représentent environ <strong>31 types de problèmes distincts</strong>. Cette dernière revue montre que la coupure n'a pas été instantanée, même si la date d'arrêt grand public publiée par Google restait le 17 juillet.</p>
 
     <p>Les constats utiles étaient concrets&nbsp;: gestion d'erreurs absente, modification dangereuse du magasin de certificats, hypothèses erronées sur Unicode et la locale, configuration systemd non portable, HTML mal formé, nettoyage défaillant lors d'exceptions et prérequis d'outils manquants. Gemini était particulièrement bon sur les défauts locaux assortis d'une correction claire. Il l'était moins pour regrouper les doublons et raisonner sur l'ensemble du workflow&nbsp;: plusieurs commentaires répétaient la même cause dans différents fichiers ou langues, il a une fois confondu du JSON de notebook avec un tuple Python, et il n'a pas repéré une condition de concurrence d'idempotence trouvée lors d'une seconde revue. Mon bilan est favorable mais nuancé&nbsp;: le bot a apporté beaucoup de valeur réelle, mais ses remarques devaient toujours être vérifiées par une personne capable de regarder au-delà d'une ligne isolée.</p>
 
     <h2>Ce qu'il faut en retenir</h2>
 
-    <p>Google n'a pas tué le développement assisté par IA&nbsp;; il l'a consolidé. Les outils grand public Gemini Code Assist sont intégrés à Antigravity, et les licences entreprise poursuivent leur cours sans changement. Mais la commodité précise sur laquelle beaucoup d'entre nous s'appuyaient — un relecteur gratuit qui commentait discrètement chaque PR — a disparu depuis aujourd'hui, et Antigravity n'en est pas un remplacement direct. Migrer vers Antigravity vous garde dans l'univers de Google&nbsp;; j'ai pris l'autre chemin et confié la revue des PR à Codex, de sorte que chaque révision reste vérifiée. Quoi qu'il en soit, aujourd'hui est un bon jour pour brancher le remplaçant avant que la prochaine pull request ne passe sans relecture.</p>
+    <p>Google n'a pas tué le développement assisté par IA&nbsp;; il l'a consolidé. Les outils grand public Gemini Code Assist sont intégrés à Antigravity, et les licences entreprise poursuivent leur cours sans changement. Mais la commodité précise sur laquelle beaucoup d'entre nous s'appuyaient, un relecteur gratuit qui commentait discrètement chaque PR, a disparu depuis aujourd'hui, et Antigravity n'en est pas un remplacement direct. Migrer vers Antigravity vous garde dans l'univers de Google&nbsp;; j'ai pris l'autre chemin et confié la revue des PR à Codex, de sorte que chaque révision reste vérifiée. Quoi qu'il en soit, aujourd'hui est un bon jour pour brancher le remplaçant avant que la prochaine pull request ne passe sans relecture.</p>
 
     <p><em>Sources&nbsp;: la page <a href="https://developers.google.com/gemini-code-assist/docs/deprecations">des dépréciations de Gemini Code Assist</a> de Google (dates d'arrêt et exception entreprise) et son billet sur la <a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">transition de Gemini CLI vers Antigravity CLI</a>&nbsp;; reportage de <a href="https://9to5google.com/2026/06/17/gemini-cli-code-assist-shutting-down/">9to5Google</a>. Mon remplaçant repose sur l'<a href="https://developers.openai.com/codex/integrations/github">intégration GitHub de Codex d'OpenAI</a>&nbsp;; le <a href="https://github.com/krMaynard/krMaynard.github.io/blob/master/.github/workflows/codex-review-queue.yml">workflow qui le pilote</a> est public dans ce dépôt.</em></p>
 
