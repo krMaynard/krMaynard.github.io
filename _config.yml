@@ -13,6 +13,11 @@ plugins:
 # Example: chatbot_worker_url: https://kieranmaynard-chatbot-HASH-REGION.a.run.app/chat
 chatbot_worker_url:
 
+# Newsletter signup. Set these after deploying newsletter-worker and
+# registering kieranmaynard.com for Chrome's EVP origin trial.
+newsletter_worker_url:
+email_verification_origin_trial_token:
+
 exclude:
   - CLAUDE.md
   - README.md

@@ -12,9 +12,15 @@ jobs:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 22
       - run: node --check vlop-dashboard.js
       - run: npm test
+      - run: npm ci
+        working-directory: newsletter-worker
+      - run: npm run check
+        working-directory: newsletter-worker
+      - run: npm test
+        working-directory: newsletter-worker
 
   # Build with the same toolchain GitHub Pages uses (Jekyll 3.10 via the
   # github-pages gem). CI previously only lint/tested JS, so a Liquid error
