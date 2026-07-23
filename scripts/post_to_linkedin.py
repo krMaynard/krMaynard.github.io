@@ -953,15 +953,18 @@ def main():
     gh_pat = os.environ.get("GH_PAT")
     gh_repo = os.environ.get("GITHUB_REPOSITORY")
 
-    if refresh_token and client_id and client_secret and gh_pat and gh_repo:
+    if refresh_token and client_id and client_secret:
         print("Refreshing LinkedIn access token…")
         tokens = refresh_access_token(refresh_token, client_id, client_secret)
         if tokens and tokens.get("access_token"):
             access_token = tokens["access_token"]
-            update_github_secret(gh_repo, "LINKEDIN_ACCESS_TOKEN", access_token, gh_pat)
-            new_refresh = tokens.get("refresh_token")
-            if new_refresh:
-                update_github_secret(gh_repo, "LINKEDIN_REFRESH_TOKEN", new_refresh, gh_pat)
+            if gh_pat and gh_repo:
+                update_github_secret(gh_repo, "LINKEDIN_ACCESS_TOKEN", access_token, gh_pat)
+                new_refresh = tokens.get("refresh_token")
+                if new_refresh:
+                    update_github_secret(gh_repo, "LINKEDIN_REFRESH_TOKEN", new_refresh, gh_pat)
+            else:
+                print("Using refreshed token for this run (persistent secret rotation disabled).")
         else:
             print("Warning: token refresh failed — falling back to existing token.", file=sys.stderr)
     else:
@@ -970,8 +973,6 @@ def main():
                 "LINKEDIN_REFRESH_TOKEN": refresh_token,
                 "LINKEDIN_CLIENT_ID": client_id,
                 "LINKEDIN_CLIENT_SECRET": client_secret,
-                "GH_PAT": gh_pat,
-                "GITHUB_REPOSITORY": gh_repo,
             }.items() if not v
         ]
         print(f"Token auto-refresh disabled (missing: {', '.join(missing)}).")
