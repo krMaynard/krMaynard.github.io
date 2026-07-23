@@ -48,7 +48,7 @@ from datetime import datetime, timezone
 from html.parser import HTMLParser
 
 TRACKING_FILE = ".github/last_linkedin_post"
-BLOG_FILE = "blog.html"
+BLOG_FILE = os.environ.get("LINKEDIN_BLOG_FILE", "blog.html")
 SITE_BASE_URL = "https://krmaynard.github.io"
 DEFAULT_LLM_PROVIDER = "gemini"
 GEMINI_PRIMARY_MODEL = "gemini-3.1-pro-preview"
@@ -700,6 +700,8 @@ def _localized_url(url, lang):
     if not prefix or not url.startswith(SITE_BASE_URL + "/"):
         return url
     path = url[len(SITE_BASE_URL):]  # leading slash retained
+    if path == prefix or path.startswith(prefix + "/"):
+        return url
     rel = (prefix + path).lstrip("/")
     if rel.endswith(".html") and not os.path.exists(rel):
         return url
