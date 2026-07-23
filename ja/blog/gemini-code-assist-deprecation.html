@@ -1,6 +1,6 @@
 ---
 layout: main
-title: "Gemini Code AssistのGitHubレビュアーが本日停止——次にどこへ行くべきか"
+title: "Gemini Code AssistのGitHubレビュアーが本日停止、次にどこへ行くべきか"
 description: "Googleは2026年7月17日、GitHubコードレビュー向けのコンシューマー版Gemini Code Assistアプリを停止する。無料/個人向けティアを段階的に終了させる最後のステップだ。実際に何が終わるのか、Googleが代わりに使ってほしいものは何か、そしてその代わりに私が運用しているCodexレビューキュー。"
 date: 2026-07-17
 og_image: /images/gemini-code-assist-deprecation-ja.png
@@ -18,7 +18,7 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
   <a href="/ja/blog.html" class="post-back">← ブログ</a>
   <header class="post-header">
     <p class="section-label">執筆</p>
-    <h1>Gemini Code AssistのGitHubレビュアーが本日停止——次にどこへ行くべきか</h1>
+    <h1>Gemini Code AssistのGitHubレビュアーが本日停止、次にどこへ行くべきか</h1>
     <time class="news-date" datetime="2026-07-17">2026年7月17日</time>
     <div class="tags">
       <span class="tag">Gemini Code Assist</span>
@@ -30,25 +30,25 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
   <div class="post-body">
 
     <figure class="post-figure" style="margin:0 0 2rem;">
-      <img src="/images/gemini-code-assist-deprecation-ja.png" alt="記事ヘッダー画像：Gemini Code AssistのGitHubレビュアーが本日停止——次にどこへ行くべきか" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+      <img src="/images/gemini-code-assist-deprecation-ja.png" alt="記事ヘッダー画像：Gemini Code AssistのGitHubレビュアーが本日停止、次にどこへ行くべきか" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
     </figure>
 
-    <p>Geminiにプルリクエストをレビューさせていたなら、そのボットが沈黙するのは本日だ。<strong>2026年7月17日</strong>をもって、Googleは<a href="https://developers.google.com/gemini-code-assist/docs/deprecations">GitHub上のコンシューマー版Gemini Code Assistを停止した</a>——あなたのPRに自動化されたコードレビューと要約を投稿していたアプリだ。これは、この春から段階的に展開されてきた無料および個人向けティアの終了プロセスの、最後のステップにあたる。</p>
+    <p>Geminiにプルリクエストをレビューさせていたなら、そのボットが沈黙するのは本日だ。<strong>2026年7月17日</strong>をもって、Googleは<a href="https://developers.google.com/gemini-code-assist/docs/deprecations">GitHub上のコンシューマー版Gemini Code Assistを停止した</a>、あなたのPRに自動化されたコードレビューと要約を投稿していたアプリだ。これは、この春から段階的に展開されてきた無料および個人向けティアの終了プロセスの、最後のステップにあたる。</p>
 
     <p>各機能が別々の日付で停止したため、全体の流れを示しておこう。</p>
 
     <ul>
-      <li><strong>2026年6月18日</strong>——Gemini Code AssistのIDE拡張機能とGemini CLIが、個人向けおよびGoogle AI Pro・Ultraプラン向けのGemini Code Assistについて<a href="https://9to5google.com/2026/06/17/gemini-cli-code-assist-shutting-down/">リクエストの処理を停止した</a>。</li>
-      <li><strong>2026年7月17日（本日）</strong>——コンシューマー版Gemini Code AssistのGitHubアプリがコードレビュー活動を終了する。</li>
+      <li><strong>2026年6月18日</strong>、Gemini Code AssistのIDE拡張機能とGemini CLIが、個人向けおよびGoogle AI Pro・Ultraプラン向けのGemini Code Assistについて<a href="https://9to5google.com/2026/06/17/gemini-cli-code-assist-shutting-down/">リクエストの処理を停止した</a>。</li>
+      <li><strong>2026年7月17日（本日）</strong>、コンシューマー版Gemini Code AssistのGitHubアプリがコードレビュー活動を終了する。</li>
     </ul>
 
-    <p>誰かがパニックになる前に、一つ重要な但し書きを。これはあくまで<em>コンシューマー</em>向けの話だ。もしあなたの組織がGemini Code AssistのStandardまたはEnterpriseライセンスを購入しているなら、Googleはそれらは<strong>影響を受けない</strong>としている——IDE支援、CLI、GitHubレビューはそのまま動き続ける。終わるのは、多くの個人開発者や小規模チームが自分たちのリポジトリに組み込んでいた、無料/個人向けの入り口だ。</p>
+    <p>誰かがパニックになる前に、一つ重要な但し書きを。これはあくまで<em>コンシューマー</em>向けの話だ。もしあなたの組織がGemini Code AssistのStandardまたはEnterpriseライセンスを購入しているなら、Googleはそれらは<strong>影響を受けない</strong>としている、IDE支援、CLI、GitHubレビューはそのまま動き続ける。終わるのは、多くの個人開発者や小規模チームが自分たちのリポジトリに組み込んでいた、無料/個人向けの入り口だ。</p>
 
     <h2>Googleが望んでいること</h2>
 
-    <p>Google自身が示す移行先は<a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">Antigravity</a>——5月のI/Oで発表された「エージェントファースト」のプラットフォーム——と、そのターミナル用の相棒である<strong>Antigravity CLI</strong>だ。後者はGoで書き直されたもので、デスクトップアプリのAntigravity 2.0と同じエージェントハーネスを共有する。5月19日から<a href="https://antigravity.google/download">antigravity.google/download</a>で利用可能になっており、あなたのAgent Skills、Hooks、Subagents、そしてExtensions（現在は「plugins」）はそのまま引き継がれる。Googleは、<a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">ローンチ時点では完全な機能パリティはない</a>ことを率直に認めている。</p>
+    <p>Google自身が示す移行先は<a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">Antigravity</a>（5月のI/Oで発表された「エージェントファースト」のプラットフォーム）と、そのターミナル用の相棒である<strong>Antigravity CLI</strong>だ。後者はGoで書き直されたもので、デスクトップアプリのAntigravity 2.0と同じエージェントハーネスを共有する。5月19日から<a href="https://antigravity.google/download">antigravity.google/download</a>で利用可能になっており、あなたのAgent Skills、Hooks、Subagents、そしてExtensions（現在は「plugins」）はそのまま引き継がれる。Googleは、<a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">ローンチ時点では完全な機能パリティはない</a>ことを率直に認めている。</p>
 
-    <p>だが、ここにギャップがあることに注目してほしい。Antigravity CLIは<em>あなたが操作するエージェント</em>だ——ターミナルとエディタの中にある対話的なコーディングアシスタントである。本日実際に切れたものは、<em>あなたのGitHub PRを監視し、頼まれもしないのにコメントを付けていた自動レビュアー</em>だった。この二つは同じ仕事ではないし、Googleはコンシューマー版のGitHubボットに対する同等の置き換えを出すつもりはない。だから、あなたが恋しく思うのがPRレビューだとすれば、正直な答えはこうだ——おそらくAntigravityだけでなく、専用のコードレビューツールが必要になる。</p>
+    <p>だが、ここにギャップがあることに注目してほしい。Antigravity CLIは<em>あなたが操作するエージェント</em>だ、ターミナルとエディタの中にある対話的なコーディングアシスタントである。本日実際に切れたものは、<em>あなたのGitHub PRを監視し、頼まれもしないのにコメントを付けていた自動レビュアー</em>だった。この二つは同じ仕事ではないし、Googleはコンシューマー版のGitHubボットに対する同等の置き換えを出すつもりはない。だから、あなたが恋しく思うのがPRレビューだとすれば、正直な答えはこうだ、おそらくAntigravityだけでなく、専用のコードレビューツールが必要になる。</p>
 
     <h2>私が代わりに構築したもの</h2>
 
@@ -64,7 +64,7 @@ lang_url_it: /it/blog/gemini-code-assist-deprecation.html
 
     <h2>まとめ</h2>
 
-    <p>GoogleはAI支援の開発を殺したわけではない。統合したのだ。コンシューマー版のGemini Code AssistツールはAntigravityに畳み込まれつつあり、エンタープライズライセンスは変わらず続く。しかし、私たちの多くが頼っていた特定の便利さ——あらゆるPRに静かにコメントしてくれる無料のレビュアー——は本日をもって消え、Antigravityはそれの素直な置き換えではない。Antigravityへの移行はあなたをGoogleの世界にとどめてくれる。私は逆の道を選び、PRレビューをCodexに任せた。だから、どのリビジョンも変わらず必ずチェックされる。いずれにせよ、次のプルリクエストがレビューされないまま流れていく前に、代替を組み込んでおくには本日がうってつけの日だ。</p>
+    <p>GoogleはAI支援の開発を殺したわけではない。統合したのだ。コンシューマー版のGemini Code AssistツールはAntigravityに畳み込まれつつあり、エンタープライズライセンスは変わらず続く。しかし、私たちの多くが頼っていた特定の便利さ（あらゆるPRに静かにコメントしてくれる無料のレビュアー）は本日をもって消え、Antigravityはそれの素直な置き換えではない。Antigravityへの移行はあなたをGoogleの世界にとどめてくれる。私は逆の道を選び、PRレビューをCodexに任せた。だから、どのリビジョンも変わらず必ずチェックされる。いずれにせよ、次のプルリクエストがレビューされないまま流れていく前に、代替を組み込んでおくには本日がうってつけの日だ。</p>
 
     <p><em>出典：Googleの<a href="https://developers.google.com/gemini-code-assist/docs/deprecations">Gemini Code Assist廃止</a>ページ（停止日とエンタープライズの除外規定）、および<a href="https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/">Gemini CLI → Antigravity CLI移行</a>の投稿。報道は<a href="https://9to5google.com/2026/06/17/gemini-cli-code-assist-shutting-down/">9to5Google</a>より。私の代替手段は<a href="https://developers.openai.com/codex/integrations/github">OpenAIのCodex GitHub連携</a>上で動いており、それを駆動するワークフローは<a href="https://github.com/krMaynard/krMaynard.github.io/blob/master/.github/workflows/codex-review-queue.yml">このリポジトリで公開している</a>。</em></p>
 
