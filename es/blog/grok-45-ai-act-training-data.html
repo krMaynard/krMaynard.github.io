@@ -1,0 +1,77 @@
+---
+layout: main
+title: "Qué aporta la nueva divulgación europea de Grok 4.5 al registro de datos de entrenamiento"
+description: "El primer resumen de xAI conforme al Reglamento de IA de la UE permite comparar Grok 4.5 con otras declaraciones — y muestra qué revelan las categorías estandarizadas y dónde se quedan cortas."
+date: 2026-07-23
+og_image: /images/grok-45-ai-act-training-data.png
+lang: es
+lang_url: /blog/grok-45-ai-act-training-data.html
+lang_url_fr: /fr/blog/grok-45-ai-act-training-data.html
+---
+
+<article class="post">
+  <a href="/es/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Escritos</p>
+    <h1>Qué aporta la nueva divulgación europea de Grok 4.5 al registro de datos de entrenamiento</h1>
+    <time class="news-date" datetime="2026-07-23">23 de julio de 2026</time>
+    <div class="tags"><span class="tag">Reglamento de IA de la UE</span><span class="tag">IA/LLM</span><span class="tag">Transparencia</span><span class="tag">Datos</span></div>
+  </header>
+  <div class="post-body">
+    <figure class="post-figure" style="margin:0 0 2rem;"><img src="/images/grok-45-ai-act-training-data.png" alt="Comparación abstracta de divulgaciones de datos de entrenamiento de IA en tres grandes categorías" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" /></figure>
+
+    <p>xAI ha publicado su primer resumen europeo del contenido de entrenamiento, correspondiente a Grok 4.5. Sitúa al modelo en las categorías de mayor tamaño para texto, imágenes, audio y vídeo, y declara haber utilizado las seis categorías de fuentes incluidas en la plantilla de la Comisión Europea.</p>
+    <p>Esto permite comparar por primera vez Grok 4.5 con los resúmenes ya recogidos en mi <a href="https://transparency.kieranmaynard.com/ai-training">conjunto de datos sobre transparencia del entrenamiento de IA</a>. También sirve para poner a prueba la propia plantilla: las preguntas sobre las fuentes revelan diferencias importantes entre proveedores, mientras que las franjas de tamaño suelen agrupar modelos muy distintos.</p>
+    <p><strong>En resumen:</strong> el artículo 53(1)(d) del Reglamento de IA de la UE exige que los proveedores de modelos de IA de uso general publiquen un resumen del contenido usado para entrenarlos mediante la plantilla estandarizada de la Oficina de IA. En la instantánea de 11 entradas utilizada aquí, seis modelos declaran más de 10 billones de tokens de texto y cinco entre 1.000 millones y 10 billones. Ninguno utiliza la franja menor. Como la franja superior no tiene límite máximo, Grok 4.5, GPT-5.5, Gemini 3 Pro y un modelo abierto de 3.000 millones de parámetros reciben la misma clasificación. La declaración indica qué tipos de fuentes dice haber utilizado xAI, pero no permite comparar la escala del corpus de Grok con la de otros modelos de esa franja.</p>
+
+    <h2>Las franjas amplias limitan la comparación</h2>
+    <p>La pregunta sobre el tamaño probablemente interese a titulares de derechos, investigadores y reguladores, pero ofrece poca diferenciación. Los proveedores eligen una de tres franjas, cada una de gran amplitud.</p>
+    <table><thead><tr><th>Franja de datos textuales de entrenamiento</th><th>Modelos que la declaran</th></tr></thead><tbody>
+      <tr><td>Más de 10 billones de tokens, sin límite máximo</td><td>6</td></tr>
+      <tr><td>De 1.000 millones a 10 billones de tokens</td><td>5</td></tr>
+      <tr><td>Menos de 1.000 millones de tokens</td><td>0</td></tr>
+    </tbody></table>
+    <p>La franja superior incluye la familia Gemini 3 Pro de Google, GPT-5.5 de OpenAI, Grok 4.5 de xAI y Muse Spark de Meta. También incluye Apertus-70B de Swiss AI y SmolLM3-3B de Hugging Face, dos modelos abiertos, uno de ellos con 3.000 millones de parámetros. Sean cuales sean las diferencias entre sus corpus, la respuesta declarada es la misma.</p>
+    <p>La franja intermedia también es amplia: «de 1.000 millones a 10 billones de tokens» abarca cuatro órdenes de magnitud. La familia Phi-4 de Microsoft, Bielik de SpeakLeash y Bria entran en ella. Bria aporta el único dato preciso de esta instantánea: «hasta 19.200 millones de tokens» y «479 millones de imágenes». Ese texto añade una precisión útil más allá de la franja estándar.</p>
+    <p>La misma limitación afecta a las comparaciones por modalidad. Gemini 3 Pro, GPT-5.5, Grok 4.5 y Muse Spark declaran las franjas máximas para texto, imágenes, audio y vídeo. Los resúmenes no permiten ordenar sus conjuntos de datos por escala dentro de cada modalidad.</p>
+
+    <h2>Las categorías de fuentes diferencian más</h2>
+    <p>Las preguntas sobre las fuentes ofrecen una visión más clara de cómo dicen los proveedores que construyeron sus modelos:</p>
+    <table><thead><tr><th>Proveedor y modelo</th><th>Públicos</th><th>Con licencia</th><th>Privados de terceros</th><th>Rastreados</th><th>Datos de usuarios</th><th>Sintéticos</th></tr></thead><tbody>
+      <tr><td>Meta, Muse Spark</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td></tr>
+      <tr><td>OpenAI, GPT-5.5</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td></tr>
+      <tr><td>xAI, Grok 4.5</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td></tr>
+      <tr><td>SpeakLeash, Bielik v3 11B</td><td>Sí</td><td>Sí</td><td>No</td><td>Sí</td><td>No</td><td>Sí</td></tr>
+      <tr><td>Hugging Face, SmolLM3-3B</td><td>Sí</td><td>No</td><td>No</td><td>No</td><td>No</td><td>Sí</td></tr>
+      <tr><td>Swiss AI, Apertus-70B</td><td>Sí</td><td>No</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
+      <tr><td>Bria, Bria 3.2</td><td>No</td><td>Sí</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
+    </tbody></table>
+    <p>Meta, OpenAI y xAI responden Sí a todas las categorías: datos públicos, datos con licencia, datos privados de terceros, sus propios rastreadores, datos de usuarios y datos sintéticos. Varios modelos abiertos y con licencia declaran una combinación más limitada. Apertus de Swiss AI utiliza conjuntos de datos públicos y afirma no haber operado su propio rastreador. Bria describe otra estrategia: Bria 3.2 se habría entrenado exclusivamente con imágenes bajo licencia comercial.</p>
+    <p>La comparación tiene límites. El resumen de Google solo responde a tres de las seis preguntas sobre fuentes, por lo que un espacio en blanco significa «no declarado», no «No». Microsoft responde a algunos campos nominalmente binarios con texto en lugar de Sí o No. La plantilla permite comparar, pero los proveedores no siempre la completan de forma comparable.</p>
+    <p>xAI también declara que no ha firmado el Código de Buenas Prácticas para la IA de uso general y que respeta directamente las señales de exclusión. Es el primer proveedor de este conjunto de datos que publica la plantilla sin firmar el Código. Firmar el Código y publicar un resumen son actos distintos y tienen calendarios diferentes; ninguno debe utilizarse como indicador indirecto del otro.</p>
+
+    <h2>Una segunda búsqueda encontró seis resúmenes más</h2>
+    <p>Después de añadir Grok 4.5, realicé otra búsqueda proveedor por proveedor. Identifiqué seis resúmenes públicos creíbles que todavía no aparecen en la instantánea de 11 entradas:</p>
+    <ul>
+      <li><a href="https://www.adobe.com/cc-shared/assets/pdf/trust-center/ungated/whitepapers/creative-cloud/adobe-firefly-image-model-5-training-set.pdf">Adobe Firefly Image Model 5</a></li>
+      <li><a href="https://www.domyn.com/summary-of-training-data/domyn-large">Domyn Large</a></li>
+      <li><a href="https://www.fastweb.it/grandi-aziende/artificial-intelligence/fastweb-miia/documentazione-trasparenza-ai/sintesi%20contenuti%20training.pdf">FastwebMIIA</a></li>
+      <li><a href="https://thinkingmachines.ai/documents/inkling-public-summary-training-content.pdf">Inkling de Thinking Machines</a></li>
+      <li><a href="https://microsoft.ai/pdf/MAI-Image-2-Data-Summary.pdf">Microsoft MAI-Image-2</a></li>
+      <li>Meta Muse Image</li>
+    </ul>
+    <p>Estos documentos se están validando y normalizando antes de incorporarlos al conjunto comparable, por lo que no he mezclado sus valores con los recuentos anteriores. La distinción importa: descubrir un documento no equivale a incorporarlo, sobre todo cuando varían las casillas, las definiciones de modalidad y los formatos de publicación.</p>
+    <p>No encontré un resumen estandarizado del artículo 53 para Kimi K2.5 de Moonshot AI en su sitio oficial, la documentación de su API ni la página oficial del modelo. Su informe técnico describe aproximadamente 15 billones de tokens combinados de texto e imagen, pero no es la divulgación estandarizada de la UE. Kimi K2.5 se publicó después de que entrara en vigor la obligación; su aplicación también depende de si Moonshot introdujo el modelo en el mercado de la UE. Por tanto, la ausencia por sí sola no debe calificarse como incumplimiento.</p>
+
+    <h2>Reacciones hasta ahora</h2>
+    <p>No encontré ninguna reacción pública de la Comisión Europea, la Oficina de IA o un experto independiente identificado específicamente sobre la declaración de Grok 4.5. Esto no debe interpretarse ni como aprobación ni como crítica.</p>
+    <p>El debate más amplio sobre la plantilla aporta contexto. La Comisión la denomina <a href="https://digital-strategy.ec.europa.eu/en/faqs/template-general-purpose-ai-model-providers-summarise-their-training-content">«base mínima común»</a>, diseñada para mejorar la transparencia y proteger los secretos comerciales, no para ofrecer un inventario técnicamente completo. Una coalición de 38 organizaciones de creadores y titulares de derechos ha <a href="https://ifpicr.cz/joint_statement_broad_coalition_measures">expresado su descontento</a> con el paquete de aplicación, argumentando que no aporta suficiente información para que los titulares ejerzan sus derechos. El Parlamento Europeo también ha pedido, en términos más generales, <a href="https://www.europarl.europa.eu/news/en/press-room/20260306IPR37511/proteggere-il-diritto-d-autore-e-il-settore-creativo-dall-ia">más transparencia, remuneración y la posibilidad de impedir que se utilicen contenidos protegidos</a>.</p>
+    <p>Esas posiciones se refieren al marco en conjunto, no a Grok 4.5. La nueva declaración ilustra ambas caras: crea un registro comparable de categorías de fuentes que antes no existía, pero sus franjas amplias no revelan cuántos datos utilizó xAI en relación con otros proveedores ni identifican obras concretas protegidas por derechos de autor.</p>
+    <p><strong>Advertencias.</strong> Todas las cifras son autodeclaradas y no auditadas. La comparación de 11 entradas es una instantánea, no un estudio del mercado, y tres entradas son variantes de Microsoft Phi. La ausencia de una fila sobre fuentes significa que el resumen guarda silencio, no que la respuesta sea No. Las fechas límite de los datos van de marzo de 2024 a junio de 2026. Los modelos introducidos en el mercado de la UE antes del 2 de agosto de 2025 tienen hasta el 2 de agosto de 2027 para publicar, por lo que la falta de un resumen no demuestra necesariamente un incumplimiento.</p>
+    <p><em>Datos: <code>ai_training_metrics</code>, API Transparency Report; instantánea inicial de 11 modelos de nueve proveedores, con declaraciones publicadas entre junio de 2025 y julio de 2026. Búsqueda adicional realizada el 23 de julio de 2026.</em></p>
+  </div>
+</article>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":{{ page.title | jsonify }},"image":"https://krmaynard.github.io/images/grok-45-ai-act-training-data.png","datePublished":"{{ page.date | date: '%Y-%m-%d' }}","author":{"@type":"Person","name":"Kieran Maynard","url":"https://krmaynard.github.io/"},"url":"https://krmaynard.github.io{{ page.url }}"}
+</script>
