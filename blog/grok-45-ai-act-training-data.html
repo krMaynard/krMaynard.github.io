@@ -1,0 +1,132 @@
+---
+layout: main
+title: "What Grok 4.5's New EU Disclosure Adds to the Training-Data Record"
+description: "xAI's first EU AI Act training-content summary makes Grok 4.5 comparable with other filings—and shows where the standardized template informs and where its broad bands fall short."
+date: 2026-07-23
+og_image: /images/grok-45-ai-act-training-data.png
+lang: en
+lang_url_fr: /fr/blog/grok-45-ai-act-training-data.html
+lang_url_es: /es/blog/grok-45-ai-act-training-data.html
+---
+
+<article class="post">
+  <a href="/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>What Grok 4.5's New EU Disclosure Adds to the Training-Data Record</h1>
+    <time class="news-date" datetime="2026-07-23">July 23, 2026</time>
+    <div class="tags">
+      <span class="tag">EU AI Act</span>
+      <span class="tag">AI/LLM</span>
+      <span class="tag">Transparency</span>
+      <span class="tag">Data</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/grok-45-ai-act-training-data.png" alt="Abstract comparison of AI training-data disclosures across three broad reporting bands" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
+
+    <p>xAI has published its first EU training-content summary, covering Grok 4.5. It places the model in the largest available data-size bands for text, images, audio and video, and reports using all six categories of training-data sources in the European Commission's template.</p>
+
+    <p>That makes Grok 4.5 newly comparable with the summaries already collected in my <a href="https://transparency.kieranmaynard.com/ai-training">AI training-data transparency dataset</a>. It also provides a useful test of the template itself: the source questions reveal meaningful differences among providers, while the size bands often group very different models together.</p>
+
+    <p><strong>Bottom line:</strong> Article 53(1)(d) of the EU AI Act requires providers of general-purpose AI models to publish a summary of their training content using the AI Office's standardized template. In the 11-entry dataset snapshot used for the comparisons below, six models report more than 10 trillion text tokens and five report between 1 billion and 10 trillion. None uses the smallest band. Because the top band has no upper bound, Grok 4.5, GPT-5.5, Gemini 3 Pro and a three-billion-parameter open model receive the same size classification. The filing tells us which kinds of sources xAI says it used, but not how Grok's corpus compares in scale with the other models in that band.</p>
+
+    <h2>Broad size bands limit comparison</h2>
+
+    <p>The size question is likely to interest copyright holders, researchers and regulators, but it provides limited differentiation. Providers select one of three bands, each covering a wide range.</p>
+
+    <table>
+      <thead>
+        <tr><th>Text training-data size band</th><th>Models filing it</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>More than 10 trillion tokens, with no upper bound</td><td>6</td></tr>
+        <tr><td>1 billion to 10 trillion tokens</td><td>5</td></tr>
+        <tr><td>Less than 1 billion tokens</td><td>0</td></tr>
+      </tbody>
+    </table>
+
+    <p>The top band contains Google's Gemini 3 Pro family, OpenAI's GPT-5.5, xAI's Grok 4.5 and Meta's Muse Spark. It also contains Swiss AI's Apertus-70B and Hugging Face's SmolLM3-3B, two open models, one with three billion parameters. Whatever separates their training corpora, the filed size answer is the same.</p>
+
+    <p>The middle band is also broad: “1 billion to 10 trillion tokens” spans four orders of magnitude. Microsoft's Phi-4 family, SpeakLeash's Bielik and Bria all fall within it. Bria provides the only precise figure in this snapshot, writing “up to 19.2 billion tokens” and “479 million images” into the size fields. That text adds useful precision beyond the standard band.</p>
+
+    <p>The same limitation applies to modality-specific comparisons. Gemini 3 Pro, GPT-5.5, Grok 4.5 and Muse Spark all report the maximum bands for text, images, audio and video. The summaries do not provide enough detail to rank their modality-specific datasets by scale.</p>
+
+    <h2>Source categories provide more differentiation</h2>
+
+    <p>The data-source questions give a clearer view of how providers say their models were built:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Provider and model</th>
+          <th>Public</th>
+          <th>Licensed</th>
+          <th>Private third-party</th>
+          <th>Crawled</th>
+          <th>User data</th>
+          <th>Synthetic</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Meta, Muse Spark</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>OpenAI, GPT-5.5</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>xAI, Grok 4.5</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>SpeakLeash, Bielik v3 11B</td><td>Yes</td><td>Yes</td><td>No</td><td>Yes</td><td>No</td><td>Yes</td></tr>
+        <tr><td>Hugging Face, SmolLM3-3B</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td><td>Yes</td></tr>
+        <tr><td>Swiss AI, Apertus-70B</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
+        <tr><td>Bria, Bria 3.2</td><td>No</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
+      </tbody>
+    </table>
+
+    <p>Meta, OpenAI and xAI answer Yes to every category: public data, licensed data, private third-party data, their own crawlers, user data and synthetic data. Several open and licensed models report narrower source mixes. Swiss AI's Apertus uses public datasets and says it did not operate its own crawler. Bria reports a different strategy again, saying that Bria 3.2 was trained exclusively on commercially licensed images.</p>
+
+    <p>There are limits to the comparison. Google's summary answers only three of the six source questions, so a blank means “not stated,” not “No.” Microsoft answers some nominally binary fields with prose rather than Yes or No. The template makes comparison possible, but providers do not always complete it in comparable ways.</p>
+
+    <p>xAI also states that it has not signed the GPAI Code of Practice and that it honors opt-out signals directly instead. It is the first provider in this dataset to publish the template without signing the Code. Signing the Code and publishing a training-content summary are separate actions with different timelines; neither should be used as a proxy for the other.</p>
+
+    <h2>A second search found six more summaries</h2>
+
+    <p>After adding Grok 4.5, I ran another provider-by-provider search. It identified six credible public summaries not yet represented in the 11-entry snapshot above:</p>
+
+    <ul>
+      <li><a href="https://www.adobe.com/cc-shared/assets/pdf/trust-center/ungated/whitepapers/creative-cloud/adobe-firefly-image-model-5-training-set.pdf">Adobe Firefly Image Model 5</a></li>
+      <li><a href="https://www.domyn.com/summary-of-training-data/domyn-large">Domyn Large</a></li>
+      <li><a href="https://www.fastweb.it/grandi-aziende/artificial-intelligence/fastweb-miia/documentazione-trasparenza-ai/sintesi%20contenuti%20training.pdf">FastwebMIIA</a></li>
+      <li><a href="https://thinkingmachines.ai/documents/inkling-public-summary-training-content.pdf">Thinking Machines' Inkling</a></li>
+      <li><a href="https://microsoft.ai/pdf/MAI-Image-2-Data-Summary.pdf">Microsoft MAI-Image-2</a></li>
+      <li>Meta Muse Image</li>
+    </ul>
+
+    <p>These documents are being validated and normalized before they enter the comparable dataset, so I have not mixed their values into the counts above. That separation matters: discovery is not the same as ingestion, especially when checkboxes, modality definitions and publication formats vary.</p>
+
+    <p>I could not find a standardized Article 53 summary for Moonshot AI's Kimi K2.5 on its official site, API documentation or official model page. Its technical report describes approximately 15 trillion mixed visual and text tokens, but that is not the standardized EU disclosure. Kimi K2.5 was released after the obligation took effect; whether the requirement applies also depends on whether Moonshot placed the model on the EU market, so the absence alone should not be labeled non-compliance.</p>
+
+    <h2>Reaction so far</h2>
+
+    <p>I found no public reaction from the European Commission, the AI Office or an identified independent expert to the Grok 4.5 filing specifically. That should not be interpreted as either approval or criticism.</p>
+
+    <p>The wider debate about the template provides context. The Commission calls it a <a href="https://digital-strategy.ec.europa.eu/en/faqs/template-general-purpose-ai-model-providers-summarise-their-training-content">“common minimal baseline”</a>, designed to improve transparency while protecting trade secrets rather than provide a technically complete inventory. A coalition of 38 creator and rightsholder organizations has <a href="https://ifpicr.cz/joint_statement_broad_coalition_measures">expressed dissatisfaction</a> with the implementation package, arguing that it does not provide enough information for rightsholders to exercise their rights. The European Parliament has also called more generally for <a href="https://www.europarl.europa.eu/news/en/press-room/20260306IPR37511/proteggere-il-diritto-d-autore-e-il-settore-creativo-dall-ia">stronger transparency, remuneration and the ability to prevent protected content from being used</a>.</p>
+
+    <p>Those positions concern the framework as a whole, not Grok 4.5. The new filing illustrates both sides: it creates a comparable record of source categories that did not previously exist, but its broad size bands neither reveal how much data xAI used relative to other providers nor identify individual copyrighted works.</p>
+
+    <p><strong>Caveats.</strong> Every figure is self-reported and unaudited. The 11-entry comparison is a snapshot, not a survey of the market, and three entries are Microsoft Phi variants. Missing source rows mean the summary is silent, not that the answer is No. Data cutoffs range from March 2024 to June 2026. Models placed on the EU market before August 2, 2025 have until August 2, 2027 to publish, so a missing summary is not necessarily evidence of non-compliance.</p>
+
+    <p><em>Data: <code>ai_training_metrics</code>, Transparency Report API; initial snapshot of 11 model entries from nine providers, with filings published from June 2025 through July 2026. Follow-up discovery performed July 23, 2026.</em></p>
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/grok-45-ai-act-training-data.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>
