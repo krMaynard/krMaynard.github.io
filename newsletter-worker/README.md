@@ -25,3 +25,7 @@ Cloudflare Worker backing the site's newsletter form.
 
 EVP is a progressive enhancement. Unsupported browsers and providers continue
 through email confirmation.
+
+Until `newsletter_worker_url` is configured, the site intentionally omits the
+signup form. This prevents a relative `/subscribe` action from being submitted
+to GitHub Pages, which does not accept POST requests and returns HTTP 405.
