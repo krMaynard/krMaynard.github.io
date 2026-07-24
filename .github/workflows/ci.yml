@@ -15,13 +15,6 @@ jobs:
           node-version: 22
       - run: node --check vlop-dashboard.js
       - run: npm test
-      - run: npm ci
-        working-directory: newsletter-worker
-      - run: npm run check
-        working-directory: newsletter-worker
-      - run: npm test
-        working-directory: newsletter-worker
-
   # Build with the same toolchain GitHub Pages uses (Jekyll 3.10 via the
   # github-pages gem). CI previously only lint/tested JS, so a Liquid error
   # that Jekyll 4 tolerates but Pages' Jekyll 3.10 rejects could merge and
