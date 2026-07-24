@@ -2,17 +2,17 @@
 """Post the newest blog entry to LinkedIn, one language at a time.
 
 Reads blog.html, finds the first (newest) .news-entry, and posts it to
-LinkedIn in five languages — Japanese first, then Chinese, Korean and
-Spanish, with English last, roughly an hour apart. English is posted last so it lands as the
-newest post on the profile page. Each language is a separate single-language
-post that links to the matching localized blog page.
+LinkedIn in a configurable language sequence, roughly an hour apart.
+English is last in the default sequence so it lands as the newest post on
+the profile page. Each language is a separate single-language post that links
+to the matching localized blog page.
 
 Per-entry progress is tracked in .github/last_linkedin_post as JSON
 (``{"entry_id": …, "posts": {"ja": <iso-ts>, …}}``). Each invocation posts
 the next pending language in the sequence, but the follow-ups
 only fire once ~LINKEDIN_POST_INTERVAL_MINUTES have elapsed since the
 previous post — so the workflow is run on a blog push (Japanese, immediately)
-and again hourly via cron (the staggered zh/ko/en follow-ups).
+and again hourly via cron for staggered follow-ups.
 
 Required env vars:
   LINKEDIN_ACCESS_TOKEN   OAuth 2.0 bearer token
@@ -65,7 +65,7 @@ MAX_POST_CHARS = 3000
 # Languages are posted in this order, one per run. The first language goes
 # out immediately on a blog push; the rest follow ~INTERVAL minutes apart.
 # English is posted last so it's the newest post on the profile page.
-LANGUAGE_SEQUENCE = ["ja", "zh", "ko", "es", "en"]
+LANGUAGE_SEQUENCE = ["ja", "zh", "ko", "fr", "de", "it", "es", "en"]
 # "punctuation" is language-specific guidance (empty where Western/ASCII
 # punctuation is correct, e.g. English and modern Korean).
 LANGUAGES = {

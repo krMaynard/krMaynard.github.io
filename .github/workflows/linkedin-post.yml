@@ -68,8 +68,8 @@ jobs:
           FLUENCY_REVIEW: ${{ vars.FLUENCY_REVIEW }}
           # Optional — spacing between language posts (defaults to 60 minutes)
           LINKEDIN_POST_INTERVAL_MINUTES: ${{ vars.LINKEDIN_POST_INTERVAL_MINUTES }}
-          # Temporarily limit automatic publication to English.
-          LINKEDIN_LANGUAGES: en
+          # Publish this article's configured sequence only in French, Spanish, and English.
+          LINKEDIN_LANGUAGES: fr es en
           # Optional — enable these for automatic token refresh (recommended)
           LINKEDIN_REFRESH_TOKEN: ${{ secrets.LINKEDIN_REFRESH_TOKEN }}
           LINKEDIN_CLIENT_ID: ${{ secrets.LINKEDIN_CLIENT_ID }}
