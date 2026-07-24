@@ -254,7 +254,7 @@
       {% endif %}
     </div>
 
-    {% if site.newsletter_worker_url != blank and page.lang == 'en' %}
+    {% if site.newsletter_worker_url and page.lang == 'en' %}
     <aside class="newsletter-signup" aria-labelledby="newsletter-title">
       <div>
         <p class="section-label">Newsletter</p>
