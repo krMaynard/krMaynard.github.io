@@ -5,9 +5,8 @@ on:
     branches: [master]
     paths:
       - blog.html
-  # Hourly cron drives the staggered zh/ko/en follow-up posts after the
-  # initial Japanese post (the script no-ops when nothing is due). English
-  # posts last so it's the newest post on the profile page.
+  # Hourly cron drives any staggered language follow-ups after the initial
+  # push-triggered run. The script no-ops when nothing is due.
   schedule:
     - cron: "0 * * * *"
   workflow_dispatch:
