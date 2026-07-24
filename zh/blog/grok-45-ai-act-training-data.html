@@ -1,0 +1,43 @@
+---
+layout: main
+title: "Grok 4.5的新欧盟披露为训练数据记录增添了什么"
+description: "xAI首次依据《欧盟人工智能法》发布训练内容摘要，使Grok 4.5能够与其他申报比较，也揭示了标准化信息的价值与宽泛区间的局限。"
+date: 2026-07-23
+og_image: /images/grok-45-ai-act-training-data.png
+lang: zh
+lang_url: /blog/grok-45-ai-act-training-data.html
+lang_url_ja: /ja/blog/grok-45-ai-act-training-data.html
+lang_url_ko: /ko/blog/grok-45-ai-act-training-data.html
+lang_url_fr: /fr/blog/grok-45-ai-act-training-data.html
+lang_url_es: /es/blog/grok-45-ai-act-training-data.html
+lang_url_de: /de/blog/grok-45-ai-act-training-data.html
+lang_url_it: /it/blog/grok-45-ai-act-training-data.html
+---
+<article class="post">
+  <a href="/zh/blog.html" class="post-back">← 博客</a>
+  <header class="post-header"><p class="section-label">文章</p><h1>Grok 4.5的新欧盟披露为训练数据记录增添了什么</h1><time class="news-date" datetime="2026-07-23">2026年7月23日</time><div class="tags"><span class="tag">欧盟人工智能法</span><span class="tag">AI/LLM</span><span class="tag">透明度</span><span class="tag">数据</span></div></header>
+  <div class="post-body">
+    <figure class="post-figure" style="margin:0 0 2rem;"><img src="/images/grok-45-ai-act-training-data.png" alt="以三个宽泛申报区间比较人工智能训练数据披露的抽象图" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" /></figure>
+    <p>xAI发布了首份面向欧盟的训练内容摘要，涵盖Grok 4.5。文本、图像、音频和视频均落入最高的数据规模区间，并申报使用了欧盟委员会模板列出的全部六类训练数据来源。</p>
+    <p>这使Grok 4.5首次能够与我在<a href="https://transparency.kieranmaynard.com/ai-training">人工智能训练数据透明度数据集</a>中收录的摘要进行比较。它也检验了模板本身：来源问题确实显示出供应商之间的差异，而规模区间却常常把非常不同的模型归为一类。</p>
+    <p><strong>结论：</strong>《欧盟人工智能法》第53(1)(d)条要求通用人工智能模型供应商使用人工智能办公室的标准模板，公布训练内容摘要。在本文比较的11条记录中，6个模型申报超过10万亿个文本token，5个申报10亿至10万亿个，没有模型使用最小区间。最高区间没有上限，因此Grok 4.5、GPT-5.5、Gemini 3 Pro和一个30亿参数的开放模型获得相同分类。文件说明xAI声称使用了哪些来源，却无法说明Grok语料库相对于同区间其他模型的规模。</p>
+    <h2>宽泛的规模区间限制了比较</h2>
+    <table><thead><tr><th>文本训练数据规模</th><th>模型数量</th></tr></thead><tbody><tr><td>超过10万亿个token，无上限</td><td>6</td></tr><tr><td>10亿至10万亿个token</td><td>5</td></tr><tr><td>少于10亿个token</td><td>0</td></tr></tbody></table>
+    <p>最高区间包括Gemini 3 Pro、GPT-5.5、Grok 4.5和Muse Spark，也包括Swiss AI的Apertus-70B及Hugging Face的SmolLM3-3B。中间区间同样跨越四个数量级，Microsoft Phi-4、SpeakLeash Bielik和Bria均在其中。Bria是本次快照中唯一补充精确数字的供应商，写明“最多192亿个token”和“4.79亿张图像”。Gemini、GPT、Grok和Muse在所有模态上都选择最高区间，摘要不足以按规模排序。</p>
+    <h2>来源类别更能体现差异</h2>
+    <table><thead><tr><th>供应商与模型</th><th>公开</th><th>许可</th><th>第三方私有</th><th>抓取</th><th>用户数据</th><th>合成</th></tr></thead><tbody>
+      <tr><td>Meta／Muse Spark</td><td>是</td><td>是</td><td>是</td><td>是</td><td>是</td><td>是</td></tr><tr><td>OpenAI／GPT-5.5</td><td>是</td><td>是</td><td>是</td><td>是</td><td>是</td><td>是</td></tr><tr><td>xAI／Grok 4.5</td><td>是</td><td>是</td><td>是</td><td>是</td><td>是</td><td>是</td></tr><tr><td>SpeakLeash／Bielik v3 11B</td><td>是</td><td>是</td><td>否</td><td>是</td><td>否</td><td>是</td></tr><tr><td>Hugging Face／SmolLM3-3B</td><td>是</td><td>否</td><td>否</td><td>否</td><td>否</td><td>是</td></tr><tr><td>Swiss AI／Apertus-70B</td><td>是</td><td>否</td><td>否</td><td>否</td><td>否</td><td>否</td></tr><tr><td>Bria／Bria 3.2</td><td>否</td><td>是</td><td>否</td><td>否</td><td>否</td><td>否</td></tr>
+    </tbody></table>
+    <p>Meta、OpenAI和xAI对所有类别均回答“是”。Apertus仅申报公开数据集，并称没有运营自己的抓取工具；Bria则称Bria 3.2仅使用商业许可图像训练。Google只回答了六个来源问题中的三个，因此空白表示“未说明”，而非“否”。Microsoft还用文字回答部分二元字段，说明即使采用同一模板，填写方式也不完全一致。</p>
+    <p>xAI还表示没有签署《通用人工智能实践准则》，而是直接尊重退出信号。它是该数据集中首个未签署准则却公布标准模板的供应商。签署准则与发布训练摘要是不同义务，时间表也不同，不能互相替代。</p>
+    <h2>第二轮搜索又发现六份摘要</h2>
+    <p>加入Grok 4.5后，我逐一搜索供应商，发现六份尚未纳入上述11条记录的可信公开摘要：<a href="https://www.adobe.com/cc-shared/assets/pdf/trust-center/ungated/whitepapers/creative-cloud/adobe-firefly-image-model-5-training-set.pdf">Adobe Firefly Image Model 5</a>、<a href="https://www.domyn.com/summary-of-training-data/domyn-large">Domyn Large</a>、<a href="https://www.fastweb.it/grandi-aziende/artificial-intelligence/fastweb-miia/documentazione-trasparenza-ai/sintesi%20contenuti%20training.pdf">FastwebMIIA</a>、<a href="https://thinkingmachines.ai/documents/inkling-public-summary-training-content.pdf">Thinking Machines Inkling</a>、<a href="https://microsoft.ai/pdf/MAI-Image-2-Data-Summary.pdf">Microsoft MAI-Image-2</a>和Meta Muse Image。这些文件仍需验证和标准化，因此未混入上方统计。发现文件并不等于完成数据录入，尤其当复选框、模态定义和发布格式各不相同时。</p>
+    <p>我没有在Moonshot AI官网、API文档或官方模型页找到Kimi K2.5的第53条标准摘要。其技术报告称使用约15万亿个图文混合token，但这不是欧盟标准披露。义务是否适用还取决于Moonshot是否将模型投放欧盟市场，所以不能仅凭缺少摘要认定违规。</p>
+    <h2>目前的反应</h2>
+    <p>我没有发现欧盟委员会、人工智能办公室或具名独立专家专门针对Grok 4.5申报的公开反应。这既不应被解读为认可，也不应被解读为批评。</p>
+    <p>围绕整体框架的争论提供了背景。委员会称该模板是兼顾透明度与商业秘密的<a href="https://digital-strategy.ec.europa.eu/en/faqs/template-general-purpose-ai-model-providers-summarise-their-training-content">“共同最低基线”</a>，而不是完整的技术清单。38家创作者和权利人组织则<a href="https://ifpicr.cz/joint_statement_broad_coalition_measures">表示不满</a>，认为信息不足以帮助权利人行使权利。欧洲议会也呼吁加强<a href="https://www.europarl.europa.eu/news/en/press-room/20260306IPR37511/proteggere-il-diritto-d-autore-e-il-settore-creativo-dall-ia">透明度、报酬及阻止受保护内容被使用的能力</a>。这些立场针对整体框架，而非Grok 4.5本身。</p>
+    <p><strong>注意事项：</strong>所有数字均由供应商自行申报，未经审计。11条记录只是快照，并非市场调查，其中3条是Microsoft Phi的不同版本。数据截止日期从2024年3月到2026年6月。在2025年8月2日前投放欧盟市场的模型可在2027年8月2日前发布摘要，因此没有摘要不一定意味着违规。</p>
+    <p><em>数据：Transparency Report API中的<code>ai_training_metrics</code>；初始快照含9家供应商的11个模型，申报发布于2025年6月至2026年7月。补充搜索完成于2026年7月23日。</em></p>
+  </div>
+</article>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":{{ page.title | jsonify }},"image":"https://krmaynard.github.io/images/grok-45-ai-act-training-data.png","datePublished":"{{ page.date | date: '%Y-%m-%d' }}","author":{"@type":"Person","name":"Kieran Maynard","url":"https://krmaynard.github.io/"},"url":"https://krmaynard.github.io{{ page.url }}"}</script>
