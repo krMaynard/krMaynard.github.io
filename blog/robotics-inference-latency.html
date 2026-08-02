@@ -1,0 +1,87 @@
+---
+layout: main
+title: "I Tried Running Two Robot Foundation Models on a Six-Core Desktop"
+description: "SmolVLA generated a 50-action chunk in 7.1 seconds. OpenPI Pi0 never reached inference before the host ran out of memory. Here is what a reproducible CPU benchmark says about local robotics AI."
+date: 2026-08-02
+og_image: /images/robotics-inference-latency-en.png
+lang: en
+lang_url: /ja/blog/robotics-inference-latency.html
+lang_url_zh: /zh/blog/robotics-inference-latency.html
+---
+
+<article class="post">
+  <a href="/blog.html" class="post-back">← Blog</a>
+  <header class="post-header">
+    <p class="section-label">Writing</p>
+    <h1>I Tried Running Two Robot Foundation Models on a Six-Core Desktop</h1>
+    <time class="news-date" datetime="2026-08-02">August 2, 2026</time>
+    <div class="tags">
+      <span class="tag">Robotics</span>
+      <span class="tag">AI/ML</span>
+      <span class="tag">Engineering</span>
+    </div>
+  </header>
+  <div class="post-body">
+
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/robotics-inference-latency-en.png" alt="A robot arm and compact desktop computer running two model inference pipelines" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
+
+    <p>OpenPI's Pi0 never produced an action. The operating system killed it while JAX was still restoring the checkpoint. SmolVLA did run, but needed a median 7.1 seconds to generate 50 actions that cover 2.5 seconds of control time.</p>
+
+    <p>Those are not flattering numbers, but they answer the question I had. I do not have a robotics background, and I wanted to see how far ordinary AI engineering could take me without a robot lab or an expensive GPU. So I built a reproducible path from a simulation task to two real vision-language-action model stacks, then ran both on the six-core desktop already sitting on my desk.</p>
+
+    <h2>Getting to a fair input</h2>
+
+    <p>I started with ManiSkill's <code>PushCube-v1</code>: a Panda arm has to push a blue cube onto a red and white target. I replayed published demonstrations, kept each trajectory through its first successful transition, clipped actions to the simulator's declared bounds, and exported four successful episodes as a LeRobot v3 dataset. That left 62 frames, each with one RGB image, 25 state values, an 8-value joint action, and a language instruction.</p>
+
+    <p>Before timing a model, I made each preprocessing path prove that it accepted the same ordered tensors. SmolVLA and OpenPI Pi0 both passed all 62 frames. Both turned the source into a 32-value state and a <code>50 x 32</code> action chunk, although their image and token paths differ. The dataset checksum, model commits, tokenizer versions, normalization statistics, and output checksums are all in the <a href="https://github.com/krMaynard/robotics-ai-comparison">public comparison repository</a>.</p>
+
+    <h2>The benchmark</h2>
+
+    <p>The latency test uses the first checksum-verified PushCube frame, batch size one, ten flow-matching denoising steps, and the same all-zero noise tensor. I timed model action sampling only, excluding preprocessing, postprocessing, checkpoint download, and model loading. Each process received six CPU threads. There is no supported accelerator in the machine, only an Intel Core i5-8500T, 14 GiB of RAM, and 4 GiB of swap.</p>
+
+    <table>
+      <thead><tr><th>Result</th><th>SmolVLA</th><th>OpenPI Pi0</th></tr></thead>
+      <tbody>
+        <tr><td>Checkpoint repository</td><td>0.915 GB</td><td>12.014 GB</td></tr>
+        <tr><td>Load or restore</td><td>11.04 s</td><td>Failed during restore</td></tr>
+        <tr><td>First inference</td><td>7.069 s</td><td>Not reached</td></tr>
+        <tr><td>Warm median</td><td>7.112 s</td><td>Not reached</td></tr>
+        <tr><td>Warm p95</td><td>8.240 s</td><td>Not reached</td></tr>
+        <tr><td>Peak process memory</td><td>3.669 GiB</td><td>8.754 GiB before termination</td></tr>
+      </tbody>
+    </table>
+
+    <p><a href="https://huggingface.co/lerobot/smolvla_base">SmolVLA</a> completed the first run and five warmed measurements. The warmed range was 6.930 to 8.464 seconds. A 50-action chunk at the dataset's 20 Hz control rate lasts 2.5 seconds, so median generation was 2.84 times slower than the robot would consume the chunk. Putting inference on another thread would not fix that deficit. The action queue would still drain.</p>
+
+    <p><a href="https://github.com/Physical-Intelligence/openpi">OpenPI</a> publishes a much larger base Pi0 checkpoint and recommends an NVIDIA GPU with more than 8 GB for inference. I tried the CPU path anyway because the boundary itself mattered. After 59.09 seconds, the process had reached 9,179,400 KiB of resident memory while restoring parameters. It was terminated by signal 9 before constructing the model, so there is no Pi0 latency number in my table.</p>
+
+    <h2>What the failure tells me</h2>
+
+    <p>The clean comparison is about deployability on this machine. SmolVLA fits and runs. Pi0 does not fit through its JAX restoration path in this shared 14 GiB desktop environment. SmolVLA's policy repository is under one gigabyte; Pi0's checkpoint is over 12 GB. That difference determines which experiments I can even start locally.</p>
+
+    <p>SmolVLA fitting does not make it real-time. At 7.1 seconds per chunk, I could inspect outputs, test adapters, or run slow offline evaluations. I could not keep a 20 Hz controller supplied continuously. The next latency comparison belongs on accelerator hardware where both models complete, with synchronization around every timed call and enough runs to characterize variance.</p>
+
+    <p>This also is not a policy-quality result. These are base checkpoints, neither is fine-tuned for PushCube, and I did not score the generated actions in simulation. The test measures whether the software and model can turn the same valid observation into an action chunk under a fixed local resource budget.</p>
+
+    <h2>Why I count this as robotics work</h2>
+
+    <p>The useful work was mostly engineering: tracing observation and action contracts, adapting one dataset to two model APIs, pinning revisions, checking tensor semantics, isolating memory-heavy processes, and refusing to turn a failed run into a made-up comparison. The OpenPI failure took more care to report than a successful stopwatch reading. It needed a separate subprocess and an external resource monitor so the out-of-memory kill could not erase the evidence.</p>
+
+    <p>The full benchmark, including scripts, tests, raw measurements, and the partial-result label, is in <a href="https://github.com/krMaynard/robotics-ai-comparison/tree/main/experiments/005-inference-latency">Experiment 005</a>. My next useful run needs a GPU for the missing Pi0 number, followed by a larger PushCube dataset and held-out rollout seeds. That will move the comparison from plumbing and deployment constraints toward whether either model can learn the task.</p>
+
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "image": "https://krmaynard.github.io/images/robotics-inference-latency-en.png",
+  "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+  "author": { "@type": "Person", "name": "Kieran Maynard", "url": "https://krmaynard.github.io/" },
+  "url": "https://krmaynard.github.io{{ page.url }}"
+}
+</script>

@@ -1,0 +1,40 @@
+---
+layout: main
+title: "我在一台六核台式机上运行两个机器人基础模型"
+description: "SmolVLA生成50个动作耗时7.1秒。OpenPI Pi0在内存耗尽前未能进入推理。一次可复现的CPU基准测试说明了本地机器人AI的现实边界。"
+date: 2026-08-02
+og_image: /images/robotics-inference-latency-en.png
+lang: zh
+lang_url: /blog/robotics-inference-latency.html
+lang_url_ja: /ja/blog/robotics-inference-latency.html
+---
+
+<article class="post">
+  <a href="/zh/blog.html" class="post-back">← 博客</a>
+  <header class="post-header"><p class="section-label">写作</p><h1>我在一台六核台式机上运行两个机器人基础模型</h1><time class="news-date" datetime="2026-08-02">2026年8月2日</time><div class="tags"><span class="tag">机器人</span><span class="tag">AI/ML</span><span class="tag">工程</span></div></header>
+  <div class="post-body">
+    <figure class="post-figure" style="margin:0 0 2rem;"><img src="/images/robotics-inference-latency-en.png" alt="机械臂和小型台式机正在运行两条模型推理流水线" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" /></figure>
+    <p>OpenPI的Pi0一个动作也没有生成。JAX还在恢复检查点时，操作系统就终止了进程。SmolVLA能够运行，但生成50个动作的中位耗时为7.1秒，而这些动作只覆盖2.5秒的控制时间。</p>
+    <p>这些数字并不漂亮，但回答了我的问题。我没有机器人专业背景，想看看在没有机器人实验室和昂贵GPU的情况下，常规AI工程能让我走多远。我从一个仿真任务出发，搭建了通往两个真实视觉语言动作模型的可复现路径，然后在桌上的六核电脑上运行它们。</p>
+
+    <h2>先得到公平的输入</h2>
+    <p>我从ManiSkill的<code>PushCube-v1</code>开始。Panda机械臂需要把蓝色方块推到红白目标上。我重放公开演示，把每条轨迹保留到首次成功，将动作裁剪到仿真器声明的范围，并把四个成功回合导出为LeRobot v3数据集。最终有62帧，每帧包含一张RGB图像、25个状态值、8维关节动作和一句语言指令。</p>
+    <p>计时前，我要求两条预处理路径证明它们接收的是同一组有序张量。SmolVLA和OpenPI Pi0都通过了全部62帧。图像和分词路径不同，但两者都输出32维状态和<code>50 x 32</code>动作块。数据集校验和、模型提交、分词器版本、归一化统计与输出校验和都在<a href="https://github.com/krMaynard/robotics-ai-comparison">公开比较仓库</a>中。</p>
+
+    <h2>基准测试</h2>
+    <p>测试使用第一帧已验证的PushCube输入，批量为1，十步流匹配去噪，以及固定的全零噪声。计时区间只有模型动作采样，不包含预处理、后处理、下载和模型加载。每个进程使用六个CPU线程。机器是Intel Core i5-8500T，14 GiB内存和4 GiB交换空间，没有受支持的加速器。</p>
+    <table><thead><tr><th>结果</th><th>SmolVLA</th><th>OpenPI Pi0</th></tr></thead><tbody><tr><td>检查点仓库</td><td>0.915 GB</td><td>12.014 GB</td></tr><tr><td>加载或恢复</td><td>11.04秒</td><td>恢复时失败</td></tr><tr><td>首次推理</td><td>7.069秒</td><td>未到达</td></tr><tr><td>热运行中位数</td><td>7.112秒</td><td>未到达</td></tr><tr><td>热运行p95</td><td>8.240秒</td><td>未到达</td></tr><tr><td>进程峰值内存</td><td>3.669 GiB</td><td>终止前8.754 GiB</td></tr></tbody></table>
+    <p><a href="https://huggingface.co/lerobot/smolvla_base">SmolVLA</a>完成了首次运行和五次热运行，范围为6.930至8.464秒。数据集控制频率为20 Hz，50个动作只够2.5秒，因此中位生成时间是执行窗口的2.84倍。把推理放到另一个线程也无法补上差额，动作队列仍会耗尽。</p>
+    <p><a href="https://github.com/Physical-Intelligence/openpi">OpenPI</a>发布的Pi0基础检查点大得多，并建议推理使用超过8 GB显存的NVIDIA GPU。我仍然尝试CPU路径，因为边界本身有意义。59.09秒后，进程在恢复参数时达到9,179,400 KiB常驻内存，随后被signal 9终止。模型尚未构建，因此表中没有Pi0延迟数字。</p>
+
+    <h2>这次失败说明什么</h2>
+    <p>在这台机器上的可部署性很清楚。SmolVLA装得下并能运行。Pi0在这套共享的14 GiB桌面环境中无法通过JAX恢复阶段。SmolVLA策略仓库不到1 GB，Pi0检查点超过12 GB。这个差距先于延迟，直接决定我能在本地开始哪些实验。</p>
+    <p>SmolVLA能运行仍不等于实时。每个动作块7.1秒，足以检查输出、验证适配器或做缓慢的离线评估，却无法持续供应20 Hz控制器。下一次延迟比较应在两者都能完成的加速器上进行，每次调用都要同步，并增加运行次数以描述波动。</p>
+    <p>这也不是策略质量比较。两个基础检查点都没有针对PushCube微调，我也没有在仿真中评估生成动作的成功率。测试只回答了在固定本地资源预算下，软件和模型能否把同一有效观测变成一个动作块。</p>
+
+    <h2>为什么我把它算作机器人工作</h2>
+    <p>有用的部分大多是工程工作：追踪观测和动作契约，把一个数据集适配到两个模型API，固定版本，检查张量语义，隔离高内存进程，并且不把失败的运行改写成虚构的比较。OpenPI的失败比一次成功的秒表读数更难记录。我使用独立子进程和外部资源监视器，避免内存终止抹掉证据。</p>
+    <p>完整基准测试包括脚本、测试、原始测量和“部分结果”标签，位于<a href="https://github.com/krMaynard/robotics-ai-comparison/tree/main/experiments/005-inference-latency">Experiment 005</a>。下一步是在GPU上补齐Pi0数字，然后扩大PushCube数据集并用留出的种子做回放评估。到那时，比较才会从数据管道和部署限制走向两个模型能否学会任务。</p>
+  </div>
+</article>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":{{ page.title | jsonify }},"image":"https://krmaynard.github.io/images/robotics-inference-latency-en.png","datePublished":"{{ page.date | date: '%Y-%m-%d' }}","author":{"@type":"Person","name":"Kieran Maynard","url":"https://krmaynard.github.io/"},"url":"https://krmaynard.github.io{{ page.url }}"}</script>

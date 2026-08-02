@@ -1,0 +1,68 @@
+---
+layout: main
+title: "6コアのデスクトップで2つのロボット基盤モデルを動かしてみた"
+description: "SmolVLAは50アクションのチャンク生成に7.1秒。OpenPI Pi0はメモリ不足で推論に到達しなかった。ローカル環境での再現可能なCPUベンチマークから分かったこと。"
+date: 2026-08-02
+og_image: /images/robotics-inference-latency-en.png
+lang: ja
+lang_url: /blog/robotics-inference-latency.html
+lang_url_zh: /zh/blog/robotics-inference-latency.html
+---
+
+<article class="post">
+  <a href="/ja/blog.html" class="post-back">← ブログ</a>
+  <header class="post-header">
+    <p class="section-label">執筆</p>
+    <h1>6コアのデスクトップで2つのロボット基盤モデルを動かしてみた</h1>
+    <time class="news-date" datetime="2026-08-02">2026年8月2日</time>
+    <div class="tags"><span class="tag">ロボティクス</span><span class="tag">AI/ML</span><span class="tag">エンジニアリング</span></div>
+  </header>
+  <div class="post-body">
+    <figure class="post-figure" style="margin:0 0 2rem;">
+      <img src="/images/robotics-inference-latency-en.png" alt="ロボットアームと小型デスクトップPCで2つのモデル推論パイプラインを実行する様子" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border-card);" />
+    </figure>
+
+    <p>OpenPIのPi0は一つもアクションを出せなかった。JAXがチェックポイントを復元している途中で、OSにプロセスを終了された。SmolVLAは動いたが、制御時間2.5秒分に相当する50アクションの生成に中央値7.1秒かかった。</p>
+
+    <p>見栄えのよい数字ではないが、知りたかったことには答えている。私はロボティクス出身ではない。ロボット研究室も高価なGPUもない状態で、普通のAIエンジニアリングだけでどこまで進めるかを確かめたかった。そこで、シミュレーションのタスクから実際の2つの視覚言語行動モデルまで再現可能な経路を作り、手元の6コアPCで両方を実行した。</p>
+
+    <h2>同じ入力まで持っていく</h2>
+
+    <p>出発点はManiSkillの<code>PushCube-v1</code>だ。Pandaアームが青いキューブを赤と白の目標へ押す。公開デモを再生し、各軌道を最初の成功まで残し、アクションをシミュレータの範囲にクリップして、成功した4エピソードをLeRobot v3データセットに変換した。全62フレームで、各フレームにはRGB画像1枚、状態値25個、関節アクション8個、言語指示がある。</p>
+
+    <p>時間を測る前に、両方の前処理が同じ順序のテンソルを受け取れることを検証した。SmolVLAとOpenPI Pi0はともに62フレームすべてを通過した。画像とトークンの処理は異なるが、どちらも元データを32次元の状態と<code>50 x 32</code>のアクションチャンクに変換する。データセットのチェックサム、コミット、トークナイザ、正規化統計、出力チェックサムは<a href="https://github.com/krMaynard/robotics-ai-comparison">公開比較リポジトリ</a>に置いた。</p>
+
+    <h2>ベンチマーク</h2>
+
+    <p>検証済みPushCubeデータの最初のフレーム、バッチサイズ1、フローマッチングのデノイズ10ステップ、固定のゼロノイズを使った。計測区間はモデルによるアクション生成だけで、前処理、後処理、ダウンロード、モデル読み込みは含まない。各プロセスにはCPUスレッドを6本与えた。マシンはIntel Core i5-8500T、RAM 14 GiB、スワップ4 GiBで、対応するアクセラレータはない。</p>
+
+    <table><thead><tr><th>結果</th><th>SmolVLA</th><th>OpenPI Pi0</th></tr></thead><tbody>
+      <tr><td>チェックポイント</td><td>0.915 GB</td><td>12.014 GB</td></tr>
+      <tr><td>読み込み・復元</td><td>11.04秒</td><td>復元中に失敗</td></tr>
+      <tr><td>初回推論</td><td>7.069秒</td><td>未到達</td></tr>
+      <tr><td>ウォーム中央値</td><td>7.112秒</td><td>未到達</td></tr>
+      <tr><td>ウォームp95</td><td>8.240秒</td><td>未到達</td></tr>
+      <tr><td>プロセスメモリ最大値</td><td>3.669 GiB</td><td>終了前に8.754 GiB</td></tr>
+    </tbody></table>
+
+    <p><a href="https://huggingface.co/lerobot/smolvla_base">SmolVLA</a>は初回と5回のウォーム計測を完了した。ウォーム時は6.930秒から8.464秒だった。20 Hzでは50アクションは2.5秒で消費されるため、生成の中央値は実行時間の2.84倍になる。推論を別スレッドに移しても、この不足は埋まらず、アクションキューはいずれ空になる。</p>
+
+    <p><a href="https://github.com/Physical-Intelligence/openpi">OpenPI</a>はより大きなPi0ベースチェックポイントを公開し、推論には8 GB超のNVIDIA GPUを推奨している。それでもCPU経路を試したのは、限界そのものを知りたかったからだ。59.09秒後、パラメータ復元中の常駐メモリは9,179,400 KiBに達し、signal 9で終了された。モデル構築前だったため、Pi0のレイテンシ値はない。</p>
+
+    <h2>この失敗から分かること</h2>
+
+    <p>このマシンでの配備可能性は明確だ。SmolVLAは収まり、動く。Pi0は共有の14 GiBデスクトップ環境でJAXの復元を通過できない。SmolVLAのポリシーリポジトリは1 GB未満、Pi0のチェックポイントは12 GBを超える。この差が、ローカルで開始できる実験を決める。</p>
+
+    <p>SmolVLAが動くこととリアルタイムであることは別だ。1チャンク7.1秒なら、出力の確認、アダプタの検証、遅いオフライン評価には使える。20 Hzの制御器へ継続的に供給することはできない。次は両モデルが完走できるGPU上で、各呼び出しを同期し、十分な回数を測る必要がある。</p>
+
+    <p>ポリシー品質も比較していない。どちらもPushCube向けに微調整していないベースモデルで、生成アクションの成功率も評価していない。固定したローカル資源の中で、同じ有効な観測からアクションチャンクを出せるかを測っただけだ。</p>
+
+    <h2>これをロボティクスの仕事と考える理由</h2>
+
+    <p>役に立った作業の大半はエンジニアリングだった。観測とアクションの契約を追い、一つのデータセットを2つのAPIへ合わせ、リビジョンを固定し、テンソルの意味を確認し、メモリを使う処理を分離し、失敗した実行を架空の比較値に置き換えない。OpenPIの失敗は、成功したストップウォッチの数字より慎重な記録が必要だった。OOMで証拠が消えないよう、別プロセスと外部リソースモニタを使った。</p>
+
+    <p>スクリプト、テスト、計測値、部分結果というラベルを含む完全なベンチマークは<a href="https://github.com/krMaynard/robotics-ai-comparison/tree/main/experiments/005-inference-latency">Experiment 005</a>にある。次はGPUでPi0の欠けた値を測り、その後にPushCubeデータを増やして、ホールドアウトしたシードでロールアウトを評価する。そこで初めて、配管と配備制約から、どちらがタスクを学べるかという比較へ進める。</p>
+  </div>
+</article>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":{{ page.title | jsonify }},"image":"https://krmaynard.github.io/images/robotics-inference-latency-en.png","datePublished":"{{ page.date | date: '%Y-%m-%d' }}","author":{"@type":"Person","name":"Kieran Maynard","url":"https://krmaynard.github.io/"},"url":"https://krmaynard.github.io{{ page.url }}"}</script>
