@@ -1,0 +1,69 @@
+name: Manual LinkedIn update
+
+on:
+  workflow_dispatch:
+    inputs:
+      post_urn:
+        description: "LinkedIn share or UGC post URN"
+        required: true
+        type: string
+      commentary:
+        description: "Exact reviewed replacement commentary"
+        required: true
+        type: string
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Update exact reviewed copy
+        env:
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_POST_URN: ${{ inputs.post_urn }}
+          LINKEDIN_COMMENTARY: ${{ inputs.commentary }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+
+          token = os.environ["LINKEDIN_ACCESS_TOKEN"]
+          post_urn = os.environ["LINKEDIN_POST_URN"].strip()
+          commentary = os.environ["LINKEDIN_COMMENTARY"].strip()
+          if not post_urn.startswith(("urn:li:share:", "urn:li:ugcPost:")):
+              raise SystemExit(f"Unsupported LinkedIn post URN: {post_urn}")
+          if not commentary:
+              raise SystemExit("Commentary must not be empty")
+          if len(commentary) > 3000:
+              raise SystemExit(f"Commentary exceeds 3000 characters: {len(commentary)}")
+
+          encoded_urn = urllib.parse.quote(post_urn, safe="")
+          payload = {"patch": {"$set": {"commentary": commentary}}}
+          request = urllib.request.Request(
+              f"https://api.linkedin.com/rest/posts/{encoded_urn}",
+              data=json.dumps(payload).encode("utf-8"),
+              headers={
+                  "Authorization": f"Bearer {token}",
+                  "Content-Type": "application/json",
+                  "Linkedin-Version": "202604",
+                  "X-Restli-Protocol-Version": "2.0.0",
+                  "X-RestLi-Method": "PARTIAL_UPDATE",
+              },
+              method="POST",
+          )
+          try:
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  if response.status != 204:
+                      raise SystemExit(f"Unexpected LinkedIn status: {response.status}")
+          except urllib.error.HTTPError as error:
+              detail = error.read().decode("utf-8", errors="replace")
+              raise SystemExit(f"LinkedIn API error {error.code}: {detail}") from error
+          print(f"Updated LinkedIn post: {post_urn}")
+          PY
