@@ -15,6 +15,14 @@ on:
         description: "Optional one-off source listing (defaults to blog.html)"
         required: false
         default: "blog.html"
+      delete_post_urn:
+        description: "Optional LinkedIn share or UGC post URN to delete before posting"
+        required: false
+        default: ""
+      post_interval_minutes:
+        description: "Optional interval override; use 0 for an immediate corrective post"
+        required: false
+        default: ""
 
 # Serialize runs so the push-triggered and cron-triggered jobs don't race on
 # the cached tracking state.
@@ -66,9 +74,9 @@ jobs:
           # Optional — set 0/false to skip the second expert fluency-review pass
           FLUENCY_REVIEW: ${{ vars.FLUENCY_REVIEW }}
           # Optional — spacing between language posts (defaults to 60 minutes)
-          LINKEDIN_POST_INTERVAL_MINUTES: ${{ vars.LINKEDIN_POST_INTERVAL_MINUTES }}
-          # Publish this article's configured sequence only in French, Spanish, and English.
-          LINKEDIN_LANGUAGES: fr es en
+          LINKEDIN_POST_INTERVAL_MINUTES: ${{ inputs.post_interval_minutes || vars.LINKEDIN_POST_INTERVAL_MINUTES }}
+          # Optional one-off cleanup used by a manually dispatched corrective run.
+          LINKEDIN_DELETE_POST_URN: ${{ inputs.delete_post_urn }}
           # Optional — enable these for automatic token refresh (recommended)
           LINKEDIN_REFRESH_TOKEN: ${{ secrets.LINKEDIN_REFRESH_TOKEN }}
           LINKEDIN_CLIENT_ID: ${{ secrets.LINKEDIN_CLIENT_ID }}
