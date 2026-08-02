@@ -4,9 +4,6 @@
 For the next post in RELEASE_ORDER whose English file still has
 `published: false`, this: removes that line in en + every localized version,
 stamps today's date, and inserts a listing card atop each locale's blog.html.
-The English listing card carries `data-li-langs` telling the LinkedIn workflow
-which languages to post that article in.
-
 Web language set is per post (EU-topic posts add fr/de/it/es on top of
 ja/zh/ko). Self-contained: card title/excerpt/tags are read from the posts.
 
@@ -36,14 +33,12 @@ def release_order():
     if duplicates:
         raise SystemExit(f"{QUEUE_PATH}: duplicate slugs: {', '.join(duplicates)}")
     return items
-# EU-topic posts: localized into fr/de/it/es too, and posted to LinkedIn in de/fr/en.
+# EU-topic posts are localized into fr/de/it/es too.
 EU_POSTS = {"eu-tco-transparency", "dsa-appeals-do-they-work", "dsa-moderator-headcount",
             "texas-austria-youtube-reports", "turkey-5651-reports"}
 
 def web_langs(slug):
     return ["ja", "zh", "ko", "fr", "de", "it", "es"] if slug in EU_POSTS else ["ja", "zh", "ko"]
-def li_langs(slug):
-    return "de fr en" if slug in EU_POSTS else "ja zh ko en"
 
 def _post_path(lang, slug):
     return f"{REPO}/blog/{slug}.html" if lang == "en" else f"{REPO}/{lang}/blog/{slug}.html"
@@ -80,9 +75,8 @@ def card(lang, slug, d):
     tags = re.findall(r'<span class="tag">(.*?)</span>', re.search(r'<div class="tags">(.*?)</div>', s, re.S).group(1))
     href = f"/blog/{slug}.html" if lang == "en" else f"/{lang}/blog/{slug}.html"
     iso = d.isoformat()
-    li = f' data-li-langs="{li_langs(slug)}"' if lang == "en" else ""
     th = "\n".join(f'        <span class="tag">{t}</span>' for t in tags)
-    return (f'  <div class="news-entry" id="{iso}-{slug}"{li}>\n'
+    return (f'  <div class="news-entry" id="{iso}-{slug}">\n'
             f'    <time class="news-date" datetime="{iso}">{date_display(lang, d)}</time>\n'
             f'    <div class="news-body">\n      <h3><a href="{href}">{title}</a></h3>\n'
             f'      <p>{exc}</p>\n      <div class="tags">\n{th}\n      </div>\n    </div>\n  </div>\n\n')
