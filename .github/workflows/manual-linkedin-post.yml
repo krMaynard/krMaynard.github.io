@@ -1,0 +1,70 @@
+name: Manual LinkedIn post
+
+on:
+  workflow_dispatch:
+    inputs:
+      commentary:
+        description: "Exact reviewed LinkedIn post body"
+        required: true
+        type: string
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Publish exact reviewed copy
+        env:
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
+          LINKEDIN_COMMENTARY: ${{ inputs.commentary }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import urllib.error
+          import urllib.request
+
+          token = os.environ["LINKEDIN_ACCESS_TOKEN"]
+          person_urn = os.environ["LINKEDIN_PERSON_URN"]
+          commentary = os.environ["LINKEDIN_COMMENTARY"].strip()
+          if not commentary:
+              raise SystemExit("Commentary must not be empty")
+          if len(commentary) > 3000:
+              raise SystemExit(f"Commentary exceeds 3000 characters: {len(commentary)}")
+
+          payload = {
+              "author": person_urn,
+              "lifecycleState": "PUBLISHED",
+              "specificContent": {
+                  "com.linkedin.ugc.ShareContent": {
+                      "shareCommentary": {"text": commentary},
+                      "shareMediaCategory": "NONE",
+                  }
+              },
+              "visibility": {
+                  "com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC"
+              },
+          }
+          request = urllib.request.Request(
+              "https://api.linkedin.com/v2/ugcPosts",
+              data=json.dumps(payload).encode("utf-8"),
+              headers={
+                  "Authorization": f"Bearer {token}",
+                  "Content-Type": "application/json",
+                  "X-Restli-Protocol-Version": "2.0.0",
+              },
+              method="POST",
+          )
+          try:
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  body = json.loads(response.read())
+          except urllib.error.HTTPError as error:
+              detail = error.read().decode("utf-8", errors="replace")
+              raise SystemExit(f"LinkedIn API error {error.code}: {detail}") from error
+          print(f"Posted to LinkedIn: {body.get('id', '(no id returned)')}")
+          PY
