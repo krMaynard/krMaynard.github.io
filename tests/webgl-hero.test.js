@@ -33,5 +33,10 @@ assert.match(
   /requestAnimationFrame\(\(time\) => \{\s*draw\(time\);\s*frameId = 0;/,
   "reduced motion should render one static frame"
 );
+assert.match(
+  renderer,
+  /if \(reduceMotion\.matches\) window\.requestAnimationFrame\(draw\)/,
+  "reduced motion should redraw after a resize clears the canvas"
+);
 
 console.log("WebGL hero checks passed for all localized blog and transparency pages");
