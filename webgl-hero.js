@@ -94,11 +94,16 @@ canvases.forEach((canvas) => {
       }
     };
 
+    const handleResize = () => {
+      resize();
+      if (reduceMotion.matches) window.requestAnimationFrame(draw);
+    };
+
     try {
       resize();
       host.classList.add("is-webgl-ready");
       updateMotion();
-      window.addEventListener("resize", resize, { passive: true });
+      window.addEventListener("resize", handleResize, { passive: true });
       reduceMotion.addEventListener("change", updateMotion);
     } catch (error) {
       host.classList.remove("is-webgl-ready");
