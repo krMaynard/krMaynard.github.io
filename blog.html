@@ -11,11 +11,14 @@ lang_url_de: /de/blog.html
 lang_url_it: /it/blog.html
 ---
 
-<div style="padding-top: 2.5rem;">
-  <p class="section-label">Writing</p>
-  <h1 style="margin-top: 0;">Blog</h1>
-  <p style="color: var(--text-muted);">Notes on building with AI in real products — plus product, trust &amp; safety, and language.</p>
-</div>
+<section class="blog-hero webgl-hero" data-webgl-hero="blog" aria-labelledby="blog-title">
+  <canvas class="webgl-hero__canvas" aria-hidden="true"></canvas>
+  <div class="webgl-hero__content">
+    <p class="section-label">Writing</p>
+    <h1 id="blog-title">Blog</h1>
+    <p>Notes on building with AI in real products, plus product, trust &amp; safety, and language.</p>
+  </div>
+</section>
 
 <div class="news-list">
   <div class="news-entry" id="2026-08-02-robotics-inference-latency">
@@ -31,7 +34,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-07-23">July 23, 2026</time>
     <div class="news-body">
       <h3><a href="/blog/grok-45-ai-act-training-data.html">What Grok 4.5's New EU Disclosure Adds to the Training-Data Record</a></h3>
-      <p>xAI's first EU training-content summary makes Grok 4.5 comparable with other filings—and shows where standardized source categories inform while broad size bands fall short.</p>
+      <p>xAI's first EU training-content summary makes Grok 4.5 comparable with other filings. Standardized source categories help, but broad size bands still fall short.</p>
       <div class="tags">
         <span class="tag">EU AI Act</span>
         <span class="tag">AI/LLM</span>
@@ -45,7 +48,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-07-19">July 19, 2026</time>
     <div class="news-body">
       <h3><a href="/blog/dsa-appeals-do-they-work.html">DSA Appeals, By the Numbers: When Users Push Back, Platforms Reverse 4 in 10</a></h3>
-      <p>Very large platforms decided 45 million internal complaints in the second half of 2025 — and overturned their own original call 39% of the time.</p>
+      <p>Very large platforms decided 45 million internal complaints in the second half of 2025 and overturned their own original call 39% of the time.</p>
       <div class="tags">
         <span class="tag">Transparency</span>
         <span class="tag">Data</span>
@@ -56,8 +59,8 @@ lang_url_it: /it/blog.html
 <div class="news-entry" id="2026-07-17-gemini-code-assist">
     <time class="news-date" datetime="2026-07-17">July 17, 2026</time>
     <div class="news-body">
-      <h3><a href="/blog/gemini-code-assist-deprecation.html">Gemini Code Assist's GitHub Reviewer Shuts Off Today — Where to Go Next</a></h3>
-      <p>Google turns off the consumer Gemini Code Assist app for GitHub code review today, the last step in winding down the free/individual tier. What's actually ending, why Antigravity isn't a straight swap for the PR bot, and the alternatives — Copilot, CodeRabbit, Qodo, Greptile, Claude Code — worth a look.</p>
+      <h3><a href="/blog/gemini-code-assist-deprecation.html">Gemini Code Assist's GitHub Reviewer Shuts Off Today: Where to Go Next</a></h3>
+      <p>Google turns off the consumer Gemini Code Assist app for GitHub code review today, the last step in winding down the free/individual tier. The post covers what's ending, why Antigravity isn't a straight swap for the PR bot, and which alternatives are worth a look: Copilot, CodeRabbit, Qodo, Greptile, and Claude Code.</p>
       <div class="tags">
         <span class="tag">Gemini Code Assist</span>
         <span class="tag">AI Code Review</span>
@@ -71,7 +74,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-07-16">July 16, 2026</time>
     <div class="news-body">
       <h3><a href="/blog/uber-delivery-hero-dsa.html">Uber Is Paying $14.8 Billion for 60 Million Users Regulators Have Never Counted</a></h3>
-      <p>Uber's $14.8B offer for Delivery Hero rests on a reported 60 million monthly active users — a figure that appears nowhere in EU DSA transparency data. The one report you can actually download shows four brands, ~4,500 notices in a year, and zero user counts; the 2025 report link 404s.</p>
+      <p>Uber's $14.8B offer for Delivery Hero rests on a reported 60 million monthly active users, a figure that appears nowhere in EU DSA transparency data. The one report you can download shows four brands, ~4,500 notices in a year, and zero user counts; the 2025 report link 404s.</p>
       <div class="tags">
         <span class="tag">Uber</span>
         <span class="tag">Delivery Hero</span>
@@ -85,7 +88,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-07-15">July 15, 2026</time>
     <div class="news-body">
       <h3><a href="/blog/transparency-android-app.html">Putting the Transparency Dashboard in Your Pocket</a></h3>
-      <p>The transparency data explorer is now a native Android and desktop app — one Kotlin Multiplatform codebase, a mobile-first Compose UI, the same live API, and no SQL. Here's what shipped, why one codebase covers both platforms, and where to download it.</p>
+      <p>The transparency data explorer is now a native Android and desktop app built from one Kotlin Multiplatform codebase, with a mobile-first Compose UI, the same live API, and no SQL. Here's what shipped, why one codebase covers both platforms, and where to download it.</p>
       <div class="tags">
         <span class="tag">Kotlin Multiplatform</span>
         <span class="tag">Compose</span>
@@ -98,8 +101,8 @@ lang_url_it: /it/blog.html
   <div class="news-entry" id="2026-07-13-own-initiative">
     <time class="news-date" datetime="2026-07-13">July 13, 2026</time>
     <div class="news-body">
-      <h3><a href="/blog/dsa-own-initiative-scope.html">Two Readings of “Own Initiative” on DSA Table 6 — and the One Every VLOP Chose</a></h3>
-      <p>“Own initiative” on Table 6 can be read narrowly (only what a platform proactively detected) or broadly (all provider-initiated moderation). The two differ by orders of magnitude — and across the first harmonised reports (H2 2025), no VLOP filed on the narrow one. Cross-checked against the Statements-of-Reasons database.</p>
+      <h3><a href="/blog/dsa-own-initiative-scope.html">Two Readings of “Own Initiative” on DSA Table 6, and the One Every VLOP Chose</a></h3>
+      <p>“Own initiative” on Table 6 can be read narrowly (only what a platform proactively detected) or broadly (all provider-initiated moderation). The two differ by orders of magnitude. Across the first harmonised reports (H2 2025), no VLOP filed on the narrow reading. Cross-checked against the Statements-of-Reasons database.</p>
       <div class="tags">
         <span class="tag">EU DSA</span>
         <span class="tag">VLOP</span>
@@ -113,7 +116,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-07-13">July 13, 2026</time>
     <div class="news-body">
       <h3><a href="/blog/china-anthropomorphic-ai-rules.html">China's Anthropomorphic-AI Rules and the Removal of Companion Chatbots</a></h3>
-      <p>In July 2026 three of China's most-used AI apps said they would pull the user-created companion chatbots (智能体) built on them. A factual look at the new Interim Measures — which target companion chatbots, not the autonomous "agents" the term literally translates to — what the rule covers, and the translation knot that made "agents" the headline.</p>
+      <p>In July 2026 three of China's most-used AI apps said they would pull the user-created companion chatbots (智能体) built on them. A factual look at the new Interim Measures, which target companion chatbots rather than the autonomous "agents" the term literally translates to, what the rule covers, and the translation knot that made "agents" the headline.</p>
       <div class="tags">
         <span class="tag">AI/LLM</span>
         <span class="tag">Regulatory</span>
@@ -126,7 +129,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-07-11">July 11, 2026</time>
     <div class="news-body">
       <h3><a href="/blog/dsa-statements-of-reasons.html">From Aggregate Reports to Individual Decisions: Adding the DSA Transparency Database</a></h3>
-      <p>The dashboard already had the DSA's aggregated transparency reports. Now it also has the decision-level data — every content-moderation Statement of Reasons platforms file to the EU. Here's how ~4 TB of daily dumps became a two-megabyte dashboard.</p>
+      <p>The dashboard already had the DSA's aggregated transparency reports. Now it also has every content-moderation Statement of Reasons platforms file to the EU. Here's how ~4 TB of daily dumps became a two-megabyte dashboard.</p>
       <div class="tags">
         <span class="tag">EU DSA</span>
         <span class="tag">VLOP</span>
@@ -140,7 +143,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-07-09">July 9, 2026</time>
     <div class="news-body">
       <h3><a href="/blog/eu-ai-act-training-transparency.html">What the EU AI Act's Training-Data Summaries Do and Don't Reveal</a></h3>
-      <p>Article 53(1)(d) makes GPAI providers publish a standardized summary of their training data. I collected the ones filed so far into a comparable dataset — and the gap between who files and who doesn't is more informative than the numbers.</p>
+      <p>Article 53(1)(d) makes GPAI providers publish a standardized summary of their training data. I collected the filings into a comparable dataset. The gap between who files and who doesn't is more informative than the numbers.</p>
       <div class="tags">
         <span class="tag">EU AI Act</span>
         <span class="tag">AI/LLM</span>
@@ -153,7 +156,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-07-09">July 9, 2026</time>
     <div class="news-body">
       <h3><a href="/blog/transparency-report-api.html">One Query Language for Every Platform's Transparency Report</a></h3>
-      <p>What began as a dashboard for EU DSA data grew into a single API spanning more than two dozen platform and regulator transparency datasets — government-request reports, content-moderation stats, and national-law filings — all reachable through one safe, no-SQL query interface.</p>
+      <p>What began as a dashboard for EU DSA data grew into a single API spanning more than two dozen platform and regulator transparency datasets. Government-request reports, content-moderation stats, and national-law filings are all reachable through one safe, no-SQL query interface.</p>
       <div class="tags">
         <span class="tag">Transparency</span>
         <span class="tag">Data</span>
@@ -166,7 +169,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-06-22">June 22, 2026</time>
     <div class="news-body">
       <h3><a href="/blog/chinese-language-trip-maps.html">How I Generated a Stack of Chinese-Language Trip Maps Without a Browser or an API Key</a></h3>
-      <p>I asked Claude Code, in a sandboxed web session, to make Simplified-Chinese maps for every stop on a Hong Kong trip. No browser, no Maps API key — just raw map tiles, Pillow, and a detour through China's mandatory GCJ-02 coordinate offset.</p>
+      <p>I asked Claude Code, in a sandboxed web session, to make Simplified-Chinese maps for every stop on a Hong Kong trip. It used raw map tiles, Pillow, and a detour through China's mandatory GCJ-02 coordinate offset, with no browser or Maps API key.</p>
       <div class="tags">
         <span class="tag">AI/LLM</span>
         <span class="tag">Engineering</span>
@@ -179,7 +182,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-06-19">June 19, 2026</time>
     <div class="news-body">
       <h3><a href="/blog/prompt-log-ai-workflows.html">Prompts Are Refactoring Targets: Logging an AI Workflow to Find What to Automate</a></h3>
-      <p>A LayerX engineering post logs its AI prompts and analyzes them like code to find what to automate. It's the data-first move I've used at Google and since — intuition flags it, data proves it — turned reflexively on the human–AI workflow itself.</p>
+      <p>A LayerX engineering post logs its AI prompts and analyzes them like code to find what to automate. It's the same data-first move I've used at Google and since: intuition flags a problem, then data proves it. This time the method is applied to the human–AI workflow itself.</p>
       <div class="tags">
         <span class="tag">AI/LLM</span>
         <span class="tag">Engineering</span>
@@ -192,7 +195,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-06-11">June 11, 2026</time>
     <div class="news-body">
       <h3><a href="/blog/fable-5-security-review.html">How I Fixed Five API Vulnerabilities with One Prompt and Claude Fable 5</a></h3>
-      <p>I asked Claude Code, running Anthropic's new Fable 5 model, to security-review my research API. It found and fixed five real issues — SSRF, CSV injection, a timing side channel — then fact-checked the bot that reviewed its PR.</p>
+      <p>I asked Claude Code, running Anthropic's new Fable 5 model, to security-review my research API. It found and fixed five real issues, including SSRF, CSV injection, and a timing side channel, then fact-checked the bot that reviewed its PR.</p>
       <div class="tags">
         <span class="tag">AI/LLM</span>
         <span class="tag">Security</span>
@@ -205,7 +208,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-06-04">June 4, 2026</time>
     <div class="news-body">
       <h3><a href="/blog/vlop-dashboard-update.html">VLOP Dashboard Update: All Nine DSA Tables Now Covered</a></h3>
-      <p>Four new tabs — Automated Means, Human Resources, User Reach, and Qualitative Information — complete the dashboard's coverage of every DSA reporting table.</p>
+      <p>Four new tabs, Automated Means, Human Resources, User Reach, and Qualitative Information, complete the dashboard's coverage of every DSA reporting table.</p>
       <div class="tags">
         <span class="tag">EU DSA</span>
         <span class="tag">VLOP</span>
@@ -233,7 +236,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-05-19">May 19, 2026</time>
     <div class="news-body">
       <h3><a href="/blog/dsa-vlop-data-limitations.html">Building a Cross-Platform DSA View: What the Data Doesn't Tell You</a></h3>
-      <p>Category definitions aren't standardized across platforms. Data is self-reported. Aggregation methods differ. What the VLOP dashboard can and can't tell you — and why the limitations matter as much as the data.</p>
+      <p>Category definitions aren't standardized across platforms. Data is self-reported. Aggregation methods differ. This post explains what the VLOP dashboard can and can't tell you, and why the limitations matter as much as the data.</p>
       <div class="tags">
         <span class="tag">EU DSA</span>
         <span class="tag">VLOP</span>
@@ -247,7 +250,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-05-15">May 15, 2026</time>
     <div class="news-body">
       <h3><a href="/blog/llms-compliance-pm.html">How I Use LLMs in Compliance PM Work</a></h3>
-      <p>Requirement extraction, gap analysis, and draft review — three workflows that have actually stuck. Where each one breaks down, and what LLMs reliably can't do in a compliance context.</p>
+      <p>Requirement extraction, gap analysis, and draft review are three workflows that have stuck. The post covers where each one breaks down and what LLMs reliably can't do in a compliance context.</p>
       <div class="tags">
         <span class="tag">AI/LLM</span>
         <span class="tag">Compliance PM</span>
@@ -274,7 +277,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-05-11">May 11, 2026</time>
     <div class="news-body">
       <h3><a href="/blog/google-removal-dashboard.html">New: Google Government Removal Requests Dashboard (2011–2025)</a></h3>
-      <p>30 reporting periods, 178 countries, 61 Google products, 22 removal reasons — turned into a multi-year trend explorer. Every filter combination generates a time series.</p>
+      <p>I turned 30 reporting periods, 178 countries, 61 Google products, and 22 removal reasons into a multi-year trend explorer. Every filter combination generates a time series.</p>
       <div class="tags">
         <span class="tag">Google</span>
         <span class="tag">Transparency</span>
@@ -301,7 +304,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-04-01">April 1, 2026</time>
     <div class="news-body">
       <h3><a href="/blog/roblox-ca-ny-reports.html">Roblox's California and New York Transparency Reports Are Live</a></h3>
-      <p>Two state social media transparency reports filed — California AB 587 (H2 2025) and New York S895 (Q4 2025). Running them in parallel shaped how we built the reporting infrastructure.</p>
+      <p>We filed two state social media transparency reports, California AB 587 (H2 2025) and New York S895 (Q4 2025). Running them in parallel shaped how we built the reporting infrastructure.</p>
       <div class="tags">
         <span class="tag">Roblox</span>
         <span class="tag">Compliance PM</span>
@@ -315,7 +318,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-03-05">March 5, 2026</time>
     <div class="news-body">
       <h3><a href="/blog/dsa-transparency-requirements.html">What EU DSA Transparency Reporting Actually Requires</a></h3>
-      <p>Article 15 applies to all intermediary services annually. Article 42 adds bi-annual, category-level, timestamped VLOP obligations. The practical gap is significant — and it shows up in the reporting infrastructure.</p>
+      <p>Article 15 applies to all intermediary services annually. Article 42 adds bi-annual, category-level, timestamped VLOP obligations. That gap shows up in the reporting infrastructure.</p>
       <div class="tags">
         <span class="tag">EU DSA</span>
         <span class="tag">Compliance PM</span>

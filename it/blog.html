@@ -11,11 +11,14 @@ lang_url_es: /es/blog.html
 lang_url_de: /de/blog.html
 ---
 
-<div style="padding-top: 2.5rem;">
-  <p class="section-label">Scritti</p>
-  <h1 style="margin-top: 0;">Blog</h1>
-  <p style="color: var(--text-muted);">Note sul costruire con l'IA in prodotti reali — oltre a prodotto, trust &amp; safety e lingua.</p>
-</div>
+<section class="blog-hero webgl-hero" data-webgl-hero="blog" aria-labelledby="blog-title">
+  <canvas class="webgl-hero__canvas" aria-hidden="true"></canvas>
+  <div class="webgl-hero__content">
+    <p class="section-label">Scritti</p>
+    <h1 id="blog-title">Blog</h1>
+    <p>Note sul costruire con l'IA in prodotti reali, oltre a prodotto, trust &amp; safety e lingua.</p>
+  </div>
+</section>
 
 <div class="news-list">
 
@@ -32,7 +35,7 @@ lang_url_de: /de/blog.html
     <time class="news-date" datetime="2026-07-19">19 luglio 2026</time>
     <div class="news-body">
       <h3><a href="/it/blog/dsa-appeals-do-they-work.html">Ricorsi DSA, in cifre: quando gli utenti reagiscono, le piattaforme ribaltano 4 decisioni su 10</a></h3>
-      <p>Nel secondo semestre 2025 le piattaforme molto grandi hanno deciso 45 milioni di reclami interni — e ribaltato la propria decisione originaria nel 39 % dei casi.</p>
+      <p>Nel secondo semestre 2025 le piattaforme molto grandi hanno deciso 45 milioni di reclami interni, e ribaltato la propria decisione originaria nel 39 % dei casi.</p>
       <div class="tags">
         <span class="tag">Trasparenza</span>
         <span class="tag">Dati</span>
@@ -43,8 +46,8 @@ lang_url_de: /de/blog.html
 <div class="news-entry" id="2026-07-17-gemini-code-assist">
     <time class="news-date" datetime="2026-07-17">17 luglio 2026</time>
     <div class="news-body">
-      <h3><a href="/it/blog/gemini-code-assist-deprecation.html">Il reviewer GitHub di Gemini Code Assist si spegne oggi — dove andare adesso</a></h3>
-      <p>Il 17 luglio 2026 Google spegne l'app consumer di Gemini Code Assist per la revisione del codice su GitHub, ultimo passo nella dismissione del piano gratuito/individuale. Cosa finisce davvero, cosa Google vuole che usi al suo posto e le alternative di AI PR-review — Copilot, CodeRabbit, Qodo, Greptile — che vale la pena valutare.</p>
+      <h3><a href="/it/blog/gemini-code-assist-deprecation.html">Il reviewer GitHub di Gemini Code Assist si spegne oggi: dove andare adesso</a></h3>
+      <p>Il 17 luglio 2026 Google spegne l'app consumer di Gemini Code Assist per la revisione del codice su GitHub, ultimo passo nella dismissione del piano gratuito/individuale. Cosa finisce davvero, cosa Google vuole che usi al suo posto e le alternative di AI PR-review, Copilot, CodeRabbit, Qodo, Greptile, che vale la pena valutare.</p>
       <div class="tags">
         <span class="tag">Gemini Code Assist</span>
         <span class="tag">AI Code Review</span>
@@ -58,7 +61,7 @@ lang_url_de: /de/blog.html
     <time class="news-date" datetime="2026-07-16">16 luglio 2026</time>
     <div class="news-body">
       <h3><a href="/it/blog/uber-delivery-hero-dsa.html">Uber paga 14,8 miliardi di dollari per 60 milioni di utenti che le autorità di regolamentazione non hanno mai contato</a></h3>
-      <p>L'offerta di Uber da 14,8 miliardi di dollari per Delivery Hero si basa su circa 60 milioni di utenti attivi mensili dichiarati dal venditore. Nei dati di trasparenza dell'EU DSA quella cifra non compare da nessuna parte: quattro brand, quattro stime, zero numeri — e il link del report 2025 restituisce un 404.</p>
+      <p>L'offerta di Uber da 14,8 miliardi di dollari per Delivery Hero si basa su circa 60 milioni di utenti attivi mensili dichiarati dal venditore. Nei dati di trasparenza dell'EU DSA quella cifra non compare da nessuna parte: quattro brand, quattro stime, zero numeri, e il link del report 2025 restituisce un 404.</p>
       <div class="tags">
         <span class="tag">Uber</span>
         <span class="tag">Delivery Hero</span>
@@ -72,7 +75,7 @@ lang_url_de: /de/blog.html
     <time class="news-date" datetime="2026-07-15">15 luglio 2026</time>
     <div class="news-body">
       <h3><a href="/it/blog/transparency-android-app.html">La dashboard di trasparenza in tasca</a></h3>
-      <p>L'esploratore dei dati di trasparenza è ora un'app nativa per Android e desktop — un unico codebase Kotlin Multiplatform, un'interfaccia Compose mobile-first, la stessa API live e niente SQL. Ecco cosa è stato rilasciato, perché un solo codebase copre entrambe le piattaforme e dove scaricarla.</p>
+      <p>L'esploratore dei dati di trasparenza è ora un'app nativa per Android e desktop, un unico codebase Kotlin Multiplatform, un'interfaccia Compose mobile-first, la stessa API live e niente SQL. Ecco cosa è stato rilasciato, perché un solo codebase copre entrambe le piattaforme e dove scaricarla.</p>
       <div class="tags">
         <span class="tag">Kotlin Multiplatform</span>
         <span class="tag">Compose</span>
@@ -86,7 +89,7 @@ lang_url_de: /de/blog.html
     <time class="news-date" datetime="2026-07-13">13 luglio 2026</time>
     <div class="news-body">
       <h3><a href="/it/blog/china-anthropomorphic-ai-rules.html">Le regole cinesi sull'IA antropomorfa e la rimozione dei chatbot di compagnia</a></h3>
-      <p>A luglio 2026 tre tra le app di IA più usate in Cina hanno annunciato la rimozione dei chatbot di compagnia (智能体) creati dagli utenti. Uno sguardo fattuale alle nuove Misure provvisorie — che riguardano i chatbot di compagnia, non gli « agenti » autonomi che il termine traduce letteralmente — a ciò che la regola disciplina, e al nodo di traduzione che ha reso gli « agenti » il titolo.</p>
+      <p>A luglio 2026 tre tra le app di IA più usate in Cina hanno annunciato la rimozione dei chatbot di compagnia (智能体) creati dagli utenti. Uno sguardo fattuale alle nuove Misure provvisorie, che riguardano i chatbot di compagnia, non gli « agenti » autonomi che il termine traduce letteralmente, a ciò che la regola disciplina, e al nodo di traduzione che ha reso gli « agenti » il titolo.</p>
       <div class="tags">
         <span class="tag">AI/LLM</span>
         <span class="tag">Normativa</span>
@@ -99,7 +102,7 @@ lang_url_de: /de/blog.html
     <time class="news-date" datetime="2026-07-11">11 luglio 2026</time>
     <div class="news-body">
       <h3><a href="/it/blog/dsa-statements-of-reasons.html">Dai report aggregati alle singole decisioni: aggiungere il Database di trasparenza del DSA</a></h3>
-      <p>La dashboard aveva già i report di trasparenza aggregati del DSA. Ora ha anche i dati a livello di decisione — ogni dichiarazione dei motivi di moderazione dei contenuti che le piattaforme depositano presso l'UE. Ecco come ~4 TB di dump giornalieri sono diventati una dashboard da due megabyte.</p>
+      <p>La dashboard aveva già i report di trasparenza aggregati del DSA. Ora ha anche i dati a livello di decisione, ogni dichiarazione dei motivi di moderazione dei contenuti che le piattaforme depositano presso l'UE. Ecco come ~4 TB di dump giornalieri sono diventati una dashboard da due megabyte.</p>
       <div class="tags">
         <span class="tag">EU DSA</span>
         <span class="tag">VLOP</span>
@@ -112,8 +115,8 @@ lang_url_de: /de/blog.html
   <div class="news-entry" id="2026-07-09-ai-training">
     <time class="news-date" datetime="2026-07-09">9 luglio 2026</time>
     <div class="news-body">
-      <h3><a href="/it/blog/eu-ai-act-training-transparency.html">Cosa rivelano — e cosa no — i riepiloghi dei dati di addestramento del Regolamento UE sull'IA</a></h3>
-      <p>L'articolo 53(1)(d) obbliga i fornitori di IA per finalità generali a pubblicare un riepilogo standardizzato dei dati di addestramento. Ho raccolto quelli finora depositati in un dataset comparabile — e il divario tra chi deposita e chi no è più istruttivo dei numeri.</p>
+      <h3><a href="/it/blog/eu-ai-act-training-transparency.html">Cosa rivelano: e cosa no: i riepiloghi dei dati di addestramento del Regolamento UE sull'IA</a></h3>
+      <p>L'articolo 53(1)(d) obbliga i fornitori di IA per finalità generali a pubblicare un riepilogo standardizzato dei dati di addestramento. Ho raccolto quelli finora depositati in un dataset comparabile, e il divario tra chi deposita e chi no è più istruttivo dei numeri.</p>
       <div class="tags">
         <span class="tag">EU AI Act</span>
         <span class="tag">AI/LLM</span>
@@ -126,7 +129,7 @@ lang_url_de: /de/blog.html
     <time class="news-date" datetime="2026-06-22">22 giugno 2026</time>
     <div class="news-body">
       <h3><a href="/it/blog/chinese-language-trip-maps.html">Come ho generato una serie di mappe di viaggio in cinese senza browser né chiave API</a></h3>
-      <p>Ho chiesto a Claude Code, in una sessione web in sandbox, di creare mappe in cinese semplificato per ogni tappa di un viaggio a Hong Kong. Nessun browser, nessuna chiave API di Maps — solo tile di mappa grezzi, Pillow e una deviazione attraverso l'offset di coordinate GCJ-02 obbligatorio in Cina.</p>
+      <p>Ho chiesto a Claude Code, in una sessione web in sandbox, di creare mappe in cinese semplificato per ogni tappa di un viaggio a Hong Kong. Nessun browser, nessuna chiave API di Maps, solo tile di mappa grezzi, Pillow e una deviazione attraverso l'offset di coordinate GCJ-02 obbligatorio in Cina.</p>
       <div class="tags">
         <span class="tag">AI/LLM</span>
         <span class="tag">Ingegneria</span>
@@ -139,7 +142,7 @@ lang_url_de: /de/blog.html
     <time class="news-date" datetime="2026-06-19">19 giugno 2026</time>
     <div class="news-body">
       <h3><a href="/it/blog/prompt-log-ai-workflows.html">I prompt sono obiettivi di refactoring: registrare un flusso di lavoro IA per scoprire cosa automatizzare</a></h3>
-      <p>Un articolo di ingegneria di LayerX registra i propri prompt IA e li analizza come codice per scoprire cosa automatizzare. È l'approccio data-first che ho usato in Google e da allora — l'intuizione lo segnala, i dati lo dimostrano — rivolto in modo riflessivo al flusso di lavoro uomo-IA stesso.</p>
+      <p>Un articolo di ingegneria di LayerX registra i propri prompt IA e li analizza come codice per scoprire cosa automatizzare. È l'approccio data-first che ho usato in Google e da allora, l'intuizione lo segnala, i dati lo dimostrano, rivolto in modo riflessivo al flusso di lavoro uomo-IA stesso.</p>
       <div class="tags">
         <span class="tag">AI/LLM</span>
         <span class="tag">Ingegneria</span>
@@ -152,7 +155,7 @@ lang_url_de: /de/blog.html
     <time class="news-date" datetime="2026-06-11">11 giugno 2026</time>
     <div class="news-body">
       <h3><a href="/it/blog/fable-5-security-review.html">Come ho corretto cinque vulnerabilità API con un solo prompt e Claude Fable 5</a></h3>
-      <p>Ho chiesto a Claude Code, con il nuovo modello Fable 5 di Anthropic, di effettuare una revisione di sicurezza della mia API di ricerca. Ha trovato e corretto cinque problemi reali — SSRF, CSV injection, un canale laterale temporale — poi ha verificato i fatti del bot che aveva revisionato la sua PR.</p>
+      <p>Ho chiesto a Claude Code, con il nuovo modello Fable 5 di Anthropic, di effettuare una revisione di sicurezza della mia API di ricerca. Ha trovato e corretto cinque problemi reali, SSRF, CSV injection, un canale laterale temporale, poi ha verificato i fatti del bot che aveva revisionato la sua PR.</p>
       <div class="tags">
         <span class="tag">AI/LLM</span>
         <span class="tag">Sicurezza</span>
@@ -165,7 +168,7 @@ lang_url_de: /de/blog.html
     <time class="news-date" datetime="2026-06-04">4 giugno 2026</time>
     <div class="news-body">
       <h3><a href="/it/blog/vlop-dashboard-update.html">Aggiornamento della dashboard VLOP: ora coperte tutte e nove le tabelle DSA</a></h3>
-      <p>Quattro nuove schede — Mezzi automatizzati, Risorse umane, Copertura degli utenti e Informazioni qualitative — completano la copertura della dashboard su ogni tabella di rendicontazione DSA.</p>
+      <p>Quattro nuove schede, Mezzi automatizzati, Risorse umane, Copertura degli utenti e Informazioni qualitative, completano la copertura della dashboard su ogni tabella di rendicontazione DSA.</p>
       <div class="tags">
         <span class="tag">EU DSA</span>
         <span class="tag">VLOP</span>
@@ -193,7 +196,7 @@ lang_url_de: /de/blog.html
     <time class="news-date" datetime="2026-05-19">19 maggio 2026</time>
     <div class="news-body">
       <h3><a href="/it/blog/dsa-vlop-data-limitations.html">Costruire una vista DSA multipiattaforma: ciò che i dati non ti dicono</a></h3>
-      <p>Le definizioni delle categorie non sono standardizzate tra le piattaforme. I dati sono autodichiarati. I metodi di aggregazione differiscono. Ciò che la dashboard VLOP può e non può dirti — e perché i limiti contano quanto i dati.</p>
+      <p>Le definizioni delle categorie non sono standardizzate tra le piattaforme. I dati sono autodichiarati. I metodi di aggregazione differiscono. Ciò che la dashboard VLOP può e non può dirti, e perché i limiti contano quanto i dati.</p>
       <div class="tags">
         <span class="tag">EU DSA</span>
         <span class="tag">VLOP</span>
@@ -207,7 +210,7 @@ lang_url_de: /de/blog.html
     <time class="news-date" datetime="2026-05-15">15 maggio 2026</time>
     <div class="news-body">
       <h3><a href="/it/blog/llms-compliance-pm.html">Come uso gli LLM nel lavoro di Compliance PM</a></h3>
-      <p>Estrazione dei requisiti, analisi delle lacune e revisione delle bozze — tre flussi di lavoro che si sono davvero radicati. Dove ciascuno si inceppa, e cosa gli LLM non riescono a fare in modo affidabile in un contesto di conformità.</p>
+      <p>Estrazione dei requisiti, analisi delle lacune e revisione delle bozze, tre flussi di lavoro che si sono davvero radicati. Dove ciascuno si inceppa, e cosa gli LLM non riescono a fare in modo affidabile in un contesto di conformità.</p>
       <div class="tags">
         <span class="tag">AI/LLM</span>
         <span class="tag">Compliance PM</span>
@@ -234,7 +237,7 @@ lang_url_de: /de/blog.html
     <time class="news-date" datetime="2026-05-11">11 maggio 2026</time>
     <div class="news-body">
       <h3><a href="/it/blog/google-removal-dashboard.html">Novità: dashboard delle richieste governative di rimozione di Google (2011–2025)</a></h3>
-      <p>30 periodi di rendicontazione, 178 paesi, 61 prodotti Google, 22 motivazioni di rimozione — trasformati in un esploratore di tendenze pluriennale. Ogni combinazione di filtri genera una serie temporale.</p>
+      <p>30 periodi di rendicontazione, 178 paesi, 61 prodotti Google, 22 motivazioni di rimozione, trasformati in un esploratore di tendenze pluriennale. Ogni combinazione di filtri genera una serie temporale.</p>
       <div class="tags">
         <span class="tag">Google</span>
         <span class="tag">Trasparenza</span>
@@ -261,7 +264,7 @@ lang_url_de: /de/blog.html
     <time class="news-date" datetime="2026-04-01">1° aprile 2026</time>
     <div class="news-body">
       <h3><a href="/it/blog/roblox-ca-ny-reports.html">I report di trasparenza di Roblox per California e New York sono online</a></h3>
-      <p>Presentati due report di trasparenza statali sui social media — California AB 587 (secondo semestre 2025) e New York S895 (quarto trimestre 2025). Portarli avanti in parallelo ha plasmato il modo in cui abbiamo costruito l'infrastruttura di reporting.</p>
+      <p>Presentati due report di trasparenza statali sui social media, California AB 587 (secondo semestre 2025) e New York S895 (quarto trimestre 2025). Portarli avanti in parallelo ha plasmato il modo in cui abbiamo costruito l'infrastruttura di reporting.</p>
       <div class="tags">
         <span class="tag">Roblox</span>
         <span class="tag">Compliance PM</span>
@@ -275,7 +278,7 @@ lang_url_de: /de/blog.html
     <time class="news-date" datetime="2026-03-05">5 marzo 2026</time>
     <div class="news-body">
       <h3><a href="/it/blog/dsa-transparency-requirements.html">Cosa richiede davvero il reporting di trasparenza EU DSA</a></h3>
-      <p>L'articolo 15 si applica annualmente a tutti i servizi intermediari. L'articolo 42 aggiunge obblighi VLOP semestrali, per categoria e con marca temporale. Il divario pratico è significativo — e si riflette nell'infrastruttura di reporting.</p>
+      <p>L'articolo 15 si applica annualmente a tutti i servizi intermediari. L'articolo 42 aggiunge obblighi VLOP semestrali, per categoria e con marca temporale. Il divario pratico è significativo, e si riflette nell'infrastruttura di reporting.</p>
       <div class="tags">
         <span class="tag">EU DSA</span>
         <span class="tag">Compliance PM</span>

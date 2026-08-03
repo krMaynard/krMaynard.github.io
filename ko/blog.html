@@ -11,11 +11,14 @@ lang_url_de: /de/blog.html
 lang_url_it: /it/blog.html
 ---
 
-<div style="padding-top: 2.5rem;">
-  <p class="section-label">글쓰기</p>
-  <h1 style="margin-top: 0;">블로그</h1>
-  <p style="color: var(--text-muted);">실제 제품에서 AI로 만드는 일 — 그리고 프로덕트, 신뢰·안전, 언어에 관한 노트.</p>
-</div>
+<section class="blog-hero webgl-hero" data-webgl-hero="blog" aria-labelledby="blog-title">
+  <canvas class="webgl-hero__canvas" aria-hidden="true"></canvas>
+  <div class="webgl-hero__content">
+    <p class="section-label">글쓰기</p>
+    <h1 id="blog-title">블로그</h1>
+    <p>실제 제품에서 AI로 만드는 일, 그리고 프로덕트, 신뢰·안전, 언어에 관한 노트.</p>
+  </div>
+</section>
 
 <div class="news-list">
   <div class="news-entry" id="2026-07-23-grok-45-ai-act-training-data">
@@ -42,8 +45,8 @@ lang_url_it: /it/blog.html
 <div class="news-entry" id="2026-07-17-gemini-code-assist">
     <time class="news-date" datetime="2026-07-17">2026년 7월 17일</time>
     <div class="news-body">
-      <h3><a href="/ko/blog/gemini-code-assist-deprecation.html">Gemini Code Assist의 GitHub 리뷰어가 오늘 종료됩니다 — 다음은 어디로</a></h3>
-      <p>구글이 2026년 7월 17일 GitHub 코드 리뷰용 소비자 Gemini Code Assist 앱을 종료합니다 — 무료·개인 등급을 단계적으로 접는 마지막 절차입니다. 구글이 미는 Antigravity는 곧바른 대체품이 아니므로, PR 리뷰를 되찾으려면 Copilot, CodeRabbit, Qodo, Greptile, Claude Code 같은 전용 도구가 필요할 가능성이 높습니다.</p>
+      <h3><a href="/ko/blog/gemini-code-assist-deprecation.html">Gemini Code Assist의 GitHub 리뷰어가 오늘 종료됩니다: 다음은 어디로</a></h3>
+      <p>구글이 2026년 7월 17일 GitHub 코드 리뷰용 소비자 Gemini Code Assist 앱을 종료합니다, 무료·개인 등급을 단계적으로 접는 마지막 절차입니다. 구글이 미는 Antigravity는 곧바른 대체품이 아니므로, PR 리뷰를 되찾으려면 Copilot, CodeRabbit, Qodo, Greptile, Claude Code 같은 전용 도구가 필요할 가능성이 높습니다.</p>
       <div class="tags">
         <span class="tag">Gemini Code Assist</span>
         <span class="tag">AI 코드 리뷰</span>
@@ -71,7 +74,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-07-15">2026년 7월 15일</time>
     <div class="news-body">
       <h3><a href="/ko/blog/transparency-android-app.html">투명성 대시보드를 주머니 속에</a></h3>
-      <p>투명성 데이터 탐색기가 이제 네이티브 Android·데스크톱 앱이 되었습니다 — 하나의 Kotlin Multiplatform 코드베이스, 모바일 우선 Compose UI, 동일한 실시간 API, 그리고 SQL 없음. 무엇이 나왔는지, 왜 코드베이스 하나로 두 플랫폼을 모두 커버하는지, 그리고 어디서 내려받는지 소개합니다.</p>
+      <p>투명성 데이터 탐색기가 하나의 Kotlin Multiplatform 코드베이스로 만든 네이티브 Android·데스크톱 앱이 되었습니다. 모바일 우선 Compose UI와 동일한 실시간 API를 사용하며 SQL은 필요하지 않습니다. 무엇이 나왔고 어디서 내려받을 수 있는지 소개합니다.</p>
       <div class="tags">
         <span class="tag">Kotlin Multiplatform</span>
         <span class="tag">Compose</span>
@@ -84,8 +87,8 @@ lang_url_it: /it/blog.html
   <div class="news-entry" id="2026-07-13-own-initiative">
     <time class="news-date" datetime="2026-07-13">2026년 7월 13일</time>
     <div class="news-body">
-      <h3><a href="/ko/blog/dsa-own-initiative-scope.html">‘자체 조치’의 두 가지 해석 — DSA 표 6, 그리고 모든 VLOP의 선택</a></h3>
-      <p>표 6의 ‘자체 조치’는 좁게도 넓게도 읽힌다. 좁으면 능동적으로 탐지한 것만, 넓으면 제공자가 개시한 전부 — 자릿수만큼 차이 날 수 있다. 2025년 하반기 첫 조화화 보고서에서 좁은 해석으로 제출한 VLOP는 하나도 없었다. 사유 설명서 데이터베이스와 교차 검증.</p>
+      <h3><a href="/ko/blog/dsa-own-initiative-scope.html">‘자체 조치’의 두 가지 해석: DSA 표 6, 그리고 모든 VLOP의 선택</a></h3>
+      <p>표 6의 ‘자체 조치’는 좁게도 넓게도 읽힌다. 좁으면 능동적으로 탐지한 것만, 넓으면 제공자가 개시한 전부, 자릿수만큼 차이 날 수 있다. 2025년 하반기 첫 조화화 보고서에서 좁은 해석으로 제출한 VLOP는 하나도 없었다. 사유 설명서 데이터베이스와 교차 검증.</p>
       <div class="tags">
         <span class="tag">EU DSA</span>
         <span class="tag">VLOP</span>
@@ -112,7 +115,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-07-11">2026년 7월 11일</time>
     <div class="news-body">
       <h3><a href="/ko/blog/dsa-statements-of-reasons.html">집계 보고서에서 개별 결정으로: DSA 투명성 데이터베이스 추가하기</a></h3>
-      <p>대시보드에는 이미 DSA의 집계 투명성 보고서가 있었습니다. 이제 결정 단위 데이터—플랫폼이 EU에 제출하는 모든 콘텐츠 모더레이션 이유 설명서(Statement of Reasons)—도 함께 담겼습니다. 약 4TB에 달하는 일일 덤프가 어떻게 2메가바이트짜리 대시보드가 되었는지 소개합니다.</p>
+      <p>대시보드에는 이미 DSA의 집계 투명성 보고서가 있었습니다. 이제 결정 단위 데이터, 플랫폼이 EU에 제출하는 모든 콘텐츠 모더레이션 이유 설명서(Statement of Reasons), 도 함께 담겼습니다. 약 4TB에 달하는 일일 덤프가 어떻게 2메가바이트짜리 대시보드가 되었는지 소개합니다.</p>
       <div class="tags">
         <span class="tag">EU DSA</span>
         <span class="tag">VLOP</span>
@@ -126,7 +129,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-07-09">2026년 7월 9일</time>
     <div class="news-body">
       <h3><a href="/ko/blog/eu-ai-act-training-transparency.html">EU AI법의 학습 데이터 요약이 밝히는 것과 밝히지 않는 것</a></h3>
-      <p>제53조 1항 (d)는 범용 AI 제공자에게 표준화된 학습 데이터 요약 공개를 의무화한다. 지금까지 제출된 것들을 비교 가능한 데이터셋으로 모았다——그리고 제출한 곳과 하지 않은 곳의 간극이 숫자보다 더 많은 것을 말해준다.</p>
+      <p>제53조 1항 (d)는 범용 AI 제공자에게 표준화된 학습 데이터 요약 공개를 의무화한다. 지금까지 제출된 자료를 비교 가능한 데이터셋으로 모았다. 누가 제출했고 누가 하지 않았는지의 차이가 숫자보다 더 많은 것을 말해준다.</p>
       <div class="tags">
         <span class="tag">EU AI Act</span>
         <span class="tag">AI/LLM</span>
@@ -152,7 +155,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-06-22">2026년 6월 22일</time>
     <div class="news-body">
       <h3><a href="/ko/blog/chinese-language-trip-maps.html">브라우저도 API 키도 없이 중국어 여행 지도를 한 묶음 만든 이야기</a></h3>
-      <p>샌드박스 웹 세션에서 도는 Claude Code에 홍콩 여행 각 들를 곳을 간체 중국어 지도로 만들어 달라고 했습니다. 브라우저도 지도 API 키도 없이 — 원시 지도 타일과 Pillow, 그리고 중국이 의무화한 GCJ-02 좌표 오프셋으로의 우회만으로.</p>
+      <p>샌드박스 웹 세션에서 도는 Claude Code에 홍콩 여행 각 들를 곳을 간체 중국어 지도로 만들어 달라고 했습니다. 브라우저도 지도 API 키도 없이, 원시 지도 타일과 Pillow, 그리고 중국이 의무화한 GCJ-02 좌표 오프셋으로의 우회만으로.</p>
       <div class="tags">
         <span class="tag">AI/LLM</span>
         <span class="tag">엔지니어링</span>
@@ -165,7 +168,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-06-19">2026년 6월 19일</time>
     <div class="news-body">
       <h3><a href="/ko/blog/prompt-log-ai-workflows.html">프롬프트도 리팩터링 대상이다: AI 워크플로의 로그를 남겨 자동화할 것을 찾아내기</a></h3>
-      <p>LayerX의 엔지니어링 글은 AI에 보내는 프롬프트를 로그로 남기고 코드처럼 분석해 자동화할 것을 찾아낸다. 직관이 후보를 짚고 데이터가 증명하는——내가 Google에서, 그리고 그 뒤로도 써 온 데이터 우선 방식을, 사람과 AI의 워크플로 그 자체에 돌려세운 것이다.</p>
+      <p>LayerX의 엔지니어링 글은 AI 프롬프트를 기록하고 코드처럼 분석해 자동화할 대상을 찾는다. 직관으로 후보를 짚고 데이터로 증명하는 방식이다. 내가 Google에서부터 써 온 방법을 사람과 AI의 워크플로 자체에 적용했다.</p>
       <div class="tags">
         <span class="tag">AI/LLM</span>
         <span class="tag">엔지니어링</span>
@@ -219,7 +222,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-05-19">2026년 5월 19일</time>
     <div class="news-body">
       <h3><a href="/ko/blog/dsa-vlop-data-limitations.html">크로스플랫폼 DSA 뷰 구축: 데이터가 말하지 않는 것</a></h3>
-      <p>카테고리 정의는 플랫폼 간에 표준화되어 있지 않습니다. 데이터는 자체 보고입니다. 집계 방법이 다릅니다. VLOP 대시보드가 말할 수 있는 것과 없는 것—그리고 한계가 데이터 자체만큼 중요한 이유.</p>
+      <p>카테고리 정의는 플랫폼 간에 표준화되어 있지 않습니다. 데이터는 자체 보고입니다. 집계 방법이 다릅니다. VLOP 대시보드가 말할 수 있는 것과 없는 것, 그리고 한계가 데이터 자체만큼 중요한 이유.</p>
       <div class="tags">
         <span class="tag">EU DSA</span>
         <span class="tag">VLOP</span>
@@ -233,7 +236,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-05-15">2026년 5월 15일</time>
     <div class="news-body">
       <h3><a href="/ko/blog/llms-compliance-pm.html">컴플라이언스 PM 업무에서 LLM을 활용하는 방법</a></h3>
-      <p>요구사항 추출, 격차 분석, 초안 검토 — 실제로 정착된 세 가지 워크플로. 각각이 무너지는 지점과 LLM이 컴플라이언스 맥락에서 신뢰할 수 없는 것.</p>
+      <p>요구사항 추출, 격차 분석, 초안 검토, 실제로 정착된 세 가지 워크플로. 각각이 무너지는 지점과 LLM이 컴플라이언스 맥락에서 신뢰할 수 없는 것.</p>
       <div class="tags">
         <span class="tag">AI/LLM</span>
         <span class="tag">컴플라이언스 PM</span>
@@ -260,7 +263,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-05-11">2026년 5월 11일</time>
     <div class="news-body">
       <h3><a href="/ko/blog/google-removal-dashboard.html">신규: Google 정부 삭제 요청 대시보드 (2011~2025)</a></h3>
-      <p>30개 보고 기간, 178개국, 61개 Google 제품, 22가지 삭제 사유 — 다년도 트렌드 탐색기로 전환. 모든 필터 조합이 시계열을 생성합니다.</p>
+      <p>30개 보고 기간, 178개국, 61개 Google 제품, 22가지 삭제 사유, 다년도 트렌드 탐색기로 전환. 모든 필터 조합이 시계열을 생성합니다.</p>
       <div class="tags">
         <span class="tag">Google</span>
         <span class="tag">투명성</span>
@@ -287,7 +290,7 @@ lang_url_it: /it/blog.html
     <time class="news-date" datetime="2026-04-01">2026년 4월 1일</time>
     <div class="news-body">
       <h3><a href="/ko/blog/roblox-ca-ny-reports.html">Roblox의 캘리포니아 및 뉴욕 투명성 보고서 공개</a></h3>
-      <p>두 개의 주 소셜 미디어 투명성 보고서 제출 완료 — 캘리포니아 AB 587 (H2 2025)과 뉴욕 S895 (Q4 2025). 병렬로 진행하면서 보고 인프라 구축 방식을 정립했습니다.</p>
+      <p>두 개의 주 소셜 미디어 투명성 보고서 제출 완료, 캘리포니아 AB 587 (H2 2025)과 뉴욕 S895 (Q4 2025). 병렬로 진행하면서 보고 인프라 구축 방식을 정립했습니다.</p>
       <div class="tags">
         <span class="tag">Roblox</span>
         <span class="tag">컴플라이언스 PM</span>
