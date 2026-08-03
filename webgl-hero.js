@@ -85,8 +85,10 @@ canvases.forEach((canvas) => {
     const updateMotion = () => {
       if (reduceMotion.matches) {
         if (frameId) window.cancelAnimationFrame(frameId);
-        frameId = 0;
-        draw(performance.now());
+        frameId = window.requestAnimationFrame((time) => {
+          draw(time);
+          frameId = 0;
+        });
       } else if (!frameId) {
         frameId = window.requestAnimationFrame(render);
       }
