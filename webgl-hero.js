@@ -3,8 +3,7 @@ import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.179.1/build/three.m
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const canvases = document.querySelectorAll("[data-webgl-hero] .webgl-hero__canvas");
 
-if (!reduceMotion.matches) {
-  canvases.forEach((canvas) => {
+canvases.forEach((canvas) => {
     const host = canvas.closest("[data-webgl-hero]");
     const mode = host.dataset.webglHero || "blog";
     const scene = new THREE.Scene();
@@ -64,7 +63,7 @@ if (!reduceMotion.matches) {
       group.scale.setScalar(width > 760 ? 1 : 0.78);
     };
 
-    const render = (time) => {
+    const draw = (time) => {
       const t = time * 0.001;
       group.rotation.x = Math.sin(t * 0.35) * 0.12;
       group.rotation.y = t * 0.18;
@@ -76,19 +75,30 @@ if (!reduceMotion.matches) {
         dot.position.y = Math.sin(dot.userData.angle) * dot.userData.radius * 0.72;
       });
       renderer.render(scene, camera);
+    };
+
+    const render = (time) => {
+      draw(time);
       frameId = window.requestAnimationFrame(render);
+    };
+
+    const updateMotion = () => {
+      if (reduceMotion.matches) {
+        if (frameId) window.cancelAnimationFrame(frameId);
+        frameId = 0;
+        draw(performance.now());
+      } else if (!frameId) {
+        frameId = window.requestAnimationFrame(render);
+      }
     };
 
     try {
       resize();
       host.classList.add("is-webgl-ready");
-      frameId = window.requestAnimationFrame(render);
+      updateMotion();
       window.addEventListener("resize", resize, { passive: true });
-      reduceMotion.addEventListener("change", () => {
-        if (reduceMotion.matches && frameId) window.cancelAnimationFrame(frameId);
-      }, { once: true });
+      reduceMotion.addEventListener("change", updateMotion);
     } catch (error) {
       host.classList.remove("is-webgl-ready");
     }
-  });
-}
+});
