@@ -28,6 +28,10 @@ for (const locale of locales) {
 }
 
 const renderer = read("webgl-hero.js");
-assert.match(renderer, /draw\(performance\.now\(\)\)/, "reduced motion should render a static frame");
+assert.match(
+  renderer,
+  /requestAnimationFrame\(\(time\) => \{\s*draw\(time\);\s*frameId = 0;/,
+  "reduced motion should render one static frame"
+);
 
 console.log("WebGL hero checks passed for all localized blog and transparency pages");
