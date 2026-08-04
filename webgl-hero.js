@@ -12,7 +12,8 @@ canvases.forEach((canvas) => {
     const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, preserveDrawingBuffer: true });
     const group = new THREE.Group();
     const points = new THREE.Group();
-    const signalNodes = [];
+    const profileRings = [];
+    let profileCore = null;
     let frameId = 0;
 
     camera.position.set(0, 0, isProfile ? 6.8 : 8.8);
@@ -39,54 +40,25 @@ canvases.forEach((canvas) => {
     );
 
     if (isProfile) {
-      const tealMaterial = new THREE.MeshBasicMaterial({ color: primary });
-      const amberMaterial = new THREE.MeshBasicMaterial({ color: secondary });
-      const segments = [
-        [[-1.35, -1.3], [-1.35, 1.3]],
-        [[-1.35, 0], [-0.2, 1.3]],
-        [[-1.35, 0], [-0.2, -1.3]],
-        [[0.15, -1.3], [0.15, 1.3]],
-        [[0.15, 1.3], [0.85, 0.25]],
-        [[0.85, 0.25], [1.55, 1.3]],
-        [[1.55, 1.3], [1.55, -1.3]]
-      ];
+      profileCore = new THREE.Mesh(
+        new THREE.OctahedronGeometry(0.62, 1),
+        new THREE.MeshBasicMaterial({ color: primary })
+      );
+      group.add(profileCore);
 
-      segments.forEach(([from, to], index) => {
-        const start = new THREE.Vector3(from[0], from[1], 0);
-        const end = new THREE.Vector3(to[0], to[1], 0);
-        const midpoint = start.clone().add(end).multiplyScalar(0.5);
-        const beam = new THREE.Mesh(
-          new THREE.CylinderGeometry(0.035, 0.035, start.distanceTo(end), 8),
-          index === 4 || index === 5 ? amberMaterial : tealMaterial
+      [0, Math.PI / 3, -Math.PI / 3].forEach((rotation, index) => {
+        const ring = new THREE.Mesh(
+          new THREE.TorusGeometry(1.22 + index * 0.15, 0.028, 8, 80),
+          new THREE.MeshBasicMaterial({
+            color: index === 1 ? secondary : 0xb9d8d3,
+            transparent: true,
+            opacity: index === 1 ? 0.9 : 0.72
+          })
         );
-        beam.position.copy(midpoint);
-        beam.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), end.clone().sub(start).normalize());
-        group.add(beam);
-      });
-
-      const anchors = [
-        [-1.35, 1.3], [-1.35, 0], [-1.35, -1.3], [-0.2, 1.3], [-0.2, -1.3],
-        [0.15, 1.3], [0.15, -1.3], [0.85, 0.25], [1.55, 1.3], [1.55, -1.3]
-      ];
-      anchors.forEach(([x, y], index) => {
-        const node = new THREE.Mesh(
-          new THREE.SphereGeometry(index === 7 ? 0.11 : 0.075, 12, 12),
-          index === 7 ? amberMaterial : tealMaterial
-        );
-        node.position.set(x, y, 0.03);
-        group.add(node);
-      });
-
-      [0, 2, 4, 6].forEach((segmentIndex, index) => {
-        const [from, to] = segments[segmentIndex];
-        const node = new THREE.Mesh(new THREE.SphereGeometry(0.085, 12, 12), amberMaterial);
-        signalNodes.push({
-          node,
-          from: new THREE.Vector3(from[0], from[1], 0.08),
-          to: new THREE.Vector3(to[0], to[1], 0.08),
-          phase: index / 4
-        });
-        group.add(node);
+        ring.rotation.x = rotation;
+        ring.rotation.y = Math.PI / 4;
+        profileRings.push(ring);
+        group.add(ring);
       });
     } else {
       group.add(wire, inner);
@@ -120,13 +92,16 @@ canvases.forEach((canvas) => {
 
     const draw = (time) => {
       const t = time * 0.001;
-      group.rotation.x = Math.sin(t * 0.35) * (isProfile ? 0.05 : 0.12);
-      group.rotation.y = isProfile ? Math.sin(t * 0.3) * 0.12 : t * 0.18;
+      group.rotation.x = Math.sin(t * 0.35) * (isProfile ? 0.04 : 0.12);
+      group.rotation.y = isProfile ? Math.sin(t * 0.3) * 0.08 : t * 0.18;
       inner.rotation.x = t * 0.42;
       inner.rotation.z = t * 0.22;
-      signalNodes.forEach(({ node, from, to, phase }) => {
-        const progress = (t * 0.22 + phase) % 1;
-        node.position.lerpVectors(from, to, progress);
+      if (profileCore) {
+        profileCore.rotation.x = t * 0.35;
+        profileCore.rotation.y = t * 0.5;
+      }
+      profileRings.forEach((ring, index) => {
+        ring.rotation.z = t * (0.1 + index * 0.03);
       });
       points.children.forEach((dot) => {
         dot.userData.angle += dot.userData.speed;
