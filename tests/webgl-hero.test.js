@@ -35,6 +35,8 @@ for (const locale of homeLocales) {
 }
 
 const renderer = read("webgl-hero.js");
+assert.match(renderer, /const segments = \[/, "profile mode should define the geometric KM paths");
+assert.match(renderer, /signalNodes\.forEach/, "profile mode should animate signal nodes along the KM paths");
 assert.match(
   renderer,
   /requestAnimationFrame\(\(time\) => \{\s*draw\(time\);\s*frameId = 0;/,
