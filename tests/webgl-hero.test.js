@@ -4,6 +4,7 @@ const path = require("node:path");
 
 const root = path.resolve(__dirname, "..");
 const locales = ["", "de/", "es/", "fr/", "it/", "ja/", "ko/", "zh/"];
+const homeLocales = [...locales, "bo/", "lzh/", "yue/"];
 
 function read(relativePath) {
   return fs.readFileSync(path.join(root, relativePath), "utf8");
@@ -25,6 +26,12 @@ for (const locale of locales) {
     /class="webgl-hero__canvas"/,
     `${locale}transparency.html is missing the hero canvas`
   );
+}
+
+for (const locale of homeLocales) {
+  const home = read(`${locale}index.html`);
+  assert.match(home, /data-webgl-hero="profile"/, `${locale}index.html is missing the profile graphic`);
+  assert.doesNotMatch(home, /avatars\.githubusercontent\.com/, `${locale}index.html still loads the old avatar`);
 }
 
 const renderer = read("webgl-hero.js");
